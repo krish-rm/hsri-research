@@ -1,0 +1,32 @@
+site_name: Human Superintelligence Readiness Index (HSRI)
+site_description: A research feasibility project investigating whether human psychological and behavioral readiness for increasingly capable AI can be scientifically measured.
+theme:
+  name: material
+  palette:
+    scheme: default
+  features:
+    - navigation.sections
+    - navigation.top
+    - toc.integrate
+    - content.code.copy
+nav:
+  - Home: index.md
+  - 1. Definition and Scope: 01-definition.md
+  - 2. Existing Global Indices: 02-existing-indices.md
+  - 3. Construct Redundancy Audit: 03-construct-audit.md
+  - 4. Causal Model and Index Design: 04-causal-model-and-index-design.md
+  - 5. Measurement and Experiments: 05-measurement-and-experiments.md
+  - 6. Cross-Cultural Validity and Ethics: 06-cross-cultural-and-ethics.md
+  - 7. Objections and Counterarguments: 07-objections.md
+  - 8. Research Roadmap: 08-roadmap.md
+  - 9. Final Recommendation: 09-final-recommendation.md
+markdown_extensions:
+  - tables
+  - footnotes
+  - admonition
+  - attr_list
+repo_url: https://github.com/krish-rm/hsri-research
+repo_name: hsri-research
+edit_uri: edit/main/docs/
+extra_css:
+  - assets/extra.css
