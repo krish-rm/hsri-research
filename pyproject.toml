@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hsri-agents"
+version = "0.1.0"
+description = "Multi-agent evidence-review and adversarial debate pipeline for HSRI"
+readme = "hsri_agents/README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "requests>=2.28.0",
+]
+
+[project.scripts]
+hsri-agents = "hsri_agents.cli:main"

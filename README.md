@@ -43,6 +43,16 @@ We welcome rigorous critical peer review, counterarguments, and source verificat
 
 ---
 
+## Evidence-Review Pipeline (HSRI-Agents)
+
+The repository includes `hsri_agents`, an automated evidence-review and adversarial multi-agent debate pipeline designed to audit incoming literature, evaluate candidate evidence against established psychometric lanes, convene structured debates, and draft proposed diffs subject to a 3-seat Consortium Review Board veto gate.
+
+- **Manual-First Operation:** The pipeline is currently operated strictly by hand, one step at a time, pending a cadence decision. Automated cron jobs, schedulers, and webhooks are intentionally deferred until manual protocols are validated.
+- **Multi-Model Reliability Ensemble:** The same evidence-review protocol is executed independently across model families (Anthropic, OpenAI, Google, xAI, DeepSeek, Alibaba Qwen, and Zhipu GLM) to test whether conclusions are robust to which model performs the review—not as competing national or corporate teams.
+- **Audit Logs:** Full debate transcripts are recorded in [research_memory.md](research_memory.md), and cross-model concordance is tracked in [model-divergence-log.csv](model-divergence-log.csv). See [`hsri_agents/README.md`](hsri_agents/README.md) for CLI usage.
+
+---
+
 ## Recommended Citation
 
 If you cite this repository or research feasibility report in academic, policy, or technical work, please use the following citation format:

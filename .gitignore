@@ -220,3 +220,7 @@ __marimo__/
 # MkDocs build directory
 site/
 
+# Local scan log cache files
+scan-log/*.json
+!scan-log/.gitkeep
+
