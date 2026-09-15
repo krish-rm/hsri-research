@@ -19,17 +19,24 @@ RESEARCH_MEMORY_PATH = REPO_ROOT / "research_memory.md"
 MODEL_DIVERGENCE_LOG_PATH = REPO_ROOT / "model-divergence-log.csv"
 DOCS_DIR = REPO_ROOT / "docs"
 
-# Supported ensemble providers (Section 5)
-SUPPORTED_PROVIDERS: List[str] = [
-    "anthropic",
-    "openai",
-    "google",
-    "xai",
-    "deepseek",
-    "qwen",
-    "glm",
+# Real frontier ensemble providers (Section 5: 7 independent families)
+REAL_ENSEMBLE_PROVIDERS: List[str] = [
+    "anthropic",     # Claude
+    "openai",        # GPT
+    "google",        # Gemini
+    "xai",           # Grok
+    "deepseek",      # DeepSeek
+    "qwen",          # Alibaba DashScope
+    "glm",           # Zhipu AI
+]
+
+# Test/offline fallback provider (strictly excluded from real ensemble counts and divergence aggregation)
+TEST_FALLBACK_PROVIDERS: List[str] = [
     "mock",
 ]
+
+# All supported runtime targets (real ensemble + offline test harness)
+SUPPORTED_PROVIDERS: List[str] = REAL_ENSEMBLE_PROVIDERS + TEST_FALLBACK_PROVIDERS
 
 # Default model per provider
 DEFAULT_MODELS: Dict[str, str] = {

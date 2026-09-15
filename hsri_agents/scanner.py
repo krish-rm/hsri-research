@@ -72,18 +72,80 @@ def extract_keywords_from_evidence_table() -> List[str]:
 
     return sorted(list(keywords)) or ["automation bias", "calibrated trust", "cognitive forcing functions"]
 
+def reconstruct_abstract(inv: Optional[Dict[str, List[int]]]) -> str:
+    """Reconstruct abstract from OpenAlex inverted index format."""
+    if not inv:
+        return ""
+    words = []
+    for word, positions in inv.items():
+        for pos in positions:
+            words.append((pos, word))
+    words.sort(key=lambda x: x[0])
+    return " ".join([w[1] for w in words])
+
+def query_openalex(keywords: List[str], days: int = 30, max_results: int = 5) -> List[Dict[str, Any]]:
+    """Query OpenAlex API for recent works matching evidence table keywords."""
+    hits: List[Dict[str, Any]] = []
+    today = datetime.date.today()
+    from_date = (today - datetime.timedelta(days=days)).isoformat()
+    
+    # Clean and combine primary keywords
+    search_phrase = " OR ".join([f'"{k}"' for k in keywords[:3]])
+    encoded = urllib.parse.quote(search_phrase)
+    url = f"https://api.openalex.org/works?search={encoded}&filter=from_publication_date:{from_date}&per_page={max_results}&sort=publication_date:desc"
+    
+    req = urllib.request.Request(
+        url,
+        headers={"User-Agent": "HSRI-Agents-Research-Bot/0.1.0 (mailto:research@hsri.org)"},
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=12) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+        
+        for r in data.get("results", []):
+            title = r.get("title") or "Untitled"
+            pub_date = r.get("publication_date") or str(today)
+            doi = r.get("doi") or r.get("id") or ""
+            authors = [
+                a.get("author", {}).get("display_name", "")
+                for a in r.get("authorships", [])
+                if a.get("author", {}).get("display_name")
+            ]
+            venue = (
+                r.get("primary_location", {}).get("source", {}).get("display_name")
+                if r.get("primary_location") and r.get("primary_location", {}).get("source")
+                else "OpenAlex"
+            )
+            abstract = reconstruct_abstract(r.get("abstract_inverted_index"))
+            clean_id = re.sub(r"[^a-zA-Z0-9_\-]", "_", doi.split("/")[-1] if doi else f"oa_{len(hits)+1}")
+            
+            hits.append({
+                "id": clean_id,
+                "title": title,
+                "authors": authors,
+                "venue": venue,
+                "date": pub_date,
+                "abstract": abstract,
+                "url_or_doi": doi,
+                "source_api": "OpenAlex",
+            })
+    except Exception as e:
+        logger.warning(f"OpenAlex query failed: {e}")
+        
+    return hits
+
 def query_arxiv(query: str, max_results: int = 5) -> List[Dict[str, Any]]:
     """Query the official arXiv API for recent papers."""
     encoded_query = urllib.parse.quote(query)
     url = (
-        f"http://export.arxiv.org/api/query?"
+        f"https://export.arxiv.org/api/query?"
         f"search_query=all:{encoded_query}&start=0&max_results={max_results}&sortBy=submittedDate&sortOrder=descending"
     )
 
-    hits = []
+    hits: List[Dict[str, Any]] = []
     try:
-        req = urllib.request.Request(url, headers={"User-Agent": "HSRI-Agents-Research-Bot/0.1.0"})
-        with urllib.request.urlopen(req, timeout=15) as resp:
+        req = urllib.request.Request(url, headers={"User-Agent": "HSRI-Agents-Research-Bot/0.1.0 (mailto:research@hsri.org)"})
+        with urllib.request.urlopen(req, timeout=10) as resp:
             xml_data = resp.read()
 
         root = ET.fromstring(xml_data)
@@ -116,15 +178,17 @@ def query_arxiv(query: str, max_results: int = 5) -> List[Dict[str, Any]]:
                 "date": pub_text,
                 "abstract": summary_text,
                 "url_or_doi": id_text,
+                "source_api": "arXiv",
             })
     except Exception as e:
-        logger.warning(f"Failed to query arXiv API: {e}. Utilizing fallback verification dataset.")
+        logger.warning(f"arXiv API query failed or timed out: {e}")
 
     return hits
 
 def scan_literature(
     provider: str = "mock",
     query: Optional[str] = None,
+    days: int = 30,
     max_results: int = 5,
     seed_paper: Optional[Dict[str, Any]] = None,
 ) -> List[Dict[str, Any]]:
@@ -133,7 +197,6 @@ def scan_literature(
     Writes candidate hits to scan-log/ directory.
     """
     ensure_directories()
-    llm = LLMClient(provider=provider)
 
     candidates: List[Dict[str, Any]] = []
 
@@ -141,44 +204,67 @@ def scan_literature(
         candidates.append(seed_paper)
     else:
         keywords = [query] if query else extract_keywords_from_evidence_table()
-        search_term = " OR ".join([f'"{k}"' for k in keywords[:4]])
-        candidates = query_arxiv(search_term, max_results=max_results)
-
-        # If arXiv API was unreachable or empty, use a curated verified sample paper
-        if not candidates:
-            candidates.append({
-                "id": "bucinca_2021_forcing_functions",
-                "title": "To Trust or to Think: Cognitive Forcing Functions Can Reduce Overreliance on AI in AI-Assisted Decision-Making",
-                "authors": ["Zana Buçinca", "Maja Barbara Malaya", "Krzysztof Z. Gajos"],
-                "venue": "Proceedings of the ACM on Human-Computer Interaction (CSCW)",
-                "date": "2021-04-13",
-                "abstract": "While AI-assisted decision-making systems promise complementary team performance, users frequently over-rely on AI recommendations even when they are incorrect. Standard explanations do not reliably mitigate this automation bias. In this paper, we evaluate cognitive forcing functions—design interventions that compel users to engage in deliberative analytical reasoning before viewing AI advice. Across two randomized experiments, cognitive forcing functions significantly reduced over-reliance on incorrect machine suggestions, with effects moderated by participants' Need for Cognition (NFC).",
-                "url_or_doi": "https://doi.org/10.1145/3449287"
-            })
+        
+        # 1. First attempt OpenAlex (reliable, fast, date-bounded)
+        oa_hits = query_openalex(keywords, days=days, max_results=max_results)
+        candidates.extend(oa_hits)
+        
+        # 2. Also query arXiv if fewer than max_results
+        if len(candidates) < max_results:
+            search_term = " OR ".join([f'"{k}"' for k in keywords[:3]])
+            arxiv_hits = query_arxiv(search_term, max_results=max_results - len(candidates))
+            candidates.extend(arxiv_hits)
 
     scan_results = []
     timestamp = datetime.datetime.utcnow().strftime("%Y%m%d_%H%M%S")
 
-    for hit in candidates:
-        user_prompt = (
-            f"Title: {hit['title']}\n"
-            f"Authors: {', '.join(hit.get('authors', []))}\n"
-            f"Venue: {hit.get('venue', 'Unknown')}\n"
-            f"Date: {hit.get('date', 'Unknown')}\n\n"
-            f"Abstract:\n{hit.get('abstract', '')}\n"
-        )
+    # Initialize LLM if key is present or in mock mode
+    llm = None
+    try:
+        llm = LLMClient(provider=provider, allow_fallback=(provider == "mock"))
+    except Exception as e:
+        logger.info(f"Scanner operating without LLM generation for provider '{provider}': {e}")
 
-        response_text = llm.generate(SCANNER_SYSTEM_PROMPT, user_prompt)
-        try:
-            parsed = json.loads(response_text)
-        except Exception:
-            # Fallback parsing
-            trigger = "DIRECT" if "direct" in response_text.lower() else ("POSSIBLE" if "possible" in response_text.lower() else "NO_TRIGGER")
+    for hit in candidates:
+        if llm:
+            user_prompt = (
+                f"Title: {hit['title']}\n"
+                f"Authors: {', '.join(hit.get('authors', []))}\n"
+                f"Venue: {hit.get('venue', 'Unknown')}\n"
+                f"Date: {hit.get('date', 'Unknown')}\n\n"
+                f"Abstract:\n{hit.get('abstract', '')}\n"
+            )
+            try:
+                response_text = llm.generate(SCANNER_SYSTEM_PROMPT, user_prompt)
+                parsed = json.loads(response_text)
+            except Exception:
+                parsed = {
+                    "relevance": "Matched keywords in candidate abstract.",
+                    "trigger_status": "POSSIBLE" if "calibrated trust" in hit.get("abstract", "").lower() or "automation bias" in hit.get("abstract", "").lower() else "NO_TRIGGER",
+                    "target_lane": "HAI-Interaction",
+                    "notes": "Extracted via candidate heuristic."
+                }
+        else:
+            # Deterministic keyword scanner matching
+            text_lower = (hit["title"] + " " + hit.get("abstract", "")).lower()
+            if any(k in text_lower for k in ["automation bias", "cognitive forcing", "calibrated trust", "overreliance", "effort opacity"]):
+                trigger = "DIRECT"
+                lane = "HAI-Interaction"
+                rel = "Direct empirical intersection with HAI interaction and trust/reliance mechanisms."
+            elif any(k in text_lower for k in ["metacognit", "intellectual humility", "construct validity", "invariance"]):
+                trigger = "POSSIBLE"
+                lane = "Psychometrics"
+                rel = "Plausible intersection with cognitive or psychometric substrate."
+            else:
+                trigger = "NO_TRIGGER"
+                lane = "General"
+                rel = "General AI literature without direct evidence-table construct metrics."
+
             parsed = {
-                "relevance": "Extracted from abstract text.",
+                "relevance": rel,
                 "trigger_status": trigger,
-                "target_lane": "HAI-Interaction",
-                "notes": response_text[:120]
+                "target_lane": lane,
+                "notes": f"Scanned via {hit.get('source_api', 'OpenAlex')}."
             }
 
         hit_record = {

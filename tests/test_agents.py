@@ -18,6 +18,7 @@ from hsri_agents.config import (
     DOCS_DIR,
     EVIDENCE_TABLE_PATH,
     MODEL_DIVERGENCE_LOG_PATH,
+    REAL_ENSEMBLE_PROVIDERS,
     REPO_ROOT,
     RESEARCH_MEMORY_PATH,
     SCAN_LOG_DIR,
@@ -51,11 +52,17 @@ class TestHSRIAgents(unittest.TestCase):
 
     def test_provider_configuration(self):
         """Ensure all 7 ensemble providers plus mock are supported without mixing."""
+        self.assertEqual(len(REAL_ENSEMBLE_PROVIDERS), 7)
+        self.assertNotIn("mock", REAL_ENSEMBLE_PROVIDERS)
         expected = ["anthropic", "openai", "google", "xai", "deepseek", "qwen", "glm", "mock"]
         for p in expected:
             self.assertIn(p, SUPPORTED_PROVIDERS)
-            client = LLMClient(provider=p)
+            client = LLMClient(provider=p, allow_fallback=True)
             self.assertEqual(client.provider, p if client.api_key else "mock")
+
+        # Confirm that missing API key without allow_fallback raises RuntimeError
+        with self.assertRaises(RuntimeError):
+            LLMClient(provider="anthropic", allow_fallback=False)
 
     def test_role_prompt_separation(self):
         """Verify that all 4 analyst roles and 3 review board seats have distinct prompts."""
@@ -134,45 +141,59 @@ class TestHSRIAgents(unittest.TestCase):
         self.assertFalse(board_result_reject["ready_for_pr"])
 
     def test_logging_ledgers(self):
-        """Verify research_memory.md and model-divergence-log.csv record events properly."""
-        analysis_result = run_analysts(SAMPLE_PAPER, provider="mock")
-        debate_result = run_debate(SAMPLE_PAPER, analysis_result, rounds=1, provider="mock")
-        synth_result = run_synthesizer(SAMPLE_PAPER, debate_result, provider="mock")
-        board_result = run_review_board(SAMPLE_PAPER, synth_result, provider="mock")
+        """Verify research_memory.md and model-divergence-log.csv record events properly without polluting main ledgers."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            tmp_memory = Path(tmpdir) / "test_memory.md"
+            tmp_divergence = Path(tmpdir) / "test_divergence.csv"
 
-        log_research_memory_entry(
-            hit=SAMPLE_PAPER,
-            provider="mock",
-            analysts_result=analysis_result,
-            debate_result=debate_result,
-            synthesizer_result=synth_result,
-            review_board_result=board_result,
-            pr_status="Test staged status",
-        )
+            import hsri_agents.logger as logger_mod
+            orig_mem = logger_mod.RESEARCH_MEMORY_PATH
+            orig_div = logger_mod.MODEL_DIVERGENCE_LOG_PATH
+            logger_mod.RESEARCH_MEMORY_PATH = tmp_memory
+            logger_mod.MODEL_DIVERGENCE_LOG_PATH = tmp_divergence
 
-        log_divergence_entry(
-            triggering_paper=SAMPLE_PAPER["title"],
-            provider="mock",
-            verdict="diff-proposed",
-            notes="Test entry",
-        )
+            try:
+                analysis_result = run_analysts(SAMPLE_PAPER, provider="mock")
+                debate_result = run_debate(SAMPLE_PAPER, analysis_result, rounds=1, provider="mock")
+                synth_result = run_synthesizer(SAMPLE_PAPER, debate_result, provider="mock")
+                board_result = run_review_board(SAMPLE_PAPER, synth_result, provider="mock")
 
-        self.assertTrue(RESEARCH_MEMORY_PATH.exists())
-        with open(RESEARCH_MEMORY_PATH, "r", encoding="utf-8") as f:
-            content = f.read()
-            self.assertIn("HSRI Research Memory", content)
-            self.assertIn("Manual-First Operational Notice", content)
-            self.assertIn(SAMPLE_PAPER["title"], content)
+                log_research_memory_entry(
+                    hit=SAMPLE_PAPER,
+                    provider="mock",
+                    analysts_result=analysis_result,
+                    debate_result=debate_result,
+                    synthesizer_result=synth_result,
+                    review_board_result=board_result,
+                    pr_status="Test staged status",
+                )
 
-        self.assertTrue(MODEL_DIVERGENCE_LOG_PATH.exists())
-        with open(MODEL_DIVERGENCE_LOG_PATH, "r", encoding="utf-8") as f:
-            reader = csv.DictReader(f)
-            found = False
-            for row in reader:
-                if row.get("triggering_paper") == SAMPLE_PAPER["title"]:
-                    self.assertEqual(row.get("mock"), "diff-proposed")
-                    found = True
-            self.assertTrue(found)
+                log_divergence_entry(
+                    triggering_paper=SAMPLE_PAPER["title"],
+                    provider="mock",
+                    verdict="diff-proposed",
+                    notes="Test entry",
+                )
+
+                self.assertTrue(tmp_memory.exists())
+                with open(tmp_memory, "r", encoding="utf-8") as f:
+                    content = f.read()
+                    self.assertIn("HSRI Research Memory", content)
+                    self.assertIn("Manual-First Operational Notice", content)
+                    self.assertIn(SAMPLE_PAPER["title"], content)
+
+                self.assertTrue(tmp_divergence.exists())
+                with open(tmp_divergence, "r", encoding="utf-8") as f:
+                    reader = csv.DictReader(f)
+                    found = False
+                    for row in reader:
+                        if row.get("triggering_paper") == SAMPLE_PAPER["title"]:
+                            self.assertEqual(row.get("mock"), "diff-proposed")
+                            found = True
+                    self.assertTrue(found)
+            finally:
+                logger_mod.RESEARCH_MEMORY_PATH = orig_mem
+                logger_mod.MODEL_DIVERGENCE_LOG_PATH = orig_div
 
     def test_no_automation_workflows(self):
         """Verify that NO cron, scheduler, or agent GitHub Actions workflow was added."""

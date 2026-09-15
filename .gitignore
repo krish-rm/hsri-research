@@ -224,3 +224,6 @@ site/
 scan-log/*.json
 !scan-log/.gitkeep
 
+# Temporary scratch scripts
+scratch/
+

@@ -13,6 +13,7 @@ from typing import Any, Dict, Optional
 
 from hsri_agents.config import (
     MODEL_DIVERGENCE_LOG_PATH,
+    REAL_ENSEMBLE_PROVIDERS,
     RESEARCH_MEMORY_PATH,
     SUPPORTED_PROVIDERS,
 )
@@ -142,14 +143,18 @@ def log_divergence_entry(
         new_row["notes"] = notes
         rows.append(new_row)
 
-    # Re-evaluate divergence summary across real providers
+    # Re-evaluate divergence summary across real providers ONLY (mock strictly excluded)
     for r in rows:
-        provider_verdicts = [r.get(p) for p in SUPPORTED_PROVIDERS if p != "mock" and r.get(p)]
+        provider_verdicts = [r.get(p) for p in REAL_ENSEMBLE_PROVIDERS if r.get(p)]
         if len(provider_verdicts) > 1:
             if len(set(provider_verdicts)) == 1:
-                r["divergence_summary"] = f"Full consensus: {provider_verdicts[0]}"
+                r["divergence_summary"] = f"Full consensus ({len(provider_verdicts)}/{len(REAL_ENSEMBLE_PROVIDERS)} providers): {provider_verdicts[0]}"
             else:
-                r["divergence_summary"] = f"Divergence detected: {dict((p, r.get(p)) for p in SUPPORTED_PROVIDERS if r.get(p))}"
+                r["divergence_summary"] = f"Divergence detected across {len(provider_verdicts)}/{len(REAL_ENSEMBLE_PROVIDERS)} providers: {dict((p, r.get(p)) for p in REAL_ENSEMBLE_PROVIDERS if r.get(p))}"
+        elif len(provider_verdicts) == 1:
+            r["divergence_summary"] = f"Single real provider evaluated (1/{len(REAL_ENSEMBLE_PROVIDERS)})"
+        else:
+            r["divergence_summary"] = "No real frontier provider evaluated (offline/mock only)"
 
     with open(MODEL_DIVERGENCE_LOG_PATH, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=DIVERGENCE_CSV_HEADERS, extrasaction="ignore")

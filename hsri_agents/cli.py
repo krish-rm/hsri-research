@@ -62,8 +62,8 @@ def save_json_record(prefix: str, identifier: str, data: Dict[str, Any]) -> Path
 # ----------------------------------------------------------------------
 
 def cmd_scan(args: argparse.Namespace) -> None:
-    print(f"\n[Literature Scanner] Initiating manual literature scan using provider: {args.provider.upper()}...")
-    hits = scan_literature(provider=args.provider, query=args.query, max_results=args.max_results)
+    print(f"\n[Literature Scanner] Initiating manual literature scan (window: last {args.days} days, provider: {args.provider.upper()})...")
+    hits = scan_literature(provider=args.provider, query=args.query, days=args.days, max_results=args.max_results)
 
     print(f"\n[Scanner Results] Processed {len(hits)} candidate items:")
     for h in hits:
@@ -287,6 +287,7 @@ def build_parser() -> argparse.ArgumentParser:
     # scan
     p_scan = subparsers.add_parser("scan", help="Scan literature repositories for construct matches")
     p_scan.add_argument("--query", type=str, default=None, help="Specific search query override")
+    p_scan.add_argument("--days", type=int, default=30, help="Number of days to look back for publications")
     p_scan.add_argument("--max-results", type=int, default=5, help="Max candidates to retrieve")
     p_scan.add_argument("--provider", type=str, default="mock", choices=SUPPORTED_PROVIDERS, help="LLM provider")
 

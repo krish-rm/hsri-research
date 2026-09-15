@@ -15,6 +15,7 @@ import requests
 
 from hsri_agents.config import (
     API_BASE_URLS,
+    API_KEY_ENV_VARS,
     DEFAULT_MODELS,
     SUPPORTED_PROVIDERS,
     get_api_key,
@@ -25,7 +26,12 @@ logger = logging.getLogger("hsri_agents.llm")
 class LLMClient:
     """Unified LLM client executing strictly within a single model provider."""
 
-    def __init__(self, provider: str = "mock", model: Optional[str] = None):
+    def __init__(
+        self,
+        provider: str = "mock",
+        model: Optional[str] = None,
+        allow_fallback: bool = False,
+    ):
         provider = provider.lower().strip()
         if provider not in SUPPORTED_PROVIDERS:
             raise ValueError(
@@ -36,6 +42,12 @@ class LLMClient:
         self.api_key = get_api_key(provider)
 
         if self.provider != "mock" and not self.api_key:
+            if not allow_fallback:
+                raise RuntimeError(
+                    f"CRITICAL: Missing API key for live provider '{provider}'. "
+                    f"Expected one of environment variables: {API_KEY_ENV_VARS.get(provider)}. "
+                    "Silent fallback to mock is strictly disabled for live runs."
+                )
             logger.warning(
                 f"No API key detected for provider '{provider}'. Falling back to mock/offline mode."
             )
