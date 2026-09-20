@@ -1,0 +1,433 @@
+---
+import HSRILayout from '../layouts/HSRILayout.astro';
+import HSRIHeader from '../components/HSRIHeader.svelte';
+import HSRIFooter from '../components/HSRIFooter.svelte';
+import WorldMap from '../components/WorldMap.svelte';
+import ScoreLeaderboard from '../components/ScoreLeaderboard.svelte';
+import CountryComparison from '../components/CountryComparison.svelte';
+import MethodologyOverview from '../components/MethodologyOverview.svelte';
+import TimelinePreview from '../components/TimelinePreview.svelte';
+
+import countryScoresRaw from '../data/country_scores.json';
+import timelineDataRaw from '../data/timeline_data.json';
+import indicatorsRaw from '../data/indicators.json';
+
+const indexData = countryScoresRaw;
+const timelineData = timelineDataRaw;
+
+const methodologyData = {
+  pillars: indexData.pillars,
+  bands: [
+    { min: 80, max: 100, label: 'A', color: '#10b981', description: 'High readiness' },
+    { min: 70, max: 79, label: 'B', color: '#3b82f6', description: 'Good readiness' },
+    { min: 60, max: 69, label: 'C', color: '#f59e0b', description: 'Moderate readiness' },
+    { min: 50, max: 59, label: 'D', color: '#ef4444', description: 'Limited readiness' },
+    { min: 0, max: 49, label: 'F', color: '#991b1b', description: 'Very limited readiness' }
+  ],
+  methodologyVersion: indexData.metadata.methodologyVersion
+};
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<HSRILayout title="Human Superintelligence Readiness Index (HSRI) - v0.1 Benchmark">
+  <div class="home-page">
+    <HSRIHeader client:load />
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-text">
+            <h1 class="hero-title">
+              Measuring Humanity's Readiness
+              <span class="hero-acronym">for Superintelligence</span>
+            </h1>
+            <p class="hero-subtitle">
+              The Human Superintelligence Readiness Index (HSRI) provides an empirical, non-compensatory benchmark
+              assessing national absorption, cognitive discernment, and institutional resilience across 39 nations.
+            </p>
+            <div class="hero-actions">
+              <a href={`${base}/countries`} class="btn btn-primary btn-large">Explore Countries &amp; Simulator</a>
+              <a href={`${base}/methodology`} class="btn btn-secondary btn-large">Learn Methodology</a>
+            </div>
+          </div>
+          <div class="hero-visual">
+            <div class="score-display">
+              <div class="score-number">{indexData.metadata.avgScore}</div>
+              <div class="score-label">Benchmark Average Score</div>
+              <div class="score-change">
+                <span class="change-positive">39 Nations</span> Fully Rated
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Stats -->
+    <section class="stats-section">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon">🌍</div>
+            <div class="stat-value">{indexData.metadata.totalCountries}</div>
+            <div class="stat-label">Countries Profiled</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">📊</div>
+            <div class="stat-value">{indicatorsRaw.length}</div>
+            <div class="stat-label">Empirical Indicators</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">📈</div>
+            <div class="stat-value">4</div>
+            <div class="stat-label">Core Pillars</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">🎯</div>
+            <div class="stat-value">5</div>
+            <div class="stat-label">Performance Bands</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- World Map Section -->
+    <section class="map-section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Global Readiness Overview</h2>
+          <p>Interactive geographic overview showing HSRI scores and exposure levels across benchmark nations</p>
+        </div>
+        <WorldMap
+          client:load
+          countries={indexData.countries}
+          currentView="world"
+        />
+      </div>
+    </section>
+
+    <!-- Score Leaderboard -->
+    <section class="leaderboard-section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Benchmark Rankings (Top 10)</h2>
+          <p>Top performing benchmark nations evaluated on the 4 non-compensatory pillars</p>
+        </div>
+        <ScoreLeaderboard
+          client:load
+          countries={indexData.countries.slice(0, 10)}
+          sortBy="score"
+          ascending={false}
+        />
+        <div class="leaderboard-actions">
+          <a href={`${base}/countries`} class="btn btn-secondary">Explore All 39 Countries</a>
+          <a href={`${base}/compare`} class="btn btn-primary">Compare Side-by-Side</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Methodology Overview -->
+    <section class="methodology-section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Methodology Framework</h2>
+          <p>Non-compensatory geometric aggregation across four essential resilience dimensions</p>
+        </div>
+        <MethodologyOverview client:visible />
+      </div>
+    </section>
+
+    <!-- Timeline Preview -->
+    <section class="timeline-section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Superintelligence Timeline Projections</h2>
+          <p>Probabilistic capability milestones and multi-scenario crossing horizons (2026-2046)</p>
+        </div>
+        <TimelinePreview
+          client:visible
+          timelineData={timelineData}
+          currentYear={2026}
+        />
+        <div class="timeline-actions">
+          <a href={`${base}/timeline`} class="btn btn-primary">Explore Detailed Timeline &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Country Comparison Preview -->
+    <section class="comparison-section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Country Comparison Tool</h2>
+          <p>Compare readiness metrics, exposure gaps, and crossing years across peer nations</p>
+        </div>
+        <div class="comparison-preview">
+          <CountryComparison
+            client:visible
+            selectedCountries={[indexData.countries[0], indexData.countries[1]]}
+            showDetails={true}
+          />
+        </div>
+        <div class="comparison-actions">
+          <a href={`${base}/compare`} class="btn btn-primary">Open Full Comparison Tool &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-content">
+          <h2>Access Open Research &amp; Datasets</h2>
+          <p>Full empirical datasets, indicators schema, and analysis pipelines are open for research under CC-BY 4.0.</p>
+          <div class="cta-actions">
+            <a href={`${base}/data`} class="btn btn-primary btn-large">Download Open Data (.CSV)</a>
+            <a href={`${base}/methodology`} class="btn btn-secondary btn-large">Technical Documentation</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <HSRIFooter />
+  </div>
+</HSRILayout>
+
+<style>
+  .home-page {
+    min-height: 100vh;
+    background-color: var(--surface-color, #f8fafc);
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .hero-section {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+    color: white;
+    padding: 4rem 0 3.5rem 0;
+  }
+
+  .hero-content {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  @media (max-width: 860px) {
+    .hero-content {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .hero-title {
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-acronym {
+    display: block;
+    color: #60a5fa;
+  }
+
+  .hero-subtitle {
+    font-size: 1.15rem;
+    color: #cbd5e1;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    max-width: 600px;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: all 0.15s ease;
+    display: inline-block;
+  }
+
+  .btn-large {
+    padding: 0.85rem 1.75rem;
+    font-size: 1.05rem;
+  }
+
+  .btn-primary {
+    background: #2563eb;
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background: #1d4ed8;
+  }
+
+  .btn-secondary {
+    background: rgba(255, 255, 255, 0.12);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .score-display {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 1rem;
+    padding: 2rem;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    min-width: 220px;
+  }
+
+  .score-number {
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: #60a5fa;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .score-label {
+    font-size: 0.85rem;
+    color: #cbd5e1;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+  }
+
+  .score-change {
+    font-size: 0.85rem;
+    color: #94a3b8;
+  }
+
+  .change-positive {
+    color: #34d399;
+    font-weight: 700;
+  }
+
+  .stats-section {
+    padding: 2.5rem 0;
+    background: white;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .stat-card {
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .stat-icon {
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-value {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1;
+    margin-bottom: 0.35rem;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+  }
+
+  .map-section,
+  .leaderboard-section,
+  .methodology-section,
+  .timeline-section,
+  .comparison-section {
+    padding: 4rem 0;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .section-header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 2.5rem auto;
+  }
+
+  .section-header h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-header p {
+    color: #64748b;
+    font-size: 1.05rem;
+  }
+
+  .leaderboard-actions,
+  .timeline-actions,
+  .comparison-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .comparison-preview {
+    background: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
+    padding: 1.5rem;
+  }
+
+  .cta-section {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    color: white;
+    padding: 4.5rem 0;
+    text-align: center;
+  }
+
+  .cta-content h2 {
+    font-size: 2.25rem;
+    font-weight: 800;
+    margin-bottom: 0.75rem;
+  }
+
+  .cta-content p {
+    font-size: 1.1rem;
+    color: #94a3b8;
+    max-width: 650px;
+    margin: 0 auto 2rem auto;
+  }
+
+  .cta-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+</style>

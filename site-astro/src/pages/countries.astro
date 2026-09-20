@@ -1,0 +1,95 @@
+---
+import HSRILayout from '../layouts/HSRILayout.astro';
+import HSRIHeader from '../components/HSRIHeader.svelte';
+import CountryList from '../components/CountryList.svelte';
+import WeightCalculator from '../components/WeightCalculator.svelte';
+import HSRIFooter from '../components/HSRIFooter.svelte';
+---
+
+<HSRILayout title="Country Profiles & Rankings - HSRI Benchmark">
+  <div class="countries-page">
+    <HSRIHeader client:load />
+
+    <div class="page-header">
+      <div class="container">
+        <h1>Country Readiness Profiles & Rankings</h1>
+        <p class="subtitle">Empirical assessments, non-compensatory pillar evaluations, and sensitivity simulation across 39 benchmark nations</p>
+      </div>
+    </div>
+
+    <div class="countries-content container">
+      <!-- Interactive Weight Calculator -->
+      <section class="calc-section">
+        <WeightCalculator client:load />
+      </section>
+
+      <!-- Country Profiles Explorer -->
+      <section class="countries-section">
+        <div class="section-title-bar">
+          <h2>All 39 Benchmark Country Profiles</h2>
+          <p class="section-desc">Select any country to view full pillar breakdowns, exposure gaps, crossing projections, and strategic policy recommendations.</p>
+        </div>
+        <CountryList client:load />
+      </section>
+    </div>
+
+    <HSRIFooter />
+  </div>
+
+  <style>
+    .countries-page {
+      min-height: 100vh;
+      background-color: var(--surface-color);
+    }
+
+    .page-header {
+      text-align: center;
+      padding: var(--spacing-2xl) var(--spacing-lg);
+      background: linear-gradient(135deg, var(--primary-color) 0%, #1e40af 100%);
+      color: white;
+      margin-bottom: var(--spacing-2xl);
+    }
+
+    .page-header h1 {
+      font-size: var(--font-size-3xl);
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .subtitle {
+      font-size: var(--font-size-lg);
+      opacity: 0.9;
+    }
+
+    .countries-content {
+      padding: 0 var(--spacing-lg) var(--spacing-2xl) var(--spacing-lg);
+      max-width: 1350px;
+      margin: 0 auto;
+    }
+
+    .calc-section {
+      margin-bottom: 3rem;
+    }
+
+    .section-title-bar {
+      margin-bottom: 1.5rem;
+    }
+
+    .section-title-bar h2 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 0.35rem;
+    }
+
+    .section-desc {
+      color: #64748b;
+      font-size: 0.95rem;
+    }
+
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+  </style>
+</HSRILayout>

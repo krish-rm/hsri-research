@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HSRIHeader from '../components/HSRIHeader.svelte';
+import HSRIFooter from '../components/HSRIFooter.svelte';
+---
+
+<BaseLayout>
+  <HSRIHeader slot="header" />
+  <main>
+    <slot />
+  </main>
+  <HSRIFooter slot="footer" />
+</BaseLayout>

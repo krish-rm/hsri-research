@@ -1,0 +1,568 @@
+---
+import HSRILayout from '../layouts/HSRILayout.astro';
+import HSRIHeader from '../components/HSRIHeader.svelte';
+import DataExplorer from '../components/DataExplorer.svelte';
+import HSRIFooter from '../components/HSRIFooter.svelte';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<HSRILayout>
+  <div class="data-page">
+    <div class="page-header">
+      <h1>Data Explorer</h1>
+      <p class="subtitle">Access, download, and analyze Human Superintelligence Readiness Index data</p>
+    </div>
+
+    <div class="data-content">
+      <div class="data-intro">
+        <h2>HSRI Data Access</h2>
+        <p>The Human Superintelligence Readiness Index provides comprehensive datasets for researchers, policymakers, and organizations. All data is available for non-commercial research purposes and includes detailed metadata for proper attribution.</p>
+      </div>
+
+      <div class="data-sections">
+        <div class="data-overview">
+          <h3>Available Datasets</h3>
+          <div class="dataset-grid">
+            <div class="dataset-card">
+              <div class="dataset-icon">📊</div>
+              <h4>Country Readiness Scores</h4>
+              <p>Complete empirical readiness scores for 39 benchmark nations across four core pillars</p>
+              <div class="dataset-details">
+                <span class="detail-item">39 countries</span>
+                <span class="detail-item">4 pillars</span>
+                <span class="detail-item">Harmonized 2026</span>
+              </div>
+              <div class="dataset-actions">
+                <a href={`${base}/data/final_country_scores.csv`} download="final_country_scores.csv" class="download-btn">Download CSV</a>
+                <a href={`${base}/data/country_scores.json`} download="country_scores.json" class="download-btn">Download JSON</a>
+                <a href={`${base}/countries`} class="view-btn">View Online</a>
+              </div>
+            </div>
+
+            <div class="dataset-card">
+              <div class="dataset-icon">📈</div>
+              <h4>Readiness-Exposure Gap & Horizons</h4>
+              <p>Macro exposure trajectories and predicted milestone crossing horizons across 3 pace scenarios</p>
+              <div class="dataset-details">
+                <span class="detail-item">39 nations</span>
+                <span class="detail-item">3 pace scenarios</span>
+                <span class="detail-item">Takeoff / Steady / Plateau</span>
+              </div>
+              <div class="dataset-actions">
+                <a href={`${base}/data/readiness_exposure_gap.csv`} download="readiness_exposure_gap.csv" class="download-btn">Gap CSV</a>
+                <a href={`${base}/data/scenario_crossing_years.csv`} download="scenario_crossing_years.csv" class="download-btn">Horizons CSV</a>
+                <a href={`${base}/compare`} class="view-btn">Compare Tool</a>
+              </div>
+            </div>
+
+            <div class="dataset-card">
+              <div class="dataset-icon">👥</div>
+              <h4>Labor Dislocation & Transition Risk</h4>
+              <p>Workforce vulnerability indices, displacement exposures, and occupational crossing horizons</p>
+              <div class="dataset-details">
+                <span class="detail-item">39 nations</span>
+                <span class="detail-item">Occupational risk factors</span>
+                <span class="detail-item">2026-2040 Horizon</span>
+              </div>
+              <div class="dataset-actions">
+                <a href={`${base}/data/labor_vulnerability.csv`} download="labor_vulnerability.csv" class="download-btn">Vulnerability CSV</a>
+                <a href={`${base}/data/labor_crossing_years.csv`} download="labor_crossing_years.csv" class="download-btn">Horizons CSV</a>
+                <a href={`${base}/countries`} class="view-btn">Country Explorer</a>
+              </div>
+            </div>
+
+            <div class="dataset-card">
+              <div class="dataset-icon">🔍</div>
+              <h4>Indicator Database</h4>
+              <p>Harmonized empirical catalog of 20 indicators with validity ratings and source metadata</p>
+              <div class="dataset-details">
+                <span class="detail-item">20 indicators</span>
+                <span class="detail-item">16 sources</span>
+                <span class="detail-item">OECD / WB / ITU</span>
+              </div>
+              <div class="dataset-actions">
+                <a href={`${base}/data/indicators.csv`} download="indicators.csv" class="download-btn">Download CSV</a>
+                <a href={`${base}/data/indicators.json`} download="indicators.json" class="download-btn">Download JSON</a>
+                <a href={`${base}/methodology`} class="view-btn">Methodology</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="data-tools">
+          <h3>Interactive Data Explorer & Packages</h3>
+          <DataExplorer client:load />
+        </div>
+
+        <div class="data-usage">
+          <h3>Data Usage Guidelines</h3>
+          <div class="guidelines-content">
+            <div class="guideline-section">
+              <h4>Terms of Use</h4>
+              <p>HSRI data is provided for non-commercial research and educational purposes. When using our data, please adhere to the following guidelines:</p>
+              <ul>
+                <li>Cite the Human Superintelligence Readiness Index in all publications</li>
+                <li>Include appropriate methodology documentation</li>
+                <li>Do not redistribute raw data without permission</li>
+                <li>Be aware of data quality limitations</li>
+                <li>Update your analyses when new data becomes available</li>
+              </ul>
+            </div>
+
+            <div class="citation-info">
+              <h4>Citation Format</h4>
+              <div class="citation-example">
+                <p><strong>HSRI Research Team</strong> (2026). Human Superintelligence Readiness Index 2026. <em>Human Superintelligence Research Institute</em>. Empirical Benchmark Release v0.1.</p>
+              </div>
+            </div>
+
+            <div class="data-quality">
+              <h4>Data Quality Information</h4>
+              <div class="quality-metrics">
+                <div class="quality-item">
+                  <span class="metric-name">Coverage:</span>
+                  <span class="metric-value">39 benchmark nations (OECD, G7, BRICS+, regional anchors)</span>
+                </div>
+                <div class="quality-item">
+                  <span class="metric-name">Update Frequency:</span>
+                  <span class="metric-value">Phase 7 Empirical Pipeline Run (2026)</span>
+                </div>
+                <div class="quality-item">
+                  <span class="metric-name">Completeness:</span>
+                  <span class="metric-value">100% harmonized (780 empirical observations across 20 indicators)</span>
+                </div>
+                <div class="quality-item">
+                  <span class="metric-name">Source Reliability:</span>
+                  <span class="metric-value">Validated from World Bank, OECD, ITU, UN, and official statistical agencies</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="publications">
+          <h3>Research Publications</h3>
+          <p>Find papers and research that have used HSRI data:</p>
+          <div class="publication-list">
+            <div class="publication-item">
+              <h4>Global Readiness for Superintelligence: A Multi-Dimensional Assessment</h4>
+              <p>Journal of Artificial Intelligence Research, 2026</p>
+              <a href="#" class="publication-link">Read Full Paper</a>
+            </div>
+            <div class="publication-item">
+              <h4>Cross-National Patterns in AI Preparedness</h4>
+              <p>Science and Public Policy, 2026</p>
+              <a href="#" class="publication-link">Read Full Paper</a>
+            </div>
+            <div class="publication-item">
+              <h4>Methodology for the Human Superintelligence Readiness Index</h4>
+                  <p>Working Paper No. 2026-03, HSRI</p>
+              <a href="#" class="publication-link">Download Paper</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="support-section">
+          <h3>Data Support</h3>
+          <p>Need help with accessing or using the data?</p>
+          <div class="support-options">
+            <div class="support-option">
+              <h4>Documentation</h4>
+              <p>Comprehensive documentation for all datasets and tools</p>
+              <a href="#" class="support-link">View Documentation</a>
+            </div>
+            <div class="support-option">
+              <h4>Tutorials</h4>
+              <p>Step-by-step guides for common analysis tasks</p>
+              <a href="#" class="support-link">Browse Tutorials</a>
+            </div>
+            <div class="support-option">
+              <h4>Community Forum</h4>
+              <p>Ask questions and share insights with other users</p>
+              <a href="#" class="support-link">Join Forum</a>
+            </div>
+            <div class="support-option">
+              <h4>Contact Us</h4>
+                  <p>Direct support for institutional partnerships and special requests</p>
+              <a href="#" class="support-link">Contact Support</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <HSRIFooter />
+  </div>
+
+  <style>
+    .data-page {
+      min-height: 100vh;
+      background-color: var(--surface-color);
+    }
+
+    .page-header {
+      text-align: center;
+      padding: var(--spacing-2xl) var(--spacing-lg);
+      background: linear-gradient(135deg, var(--primary-color) 0%, #1e40af 100%);
+      color: white;
+      margin-bottom: var(--spacing-2xl);
+    }
+
+    .page-header h1 {
+      font-size: var(--font-size-3xl);
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .subtitle {
+      font-size: var(--font-size-lg);
+      opacity: 0.9;
+    }
+
+    .data-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 var(--spacing-lg);
+    }
+
+    .data-intro {
+      text-align: center;
+      margin-bottom: var(--spacing-2xl);
+    }
+
+    .data-intro h2 {
+      font-size: var(--font-size-2xl);
+      margin-bottom: var(--spacing-md);
+    }
+
+    .data-intro p {
+      font-size: var(--font-size-lg);
+      color: var(--text-secondary);
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .data-sections {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-2xl);
+    }
+
+    .dataset-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--spacing-xl);
+    }
+
+    .dataset-card {
+      background-color: white;
+      border-radius: 0.5rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      padding: var(--spacing-xl);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .dataset-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .dataset-icon {
+      font-size: var(--font-size-3xl);
+      margin-bottom: var(--spacing-md);
+    }
+
+    .dataset-card h4 {
+      margin: 0 0 var(--spacing-sm) 0;
+      font-size: var(--font-size-xl);
+      color: var(--primary-color);
+    }
+
+    .dataset-card p {
+      margin: 0 0 var(--spacing-lg) 0;
+      font-size: var(--font-size-sm);
+      line-height: 1.5;
+      color: var(--text-secondary);
+    }
+
+    .dataset-details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-sm);
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .detail-item {
+      background-color: var(--surface-color);
+      padding: var(--spacing-xs) var(--spacing-sm);
+      border-radius: 0.25rem;
+      font-size: var(--font-size-xs);
+      font-weight: 500;
+    }
+
+    .dataset-actions {
+      display: flex;
+      gap: var(--spacing-sm);
+      flex-wrap: wrap;
+    }
+
+    .download-btn {
+      padding: var(--spacing-sm) var(--spacing-md);
+      border: 1px solid var(--primary-color);
+      background-color: white;
+      color: var(--primary-color);
+      border-radius: 0.375rem;
+      font-size: var(--font-size-sm);
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .download-btn:hover {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .view-btn {
+      padding: var(--spacing-sm) var(--spacing-md);
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 0.375rem;
+      font-size: var(--font-size-sm);
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .view-btn:hover {
+      background-color: #1e40af;
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--spacing-xl);
+    }
+
+    .tool-card {
+      background-color: white;
+      border-radius: 0.5rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      padding: var(--spacing-xl);
+      transition: transform 0.2s;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .tool-card h4 {
+      margin: 0 0 var(--spacing-md) 0;
+      font-size: var(--font-size-xl);
+      color: var(--primary-color);
+    }
+
+    .tool-card p {
+      margin: 0 0 var(--spacing-lg) 0;
+      font-size: var(--font-size-sm);
+      line-height: 1.5;
+      color: var(--text-secondary);
+    }
+
+    .tool-features ul {
+      margin: 0;
+      padding-left: var(--spacing-lg);
+    }
+
+    .tool-features li {
+      margin-bottom: var(--spacing-xs);
+      font-size: var(--font-size-sm);
+    }
+
+    .primary-btn {
+      width: 100%;
+      padding: var(--spacing-md);
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 0.375rem;
+      font-size: var(--font-size-base);
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .primary-btn:hover {
+      background-color: #1e40af;
+    }
+
+    .guidelines-content {
+      background-color: white;
+      border-radius: 0.5rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      padding: var(--spacing-2xl);
+    }
+
+    .guideline-section {
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .guideline-section h4 {
+      margin: 0 0 var(--spacing-md) 0;
+      font-size: var(--font-size-xl);
+      color: var(--primary-color);
+    }
+
+    .guideline-section p {
+      margin: 0 0 var(--spacing-md) 0;
+      font-size: var(--font-size-base);
+      line-height: 1.6;
+    }
+
+    .guideline-section ul {
+      margin: 0;
+      padding-left: var(--spacing-lg);
+    }
+
+    .guideline-section li {
+      margin-bottom: var(--spacing-xs);
+      line-height: 1.5;
+    }
+
+    .citation-info {
+      background-color: var(--surface-color);
+      padding: var(--spacing-lg);
+      border-radius: 0.5rem;
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .citation-info h4 {
+      margin: 0 0 var(--spacing-md) 0;
+      font-size: var(--font-size-base);
+    }
+
+    .citation-example {
+      font-family: 'Courier New', monospace;
+      font-size: var(--font-size-sm);
+      line-height: 1.6;
+    }
+
+    .data-quality {
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .data-quality h4 {
+      margin: 0 0 var(--spacing-md) 0;
+      font-size: var(--font-size-base);
+    }
+
+    .quality-metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: var(--spacing-lg);
+    }
+
+    .quality-item {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-xs);
+    }
+
+    .metric-name {
+      font-weight: 600;
+      font-size: var(--font-size-sm);
+    }
+
+    .metric-value {
+      font-size: var(--font-size-sm);
+      color: var(--text-secondary);
+    }
+
+    .publication-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-lg);
+    }
+
+    .publication-item {
+      background-color: white;
+      border-radius: 0.5rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      padding: var(--spacing-lg);
+      border-left: 4px solid var(--primary-color);
+    }
+
+    .publication-item h4 {
+      margin: 0 0 var(--spacing-sm) 0;
+      font-size: var(--font-size-lg);
+    }
+
+    .publication-item p {
+      margin: 0 0 var(--spacing-md) 0;
+      font-size: var(--font-size-sm);
+      color: var(--text-secondary);
+    }
+
+    .publication-link {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: var(--font-size-sm);
+    }
+
+    .publication-link:hover {
+      text-decoration: underline;
+    }
+
+    .support-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: var(--spacing-lg);
+    }
+
+    .support-option {
+      background-color: white;
+      border-radius: 0.5rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      padding: var(--spacing-lg);
+      text-align: center;
+    }
+
+    .support-option h4 {
+      margin: 0 0 var(--spacing-sm) 0;
+      font-size: var(--font-size-base);
+      color: var(--primary-color);
+    }
+
+    .support-option p {
+      margin: 0 0 var(--spacing-md) 0;
+      font-size: var(--font-size-sm);
+      color: var(--text-secondary);
+    }
+
+    .support-link {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: var(--font-size-sm);
+    }
+
+    .support-link:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .dataset-grid,
+      .tools-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .quality-metrics,
+      .support-options {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</HSRILayout>

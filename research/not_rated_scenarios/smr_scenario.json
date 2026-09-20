@@ -1,0 +1,95 @@
+{
+  "country": "SMR",
+  "category": "data_insufficient",
+  "template": {
+    "category": "data_insufficient",
+    "name": "Data Insufficient",
+    "description": "Lack adequate data for comprehensive assessment",
+    "criteria": [
+      "Less than 50% indicator coverage",
+      "No reliable governance data",
+      "Missing digital infrastructure metrics",
+      "Insufficient education statistics"
+    ],
+    "characteristics": [
+      "Small population size",
+      "Limited statistical capacity",
+      "Unique economic structures"
+    ],
+    "path_to_rating": [
+      "Develop national statistical systems",
+      "Participate in international data initiatives",
+      "Establish baseline measurements"
+    ],
+    "recommendations": [
+      "Focus on data collection capacity",
+      "Participate in regional benchmarking",
+      "Develop proxy indicators where appropriate"
+    ],
+    "assessment_gaps": [
+      {
+        "name": "Data Coverage Gap",
+        "description": "Insufficient data across multiple pillars",
+        "impact": "Cannot calculate composite score",
+        "severity": "High",
+        "mitigation": "Develop proxy indicators and estimation methods"
+      },
+      {
+        "name": "Time Alignment Gap",
+        "description": "Data points from different time periods",
+        "impact": "Cannot assess current readiness accurately",
+        "severity": "Medium",
+        "mitigation": "Interpolation and forward/backward projection"
+      }
+    ],
+    "timeline_assessment": {
+      "current_status": "Unable to assess",
+      "projection_available": false,
+      "confidence_level": "None",
+      "key_uncertainties": []
+    },
+    "engagement_strategy": {
+      "immediate_actions": [
+        "Initial data collection assessment",
+        "Stakeholder identification",
+        "Baseline establishment"
+      ],
+      "short_term_goals": [
+        "Data quality improvement",
+        "Participatory assessment development",
+        "Regional collaboration"
+      ],
+      "long_term_vision": [
+        "Full integration into HSRI-Proxy framework",
+        "Contribution to methodology refinement",
+        "Knowledge sharing leadership"
+      ]
+    }
+  },
+  "specific_challenges": [
+    "Microstate size",
+    "Limited data infrastructure",
+    "Unique economic model"
+  ],
+  "context_factors": [
+    "Population: 33,000",
+    "GDP per capita: $85,000",
+    "Digital adoption: High"
+  ],
+  "engagement_priorities": [
+    "Data systems development",
+    "Regional integration",
+    "Best practices sharing"
+  ],
+  "monitoring_indicators": [
+    "Data coverage improvement",
+    "Statistical capacity development"
+  ],
+  "transition_path": "Data Coverage \u2192 Full Assessment",
+  "last_assessment": {
+    "date": "2026-09-20",
+    "status": "Not Rated",
+    "reason": "Lack adequate data for comprehensive assessment",
+    "next_review": "2027-12-31"
+  }
+}

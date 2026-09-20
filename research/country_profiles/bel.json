@@ -1,0 +1,45 @@
+{
+  "summary": "BEL enters 2026 as a Developing AI readiness nation with a high-level urgency for AI preparedness. Projected critical crossing year is 2036, giving 10 years for preparation. Current readiness score of 0.50 faces exposure levels of 0.50.",
+  "strengths": [],
+  "challenges": [],
+  "timeline_outlook": {
+    "crossing_year": 2036,
+    "preparation_years": 10,
+    "preparation_window": 10,
+    "urgency": "high",
+    "urgency_level": "high",
+    "probability": 0.1,
+    "crossing_probability": 0.1,
+    "phases": {
+      "planning": "2026-2030: Long-term strategy",
+      "development": "2030-2035: Implementation phase",
+      "adaptation": "2035+: Continuous adjustment"
+    }
+  },
+  "recommendations": [
+    "Focus on education",
+    "Build digital infrastructure",
+    "Regional cooperation",
+    "Accelerate adaptation programs",
+    "Increase investment in education",
+    "Strengthen digital infrastructure",
+    "Develop regulatory frameworks",
+    "Strategic long-term planning"
+  ],
+  "key_metrics": {
+    "readiness_score": 0.5,
+    "exposure_score": 0.5,
+    "gap_score": 0.0,
+    "status_2026": "Developing",
+    "urgency_level": "high",
+    "crossing_probability": 0.1,
+    "most_likely_crossing": 2036,
+    "preparation_years": 10
+  },
+  "peer_comparisons": {
+    "income_group": "unclassified",
+    "regional_group": "unclassified",
+    "regional_peers": [],
+    "global_rank": "#23/39"
+  }
+}

@@ -1,0 +1,325 @@
+{
+  "data_insufficient": {
+    "category": "data_insufficient",
+    "name": "Data Insufficient",
+    "description": "Lack adequate data for comprehensive assessment",
+    "criteria": [
+      "Less than 50% indicator coverage",
+      "No reliable governance data",
+      "Missing digital infrastructure metrics",
+      "Insufficient education statistics"
+    ],
+    "characteristics": [
+      "Small population size",
+      "Limited statistical capacity",
+      "Unique economic structures"
+    ],
+    "path_to_rating": [
+      "Develop national statistical systems",
+      "Participate in international data initiatives",
+      "Establish baseline measurements"
+    ],
+    "recommendations": [
+      "Focus on data collection capacity",
+      "Participate in regional benchmarking",
+      "Develop proxy indicators where appropriate"
+    ],
+    "assessment_gaps": [
+      {
+        "name": "Data Coverage Gap",
+        "description": "Insufficient data across multiple pillars",
+        "impact": "Cannot calculate composite score",
+        "severity": "High",
+        "mitigation": "Develop proxy indicators and estimation methods"
+      },
+      {
+        "name": "Time Alignment Gap",
+        "description": "Data points from different time periods",
+        "impact": "Cannot assess current readiness accurately",
+        "severity": "Medium",
+        "mitigation": "Interpolation and forward/backward projection"
+      }
+    ],
+    "timeline_assessment": {
+      "current_status": "Unable to assess",
+      "projection_available": false,
+      "confidence_level": "None",
+      "key_uncertainties": []
+    },
+    "engagement_strategy": {
+      "immediate_actions": [
+        "Initial data collection assessment",
+        "Stakeholder identification",
+        "Baseline establishment"
+      ],
+      "short_term_goals": [
+        "Data quality improvement",
+        "Participatory assessment development",
+        "Regional collaboration"
+      ],
+      "long_term_vision": [
+        "Full integration into HSRI-Proxy framework",
+        "Contribution to methodology refinement",
+        "Knowledge sharing leadership"
+      ]
+    }
+  },
+  "conflict_zones": {
+    "category": "conflict_zones",
+    "name": "Conflict Zones",
+    "description": "Countries experiencing active conflict or instability",
+    "criteria": [
+      "Active armed conflict",
+      "Political instability",
+      "Humanitarian crisis",
+      "Governance breakdown"
+    ],
+    "characteristics": [
+      "Emergency focus",
+      "Institutional collapse",
+      "Population displacement",
+      "International intervention"
+    ],
+    "path_to_rating": [
+      "Stabilization progress",
+      "Governance restoration",
+      "Data collection resumption",
+      "International support"
+    ],
+    "recommendations": [
+      "Prioritize basic needs and safety",
+      "Support peacebuilding efforts",
+      "Prepare for future assessment",
+      "International coordination"
+    ],
+    "assessment_gaps": [
+      {
+        "name": "Political Sensitivity Gap",
+        "description": "Data collection affected by political factors",
+        "impact": "Data reliability compromised",
+        "severity": "High",
+        "mitigation": "Multiple source verification and triangulation"
+      },
+      {
+        "name": "Institutional Capacity Gap",
+        "description": "Lack of capacity to provide reliable data",
+        "impact": "Data quality and consistency issues",
+        "severity": "Medium",
+        "mitigation": "Capacity building programs and support"
+      }
+    ],
+    "timeline_assessment": {
+      "current_status": "Unable to assess",
+      "projection_available": false,
+      "confidence_level": "None",
+      "key_uncertainties": []
+    },
+    "engagement_strategy": {
+      "immediate_actions": [
+        "Initial data collection assessment",
+        "Stakeholder identification",
+        "Baseline establishment"
+      ],
+      "short_term_goals": [
+        "Data quality improvement",
+        "Participatory assessment development",
+        "Regional collaboration"
+      ],
+      "long_term_vision": [
+        "Full integration into HSRI-Proxy framework",
+        "Contribution to methodology refinement",
+        "Knowledge sharing leadership"
+      ]
+    }
+  },
+  "emerging_economies": {
+    "category": "emerging_economies",
+    "name": "Emerging Economies",
+    "description": "Rapidly developing countries with incomplete data",
+    "criteria": [
+      "GDP growth > 7% annually",
+      "Digital transformation underway",
+      "Institutional capacity building",
+      "Data quality improving"
+    ],
+    "characteristics": [
+      "Rapid change",
+      "Data lag",
+      "Policy experimentation",
+      "Investment focus"
+    ],
+    "path_to_rating": [
+      "Data infrastructure development",
+      "Policy stabilization",
+      "Statistical capacity building",
+      "International benchmarking"
+    ],
+    "recommendations": [
+      "Invest in data systems",
+      "Participate in learning networks",
+      "Adopt international standards",
+      "Focus on key indicators"
+    ],
+    "assessment_gaps": [
+      {
+        "name": "Data Coverage Gap",
+        "description": "Insufficient data across multiple pillars",
+        "impact": "Cannot calculate composite score",
+        "severity": "High",
+        "mitigation": "Develop proxy indicators and estimation methods"
+      },
+      {
+        "name": "Time Alignment Gap",
+        "description": "Data points from different time periods",
+        "impact": "Cannot assess current readiness accurately",
+        "severity": "Medium",
+        "mitigation": "Interpolation and forward/backward projection"
+      }
+    ],
+    "timeline_assessment": {
+      "current_status": "Unable to assess",
+      "projection_available": false,
+      "confidence_level": "None",
+      "key_uncertainties": []
+    },
+    "engagement_strategy": {
+      "immediate_actions": [
+        "Initial data collection assessment",
+        "Stakeholder identification",
+        "Baseline establishment"
+      ],
+      "short_term_goals": [
+        "Data quality improvement",
+        "Participatory assessment development",
+        "Regional collaboration"
+      ],
+      "long_term_vision": [
+        "Full integration into HSRI-Proxy framework",
+        "Contribution to methodology refinement",
+        "Knowledge sharing leadership"
+      ]
+    }
+  },
+  "special_administrative": {
+    "category": "special_administrative",
+    "name": "Special Administrative Regions",
+    "description": "Regions with unique political or administrative status",
+    "criteria": [
+      "Special political status",
+      "Autonomous governance",
+      "Different legal frameworks",
+      "Unique economic systems"
+    ],
+    "characteristics": [
+      "Separate legal systems",
+      "Distinct economic policies",
+      "International status questions",
+      "Data reporting differences"
+    ],
+    "path_to_rating": [
+      "Clarify international status",
+      "Standardize data reporting",
+      "Participate in assessment frameworks",
+      "Develop region-specific metrics"
+    ],
+    "recommendations": [
+      "Develop tailored assessment approach",
+      "Engage with relevant international bodies",
+      "Contribute to methodological development",
+      "Share best practices"
+    ],
+    "assessment_gaps": [
+      {
+        "name": "Methodological Applicability Gap",
+        "description": "Methodology not suitable for country context",
+        "impact": "Results may not be meaningful or comparable",
+        "severity": "High",
+        "mitigation": "Develop context-specific adaptation guidelines"
+      }
+    ],
+    "timeline_assessment": {
+      "current_status": "Unable to assess",
+      "projection_available": false,
+      "confidence_level": "None",
+      "key_uncertainties": []
+    },
+    "engagement_strategy": {
+      "immediate_actions": [
+        "Initial data collection assessment",
+        "Stakeholder identification",
+        "Baseline establishment"
+      ],
+      "short_term_goals": [
+        "Data quality improvement",
+        "Participatory assessment development",
+        "Regional collaboration"
+      ],
+      "long_term_vision": [
+        "Full integration into HSRI-Proxy framework",
+        "Contribution to methodology refinement",
+        "Knowledge sharing leadership"
+      ]
+    }
+  },
+  "island_nations": {
+    "category": "island_nations",
+    "name": "Island Nations",
+    "description": "Small island developing states with unique challenges",
+    "criteria": [
+      "Island geography",
+      "Climate vulnerability",
+      "Limited resources",
+      "International dependency"
+    ],
+    "characteristics": [
+      "Geographic isolation",
+      "Environmental constraints",
+      "Tourism dependency",
+      "International aid reliance"
+    ],
+    "path_to_rating": [
+      "Data capacity building",
+      "Regional cooperation",
+      "Climate resilience integration",
+      "International support coordination"
+    ],
+    "recommendations": [
+      "Focus on resilience indicators",
+      "Participate in regional networks",
+      "Leverage international partnerships",
+      "Develop island-specific metrics"
+    ],
+    "assessment_gaps": [
+      {
+        "name": "Data Coverage Gap",
+        "description": "Insufficient data across multiple pillars",
+        "impact": "Cannot calculate composite score",
+        "severity": "High",
+        "mitigation": "Develop proxy indicators and estimation methods"
+      }
+    ],
+    "timeline_assessment": {
+      "current_status": "Unable to assess",
+      "projection_available": false,
+      "confidence_level": "None",
+      "key_uncertainties": []
+    },
+    "engagement_strategy": {
+      "immediate_actions": [
+        "Initial data collection assessment",
+        "Stakeholder identification",
+        "Baseline establishment"
+      ],
+      "short_term_goals": [
+        "Data quality improvement",
+        "Participatory assessment development",
+        "Regional collaboration"
+      ],
+      "long_term_vision": [
+        "Full integration into HSRI-Proxy framework",
+        "Contribution to methodology refinement",
+        "Knowledge sharing leadership"
+      ]
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "reassessment_triggers": [
+    "Significant political change",
+    "Data quality improvement",
+    "International status clarification",
+    "Conflict resolution progress",
+    "Economic stabilization",
+    "Statistical capacity building"
+  ],
+  "monitoring_frequency": {
+    "data_insufficient": "Quarterly",
+    "conflict_zones": "Biannual (when stable)",
+    "emerging_economies": "Quarterly",
+    "special_administrative": "Biannual",
+    "island_nations": "Quarterly"
+  },
+  "progress_indicators": [
+    "Data coverage percentage",
+    "Data quality scores",
+    "Political stability index",
+    "Economic indicators",
+    "Statistical capacity metrics",
+    "International cooperation levels"
+  ],
+  "reassessment_criteria": {
+    "data_sufficient": "70%+ indicator coverage with recent data",
+    "political_stable": "No active conflict or major instability",
+    "methodological_applicable": "Framework can be applied meaningfully",
+    "data_reliable": "Multiple sources confirm key indicators"
+  },
+  "review_process": {
+    "step_1": "Data collection assessment",
+    "step_2": "Stakeholder consultation",
+    "step_3": "Methodological review",
+    "step_4": "Expert panel evaluation",
+    "step_5": "Final determination"
+  }
+}

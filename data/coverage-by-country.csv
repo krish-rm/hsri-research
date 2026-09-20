@@ -1,0 +1,146 @@
+country_iso3,country_name,ai_lit_core,ai_lit_context,calibrated_trust,metacognition_core,metacognition_context,decision_agency,attentional_context,value_clarity,enabling_context,overall_coverage,overall_status
+AFG,Afghanistan,0,0,0,0,0,1,1,0,0,3,Not rated
+AGO,Angola,0,0,0,0,0,1,1,0,0,3,Not rated
+ALB,Albania,0,0,0,0,0,1,1,0,1,4,Not rated
+ALG,Algeria,0,0,0,0,0,1,1,0,1,4,Not rated
+ARG,Argentina,0,0,1,0,0,1,1,0,1,5,Context-only
+ARM,Armenia,0,0,0,0,0,1,1,0,1,4,Not rated
+AUS,Australia,1,1,1,1,1,1,1,0,1,8,Partial rating
+AUT,Austria,1,1,1,1,1,1,1,0,1,8,Partial rating
+AZE,Azerbaijan,0,0,0,0,0,1,1,0,1,4,Not rated
+BDG,Bangladesh,0,0,0,0,0,1,1,0,0,3,Not rated
+BEL,Belgium,1,1,1,1,1,1,1,0,1,8,Partial rating
+BEN,Benin,0,0,0,0,0,1,1,0,0,3,Not rated
+BRA,Brazil,0,0,1,0,0,1,1,0,1,5,Context-only
+BGR,Bulgaria,1,1,1,1,1,1,1,0,1,8,Partial rating
+BFA,Burkina Faso,0,0,0,0,0,1,1,0,0,3,Not rated
+BDI,Burundi,0,0,0,0,0,1,1,0,0,3,Not rated
+CMR,Cameroon,0,0,0,0,0,1,1,0,1,4,Not rated
+CAN,Canada,1,1,1,1,1,1,1,0,1,8,Partial rating
+CAF,Central African Republic,0,0,0,0,0,1,1,0,0,3,Not rated
+TCD,Chad,0,0,0,0,0,1,1,0,0,3,Not rated
+CHL,Chile,0,0,1,0,0,1,1,0,1,5,Context-only
+CHN,China,1,1,0,1,0,1,1,0,1,6,Context-only
+COL,Colombia,0,0,1,0,0,1,1,0,1,5,Context-only
+COM,Comoros,0,0,0,0,0,1,1,0,0,3,Not rated
+CGO,Congo,0,0,0,0,0,1,1,0,0,3,Not rated
+CRI,Costa Rica,0,0,1,0,0,1,1,0,1,5,Context-only
+CYP,Cyprus,1,1,1,1,1,1,1,0,1,8,Partial rating
+CZE,Czech Republic,1,1,1,1,1,1,1,0,1,8,Partial rating
+COD,Democratic Republic of Congo,0,0,0,0,0,1,1,0,0,3,Not rated
+DNK,Denmark,1,1,1,1,1,1,1,0,1,8,Partial rating
+DJI,Djibouti,0,0,0,0,0,1,1,0,0,3,Not rated
+DOM,Dominican Republic,0,0,1,0,0,1,1,0,1,5,Context-only
+ECU,Ecuador,0,0,1,0,0,1,1,0,1,5,Context-only
+EGY,Egypt,0,0,0,0,0,1,1,0,1,4,Not rated
+SVK,El Salvador,0,0,0,0,0,1,1,0,0,3,Not rated
+GNQ,Equatorial Guinea,0,0,0,0,0,1,1,0,0,3,Not rated
+ERI,Eritrea,0,0,0,0,0,1,1,0,0,3,Not rated
+EST,Estonia,1,1,1,1,1,1,1,0,1,8,Partial rating
+SWZ,Eswatini,0,0,0,0,0,1,1,0,0,3,Not rated
+ETH,Ethiopia,0,0,0,0,0,1,1,0,0,3,Not rated
+FJI,Fiji,0,0,0,0,0,1,1,0,1,4,Not rated
+FIN,Finland,1,1,1,1,1,1,1,0,1,8,Partial rating
+FRA,France,1,1,1,1,1,1,1,0,1,8,Partial rating
+GAB,Gabon,0,0,0,0,0,1,1,0,0,3,Not rated
+GEO,Georgia,0,0,0,0,0,1,1,0,1,4,Not rated
+DEU,Germany,1,1,1,1,1,1,1,0,1,8,Partial rating
+GHA,Ghana,0,0,0,0,0,1,1,0,1,4,Not rated
+GRC,Greece,1,1,1,1,1,1,1,0,1,8,Partial rating
+GTM,Guatemala,0,0,1,0,0,1,1,0,1,5,Context-only
+GIN,Guinea,0,0,0,0,0,1,1,0,0,3,Not rated
+GNB,Guinea-Bissau,0,0,0,0,0,1,1,0,0,3,Not rated
+GUY,Guyana,0,0,0,0,0,1,1,0,0,3,Not rated
+HTI,Haiti,0,0,0,0,0,1,1,0,0,3,Not rated
+HND,Honduras,0,0,0,0,0,1,1,0,0,3,Not rated
+HKG,Hong Kong SAR,1,1,1,1,1,1,1,0,1,8,Partial rating
+HUN,Hungary,1,1,1,1,1,1,1,0,1,8,Partial rating
+ISL,Iceland,1,1,1,1,1,1,1,0,1,8,Partial rating
+IND,India,1,1,1,1,0,1,1,0,1,7,Context-only
+IDN,Indonesia,0,0,0,0,0,1,1,0,1,4,Not rated
+IRN,Iran,0,0,0,0,0,1,1,0,0,3,Not rated
+IRQ,Iraq,0,0,0,0,0,1,1,0,0,3,Not rated
+IRL,Ireland,1,1,1,1,1,1,1,0,1,8,Partial rating
+ISR,Israel,1,1,1,1,1,1,1,0,1,8,Partial rating
+ITA,Italy,1,1,1,1,1,1,1,0,1,8,Partial rating
+CIV,Ivory Coast,0,0,0,0,0,1,1,0,1,4,Not rated
+JAM,Jamaica,0,0,1,0,0,1,1,0,1,5,Context-only
+JPN,Japan,1,1,1,1,1,1,1,0,1,8,Partial rating
+JOR,Jordan,0,0,0,0,0,1,1,0,1,4,Not rated
+KAZ,Kazakhstan,0,0,0,0,0,1,1,0,1,4,Not rated
+KEN,Kenya,0,0,0,0,0,1,1,0,1,4,Not rated
+KWT,Kuwait,0,0,0,0,0,1,1,0,1,4,Not rated
+KGZ,Kyrgyzstan,0,0,0,0,0,1,1,0,0,3,Not rated
+LAO,Laos,0,0,0,0,0,1,1,0,0,3,Not rated
+LVA,Latvia,1,1,1,1,1,1,1,0,1,8,Partial rating
+LBN,Lebanon,0,0,0,0,0,1,1,0,1,4,Not rated
+LSO,Lesotho,0,0,0,0,0,1,1,0,0,3,Not rated
+LBY,Libya,0,0,0,0,0,1,1,0,0,3,Not rated
+LUX,Luxembourg,1,1,1,1,1,1,1,0,1,8,Partial rating
+MAC,Macao SAR,0,0,0,0,0,1,1,0,1,4,Not rated
+MDG,Madagascar,0,0,0,0,0,1,1,0,0,3,Not rated
+MWG,Malawi,0,0,0,0,0,1,1,0,0,3,Not rated
+MYS,Malaysia,1,1,1,1,0,1,1,0,1,7,Context-only
+MLI,Mali,0,0,0,0,0,1,1,0,0,3,Not rated
+MLT,Malta,1,1,1,1,1,1,1,0,1,8,Partial rating
+MRT,Mauritania,0,0,0,0,0,1,1,0,0,3,Not rated
+MUS,Mauritius,0,0,0,0,0,1,1,0,1,4,Not rated
+MEX,Mexico,0,0,1,0,0,1,1,0,1,5,Context-only
+MDA,Moldova,0,0,0,0,0,1,1,0,1,4,Not rated
+MNG,Mongolia,0,0,0,0,0,1,1,0,1,4,Not rated
+MAR,Morocco,0,0,0,0,0,1,1,0,1,4,Not rated
+MOZ,Mozambique,0,0,0,0,0,1,1,0,0,3,Not rated
+MMR,Myanmar,0,0,0,0,0,1,1,0,0,3,Not rated
+NAM,Namibia,0,0,0,0,0,1,1,0,1,4,Not rated
+NPL,Nepal,0,0,0,0,0,1,1,0,0,3,Not rated
+NLD,Netherlands,1,1,1,1,1,1,1,0,1,8,Partial rating
+NZL,New Zealand,1,1,1,1,1,1,1,0,1,8,Partial rating
+NIC,Nicaragua,0,0,0,0,0,1,1,0,0,3,Not rated
+NER,Niger,0,0,0,0,0,1,1,0,0,3,Not rated
+NGA,Nigeria,0,0,0,0,0,1,1,0,1,4,Not rated
+KOR,South Korea,1,1,1,1,1,1,1,0,1,8,Partial rating
+MKD,North Macedonia,1,1,1,1,1,1,1,0,1,8,Partial rating
+NOR,Norway,1,1,1,1,1,1,1,0,1,8,Partial rating
+OMN,Oman,0,0,0,0,0,1,1,0,1,4,Not rated
+PAK,Pakistan,0,0,0,0,0,1,1,0,1,4,Not rated
+PAN,Panama,0,0,1,0,0,1,1,0,1,5,Context-only
+PRY,Paraguay,0,0,0,0,0,1,1,0,0,3,Not rated
+PER,Peru,0,0,1,0,0,1,1,0,1,5,Context-only
+PHL,Philippines,0,0,1,0,0,1,1,0,1,5,Context-only
+POL,Poland,1,1,1,1,1,1,1,0,1,8,Partial rating
+PRT,Portugal,1,1,1,1,1,1,1,0,1,8,Partial rating
+QAT,Qatar,0,0,0,0,0,1,1,0,1,4,Not rated
+ROU,Romania,1,1,1,1,1,1,1,0,1,8,Partial rating
+RUS,Russian Federation,1,1,0,1,0,1,1,0,1,6,Context-only
+RWA,Rwanda,0,0,0,0,0,1,1,0,1,4,Not rated
+SAU,Saudi Arabia,0,0,0,0,0,1,1,0,1,4,Not rated
+SEN,Senegal,0,0,0,0,0,1,1,0,1,4,Not rated
+SGP,Singapore,1,1,1,1,1,1,1,0,1,8,Partial rating
+SVN,Slovenia,1,1,1,1,1,1,1,0,1,8,Partial rating
+ZAF,South Africa,0,0,1,0,0,1,1,0,1,5,Context-only
+ESP,Spain,1,1,1,1,1,1,1,0,1,8,Partial rating
+LKA,Sri Lanka,0,0,0,0,0,1,1,0,1,4,Not rated
+SDN,Sudan,0,0,0,0,0,1,1,0,0,3,Not rated
+SDN,South Sudan,0,0,0,0,0,1,1,0,0,3,Not rated
+SYR,Syria,0,0,0,0,0,1,1,0,0,3,Not rated
+TWN,Taiwan,1,1,1,1,1,1,1,0,1,8,Partial rating
+TJK,Tajikistan,0,0,0,0,0,1,1,0,0,3,Not rated
+TZA,Tanzania,0,0,0,0,0,1,1,0,1,4,Not rated
+THA,Thailand,0,0,0,0,0,1,1,0,1,4,Not rated
+TGO,Togo,0,0,0,0,0,1,1,0,0,3,Not rated
+TTO,Trinidad and Tobago,0,0,1,0,0,1,1,0,1,5,Context-only
+TUN,Tunisia,0,0,0,0,0,1,1,0,1,4,Not rated
+TUR,Turkey,0,0,1,0,0,1,1,0,1,5,Context-only
+TKM,Turkmenistan,0,0,0,0,0,1,1,0,0,3,Not rated
+UGA,Uganda,0,0,0,0,0,1,1,0,1,4,Not rated
+UKR,Ukraine,1,1,0,1,0,1,1,0,1,6,Context-only
+ARE,United Arab Emirates,0,0,0,0,0,1,1,0,1,4,Not rated
+GBR,United Kingdom,1,1,1,1,1,1,1,0,1,8,Partial rating
+USA,United States,1,1,1,1,1,1,1,0,1,8,Partial rating
+URY,Uruguay,0,0,1,0,0,1,1,0,1,5,Context-only
+UZB,Uzbekistan,0,0,0,0,0,1,1,0,1,4,Not rated
+VEN,Venezuela,0,0,0,0,0,1,1,0,0,3,Not rated
+VNM,Vietnam,0,0,0,0,0,1,1,0,1,4,Not rated
+YEM,Yemen,0,0,0,0,0,1,1,0,0,3,Not rated
+ZMB,Zambia,0,0,0,0,0,1,1,0,0,3,Not rated
+ZWE,Zimbabwe,0,0,0,0,0,1,1,0,0,3,Not rated

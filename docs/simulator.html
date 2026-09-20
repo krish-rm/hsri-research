@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HSRI Global Observatory | Interactive Stress-Test Simulator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-deep: #060b14;
+      --bg-surface: #0b1528;
+      --bg-card: rgba(14, 25, 48, 0.7);
+      --bg-card-hover: rgba(20, 36, 68, 0.85);
+      --border-subtle: rgba(212, 175, 55, 0.18);
+      --border-gold: rgba(212, 175, 55, 0.45);
+      --gold-primary: #d4af37;
+      --gold-bright: #f3cf65;
+      --cyan-glow: #00d2ff;
+      --emerald-safe: #00e699;
+      --ruby-risk: #ff4d6d;
+      --text-main: #e8eef8;
+      --text-muted: #8ba0c2;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-display: 'Cinzel', serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-deep);
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(0, 210, 255, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 20%, rgba(212, 175, 55, 0.07) 0%, transparent 45%),
+        linear-gradient(180deg, #060b14 0%, #080f1d 100%);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* UN / Multilateral Header Bar */
+    header {
+      border-bottom: 1px solid var(--border-subtle);
+      background: rgba(6, 11, 20, 0.88);
+      backdrop-filter: blur(16px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 0.85rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+
+    .emblem {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1.5px solid var(--gold-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 16px rgba(212, 175, 55, 0.25);
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, rgba(11, 21, 40, 0.8) 100%);
+    }
+
+    .emblem svg {
+      width: 26px;
+      height: 26px;
+      fill: var(--gold-bright);
+    }
+
+    .titles h1 {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      letter-spacing: 0.08em;
+      color: #fff;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .titles p {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      color: var(--gold-primary);
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .header-nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.84rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      transition: all 0.25s ease;
+    }
+
+    .header-nav a:hover, .header-nav a.active {
+      color: #fff;
+      text-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
+    }
+
+    .status-pill {
+      background: rgba(0, 230, 153, 0.1);
+      border: 1px solid rgba(0, 230, 153, 0.35);
+      color: var(--emerald-safe);
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      padding: 0.35rem 0.85rem;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--emerald-safe);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--emerald-safe);
+      animation: pulse 2s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.6; }
+    }
+
+    /* Main Container */
+    main {
+      max-width: 1540px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* Hero Infotainment Banner */
+    .hero-banner {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .hero-text h2 {
+      font-family: var(--font-display);
+      font-size: 2.1rem;
+      color: #fff;
+      margin-bottom: 0.4rem;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-text p {
+      color: var(--text-muted);
+      max-width: 780px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .live-clock-panel {
+      text-align: right;
+      font-family: var(--font-mono);
+    }
+
+    .live-clock-panel .timestamp {
+      font-size: 1.1rem;
+      color: var(--gold-bright);
+      font-weight: 600;
+    }
+
+    .live-clock-panel .label {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* The Interactive Grid */
+    .interactive-grid {
+      display: grid;
+      grid-template-columns: 370px 1fr 410px;
+      gap: 1.8rem;
+    }
+
+    /* Cards Base */
+    .panel-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.45);
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .panel-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+      opacity: 0.7;
+    }
+
+    .card-title {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--gold-primary);
+      font-weight: 700;
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Left: Scenario & Shock Controller */
+    .slider-block {
+      margin-bottom: 1.5rem;
+      background: rgba(6, 13, 27, 0.6);
+      padding: 1rem;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .slider-header span {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .tier-badge {
+      background: rgba(212, 175, 55, 0.15);
+      border: 1px solid var(--gold-primary);
+      color: var(--gold-bright);
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .custom-range {
+      width: 100%;
+      height: 6px;
+      border-radius: 5px;
+      background: #182846;
+      outline: none;
+      -webkit-appearance: none;
+      accent-color: var(--gold-primary);
+      cursor: pointer;
+    }
+
+    .slider-ticks {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.68rem;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+    }
+
+    .scenario-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .scenario-btn {
+      background: rgba(14, 25, 48, 0.9);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 8px;
+      padding: 0.85rem;
+      text-align: left;
+      cursor: pointer;
+      color: var(--text-main);
+      transition: all 0.25s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .scenario-btn:hover {
+      background: rgba(25, 43, 80, 0.9);
+      border-color: var(--border-gold);
+      transform: translateX(3px);
+    }
+
+    .scenario-btn.selected {
+      border: 1px solid var(--gold-primary);
+      background: linear-gradient(90deg, rgba(212, 175, 55, 0.18) 0%, rgba(14, 25, 48, 0.9) 100%);
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+    }
+
+    .scenario-btn .s-meta {
+      font-size: 0.7rem;
+      color: var(--gold-bright);
+      font-family: var(--font-mono);
+    }
+
+    .scenario-btn .s-name {
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: #fff;
+      margin-top: 0.2rem;
+    }
+
+    .scenario-btn .s-impact {
+      font-size: 0.75rem;
+      color: var(--ruby-risk);
+      font-weight: 600;
+    }
+
+    .run-btn {
+      background: linear-gradient(135deg, #d4af37 0%, #aa8420 100%);
+      border: none;
+      color: #060b14;
+      font-weight: 700;
+      font-family: var(--font-body);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.95rem;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.35);
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      font-size: 0.85rem;
+      margin-top: auto;
+    }
+
+    .run-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(212, 175, 55, 0.5);
+      filter: brightness(1.1);
+    }
+
+    /* Center: The Global Projection & Interactive Geo-Canvas */
+    .center-stage {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .map-canvas-card {
+      position: relative;
+      height: 480px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .map-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.8rem;
+    }
+
+    .country-selector-wrap {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .country-chip {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 20px;
+      padding: 0.25rem 0.8rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .country-chip.active {
+      background: rgba(0, 210, 255, 0.15);
+      border-color: var(--cyan-glow);
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* SVG Stylized World Map & Arc Simulation */
+    .svg-viewport {
+      flex: 1;
+      width: 100%;
+      background: radial-gradient(circle at center, rgba(14, 28, 56, 0.6) 0%, rgba(6, 12, 22, 0.95) 100%);
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .svg-viewport svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .country-node {
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .country-node:hover circle {
+      fill: var(--gold-bright) !important;
+      r: 10px;
+      filter: drop-shadow(0 0 12px var(--gold-bright));
+    }
+
+    .shock-wave {
+      stroke: var(--ruby-risk);
+      stroke-width: 1.5;
+      fill: none;
+      stroke-dasharray: 6, 4;
+      animation: dash 3s linear infinite;
+    }
+
+    @keyframes dash {
+      to { stroke-dashoffset: -20; }
+    }
+
+    /* Overlay HUD on Map */
+    .hud-stat-box {
+      position: absolute;
+      bottom: 15px;
+      left: 15px;
+      right: 15px;
+      background: rgba(8, 15, 30, 0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      border-radius: 8px;
+      padding: 0.75rem 1.2rem;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+
+    .hud-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hud-item .h-val {
+      font-size: 1.2rem;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      color: #fff;
+    }
+
+    .hud-item .h-lbl {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Bottom: Deep Infotainment Dilemma Bar */
+    .dilemma-card {
+      background: linear-gradient(135deg, rgba(14, 25, 48, 0.8) 0%, rgba(22, 16, 38, 0.8) 100%);
+      border: 1px solid rgba(255, 77, 109, 0.3);
+      padding: 1.2rem 1.5rem;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .dilemma-text h4 {
+      font-size: 0.95rem;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 700;
+    }
+
+    .dilemma-text p {
+      font-size: 0.82rem;
+      color: #b5c2d8;
+      margin-top: 0.3rem;
+      line-height: 1.4;
+    }
+
+    .dilemma-actions {
+      display: flex;
+      gap: 0.8rem;
+      flex-shrink: 0;
+    }
+
+    .opt-btn {
+      padding: 0.65rem 1.1rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .opt-defensive {
+      background: rgba(0, 210, 255, 0.1);
+      border: 1px solid var(--cyan-glow);
+      color: var(--cyan-glow);
+    }
+
+    .opt-defensive:hover {
+      background: var(--cyan-glow);
+      color: #060b14;
+    }
+
+    .opt-regulatory {
+      background: rgba(212, 175, 55, 0.1);
+      border: 1px solid var(--gold-primary);
+      color: var(--gold-bright);
+    }
+
+    .opt-regulatory:hover {
+      background: var(--gold-primary);
+      color: #060b14;
+    }
+
+    /* Right: Real-time Telemetry & Trajectory Analysis */
+    .meter-cluster {
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .meter-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .meter-label-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      color: var(--text-main);
+    }
+
+    .meter-label-row span:last-child {
+      font-family: var(--font-mono);
+      font-weight: 600;
+    }
+
+    .meter-track {
+      height: 7px;
+      background: #111d33;
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .meter-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    /* Trajectory Graph Container */
+    .graph-preview {
+      background: rgba(6, 12, 22, 0.8);
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 1rem;
+      height: 190px;
+      position: relative;
+      margin-bottom: 1.2rem;
+    }
+
+    .graph-preview svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Dispatches Feed */
+    .dispatch-feed {
+      background: rgba(6, 12, 22, 0.65);
+      border-radius: 8px;
+      padding: 0.85rem;
+      border: 1px solid rgba(255,255,255,0.05);
+      flex: 1;
+      overflow-y: auto;
+      max-height: 180px;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .dispatch-item {
+      padding-left: 0.8rem;
+      border-left: 2px solid var(--border-gold);
+      color: #9eb2d1;
+      line-height: 1.35;
+    }
+
+    .dispatch-item .d-time {
+      color: var(--gold-bright);
+      font-weight: 600;
+      margin-right: 0.4rem;
+    }
+
+    .dispatch-item.alert {
+      border-left-color: var(--ruby-risk);
+      color: #ff99ab;
+    }
+
+    /* Interactive modal / popover */
+    .toast-overlay {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: rgba(11, 22, 42, 0.95);
+      border: 1px solid var(--gold-primary);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+      border-radius: 8px;
+      padding: 1rem 1.5rem;
+      z-index: 999;
+      display: none;
+      align-items: center;
+      gap: 1rem;
+      animation: slideUp 0.3s ease;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- UN-Tier Header -->
+  <header>
+    <div class="brand-wrap">
+      <div class="emblem">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" fill="none"/>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" fill="none" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M2 12h20" stroke="currentColor" stroke-width="1.2"/>
+        </svg>
+      </div>
+      <div class="titles">
+        <h1>Human Superintelligence Readiness Index</h1>
+        <p>Global Cognitive Observatory & Frontier Simulation Desk</p>
+      </div>
+    </div>
+
+    <div class="header-nav">
+      <a href="#" class="active">Stress-Test Simulator</a>
+      <a href="#">Global Index 2026</a>
+      <a href="#">Country Profiles</a>
+      <a href="#">Construct Methodology</a>
+      <div class="status-pill">
+        <span class="status-dot"></span>
+        OBSERVATORY LIVE : FEED SYNCED
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Experience -->
+  <main>
+    <section class="hero-banner">
+      <div class="hero-text">
+        <h2>Frontier Cognitive Stress-Tester</h2>
+        <p>
+          Experience how national cognitive autonomy, epistemic trust, and institutional agility respond when subjected to rapid advancements in autonomous superintelligence. Select an AI tier, trigger systemic shockwaves, and stress-test policy resilience in real-time.
+        </p>
+      </div>
+      <div class="live-clock-panel">
+        <div class="timestamp" id="liveClock">2026.09.16 // 01:30:14 UTC</div>
+        <div class="label">Multilateral Evaluation Cycle: Phase IV</div>
+      </div>
+    </section>
+
+    <!-- 3-Column Interactive Layout -->
+    <div class="interactive-grid">
+
+      <!-- Column 1: Scenario Controller -->
+      <section class="panel-card">
+        <div class="card-title">
+          <span>01 // Scenario Parameters</span>
+        </div>
+
+        <div class="slider-block">
+          <div class="slider-header">
+            <span>AI Capability Horizon</span>
+            <span class="tier-badge" id="tierDisplay">Tier 4 : Agentic AGI</span>
+          </div>
+          <input type="range" id="capabilitySlider" min="1" max="5" value="4" class="custom-range" />
+          <div class="slider-ticks">
+            <span>L1 Narrow</span>
+            <span>L2 Reason</span>
+            <span>L3 Expert</span>
+            <span>L4 Agentic</span>
+            <span>L5 ASI</span>
+          </div>
+        </div>
+
+        <div class="card-title" style="margin-top: 0.5rem;">
+          <span>Select Frontier Shock Vector</span>
+        </div>
+
+        <div class="scenario-list">
+          <div class="scenario-btn selected" data-scenario="collapse" onclick="selectScenario(this, 'Automated Epistemic Collapse', 84, 38, 79)">
+            <div>
+              <div class="s-meta">SHOCK CODE: SEC-28</div>
+              <div class="s-name">Automated Epistemic Collapse</div>
+            </div>
+            <div class="s-impact">High Drift</div>
+          </div>
+
+          <div class="scenario-btn" data-scenario="persuasion" onclick="selectScenario(this, 'Recursive Agentic Persuasion', 72, 44, 65)">
+            <div>
+              <div class="s-meta">SHOCK CODE: RAP-29</div>
+              <div class="s-name">Recursive Agentic Persuasion</div>
+            </div>
+            <div class="s-impact">Mod-High</div>
+          </div>
+
+          <div class="scenario-btn" data-scenario="splinter" onclick="selectScenario(this, 'Post-Truth Consensus Splintering', 91, 28, 88)">
+            <div>
+              <div class="s-meta">SHOCK CODE: PCS-30</div>
+              <div class="s-name">Consensus Splintering Shock</div>
+            </div>
+            <div class="s-impact">Critical</div>
+          </div>
+
+          <div class="scenario-btn" data-scenario="sycophancy" onclick="selectScenario(this, 'Hyper-Sycophantic Feedback Loop', 62, 59, 50)">
+            <div>
+              <div class="s-meta">SHOCK CODE: HSF-27</div>
+              <div class="s-name">Hyper-Sycophancy Loop</div>
+            </div>
+            <div class="s-impact">Systemic</div>
+          </div>
+        </div>
+
+        <button class="run-btn" id="runSimulationBtn" onclick="runSimulation()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="5 3 19 12 5 21 5 3"/>
+          </svg>
+          Execute Stress Simulation
+        </button>
+      </section>
+
+      <!-- Column 2: Center Stage Interactive Map & Dilemma HUD -->
+      <section class="center-stage">
+        <div class="panel-card map-canvas-card">
+          <div class="map-header">
+            <div class="card-title" style="margin-bottom: 0;">
+              <span>02 // Societal Cognitive Propagation Field</span>
+            </div>
+            <div class="country-selector-wrap">
+              <span class="country-chip active" onclick="switchFocusCountry(this, 'Estonia', 84.2, 'Nordic-Baltic Hub')">Estonia</span>
+              <span class="country-chip" onclick="switchFocusCountry(this, 'Singapore', 88.5, 'ASEAN Innovation Hub')">Singapore</span>
+              <span class="country-chip" onclick="switchFocusCountry(this, 'United States', 74.3, 'North America')">USA</span>
+              <span class="country-chip" onclick="switchFocusCountry(this, 'Germany', 76.8, 'Central Europe')">Germany</span>
+              <span class="country-chip" onclick="switchFocusCountry(this, 'Global Average', 58.4, 'Aggregate UN-193')">Global Avg</span>
+            </div>
+          </div>
+
+          <div class="svg-viewport" id="viewport">
+            <svg viewBox="0 0 800 400">
+              <defs>
+                <linearGradient id="arcGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#00d2ff" stop-opacity="0.9"/>
+                  <stop offset="100%" stop-color="#ff4d6d" stop-opacity="0.9"/>
+                </linearGradient>
+                <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feGaussianBlur stdDeviation="3" result="glow"/>
+                  <feComposite in="SourceGraphic" in2="glow" operator="over"/>
+                </filter>
+              </defs>
+
+              <!-- Stylized World Map Continents Outline -->
+              <path d="M 120,90 Q 200,70 260,110 T 290,170 T 200,240 T 140,160 Z" fill="#0c1932" stroke="#1c305c" stroke-width="1.2"/>
+              <path d="M 230,220 Q 300,250 280,340 T 220,380 T 180,280 Z" fill="#0b172e" stroke="#1c305c" stroke-width="1.2"/>
+              <path d="M 400,80 Q 480,60 520,100 T 470,160 T 390,130 Z" fill="#0e1f3d" stroke="#1c305c" stroke-width="1.2"/>
+              <path d="M 410,160 Q 490,170 480,260 T 430,320 T 380,220 Z" fill="#0c1830" stroke="#1c305c" stroke-width="1.2"/>
+              <path d="M 520,80 Q 700,60 720,150 T 630,240 T 510,170 Z" fill="#0d1b36" stroke="#1c305c" stroke-width="1.2"/>
+              <path d="M 640,260 Q 730,270 710,340 T 620,330 Z" fill="#0c1830" stroke="#1c305c" stroke-width="1.2"/>
+
+              <!-- Shock Transmission Dynamic Arcs -->
+              <path id="shockArc1" d="M 220,120 Q 350,40 450,100" class="shock-wave"/>
+              <path id="shockArc2" d="M 450,100 Q 560,110 650,160" class="shock-wave" style="animation-delay: 1s;"/>
+              <path id="shockArc3" d="M 650,160 Q 450,260 250,290" class="shock-wave" style="animation-delay: 2s;"/>
+
+              <!-- Country Epicenter Nodes -->
+              <!-- USA -->
+              <g class="country-node" onclick="focusNode('USA', 74.3)">
+                <circle cx="210" cy="125" r="7" fill="#00d2ff" filter="url(#glow)"/>
+                <text x="222" y="129" fill="#8ba0c2" font-size="11" font-family="JetBrains Mono">USA (74.3)</text>
+              </g>
+
+              <!-- Estonia / Europe -->
+              <g class="country-node" onclick="focusNode('Estonia', 84.2)">
+                <circle cx="455" cy="98" r="8" fill="#d4af37" filter="url(#glow)"/>
+                <text x="468" y="102" fill="#d4af37" font-size="11" font-weight="600" font-family="JetBrains Mono">ESTONIA (84.2)</text>
+              </g>
+
+              <!-- Singapore -->
+              <g class="country-node" onclick="focusNode('Singapore', 88.5)">
+                <circle cx="630" cy="225" r="8" fill="#00e699" filter="url(#glow)"/>
+                <text x="642" y="229" fill="#00e699" font-size="11" font-family="JetBrains Mono">SINGAPORE (88.5)</text>
+              </g>
+
+              <!-- Shock Origin Indicator -->
+              <circle cx="455" cy="98" r="22" fill="none" stroke="#ff4d6d" stroke-width="1.2" opacity="0.6">
+                <animate attributeName="r" values="8;35" dur="2.5s" repeatCount="indefinite"/>
+                <animate attributeName="opacity" values="0.8;0" dur="2.5s" repeatCount="indefinite"/>
+              </circle>
+            </svg>
+
+            <!-- Bottom HUD Stats Overlay -->
+            <div class="hud-stat-box">
+              <div class="hud-item">
+                <span class="h-val" id="hudCountry">ESTONIA</span>
+                <span class="h-lbl">Focused Sovereign Node</span>
+              </div>
+              <div class="hud-item">
+                <span class="h-val" id="hudScore" style="color: var(--gold-bright);">84.2 / 100</span>
+                <span class="h-lbl">Baseline HSRI Score</span>
+              </div>
+              <div class="hud-item">
+                <span class="h-val" id="hudSurv" style="color: var(--emerald-safe);">92.4%</span>
+                <span class="h-lbl">Autonomous Agency Retention</span>
+              </div>
+              <div class="hud-item">
+                <span class="h-val" id="hudLatency" style="color: var(--cyan-glow);">4.2 hrs</span>
+                <span class="h-lbl">Institutional Response Latency</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Experiential Dilemma Trigger -->
+        <div class="dilemma-card">
+          <div class="dilemma-text">
+            <h4>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#ff4d6d">
+                <path d="M12 2L1 21h22L12 2zm0 3.5L20.3 19H3.7L12 5.5zM11 10v4h2v-4h-2zm0 6v2h2v-2h-2z"/>
+              </svg>
+              Live Policy Dilemma // Epistemic Quarantine vs. Open Deliberation
+            </h4>
+            <p>
+              Frontier autonomous agents have flooded municipal decision portals with synthetic hyper-persuasive consensus briefs. What counter-measure does the sovereign state enact?
+            </p>
+          </div>
+          <div class="dilemma-actions">
+            <button class="opt-btn opt-defensive" onclick="applyPolicy('Air-gap automated policy intake; trigger citizen human deliberative juries.', +6, -14)">
+              Option A: Epistemic Air-Gap (+6 Agency)
+            </button>
+            <button class="opt-btn opt-regulatory" onclick="applyPolicy('Enforce cryptographic provenance watermarking across all synthetic data.', +12, -4)">
+              Option B: Cryptographic Provenance (+12 Agency)
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Column 3: Real-Time Telemetry & Outcomes -->
+      <section class="panel-card">
+        <div class="card-title">
+          <span>03 // Real-Time Cognitive Telemetry</span>
+        </div>
+
+        <div class="meter-cluster">
+          <div class="meter-row">
+            <div class="meter-label-row">
+              <span>Epistemic Drift</span>
+              <span id="valDrift" style="color: var(--ruby-risk);">74%</span>
+            </div>
+            <div class="meter-track">
+              <div class="meter-fill" id="barDrift" style="width: 74%; background: linear-gradient(90deg, #ff99ab, var(--ruby-risk));"></div>
+            </div>
+          </div>
+
+          <div class="meter-row">
+            <div class="meter-label-row">
+              <span>Cognitive Autonomy Preservation</span>
+              <span id="valAutonomy" style="color: var(--emerald-safe);">42%</span>
+            </div>
+            <div class="meter-track">
+              <div class="meter-fill" id="barAutonomy" style="width: 42%; background: linear-gradient(90deg, #00b377, var(--emerald-safe));"></div>
+            </div>
+          </div>
+
+          <div class="meter-row">
+            <div class="meter-label-row">
+              <span>Sycophancy Susceptibility Index</span>
+              <span id="valSycophancy" style="color: var(--gold-bright);">68%</span>
+            </div>
+            <div class="meter-track">
+              <div class="meter-fill" id="barSycophancy" style="width: 68%; background: linear-gradient(90deg, #aa8420, var(--gold-bright));"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-title" style="margin-top: 0.5rem;">
+          <span>10-Year Trajectory Under Shock</span>
+        </div>
+
+        <div class="graph-preview">
+          <svg viewBox="0 0 320 150">
+            <!-- Grid lines -->
+            <line x1="20" y1="20" x2="300" y2="20" stroke="rgba(255,255,255,0.06)" stroke-dasharray="3,3"/>
+            <line x1="20" y1="60" x2="300" y2="60" stroke="rgba(255,255,255,0.06)" stroke-dasharray="3,3"/>
+            <line x1="20" y1="100" x2="300" y2="100" stroke="rgba(255,255,255,0.06)" stroke-dasharray="3,3"/>
+            <line x1="20" y1="130" x2="300" y2="130" stroke="rgba(255,255,255,0.1)"/>
+
+            <!-- Trajectory Path: Baseline vs Collapse -->
+            <!-- Without Intervention -->
+            <path d="M 20,40 Q 100,50 160,95 T 300,125" fill="none" stroke="#ff4d6d" stroke-width="2.5" id="trajectoryShock"/>
+            <!-- With Intervention -->
+            <path d="M 20,40 Q 110,42 180,48 T 300,32" fill="none" stroke="#00e699" stroke-width="2" stroke-dasharray="4,4" id="trajectorySafe"/>
+
+            <text x="25" y="145" fill="#5b6f8c" font-size="9" font-family="JetBrains Mono">2026</text>
+            <text x="150" y="145" fill="#5b6f8c" font-size="9" font-family="JetBrains Mono">2030</text>
+            <text x="275" y="145" fill="#5b6f8c" font-size="9" font-family="JetBrains Mono">2036</text>
+
+            <text x="210" y="120" fill="#ff4d6d" font-size="9" font-weight="600" font-family="JetBrains Mono">Shock Cascade</text>
+            <text x="210" y="28" fill="#00e699" font-size="9" font-weight="600" font-family="JetBrains Mono">Resilient Path</text>
+          </svg>
+        </div>
+
+        <div class="card-title">
+          <span>Diplomatic Intelligence Log</span>
+        </div>
+
+        <div class="dispatch-feed" id="dispatchFeed">
+          <div class="dispatch-item alert">
+            <span class="d-time">[01:30:11]</span>
+            <strong>ALARM:</strong> Automated synthetic persuasion campaigns detected targeting regional policy forums.
+          </div>
+          <div class="dispatch-item">
+            <span class="d-time">[01:28:45]</span>
+            Estonian X-Road cryptographically verified 98.4% of municipal inputs. Drift held at 4.2%.
+          </div>
+          <div class="dispatch-item">
+            <span class="d-time">[01:25:02]</span>
+            Global mean sycophancy index rose +3.1 pts following widespread adoption of autonomous agent assistants.
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Interactive Feedback Toast -->
+  <div class="toast-overlay" id="toastBox">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="var(--gold-bright)">
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+    </svg>
+    <div id="toastMessage" style="font-size: 0.85rem; color: #fff;"></div>
+  </div>
+
+  <script>
+    // Live Clock updater
+    function updateClock() {
+      const now = new Date();
+      const yr = now.getUTCFullYear();
+      const mo = String(now.getUTCMonth()+1).padStart(2,'0');
+      const da = String(now.getUTCDate()).padStart(2,'0');
+      const hr = String(now.getUTCHours()).padStart(2,'0');
+      const mi = String(now.getUTCMinutes()).padStart(2,'0');
+      const sc = String(now.getUTCSeconds()).padStart(2,'0');
+      document.getElementById('liveClock').textContent = `${yr}.${mo}.${da} // ${hr}:${mi}:${sc} UTC`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // AI Capability Slider Listener
+    const slider = document.getElementById('capabilitySlider');
+    const tierDisplay = document.getElementById('tierDisplay');
+    const tierNames = [
+      "Tier 1 : Task Narrow AI",
+      "Tier 2 : Reasoning Co-Pilots",
+      "Tier 3 : Domain Expert AI",
+      "Tier 4 : Agentic AGI",
+      "Tier 5 : Autonomous Superintelligence"
+    ];
+
+    slider.addEventListener('input', (e) => {
+      const val = parseInt(e.target.value);
+      tierDisplay.textContent = tierNames[val-1];
+      showToast(`AI Capability Horizon updated to: ${tierNames[val-1]}`);
+      recalculateTelemetry();
+    });
+
+    // Scenario selection
+    function selectScenario(btn, name, drift, autonomy, sycophancy) {
+      document.querySelectorAll('.scenario-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      updateMeters(drift, autonomy, sycophancy);
+      addDispatch(`SCENARIO ACTIVATED: ${name}. Shock vectors recalibrated.`, true);
+      showToast(`Active Shock Vector: ${name}`);
+    }
+
+    // Switch focused nation
+    function switchFocusCountry(chip, name, score, region) {
+      document.querySelectorAll('.country-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      document.getElementById('hudCountry').textContent = name.toUpperCase();
+      document.getElementById('hudScore').textContent = `${score} / 100`;
+      showToast(`Observer focused on ${name} (${region})`);
+      addDispatch(`Sensor telemetry focused on ${name}. Verified baseline index: ${score}.`);
+    }
+
+    function focusNode(name, score) {
+      document.getElementById('hudCountry').textContent = name.toUpperCase();
+      document.getElementById('hudScore').textContent = `${score} / 100`;
+      showToast(`Geo-node pinned: ${name}`);
+      addDispatch(`Diplomatic probe engaged on node [${name}]. Score: ${score}.`);
+    }
+
+    // Policy dilemma choice
+    function applyPolicy(desc, agencyBonus, driftDelta) {
+      let currentAutonomy = parseInt(document.getElementById('valAutonomy').textContent);
+      let currentDrift = parseInt(document.getElementById('valDrift').textContent);
+
+      let newAutonomy = Math.min(100, Math.max(10, currentAutonomy + agencyBonus));
+      let newDrift = Math.min(100, Math.max(10, currentDrift + driftDelta));
+
+      updateMeters(newDrift, newAutonomy, parseInt(document.getElementById('valSycophancy').textContent) - 5);
+      showToast(`Policy Enacted: ${desc.substring(0, 45)}...`);
+      addDispatch(`POLICY RESOLUTION: ${desc}. Net autonomy shift: +${agencyBonus}%.`);
+    }
+
+    function updateMeters(drift, autonomy, sycophancy) {
+      document.getElementById('valDrift').textContent = `${drift}%`;
+      document.getElementById('barDrift').style.width = `${drift}%`;
+
+      document.getElementById('valAutonomy').textContent = `${autonomy}%`;
+      document.getElementById('barAutonomy').style.width = `${autonomy}%`;
+
+      document.getElementById('valSycophancy').textContent = `${sycophancy}%`;
+      document.getElementById('barSycophancy').style.width = `${sycophancy}%`;
+    }
+
+    function recalculateTelemetry() {
+      const tier = parseInt(slider.value);
+      const drift = Math.min(95, 25 + (tier * 14));
+      const autonomy = Math.max(15, 90 - (tier * 13));
+      const sycophancy = Math.min(90, 30 + (tier * 11));
+      updateMeters(drift, autonomy, sycophancy);
+    }
+
+    function runSimulation() {
+      const btn = document.getElementById('runSimulationBtn');
+      btn.innerHTML = `Simulating Cascade Dynamics...`;
+      btn.style.filter = "brightness(1.4)";
+      
+      setTimeout(() => {
+        btn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg> Execute Stress Simulation`;
+        btn.style.filter = "none";
+        showToast("Simulation Complete: Cascade trajectories computed.");
+        addDispatch("SIMULATION RESULT: Cascade model projected 2026-2036. Significant epistemic vulnerability flagged for un-anchored governance systems.", true);
+      }, 1200);
+    }
+
+    function addDispatch(text, isAlert = false) {
+      const feed = document.getElementById('dispatchFeed');
+      const item = document.createElement('div');
+      item.className = isAlert ? 'dispatch-item alert' : 'dispatch-item';
+      
+      const now = new Date();
+      const timeStr = `[${String(now.getUTCHours()).padStart(2,'0')}:${String(now.getUTCMinutes()).padStart(2,'0')}:${String(now.getUTCSeconds()).padStart(2,'0')}]`;
+      item.innerHTML = `<span class="d-time">${timeStr}</span> ${text}`;
+      
+      feed.insertBefore(item, feed.firstChild);
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toastBox');
+      document.getElementById('toastMessage').textContent = msg;
+      toast.style.display = 'flex';
+      clearTimeout(window.toastTimer);
+      window.toastTimer = setTimeout(() => {
+        toast.style.display = 'none';
+      }, 3500);
+    }
+  </script>
+</body>
+</html>

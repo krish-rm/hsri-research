@@ -1,0 +1,461 @@
+---
+import HSRILayout from '../layouts/HSRILayout.astro';
+import HSRIHeader from '../components/HSRIHeader.svelte';
+import MethodologyOverview from '../components/MethodologyOverview.svelte';
+import HSRIFooter from '../components/HSRIFooter.svelte';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<HSRILayout>
+  <div class="methodology-page">
+    <div class="page-header">
+      <h1>Methodology</h1>
+      <p class="subtitle">Understanding how the Human Superintelligence Readiness Index is calculated and validated</p>
+    </div>
+
+    <div class="methodology-content">
+      <div class="methodology-sidebar">
+        <nav class="sidebar-nav">
+          <a href="#overview" class="nav-btn active" data-section="overview">Overview</a>
+          <a href="#pillars" class="nav-btn" data-section="pillars">The Four Pillars</a>
+          <a href="#indicators" class="nav-btn" data-section="indicators">Indicators Catalog</a>
+          <a href="#scoring" class="nav-btn" data-section="scoring">Scoring Methodology</a>
+          <a href="#validation" class="nav-btn" data-section="validation">Statistical Validation</a>
+          <a href="#limitations" class="nav-btn" data-section="limitations">Limitations</a>
+        </nav>
+
+        <div class="download-section">
+          <h4>Download Datasets</h4>
+          <ul>
+            <li><a href={`${base}/data/indicators.csv`} download="indicators.csv">Harmonized Indicators (CSV)</a></li>
+            <li><a href={`${base}/data/indicators.json`} download="indicators.json">Indicator Metadata (JSON)</a></li>
+            <li><a href={`${base}/data/pillar_scores.csv`} download="pillar_scores.csv">Pillar Scores Dataset (CSV)</a></li>
+            <li><a href={`${base}/data/final_country_scores.csv`} download="final_country_scores.csv">Benchmark Scores (CSV)</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="methodology-main">
+        <MethodologyOverview client:load />
+      </div>
+    </div>
+
+    <HSRIFooter />
+  </div>
+
+  <style>
+    .methodology-page {
+      min-height: 100vh;
+      background-color: var(--surface-color);
+    }
+
+    .page-header {
+      text-align: center;
+      padding: var(--spacing-2xl) var(--spacing-lg);
+      background: linear-gradient(135deg, var(--primary-color) 0%, #1e40af 100%);
+      color: white;
+      margin-bottom: var(--spacing-2xl);
+    }
+
+    .page-header h1 {
+      font-size: var(--font-size-3xl);
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .subtitle {
+      font-size: var(--font-size-lg);
+      opacity: 0.9;
+    }
+
+    .methodology-content {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: var(--spacing-xl);
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 var(--spacing-lg);
+    }
+
+    .methodology-sidebar {
+      position: sticky;
+      top: 100px;
+      height: fit-content;
+    }
+
+    .sidebar-nav {
+      background-color: white;
+      border-radius: 0.5rem;
+      padding: var(--spacing-md);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .nav-btn {
+      width: 100%;
+      padding: var(--spacing-sm) var(--spacing-md);
+      text-align: left;
+      border: none;
+      background: none;
+      font-size: var(--font-size-sm);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s;
+      border-radius: 0.25rem;
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .nav-btn:hover {
+      background-color: var(--surface-color);
+    }
+
+    .nav-btn.active {
+      background-color: var(--primary-color);
+      color: white;
+      font-weight: 600;
+    }
+
+    .download-section {
+      background-color: var(--surface-color);
+      padding: var(--spacing-md);
+      border-radius: 0.5rem;
+    }
+
+    .download-section h4 {
+      margin: 0 0 var(--spacing-md) 0;
+      font-size: var(--font-size-base);
+    }
+
+    .download-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .download-section li {
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .download-section a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-size: var(--font-size-sm);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-xs);
+    }
+
+    .download-section a:hover {
+      text-decoration: underline;
+    }
+
+    .methodology-main {
+      background-color: white;
+      border-radius: 0.5rem;
+      padding: var(--spacing-2xl);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .section-intro {
+      margin-bottom: var(--spacing-2xl);
+    }
+
+    .section-intro h2 {
+      margin: 0 0 var(--spacing-md) 0;
+      font-size: var(--font-size-2xl);
+    }
+
+    .section-intro p {
+      font-size: var(--font-size-lg);
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+
+    .principles-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--spacing-lg);
+      margin-bottom: var(--spacing-2xl);
+    }
+
+    .principle-card {
+      background-color: var(--surface-color);
+      padding: var(--spacing-lg);
+      border-radius: 0.5rem;
+      border: 1px solid var(--border-color);
+    }
+
+    .principle-card h4 {
+      margin: 0 0 var(--spacing-sm) 0;
+      color: var(--primary-color);
+    }
+
+    .principle-card p {
+      margin: 0;
+      font-size: var(--font-size-sm);
+      line-height: 1.5;
+    }
+
+    .methodology-highlights {
+      background-color: var(--surface-color);
+      padding: var(--spacing-lg);
+      border-radius: 0.5rem;
+    }
+
+    .methodology-highlights h3 {
+      margin: 0 0 var(--spacing-md) 0;
+    }
+
+    .methodology-highlights ul {
+      padding-left: var(--spacing-lg);
+      margin: 0;
+    }
+
+    .methodology-highlights li {
+      margin-bottom: var(--spacing-sm);
+      line-height: 1.6;
+    }
+
+    .pillar-item {
+      background-color: var(--surface-color);
+      border-radius: 0.5rem;
+      padding: var(--spacing-lg);
+      margin-bottom: var(--spacing-lg);
+      border: 1px solid var(--border-color);
+    }
+
+    .pillar-header {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-md);
+      margin-bottom: var(--spacing-md);
+    }
+
+    .pillar-icon {
+      font-size: var(--font-size-2xl);
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 0.5rem;
+    }
+
+    .economic { background-color: #dbeafe; }
+    .social { background-color: #fce7f3; }
+    .institutional { background-color: #e0e7ff; }
+    .technological { background-color: #d1fae5; }
+
+    .pillar-header h3 {
+      margin: 0;
+      font-size: var(--font-size-xl);
+    }
+
+    .pillar-weight {
+      background-color: var(--primary-color);
+      color: white;
+      padding: var(--spacing-xs) var(--spacing-md);
+      border-radius: 0.25rem;
+      font-weight: 600;
+    }
+
+    .key-indicators h4 {
+      margin: var(--spacing-md) 0 var(--spacing-sm) 0;
+      font-size: var(--font-size-base);
+    }
+
+    .key-indicators ul {
+      margin: 0;
+      padding-left: var(--spacing-lg);
+    }
+
+    .key-indicators li {
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .coverage-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--spacing-md);
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .coverage-stat {
+      text-align: center;
+      padding: var(--spacing-md);
+      background-color: white;
+      border-radius: 0.5rem;
+    }
+
+    .stat-number {
+      font-size: var(--font-size-2xl);
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    .stat-label {
+      font-size: var(--font-size-sm);
+      color: var(--text-secondary);
+    }
+
+    .indicators-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-sm);
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .indicator-item {
+      display: grid;
+      grid-template-columns: 1fr 120px 150px 100px;
+      gap: var(--spacing-sm);
+      padding: var(--spacing-sm);
+      background-color: white;
+      border-radius: 0.25rem;
+      border: 1px solid var(--border-color);
+      align-items: center;
+    }
+
+    .indicator-name {
+      font-weight: 500;
+    }
+
+    .indicator-pillar {
+      color: var(--primary-color);
+      font-size: var(--font-size-sm);
+    }
+
+    .process-flow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: var(--spacing-md);
+      margin-bottom: var(--spacing-2xl);
+    }
+
+    .process-step {
+      background-color: var(--surface-color);
+      padding: var(--spacing-lg);
+      border-radius: 0.5rem;
+      border: 1px solid var(--border-color);
+      text-align: center;
+      min-width: 180px;
+    }
+
+    .step-number {
+      width: 40px;
+      height: 40px;
+      background-color: var(--primary-color);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      margin: 0 auto var(--spacing-sm);
+    }
+
+    .process-arrow {
+      font-size: var(--font-size-xl);
+      color: var(--text-secondary);
+    }
+
+    .bands-grid {
+      display: grid;
+      gap: var(--spacing-md);
+    }
+
+    .band-item {
+      padding: var(--spacing-lg);
+      border-radius: 0.5rem;
+      border: 1px solid var(--border-color);
+    }
+
+    .high { background-color: #d1fae5; }
+    .good { background-color: #dbeafe; }
+    .moderate { background-color: #fed7aa; }
+    .limited { background-color: #fecaca; }
+    .very-limited { background-color: #fecaca; }
+
+    .band-header {
+      font-weight: 700;
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .validation-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--spacing-lg);
+      margin-bottom: var(--spacing-2xl);
+    }
+
+    .validation-card {
+      background-color: var(--surface-color);
+      padding: var(--spacing-lg);
+      border-radius: 0.5rem;
+      border: 1px solid var(--border-color);
+    }
+
+    .validation-result {
+      margin-top: var(--spacing-sm);
+      padding: var(--spacing-xs) var(--spacing-sm);
+      background-color: white;
+      border-radius: 0.25rem;
+      font-weight: 600;
+    }
+
+    .validation-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--spacing-lg);
+    }
+
+    @media (max-width: 1024px) {
+      .methodology-content {
+        grid-template-columns: 1fr;
+      }
+
+      .methodology-sidebar {
+        position: static;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: var(--spacing-md);
+      }
+
+      .sidebar-nav {
+        order: 2;
+      }
+
+      .download-section {
+        order: 1;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .principles-grid,
+      .validation-grid,
+      .coverage-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .pillar-header {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .process-flow {
+        flex-direction: column;
+      }
+
+      .process-arrow {
+        transform: rotate(90deg);
+      }
+
+      .indicators-list {
+        max-height: none;
+      }
+    }
+  </style>
+</HSRILayout>

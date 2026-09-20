@@ -13,10 +13,10 @@ from typing import Dict, List, Optional
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
 # Core repository paths
-EVIDENCE_TABLE_PATH = REPO_ROOT / "evidence" / "master-evidence-table.csv"
-SCAN_LOG_DIR = REPO_ROOT / "scan-log"
-RESEARCH_MEMORY_PATH = REPO_ROOT / "research_memory.md"
-MODEL_DIVERGENCE_LOG_PATH = REPO_ROOT / "model-divergence-log.csv"
+EVIDENCE_TABLE_PATH = REPO_ROOT / "research" / "evidence" / "master-evidence-table.csv"
+SCAN_LOG_DIR = REPO_ROOT / "hsri_agents" / "logs"
+RESEARCH_MEMORY_PATH = REPO_ROOT / "hsri_agents" / "logs" / "research_memory.md"
+MODEL_DIVERGENCE_LOG_PATH = REPO_ROOT / "hsri_agents" / "logs" / "model-divergence-log.csv"
 DOCS_DIR = REPO_ROOT / "docs"
 
 # Real frontier ensemble providers (Section 5: 7 independent families)

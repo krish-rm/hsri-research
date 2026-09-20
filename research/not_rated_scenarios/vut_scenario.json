@@ -1,0 +1,84 @@
+{
+  "country": "VUT",
+  "category": "island_nations",
+  "template": {
+    "category": "island_nations",
+    "name": "Island Nations",
+    "description": "Small island developing states with unique challenges",
+    "criteria": [
+      "Island geography",
+      "Climate vulnerability",
+      "Limited resources",
+      "International dependency"
+    ],
+    "characteristics": [
+      "Geographic isolation",
+      "Environmental constraints",
+      "Tourism dependency",
+      "International aid reliance"
+    ],
+    "path_to_rating": [
+      "Data capacity building",
+      "Regional cooperation",
+      "Climate resilience integration",
+      "International support coordination"
+    ],
+    "recommendations": [
+      "Focus on resilience indicators",
+      "Participate in regional networks",
+      "Leverage international partnerships",
+      "Develop island-specific metrics"
+    ],
+    "assessment_gaps": [
+      {
+        "name": "Data Coverage Gap",
+        "description": "Insufficient data across multiple pillars",
+        "impact": "Cannot calculate composite score",
+        "severity": "High",
+        "mitigation": "Develop proxy indicators and estimation methods"
+      }
+    ],
+    "timeline_assessment": {
+      "current_status": "Unable to assess",
+      "projection_available": false,
+      "confidence_level": "None",
+      "key_uncertainties": []
+    },
+    "engagement_strategy": {
+      "immediate_actions": [
+        "Initial data collection assessment",
+        "Stakeholder identification",
+        "Baseline establishment"
+      ],
+      "short_term_goals": [
+        "Data quality improvement",
+        "Participatory assessment development",
+        "Regional collaboration"
+      ],
+      "long_term_vision": [
+        "Full integration into HSRI-Proxy framework",
+        "Contribution to methodology refinement",
+        "Knowledge sharing leadership"
+      ]
+    }
+  },
+  "specific_challenges": [
+    "General data limitations"
+  ],
+  "context_factors": [
+    "Limited context information available"
+  ],
+  "engagement_priorities": [
+    "General capacity building"
+  ],
+  "monitoring_indicators": [
+    "General progress indicators"
+  ],
+  "transition_path": "Resilience Building \u2192 Regional Integration \u2192 Full Rating",
+  "last_assessment": {
+    "date": "2026-09-20",
+    "status": "Not Rated",
+    "reason": "Small island developing states with unique challenges",
+    "next_review": "2027-12-31"
+  }
+}

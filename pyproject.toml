@@ -9,8 +9,17 @@ description = "Multi-agent evidence-review and adversarial debate pipeline for H
 readme = "hsri_agents/README.md"
 requires-python = ">=3.9"
 dependencies = [
+    "matplotlib>=3.9.4",
+    "numpy>=2.0.2",
+    "pandas>=2.3.3",
     "requests>=2.28.0",
+    "scikit-learn>=1.6.1",
+    "scipy>=1.13.1",
+    "seaborn>=0.13.2",
 ]
 
 [project.scripts]
 hsri-agents = "hsri_agents.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["hsri_agents*"]

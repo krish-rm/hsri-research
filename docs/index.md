@@ -18,7 +18,7 @@ The **Human Superintelligence Readiness Index (HSRI)** is a research feasibility
 **Epistemic Standard:** Because this is a feasibility assessment about a proposed scientific construct, it holds itself strictly to scientific auditability:
 - Every effect size, citation, and experimental parameter is either traceable to a verified peer-reviewed source or explicitly marked as illustrative or unverified (`[UNVERIFIED — NEEDS SOURCE]`).
 - Spurious precision (e.g., invented decimal effect sizes or fabricated hallucination rates) has been deliberately removed.
-- Claims are categorized into five transparent evidence tiers, with full audit trails cataloged in the [Master Evidence Table](https://github.com/krish-rm/hsri-research/blob/main/evidence/master-evidence-table.csv).
+- Claims are categorized into five transparent evidence tiers, with full audit trails cataloged in the [Master Evidence Table](https://github.com/krish-rm/hsri-research/blob/main/research/evidence/master-evidence-table.csv).
 
 ---
 
@@ -53,7 +53,7 @@ To allow rapid scrutiny by skeptical reviewers, claims across this repository ar
 | **Tier 5: Speculative** | `{: .evidence-speculative }` | Plausible extrapolation or scenario framing; currently outside empirical reach. |
 | **Unverified** | `[UNVERIFIED — NEEDS SOURCE]` | Claim appears in source materials without an identifiable, checked empirical citation. |
 
-All empirical claims are indexed in the [Master Evidence Table](https://github.com/krish-rm/hsri-research/blob/main/evidence/master-evidence-table.csv), detailing claim text, page references, evidence tier, citations, and DOI/URL links.
+All empirical claims are indexed in the [Master Evidence Table](https://github.com/krish-rm/hsri-research/blob/main/research/evidence/master-evidence-table.csv), detailing claim text, page references, evidence tier, citations, and DOI/URL links.
 
 ---
 

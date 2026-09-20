@@ -27,7 +27,7 @@ We actively solicit contributions in three specific areas:
 ## Mandatory Rule: Master Evidence Table Updates
 
 > [!IMPORTANT]
-> **Every pull request that adds, modifies, or challenges an empirical claim MUST update [`evidence/master-evidence-table.csv`](evidence/master-evidence-table.csv).**
+> **Every pull request that adds, modifies, or challenges an empirical claim MUST update [`research/evidence/master-evidence-table.csv`](research/evidence/master-evidence-table.csv).**
 
 When updating `master-evidence-table.csv`:
 - Ensure all 6 columns are populated: `claim, page_reference, evidence_tier, source_citation, source_url_or_doi, notes`.
@@ -48,7 +48,7 @@ When updating `master-evidence-table.csv`:
    ```bash
    git checkout -b feature/propose-source-claim-12
    ```
-2. Make your edits in `docs/` and `evidence/master-evidence-table.csv`.
+2. Make your edits in `docs/` and `research/evidence/master-evidence-table.csv`.
 3. Verify the documentation build locally:
    ```bash
    pip install -r requirements.txt # or pip install mkdocs-material

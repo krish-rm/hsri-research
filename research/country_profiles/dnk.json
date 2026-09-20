@@ -1,0 +1,41 @@
+{
+  "summary": "DNK enters 2026 as a Developing AI readiness nation with a low-level urgency for AI preparedness. Projected critical crossing year is 2061, giving 35 years for preparation. Current readiness score of 0.50 faces exposure levels of 0.50.",
+  "strengths": [],
+  "challenges": [],
+  "timeline_outlook": {
+    "crossing_year": 2061,
+    "preparation_years": 35,
+    "preparation_window": 35,
+    "urgency": "low",
+    "urgency_level": "low",
+    "probability": 0.1,
+    "crossing_probability": 0.1,
+    "phases": {
+      "planning": "2026-2030: Long-term strategy",
+      "development": "2030-2035: Implementation phase",
+      "adaptation": "2035+: Continuous adjustment"
+    }
+  },
+  "recommendations": [
+    "Focus on education",
+    "Build digital infrastructure",
+    "Regional cooperation",
+    "Strategic long-term planning"
+  ],
+  "key_metrics": {
+    "readiness_score": 0.5,
+    "exposure_score": 0.5,
+    "gap_score": 0.0,
+    "status_2026": "Developing",
+    "urgency_level": "low",
+    "crossing_probability": 0.1,
+    "most_likely_crossing": 2061,
+    "preparation_years": 35
+  },
+  "peer_comparisons": {
+    "income_group": "unclassified",
+    "regional_group": "unclassified",
+    "regional_peers": [],
+    "global_rank": "#2/39"
+  }
+}

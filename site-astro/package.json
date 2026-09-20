@@ -1,0 +1,27 @@
+{
+  "name": "site-astro",
+  "version": "1.0.0",
+  "description": "Human Superintelligence Readiness Index - Interactive Website",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "keywords": [
+    "hsri",
+    "ai",
+    "readiness",
+    "index"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@astrojs/svelte": "^9.0.1",
+    "@rolldown/binding-win32-x64-msvc": "^1.2.9",
+    "astro": "^7.3.3",
+    "svelte": "^5.57.1",
+    "vite": "^8.3.0"
+  }
+}

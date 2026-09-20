@@ -26,7 +26,7 @@ This construct anchors readiness to observable, task-specific cognitive asymmetr
 
 ## Audit Trail: Master Evidence Table
 
-- **Audit Matrix:** [evidence/master-evidence-table.csv](evidence/master-evidence-table.csv)
+- **Audit Matrix:** [research/evidence/master-evidence-table.csv](research/evidence/master-evidence-table.csv)
 - Every empirical claim made across the documentation pages is cataloged with its page reference, evidence tier (`Strong`, `Moderate`, `Preliminary`, `Theoretical`, `Speculative`, or `[UNVERIFIED — NEEDS SOURCE]`), formal source citation, and DOI/URL.
 
 ---
@@ -39,7 +39,7 @@ We welcome rigorous critical peer review, counterarguments, and source verificat
 2. Submitting a new objection or counterargument for `docs/07-objections.md`.
 3. Proposing a new candidate behavioral experiment for `docs/05-measurement-and-experiments.md`.
 
-*Note: Any pull request modifying an empirical claim must update [evidence/master-evidence-table.csv](evidence/master-evidence-table.csv).*
+*Note: Any pull request modifying an empirical claim must update [research/evidence/master-evidence-table.csv](research/evidence/master-evidence-table.csv).*
 
 ---
 
@@ -49,7 +49,43 @@ The repository includes `hsri_agents`, an automated evidence-review and adversar
 
 - **Manual-First Operation:** The pipeline is currently operated strictly by hand, one step at a time, pending a cadence decision. Automated cron jobs, schedulers, and webhooks are intentionally deferred until manual protocols are validated.
 - **Multi-Model Reliability Ensemble:** The same evidence-review protocol is executed independently across model families (Anthropic, OpenAI, Google, xAI, DeepSeek, Alibaba Qwen, and Zhipu GLM) to test whether conclusions are robust to which model performs the review—not as competing national or corporate teams.
-- **Audit Logs:** Full debate transcripts are recorded in [research_memory.md](research_memory.md), and cross-model concordance is tracked in [model-divergence-log.csv](model-divergence-log.csv). See [`hsri_agents/README.md`](hsri_agents/README.md) for CLI usage.
+- **Audit Logs:** Full debate transcripts are recorded in [hsri_agents/logs/research_memory.md](hsri_agents/logs/research_memory.md), and cross-model concordance is tracked in [hsri_agents/logs/model-divergence-log.csv](hsri_agents/logs/model-divergence-log.csv). See [`hsri_agents/README.md`](hsri_agents/README.md) for CLI usage.
+
+---
+
+## Repository Architecture
+
+```
+hsri-research/
+├── data/               # Source harmonized empirical datasets & indicators
+├── docs/               # Scientific foundations, whitepapers & MkDocs documentation
+├── hsri_agents/        # Adversarial multi-agent evidence-review debate package & logs
+│   └── logs/           # Research memory, scan records, and model divergence logs
+├── research/           # Generated research outputs & analysis
+│   ├── country_profiles/     # 39 country readiness profiles & SWOT evaluations
+│   ├── integrated_narratives/# Structural synthesis & narrative analyses
+│   ├── evidence/             # Master evidence table & empirical audit matrices
+│   ├── not_rated_scenarios/  # Scenario simulations and unrated boundary profiles
+│   └── outreach/             # Peer review briefs and research communications
+├── scripts/            # Python data processing, index calculation & export pipeline
+├── site-astro/         # Production Astro 7 + Svelte 5 interactive web portal
+└── tests/              # Automated unit tests and test suites
+```
+
+### Interactive Web Application (`site-astro/`)
+
+The repository includes a static, responsive web portal built with **Astro 7** and **Svelte 5**:
+- **Country Profiles & Radar Charts:** Deep-dive pages for 39 evaluated economies.
+- **Interactive Comparisons:** Head-to-head country comparisons across all 5 readiness pillars.
+- **Dynamic Weight Calculator:** Interactive recalculation of index scores based on custom pillar weighting schemes.
+- **Methodology & Documentation:** Comprehensive guides on mathematical construction, proxy indicators, and ethical boundary conditions.
+
+To run the web app locally:
+```bash
+cd site-astro
+npm install
+npm run dev
+```
 
 ---
 

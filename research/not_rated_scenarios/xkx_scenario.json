@@ -1,0 +1,84 @@
+{
+  "country": "XKX",
+  "category": "special_administrative",
+  "template": {
+    "category": "special_administrative",
+    "name": "Special Administrative Regions",
+    "description": "Regions with unique political or administrative status",
+    "criteria": [
+      "Special political status",
+      "Autonomous governance",
+      "Different legal frameworks",
+      "Unique economic systems"
+    ],
+    "characteristics": [
+      "Separate legal systems",
+      "Distinct economic policies",
+      "International status questions",
+      "Data reporting differences"
+    ],
+    "path_to_rating": [
+      "Clarify international status",
+      "Standardize data reporting",
+      "Participate in assessment frameworks",
+      "Develop region-specific metrics"
+    ],
+    "recommendations": [
+      "Develop tailored assessment approach",
+      "Engage with relevant international bodies",
+      "Contribute to methodological development",
+      "Share best practices"
+    ],
+    "assessment_gaps": [
+      {
+        "name": "Methodological Applicability Gap",
+        "description": "Methodology not suitable for country context",
+        "impact": "Results may not be meaningful or comparable",
+        "severity": "High",
+        "mitigation": "Develop context-specific adaptation guidelines"
+      }
+    ],
+    "timeline_assessment": {
+      "current_status": "Unable to assess",
+      "projection_available": false,
+      "confidence_level": "None",
+      "key_uncertainties": []
+    },
+    "engagement_strategy": {
+      "immediate_actions": [
+        "Initial data collection assessment",
+        "Stakeholder identification",
+        "Baseline establishment"
+      ],
+      "short_term_goals": [
+        "Data quality improvement",
+        "Participatory assessment development",
+        "Regional collaboration"
+      ],
+      "long_term_vision": [
+        "Full integration into HSRI-Proxy framework",
+        "Contribution to methodology refinement",
+        "Knowledge sharing leadership"
+      ]
+    }
+  },
+  "specific_challenges": [
+    "General data limitations"
+  ],
+  "context_factors": [
+    "Limited context information available"
+  ],
+  "engagement_priorities": [
+    "General capacity building"
+  ],
+  "monitoring_indicators": [
+    "General progress indicators"
+  ],
+  "transition_path": "Status Clarification \u2192 Methodological Adaptation \u2192 Full Rating",
+  "last_assessment": {
+    "date": "2026-09-20",
+    "status": "Not Rated",
+    "reason": "Regions with unique political or administrative status",
+    "next_review": "2027-12-31"
+  }
+}

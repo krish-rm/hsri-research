@@ -1,0 +1,664 @@
+---
+import HSRILayout from '../../layouts/HSRILayout.astro';
+import HSRIHeader from '../../components/HSRIHeader.svelte';
+import HSRIFooter from '../../components/HSRIFooter.svelte';
+import countryScoresData from '../../data/country_scores.json';
+import countryProfilesData from '../../data/country_profiles.json';
+
+export async function getStaticPaths() {
+  const { countries } = countryScoresData;
+  return countries.map((country) => {
+    const profile = (countryProfilesData as Record<string, any>)[country.id] || country;
+    return {
+      params: { id: country.id.toLowerCase() },
+      props: { country, profile }
+    };
+  });
+}
+
+const { country, profile } = Astro.props;
+
+const bandColors: Record<string, { bg: string; text: string }> = {
+  'A': { bg: '#dcfce7', text: '#166534' },
+  'B': { bg: '#dbeafe', text: '#1e40af' },
+  'C': { bg: '#fef3c7', text: '#92400e' },
+  'D': { bg: '#fee2e2', text: '#991b1b' },
+  'F': { bg: '#f1f5f9', text: '#475569' },
+};
+
+const bandStyle = bandColors[country.band] || { bg: '#f1f5f9', text: '#475569' };
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<HSRILayout title={`${country.name} (${country.code}) - HSRI Profile`}>
+  <div class="country-profile-page">
+    <HSRIHeader client:load />
+
+    <!-- Breadcrumb & Back navigation -->
+    <div class="nav-bar-wrap">
+      <div class="container">
+        <div class="breadcrumbs">
+          <a href={base || '/'}>Home</a> &rsaquo;
+          <a href={`${base}/countries`}>Countries</a> &rsaquo;
+          <span>{country.name}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Country Hero Header -->
+    <header class="profile-hero">
+      <div class="container">
+        <div class="hero-top">
+          <div class="country-identity">
+            <span class="country-code-pill">{country.code}</span>
+            <h1>{country.name}</h1>
+            <span class="region-badge">{country.region.replace('-', ' ').toUpperCase()}</span>
+            <span class="status-badge">{country.status}</span>
+          </div>
+
+          <div class="rank-score-cluster">
+            <div class="stat-cluster-item">
+              <span class="label">Benchmark Rank</span>
+              <span class="value rank-val">#{country.rank} <small>/ 39</small></span>
+            </div>
+            <div class="stat-cluster-item">
+              <span class="label">Overall Score</span>
+              <span class="value score-val">{country.score} <small>/ 100</small></span>
+            </div>
+            <div class="stat-cluster-item">
+              <span class="label">Performance Band</span>
+              <span class="band-tag" style={`background-color: ${bandStyle.bg}; color: ${bandStyle.text}`}>
+                Band {country.band}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-actions-bar">
+          <a href={`${base}/compare?countries=${country.code}`} class="btn btn-primary">
+            Compare {country.name} with Peers &rarr;
+          </a>
+          <a href={`${base}/data`} class="btn btn-secondary">
+            Download Country Artifacts (.CSV)
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main class="container profile-body">
+      <!-- Executive Summary / Narrative -->
+      <section class="section-card narrative-card">
+        <h2>Executive Summary & Strategic Position</h2>
+        <div class="archetype-badge">
+          Archetype: <strong>{country.archetype ? country.archetype.replace('_', ' ').toUpperCase() : 'STRATEGIC ADAPTER'}</strong>
+        </div>
+        <p class="summary-text">
+          {country.executiveSummary || country.summary || `${country.name} enters 2026 with a composite readiness score of ${country.score}/100 and an exposure level of ${country.exposure}/100.`}
+        </p>
+      </section>
+
+      <!-- 4 Pillars Breakdown -->
+      <section class="section-card">
+        <div class="section-title-wrap">
+          <h2>Core Readiness Pillars</h2>
+          <p class="subtitle">Non-compensatory evaluation across the four primary preparedness domains</p>
+        </div>
+
+        <div class="pillars-grid">
+          <div class="pillar-card">
+            <div class="pillar-top">
+              <span class="p-icon" style="background: #eff6ff; color: #2563eb;">📚</span>
+              <span class="p-score">{country.pillars.ai_literacy}%</span>
+            </div>
+            <h3>AI Literacy</h3>
+            <p class="p-desc">Workforce comprehension, secondary educational integration, and generative model technical fluency.</p>
+            <div class="progress-track">
+              <div class="progress-fill" style={`width: ${country.pillars.ai_literacy}%; background: #3b82f6;`}></div>
+            </div>
+          </div>
+
+          <div class="pillar-card">
+            <div class="pillar-top">
+              <span class="p-icon" style="background: #f5f3ff; color: #7c3aed;">🛡️</span>
+              <span class="p-score">{country.pillars.critical_discernment}%</span>
+            </div>
+            <h3>Critical Discernment</h3>
+            <p class="p-desc">Cognitive resilience against synthetic disinformation, epistemic erosion, and deepfake deception.</p>
+            <div class="progress-track">
+              <div class="progress-fill" style={`width: ${country.pillars.critical_discernment}%; background: #8b5cf6;`}></div>
+            </div>
+          </div>
+
+          <div class="pillar-card">
+            <div class="pillar-top">
+              <span class="p-icon" style="background: #ecfdf5; color: #059669;">⚖️</span>
+              <span class="p-score">{country.pillars.institutional_governance}%</span>
+            </div>
+            <h3>Institutional Governance</h3>
+            <p class="p-desc">State regulatory enforceability, third-party model audit capacity, and adaptive oversight agility.</p>
+            <div class="progress-track">
+              <div class="progress-fill" style={`width: ${country.pillars.institutional_governance}%; background: #10b981;`}></div>
+            </div>
+          </div>
+
+          <div class="pillar-card">
+            <div class="pillar-top">
+              <span class="p-icon" style="background: #fffbeb; color: #d97706;">⚡</span>
+              <span class="p-score">{country.pillars.digital_infrastructure}%</span>
+            </div>
+            <h3>Digital Infrastructure</h3>
+            <p class="p-desc">Sovereign compute density, high-speed fiber penetration, clean power redundancy, and grid resilience.</p>
+            <div class="progress-track">
+              <div class="progress-fill" style={`width: ${country.pillars.digital_infrastructure}%; background: #f59e0b;`}></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Exposure, Labor, & Timeline Crossing Horizons -->
+      <section class="two-col-grid">
+        <!-- Exposure & Deficit Analysis -->
+        <div class="section-card">
+          <h2>Exposure & Deficit Analysis</h2>
+          <div class="metric-row">
+            <span class="m-label">Macro AI Exposure Score</span>
+            <span class="m-val">{country.exposure} / 100</span>
+          </div>
+          <div class="metric-row">
+            <span class="m-label">Readiness-Exposure Gap</span>
+            <span class={`m-val ${country.gap > 0 ? 'gap-deficit' : 'gap-surplus'}`}>
+              {country.gap > 0 ? `+${country.gap}` : country.gap} ({country.gapStatus})
+            </span>
+          </div>
+          <div class="metric-row">
+            <span class="m-label">Labor Market Vulnerability</span>
+            <span class="m-val">{country.laborVulnerability}%</span>
+          </div>
+          <div class="metric-row">
+            <span class="m-label">Estimated Labor Crossing Year</span>
+            <span class="m-val highlight-val">{country.laborCrossingYear}</span>
+          </div>
+        </div>
+
+        <!-- Capability Crossing Scenarios -->
+        <div class="section-card">
+          <h2>Superintelligence Crossing Scenarios</h2>
+          <p class="scenario-intro">Year in which external AI capabilities exceed domestic absorption & governance capacity:</p>
+          <div class="scenario-item">
+            <div class="s-info">
+              <span class="s-name">Takeoff Scenario</span>
+              <span class="s-desc">Accelerated recursion & fast-takeoff AGI</span>
+            </div>
+            <span class="s-year">{country.crossingYears.takeoff ? country.crossingYears.takeoff : 'Post-2045'}</span>
+          </div>
+          <div class="scenario-item highlight-item">
+            <div class="s-info">
+              <span class="s-name">Steady Progress (Baseline)</span>
+              <span class="s-desc">Historical tech adoption curves</span>
+            </div>
+            <span class="s-year">{country.crossingYears.steady ? country.crossingYears.steady : 'Post-2045'}</span>
+          </div>
+          <div class="scenario-item">
+            <div class="s-info">
+              <span class="s-name">Plateau Scenario</span>
+              <span class="s-desc">Hardware bottlenecks & algorithmic slowdown</span>
+            </div>
+            <span class="s-year">{country.crossingYears.plateau ? country.crossingYears.plateau : 'Post-2045'}</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Strengths & Challenges -->
+      <section class="two-col-grid">
+        <div class="section-card">
+          <h3 class="card-subtitle green-text">Key Strengths & Advantages</h3>
+          <ul class="bullet-list green-bullets">
+            {country.strengths && country.strengths.length > 0 ? (
+              country.strengths.map((s: string) => <li>{s}</li>)
+            ) : (
+              <li>High-capacity institutional stability</li>
+              <li>Advanced domestic digital connectivity</li>
+              <li>Active participation in multilateral AI safety standards</li>
+            )}
+          </ul>
+        </div>
+
+        <div class="section-card">
+          <h3 class="card-subtitle red-text">Strategic Challenges & Vulnerabilities</h3>
+          <ul class="bullet-list red-bullets">
+            {country.challenges && country.challenges.length > 0 ? (
+              country.challenges.map((c: string) => <li>{c}</li>)
+            ) : (
+              <li>High automation exposure across white-collar knowledge sectors</li>
+              <li>Pace of model deployment outpacing regulatory feedback loops</li>
+              <li>Cognitive defense deficits in public epistemic verification</li>
+            )}
+          </ul>
+        </div>
+      </section>
+
+      <!-- Strategic Policy Recommendations -->
+      {country.recommendations && country.recommendations.length > 0 && (
+        <section class="section-card">
+          <h2>Policy & Strategic Recommendations</h2>
+          <div class="recommendations-grid">
+            {country.recommendations.map((rec: string, index: number) => (
+              <div class="rec-item">
+                <span class="rec-idx">0{index + 1}</span>
+                <p>{rec}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+    </main>
+
+    <HSRIFooter />
+  </div>
+</HSRILayout>
+
+<style>
+  .country-profile-page {
+    background-color: #f8fafc;
+    min-height: 100vh;
+  }
+
+  .nav-bar-wrap {
+    background: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 0.75rem 0;
+  }
+
+  .breadcrumbs {
+    font-size: 0.875rem;
+    color: #64748b;
+  }
+
+  .breadcrumbs a {
+    color: #2563eb;
+    text-decoration: none;
+  }
+
+  .breadcrumbs a:hover {
+    text-decoration: underline;
+  }
+
+  .breadcrumbs span {
+    color: #0f172a;
+    font-weight: 600;
+  }
+
+  .profile-hero {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+    color: #ffffff;
+    padding: 3rem 0 2.5rem 0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+
+  .hero-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .country-identity h1 {
+    font-size: 2.75rem;
+    font-weight: 800;
+    margin: 0.5rem 0;
+    color: #ffffff;
+    line-height: 1.1;
+  }
+
+  .country-code-pill {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 0.2rem 0.6rem;
+    border-radius: 0.25rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+
+  .region-badge, .status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.65rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 9999px;
+    margin-right: 0.5rem;
+  }
+
+  .region-badge {
+    background: rgba(59, 130, 246, 0.3);
+    color: #93c5fd;
+    border: 1px solid rgba(147, 197, 253, 0.3);
+  }
+
+  .status-badge {
+    background: rgba(16, 185, 129, 0.2);
+    color: #6ee7b7;
+    border: 1px solid rgba(110, 231, 183, 0.3);
+  }
+
+  .rank-score-cluster {
+    display: flex;
+    gap: 1.5rem;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 1rem 1.5rem;
+    border-radius: 0.75rem;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .stat-cluster-item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .stat-cluster-item .label {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.25rem;
+  }
+
+  .stat-cluster-item .value {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #ffffff;
+  }
+
+  .stat-cluster-item .value small {
+    font-size: 0.9rem;
+    color: #94a3b8;
+    font-weight: 500;
+  }
+
+  .band-tag {
+    padding: 0.35rem 0.85rem;
+    border-radius: 0.5rem;
+    font-weight: 800;
+    font-size: 1.1rem;
+    display: inline-block;
+    text-align: center;
+    margin-top: 0.25rem;
+  }
+
+  .hero-actions-bar {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    padding: 0.65rem 1.25rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.15s ease;
+  }
+
+  .btn-primary {
+    background: #2563eb;
+    color: #ffffff;
+  }
+
+  .btn-primary:hover {
+    background: #1d4ed8;
+  }
+
+  .btn-secondary {
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+  }
+
+  .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.25);
+  }
+
+  .profile-body {
+    padding-top: 2.5rem;
+    padding-bottom: 4rem;
+  }
+
+  .section-card {
+    background: #ffffff;
+    border-radius: 0.75rem;
+    padding: 2rem;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
+  }
+
+  .section-card h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-title-wrap .subtitle {
+    color: #64748b;
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .narrative-card {
+    background: #ffffff;
+    border-left: 4px solid #2563eb;
+  }
+
+  .archetype-badge {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin-bottom: 0.75rem;
+  }
+
+  .summary-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #334155;
+  }
+
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .pillar-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+  }
+
+  .pillar-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+  }
+
+  .p-icon {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    font-size: 1.1rem;
+  }
+
+  .p-score {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #0f172a;
+  }
+
+  .pillar-card h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 0.35rem;
+  }
+
+  .p-desc {
+    font-size: 0.825rem;
+    color: #64748b;
+    line-height: 1.4;
+    margin-bottom: 1rem;
+    min-height: 48px;
+  }
+
+  .progress-track {
+    height: 8px;
+    background: #e2e8f0;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    border-radius: 4px;
+  }
+
+  .two-col-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  @media (max-width: 860px) {
+    .two-col-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .metric-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid #f1f5f9;
+  }
+
+  .metric-row:last-child {
+    border-bottom: none;
+  }
+
+  .m-label {
+    color: #475569;
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  .m-val {
+    font-weight: 700;
+    color: #0f172a;
+    font-size: 1.05rem;
+  }
+
+  .gap-deficit { color: #dc2626; }
+  .gap-surplus { color: #16a34a; }
+  .highlight-val { color: #2563eb; }
+
+  .scenario-intro {
+    font-size: 0.9rem;
+    color: #64748b;
+    margin-bottom: 1.25rem;
+  }
+
+  .scenario-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.85rem 1rem;
+    background: #f8fafc;
+    border-radius: 0.5rem;
+    margin-bottom: 0.75rem;
+    border: 1px solid #e2e8f0;
+  }
+
+  .highlight-item {
+    background: #eff6ff;
+    border-color: #bfdbfe;
+  }
+
+  .s-name {
+    display: block;
+    font-weight: 700;
+    color: #1e293b;
+    font-size: 0.95rem;
+  }
+
+  .s-desc {
+    font-size: 0.8rem;
+    color: #64748b;
+  }
+
+  .s-year {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #2563eb;
+  }
+
+  .card-subtitle {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .green-text { color: #166534; }
+  .red-text { color: #991b1b; }
+
+  .bullet-list {
+    padding-left: 1.25rem;
+    line-height: 1.7;
+    color: #334155;
+    font-size: 0.95rem;
+  }
+
+  .green-bullets li::marker { color: #16a34a; }
+  .red-bullets li::marker { color: #dc2626; }
+
+  .recommendations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+    margin-top: 1rem;
+  }
+
+  .rec-item {
+    display: flex;
+    gap: 1rem;
+    background: #f8fafc;
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    border-left: 3px solid #2563eb;
+  }
+
+  .rec-idx {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #93c5fd;
+  }
+
+  .rec-item p {
+    font-size: 0.9rem;
+    color: #334155;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+</style>

@@ -1,0 +1,91 @@
+{
+  "country": "KGZ",
+  "category": "emerging_economies",
+  "template": {
+    "category": "emerging_economies",
+    "name": "Emerging Economies",
+    "description": "Rapidly developing countries with incomplete data",
+    "criteria": [
+      "GDP growth > 7% annually",
+      "Digital transformation underway",
+      "Institutional capacity building",
+      "Data quality improving"
+    ],
+    "characteristics": [
+      "Rapid change",
+      "Data lag",
+      "Policy experimentation",
+      "Investment focus"
+    ],
+    "path_to_rating": [
+      "Data infrastructure development",
+      "Policy stabilization",
+      "Statistical capacity building",
+      "International benchmarking"
+    ],
+    "recommendations": [
+      "Invest in data systems",
+      "Participate in learning networks",
+      "Adopt international standards",
+      "Focus on key indicators"
+    ],
+    "assessment_gaps": [
+      {
+        "name": "Data Coverage Gap",
+        "description": "Insufficient data across multiple pillars",
+        "impact": "Cannot calculate composite score",
+        "severity": "High",
+        "mitigation": "Develop proxy indicators and estimation methods"
+      },
+      {
+        "name": "Time Alignment Gap",
+        "description": "Data points from different time periods",
+        "impact": "Cannot assess current readiness accurately",
+        "severity": "Medium",
+        "mitigation": "Interpolation and forward/backward projection"
+      }
+    ],
+    "timeline_assessment": {
+      "current_status": "Unable to assess",
+      "projection_available": false,
+      "confidence_level": "None",
+      "key_uncertainties": []
+    },
+    "engagement_strategy": {
+      "immediate_actions": [
+        "Initial data collection assessment",
+        "Stakeholder identification",
+        "Baseline establishment"
+      ],
+      "short_term_goals": [
+        "Data quality improvement",
+        "Participatory assessment development",
+        "Regional collaboration"
+      ],
+      "long_term_vision": [
+        "Full integration into HSRI-Proxy framework",
+        "Contribution to methodology refinement",
+        "Knowledge sharing leadership"
+      ]
+    }
+  },
+  "specific_challenges": [
+    "General data limitations"
+  ],
+  "context_factors": [
+    "Limited context information available"
+  ],
+  "engagement_priorities": [
+    "General capacity building"
+  ],
+  "monitoring_indicators": [
+    "General progress indicators"
+  ],
+  "transition_path": "Data Quality \u2192 Policy Stability \u2192 Full Rating",
+  "last_assessment": {
+    "date": "2026-09-20",
+    "status": "Not Rated",
+    "reason": "Rapidly developing countries with incomplete data",
+    "next_review": "2027-06-30"
+  }
+}

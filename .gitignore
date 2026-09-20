@@ -220,10 +220,16 @@ __marimo__/
 # MkDocs build directory
 site/
 
-# Local scan log cache files
-scan-log/*.json
-!scan-log/.gitkeep
+# Agent scan log cache files
+hsri_agents/logs/*.json
+!hsri_agents/logs/.gitkeep
 
 # Temporary scratch scripts
 scratch/
+
+# Node / Astro Web App
+node_modules/
+site-astro/node_modules/
+site-astro/dist/
+site-astro/.astro/
 

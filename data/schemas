@@ -1,0 +1,119 @@
+# Data Schemas for HSRI-Proxy v0.1
+
+This directory contains JSON schema files for validating data files.
+
+---
+
+## Schema Files
+
+### `indicators_schema.json`
+Validates the indicators.csv file structure.
+
+### `sources_schema.json`
+Validates the sources.csv file structure.
+
+### `observations_schema.json`
+Validates the observations.csv file structure.
+
+---
+
+## Usage
+
+These schemas can be used with any JSON Schema validator to ensure data integrity.
+
+---
+
+## Validation Rules
+
+### Required Fields
+Each schema defines required fields that must be present.
+
+### Data Types
+- String: Text values
+- Number: Numeric values (integers or floats)
+- Boolean: True/false values
+- Array: List of values
+- Object: Nested data structure
+
+### Format Constraints
+- ISO 3166-1 alpha-3: 3 uppercase letters
+- Date: YYYY-MM-DD format
+- URL: Valid web address
+- Email: Valid email address
+
+---
+
+## Custom Validation Rules
+
+### Unique Constraints
+- `indicator_id` must be unique across all indicators
+- `source_id` must be unique across all sources
+- `country_iso3` + `indicator_id` + `year` must be unique in observations
+
+### Reference Integrity
+- `indicator_id` in observations must exist in indicators
+- `source_id` in observations must exist in sources
+- `country_iso3` must be valid ISO code
+
+### Value Constraints
+- `year` must be between 1900 and current year + 1
+- `value` must be numeric (can be negative for inverted indicators)
+- `validity_rating` must be one of: "High", "Medium", "Low"
+- `role` must be one of: "Retained", "Context-only", "Rejected", "Not measurable"
+
+---
+
+## Example Validation
+
+```python
+import jsonschema
+import pandas as pd
+
+def validate_data(file_path, schema_path):
+    # Load data
+    df = pd.read_csv(file_path)
+
+    # Load schema
+    with open(schema_path) as f:
+        schema = json.load(f)
+
+    # Convert DataFrame to dictionary format
+    data = df.to_dict('records')
+
+    # Validate
+    try:
+        jsonschema.validate(data, schema)
+        print("✓ Validation passed")
+        return True
+    except jsonschema.ValidationError as e:
+        print(f"✗ Validation failed: {e.message}")
+        return False
+```
+
+---
+
+## Error Handling
+
+Common validation errors and their meanings:
+
+1. **Missing required property**: Required field not found
+2. **Additional properties**: Unknown field present
+3. **Invalid type**: Wrong data type for field
+4. **Invalid enum value**: Value not in allowed list
+5. **Failed reference**: Foreign key constraint violated
+6. **Format validation**: Invalid format for field (e.g., ISO code)
+
+---
+
+## Schemas Location
+
+All schema files are maintained in this directory and should be updated when:
+- Adding new fields to data files
+- Changing data types or constraints
+- Updating validation rules
+- Adding new validation requirements
+
+---
+
+**Directory Created**: 2026-09-19
+**Schema Version**: v0.1-Initial

@@ -1,0 +1,113 @@
+{
+  "prepared": {
+    "name": "Prepared",
+    "description": "High readiness with moderate exposure",
+    "characteristics": [
+      "Strong institutions",
+      "Advanced digital infrastructure",
+      "High education levels"
+    ],
+    "recommendations": [
+      "Maintain leadership",
+      "Share best practices",
+      "Contribute to global standards"
+    ],
+    "profile_structure": {
+      "summary": "Country overview with timeline outlook",
+      "strengths": "Key competitive advantages",
+      "challenges": "Critical vulnerabilities",
+      "timeline_outlook": "Crossing year projections",
+      "recommendations": "Policy action items",
+      "key_metrics": "Quantitative performance",
+      "peer_comparisons": "Regional and global context"
+    }
+  },
+  "developing": {
+    "name": "Developing",
+    "description": "Moderate readiness with high exposure",
+    "characteristics": [
+      "Growing digital economy",
+      "Educational investment",
+      "Institutional development"
+    ],
+    "recommendations": [
+      "Focus on education",
+      "Build digital infrastructure",
+      "Regional cooperation"
+    ],
+    "profile_structure": {
+      "summary": "Country overview with timeline outlook",
+      "strengths": "Key competitive advantages",
+      "challenges": "Critical vulnerabilities",
+      "timeline_outlook": "Crossing year projections",
+      "recommendations": "Policy action items",
+      "key_metrics": "Quantitative performance",
+      "peer_comparisons": "Regional and global context"
+    }
+  },
+  "vulnerable": {
+    "name": "Vulnerable",
+    "description": "Low readiness with high exposure",
+    "characteristics": [
+      "Limited digital access",
+      "Educational gaps",
+      "Institutional challenges"
+    ],
+    "recommendations": [
+      "International support",
+      "Basic digital access",
+      "Capacity building"
+    ],
+    "profile_structure": {
+      "summary": "Country overview with timeline outlook",
+      "strengths": "Key competitive advantages",
+      "challenges": "Critical vulnerabilities",
+      "timeline_outlook": "Crossing year projections",
+      "recommendations": "Policy action items",
+      "key_metrics": "Quantitative performance",
+      "peer_comparisons": "Regional and global context"
+    }
+  },
+  "at_risk": {
+    "name": "At_Risk",
+    "description": "Critical readiness-exposure gap",
+    "characteristics": [
+      "Severe institutional challenges",
+      "Limited resources",
+      "High vulnerability"
+    ],
+    "recommendations": [
+      "Emergency measures",
+      "International assistance",
+      "Basic needs focus"
+    ],
+    "profile_structure": {
+      "summary": "Country overview with timeline outlook",
+      "strengths": "Key competitive advantages",
+      "challenges": "Critical vulnerabilities",
+      "timeline_outlook": "Crossing year projections",
+      "recommendations": "Policy action items",
+      "key_metrics": "Quantitative performance",
+      "peer_comparisons": "Regional and global context"
+    }
+  },
+  "not_rated": {
+    "name": "Not Rated",
+    "description": "Insufficient data for comprehensive assessment",
+    "characteristics": [
+      "Limited data availability",
+      "Emerging economy",
+      "Unique circumstances"
+    ],
+    "recommendations": [
+      "Data collection investment",
+      "Participatory assessment",
+      "Future inclusion planning"
+    ],
+    "profile_structure": {
+      "data_status": "Current data limitations",
+      "inclusion_path": "Path to future rating",
+      "recommendations": "Building assessment capacity"
+    }
+  }
+}

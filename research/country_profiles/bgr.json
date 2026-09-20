@@ -1,0 +1,45 @@
+{
+  "summary": "BGR enters 2026 as a Developing AI readiness nation with a critical-level urgency for AI preparedness. Projected critical crossing year is 2026, giving 0 years for preparation. Current readiness score of 0.50 faces exposure levels of 0.50.",
+  "strengths": [],
+  "challenges": [],
+  "timeline_outlook": {
+    "crossing_year": 2026,
+    "preparation_years": 0,
+    "preparation_window": 0,
+    "urgency": "critical",
+    "urgency_level": "critical",
+    "probability": 0.1,
+    "crossing_probability": 0.1,
+    "phases": {
+      "immediate": "2026-2028: Build adaptation capacity",
+      "critical": "2028-2030: Emergency preparedness",
+      "transition": "2030+: New reality adaptation"
+    }
+  },
+  "recommendations": [
+    "Focus on education",
+    "Build digital infrastructure",
+    "Regional cooperation",
+    "Establish emergency task force",
+    "Implement immediate capacity building",
+    "Seek international assistance",
+    "Prioritize critical sectors",
+    "Crash program implementation required"
+  ],
+  "key_metrics": {
+    "readiness_score": 0.5,
+    "exposure_score": 0.5,
+    "gap_score": 0.0,
+    "status_2026": "Developing",
+    "urgency_level": "critical",
+    "crossing_probability": 0.1,
+    "most_likely_crossing": 2026,
+    "preparation_years": 0
+  },
+  "peer_comparisons": {
+    "income_group": "unclassified",
+    "regional_group": "unclassified",
+    "regional_peers": [],
+    "global_rank": "#37/39"
+  }
+}
