@@ -7,8 +7,9 @@ import HSRIFooter from '../components/HSRIFooter.svelte';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
-<HSRILayout>
+<HSRILayout title="Data Explorer - HSRI Open Datasets">
   <div class="data-page">
+    <HSRIHeader client:load />
     <div class="page-header">
       <h1>Data Explorer</h1>
       <p class="subtitle">Access, download, and analyze Human Superintelligence Readiness Index data</p>

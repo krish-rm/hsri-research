@@ -6,12 +6,12 @@
 
   // Navigation items
   const navItems = [
-    { name: 'Home', href: base || '/' },
-    { name: 'Countries', href: `${base}/countries` },
-    { name: 'Methodology', href: `${base}/methodology` },
-    { name: 'Timeline', href: `${base}/timeline` },
-    { name: 'Compare', href: `${base}/compare` },
-    { name: 'Data', href: `${base}/data` },
+    { name: 'Home', href: `${base}/` },
+    { name: 'Countries', href: `${base}/countries/` },
+    { name: 'Methodology', href: `${base}/methodology/` },
+    { name: 'Timeline', href: `${base}/timeline/` },
+    { name: 'Compare', href: `${base}/compare/` },
+    { name: 'Data', href: `${base}/data/` },
   ];
 
   // Quick stats
@@ -27,7 +27,7 @@
   <div class="container">
     <div class="header-content">
       <!-- Logo and Title -->
-      <a href={base || '/'} class="header-brand" style="text-decoration: none; color: inherit;">
+      <a href={`${base}/`} class="header-brand" style="text-decoration: none; color: inherit;">
         <svg class="logo" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle cx="20" cy="20" r="19" stroke="var(--primary-color)" stroke-width="2"/>
           <path d="M20 5 L15 15 L5 20 L15 25 L20 35 L25 25 L35 20 L25 15 Z" fill="var(--primary-color)" opacity="0.8"/>

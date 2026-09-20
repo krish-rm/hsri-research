@@ -1,5 +1,11 @@
 ---
 import '../styles/global.css';
+
+interface Props {
+  title?: string;
+}
+
+const { title = "Human Superintelligence Readiness Index (HSRI)" } = Astro.props;
 ---
 
 <!doctype html>
@@ -10,7 +16,7 @@ import '../styles/global.css';
     <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
     <meta name="generator" data astro-cid-j7pv25ns="">
 
-    <title>Human Superintelligence Readiness Index (HSRI)</title>
+    <title>{title}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
