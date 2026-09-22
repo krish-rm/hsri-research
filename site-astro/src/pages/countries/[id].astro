@@ -261,9 +261,9 @@ function statusSlug(status: string): string {
         <div class="audit-header">
           <div>
             <h2>Indicator Audit &amp; Data Provenance</h2>
-            <p class="subtitle">Complete audit of all 30 indicators in the HSRI framework for {country.name}, disclosing observed vs. imputed status.</p>
+            <p class="subtitle">Empirical completeness for {country.name}: <strong>{country.coverage}%</strong> ({country.observedCount}/{country.totalRetained} retained indicators observed). Missing indicators are omitted from pillar scoring via proportional weight re-scaling.</p>
           </div>
-          <span class="audit-badge">Audited Preview v0.1</span>
+          <span class="audit-badge">Phase 2 Ingestion v0.2.1</span>
         </div>
 
         <div class="table-responsive">
@@ -273,24 +273,26 @@ function statusSlug(status: string): string {
                 <th>Code</th>
                 <th>Indicator Name</th>
                 <th>Pillar</th>
-                <th>Framework Role</th>
+                <th>Role</th>
+                <th>Observed Value</th>
                 <th>Empirical Status for {country.code}</th>
-                <th>Audit Notes</th>
+                <th>Provenance &amp; Notes</th>
               </tr>
             </thead>
             <tbody>
               {country.indicatorsBreakdown && country.indicatorsBreakdown.length > 0 ? (
                 country.indicatorsBreakdown.map((ind: any) => {
                   const slug = statusSlug(ind.auditStatus);
-                  const isImputed = ind.auditStatus.toLowerCase().indexOf('imputed') !== -1;
+                  const isMissing = ind.auditStatus.toLowerCase().indexOf('missing') !== -1;
                   const isRejected = ind.auditStatus.toLowerCase().indexOf('rejected') !== -1;
-                  const rowClass = isImputed ? 'imputed' : isRejected ? 'rejected' : 'observed';
+                  const rowClass = isMissing ? 'imputed' : isRejected ? 'rejected' : 'observed';
                   return (
                     <tr class={`status-row-${rowClass}`}>
                       <td class="font-mono"><code>{ind.code}</code></td>
                       <td class="ind-name"><strong>{ind.name}</strong></td>
                       <td><span class="pillar-tag">{ind.pillar.replace('_', ' ')}</span></td>
                       <td><span class={`role-pill role-${ind.role.toLowerCase()}`}>{ind.role}</span></td>
+                      <td class="font-mono">{ind.rawValue !== null && ind.rawValue !== undefined ? ind.rawValue : <span style="color: #94a3b8;">&mdash;</span>}</td>
                       <td>
                         <span class={`audit-status-tag status-${slug}`}>
                           {ind.auditStatus}
@@ -811,18 +813,20 @@ function statusSlug(status: string): string {
     display: inline-block;
   }
 
+  .status-observed,
   .status-observed--unverified-microdata- {
     background: #ecfdf5;
     color: #065f46;
     border: 1px solid #a7f3d0;
   }
 
+  .status-missing,
   .status-imputed--geographic-gap-,
   .status-imputed--sample-gap-,
   .status-context-imputed {
-    background: #fef3c7;
-    color: #92400e;
-    border: 1px solid #fde68a;
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
   }
 
   .status-context-observed,

@@ -1,0 +1,132 @@
+============================================================
+HSRI-Proxy v0.1 Data Normalization Report
+Generated: 2026-09-23 00:03:17
+============================================================
+
+NORMALIZATION SUMMARY:
+Total indicators processed: 17
+Normalization methods used:
+  z-score: 6 indicators
+  rank: 2 indicators
+  min-max: 9 indicators
+
+DETAILED NORMALIZATION RESULTS:
+
+AI_LIT_001 - OECD PIAAC Adaptive Problem Solving
+  Method: z-score
+  Direction: higher
+  Values: 39 observations
+  Normalized range: nan - nan
+  Mean: nan (σ=nan)
+
+AI_LIT_002 - PISA Digital Reading Literacy
+  Method: z-score
+  Direction: higher
+  Values: 39 observations
+  Normalized range: 0.006 - 0.953
+  Mean: 0.515 (σ=0.284)
+
+AI_LIT_004 - Tertiary STEM Enrollment
+  Method: rank
+  Direction: higher
+  Values: 39 observations
+  Normalized range: 0.026 - 1.000
+  Mean: 0.513 (σ=0.288)
+
+AI_LIT_005 - ITU Digital Skills Index
+  Method: rank
+  Direction: higher
+  Values: 39 observations
+  Normalized range: 0.026 - 1.000
+  Mean: 0.513 (σ=0.288)
+
+META_COG_001 - PISA Reading Fact vs Opinion
+  Method: z-score
+  Direction: higher
+  Values: 39 observations
+  Normalized range: 0.020 - 0.970
+  Mean: 0.518 (σ=0.296)
+
+META_COG_002 - European Media Literacy Index
+  Method: z-score
+  Direction: higher
+  Values: 39 observations
+  Normalized range: nan - nan
+  Mean: nan (σ=nan)
+
+META_COG_003 - Reuters Institute Digital News Report
+  Method: min-max
+  Direction: higher
+  Values: 39 observations
+  Normalized range: nan - nan
+  Mean: nan (σ=nan)
+
+DEC_AGY_001 - Worldwide Governance Indicators
+  Method: z-score
+  Direction: higher
+  Values: 39 observations
+  Normalized range: 0.013 - 0.962
+  Mean: 0.512 (σ=0.303)
+
+DEC_AGY_002 - V-Dem Democracy Indices
+  Method: z-score
+  Direction: higher
+  Values: 39 observations
+  Normalized range: 0.012 - 0.947
+  Mean: 0.511 (σ=0.298)
+
+DEC_AGY_003 - Freedom House Freedom in the World
+  Method: min-max
+  Direction: higher
+  Values: 39 observations
+  Normalized range: 0.000 - 1.000
+  Mean: 0.559 (σ=0.256)
+
+DEC_AGY_004 - OECD AI Policy Observatory
+  Method: min-max
+  Direction: higher
+  Values: 39 observations
+  Normalized range: 0.000 - 1.000
+  Mean: 0.472 (σ=0.252)
+
+DEC_AGY_005 - Stanford AI Index Policy Section
+  Method: min-max
+  Direction: higher
+  Values: 39 observations
+  Normalized range: nan - nan
+  Mean: nan (σ=nan)
+
+ENAB_001 - Oxford Insights Government AI Readiness
+  Method: min-max
+  Direction: higher
+  Values: 39 observations
+  Normalized range: 0.000 - 1.000
+  Mean: 0.610 (σ=0.286)
+
+ENAB_002 - IMF AI Preparedness Index
+  Method: min-max
+  Direction: higher
+  Values: 39 observations
+  Normalized range: 0.000 - 1.000
+  Mean: 0.509 (σ=0.223)
+
+ENAB_003 - ITU Development Index
+  Method: min-max
+  Direction: higher
+  Values: 39 observations
+  Normalized range: 0.000 - 1.000
+  Mean: 0.581 (σ=0.298)
+
+ENAB_004 - World Bank Digital Adoption Index
+  Method: min-max
+  Direction: higher
+  Values: 39 observations
+  Normalized range: 0.000 - 1.000
+  Mean: 0.599 (σ=0.210)
+
+ENAB_005 - WEF Technology Adoption Index
+  Method: min-max
+  Direction: higher
+  Values: 39 observations
+  Normalized range: 0.000 - 1.000
+  Mean: 0.528 (σ=0.204)

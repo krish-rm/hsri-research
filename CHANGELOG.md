@@ -5,6 +5,30 @@ All notable changes to the Human Superintelligence Readiness Index (HSRI) resear
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.2.2] — 2026-09-23: Real Raw Data Ingestion Engine & Empirical Completeness Architecture
+
+### Added
+- **Modular Data Ingestion Engine (`scripts/ingestion/`):**
+  - Created `base_fetcher.py` defining standardized fetch/extract/validate contracts.
+  - Implemented `fetch_world_bank.py` for Worldwide Governance Indicators (`DEC_AGY_001`) and Digital Adoption (`ENAB_004`).
+  - Implemented `fetch_vdem.py` for Varieties of Democracy liberal democracy index (`DEC_AGY_002`).
+  - Implemented `fetch_oecd_pisa.py` for PISA 2022 Digital Reading (`AI_LIT_002`) and Fact vs. Opinion (`META_COG_001`).
+  - Established `data/raw/` repository archive directory with licensing and provenance standards.
+- **Empirical Missingness Harmonization:**
+  - Implemented `scripts/ingestion/harmonize_observations.py` generating `data/raw_observations_harmonized.csv` (780 records).
+  - Preserved authentic missing values (`NaN`) across geographic and sample limits: non-European economies missing EMLI (`META_COG_002`), unsurveyed economies in KPMG AI Trust (`CAL_TRUST_001`), and non-participating nations in Reuters DNR (`META_COG_003`) and PIAAC (`AI_LIT_001`).
+  - Generated `research/empirical_coverage_summary.md` detailing country-by-country completeness across all 17 Retained indicators (96.5% overall completeness).
+
+### Changed
+- **Pillar Calculation & Proportional Re-scaling:**
+  - Updated `scripts/data_normalization.py` to preserve NaNs during z-score, min-max, and rank scaling.
+  - Updated `scripts/index_construction.py` to compute genuine mathematical coverage per pillar and overall index score based on observed indicators ($\ge 60\%$ threshold).
+  - Stored authentic empirical coverage fractions in `final_country_scores.csv` and `pillar_scores.csv`.
+- **Site Presentation of Provenance:**
+  - Country profiles (`countries/[id].astro`) now display observed raw values and exact status (`Observed` vs `Missing` with reasons).
+  - Global header (`HSRIHeader.svelte`) displays overall data completeness (96.5% Harmonized).
+  - Data portal (`data.astro`) now provides direct public download of `raw_observations_harmonized.csv`.
+
 ## [v0.2.1] — 2026-09-22: Benchmark Integrity, Coverage Audit & Epistemic Humility Remediation
 
 ### Changed

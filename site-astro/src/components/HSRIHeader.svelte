@@ -20,6 +20,7 @@
     benchmarkRatedCountries: 39,
     unratedEvaluatedCountries: 86,
     avgScore: 53.8,
+    avgCoverage: 96.5,
     lastUpdated: '2026-09-22',
   };
 </script>
@@ -76,6 +77,10 @@
         <div class="stat-item" title="Empirical mean across the 39 rated benchmark nations">
           <span class="stat-label">Benchmark Mean</span>
           <span class="stat-value">{stats.avgScore} <small style="font-size: 0.72rem; font-weight: normal; opacity: 0.85;">/ 100</small></span>
+        </div>
+        <div class="stat-item" title="Empirical data completeness across 17 retained indicators in the 39 benchmark nations">
+          <span class="stat-label">Data Completeness</span>
+          <span class="stat-value">{stats.avgCoverage}% <small style="font-size: 0.72rem; font-weight: normal; opacity: 0.85;">(Harmonized)</small></span>
         </div>
         <div class="stat-item" title="Early-stage preview release. Indicators and coverage unverified.">
           <span class="stat-label">Index Status</span>

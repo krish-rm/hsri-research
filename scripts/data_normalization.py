@@ -30,8 +30,13 @@ class DataNormalizer:
             # Load indicators
             self.indicators = pd.read_csv(self.data_dir / "indicators.csv")
 
-            # Load observations
-            self.observations = pd.read_csv(self.data_dir / "observations.csv")
+            # Load harmonized raw observations if available
+            harmonized_path = self.data_dir / "raw_observations_harmonized.csv"
+            if harmonized_path.exists():
+                self.observations = pd.read_csv(harmonized_path)
+                logger.info("✓ Loaded harmonized observations from %s", harmonized_path)
+            else:
+                self.observations = pd.read_csv(self.data_dir / "observations.csv")
 
             # Load sources
             self.sources = pd.read_csv(self.data_dir / "sources.csv")
@@ -47,28 +52,34 @@ class DataNormalizer:
             return False
 
     def normalize_value(self, values, method):
-        """Normalize values using specified method to [0, 1] range"""
-        values = np.array(values, dtype=float).reshape(-1, 1)
+        """Normalize values using specified method to [0, 1] range while preserving NaNs"""
+        values = np.array(values, dtype=float)
+        mask = ~np.isnan(values)
+        if not np.any(mask):
+            return values
+
+        normalized = np.full_like(values, np.nan)
+        valid_vals = values[mask].reshape(-1, 1)
 
         if method == "min-max":
             scaler = MinMaxScaler()
-            normalized = scaler.fit_transform(values).flatten()
+            norm_valid = scaler.fit_transform(valid_vals).flatten()
         elif method == "z-score":
             scaler = StandardScaler()
-            z = scaler.fit_transform(values).flatten()
-            # Standard CDF converts z-scores to calibrated probabilities in [0, 1]
-            normalized = stats.norm.cdf(z)
+            z = scaler.fit_transform(valid_vals).flatten()
+            norm_valid = stats.norm.cdf(z)
         elif method == "rank":
-            normalized = rankdata(values, method='average') / len(values)
+            norm_valid = rankdata(valid_vals.flatten(), method='average') / len(valid_vals)
         else:
             raise ValueError(f"Unknown normalization method: {method}")
 
+        normalized[mask] = norm_valid
         return normalized
 
     def apply_directional_adjustment(self, values, direction):
-        """Adjust values based on direction (higher/lower is better)"""
+        """Adjust values based on direction (higher/lower is better) while preserving NaNs"""
         if direction == "lower":
-            return 1 - values  # Invert so higher values always better
+            return np.where(np.isnan(values), np.nan, 1 - values)
         return values
 
     def normalize_indicator(self, indicator_id):
@@ -279,10 +290,10 @@ class DataNormalizer:
 
         # Save results
         # Save normalized matrix
-        normalized_matrix.to_csv(self.data_dir / "normalized_indicators.csv")
+        normalized_matrix.round(4).to_csv(self.data_dir / "normalized_indicators.csv")
 
         # Save country scores
-        country_scores.to_csv(self.data_dir / "country_scores.csv")
+        country_scores.round(4).to_csv(self.data_dir / "country_scores.csv")
 
         # Generate report
         report_file = self.generate_normalization_report()

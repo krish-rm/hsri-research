@@ -105,6 +105,18 @@ def export_all():
     labor_vuln_df = pd.read_csv(DATA_DIR / "labor_vulnerability.csv", index_col=0)
     indicators_df = pd.read_csv(DATA_DIR / "indicators.csv")
 
+    # Load harmonized raw observations
+    harmonized_path = DATA_DIR / "raw_observations_harmonized.csv"
+    if harmonized_path.exists():
+        harmonized_df = pd.read_csv(harmonized_path)
+    else:
+        harmonized_df = pd.read_csv(DATA_DIR / "observations.csv")
+        harmonized_df["status"] = "Observed"
+
+    harmonized_lookup = {}
+    for _, h_row in harmonized_df.iterrows():
+        harmonized_lookup[(str(h_row["country_iso3"]), str(h_row["indicator_id"]))] = h_row
+
     # Load country profiles JSON files
     profiles_dir = PROJECT_ROOT / "research" / "country_profiles"
     country_profiles = {}
@@ -157,7 +169,7 @@ def export_all():
         profile = country_profiles.get(iso3, {})
         narrative = country_narratives.get(iso3, {})
 
-        # Indicator provenance breakdown for auditability (Task 5)
+        # Indicator provenance breakdown backed by real harmonized raw data
         indicators_breakdown = []
         for _, ind_row in indicators_df.iterrows():
             code = str(ind_row.get("indicator_id", ""))
@@ -166,30 +178,25 @@ def export_all():
             pillar = str(ind_row.get("pillar", ""))
             source = str(ind_row.get("source_ids", ""))
 
+            h_entry = harmonized_lookup.get((iso3, code))
             if role == "Rejected":
                 audit_status = "Rejected"
                 audit_note = "Excluded during construct audit"
-            elif role == "Context-only":
-                if code == "CAL_TRUST_001":
-                    if iso3 in KPMG_SURVEY_COUNTRIES:
-                        audit_status = "Context-Observed"
-                        audit_note = "Observed in KPMG-Melbourne 2023 wave (17 countries)"
-                    else:
-                        audit_status = "Context-Imputed"
-                        audit_note = "Country was not in 17-country survey sample; value was imputed"
+                raw_val = None
+            elif h_entry is not None:
+                is_missing = pd.isna(h_entry.get("value"))
+                if is_missing:
+                    audit_status = "Missing"
+                    audit_note = str(h_entry.get("coverage_notes", "Unsurveyed"))
+                    raw_val = None
                 else:
-                    audit_status = "Context-Only"
-                    audit_note = "Tracked for context; not scored in core index"
-            else:  # Retained
-                if code == "META_COG_002" and iso3 in EMLI_NON_EUROPEAN:
-                    audit_status = "Imputed (Geographic Gap)"
-                    audit_note = "European Media Literacy Index only surveys European states; non-European value is imputed"
-                elif code == "META_COG_003" and iso3 in ["CYP", "ISL", "MLT"]:
-                    audit_status = "Imputed (Sample Gap)"
-                    audit_note = "Not covered in standard Reuters DNR sample waves"
-                else:
-                    audit_status = "Observed (Unverified Microdata)"
-                    audit_note = "Observation populated in observations.csv; primary survey microdata unverified in repo"
+                    audit_status = "Observed" if role == "Retained" else "Context-Observed"
+                    audit_note = str(h_entry.get("coverage_notes", "Observed indicator value"))
+                    raw_val = round(float(h_entry["value"]), 2)
+            else:
+                audit_status = "Missing"
+                audit_note = "No empirical record in database"
+                raw_val = None
 
             indicators_breakdown.append({
                 "code": code,
@@ -198,8 +205,13 @@ def export_all():
                 "role": role,
                 "source": source,
                 "auditStatus": audit_status,
-                "auditNote": audit_note
+                "auditNote": audit_note,
+                "rawValue": raw_val
             })
+
+        retained_observed = sum(1 for ind in indicators_breakdown if ind["role"] == "Retained" and ind["auditStatus"] == "Observed")
+        retained_total = sum(1 for ind in indicators_breakdown if ind["role"] == "Retained")
+        country_coverage_pct = round((retained_observed / retained_total) * 100, 1)
 
         c_data = {
             "id": iso3.lower(),
@@ -211,6 +223,9 @@ def export_all():
             "band": band,
             "region": region,
             "status": row.get("status", "Moderate capacity"),
+            "coverage": country_coverage_pct,
+            "observedCount": retained_observed,
+            "totalRetained": retained_total,
             "exposure": exp_score,
             "gap": gap_val,
             "gapStatus": gap_status,
@@ -257,6 +272,7 @@ def export_all():
             "unratedEvaluatedCountries": 86,
             "globalNations": 195,
             "avgScore": round(float(np.mean([c["score"] for c in countries_list])), 1),
+            "avgCoverage": round(float(np.mean([c["coverage"] for c in countries_list])), 1),
             "bandCounts": {
                 "A": sum(1 for c in countries_list if c["band"] == "A"),
                 "B": sum(1 for c in countries_list if c["band"] == "B"),
@@ -402,7 +418,8 @@ def export_all():
         "scenario_crossing_years.csv",
         "labor_vulnerability.csv",
         "labor_crossing_years.csv",
-        "normalized_indicators.csv"
+        "normalized_indicators.csv",
+        "raw_observations_harmonized.csv"
     ]
     for csv_file in csv_files_to_copy:
         src = DATA_DIR / csv_file

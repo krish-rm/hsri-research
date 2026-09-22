@@ -1,6 +1,6 @@
 ============================================================
 HSRI-Proxy v0.1 Index Construction Report
-Generated: 2026-09-22 22:39:12
+Generated: 2026-09-23 00:04:13
 ============================================================
 
 ## EXECUTIVE SUMMARY
@@ -13,24 +13,24 @@ AI_Literacy:
   - Description: Cognitive and technical capacity to understand and work with AI
   - Indicators: 4
   - Countries scored: 39
-  - Average score: 0.513 (σ=0.266)
-  - Score range: 0.021 - 0.925
+  - Average score: 0.500 (σ=0.269)
+  - Score range: 0.028 - 0.921
   - Primary microdata coverage: Unverified (preview release)
 
 Critical_Discernment:
   - Description: Ability to evaluate information, distinguish fact from opinion, and think critically
   - Indicators: 3
   - Countries scored: 39
-  - Average score: 0.546 (σ=0.248)
-  - Score range: 0.022 - 0.989
+  - Average score: 0.562 (σ=0.250)
+  - Score range: 0.024 - 0.989
   - Primary microdata coverage: Unverified (preview release)
 
 Institutional_Governance:
   - Description: Legal and regulatory frameworks that protect human agency in AI systems
   - Indicators: 5
   - Countries scored: 39
-  - Average score: 0.527 (σ=0.263)
-  - Score range: 0.053 - 0.965
+  - Average score: 0.526 (σ=0.266)
+  - Score range: 0.021 - 0.965
   - Primary microdata coverage: Unverified (preview release)
 
 Digital_Infrastructure:
@@ -52,15 +52,16 @@ Digital_Infrastructure:
 **AI_Literacy** (score < 0.2):
   - BGR
   - CYP
+  - ESP
+  - HUN
   - MKD
-  - ROU
+  - ... and 2 more
 
 **Critical_Discernment** (score < 0.2):
   - BGR
   - GRC
   - MKD
   - ROU
-  - SVK
 
 **Institutional_Governance** (score < 0.2):
   - BGR
@@ -77,9 +78,9 @@ Digital_Infrastructure:
 
 Global Index Statistics:
   - Countries rated: 39
-  - Overall mean: 0.538 ± 0.237
-  - Bootstrap mean: 0.540 ± 0.038
-  - 95% CI: [0.467, 0.616]
+  - Overall mean: 0.538 ± 0.238
+  - Bootstrap mean: 0.539 ± 0.038
+  - 95% CI: [0.465, 0.609]
 
 ## METHODOLOGICAL NOTES
 - Non-compensatory aggregation: Pillar weaknesses cannot be compensated by strengths
