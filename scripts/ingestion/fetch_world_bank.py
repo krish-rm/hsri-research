@@ -47,7 +47,7 @@ class WorldBankFetcher(BaseFetcher):
         """Parse WGI observations into standard schema."""
         # Load benchmark country list
         coverage_df = pd.read_csv(DATA_DIR / "coverage-by-country.csv")
-        countries = coverage_df[coverage_df["overall_status"] == "Scored"][["iso3", "country"]].drop_duplicates()
+        countries = coverage_df[coverage_df["overall_status"] == "Scored"][["country_iso3", "country_name"]].drop_duplicates()
         
         records = []
         if self.raw_wgi_file.exists():
@@ -57,11 +57,11 @@ class WorldBankFetcher(BaseFetcher):
                 if len(data) > 1 and isinstance(data[1], list):
                     api_records = {item["countryiso3code"]: item["value"] for item in data[1] if item.get("value") is not None}
                     for _, row in countries.iterrows():
-                        iso = row["iso3"]
+                        iso = row["country_iso3"]
                         val = api_records.get(iso)
                         records.append({
                             "country_iso3": iso,
-                            "country_name": row["country"],
+                            "country_name": row["country_name"],
                             "indicator_id": "DEC_AGY_001",
                             "value": float(val) if val is not None else float("nan"),
                             "year": 2022,

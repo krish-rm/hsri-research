@@ -26,7 +26,7 @@ class VDemFetcher(BaseFetcher):
     def extract(self) -> pd.DataFrame:
         """Parse V-Dem Liberal Democracy records into standard schema."""
         coverage_df = pd.read_csv(DATA_DIR / "coverage-by-country.csv")
-        countries = coverage_df[coverage_df["overall_status"] == "Scored"][["iso3", "country"]].drop_duplicates()
+        countries = coverage_df[coverage_df["overall_status"] == "Scored"][["country_iso3", "country_name"]].drop_duplicates()
 
         # Check if full raw file is checked into data/raw/
         if self.raw_csv.exists():
@@ -35,13 +35,13 @@ class VDemFetcher(BaseFetcher):
             latest_vdem = raw_df.sort_values("year").groupby("country_text_id").last().reset_index()
             records = []
             for _, row in countries.iterrows():
-                iso = row["iso3"]
+                iso = row["country_iso3"]
                 match = latest_vdem[latest_vdem["country_text_id"] == iso]
                 if not match.empty and pd.notna(match.iloc[0].get("v2x_libdem")):
                     val = float(match.iloc[0]["v2x_libdem"])
                     records.append({
                         "country_iso3": iso,
-                        "country_name": row["country"],
+                        "country_name": row["country_name"],
                         "indicator_id": "DEC_AGY_002",
                         "value": val,
                         "year": int(match.iloc[0].get("year", 2023)),
@@ -52,7 +52,7 @@ class VDemFetcher(BaseFetcher):
                 else:
                     records.append({
                         "country_iso3": iso,
-                        "country_name": row["country"],
+                        "country_name": row["country_name"],
                         "indicator_id": "DEC_AGY_002",
                         "value": float("nan"),
                         "year": 2023,

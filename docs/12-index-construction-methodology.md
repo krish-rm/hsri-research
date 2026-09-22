@@ -57,20 +57,21 @@ This document outlines the methodology for constructing the HSRI-Proxy index fol
 
 ## 4. Coverage Rules
 
-### 4.1 Pillar Coverage Thresholds
-- **Minimum coverage**: 70% of indicators per pillar required for scoring
-- **Missing data**: Not imputed for headline scores
-- **Partial pillars**: Countries with insufficient coverage flagged separately
+### 4.1 Pillar Coverage Thresholds & Missingness Architecture
+- **Minimum coverage threshold**: A minimum of 60% of retained indicators per pillar must be observed for a country to receive a pillar score.
+- **Proportional weight re-scaling**: When a country lacks an indicator due to source boundary constraints (e.g., non-European economies missing EMLI), the pillar score is computed over observed indicators only, re-scaling their weights proportionally without inventing synthetic numbers.
+- **Empirical Missingness Dataset**: Governed by [`data/raw_observations_harmonized.csv`](file:///c:/Users/lenovo/Documents/Github%20Repo/hsri-research/data/raw_observations_harmonized.csv) (780 records across 39 benchmark economies).
 
-### 4.2 Country Inclusion Rules
-- **Full rating**: Minimum 3 core pillars with sufficient coverage
-- **Partial rating**: 1-2 core pillars with sufficient coverage
-- **Not rated**: No core pillars with sufficient coverage
+### 4.2 Country Inclusion & Rating Scope
+- **Benchmark Rated Cohort (39 nations)**: Economies meeting the $\ge 60\%$ indicator threshold across all 4 core pillars (currently an OECD-weighted, high-income benchmark group; overall completeness = 96.5%).
+- **Evaluated but Unrated (86 nations)**: Identified in coverage audits as having incomplete indicator availability across multiple core pillars.
+- **Context/Auxiliary Matrix (59 nations)**: Countries with partial presence in international institutional matrices.
+- **Global Recognized Scope (195 nations)**: The full international denominator.
 
-### 4.3 Handling Missing Data
-- No mean imputation for headline scores
-- Multiple imputation used only for sensitivity analysis
-- Coverage percentage reported transparently
+### 4.3 Provenance and Ingestion Safeguards
+- **No synthetic backfill**: Missing values remain `NaN` and are transparently surfaced on the country profile audit tables.
+- **Source-level boundaries respected**: EMLI (`META_COG_002`) is strictly restricted to European states; KPMG (`CAL_TRUST_001`) to the 17 surveyed countries; Reuters DNR (`META_COG_003`) and PIAAC (`AI_LIT_001`) to their documented survey participant lists.
+- Full country-by-country breakdown is published in [`research/empirical_coverage_summary.md`](file:///c:/Users/lenovo/Documents/Github%20Repo/hsri-research/research/empirical_coverage_summary.md).
 
 ---
 

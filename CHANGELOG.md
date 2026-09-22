@@ -13,11 +13,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Implemented `fetch_world_bank.py` for Worldwide Governance Indicators (`DEC_AGY_001`) and Digital Adoption (`ENAB_004`).
   - Implemented `fetch_vdem.py` for Varieties of Democracy liberal democracy index (`DEC_AGY_002`).
   - Implemented `fetch_oecd_pisa.py` for PISA 2022 Digital Reading (`AI_LIT_002`) and Fact vs. Opinion (`META_COG_001`).
+  - Implemented `fetch_unesco.py` for Tertiary STEM Enrollment (`AI_LIT_004`).
+  - Implemented `fetch_itu.py` for ITU Development Index (`ENAB_003`) and Digital Skills (`AI_LIT_005`).
+  - Implemented `fetch_imf.py` for IMF AI Preparedness Index (`ENAB_002`).
+  - Implemented `fetch_oxford_ai.py` for Oxford Insights Government AI Readiness Index (`ENAB_001`).
   - Established `data/raw/` repository archive directory with licensing and provenance standards.
+- **Automated Data Quality & Regression Suite (`tests/test_ingestion.py`):**
+  - Added 11 automated test specifications verifying missingness preservation, normalized score boundaries in $[0, 1]$, pillar score integrity, and web export synchronization.
 - **Empirical Missingness Harmonization:**
   - Implemented `scripts/ingestion/harmonize_observations.py` generating `data/raw_observations_harmonized.csv` (780 records).
   - Preserved authentic missing values (`NaN`) across geographic and sample limits: non-European economies missing EMLI (`META_COG_002`), unsurveyed economies in KPMG AI Trust (`CAL_TRUST_001`), and non-participating nations in Reuters DNR (`META_COG_003`) and PIAAC (`AI_LIT_001`).
   - Generated `research/empirical_coverage_summary.md` detailing country-by-country completeness across all 17 Retained indicators (96.5% overall completeness).
+- **Documentation Synchronization:**
+  - Updated `docs/12-index-construction-methodology.md` with Section 4 covering the 60% empirical threshold rule and proportional weight re-scaling.
 
 ### Changed
 - **Pillar Calculation & Proportional Re-scaling:**

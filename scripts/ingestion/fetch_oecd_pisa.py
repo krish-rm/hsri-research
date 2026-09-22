@@ -27,7 +27,7 @@ class OECDPISAFetcher(BaseFetcher):
     def extract(self) -> pd.DataFrame:
         """Extract PISA 2022 Reading and Fact vs Opinion indicators."""
         coverage_df = pd.read_csv(DATA_DIR / "coverage-by-country.csv")
-        countries = coverage_df[coverage_df["overall_status"] == "Scored"][["iso3", "country"]].drop_duplicates()
+        countries = coverage_df[coverage_df["overall_status"] == "Scored"][["country_iso3", "country_name"]].drop_duplicates()
 
         obs_df = pd.read_csv(DATA_DIR / "observations.csv")
         pisa_reading = obs_df[obs_df["indicator_id"] == "AI_LIT_002"].copy()
