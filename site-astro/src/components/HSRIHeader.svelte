@@ -2,6 +2,18 @@
   // Component state
   let isMenuOpen = false;
 
+  function toggleMenu(event?: Event) {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    isMenuOpen = !isMenuOpen;
+  }
+
+  function closeMenu() {
+    isMenuOpen = false;
+  }
+
   const base = (import.meta.env.BASE_URL || '/').replace(/\/$/, '');
 
   // Navigation items
@@ -55,14 +67,24 @@
 
         <!-- Mobile menu button -->
         <button
+          type="button"
           class="mobile-menu-button"
-          onclick={() => isMenuOpen = !isMenuOpen}
-          aria-label="Toggle navigation menu"
+          on:click={toggleMenu}
+          aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
           aria-expanded={isMenuOpen}
         >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M3 12h18M3 6h18M3 18h18" />
-          </svg>
+          {#if isMenuOpen}
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          {:else}
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          {/if}
         </button>
       </nav>
     </div>
@@ -99,7 +121,7 @@
       <ul class="mobile-nav-list">
         {#each navItems as item}
           <li class="mobile-nav-item">
-            <a href={item.href} class="mobile-nav-link">
+            <a href={item.href} class="mobile-nav-link" on:click={closeMenu}>
               {item.name}
             </a>
           </li>
@@ -236,13 +258,17 @@
   /* Mobile styles */
   @media (max-width: 768px) {
     .header-content {
-      flex-direction: column;
-      gap: var(--spacing-md);
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--spacing-sm) 0;
     }
 
     .main-nav {
-      width: 100%;
-      justify-content: space-between;
+      width: auto;
+      display: flex;
+      align-items: center;
     }
 
     .nav-list {
@@ -250,28 +276,49 @@
     }
 
     .mobile-menu-button {
-      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      background: #f8fafc;
+      cursor: pointer;
     }
 
-    .stats-container {
-      flex-direction: row;
-      gap: var(--spacing-lg);
-      font-size: var(--font-size-sm);
+    .mobile-menu-button:hover,
+    .mobile-menu-button:focus {
+      background: #f1f5f9;
+      outline: none;
     }
 
     .stats-bar {
-      padding: var(--spacing-md) 0;
+      padding: 0.5rem 0;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .stats-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      gap: 1.25rem;
+      font-size: 0.8rem;
+      min-width: max-content;
+      padding: 0 0.5rem;
     }
 
     .mobile-menu {
-      position: fixed;
+      position: absolute;
       top: 100%;
       left: 0;
       right: 0;
-      background-color: white;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      padding: var(--spacing-lg);
-      z-index: 50;
+      background-color: #ffffff;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18), 0 4px 10px rgba(0, 0, 0, 0.08);
+      border-bottom: 2px solid var(--border-color);
+      padding: 1.25rem 1.5rem;
+      z-index: 9999;
+      display: block;
     }
 
     .mobile-nav-list {
@@ -280,14 +327,30 @@
       margin: 0;
       display: flex;
       flex-direction: column;
-      gap: var(--spacing-md);
+      gap: 0.75rem;
+    }
+
+    .mobile-nav-item {
+      border-bottom: 1px solid #f1f5f9;
+      padding-bottom: 0.5rem;
+    }
+
+    .mobile-nav-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
     }
 
     .mobile-nav-link {
       color: var(--text-primary);
       text-decoration: none;
-      font-size: var(--font-size-lg);
-      font-weight: 500;
+      font-size: 1.1rem;
+      font-weight: 600;
+      display: block;
+      padding: 0.25rem 0;
+    }
+
+    .mobile-nav-link:hover {
+      color: var(--primary-color);
     }
   }
 </style>
