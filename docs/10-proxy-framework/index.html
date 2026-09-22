@@ -1,0 +1,1116 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A research feasibility project investigating whether human psychological and behavioral readiness for increasingly capable AI can be scientifically measured.">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>10. Proxy Framework for HSRI-Index v0.1 - Human Superintelligence Readiness Index (HSRI)</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#10-proxy-framework-for-hsri-index-v01" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Human Superintelligence Readiness Index (HSRI)" class="md-header__button md-logo" aria-label="Human Superintelligence Readiness Index (HSRI)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Human Superintelligence Readiness Index (HSRI)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              10. Proxy Framework for HSRI-Index v0.1
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/krish-rm/hsri-research" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hsri-research
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Human Superintelligence Readiness Index (HSRI)" class="md-nav__button md-logo" aria-label="Human Superintelligence Readiness Index (HSRI)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Human Superintelligence Readiness Index (HSRI)
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/krish-rm/hsri-research" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hsri-research
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-definition/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Definition and Scope
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-existing-indices/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Existing Global Indices
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-construct-audit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Construct Redundancy Audit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-causal-model-and-index-design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Causal Model and Index Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-measurement-and-experiments/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Measurement and Experiments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-cross-cultural-and-ethics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Cross-Cultural Validity and Ethics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-objections/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Objections and Counterarguments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Research Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-final-recommendation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Final Recommendation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="10-proxy-framework-for-hsri-index-v01">10. Proxy Framework for HSRI-Index v0.1</h1>
+<p>This document outlines the country-level proxy indicators mapping to the HSRI sub-components, following the repository's evidence standards and acknowledging current measurement limitations.</p>
+<hr />
+<h2 id="executive-summary">Executive Summary</h2>
+<p>The HSRI-Proxy v0.1 is built from existing global indicators that map onto HSRI sub-components. It is <strong>not</strong> a measurement of the HSRI construct itself (which requires behavioral experiments), but a transitional framework to highlight data gaps and inform future research priorities.</p>
+<p><strong>Key Limitations:</strong>
+- No country-level measure of the core behavioral construct (Tier 3: AI-Interaction Behavioral Interface)
+- Proxy indicators capture enabling environments rather than demonstrated readiness
+- Cross-cultural measurement invariance not yet established
+- All indicators are indirect proxies requiring careful interpretation</p>
+<hr />
+<h2 id="1-hsri-sub-components-to-proxy-mapping">1. HSRI Sub-Components to Proxy Mapping</h2>
+<h3 id="11-ai-literacy-skills-enabling-environment">1.1 AI Literacy &amp; Skills (Enabling Environment)</h3>
+<table>
+<thead>
+<tr>
+<th>Candidate Proxy</th>
+<th>Retention</th>
+<th>Validity</th>
+<th>Rationale</th>
+<th>Coverage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>OECD PIAAC Adaptive Problem Solving</strong></td>
+<td>Retained</td>
+<td>High</td>
+<td>Direct measure of cognitive skills in technology-rich environments</td>
+<td>39 countries</td>
+</tr>
+<tr>
+<td><strong>PISA Digital Reading Literacy</strong></td>
+<td>Retained</td>
+<td>High</td>
+<td>Validated digital literacy assessment for youth</td>
+<td>81 countries</td>
+</tr>
+<tr>
+<td><strong>LinkedIn Global Skills Gap Index</strong></td>
+<td>Context</td>
+<td>Medium</td>
+<td>Reflects real-world AI skill demand/supply but vendor-derived</td>
+<td>50+ countries</td>
+</tr>
+<tr>
+<td><strong>Tertiary STEM Enrollment</strong></td>
+<td>Context</td>
+<td>Medium</td>
+<td>Proxy for technical workforce development</td>
+<td>190+ countries</td>
+</tr>
+<tr>
+<td><strong>ITU Digital Skills Index</strong></td>
+<td>Context</td>
+<td>Low</td>
+<td>Broad coverage but limited AI-specific validation</td>
+<td>180+ countries</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Dispositions:</strong>
+- <strong>Core indicators</strong>: PIAAC and PISA (empirically validated, direct relevance)
+- <strong>Context indicators</strong>: LinkedIn, STEM, ITU (supplementary, broader coverage)
+- <strong>Not measurable</strong>: Behavioral AI interaction skills at country level</p>
+<hr />
+<h3 id="12-calibrated-trust-verification-behavior-core-behavioral-evidence">1.2 Calibrated Trust / Verification Behavior (Core Behavioral Evidence)</h3>
+<table>
+<thead>
+<tr>
+<th>Candidate Proxy</th>
+<th>Retention</th>
+<th>Validity</th>
+<th>Rationale</th>
+<th>Coverage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>KPMG-Melbourne AI Trust Study</strong></td>
+<td>Context</td>
+<td>High</td>
+<td>Direct measure of trust vs concern balance</td>
+<td>32 countries</td>
+</tr>
+<tr>
+<td><strong>Ipsos AI Monitor</strong></td>
+<td>Context</td>
+<td>High</td>
+<td>Regular tracking with behavioral validation</td>
+<td>28+ countries</td>
+</tr>
+<tr>
+<td><strong>Pew Research AI Attitudes</strong></td>
+<td>Context</td>
+<td>Medium</td>
+<td>Large samples but limited behavioral components</td>
+<td>46+ countries</td>
+</tr>
+<tr>
+<td><strong>Edelman Trust Barometer AI</strong></td>
+<td>Context</td>
+<td>Medium</td>
+<td>Focuses on institutional trust</td>
+<td>28+ countries</td>
+</tr>
+<tr>
+<td><strong>Lloyd's Foundation World Risk Poll</strong></td>
+<td>Rejected</td>
+<td>Low</td>
+<td>General risk attitudes, not AI-specific</td>
+<td>142+ countries</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Critical Note: </strong>No proxy adequately measures the core behavioral construct of <strong>calibrated trust</strong> - actual verification behavior when interacting with AI systems. All available measures are self-reported attitudes, which the repository's evidence audit shows poorly predict actual reliance behavior (Lee &amp; See, 2004).</p>
+<hr />
+<h3 id="13-metacognition-independent-judgment-core-behavioral-evidence">1.3 Metacognition / Independent Judgment (Core Behavioral Evidence)</h3>
+<table>
+<thead>
+<tr>
+<th>Candidate Proxy</th>
+<th>Retention</th>
+<th>Validity</th>
+<th>Rationale</th>
+<th>Coverage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PISA Reading Fact vs Opinion</strong></td>
+<td>Retained</td>
+<td>Medium</td>
+<td>Valid measure of epistemic discernment</td>
+<td>81 countries</td>
+</tr>
+<tr>
+<td><strong>European Media Literacy Index</strong></td>
+<td>Retained</td>
+<td>Medium</td>
+<td>Direct measure of critical evaluation skills</td>
+<td>39 European countries</td>
+</tr>
+<tr>
+<td><strong>Reuters Institute Digital News Report</strong></td>
+<td>Context</td>
+<td>Low</td>
+<td>Measures news behavior, not specifically AI</td>
+<td>46+ countries</td>
+</tr>
+<tr>
+<td><strong>MediaWise Digital Literacy</strong></td>
+<td>Rejected</td>
+<td>Low</td>
+<td>General digital literacy not AI-specific</td>
+<td>US-focused</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Dispositions:</strong>
+- Retained indicators measure general epistemic skills that partially contribute to AI discernment
+- <strong>Key Gap</strong>: No measure of confident-wrong AI detection specifically</p>
+<hr />
+<h3 id="14-decision-agency-institutional-safeguards">1.4 Decision Agency (Institutional Safeguards)</h3>
+<table>
+<thead>
+<tr>
+<th>Candidate Proxy</th>
+<th>Retention</th>
+<th>Validity</th>
+<th>Rationale</th>
+<th>Coverage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Worldwide Governance Indicators (RL/VA)</strong></td>
+<td>Retained</td>
+<td>High</td>
+<td>Validated measure of institutional oversight</td>
+<td>215+ countries</td>
+</tr>
+<tr>
+<td><strong>V-Dem Democracy Indices</strong></td>
+<td>Retained</td>
+<td>High</td>
+<td>Comprehensive measure of institutional constraints</td>
+<td>202+ countries</td>
+</tr>
+<tr>
+<td><strong>Freedom House Freedom in the World</strong></td>
+<td>Retained</td>
+<td>Medium</td>
+<td>Long-standing measure of democratic constraints</td>
+<td>195+ countries</td>
+</tr>
+<tr>
+<td><strong>OECD AI Policy Observatory</strong></td>
+<td>Retained</td>
+<td>High</td>
+<td>Direct measure of AI-specific governance</td>
+<td>OECD+ countries</td>
+</tr>
+<tr>
+<td><strong>Stanford AI Index Policy Section</strong></td>
+<td>Retained</td>
+<td>Medium</td>
+<td>Comprehensive policy tracking</td>
+<td>Global with focus on G20</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note</strong>: These measure institutional frameworks, not individual decision agency, but provide context for individual behavioral expression.</p>
+<hr />
+<h3 id="15-attentional-control-wellbeing-context-only">1.5 Attentional Control / Wellbeing (Context Only)</h3>
+<table>
+<thead>
+<tr>
+<th>Candidate Proxy</th>
+<th>Retention</th>
+<th>Validity</th>
+<th>Rationale</th>
+<th>Coverage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Daily Screen Time Average</strong></td>
+<td>Context</td>
+<td>Low</td>
+<td>Indirect proxy for attentional demands</td>
+<td>46+ countries</td>
+</tr>
+<tr>
+<td><strong>WHO Mental Health Prevalence</strong></td>
+<td>Context</td>
+<td>Medium</td>
+<td>Mental health affects attentional capacity</td>
+<td>194+ countries</td>
+</tr>
+<tr>
+<td><strong>HBSC Adolescent Wellbeing</strong></td>
+<td>Rejected</td>
+<td>Low</td>
+<td>Measures general wellbeing not attention</td>
+<td>45+ countries</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Disposition</strong>: All classified as context-only due to weak validity as attentional control measures.</p>
+<hr />
+<h3 id="16-value-clarity-theoretical-dimension">1.6 Value Clarity (Theoretical Dimension)</h3>
+<table>
+<thead>
+<tr>
+<th>Candidate Proxy</th>
+<th>Retention</th>
+<th>Validity</th>
+<th>Rationale</th>
+<th>Coverage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>World Values Survey</strong></td>
+<td>Rejected</td>
+<td>Low</td>
+<td>Measures static values not dynamic clarity</td>
+<td>100+ countries</td>
+</tr>
+<tr>
+<td><strong>EVS Values Importance</strong></td>
+<td>Rejected</td>
+<td>Low</td>
+<td>Self-reported values not operational clarity</td>
+<td>47 countries</td>
+</tr>
+<tr>
+<td><strong>European Social Survey Values</strong></td>
+<td>Rejected</td>
+<td>Low</td>
+<td>Static value measures not metacognitive clarity</td>
+<td>36 countries</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Disposition</strong>: <strong>Not measurable at country level</strong> with existing data per repository assessment.</p>
+<hr />
+<h2 id="2-additional-layer-enabling-environment">2. Additional Layer: Enabling Environment</h2>
+<p>This layer captures contextual factors that influence AI readiness but are not direct HSRI sub-components:</p>
+<table>
+<thead>
+<tr>
+<th>Indicator</th>
+<th>Validity</th>
+<th>Coverage</th>
+<th>Rationale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Oxford Insights Gov AI Readiness</strong></td>
+<td>High</td>
+<td>181 countries</td>
+<td>Government AI strategy benchmark</td>
+</tr>
+<tr>
+<td><strong>IMF AI Preparedness Index</strong></td>
+<td>High</td>
+<td>125 countries</td>
+<td>IMF's official AI preparedness measure</td>
+</tr>
+<tr>
+<td><strong>ITU Development Index</strong></td>
+<td>High</td>
+<td>180+ countries</td>
+<td>Connectivity foundation</td>
+</tr>
+<tr>
+<td><strong>World Bank Digital Adoption</strong></td>
+<td>Medium</td>
+<td>120+ countries</td>
+<td>General digital adoption proxy</td>
+</tr>
+<tr>
+<td><strong>WEF Tech Adoption</strong></td>
+<td>Medium</td>
+<td>148 countries</td>
+<td>Industry-focused adoption</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3-behavioral-evidence-layer-emptyawaiting-data">3. Behavioral Evidence Layer: Empty/Awaiting Data</h2>
+<p>Per repository requirements, the core HSRI construct (behavioral measurement under AI interaction) cannot be operationalized at country level currently:</p>
+<ul>
+<li><strong>Confident-wrong AI detection</strong>: No country-level behavioral data</li>
+<li><strong>Cognitive forcing function performance</strong>: No cross-country measures</li>
+<li><strong>Override accuracy and calibration</strong>: No validated proxies</li>
+<li><strong>Resistance to sycophantic framing</strong>: No country-level indicators</li>
+</ul>
+<p><strong>Status</strong>: Displayed as empty layer on public site with pointer to docs/05-measurement-and-experiments.md</p>
+<hr />
+<h2 id="4-coverage-analysis">4. Coverage Analysis</h2>
+<h3 id="41-by-sub-component">4.1 By Sub-component</h3>
+<table>
+<thead>
+<tr>
+<th>Sub-component</th>
+<th>Core Indicators</th>
+<th>Context Indicators</th>
+<th>Coverage (Countries)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AI Literacy</td>
+<td>2</td>
+<td>3</td>
+<td>39-190</td>
+</tr>
+<tr>
+<td>Calibrated Trust</td>
+<td>0</td>
+<td>4</td>
+<td>28-46</td>
+</tr>
+<tr>
+<td>Metacognition</td>
+<td>2</td>
+<td>1</td>
+<td>39-81</td>
+</tr>
+<tr>
+<td>Decision Agency</td>
+<td>5</td>
+<td>0</td>
+<td>195-215</td>
+</tr>
+<tr>
+<td>Attentional Control</td>
+<td>0</td>
+<td>2</td>
+<td>46-194</td>
+</tr>
+<tr>
+<td>Value Clarity</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<h3 id="42-by-geographic-region">4.2 By Geographic Region</h3>
+<table>
+<thead>
+<tr>
+<th>Region</th>
+<th>AI Literacy</th>
+<th>Calibrated Trust</th>
+<th>Metacognition</th>
+<th>Decision Agency</th>
+<th>Attentional</th>
+<th>Overall Coverage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>North America</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>Medium</td>
+<td>High</td>
+</tr>
+<tr>
+<td>Europe</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+</tr>
+<tr>
+<td>East Asia</td>
+<td>Medium</td>
+<td>Medium</td>
+<td>Medium</td>
+<td>High</td>
+<td>Medium</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>Latin America</td>
+<td>Low</td>
+<td>Low</td>
+<td>Medium</td>
+<td>Medium</td>
+<td>Medium</td>
+<td>Low</td>
+</tr>
+<tr>
+<td>Africa</td>
+<td>Low</td>
+<td>Low</td>
+<td>Low</td>
+<td>Low</td>
+<td>Low</td>
+<td>Low</td>
+</tr>
+<tr>
+<td>Oceania</td>
+<td>Medium</td>
+<td>Low</td>
+<td>Medium</td>
+<td>High</td>
+<td>Medium</td>
+<td>Medium</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5-indicator-quality-ratings">5. Indicator Quality Ratings</h2>
+<h3 id="51-high-validity">5.1 High Validity</h3>
+<ul>
+<li>PIAAC Adaptive Problem Solving</li>
+<li>PISA Digital Reading Literacy</li>
+<li>WGI Rule of Law/Voice &amp; Accountability</li>
+<li>V-Dem Democracy Indices</li>
+<li>Oxford Insights AI Readiness</li>
+<li>IMF AI Preparedness Index</li>
+</ul>
+<h3 id="52-medium-validity">5.2 Medium Validity</h3>
+<ul>
+<li>LinkedIn Skills Gap (vendor bias)</li>
+<li>Tertiary STEM (indirect measure)</li>
+<li>Pew AI Attitudes (attitudinal only)</li>
+<li>WHO Mental Health (correlational only)</li>
+<li>ITU Digital Skills (broad scope)</li>
+</ul>
+<h3 id="53-low-validity">5.3 Low Validity</h3>
+<ul>
+<li>All wellbeing measures</li>
+<li>General media literacy (not AI-specific)</li>
+<li>WVS/EVS value measures</li>
+</ul>
+<hr />
+<h2 id="6-recommendations-for-data-collection">6. Recommendations for Data Collection</h2>
+<h3 id="61-priority-1-behavioral-proxy-development">6.1 Priority 1: Behavioral Proxy Development</h3>
+<ul>
+<li>Develop international attitudinal surveys with behavioral scenario questions</li>
+<li>Partner with global survey organizations (Gallup, WVS, Ipsos)</li>
+<li>Focus on override behavior and verification scenarios</li>
+</ul>
+<h3 id="62-priority-2-ai-specific-literacy-measures">6.2 Priority 2: AI-Specific Literacy Measures</h3>
+<ul>
+<li>Expand PISA to include AI-specific literacy items</li>
+<li>Develop UNESCO AI literacy assessment protocols</li>
+<li>Create workforce readiness surveys</li>
+</ul>
+<h3 id="63-priority-3-institutional-governance-tracking">6.3 Priority 3: Institutional Governance Tracking</h3>
+<ul>
+<li>Expand OECD AI Policy Observatory coverage</li>
+<li>Create standardized AI governance assessment metrics</li>
+<li>Track implementation of AI audit requirements</li>
+</ul>
+<hr />
+<h2 id="7-ethical-considerations">7. Ethical Considerations</h2>
+<h3 id="71-responsibility-laundering-risk">7.1 Responsibility Laundering Risk</h3>
+<p>All proxy indicators must be accompanied by clear disclaimers that:
+- Individual readiness cannot substitute for AI safety and alignment
+- Institutional indicators do not measure individual capability
+- Low scores should not justify paternalistic restrictions</p>
+<h3 id="72-cultural-bias">7.2 Cultural Bias</h3>
+<ul>
+<li>Western-educated populations may over-index on epistemic individualism</li>
+<li>Collectivist cultures may demonstrate agency through consensus, not individual override</li>
+<li>Require cross-cultural validation before any normative interpretations</li>
+</ul>
+<hr />
+<h2 id="8-data-gaps-summary">8. Data Gaps Summary</h2>
+<h3 id="81-critical-gaps">8.1 Critical Gaps</h3>
+<ol>
+<li><strong>Behavioral data</strong>: No country-level measures of AI interaction behavior</li>
+<li><strong>Cross-cultural</strong>: Limited non-Western validation of psychometric constructs</li>
+<li><strong>Longitudinal</strong>: No trend data on adaptation to AI capability growth</li>
+<li><strong>Sectoral</strong>: Limited data on organizational vs individual readiness</li>
+</ol>
+<h3 id="82-measurement-challenges">8.2 Measurement Challenges</h3>
+<ol>
+<li><strong>Aggregation</strong>: Individual-level measures cannot be meaningfully averaged to country level</li>
+<li><strong>Invariance</strong>: No established measurement equivalence across cultures</li>
+<li><strong>Specificity</strong>: General cognitive measures may not predict AI-specific behavior</li>
+</ol>
+<hr />
+<p>This framework provides a transitional path toward the full HSRI construct while maintaining scientific honesty about current limitations.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.top", "toc.integrate", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,915 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A research feasibility project investigating whether human psychological and behavioral readiness for increasingly capable AI can be scientifically measured.">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Index Construction Methodology for HSRI-Proxy v0.1 - Human Superintelligence Readiness Index (HSRI)</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#index-construction-methodology-for-hsri-proxy-v01" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Human Superintelligence Readiness Index (HSRI)" class="md-header__button md-logo" aria-label="Human Superintelligence Readiness Index (HSRI)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Human Superintelligence Readiness Index (HSRI)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Index Construction Methodology for HSRI-Proxy v0.1
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/krish-rm/hsri-research" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hsri-research
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Human Superintelligence Readiness Index (HSRI)" class="md-nav__button md-logo" aria-label="Human Superintelligence Readiness Index (HSRI)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Human Superintelligence Readiness Index (HSRI)
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/krish-rm/hsri-research" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hsri-research
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-definition/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Definition and Scope
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-existing-indices/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Existing Global Indices
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-construct-audit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Construct Redundancy Audit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-causal-model-and-index-design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Causal Model and Index Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-measurement-and-experiments/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Measurement and Experiments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-cross-cultural-and-ethics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Cross-Cultural Validity and Ethics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-objections/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Objections and Counterarguments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Research Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-final-recommendation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Final Recommendation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="index-construction-methodology-for-hsri-proxy-v01">Index Construction Methodology for HSRI-Proxy v0.1</h1>
+<p>This document outlines the methodology for constructing the HSRI-Proxy index following the OECD/JRC Handbook on Composite Indicators and taking into account the repository's scientific rigor requirements.</p>
+<hr />
+<h2 id="1-methodological-framework">1. Methodological Framework</h2>
+<h3 id="11-core-principles">1.1 Core Principles</h3>
+<ul>
+<li><strong>Non-compensatory</strong>: Weaknesses in one pillar cannot be compensated by strengths in others</li>
+<li><strong>Transparency</strong>: All methodological choices documented and reproducible</li>
+<li><strong>Uncertainty</strong>: Confidence intervals provided for all scores</li>
+<li><strong>Sensitivity</strong>: Methodological variations tested and reported</li>
+</ul>
+<h3 id="12-oecdjrc-handbook-compliance">1.2 OECD/JRC Handbook Compliance</h3>
+<ul>
+<li>Theoretical justification for each component</li>
+<li>Statistical testing for reliability and validity</li>
+<li>Clear treatment of missing data</li>
+<li>Uncertainty quantification</li>
+</ul>
+<hr />
+<h2 id="2-pillar-structure-and-weighting">2. Pillar Structure and Weighting</h2>
+<h3 id="21-core-pillars-equal-weighting">2.1 Core Pillars (Equal Weighting)</h3>
+<table>
+<thead>
+<tr>
+<th>Pillar</th>
+<th>Description</th>
+<th>Number of Indicators</th>
+<th>Weight</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>AI Literacy &amp; Skills</strong></td>
+<td>Cognitive capacity for AI interaction</td>
+<td>5</td>
+<td>25%</td>
+</tr>
+<tr>
+<td><strong>Critical Discernment</strong></td>
+<td>Evaluation and verification skills</td>
+<td>3</td>
+<td>25%</td>
+</tr>
+<tr>
+<td><strong>Institutional Governance</strong></td>
+<td>Institutional safeguards framework</td>
+<td>5</td>
+<td>25%</td>
+</tr>
+<tr>
+<td><strong>Digital Infrastructure</strong></td>
+<td>Technological readiness</td>
+<td>5</td>
+<td>25%</td>
+</tr>
+</tbody>
+</table>
+<h3 id="22-context-pillars-separate-reporting">2.2 Context Pillars (Separate Reporting)</h3>
+<table>
+<thead>
+<tr>
+<th>Pillar</th>
+<th>Description</th>
+<th>Data Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Trust &amp; Attitudes</strong></td>
+<td>Public perceptions</td>
+<td>Survey data</td>
+</tr>
+<tr>
+<td><strong>Wellbeing Context</strong></td>
+<td>Attentional resources</td>
+<td>Health surveys</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3-normalization-methods">3. Normalization Methods</h2>
+<h3 id="31-normalization-strategy-by-indicator-type">3.1 Normalization Strategy by Indicator Type</h3>
+<table>
+<thead>
+<tr>
+<th>Indicator Type</th>
+<th>Method</th>
+<th>Rationale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Assessment Data</strong> (PIAAC, PISA)</td>
+<td>Z-score standardization</td>
+<td>Preserves distribution shape, handles different scales</td>
+</tr>
+<tr>
+<td><strong>Indices</strong> (Oxford, IMF)</td>
+<td>Min-max scaling to [0,1]</td>
+<td>Binds to interpretable range</td>
+</tr>
+<tr>
+<td><strong>Ranks</strong></td>
+<td>Rank transformation</td>
+<td>Reduces outlier impact, preserves ordinal relationships</td>
+</tr>
+<tr>
+<td><strong>Percentages/Ratios</strong></td>
+<td>Min-max scaling</td>
+<td>Natural upper bounds, intuitive interpretation</td>
+</tr>
+</tbody>
+</table>
+<h3 id="32-directional-alignment">3.2 Directional Alignment</h3>
+<ul>
+<li>All indicators normalized so higher values = better readiness</li>
+<li>Inverted indicators (e.g., where lower = better) transformed using: <code>normalized = 1 - normalized</code></li>
+</ul>
+<hr />
+<h2 id="4-coverage-rules">4. Coverage Rules</h2>
+<h3 id="41-pillar-coverage-thresholds-missingness-architecture">4.1 Pillar Coverage Thresholds &amp; Missingness Architecture</h3>
+<ul>
+<li><strong>Minimum coverage threshold</strong>: A minimum of 60% of retained indicators per pillar must be observed for a country to receive a pillar score.</li>
+<li><strong>Proportional weight re-scaling</strong>: When a country lacks an indicator due to source boundary constraints (e.g., non-European economies missing EMLI), the pillar score is computed over observed indicators only, re-scaling their weights proportionally without inventing synthetic numbers.</li>
+<li><strong>Empirical Missingness Dataset</strong>: Governed by <a href="file:///c:/Users/lenovo/Documents/Github%20Repo/hsri-research/data/raw_observations_harmonized.csv"><code>data/raw_observations_harmonized.csv</code></a> (780 records across 39 benchmark economies).</li>
+</ul>
+<h3 id="42-country-inclusion-rating-scope">4.2 Country Inclusion &amp; Rating Scope</h3>
+<ul>
+<li><strong>Benchmark Rated Cohort (39 nations)</strong>: Economies meeting the $\ge 60\%$ indicator threshold across all 4 core pillars (currently an OECD-weighted, high-income benchmark group; overall completeness = 96.5%).</li>
+<li><strong>Evaluated but Unrated (86 nations)</strong>: Identified in coverage audits as having incomplete indicator availability across multiple core pillars.</li>
+<li><strong>Context/Auxiliary Matrix (59 nations)</strong>: Countries with partial presence in international institutional matrices.</li>
+<li><strong>Global Recognized Scope (195 nations)</strong>: The full international denominator.</li>
+</ul>
+<h3 id="43-provenance-and-ingestion-safeguards">4.3 Provenance and Ingestion Safeguards</h3>
+<ul>
+<li><strong>No synthetic backfill</strong>: Missing values remain <code>NaN</code> and are transparently surfaced on the country profile audit tables.</li>
+<li><strong>Source-level boundaries respected</strong>: EMLI (<code>META_COG_002</code>) is strictly restricted to European states; KPMG (<code>CAL_TRUST_001</code>) to the 17 surveyed countries; Reuters DNR (<code>META_COG_003</code>) and PIAAC (<code>AI_LIT_001</code>) to their documented survey participant lists.</li>
+<li>Full country-by-country breakdown is published in <a href="file:///c:/Users/lenovo/Documents/Github%20Repo/hsri-research/research/empirical_coverage_summary.md"><code>research/empirical_coverage_summary.md</code></a>.</li>
+</ul>
+<hr />
+<h2 id="5-aggregation-methodology">5. Aggregation Methodology</h2>
+<h3 id="51-pillar-score-calculation">5.1 Pillar Score Calculation</h3>
+<ul>
+<li>Simple arithmetic mean of normalized indicators</li>
+<li>Equal weighting within pillars</li>
+<li>Minimum 70% coverage requirement</li>
+</ul>
+<h3 id="52-overall-score-calculation">5.2 Overall Score Calculation</h3>
+<ul>
+<li>Simple arithmetic mean of available core pillars</li>
+<li>Equal weighting across core pillars (25% each)</li>
+<li>No compensation for missing pillars</li>
+</ul>
+<h3 id="53-band-classification-preliminary">5.3 Band Classification (Preliminary)</h3>
+<table>
+<thead>
+<tr>
+<th>Band</th>
+<th>Score Range</th>
+<th>Interpretation</th>
+<th>Color Code</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>0.0 - 0.4</td>
+<td>Limited capacity</td>
+<td>#e74c3c</td>
+</tr>
+<tr>
+<td>2</td>
+<td>0.4 - 0.6</td>
+<td>Developing capacity</td>
+<td>#f39c12</td>
+</tr>
+<tr>
+<td>3</td>
+<td>0.6 - 0.8</td>
+<td>Moderate capacity</td>
+<td>#3498db</td>
+</tr>
+<tr>
+<td>4</td>
+<td>0.8 - 1.0</td>
+<td>Strong capacity</td>
+<td>#27ae60</td>
+</tr>
+</tbody>
+</table>
+<p><em>Note: Band thresholds will be refined based on actual score distribution</em></p>
+<hr />
+<h2 id="6-uncertainty-quantification">6. Uncertainty Quantification</h2>
+<h3 id="61-confidence-intervals">6.1 Confidence Intervals</h3>
+<ul>
+<li><strong>Bootstrap resampling</strong>: 1000 iterations for each country score</li>
+<li><strong>Report</strong>: Mean score ± 95% confidence interval</li>
+<li><strong>Display</strong>: Error bars on visualizations</li>
+</ul>
+<h3 id="62-monte-carlo-analysis">6.2 Monte Carlo Analysis</h3>
+<ul>
+<li><strong>Parameters</strong>: Normalization method, weighting schemes</li>
+<li><strong>Scenarios</strong>: Equal weights, education-focused, governance-focused</li>
+<li><strong>Output</strong>: Range of possible scores for sensitivity analysis</li>
+</ul>
+<hr />
+<h2 id="7-statistical-validation">7. Statistical Validation</h2>
+<h3 id="71-reliability-testing">7.1 Reliability Testing</h3>
+<ul>
+<li><strong>Cronbach's alpha</strong>: Internal consistency of core pillars</li>
+<li><strong>Inter-item correlations</strong>: Check for redundancy</li>
+<li><strong>Split-half reliability</strong>: Consistency across indicator subsets</li>
+</ul>
+<h3 id="72-validity-assessment">7.2 Validity Assessment</h3>
+<ul>
+<li><strong>Convergent validity</strong>: Correlations with existing indices</li>
+<li><strong>Discriminant validity</strong>: Low correlations with theoretically unrelated measures</li>
+<li><strong>Construct validity</strong>: Factor analysis to confirm structure</li>
+</ul>
+<h3 id="73-sensitivity-analysis">7.3 Sensitivity Analysis</h3>
+<ul>
+<li><strong>Methodological variations</strong>: Test different normalization and aggregation methods</li>
+<li><strong>Indicator subsets</strong>: Remove/add indicators to test robustness</li>
+<li><strong>Weight variations</strong>: Test different pillar weightings</li>
+</ul>
+<hr />
+<h2 id="8-implementation-steps">8. Implementation Steps</h2>
+<h3 id="81-data-preparation">8.1 Data Preparation</h3>
+<ol>
+<li>Load indicators, observations, and sources</li>
+<li>Normalize each indicator using appropriate method</li>
+<li>Apply directional adjustments</li>
+<li>Create country-indicator matrix</li>
+</ol>
+<h3 id="82-pillar-scoring">8.2 Pillar Scoring</h3>
+<ol>
+<li>Apply coverage rules to each pillar</li>
+<li>Calculate pillar scores with sufficient coverage</li>
+<li>Flag countries with insufficient coverage</li>
+</ol>
+<h3 id="83-index-construction">8.3 Index Construction</h3>
+<ol>
+<li>Calculate overall score from available core pillars</li>
+<li>Apply country inclusion rules</li>
+<li>Classify countries into bands</li>
+</ol>
+<h3 id="84-validation">8.4 Validation</h3>
+<ol>
+<li>Run statistical reliability tests</li>
+<li>Perform sensitivity analysis</li>
+<li>Generate confidence intervals</li>
+</ol>
+<hr />
+<h2 id="9-quality-assurance">9. Quality Assurance</h2>
+<h3 id="91-error-checking">9.1 Error Checking</h3>
+<ul>
+<li>Validate data integrity at each step</li>
+<li>Check for normalization errors</li>
+<li>Verify coverage calculations</li>
+</ul>
+<h3 id="92-documentation">9.2 Documentation</h3>
+<ul>
+<li>Record all methodological decisions</li>
+<li>Document version control</li>
+<li>Maintain reproducibility</li>
+</ul>
+<h3 id="93-transparency">9.3 Transparency</h3>
+<ul>
+<li>Publish methodology and code</li>
+<li>Document limitations</li>
+<li>Report uncertainty measures</li>
+</ul>
+<hr />
+<h2 id="10-ethical-considerations">10. Ethical Considerations</h2>
+<h3 id="101-responsibility-laundering-prevention">10.1 Responsibility Laundering Prevention</h3>
+<ul>
+<li>Clear disclaimer that institutional ≠ individual readiness</li>
+<li>Prominent note that governance indicators do not measure individual capability</li>
+<li>Statement that low scores do not justify restrictions on AI access</li>
+</ul>
+<h3 id="102-avoiding-misinterpretation">10.2 Avoiding Misinterpretation</h3>
+<ul>
+<li>Neutral band labels without value judgments</li>
+<li>Contextual explanations for low scores</li>
+<li>Focus on capacity building, not ranking</li>
+</ul>
+<h3 id="103-cultural-sensitivity">10.3 Cultural Sensitivity</h3>
+<ul>
+<li>Avoid Western-centric bias in interpretation</li>
+<li>Acknowledge cultural differences in agency expression</li>
+<li>Future measurement invariance testing required</li>
+</ul>
+<hr />
+<h2 id="11-known-limitations">11. Known Limitations</h2>
+<h3 id="111-measurement-limitations">11.1 Measurement Limitations</h3>
+<ul>
+<li>Proxy indicators may not predict actual behavioral readiness</li>
+<li>No validation against the core HSRI construct</li>
+<li>Risk of reification without experimental validation</li>
+</ul>
+<h3 id="112-data-limitations">11.2 Data Limitations</h3>
+<ul>
+<li>Geographic bias toward OECD countries</li>
+<li>Static measures not tracking adaptation</li>
+<li>Ecological fallacy from individual to country level</li>
+</ul>
+<h3 id="113-methodological-limitations">11.3 Methodological Limitations</h3>
+<ul>
+<li>No established cross-cultural measurement invariance</li>
+<li>Equal weighting assumes equal importance</li>
+<li>Missing data reduces statistical power</li>
+</ul>
+<hr />
+<h2 id="12-future-improvements">12. Future Improvements</h2>
+<h3 id="121-short-term-1-2-years">12.1 Short-term (1-2 years)</h3>
+<ul>
+<li>Expand indicator coverage with AI-specific measures</li>
+<li>Improve normalization methods</li>
+<li>Test alternative weighting schemes</li>
+</ul>
+<h3 id="122-medium-term-3-5-years">12.2 Medium-term (3-5 years)</h3>
+<ul>
+<li>Develop behavioral proxy measures</li>
+<li>Establish cross-cultural validation</li>
+<li>Implement longitudinal tracking</li>
+</ul>
+<h3 id="123-long-term-5-years">12.3 Long-term (5+ years)</h3>
+<ul>
+<li>Integrate experimental validation</li>
+<li>Develop country-specific adjustments</li>
+<li>Machine learning refinement</li>
+</ul>
+<hr />
+<p><strong>Methodology Version</strong>: v0.1<br />
+<strong>Based on</strong>: OECD/JRC Handbook on Composite Indicators<br />
+<strong>Repository Alignment</strong>: HSRI scientific rigor standards<br />
+<strong>Last Updated</strong>: 2026-09-19</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.top", "toc.integrate", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
