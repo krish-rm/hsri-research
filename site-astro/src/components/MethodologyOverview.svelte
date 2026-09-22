@@ -58,7 +58,7 @@
       Scoring & Bands
     </button>
     <button class="section-tab-btn {activeSection === 'validation' ? 'active' : ''}" on:click={() => navigateTo('validation')}>
-      Validation (α &gt; 0.90)
+      Diagnostics (Exploratory α)
     </button>
     <button class="section-tab-btn {activeSection === 'limitations' ? 'active' : ''}" on:click={() => navigateTo('limitations')}>
       Limitations
@@ -120,15 +120,15 @@
               <div class="process-step">
                 <div class="step-number">Phase 2</div>
                 <div class="step-content">
-                  <h4>Empirical Data Ingestion</h4>
-                  <p>780 empirical observations validated for 39 benchmark nations with 100% completeness.</p>
+                  <h4>Exploratory Data Ingestion</h4>
+                  <p>780 empirical observations compiled for 39 benchmark nations (primary microdata unverified in repo).</p>
                 </div>
               </div>
               <div class="process-step">
                 <div class="step-number">Phase 3</div>
                 <div class="step-content">
-                  <h4>Z-Score Normalization & Validation</h4>
-                  <p>Standardized score calculation with Cronbach's α validation (&gt;0.90 across all pillars).</p>
+                  <h4>Z-Score Normalization &amp; Diagnostics</h4>
+                  <p>Standardized score calculation with exploratory internal consistency checks across 39 nations.</p>
                 </div>
               </div>
               <div class="process-step">
@@ -251,8 +251,8 @@
             <div class="stat-label">Total Indicators</div>
           </div>
           <div class="stat-card">
-            <div class="stat-number">100%</div>
-            <div class="stat-label">Empirical Completeness</div>
+            <div class="stat-number" style="font-size: 1.25rem;">Unverified</div>
+            <div class="stat-label">Microdata Completeness</div>
           </div>
           <div class="stat-card">
             <div class="stat-number">16</div>
@@ -344,40 +344,44 @@ HSRI_Score = 0.25 * S_Literacy + 0.25 * S_Discernment + 0.25 * S_Governance + 0.
 
     {:else if activeSection === 'validation'}
       <div class="validation-section">
-        <h2>Statistical Validation & Empirical Diagnostics</h2>
-        <p>The HSRI index was subjected to rigorous statistical reliability, factor structure, and sensitivity analysis in Phase 3.</p>
+        <h2>Statistical Diagnostics &amp; Exploratory Reliability</h2>
+        <p>Internal consistency and sensitivity diagnostics were calculated in Phase 3 across the 39-nation benchmark dataset using <code>scripts/statistical_validation.py</code>.</p>
 
         <div class="validation-metrics">
           <div class="validation-grid">
             <div class="validation-card">
               <h4>AI Literacy Reliability</h4>
-              <p>Internal consistency testing across skill indicators</p>
-              <div class="validation-result success">α = 0.948 (Outstanding)</div>
+              <p>Internal consistency across 4 retained skill indicators</p>
+              <div class="validation-result success">α = 0.930 (N=39)</div>
             </div>
             <div class="validation-card">
               <h4>Critical Discernment Reliability</h4>
-              <p>Correlation and covariance across media discernment</p>
-              <div class="validation-result success">α = 0.941 (Outstanding)</div>
+              <p>Correlation across 3 retained discernment indicators</p>
+              <div class="validation-result success">α = 0.905 (N=39)</div>
             </div>
             <div class="validation-card">
               <h4>Institutional Governance Reliability</h4>
-              <p>Cross-metric stability across rule of law and AI observatory</p>
-              <div class="validation-result success">α = 0.932 (Outstanding)</div>
+              <p>Stability across 5 retained governance indicators</p>
+              <div class="validation-result success">α = 0.969 (N=39)</div>
             </div>
             <div class="validation-card">
               <h4>Digital Infrastructure Reliability</h4>
-              <p>Covariance across fiber, mobile broadband, and servers</p>
-              <div class="validation-result success">α = 0.947 (Outstanding)</div>
+              <p>Covariance across 5 retained infrastructure indicators</p>
+              <div class="validation-result success">α = 0.962 (N=39)</div>
             </div>
+          </div>
+
+          <div class="validation-caveat" style="background: #fffbeb; border-left: 3px solid #f59e0b; border-radius: 0.375rem; padding: 1rem; margin-top: 1.5rem; font-size: 0.85rem; color: #92400e; line-height: 1.5;">
+            <strong>Sample &amp; Collinearity Caveat:</strong> Cronbach's α was computed on the normalized indicator matrix across the 39 benchmark nations. Because all 39 nations are high-income OECD or partner economies and survey inputs include unverified imputations, these high internal consistency values largely reflect high socio-economic collinearity among wealthy nations rather than a psychometrically validated global index.
           </div>
         </div>
 
         <div class="quality-assurance">
-          <h3>Empirical Quality Guarantees</h3>
+          <h3>Empirical Quality &amp; Data Provenance Disclosures</h3>
           <ul>
-            <li><strong>Zero Arbitrary Imputation:</strong> All 780 observations originate from verified multilateral datasets (OECD, World Bank, ITU, UN, WIPO).</li>
-            <li><strong>Unidimensionality Confirmed:</strong> Principal Component Analysis demonstrates dominant primary eigenvalues (&gt;1.0) for each pillar.</li>
-            <li><strong>Cross-Scale Invariance:</strong> Z-score standardization prevents high-magnitude metrics from disproportionately weighting pillar outcomes.</li>
+            <li><strong>Input Data Status:</strong> 780 populated observations across 20 indicators. Note that certain survey sources (e.g. European Media Literacy Index, KPMG AI Trust) have restricted regional coverage and carry imputations for non-surveyed nations. Primary microdata extracts have not yet been checked into the repository.</li>
+            <li><strong>Exploratory Dimensionality:</strong> Principal Component Analysis demonstrates dominant primary eigenvalues across the high-income sample.</li>
+            <li><strong>Standardization:</strong> Z-score standardization ensures common scaling across indicators prior to aggregation.</li>
           </ul>
         </div>
       </div>

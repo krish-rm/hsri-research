@@ -34,6 +34,17 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   <div class="home-page">
     <HSRIHeader client:load />
 
+    <!-- Preview Release Status Banner (Task 8) -->
+    <div class="preview-notice-banner">
+      <div class="container notice-inner">
+        <span class="notice-pill">Preview Benchmark v0.1</span>
+        <p class="notice-text">
+          Early-stage exploratory index — not a validated index. 39 of 195 recognized nations receive preliminary ratings in this release; 86 evaluated countries currently lack sufficient multi-pillar data and remain unrated. Indicator completeness has not yet been verified from primary microdata.
+          <a href="https://github.com/krish-rm/hsri-research/issues" target="_blank" rel="noopener noreferrer" class="notice-link">Report data issues on GitHub &rarr;</a>
+        </p>
+      </div>
+    </div>
+
     <!-- Hero Section -->
     <section class="hero-section">
       <div class="container">
@@ -44,8 +55,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
               <span class="hero-acronym">for Superintelligence</span>
             </h1>
             <p class="hero-subtitle">
-              The Human Superintelligence Readiness Index (HSRI) provides an empirical, non-compensatory benchmark
-              assessing national absorption, cognitive discernment, and institutional resilience across 39 nations.
+              The Human Superintelligence Readiness Index (HSRI) provides an exploratory benchmark
+              assessing national cognitive absorption, discernment, and institutional resilience across an initial cohort of 39 OECD and high-income partner nations.
             </p>
             <div class="hero-actions">
               <a href={`${base}/countries`} class="btn btn-primary btn-large">Explore Countries &amp; Simulator</a>
@@ -57,7 +68,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
               <div class="score-number">{indexData.metadata.avgScore}</div>
               <div class="score-label">Benchmark Average Score</div>
               <div class="score-change">
-                <span class="change-positive">39 Nations</span> Fully Rated
+                <span class="change-positive">39 of 195 Nations</span> Benchmarked
+                <small style="display: block; font-size: 0.72rem; color: #94a3b8; margin-top: 4px;">59 partial/context, 86 unrated in audit</small>
               </div>
             </div>
           </div>
@@ -71,13 +83,13 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         <div class="stats-grid">
           <div class="stat-card">
             <div class="stat-icon">🌍</div>
-            <div class="stat-value">{indexData.metadata.totalCountries}</div>
-            <div class="stat-label">Countries Profiled</div>
+            <div class="stat-value">39 / 195</div>
+            <div class="stat-label">Rated Scope (86 Unrated)</div>
           </div>
           <div class="stat-card">
             <div class="stat-icon">📊</div>
             <div class="stat-value">{indicatorsRaw.length}</div>
-            <div class="stat-label">Empirical Indicators</div>
+            <div class="stat-label">Cataloged Indicators</div>
           </div>
           <div class="stat-card">
             <div class="stat-icon">📈</div>
@@ -114,6 +126,9 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         <div class="section-header">
           <h2>Benchmark Rankings (Top 10)</h2>
           <p>Top performing benchmark nations evaluated on the 4 non-compensatory pillars</p>
+          <p class="sample-disclosure" style="font-size: 0.85rem; color: #64748b; margin-top: 0.4rem;">
+            Current benchmark cohort evaluates 39 high-income and OECD-weighted economies. This reflects a coverage limitation of current empirical data sources, not a judgment about other nations' readiness.
+          </p>
         </div>
         <ScoreLeaderboard
           client:load
@@ -199,6 +214,51 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   .home-page {
     min-height: 100vh;
     background-color: var(--surface-color, #f8fafc);
+  }
+
+  .preview-notice-banner {
+    background-color: #fffbeb;
+    border-bottom: 1px solid #fef3c7;
+    padding: 0.75rem 0;
+  }
+
+  .notice-inner {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .notice-pill {
+    display: inline-block;
+    background-color: #d97706;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.6rem;
+    border-radius: 9999px;
+    white-space: nowrap;
+  }
+
+  .notice-text {
+    margin: 0;
+    font-size: 0.875rem;
+    color: #92400e;
+    line-height: 1.45;
+    flex: 1;
+  }
+
+  .notice-link {
+    color: #b45309;
+    font-weight: 600;
+    text-decoration: underline;
+    margin-left: 0.5rem;
+  }
+
+  .notice-link:hover {
+    color: #78350f;
   }
 
   .container {

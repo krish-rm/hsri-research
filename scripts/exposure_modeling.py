@@ -190,7 +190,7 @@ class ExposureModeler:
 
         # Add HSRI-Proxy readiness score for comparison
         if "overall_score" in self.country_scores.columns:
-            composite_scores["overall_score"] = self.country_scores["overall_score"]
+            composite_scores["overall_score"] = self.country_scores["overall_score"].round(4)
 
         return composite_scores
 
@@ -201,8 +201,8 @@ class ExposureModeler:
         gap_analysis = pd.DataFrame(index=composite_scores.index)
 
         if "overall_score" in composite_scores.columns:
-            gap_analysis["readiness"] = composite_scores["overall_score"]
-            gap_analysis["exposure"] = composite_scores["composite_exposure"]
+            gap_analysis["readiness"] = composite_scores["overall_score"].round(4)
+            gap_analysis["exposure"] = composite_scores["composite_exposure"].round(4)
             gap_analysis["gap"] = round(gap_analysis["exposure"] - gap_analysis["readiness"], 3)
 
             def classify_gap(gap):

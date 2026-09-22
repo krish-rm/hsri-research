@@ -28,6 +28,9 @@ import HSRIFooter from '../components/HSRIFooter.svelte';
         <div class="section-title-bar">
           <h2>All 39 Benchmark Country Profiles</h2>
           <p class="section-desc">Select any country to view full pillar breakdowns, exposure gaps, crossing projections, and strategic policy recommendations.</p>
+          <div class="scope-disclosure-card">
+            <p><strong>Sample Scope &amp; Composition:</strong> The current preview benchmark evaluates 39 nations, heavily weighted toward high-income and OECD economies. This reflects a coverage limitation of current international empirical data sources, not a judgment about other nations' readiness. In our coverage assessment of 145 countries, 59 possess partial or contextual data, while 86 evaluated countries currently lack sufficient multi-pillar data and remain unrated.</p>
+          </div>
         </div>
         <CountryList client:load />
       </section>
@@ -84,6 +87,22 @@ import HSRIFooter from '../components/HSRIFooter.svelte';
     .section-desc {
       color: #64748b;
       font-size: 0.95rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .scope-disclosure-card {
+      background-color: #f8fafc;
+      border-left: 3px solid #3b82f6;
+      border-radius: 0.375rem;
+      padding: 0.75rem 1rem;
+      margin-top: 0.75rem;
+    }
+
+    .scope-disclosure-card p {
+      margin: 0;
+      font-size: 0.875rem;
+      color: #475569;
+      line-height: 1.5;
     }
 
     .container {

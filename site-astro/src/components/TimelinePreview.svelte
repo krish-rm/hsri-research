@@ -315,9 +315,9 @@
              '2035+'}
           </span>
         </div>
-        <div class="status-item">
+        <div class="status-item" title="No formal statistical confidence interval has been computed from empirical data yet. Capability crossing years reflect exploratory scenario projections.">
           <span class="status-label">Confidence Interval:</span>
-          <span class="status-value">±2 years</span>
+          <span class="status-value" style="font-size: 0.85rem; color: #64748b;">Not yet computed (exploratory projection)</span>
         </div>
       </div>
     </div>

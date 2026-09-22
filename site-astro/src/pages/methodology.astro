@@ -10,9 +10,16 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 <HSRILayout>
   <div class="methodology-page">
     <HSRIHeader client:load />
+
+    <!-- Preview Release Status Banner (Task 8) -->
+    <div class="preview-notice-banner" style="background-color: #fffbeb; border-bottom: 1px solid #fef3c7; padding: 0.75rem 1rem; text-align: center; font-size: 0.875rem; color: #92400e;">
+      <strong>Preview Benchmark Status:</strong> This is an early-stage exploratory index — not a validated index. 39 of 195 nations receive preliminary ratings in this release; 86 evaluated countries currently lack sufficient multi-pillar data and remain unrated. Indicator completeness has not yet been verified from primary microdata.
+      <a href="https://github.com/krish-rm/hsri-research/issues" target="_blank" rel="noopener noreferrer" style="color: #b45309; font-weight: 600; text-decoration: underline; margin-left: 0.5rem;">Report data issues on GitHub &rarr;</a>
+    </div>
+
     <div class="page-header">
-      <h1>Methodology</h1>
-      <p class="subtitle">Understanding how the Human Superintelligence Readiness Index is calculated and validated</p>
+      <h1>Methodology &amp; Framework</h1>
+      <p class="subtitle">Exploratory framework, indicator codebook, and statistical diagnostics for the HSRI Benchmark Preview (v0.1)</p>
     </div>
 
     <div class="methodology-content">
@@ -22,7 +29,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
           <a href="#pillars" class="nav-btn" data-section="pillars">The Four Pillars</a>
           <a href="#indicators" class="nav-btn" data-section="indicators">Indicators Catalog</a>
           <a href="#scoring" class="nav-btn" data-section="scoring">Scoring Methodology</a>
-          <a href="#validation" class="nav-btn" data-section="validation">Statistical Validation</a>
+          <a href="#validation" class="nav-btn" data-section="validation">Statistical Diagnostics</a>
           <a href="#limitations" class="nav-btn" data-section="limitations">Limitations</a>
         </nav>
 

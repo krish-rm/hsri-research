@@ -119,23 +119,23 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
             </div>
 
             <div class="data-quality">
-              <h4>Data Quality Information</h4>
+              <h4>Data Quality &amp; Provenance Information</h4>
               <div class="quality-metrics">
                 <div class="quality-item">
-                  <span class="metric-name">Coverage:</span>
-                  <span class="metric-value">39 benchmark nations (OECD, G7, BRICS+, regional anchors)</span>
+                  <span class="metric-name">Coverage Scope:</span>
+                  <span class="metric-value">39 benchmark nations (OECD, EU, and high-income Asia-Pacific economies; BRICS+ and low/middle-income economies are unrated in this release due to source coverage gaps).</span>
                 </div>
                 <div class="quality-item">
-                  <span class="metric-name">Update Frequency:</span>
-                  <span class="metric-value">Phase 7 Empirical Pipeline Run (2026)</span>
+                  <span class="metric-name">Coverage Status:</span>
+                  <span class="metric-value">Unverified preview sample — 39 benchmarked, 59 partial/contextual, 86 unrated in 145-country audit.</span>
                 </div>
                 <div class="quality-item">
                   <span class="metric-name">Completeness:</span>
-                  <span class="metric-value">100% harmonized (780 empirical observations across 20 indicators)</span>
+                  <span class="metric-value">Exploratory preview sample (780 populated observations across 20 indicators; primary source microdata unverified).</span>
                 </div>
                 <div class="quality-item">
                   <span class="metric-name">Source Reliability:</span>
-                  <span class="metric-value">Validated from World Bank, OECD, ITU, UN, and official statistical agencies</span>
+                  <span class="metric-value">Derived from World Bank, OECD, ITU, and official statistical publications; subject to survey wave geographic boundaries and imputations.</span>
                 </div>
               </div>
             </div>
@@ -144,49 +144,26 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
         <div class="publications">
           <h3>Research Publications</h3>
-          <p>Find papers and research that have used HSRI data:</p>
-          <div class="publication-list">
-            <div class="publication-item">
-              <h4>Global Readiness for Superintelligence: A Multi-Dimensional Assessment</h4>
-              <p>Journal of Artificial Intelligence Research, 2026</p>
-              <a href="#" class="publication-link">Read Full Paper</a>
-            </div>
-            <div class="publication-item">
-              <h4>Cross-National Patterns in AI Preparedness</h4>
-              <p>Science and Public Policy, 2026</p>
-              <a href="#" class="publication-link">Read Full Paper</a>
-            </div>
-            <div class="publication-item">
-              <h4>Methodology for the Human Superintelligence Readiness Index</h4>
-                  <p>Working Paper No. 2026-03, HSRI</p>
-              <a href="#" class="publication-link">Download Paper</a>
-            </div>
+          <p>Peer-reviewed literature and working papers using this dataset:</p>
+          <div class="publication-notice" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.5rem; padding: 1.5rem; text-align: center; color: #64748b;">
+            <p style="margin: 0; font-size: 0.95rem;"><strong>No peer-reviewed publications use this dataset yet.</strong></p>
+            <p style="margin: 0.5rem 0 0 0; font-size: 0.85rem;">This is an early-stage preview benchmark (v0.1). When citing, please refer to the HSRI methodology documentation in this repository.</p>
           </div>
         </div>
 
         <div class="support-section">
-          <h3>Data Support</h3>
-          <p>Need help with accessing or using the data?</p>
+          <h3>Data Support &amp; Feedback</h3>
+          <p>Need help accessing the data or found a data discrepancy?</p>
           <div class="support-options">
             <div class="support-option">
-              <h4>Documentation</h4>
-              <p>Comprehensive documentation for all datasets and tools</p>
-              <a href="#" class="support-link">View Documentation</a>
+              <h4>Methodology Documentation</h4>
+              <p>Comprehensive framework definitions, indicator codebook, and normalization math</p>
+              <a href={`${base}/methodology`} class="support-link">View Documentation</a>
             </div>
             <div class="support-option">
-              <h4>Tutorials</h4>
-              <p>Step-by-step guides for common analysis tasks</p>
-              <a href="#" class="support-link">Browse Tutorials</a>
-            </div>
-            <div class="support-option">
-              <h4>Community Forum</h4>
-              <p>Ask questions and share insights with other users</p>
-              <a href="#" class="support-link">Join Forum</a>
-            </div>
-            <div class="support-option">
-              <h4>Contact Us</h4>
-                  <p>Direct support for institutional partnerships and special requests</p>
-              <a href="#" class="support-link">Contact Support</a>
+              <h4>Report Data Issue / Feedback</h4>
+              <p>Submit discrepancies, missing country data, or provenance corrections directly to our team</p>
+              <a href="https://github.com/krish-rm/hsri-research/issues" target="_blank" rel="noopener noreferrer" class="support-link">Open GitHub Issue</a>
             </div>
           </div>
         </div>

@@ -1,0 +1,24 @@
+============================================================
+HSRI-Proxy v0.1 Comprehensive Exposure Modeling Report
+Generated: 2026-09-22 22:40:03
+============================================================
+
+## EXECUTIVE SUMMARY
+Countries analyzed: 39
+Average exposure score: 0.56
+Average readiness score: 0.54
+
+## READINESS-EXPOSURE GAP ANALYSIS
+**Prepared**: 20 countries
+**Critical Gap**: 15 countries
+**Balanced**: 3 countries
+**Warning Gap**: 1 countries
+
+## DOMAIN EXPOSURES OVERVIEW
+**Labor**: mean exposure = 0.47
+**Skills**: mean exposure = 0.59
+**Information**: mean exposure = 0.67
+**Wellbeing**: mean exposure = 0.51
+**Inequality**: mean exposure = 0.73
+**Autonomy**: mean exposure = 0.51
+**Catastrophic**: mean exposure = 0.18

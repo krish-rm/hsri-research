@@ -69,6 +69,19 @@ COUNTRY_NAMES = {
     "USA": ("United States", "north-america"),
 }
 
+KPMG_SURVEY_COUNTRIES = {"AUS", "BRA", "CAN", "CHL", "CHN", "EST", "FRA", "DEU", "IND", "ISR", "JPN", "NLD", "SGP", "ZAF", "KOR", "GBR", "USA"}
+EMLI_NON_EUROPEAN = {"AUS", "CAN", "HKG", "ISR", "JPN", "KOR", "NZL", "SGP", "TWN", "USA"}
+
+def round_floats(obj, digits=4):
+    """Recursively round floats to avoid spurious precision"""
+    if isinstance(obj, float):
+        return round(obj, digits)
+    elif isinstance(obj, dict):
+        return {k: round_floats(v, digits) for k, v in obj.items()}
+    elif isinstance(obj, list):
+        return [round_floats(v, digits) for v in obj]
+    return obj
+
 def get_band(score_100: float) -> str:
     if score_100 >= 80.0:
         return "A"
@@ -118,18 +131,18 @@ def export_all():
 
     for iso3, row in final_scores_sorted.iterrows():
         name, region = COUNTRY_NAMES.get(iso3, (iso3, "other"))
-        score_100 = round(float(row["overall_score"]) * 100, 1)
+        score_100 = round(float(row["overall_score"]) * 100, 2)
         band = get_band(score_100)
 
         # Pillars
-        ai_lit = round(float(row["AI_Literacy_score"]) * 100, 1)
-        crit_disc = round(float(row["Critical_Discernment_score"]) * 100, 1)
-        gov = round(float(row["Institutional_Governance_score"]) * 100, 1)
-        infra = round(float(row["Digital_Infrastructure_score"]) * 100, 1)
+        ai_lit = round(float(row["AI_Literacy_score"]) * 100, 2)
+        crit_disc = round(float(row["Critical_Discernment_score"]) * 100, 2)
+        gov = round(float(row["Institutional_Governance_score"]) * 100, 2)
+        infra = round(float(row["Digital_Infrastructure_score"]) * 100, 2)
 
         # Exposure & gap
-        exp_score = round(float(gap_df.loc[iso3, "exposure"]) * 100, 1) if iso3 in gap_df.index else 50.0
-        gap_val = round(float(gap_df.loc[iso3, "gap"]) * 100, 1) if iso3 in gap_df.index else 0.0
+        exp_score = round(float(gap_df.loc[iso3, "exposure"]) * 100, 2) if iso3 in gap_df.index else 50.0
+        gap_val = round(float(gap_df.loc[iso3, "gap"]) * 100, 2) if iso3 in gap_df.index else 0.0
         gap_status = str(gap_df.loc[iso3, "gap_status"]) if iso3 in gap_df.index else "Balanced"
 
         # Scenario crossing years
@@ -138,11 +151,55 @@ def export_all():
         plateau_yr = int(cross_df.loc[iso3, "plateau_crossing"]) if (iso3 in cross_df.index and pd.notna(cross_df.loc[iso3, "plateau_crossing"])) else None
 
         # Labor vulnerability
-        labor_vuln = round(float(labor_vuln_df.loc[iso3, "vulnerability_index"]) * 100, 1) if iso3 in labor_vuln_df.index else 50.0
+        labor_vuln = round(float(labor_vuln_df.loc[iso3, "vulnerability_index"]) * 100, 2) if iso3 in labor_vuln_df.index else 50.0
         labor_cross = int(round(float(labor_cross_df.loc[iso3, "crossing_year"]))) if (iso3 in labor_cross_df.index and pd.notna(labor_cross_df.loc[iso3, "crossing_year"])) else 2035
 
         profile = country_profiles.get(iso3, {})
         narrative = country_narratives.get(iso3, {})
+
+        # Indicator provenance breakdown for auditability (Task 5)
+        indicators_breakdown = []
+        for _, ind_row in indicators_df.iterrows():
+            code = str(ind_row.get("indicator_id", ""))
+            role = str(ind_row.get("role", "Retained"))
+            ind_name = str(ind_row.get("name", ""))
+            pillar = str(ind_row.get("pillar", ""))
+            source = str(ind_row.get("source_ids", ""))
+
+            if role == "Rejected":
+                audit_status = "Rejected"
+                audit_note = "Excluded during construct audit"
+            elif role == "Context-only":
+                if code == "CAL_TRUST_001":
+                    if iso3 in KPMG_SURVEY_COUNTRIES:
+                        audit_status = "Context-Observed"
+                        audit_note = "Observed in KPMG-Melbourne 2023 wave (17 countries)"
+                    else:
+                        audit_status = "Context-Imputed"
+                        audit_note = "Country was not in 17-country survey sample; value was imputed"
+                else:
+                    audit_status = "Context-Only"
+                    audit_note = "Tracked for context; not scored in core index"
+            else:  # Retained
+                if code == "META_COG_002" and iso3 in EMLI_NON_EUROPEAN:
+                    audit_status = "Imputed (Geographic Gap)"
+                    audit_note = "European Media Literacy Index only surveys European states; non-European value is imputed"
+                elif code == "META_COG_003" and iso3 in ["CYP", "ISL", "MLT"]:
+                    audit_status = "Imputed (Sample Gap)"
+                    audit_note = "Not covered in standard Reuters DNR sample waves"
+                else:
+                    audit_status = "Observed (Unverified Microdata)"
+                    audit_note = "Observation populated in observations.csv; primary survey microdata unverified in repo"
+
+            indicators_breakdown.append({
+                "code": code,
+                "name": ind_name,
+                "pillar": pillar,
+                "role": role,
+                "source": source,
+                "auditStatus": audit_status,
+                "auditNote": audit_note
+            })
 
         c_data = {
             "id": iso3.lower(),
@@ -180,13 +237,14 @@ def export_all():
             "institutional": gov,
             "technological": infra,
             "peerGroup": "High-income OECD",
-            "lastUpdated": "2026-09-20",
+            "lastUpdated": "2026-09-22",
             "summary": profile.get("summary", ""),
             "strengths": profile.get("strengths", []),
             "challenges": profile.get("challenges", []),
             "recommendations": profile.get("recommendations", []),
             "archetype": narrative.get("archetype", "strategic_adapter"),
-            "executiveSummary": narrative.get("executive_summary", "")
+            "executiveSummary": narrative.get("executive_summary", ""),
+            "indicatorsBreakdown": indicators_breakdown
         }
         countries_list.append(c_data)
         rank += 1
@@ -194,6 +252,10 @@ def export_all():
     country_scores_payload = {
         "metadata": {
             "totalCountries": len(countries_list),
+            "benchmarkRatedCountries": 39,
+            "evaluatedCountries": 145,
+            "unratedEvaluatedCountries": 86,
+            "globalNations": 195,
             "avgScore": round(float(np.mean([c["score"] for c in countries_list])), 1),
             "bandCounts": {
                 "A": sum(1 for c in countries_list if c["band"] == "A"),
@@ -202,8 +264,9 @@ def export_all():
                 "D": sum(1 for c in countries_list if c["band"] == "D"),
                 "F": sum(1 for c in countries_list if c["band"] == "F")
             },
-            "lastUpdated": "2026-09-20",
-            "methodologyVersion": "v0.1"
+            "lastUpdated": "2026-09-22",
+            "methodologyVersion": "v0.1-preview",
+            "coverageNote": "Preview release: 39 benchmark nations (OECD/high-income sample). Primary microdata unverified."
         },
         "pillars": [
             {
@@ -320,9 +383,9 @@ def export_all():
                 {"year": 2034, "probability": 0.90},
                 {"year": 2037, "probability": 0.98}
             ],
-            "integrated": integrated_forecasts
+            "integrated": round_floats(integrated_forecasts, 4)
         },
-        "cdfs": forecast_cdfs
+        "cdfs": round_floats(forecast_cdfs, 4)
     }
 
     for dest_dir in [PUBLIC_DATA_DIR, SRC_DATA_DIR]:

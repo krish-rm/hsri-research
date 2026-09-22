@@ -5,6 +5,33 @@ All notable changes to the Human Superintelligence Readiness Index (HSRI) resear
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.2.1] — 2026-09-22: Benchmark Integrity, Coverage Audit & Epistemic Humility Remediation
+
+### Changed
+- **Fabricated Coverage Relabeled to Unverified:**
+  - Audited all 30 indicators in `data/indicators.csv` against repository contents (`remediation/01-coverage-audit.md`).
+  - Disclosed that primary microdata observation extracts are absent from the repository; survey-based indicators (e.g. KPMG Trust, Ipsos AI Monitor, Reuters DNR) cannot cover all 39 countries simultaneously.
+  - Replaced fabricated `coverage = 1.0` (100%) claims across `final_country_scores.csv`, `pillar_scores.csv`, and all UI components with explicit `"Unverified"` and `"Data Completeness Unverified"` disclaimers.
+  - Added an indicator-by-indicator empirical provenance table to every individual country profile page (`countries/[id].astro`).
+- **Country Scope & Denominators Reconciled:**
+  - Forensically reconstructed the conflicting denominators: 195 (globally recognized nations), 86 (unrated evaluated nations with insufficient data), 59 (partial/context nations in source matrices), and 39 (retained high-income/OECD benchmark cohort) (`remediation/02-scope-decision.md`).
+  - Resolved homepage banner error that previously displayed "Countries Rated 86/195" to truthfully state "39 of 195 Rated (86 Unrated)".
+  - Added explicit geographic composition warnings across the homepage, countries directory, and data explorer disclosing that all 39 scored countries are high-income/OECD economies and that Sub-Saharan Africa, South Asia, Southeast Asia, and Latin America are unrated due to data availability constraints.
+- **False Precision Eliminated:**
+  - Truncated 16-decimal floating-point numbers across the analytical pipeline (`scripts/index_construction.py`, `scripts/exposure_modeling.py`, `scripts/export_web_data.py`), CSV outputs, and JSON bundles to 2 decimal places for 0–100 scale scores and 4 decimal places for 0–1 normalized weights/shares.
+- **Dead Links & False Citations Removed:**
+  - Removed three placeholder research publications linking to dead `#` anchors on the Data page (`data.astro`).
+  - Added explicit disclosure: *"No peer-reviewed publications use this dataset yet."*
+  - Replaced dead `#` anchor for documentation with a working route to `/methodology` and replaced contact anchor with a direct link to GitHub Issues.
+  - Removed unsupported claim of "BRICS+" coverage.
+- **Sweep Findings & Statistical Humility:**
+  - Relabeled methodology tab from "Scale Validation (α > 0.90)" to "Diagnostics (Exploratory α)" and replaced hardcoded mock values with true calculated pipeline metrics (`remediation/03-sweep-findings.md`).
+  - Added prominent caveats that high Cronbach's alpha values reflect systemic collinearity across wealthy OECD nations rather than psychometric scale validation.
+  - Removed deterministic `±2 years` timeline confidence interval from `TimelinePreview.svelte`, relabeling it as an exploratory projection with formal uncertainty quantification pending.
+  - Disclosed stylized proxy assumptions in occupational exposure and labor vulnerability simulation models.
+- **Empirical Evidence Tracking:**
+  - Updated `research/evidence/master-evidence-table.csv` and `evidence/master-evidence-table.csv` with 4 new entries cataloging claims regarding coverage status, scale validation, sample composition, and projection intervals.
+
 ## [v0.2.0] — 2026-09-20: Analytical Pipeline, Static Web Portal & Repository Modernization
 
 ### Added

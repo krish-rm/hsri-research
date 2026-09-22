@@ -1,0 +1,73 @@
+============================================================
+HSRI-Proxy v0.1 Statistical Validation Report
+Generated: 2026-09-22 22:34:21
+============================================================
+
+## 1. RELIABILITY ANALYSIS (Internal Consistency)
+
+AI_Literacy:
+  - Number of items: 4
+  - Cronbach's alpha: 0.930
+  - Mean inter-item correlation: 0.768
+  - Item means:
+    * AI_LIT_001: 0.511
+    * AI_LIT_002: 0.515
+    * AI_LIT_004: 0.513
+    * AI_LIT_005: 0.513
+
+Critical_Discernment:
+  - Number of items: 3
+  - Cronbach's alpha: 0.905
+  - Mean inter-item correlation: 0.761
+  - Item means:
+    * META_COG_001: 0.518
+    * META_COG_002: 0.494
+    * META_COG_003: 0.625
+
+Institutional_Governance:
+  - Number of items: 5
+  - Cronbach's alpha: 0.969
+  - Mean inter-item correlation: 0.863
+  - Item means:
+    * DEC_AGY_001: 0.512
+    * DEC_AGY_002: 0.511
+    * DEC_AGY_003: 0.559
+    * DEC_AGY_004: 0.472
+    * DEC_AGY_005: 0.581
+
+Digital_Infrastructure:
+  - Number of items: 5
+  - Cronbach's alpha: 0.962
+  - Mean inter-item correlation: 0.834
+  - Item means:
+    * ENAB_001: 0.610
+    * ENAB_002: 0.509
+    * ENAB_003: 0.581
+    * ENAB_004: 0.599
+    * ENAB_005: 0.528
+
+## 2. VALIDITY ANALYSIS
+
+Principal Component Analysis (PCA):
+  - PC1: 76.0% variance (cumulative: 76.0%)
+  - PC2: 7.9% variance (cumulative: 83.9%)
+  - PC3: 3.3% variance (cumulative: 87.2%)
+  - PC4: 2.2% variance (cumulative: 89.4%)
+
+## 3. SENSITIVITY ANALYSIS
+
+Weighting Schemes Comparison:
+  - base: mean=0.538, std=0.237
+  - equal: mean=0.538, std=0.237
+  - education: mean=0.533, std=0.240
+  - governance: mean=0.536, std=0.238
+
+## 4. UNCERTAINTY QUANTIFICATION
+
+Bootstrap Analysis (1000 iterations):
+  - Mean score: 0.538 ± 0.037
+  - 95% CI: [0.463, 0.613]
+
+## 5. RECOMMENDATIONS
+
+✓ All pillars meet reliability standards (α ≥ 0.7)

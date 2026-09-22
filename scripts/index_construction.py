@@ -103,17 +103,15 @@ class IndexConstructor:
                 logger.warning(f"No indicators found for {pillar_name}")
                 continue
 
-            # Calculate coverage
-            coverage = self.normalized_data[available_indicators].count(axis=1) / len(available_indicators)
-
             # Calculate mean score for countries with sufficient coverage
             min_required = max(1, int(np.ceil(len(available_indicators) * min_coverage)))
             sufficient_coverage = self.normalized_data[available_indicators].count(axis=1) >= min_required
             pillar_score = self.normalized_data[available_indicators].mean(axis=1)
 
-            # Store results
-            pillar_scores[f"{pillar_name}_score"] = pillar_score.where(sufficient_coverage, np.nan)
-            pillar_scores[f"{pillar_name}_coverage"] = coverage
+            # Primary microdata completeness has not been verified from checked-in source files for this release.
+            # Avoid asserting 1.0 coverage based on pre-filled inputs.
+            pillar_scores[f"{pillar_name}_score"] = pillar_score.where(sufficient_coverage, np.nan).round(4)
+            pillar_scores[f"{pillar_name}_coverage"] = "Unverified"
             pillar_scores[f"{pillar_name}_indicators"] = len(available_indicators)
             pillar_scores[f"{pillar_name}_sufficient"] = sufficient_coverage
 
@@ -138,7 +136,7 @@ class IndexConstructor:
 
         # Calculate simple average of available pillars
         score_columns = [f"{p}_score" for p in available_pillars]
-        overall_scores["overall_score"] = pillar_scores[score_columns].mean(axis=1)
+        overall_scores["overall_score"] = pillar_scores[score_columns].mean(axis=1).round(4)
         overall_scores["core_pillars_available"] = pillar_scores[score_columns].notna().sum(axis=1)
 
         # Classify countries
@@ -264,7 +262,6 @@ class IndexConstructor:
             score_col = f"{pillar_name}_score"
             if score_col in pillar_scores.columns:
                 scores = pillar_scores[score_col].dropna()
-                coverage = pillar_scores[f"{pillar_name}_coverage"].mean()
 
                 report.append(f"\n{pillar_name}:")
                 report.append(f"  - Description: {pillar_info['description']}")
@@ -272,7 +269,7 @@ class IndexConstructor:
                 report.append(f"  - Countries scored: {len(scores)}")
                 report.append(f"  - Average score: {scores.mean():.3f} (σ={scores.std():.3f})")
                 report.append(f"  - Score range: {scores.min():.3f} - {scores.max():.3f}")
-                report.append(f"  - Mean coverage: {coverage:.1%}")
+                report.append(f"  - Primary microdata coverage: Unverified (preview release)")
 
         # Overall Status Distribution
         report.append("\n## STATUS DISTRIBUTION")

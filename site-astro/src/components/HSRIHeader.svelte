@@ -14,12 +14,13 @@
     { name: 'Data', href: `${base}/data/` },
   ];
 
-  // Quick stats
+  // Quick stats - reconciled authoritative definitions
   const stats = {
     totalCountries: 195,
-    ratedCountries: 86,
-    avgScore: 62.4,
-    lastUpdated: '2026-09-20',
+    benchmarkRatedCountries: 39,
+    unratedEvaluatedCountries: 86,
+    avgScore: 53.8,
+    lastUpdated: '2026-09-22',
   };
 </script>
 
@@ -68,17 +69,20 @@
     <!-- Stats bar -->
     <div class="stats-bar">
       <div class="stats-container">
-        <div class="stat-item">
-          <span class="stat-label">Countries Rated</span>
-          <span class="stat-value">{stats.ratedCountries}/{stats.totalCountries}</span>
+        <div class="stat-item" title="39 of 195 recognized nations benchmarked (OECD/high-income preview cohort; 86 unrated in coverage audit)">
+          <span class="stat-label">Benchmark Scope</span>
+          <span class="stat-value">{stats.benchmarkRatedCountries}/{stats.totalCountries} <small style="font-size: 0.72rem; font-weight: normal; opacity: 0.85;">(86 unrated)</small></span>
         </div>
-        <div class="stat-item">
-          <span class="stat-label">Average Score</span>
-          <span class="stat-value">{stats.avgScore}</span>
+        <div class="stat-item" title="Empirical mean across the 39 rated benchmark nations">
+          <span class="stat-label">Benchmark Mean</span>
+          <span class="stat-value">{stats.avgScore} <small style="font-size: 0.72rem; font-weight: normal; opacity: 0.85;">/ 100</small></span>
         </div>
-        <div class="stat-item">
-          <span class="stat-label">Last Updated</span>
-          <span class="stat-value">{stats.lastUpdated}</span>
+        <div class="stat-item" title="Early-stage preview release. Indicators and coverage unverified.">
+          <span class="stat-label">Index Status</span>
+          <span class="stat-value" style="display: flex; align-items: center; gap: 4px;">
+            <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #f59e0b;"></span>
+            <span style="font-size: 0.85rem; color: #92400e;">Preview Release</span>
+          </span>
         </div>
       </div>
     </div>
