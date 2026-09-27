@@ -69,13 +69,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - **Full Analytical Pipeline (Phases 0–6):**
   - Harmonized empirical indicator datasets across 39 economies (`data/`).
-  - Implemented 5-pillar mathematical index construction with min-max normalization, PCA robustness checks, and scenario cross-point modeling.
+  - Implemented 4-pillar mathematical index construction with min-max normalization, PCA robustness checks, and scenario cross-point modeling.
   - Generated comprehensive country profiles, SWOT matrices, and narrative evaluations for 39 economies (`research/country_profiles/`, `research/integrated_narratives/`).
   - Added scenario crossing year projections and labor market vulnerability assessments.
 - **Production Interactive Web Portal (`site-astro/`):**
   - Built static web application using Astro 7 and Svelte 5 (45 statically generated pages).
   - Implemented interactive country profile pages with SVG radar charts, readiness-exposure gap gauges, and SWOT matrices.
-  - Built interactive Head-to-Head Comparison matrix comparing countries across all 5 pillars.
+  - Built interactive Head-to-Head Comparison matrix comparing countries across all 4 pillars.
   - Created dynamic Weight Calculator allowing custom pillar weight recalculation on the fly.
   - Integrated full methodology explorer, construct audit, and interactive simulator.
 - **Automated Verification & Tests:**

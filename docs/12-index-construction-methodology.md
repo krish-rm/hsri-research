@@ -22,6 +22,9 @@ This document outlines the methodology for constructing the HSRI-Proxy index fol
 
 ## 2. Pillar Structure and Weighting
 
+> **Epistemic Note on Pillar Architecture:**
+> The HSRI-Proxy composite index is constructed over **exactly four core pillars** with equal weighting (25% each): AI Literacy & Skills, Critical Discernment, Institutional Governance, and Digital Infrastructure. Context pillars (Trust & Attitudes, Wellbeing Context) are tracked for situational analysis but never incorporated into headline rankings. There is no 5-pillar composite model.
+
 ### 2.1 Core Pillars (Equal Weighting)
 | Pillar | Description | Number of Indicators | Weight |
 |--------|-------------|---------------------|--------|

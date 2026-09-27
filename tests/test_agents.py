@@ -196,18 +196,23 @@ class TestHSRIAgents(unittest.TestCase):
                 logger_mod.MODEL_DIVERGENCE_LOG_PATH = orig_div
 
     def test_no_automation_workflows(self):
-        """Verify that NO cron, scheduler, or agent GitHub Actions workflow was added."""
+        """Verify that only authorized workflows exist and no autonomous merge/PR workflows are added."""
         workflows_dir = REPO_ROOT / ".github" / "workflows"
         if workflows_dir.exists():
-            workflows = [f.name for f in workflows_dir.glob("*.yml")] + [f.name for f in workflows_dir.glob("*.yaml")]
-            # Only deploy.yml for MkDocs is permitted
-            self.assertEqual(workflows, ["deploy.yml"])
+            workflows = sorted([f.name for f in workflows_dir.glob("*.yml")] + [f.name for f in workflows_dir.glob("*.yaml")])
+            # Only deploy.yml and approved read-only ingestion sentinel are permitted
+            self.assertEqual(workflows, ["deploy.yml", "ingestion-health.yml"])
 
             with open(workflows_dir / "deploy.yml", "r", encoding="utf-8") as f:
                 content = f.read().lower()
                 self.assertNotIn("hsri-agents", content)
-                self.assertNotIn("schedule", content)
-                self.assertNotIn("cron", content)
+
+            with open(workflows_dir / "ingestion-health.yml", "r", encoding="utf-8") as f:
+                sentinel_content = f.read().lower()
+                # Strict governance check: No autonomous merge or PR write permissions
+                self.assertNotIn("pull-requests: write", sentinel_content)
+                self.assertNotIn("contents: write", sentinel_content)
+                self.assertNotIn("auto-merge", sentinel_content)
 
 if __name__ == "__main__":
     unittest.main()

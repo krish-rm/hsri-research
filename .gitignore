@@ -233,3 +233,8 @@ site-astro/node_modules/
 site-astro/dist/
 site-astro/.astro/
 
+# Pipeline sentinel environment files
+*.env
+pipeline_action.env
+
+

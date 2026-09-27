@@ -6,6 +6,9 @@ This document proposes the pillar structure for the HSRI-Proxy index, based on t
 
 ## 1. Recommended Pillar Structure
 
+> **Epistemic Note on Pillar Architecture (4 Core Pillars vs. 6 Conceptual Dimensions):**
+> HSRI v0.1 operates on **exactly four core pillars** (AI Literacy, Critical Discernment, Institutional Governance, Digital Infrastructure; equal 25% weight at baseline) plus two separately reported context pillars (Trust & Attitudes, Wellbeing Context). This 4-pillar institutional proxy structure must not be conflated with the **six theoretical psychometric dimensions** outlined in `docs/04` and `docs/09` (e.g., Metacognition, Calibrated Trust, Value Clarity), which are behavioral constructs reserved for future laboratory experiments (Phase 5). There is no 5-pillar model in HSRI methodology.
+
 ### 1.1 Core Pillars (Derived from HSRI Sub-components)
 
 | Pillar | Description | Number of Indicators | Coverage Goal |
