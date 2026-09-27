@@ -45,9 +45,11 @@
     return colors[band] || '#6b7280';
   }
 
+  const base = (import.meta.env.BASE_URL || '/hsri-research').replace(/\/$/, '');
+
   function viewCountry(id: string) {
     if (typeof window !== 'undefined') {
-      window.location.href = `/countries/${id.toLowerCase()}`;
+      window.location.href = `${base}/countries/${id.toLowerCase()}/`;
     }
   }
 </script>
@@ -121,7 +123,7 @@
   <!-- Cards Grid -->
   <div class="countries-grid">
     {#each sortedCountries as country}
-      <a href={`/countries/${country.id.toLowerCase()}`} class="country-card">
+      <a href={`${base}/countries/${country.id.toLowerCase()}/`} class="country-card">
         <div class="card-header">
           <div class="country-info">
             <span class="rank-badge">#{country.rank}</span>

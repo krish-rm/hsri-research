@@ -4,6 +4,7 @@
 
   export let countries = countryScoresData.countries;
 
+  const base = (import.meta.env.BASE_URL || '/hsri-research').replace(/\/$/, '');
   const allCountries = countries && countries.length > 0 ? countries : countryScoresData.countries;
 
   let selectedCountries: any[] = [];
@@ -210,7 +211,7 @@
               </div>
             </div>
 
-            <a href={`/countries/${country.id.toLowerCase()}`} class="profile-cta">
+            <a href={`${base}/countries/${country.id.toLowerCase()}/`} class="profile-cta">
               View Complete Profile &rarr;
             </a>
           </div>

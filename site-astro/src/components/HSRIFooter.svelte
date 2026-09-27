@@ -1,29 +1,31 @@
 <script lang="ts">
+  const base = (import.meta.env.BASE_URL || '/hsri-research').replace(/\/$/, '');
+
   // Footer navigation items
   const footerNav = {
     'Project': [
-      { name: 'About', href: '/about' },
-      { name: 'Methodology', href: '/methodology' },
-      { name: 'Data Sources', href: '/data-sources' },
-      { name: 'Limitations', href: '/limitations' },
+      { name: 'About', href: `${base}/methodology/#overview` },
+      { name: 'Methodology', href: `${base}/methodology/` },
+      { name: 'Data Sources', href: `${base}/methodology/#indicators` },
+      { name: 'Limitations', href: `${base}/methodology/#limitations` },
     ],
     'Resources': [
-      { name: 'Country Profiles', href: '/countries' },
-      { name: 'Timeline Explorer', href: '/timeline' },
-      { name: 'Comparison Tool', href: '/compare' },
-      { name: 'Downloads', href: '/downloads' },
+      { name: 'Country Profiles', href: `${base}/countries/` },
+      { name: 'Timeline Explorer', href: `${base}/timeline/` },
+      { name: 'Comparison Tool', href: `${base}/compare/` },
+      { name: 'Downloads', href: `${base}/data/` },
     ],
     'Research': [
-      { name: 'Papers', href: '/papers' },
-      { name: 'Pre-registration', href: '/preregistration' },
-      { name: 'Datasets', href: '/datasets' },
-      { name: 'Code', href: '/code' },
+      { name: 'Methodology Docs', href: 'https://github.com/krish-rm/hsri-research/tree/main/docs' },
+      { name: 'Research Roadmap', href: 'https://github.com/krish-rm/hsri-research/blob/main/docs/08-roadmap.md' },
+      { name: 'Master Evidence Table', href: 'https://github.com/krish-rm/hsri-research/blob/main/research/evidence/master-evidence-table.csv' },
+      { name: 'Source Repository', href: 'https://github.com/krish-rm/hsri-research' },
     ],
     'Community': [
-      { name: 'Contribute', href: '/contribute' },
-      { name: 'Blog', href: '/blog' },
-      { name: 'Forum', href: '/forum' },
-      { name: 'Newsletter', href: '/newsletter' },
+      { name: 'Contribute', href: 'https://github.com/krish-rm/hsri-research/blob/main/CONTRIBUTING.md' },
+      { name: 'Code of Conduct', href: 'https://github.com/krish-rm/hsri-research/blob/main/CODE_OF_CONDUCT.md' },
+      { name: 'Issue Tracker', href: 'https://github.com/krish-rm/hsri-research/issues' },
+      { name: 'Changelog', href: 'https://github.com/krish-rm/hsri-research/blob/main/CHANGELOG.md' },
     ]
   };
 
@@ -63,7 +65,16 @@
             <h4 class="nav-title">{section}</h4>
             <ul class="nav-links">
               {#each links as link}
-                <li><a href={link.href} class="nav-link">{link.name}</a></li>
+                <li>
+                  <a
+                    href={link.href}
+                    class="nav-link"
+                    target={link.href.startsWith('http') ? '_blank' : undefined}
+                    rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                  >
+                    {link.name}
+                  </a>
+                </li>
               {/each}
             </ul>
           </div>
@@ -113,14 +124,14 @@
     <!-- Bottom section -->
     <div class="footer-bottom">
       <div class="footer-links">
-        <a href="/disclaimer" class="footer-link">Disclaimer</a>
-        <a href="/ethics" class="footer-link">Ethics Statement</a>
-        <a href="/privacy" class="footer-link">Privacy Policy</a>
-        <a href="/terms" class="footer-link">Terms of Use</a>
+        <a href={`${base}/methodology/#limitations`} class="footer-link">Disclaimer</a>
+        <a href="https://github.com/krish-rm/hsri-research/blob/main/docs/06-cross-cultural-and-ethics.md" class="footer-link" target="_blank" rel="noopener noreferrer">Ethics Statement</a>
+        <a href="https://github.com/krish-rm/hsri-research/blob/main/CODE_OF_CONDUCT.md" class="footer-link" target="_blank" rel="noopener noreferrer">Code of Conduct</a>
+        <a href="https://github.com/krish-rm/hsri-research/blob/main/LICENSE" class="footer-link" target="_blank" rel="noopener noreferrer">License (CC BY-SA 4.0)</a>
       </div>
 
       <div class="copyright">
-        <p>&copy; 2026 HSRI Research. Licensed under CC BY-SA 4.0. <a href="/license">View license details</a>.</p>
+        <p>&copy; 2026 HSRI Research. Licensed under CC BY-SA 4.0. <a href="https://github.com/krish-rm/hsri-research/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">View repository license</a>.</p>
       </div>
     </div>
   </div>

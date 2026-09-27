@@ -1,4 +1,6 @@
 <script lang="ts">
+  const base = (import.meta.env.BASE_URL || '/hsri-research').replace(/\/$/, '');
+
   // State
   let searchTerm = '';
   let selectedDataset = 'all';
@@ -257,7 +259,7 @@ Content-Type: application/json</code></pre>
       <div class="api-documentation">
         <h4>Direct REST Data Access</h4>
         <p>All HSRI pipeline datasets are served statically and cache-optimized. You can fetch raw JSON directly via cURL or client-side fetch():</p>
-        <a href="/data/country_scores.json" target="_blank" class="api-docs-link">Inspect Raw country_scores.json</a>
+        <a href={`${base}/data/country_scores.json`} target="_blank" class="api-docs-link">Inspect Raw country_scores.json</a>
       </div>
     </div>
   {:else if activeTab === 'code'}

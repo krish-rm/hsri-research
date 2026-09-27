@@ -1,6 +1,7 @@
 <script lang="ts">
   // Props
   export let countries = [];
+  export let totalCountries: number = 39;
   export let sortBy = 'score';
   export let ascending = false;
 
@@ -130,7 +131,7 @@
 
   <div class="leaderboard-footer">
     <div class="table-info">
-      Showing {sortedCountries.length} of {countries.length} countries
+      Showing {sortedCountries.length} of {totalCountries || countries.length} countries
     </div>
   </div>
 </div>

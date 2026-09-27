@@ -133,6 +133,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         <ScoreLeaderboard
           client:load
           countries={indexData.countries.slice(0, 10)}
+          totalCountries={indexData.countries.length}
           sortBy="score"
           ascending={false}
         />

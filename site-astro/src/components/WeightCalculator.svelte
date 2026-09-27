@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
   import countryScoresData from '../data/country_scores.json';
 
+  const base = (import.meta.env.BASE_URL || '/hsri-research').replace(/\/$/, '');
   const baseCountries = countryScoresData.countries;
 
   // Sliders for the 4 pillars (in percentage points, 0-100)
@@ -191,7 +192,7 @@
               </div>
             </td>
             <td>
-              <a href={`/countries/${country.id}`} class="details-link">
+              <a href={`${base}/countries/${country.id.toLowerCase()}/`} class="details-link">
                 View &rarr;
               </a>
             </td>
