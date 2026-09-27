@@ -21,6 +21,7 @@
       { name: 'Downloads', href: `${base}/data/` },
     ],
     'Research': [
+      { name: 'Research Updates', href: `${base}/research-updates/` },
       { name: 'Methodology Docs', href: 'https://github.com/krish-rm/hsri-research/tree/main/docs' },
       { name: 'Research Roadmap', href: 'https://github.com/krish-rm/hsri-research/blob/main/docs/08-roadmap.md' },
       { name: 'Master Evidence Table', href: 'https://github.com/krish-rm/hsri-research/blob/main/research/evidence/master-evidence-table.csv' },

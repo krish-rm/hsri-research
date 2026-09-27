@@ -29,3 +29,53 @@ jobs:
           git add research/evidence/weekly-digest-*.md
           git diff --staged --quiet || git commit -m "data(literature): weekly sentinel scan $(date +%Y-W%V)"
           git push
+
+      - name: Run evidence reconciler
+        run: python scripts/evidence_reconciler.py
+
+      - name: Commit reconciliation report
+        run: |
+          git config user.name "hsri-ops[bot]"
+          git config user.email "hsri-ops@users.noreply.github.com"
+          git add research/evidence/reconciliation-report-*.md
+          git add research/evidence/master-evidence-table.csv
+          git diff --staged --quiet || git commit -m "data(evidence): reconciliation report $(date +%Y-%m-%d)"
+          git push
+
+      - name: Open issue if action flags found
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python - <<'EOF'
+          import re, subprocess, sys, glob
+
+          reports = sorted(glob.glob('research/evidence/reconciliation-report-*.md'))
+          if not reports:
+              sys.exit(0)
+
+          content = open(reports[-1]).read()
+          review_count = len(re.findall(r'REVIEW_REQUIRED', content))
+          upgrade_count = len(re.findall(r'UPGRADE_CANDIDATE', content))
+
+          if review_count == 0 and upgrade_count == 0:
+              print('No action flags. No issue created.')
+              sys.exit(0)
+
+          title = (f'[Evidence Reconciler] {review_count} REVIEW_REQUIRED, '
+                   f'{upgrade_count} UPGRADE_CANDIDATE')
+          body = (
+              f'## Evidence Reconciliation Alert\n\n'
+              f'**REVIEW_REQUIRED:** {review_count} — Strong/Moderate claims '
+              f'challenged by new literature\n'
+              f'**UPGRADE_CANDIDATE:** {upgrade_count} — Preliminary claims '
+              f'now supported by RCT or meta-analysis\n\n'
+              f'See `research/evidence/` for full report.\n\n'
+              f'Route to `@hsri-ops debate` if REVIEW_REQUIRED > 0.'
+          )
+          subprocess.run([
+              'gh', 'issue', 'create',
+              '--title', title, '--body', body,
+              '--label', 'evidence-review'
+          ], check=True)
+          EOF
+

@@ -1,0 +1,632 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import HSRILayout from '../layouts/HSRILayout.astro';
+import HSRIHeader from '../components/HSRIHeader.svelte';
+import HSRIFooter from '../components/HSRIFooter.svelte';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+interface DigestEntry {
+  fileName: string;
+  weekLabel: string;
+  paperCount: number;
+  escalationCount: number;
+  verdict: 'MONITOR' | 'REVIEW' | 'ESCALATE' | 'UNKNOWN';
+  rawContent: string;
+  htmlContent: string;
+  githubUrl: string;
+}
+
+function parseMarkdownToHtml(md: string): string {
+  const lines = md.trim().split('\n');
+  let html = '';
+  let inTable = false;
+  let tableHeaderDone = false;
+
+  for (let i = 0; i < lines.length; i++) {
+    let line = lines[i].trim();
+
+    // Table handling
+    if (line.startsWith('|') && line.endsWith('|')) {
+      const cells = line.split('|').slice(1, -1).map(c => c.trim());
+      // Check if separator line
+      if (cells.every(c => /^:?-+:?$/.test(c))) {
+        tableHeaderDone = true;
+        continue;
+      }
+
+      if (!inTable) {
+        inTable = true;
+        tableHeaderDone = false;
+        html += '<div class="table-container"><table class="digest-table"><thead><tr>';
+        cells.forEach(c => {
+          html += `<th>${c}</th>`;
+        });
+        html += '</tr></thead><tbody>';
+      } else {
+        html += '<tr>';
+        cells.forEach(c => {
+          // Format links if any [text](url)
+          let cellHtml = c.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+          html += `<td>${cellHtml}</td>`;
+        });
+        html += '</tr>';
+      }
+      continue;
+    } else if (inTable) {
+      inTable = false;
+      html += '</tbody></table></div>';
+    }
+
+    if (!line) {
+      continue;
+    }
+
+    // Headers
+    if (line.startsWith('### ')) {
+      html += `<h4>${line.replace('### ', '')}</h4>`;
+    } else if (line.startsWith('## ')) {
+      html += `<h3>${line.replace('## ', '')}</h3>`;
+    } else if (line.startsWith('# ')) {
+      html += `<h2>${line.replace('# ', '')}</h2>`;
+    } else {
+      // Paragraph text with bold formatting
+      let formatted = line.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+      formatted = formatted.replace(/`([^`]+)`/g, '<code>$1</code>');
+      html += `<p>${formatted}</p>`;
+    }
+  }
+
+  if (inTable) {
+    html += '</tbody></table></div>';
+  }
+
+  return html;
+}
+
+const digests: DigestEntry[] = [];
+
+try {
+  const evidenceDir = path.resolve(process.cwd(), '../research/evidence');
+  if (fs.existsSync(evidenceDir)) {
+    const files = fs.readdirSync(evidenceDir)
+      .filter(f => f.startsWith('weekly-digest-') && f.endsWith('.md'))
+      .sort()
+      .reverse(); // newest first
+
+    for (const file of files) {
+      const fullPath = path.join(evidenceDir, file);
+      const raw = fs.readFileSync(fullPath, 'utf-8');
+
+      // Parse week label
+      const weekMatch = file.match(/weekly-digest-(.+)\.md/);
+      const weekLabel = weekMatch ? weekMatch[1] : file;
+
+      // Parse paper count
+      const paperMatch = raw.match(/## New Papers Scanned:\s*(\d+)/i);
+      const paperCount = paperMatch ? parseInt(paperMatch[1], 10) : 0;
+
+      // Parse escalation count
+      const escMatch = raw.match(/## Escalation Flags:\s*(\d+)/i);
+      const escalationCount = escMatch ? parseInt(escMatch[1], 10) : 0;
+
+      // Parse verdict
+      const verdictMatch = raw.match(/### Recommendation Verdict\s*\n+([A-Z_]+)/i);
+      let verdict: 'MONITOR' | 'REVIEW' | 'ESCALATE' | 'UNKNOWN' = 'MONITOR';
+      if (verdictMatch) {
+        const v = verdictMatch[1].trim().toUpperCase();
+        if (v === 'REVIEW') verdict = 'REVIEW';
+        else if (v === 'ESCALATE') verdict = 'ESCALATE';
+        else if (v === 'MONITOR') verdict = 'MONITOR';
+      }
+
+      digests.push({
+        fileName: file,
+        weekLabel,
+        paperCount,
+        escalationCount,
+        verdict,
+        rawContent: raw,
+        htmlContent: parseMarkdownToHtml(raw),
+        githubUrl: `https://github.com/krish-rm/hsri-research/blob/main/research/evidence/${file}`,
+      });
+    }
+  }
+} catch (e) {
+  console.error("Error reading weekly digests:", e);
+}
+---
+
+<HSRILayout title="Research Updates & Weekly Literature Digests - HSRI Benchmark">
+  <div class="research-page">
+    <HSRIHeader client:load />
+
+    <!-- Hero Header -->
+    <div class="page-header">
+      <div class="container">
+        <div class="hero-badge">Lane 1 Literature Sentinel</div>
+        <h1>Research Updates &amp; Literature Digests</h1>
+        <p class="subtitle">
+          Weekly automated scans across Semantic Scholar and OpenAlex monitoring empirical literature, construct challenges, and evidence upgrades.
+        </p>
+      </div>
+    </div>
+
+    <main class="container main-content">
+      <!-- Status Notice -->
+      <div class="sentinel-banner">
+        <div class="banner-inner">
+          <div class="status-indicator">
+            <span class="pulse-dot"></span>
+            <strong>Automated Sentinel Active</strong>
+          </div>
+          <p class="banner-text">
+            Every Monday at 06:00 UTC, the Literature Sentinel executes an automated epistemological scan. Incoming papers are audited against HSRI pillars and evaluated by the Evidence Reconciler for challenge or upgrade flags.
+          </p>
+        </div>
+      </div>
+
+      <!-- Feed Section -->
+      <section class="digests-feed">
+        <div class="feed-header">
+          <h2>Weekly Literature Digests ({digests.length} Published)</h2>
+          <p>Expand any digest to view routine additions, empirical findings, and sentinel recommendation verdicts.</p>
+        </div>
+
+        {digests.length === 0 ? (
+          <div class="empty-state">
+            <div class="empty-icon">🔬</div>
+            <h3>No weekly digests published yet</h3>
+            <p>The first weekly digest will appear after the literature sentinel runs on Monday. Subscribe via GitHub Watch to be notified.</p>
+            <a href="https://github.com/krish-rm/hsri-research" target="_blank" rel="noopener noreferrer" class="btn-github">
+              Watch on GitHub &rarr;
+            </a>
+          </div>
+        ) : (
+          <div class="cards-list">
+            {digests.map((d, index) => (
+              <details class="digest-card" open={index === 0}>
+                <summary class="card-summary">
+                  <div class="summary-left">
+                    <span class="chevron-icon">▼</span>
+                    <span class="week-pill">{d.weekLabel}</span>
+                    <span class={`verdict-pill verdict-${d.verdict.toLowerCase()}`}>
+                      {d.verdict}
+                    </span>
+                  </div>
+                  <div class="summary-right">
+                    <span class="stat-badge">
+                      <strong>{d.paperCount}</strong> papers scanned
+                    </span>
+                    <span class={`esc-badge ${d.escalationCount > 0 ? 'has-esc' : ''}`}>
+                      <strong>{d.escalationCount}</strong> escalations
+                    </span>
+                  </div>
+                </summary>
+
+                <div class="card-body">
+                  <div class="digest-body-content" set:html={d.htmlContent} />
+
+                  <div class="card-footer">
+                    <a
+                      href={d.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="github-link"
+                    >
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                      </svg>
+                      View Raw Markdown on GitHub &rarr;
+                    </a>
+                  </div>
+                </div>
+              </details>
+            ))}
+          </div>
+        )}
+      </section>
+
+      <!-- Architecture Explainer -->
+      <section class="sentinel-explainer">
+        <div class="explainer-card">
+          <h3>The HSRI Epistemic Self-Correction Loop</h3>
+          <p>
+            Unlike traditional static policy benchmarks, HSRI operates a living empirical sentinel architecture:
+          </p>
+          <div class="explainer-grid">
+            <div class="explainer-item">
+              <h4>1. Continuous Scanning</h4>
+              <p>Monitors preprint servers and peer-reviewed journals for new experimental evidence on automation bias, human-AI cognitive synergy, and epistemic verification.</p>
+            </div>
+            <div class="explainer-item">
+              <h4>2. Automated Reconciliation</h4>
+              <p>Reconciles newly extracted papers against our 44-claim master evidence table, flagging challenged assumptions as <code>REVIEW_REQUIRED</code>.</p>
+            </div>
+            <div class="explainer-item">
+              <h4>3. Multi-Model Epistemic Review</h4>
+              <p>Challenged claims trigger adversarial debates across independent frontier model families, enforcing that no ranking hardens into unverified dogma.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <HSRIFooter />
+  </div>
+</HSRILayout>
+
+<style>
+  .research-page {
+    min-height: 100vh;
+    background-color: var(--surface-color, #f8fafc);
+  }
+
+  .page-header {
+    text-align: center;
+    padding: 3.5rem 1.5rem 2.5rem;
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
+    color: white;
+    margin-bottom: 2rem;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: rgba(99, 102, 241, 0.2);
+    border: 1px solid rgba(165, 180, 252, 0.3);
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #c7d2fe;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+  }
+
+  .page-header h1 {
+    font-size: 2.25rem;
+    font-weight: 800;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.025em;
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+    color: #cbd5e1;
+    max-width: 46rem;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .main-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1.5rem 4rem;
+  }
+
+  /* Sentinel Status Banner */
+  .sentinel-banner {
+    background: white;
+    border: 1px solid #e0e7ff;
+    border-left: 4px solid #4f46e5;
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+
+  .banner-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: #3730a3;
+    font-size: 0.9rem;
+  }
+
+  .pulse-dot {
+    width: 8px;
+    height: 8px;
+    background: #10b981;
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+  }
+
+  .banner-text {
+    font-size: 0.875rem;
+    color: #475569;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* Feed Header */
+  .feed-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .feed-header h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 0.25rem;
+  }
+
+  .feed-header p {
+    font-size: 0.9rem;
+    color: #64748b;
+    margin: 0;
+  }
+
+  /* Cards List */
+  .cards-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .digest-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    transition: box-shadow 0.2s, border-color 0.2s;
+  }
+
+  .digest-card[open] {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+    border-color: #cbd5e1;
+  }
+
+  .card-summary {
+    padding: 1.25rem 1.5rem;
+    background: #ffffff;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    list-style: none;
+    user-select: none;
+  }
+
+  .card-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .card-summary:hover {
+    background: #f8fafc;
+  }
+
+  .summary-left {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+  }
+
+  .chevron-icon {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    transition: transform 0.2s;
+  }
+
+  .digest-card[open] .chevron-icon {
+    transform: rotate(0deg);
+  }
+
+  .digest-card:not([open]) .chevron-icon {
+    transform: rotate(-90deg);
+  }
+
+  .week-pill {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  .verdict-pill {
+    padding: 0.2rem 0.6rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .verdict-monitor { background: #e0f2fe; color: #0369a1; }
+  .verdict-review { background: #fef3c7; color: #b45309; }
+  .verdict-escalate { background: #fee2e2; color: #b91c1c; }
+
+  .summary-right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .stat-badge, .esc-badge {
+    font-size: 0.8rem;
+    color: #64748b;
+    background: #f1f5f9;
+    padding: 0.25rem 0.65rem;
+    border-radius: 6px;
+  }
+
+  .esc-badge.has-esc {
+    background: #fee2e2;
+    color: #b91c1c;
+  }
+
+  .card-body {
+    padding: 1.5rem;
+    border-top: 1px solid #f1f5f9;
+    background: #fafafa;
+  }
+
+  .digest-body-content {
+    color: #334155;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  :global(.digest-body-content h2) {
+    display: none; /* Already in summary */
+  }
+
+  :global(.digest-body-content h3) {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 1.25rem 0 0.5rem;
+  }
+
+  :global(.digest-body-content h4) {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #475569;
+    margin: 1rem 0 0.5rem;
+  }
+
+  :global(.digest-body-content p) {
+    margin-bottom: 0.75rem;
+  }
+
+  :global(.digest-table) {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.825rem;
+    margin: 1rem 0;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+  }
+
+  :global(.digest-table th) {
+    background: #f1f5f9;
+    padding: 0.65rem 0.85rem;
+    text-align: left;
+    font-weight: 600;
+    color: #334155;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  :global(.digest-table td) {
+    padding: 0.65rem 0.85rem;
+    border-bottom: 1px solid #f1f5f9;
+    color: #475569;
+  }
+
+  :global(.table-container) {
+    overflow-x: auto;
+  }
+
+  .card-footer {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .github-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.825rem;
+    color: #4f46e5;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .github-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Empty State */
+  .empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: white;
+    border: 1px dashed #cbd5e1;
+    border-radius: 12px;
+  }
+
+  .empty-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .btn-github {
+    display: inline-block;
+    margin-top: 1rem;
+    background: #0f172a;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-decoration: none;
+  }
+
+  /* Explainer Card */
+  .explainer-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+
+  .explainer-card h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+  }
+
+  .explainer-card p {
+    color: #64748b;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .explainer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .explainer-item h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #3730a3;
+    margin-bottom: 0.4rem;
+  }
+
+  .explainer-item p {
+    font-size: 0.85rem;
+    color: #475569;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .card-summary {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+    .summary-right {
+      width: 100%;
+      justify-content: space-between;
+    }
+  }
+</style>

@@ -30,6 +30,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
           <a href="#indicators" class="nav-btn" data-section="indicators">Indicators Catalog</a>
           <a href="#scoring" class="nav-btn" data-section="scoring">Scoring Methodology</a>
           <a href="#validation" class="nav-btn" data-section="validation">Statistical Diagnostics</a>
+          <a href="#cite" class="nav-btn" data-section="cite">How to Cite</a>
           <a href="#limitations" class="nav-btn" data-section="limitations">Limitations</a>
         </nav>
 
@@ -46,6 +47,30 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
       <div class="methodology-main">
         <MethodologyOverview client:load />
+
+        <!-- How to Cite Section -->
+        <section id="cite" class="cite-section" style="margin-top: 2rem; background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+          <h2 style="font-size: 1.5rem; font-weight: 700; color: #0f172a; margin-bottom: 1rem;">How to Cite HSRI</h2>
+          <p style="font-size: 1rem; color: #334155; line-height: 1.6; margin-bottom: 1.5rem;">
+            <strong>HSRI Research Team.</strong> (2026). <em>Human Superintelligence Readiness Index (v0.2 Preview)</em>. Exploratory benchmark dataset and methodology. <a href="https://krish-rm.github.io/hsri-research/" style="color: #2563eb; text-decoration: underline;">https://krish-rm.github.io/hsri-research/</a>
+          </p>
+
+          <h3 style="font-size: 1.1rem; font-weight: 600; color: #1e293b; margin-bottom: 0.5rem;">BibTeX:</h3>
+          <pre style="background: #0f172a; color: #f8fafc; padding: 1.25rem; border-radius: 8px; font-size: 0.85rem; overflow-x: auto; font-family: monospace; line-height: 1.5; margin-bottom: 1.5rem;"><code>@misc&#123;hsri2026,
+  author = &#123;&#123;HSRI Research Team&#125;&#125;,
+  title  = &#123;Human Superintelligence Readiness Index (v0.2 Preview)&#125;,
+  year   = &#123;2026&#125;,
+  url    = &#123;https://krish-rm.github.io/hsri-research/&#125;,
+  note   = &#123;Exploratory benchmark. Not yet psychometrically validated.
+            Data and methodology: https://github.com/krish-rm/hsri-research&#125;
+&#125;</code></pre>
+
+          <h3 style="font-size: 1.1rem; font-weight: 600; color: #1e293b; margin-bottom: 0.5rem;">Version History:</h3>
+          <ul style="color: #475569; font-size: 0.9rem; line-height: 1.6; padding-left: 1.25rem;">
+            <li><strong>v0.2</strong> (2026-09-27) — See <a href="https://github.com/krish-rm/hsri-research/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer" style="color: #2563eb; text-decoration: underline;">CHANGELOG</a></li>
+            <li><strong>v0.1</strong> (2026-09-22) — Initial public preview</li>
+          </ul>
+        </section>
       </div>
     </div>
 

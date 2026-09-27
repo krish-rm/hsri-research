@@ -21,6 +21,7 @@
     { name: 'Home', href: `${base}/` },
     { name: 'Countries', href: `${base}/countries/` },
     { name: 'Methodology', href: `${base}/methodology/` },
+    { name: 'Research', href: `${base}/research-updates/` },
     { name: 'Timeline', href: `${base}/timeline/` },
     { name: 'Compare', href: `${base}/compare/` },
     { name: 'Data', href: `${base}/data/` },

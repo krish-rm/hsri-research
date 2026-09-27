@@ -10,7 +10,10 @@ from pathlib import Path
 import tempfile
 import pytest
 
-from scripts.evidence_reconciler import reconcile_evidence
+from scripts.evidence_reconciler import (
+    reconcile_evidence,
+    check_and_create_reconciliation_issue,
+)
 
 SAMPLE_TABLE_DATA = [
     {
@@ -163,3 +166,52 @@ def test_reconciler_never_modifies_evidence_tiers():
 
         saved_tiers = [r["evidence_tier"] for r in saved_rows]
         assert saved_tiers == original_tiers, "Evidence tiers were modified! Reconciler must never alter evidence tiers."
+
+
+def test_reconciler_issue_fires_on_review_required():
+    """
+    Confirm that check_and_create_reconciliation_issue triggers the issue creation
+    subprocess when REVIEW_REQUIRED > 0 and suppresses it when count is zero.
+    """
+    calls = []
+
+    def mock_runner(cmd, **kwargs):
+        calls.append(cmd)
+        return True
+
+    with tempfile.TemporaryDirectory() as tmp_dir:
+        tmp_path = Path(tmp_dir)
+        report_with_flags = tmp_path / "report_with_flags.md"
+        report_clean = tmp_path / "report_clean.md"
+
+        report_with_flags.write_text(
+            "# Evidence Reconciliation Report\n\n"
+            "## REVIEW_REQUIRED (Strong/Moderate claims challenged by new literature)\n"
+            "| Claim ID | Current Tier | Challenging Paper DOI | Verdict |\n"
+            "| 1 | Strong | https://doi.org/10.1000/test | Contradicts |\n",
+            encoding="utf-8"
+        )
+
+        report_clean.write_text(
+            "# Evidence Reconciliation Report\n\n"
+            "## CURRENT (No new challenges)\n"
+            "44 rows — no action required.\n\n"
+            "## Recommended Action\nMONITOR\n",
+            encoding="utf-8"
+        )
+
+        # 1. Report with REVIEW_REQUIRED should trigger runner
+        triggered = check_and_create_reconciliation_issue(report_with_flags, runner=mock_runner)
+        assert triggered is True
+        assert len(calls) == 1
+        assert calls[0][0] == "gh"
+        assert calls[0][1] == "issue"
+        assert calls[0][2] == "create"
+        assert any("1 REVIEW_REQUIRED" in arg for arg in calls[0])
+
+        # 2. Clean report should be suppressed (no issue created)
+        calls.clear()
+        triggered_clean = check_and_create_reconciliation_issue(report_clean, runner=mock_runner)
+        assert triggered_clean is False
+        assert len(calls) == 0
+

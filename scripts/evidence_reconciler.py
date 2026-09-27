@@ -239,6 +239,45 @@ def reconcile_evidence(
     return rows, summary, report_file
 
 
+def check_and_create_reconciliation_issue(report_path: Path, runner=None) -> bool:
+    """
+    Parse reconciliation report and open GitHub Issue if action flags exist.
+    Returns True if an issue command was executed, False if suppressed.
+    """
+    import re
+    import subprocess
+
+    if runner is None:
+        runner = subprocess.run
+
+    if not report_path.exists():
+        return False
+
+    content = report_path.read_text(encoding="utf-8")
+    review_count = len(re.findall(r"REVIEW_REQUIRED", content))
+    upgrade_count = len(re.findall(r"UPGRADE_CANDIDATE", content))
+
+    if review_count == 0 and upgrade_count == 0:
+        logger.info("No action flags found. No issue created.")
+        return False
+
+    title = f"[Evidence Reconciler] {review_count} REVIEW_REQUIRED, {upgrade_count} UPGRADE_CANDIDATE"
+    body = (
+        f"## Evidence Reconciliation Alert\n\n"
+        f"**REVIEW_REQUIRED:** {review_count} — Strong/Moderate claims challenged by new literature\n"
+        f"**UPGRADE_CANDIDATE:** {upgrade_count} — Preliminary claims now supported by RCT or meta-analysis\n\n"
+        f"See `research/evidence/` for full report.\n\n"
+        f"Route to `@hsri-ops debate` if REVIEW_REQUIRED > 0."
+    )
+    runner([
+        "gh", "issue", "create",
+        "--title", title,
+        "--body", body,
+        "--label", "evidence-review"
+    ], check=True)
+    return True
+
+
 if __name__ == "__main__":
     rows, summary, report_file = reconcile_evidence()
     print(f"Reconciliation complete: {summary['review_required_count']} review required, "

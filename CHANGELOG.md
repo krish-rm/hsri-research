@@ -24,6 +24,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - All lane integration gates tested (Lane 1→3 handoff, Lane 2 HOLD-RELEASE block, concordance threshold gate).
 - No autonomous merge permissions added at any lane.
 
+### Deployment Postmortem (Sprints 1–4)
+GitHub Pages was configured to serve from the raw `main` branch rather
+than from the Actions workflow artifact. This caused the compiled `dist/`
+output to be ignored in favor of raw source files. The smoke test was
+checking the workflow artifact rather than the public-facing URL,
+producing false PASS results for three consecutive sprints. Fixed by
+switching Pages source to "GitHub Actions" in repository settings and
+hardening the smoke test to use regex matching with explicit cache-bypass
+headers against the canonical public URL.
+
 ## [v0.2.2] — 2026-09-23: Real Raw Data Ingestion Engine & Empirical Completeness Architecture
 
 ### Added
