@@ -1,6 +1,6 @@
 # HSRI Data Dictionary & Schema Reference
 
-Canonical schema documentation for all public datasets published by the **Human Superintelligence Readiness Index (HSRI)** v0.1 preview release.
+Canonical schema documentation for all public datasets published by the **Human Superintelligence Readiness Index (HSRI)** v0.2 release.
 
 All files are distributed under the **Creative Commons Attribution 4.0 International (CC BY 4.0)** license.
 
@@ -79,3 +79,24 @@ Every indicator is direction-adjusted and min-max normalized to $[0.0, 1.0]$. St
 | `source_url_or_doi` | String | Permanent Digital Object Identifier (DOI) or canonical research URL | `https://doi.org/10.1145/3411764.3445717` |
 | `notes` | String | Psychometric context, sample boundaries, or effect size summary | `Found local feature-importance explanations can induce an illusion of system competence.` |
 | `reconciliation_flag` | String | Lane 1 automated literature audit synchronization status | `CURRENT`, `REVIEW_REQUIRED`, `UPGRADE_CANDIDATE` |
+
+---
+
+## 4. Evaluated Unrated Nations Register (`hsri-unrated-nations.csv`)
+
+- **File location:** `/hsri-research/downloads/hsri-unrated-nations.csv`
+- **Source repository path:** `data/unrated-nations.csv`
+- **Scope:** 86 evaluated economies currently lacking sufficient multi-pillar microdata to receive headline scores
+- **Dimensions:** 86 rows × 8 columns
+
+| Column | Type | Description | Values / Bounds |
+|---|---|---|---|
+| `country_iso3` | String (ISO 3166-1 alpha-3) | Three-letter nation identifier | e.g., `AFG`, `EGY`, `IND`, `NGA`, `SAU` |
+| `country_name` | String | Standard international country name | English country name |
+| `region` | String | Continental macro-region (UN geoscheme) | `Africa`, `Americas`, `Asia`, `Europe`, `Oceania` |
+| `un_subregion` | String | Detailed regional classification | e.g. `Northern Africa`, `Western Asia` |
+| `available_pillars` | Integer | Count of pillars with at least one observed empirical indicator | `0`, `1`, or `2` |
+| `missing_pillars` | String | Pillars lacking observed empirical microdata | Semicolon-separated pillar names |
+| `primary_data_gap` | String | Root cause taxonomy for absence from the rated benchmark | `missing_cognitive_pillars`, `insufficient_source_coverage` |
+| `partial_coverage_notes` | String | Specific institutional tracking vs. survey absence notes | Summary of observed source indicators vs. missing microdata |
+

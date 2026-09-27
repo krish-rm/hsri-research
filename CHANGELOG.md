@@ -5,6 +5,25 @@ All notable changes to the Human Superintelligence Readiness Index (HSRI) resear
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.2.0] — 2026-09-27
+### Added
+- **Lane 2 Pipeline Sentinel** (`scripts/pipeline_sentinel.py`): Monthly automated health checks across all 7 institutional data fetchers with anomaly detection, missingness audit, and imputation sensitivity analysis.
+- **Lane 1 Literature Sentinel** (`scripts/literature_sentinel.py`): Weekly automated scans of Semantic Scholar and OpenAlex for empirical papers relevant to HSRI construct pillars. Outputs structured JSONL log and markdown digest.
+- **Evidence Reconciler** (`scripts/evidence_reconciler.py`): Connects literature log to master evidence table, flagging claims that may need review or upgrade.
+- **Multi-Model Ensemble Runner** (`scripts/run_ensemble_debate.py`): Framework for executing adversarial methodology debates across multiple LLM families. Divergence log formalized as a citable dataset (CC BY 4.0).
+- **Open Data Layer**: All three core datasets publicly downloadable at `/downloads/`. Schema documented in `data-dictionary.md`.
+- **CI Post-Deploy Smoke Test**: Authoritative deployment verification built into `deploy.yml`. Agent self-verification is supplementary only.
+- **SGP Band Sensitivity Documentation**: Singapore's EMLI missingness and Band A→B imputation sensitivity (Δ 2.93 pts) documented in methodology docs and live country profile.
+- **GitHub Actions Workflows**: `ingestion-health.yml` (monthly) and `literature-sentinel.yml` (weekly) running in production.
+### Fixed
+- Footer navigation links corrected for GitHub Pages base URL (`/hsri-research/`).
+- Leaderboard pagination label fixed: "Showing 10 of 39 countries" (was "10 of 10"). Root cause: Svelte client-side hydration overwriting SSR prop with local slice length.
+- CHANGELOG pillar count corrected from 5 to 4 across documentation.
+### Governance
+- 37/37 unit tests passing across 6 test modules.
+- All lane integration gates tested (Lane 1→3 handoff, Lane 2 HOLD-RELEASE block, concordance threshold gate).
+- No autonomous merge permissions added at any lane.
+
 ## [v0.2.2] — 2026-09-23: Real Raw Data Ingestion Engine & Empirical Completeness Architecture
 
 ### Added

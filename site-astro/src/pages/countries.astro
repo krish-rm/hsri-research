@@ -4,6 +4,8 @@ import HSRIHeader from '../components/HSRIHeader.svelte';
 import CountryList from '../components/CountryList.svelte';
 import WeightCalculator from '../components/WeightCalculator.svelte';
 import HSRIFooter from '../components/HSRIFooter.svelte';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <HSRILayout title="Country Profiles & Rankings - HSRI Benchmark">
@@ -29,7 +31,7 @@ import HSRIFooter from '../components/HSRIFooter.svelte';
           <h2>All 39 Benchmark Country Profiles</h2>
           <p class="section-desc">Select any country to view full pillar breakdowns, exposure gaps, crossing projections, and strategic policy recommendations.</p>
           <div class="scope-disclosure-card">
-            <p><strong>Sample Scope &amp; Composition:</strong> The current preview benchmark evaluates 39 nations, heavily weighted toward high-income and OECD economies. This reflects a coverage limitation of current international empirical data sources, not a judgment about other nations' readiness. In our coverage assessment of 145 countries, 59 possess partial or contextual data, while 86 evaluated countries currently lack sufficient multi-pillar data and remain unrated.</p>
+            <p><strong>Sample Scope &amp; Composition:</strong> The current preview benchmark evaluates 39 nations, heavily weighted toward high-income and OECD economies. This reflects a coverage limitation of current international empirical data sources, not a judgment about other nations' readiness. In our coverage assessment of 145 countries, 59 possess partial or contextual data, while 86 evaluated countries currently lack sufficient multi-pillar data and remain unrated. <a href={`${base}/coverage/`} style="color: #1e40af; font-weight: 600; text-decoration: underline;">See coverage details &rarr;</a></p>
           </div>
         </div>
         <CountryList client:load />

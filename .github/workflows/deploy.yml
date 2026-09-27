@@ -70,12 +70,21 @@ jobs:
                       "pagination_label": "Showing 10 of 39 countries" in html,
                       "footer_methodology": "/hsri-research/methodology/" in html,
                       "footer_countries": "/hsri-research/countries/" in html,
+                      "coverage_in_disclaimer": "/hsri-research/coverage/" in html,
                   }
+
+                  # Check coverage page reachable and rendered
+                  cov_req = urllib.request.Request("https://krish-rm.github.io/hsri-research/coverage/", headers={"Cache-Control": "no-cache"})
+                  cov_res = urllib.request.urlopen(cov_req, timeout=15)
+                  cov_html = cov_res.read().decode("utf-8")
+                  checks["coverage_page_200"] = (cov_res.getcode() == 200)
+                  checks["coverage_page_content"] = "Global Geographic Coverage" in cov_html
 
                   csv_urls = [
                       "https://krish-rm.github.io/hsri-research/downloads/hsri-country-scores.csv",
                       "https://krish-rm.github.io/hsri-research/downloads/hsri-normalized-indicators.csv",
                       "https://krish-rm.github.io/hsri-research/downloads/hsri-evidence-table.csv",
+                      "https://krish-rm.github.io/hsri-research/downloads/hsri-unrated-nations.csv",
                   ]
                   for c_url in csv_urls:
                       c_req = urllib.request.Request(c_url, headers={"Cache-Control": "no-cache"})

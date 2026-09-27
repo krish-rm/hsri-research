@@ -224,12 +224,8 @@ def run_ensemble_debate(
             evaluated_records.append(record)
 
     # Evaluate concordance across models that generated real verdicts
-    concordance_result = evaluate_concordance(verdicts_for_concordance, threshold=len(verdicts_for_concordance) if verdicts_for_concordance else 1)
-
-    for rec in evaluated_records:
-        if rec["verdict"] != "SKIPPED":
-            rec["concordance_with_majority"] = (rec["verdict"] == concordance_result.get("dominant_verdict"))
-            append_divergence_entry(rec)
+    real_verdicts = [r for r in evaluated_records if r["verdict"] != "SKIPPED"]
+    concordance_result = None
 
     # Print summary table
     divider = "-" * 53
@@ -242,10 +238,23 @@ def run_ensemble_debate(
         lane = rec["dominant_concern_lane"]
         print(f"{fam} | {ver} | {vrd} | {lane}")
     print(divider)
-    active_count = len(verdicts_for_concordance)
-    dom_count = concordance_result.get("concordance_count", 0)
-    status_str = "PASSES" if concordance_result.get("passes_threshold") else "CONTESTED"
-    print(f"Concordance: {dom_count}/{active_count if active_count > 0 else len(target_models)} | Status: [{status_str}]\n")
+
+    if len(real_verdicts) == 0:
+        print("WARNING: No live model responses. All entries are SKIPPED.")
+        print("Configure at least one API key to generate real divergence data.")
+    elif len(real_verdicts) < 3:
+        print(f"WARNING: Only {len(real_verdicts)}/3 models responded.")
+        print("Concordance evaluation requires 5/7 in full mode.")
+        print("Logging partial results. No concordance verdict emitted.")
+        for rec in real_verdicts:
+            rec["concordance_with_majority"] = False
+            append_divergence_entry(rec)
+    else:
+        concordance_result = evaluate_concordance([r["verdict"] for r in real_verdicts], threshold=len(real_verdicts))
+        print(f"Concordance: {concordance_result['status']}")
+        for rec in real_verdicts:
+            rec["concordance_with_majority"] = (rec["verdict"] == concordance_result.get("dominant_verdict"))
+            append_divergence_entry(rec)
 
     return {
         "topic": target_topic,

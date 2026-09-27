@@ -5,7 +5,12 @@ Validates graceful missing API key handling, output parsing, and divergence logg
 
 import os
 from pathlib import Path
+import sys
 import pytest
+
+ROOT_DIR = Path(__file__).resolve().parent.parent
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
 
 from scripts.run_ensemble_debate import (
     TOPIC,
@@ -35,6 +40,8 @@ def test_ensemble_runner_handles_missing_keys(monkeypatch):
         assert check_api_key_configured(m["family"]) is False
 
     # Execute debate pass in live mode (allow_mock=False)
+    logged_entries = []
+    monkeypatch.setattr("scripts.run_ensemble_debate.append_divergence_entry", lambda r: logged_entries.append(r))
     result = run_ensemble_debate(allow_mock=False)
 
     assert result["topic"]["id"] == "TOPIC-002"

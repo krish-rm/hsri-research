@@ -53,6 +53,19 @@ The repository includes `hsri_agents`, an automated evidence-review and adversar
 
 ---
 
+## Running the Ensemble Debate (Lane 3)
+
+The ensemble debate runner requires API keys for the model families you want to include. Set them as environment variables before running:
+
+```bash
+export ANTHROPIC_API_KEY="your-key"
+export OPENAI_API_KEY="your-key"
+export GOOGLE_API_KEY="your-key"
+python scripts/run_ensemble_debate.py
+```
+
+Models without configured keys are skipped and logged as SKIPPED entries. A minimum of 3/7 models must produce non-SKIPPED verdicts for concordance to be evaluated. If fewer than 3 are available, the runner logs all results and exits with a warning — it does not synthesize a concordance verdict.
+
 ## Repository Architecture
 
 ```
@@ -76,7 +89,7 @@ hsri-research/
 
 The repository includes a static, responsive web portal built with **Astro 7** and **Svelte 5**:
 - **Country Profiles & Radar Charts:** Deep-dive pages for 39 evaluated economies.
-- **Interactive Comparisons:** Head-to-head country comparisons across all 5 readiness pillars.
+- **Interactive Comparisons:** Head-to-head country comparisons across all 4 readiness pillars.
 - **Dynamic Weight Calculator:** Interactive recalculation of index scores based on custom pillar weighting schemes.
 - **Methodology & Documentation:** Comprehensive guides on mathematical construction, proxy indicators, and ethical boundary conditions.
 

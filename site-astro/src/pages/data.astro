@@ -104,6 +104,20 @@ const dataCatalog: CatalogItem[] = [
       { column: 'source_url_or_doi', type: 'URL / DOI', description: 'Permanent digital object identifier or publication URL' },
       { column: 'reconciliation_flag', type: 'Categorical', description: 'Lane 1 literature audit synchronization status (CURRENT, REVIEW_REQUIRED, UPGRADE_CANDIDATE)' }
     ]
+  ),
+  getFileMeta(
+    'hsri-unrated-nations.csv',
+    'data/unrated-nations.csv',
+    'Diagnostic register of 86 evaluated economies lacking sufficient multi-pillar microdata to receive benchmark ratings.',
+    [
+      { column: 'country_iso3', type: 'String (ISO-3)', description: 'Three-letter ISO nation identifier' },
+      { column: 'country_name', type: 'String', description: 'Standard international English nation name' },
+      { column: 'region', type: 'Categorical', description: 'UN geoscheme continental region (Africa, Americas, Asia, Europe, Oceania)' },
+      { column: 'un_subregion', type: 'String', description: 'Detailed UN continental subregion' },
+      { column: 'available_pillars', type: 'Integer [0-4]', description: 'Count of pillars with observed empirical indicator tracking' },
+      { column: 'missing_pillars', type: 'String', description: 'Pillars lacking observed empirical survey microdata' },
+      { column: 'primary_data_gap', type: 'String', description: 'Root taxonomy reason for missingness (e.g. missing_cognitive_pillars)' }
+    ]
   )
 ];
 ---
@@ -203,7 +217,7 @@ const dataCatalog: CatalogItem[] = [
             <h4>Terms of Use & Attribution</h4>
             <p>HSRI data is provided under Creative Commons Attribution 4.0 International (CC BY 4.0). Users are free to share and adapt the material with appropriate credit:</p>
             <ul>
-              <li>Cite the Human Superintelligence Readiness Index (v0.1 Preview) in all research and policy publications</li>
+              <li>Cite the Human Superintelligence Readiness Index (v0.2 Release) in all research and policy publications</li>
               <li>Preserve missingness notes: structural NaNs (such as non-European EMLI) must never be imputed</li>
               <li>Acknowledge that proxy indicators capture enabling environments rather than demonstrated psychological readiness</li>
             </ul>
@@ -212,7 +226,7 @@ const dataCatalog: CatalogItem[] = [
           <div class="citation-info">
             <h4>Recommended Citation</h4>
             <div class="citation-example">
-              <p><strong>HSRI Research Consortium</strong> (2026). <em>Human Superintelligence Readiness Index: Country Scores and Indicator Matrix</em>. Empirical Benchmark Release v0.1. Available at: <code>https://krish-rm.github.io/hsri-research/data/</code></p>
+              <p><strong>HSRI Research Consortium</strong> (2026). <em>Human Superintelligence Readiness Index: Country Scores and Indicator Matrix</em>. Empirical Benchmark Release v0.2. Available at: <code>https://krish-rm.github.io/hsri-research/data/</code></p>
             </div>
           </div>
         </div>

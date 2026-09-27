@@ -10,6 +10,7 @@
     'Project': [
       { name: 'About', href: `${base}/methodology/#overview` },
       { name: 'Methodology', href: `${base}/methodology/` },
+      { name: 'Coverage Audit', href: `${base}/coverage/` },
       { name: 'Data Sources', href: `${base}/methodology/#indicators` },
       { name: 'Limitations', href: `${base}/methodology/#limitations` },
     ],
@@ -54,7 +55,7 @@
           </svg>
           <div>
             <h3 class="footer-title">Human Superintelligence Readiness Index</h3>
-            <p class="footer-tagline">v0.1 Public Preview</p>
+            <p class="footer-tagline">v0.2 Public Preview</p>
           </div>
         </div>
         <p class="footer-description">

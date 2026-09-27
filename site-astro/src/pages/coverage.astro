@@ -1,0 +1,682 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import HSRILayout from '../layouts/HSRILayout.astro';
+import HSRIHeader from '../components/HSRIHeader.svelte';
+import HSRIFooter from '../components/HSRIFooter.svelte';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+interface UnratedNation {
+  country_iso3: string;
+  country_name: string;
+  region: string;
+  un_subregion: string;
+  available_pillars: number;
+  missing_pillars: string;
+  primary_data_gap: string;
+  partial_coverage_notes: string;
+}
+
+// Read unrated-nations.csv at build time
+let unratedNations: UnratedNation[] = [];
+try {
+  const csvPath = path.resolve(process.cwd(), '../data/unrated-nations.csv');
+  const fallbackPath = path.resolve(process.cwd(), 'public/downloads/hsri-unrated-nations.csv');
+  const targetPath = fs.existsSync(csvPath) ? csvPath : fallbackPath;
+
+  if (fs.existsSync(targetPath)) {
+    const rawContent = fs.readFileSync(targetPath, 'utf-8');
+    const lines = rawContent.trim().split('\n').filter(l => l.trim().length > 0);
+    // skip header
+    for (let i = 1; i < lines.length; i++) {
+      // parse CSV line with simple quote handling
+      const row = lines[i];
+      const match = row.match(/(?:^|,)("(?:[^"]|"")*"|[^,]*)/g);
+      if (match) {
+        const cols = match.map(c => {
+          let val = c.startsWith(',') ? c.slice(1) : c;
+          val = val.trim();
+          if (val.startsWith('"') && val.endsWith('"')) {
+            val = val.slice(1, -1).replace(/""/g, '"');
+          }
+          return val;
+        });
+
+        if (cols.length >= 8) {
+          unratedNations.push({
+            country_iso3: cols[0],
+            country_name: cols[1],
+            region: cols[2],
+            un_subregion: cols[3],
+            available_pillars: parseInt(cols[4], 10) || 0,
+            missing_pillars: cols[5],
+            primary_data_gap: cols[6],
+            partial_coverage_notes: cols[7],
+          });
+        }
+      }
+    }
+  }
+} catch (e) {
+  console.error("Error reading unrated nations CSV:", e);
+}
+
+// Calculate regional counts
+const regionCounts: Record<string, number> = {};
+for (const n of unratedNations) {
+  regionCounts[n.region] = (regionCounts[n.region] || 0) + 1;
+}
+---
+
+<HSRILayout title="Geographic Coverage Audit & Unrated Nations - HSRI Benchmark (v0.2)">
+  <div class="coverage-page">
+    <HSRIHeader client:load />
+
+    <!-- Page Header Hero -->
+    <div class="page-header">
+      <div class="container">
+        <div class="version-tag">HSRI v0.2 Epistemic Governance</div>
+        <h1>Global Geographic Coverage &amp; Scope Audit</h1>
+        <p class="subtitle">
+          Transparent accounting of rated nations, evaluated unrated nations, and international microdata gaps across 195 sovereign states.
+        </p>
+      </div>
+    </div>
+
+    <main class="container main-content">
+      <!-- Disclaimer Banner -->
+      <div class="preview-notice-banner">
+        <div class="notice-inner">
+          <span class="notice-pill">Benchmark Scope Protocol</span>
+          <p class="notice-text">
+            <strong>Rule R6 Compliance:</strong> HSRI strictly refuses to impute structural NaNs or extrapolate scores to nations lacking empirical microdata. 39 nations are currently benchmarked, 86 evaluated nations remain unrated due to indicator sparsity, and 70 nations have zero international telemetry.
+          </p>
+        </div>
+      </div>
+
+      <!-- Scope Breakdown Cards -->
+      <section class="metrics-grid">
+        <div class="metric-card card-rated">
+          <div class="metric-icon">✓</div>
+          <div class="metric-num">39</div>
+          <div class="metric-label">Benchmark Rated Nations</div>
+          <div class="metric-desc">High-income &amp; OECD cohort with &ge; 60% empirical indicator coverage across all 4 pillars.</div>
+        </div>
+
+        <div class="metric-card card-unrated">
+          <div class="metric-icon">⚠</div>
+          <div class="metric-num">86</div>
+          <div class="metric-label">Evaluated Unrated Nations</div>
+          <div class="metric-desc">Partial governance or connectivity data observed, but lacking verified cognitive microdata.</div>
+        </div>
+
+        <div class="metric-card card-scope">
+          <div class="metric-icon">📊</div>
+          <div class="metric-num">125</div>
+          <div class="metric-label">Total Nations in Audit Scope</div>
+          <div class="metric-desc">Formally tracked across international source indices (World Bank, ITU, OECD, V-Dem).</div>
+        </div>
+
+        <div class="metric-card card-unmonitored">
+          <div class="metric-icon">✕</div>
+          <div class="metric-num">70</div>
+          <div class="metric-label">Unmonitored Global Nations</div>
+          <div class="metric-desc">Recognized UN sovereign states with zero empirical telemetry in frontier AI readiness metrics.</div>
+        </div>
+      </section>
+
+      <!-- Why Coverage is Limited Section -->
+      <section class="rationale-section">
+        <h2>Why Coverage is Limited to 39 Nations in v0.2</h2>
+        <div class="rationale-card">
+          <p class="lead-text">
+            The Human Superintelligence Readiness Index (HSRI) prioritizes <strong>epistemic integrity over artificial completeness</strong>. Generating headline scores for nations that lack validated empirical measurement would introduce severe automation bias, creating an illusion of precision that harms evidence-based policy.
+          </p>
+          <div class="rationale-columns">
+            <div class="rationale-col">
+              <h4>1. The 60% Pillar Completeness Rule</h4>
+              <p>
+                To receive a composite headline score, a nation must possess observed empirical data for at least 60% of indicators within each of the four core pillars. While 86 evaluated economies have robust institutional governance tracking (e.g., Worldwide Governance Indicators) or telecommunications data (ITU), none possess empirical adult cognitive testing microdata.
+              </p>
+            </div>
+            <div class="rationale-col">
+              <h4>2. The Structural NaN Policy</h4>
+              <p>
+                Non-participation in international testing programs like OECD PIAAC (Program for the International Assessment of Adult Competencies) or EU EMLI (European Media Literacy Index) is an administrative reality, not a random missing value. Imputing scores across non-participating nations would confound actual cognitive discernment with administrative affiliation.
+              </p>
+            </div>
+            <div class="rationale-col">
+              <h4>3. Required Data to Expand Coverage</h4>
+              <p>
+                Expanding HSRI coverage beyond 39 nations requires non-OECD statistical agencies to administer standardized digital reasoning instruments, adult problem-solving assessments in technology-rich environments, and calibrated algorithmic trust surveys.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Regional Distribution of the 86 Unrated Nations -->
+      <section class="regional-section">
+        <div class="section-header">
+          <h2>Regional Distribution of Unrated Nations ({unratedNations.length} Total)</h2>
+          <p>Distribution of audited economies currently lacking multi-pillar data by UN continental region:</p>
+        </div>
+
+        <div class="region-pills">
+          {Object.entries(regionCounts).map(([reg, count]) => (
+            <div class="region-pill">
+              <span class="region-name">{reg}</span>
+              <span class="region-count">{count} unrated</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Unrated Nations Table -->
+      <section class="table-section">
+        <div class="table-header-bar">
+          <div>
+            <h2>Comprehensive Register of Unrated Nations</h2>
+            <p>Every sovereign nation evaluated in our coverage audit that does not currently receive a benchmark score:</p>
+          </div>
+          <div class="table-actions">
+            <a href={`${base}/downloads/hsri-unrated-nations.csv`} class="btn-download" download>
+              Download CSV (86 rows) &darr;
+            </a>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="unrated-table" id="unratedTable">
+            <thead>
+              <tr>
+                <th>ISO3</th>
+                <th>Country Name</th>
+                <th>Region</th>
+                <th>UN Subregion</th>
+                <th>Observed Pillars</th>
+                <th>Primary Data Gap</th>
+                <th>Diagnostic Assessment</th>
+              </tr>
+            </thead>
+            <tbody>
+              {unratedNations.map((nation) => (
+                <tr>
+                  <td><span class="iso-badge">{nation.country_iso3}</span></td>
+                  <td><strong>{nation.country_name}</strong></td>
+                  <td>{nation.region}</td>
+                  <td><span class="subregion-text">{nation.un_subregion}</span></td>
+                  <td>
+                    <span class={`pillar-tag tag-${nation.available_pillars}`}>
+                      {nation.available_pillars} / 4 Pillars
+                    </span>
+                  </td>
+                  <td>
+                    <code class="gap-code">{nation.primary_data_gap}</code>
+                  </td>
+                  <td class="notes-cell">{nation.partial_coverage_notes}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Researcher Call To Action -->
+      <section class="cta-section">
+        <div class="cta-card">
+          <div class="cta-content">
+            <h3>Are you a researcher or statistical agency with missing data?</h3>
+            <p>
+              We welcome microdata submissions, regional survey partnerships, and peer-reviewed cognitive telemetry for any unrated nation. All proposals are audited through our multi-model epistemic review pipeline before incorporation.
+            </p>
+          </div>
+          <div class="cta-actions">
+            <a
+              href="https://github.com/krish-rm/hsri-research/issues/new?title=%5BCoverage+Expansion%5D+&labels=coverage-expansion"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-primary"
+            >
+              Submit Data via GitHub Issues &rarr;
+            </a>
+            <a href={`${base}/data/`} class="btn-secondary">
+              Explore Open Data Catalog &rarr;
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <HSRIFooter />
+  </div>
+</HSRILayout>
+
+<style>
+  .coverage-page {
+    min-height: 100vh;
+    background-color: var(--surface-color, #f8fafc);
+  }
+
+  .page-header {
+    text-align: center;
+    padding: 3rem 1.5rem 2.5rem;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #1e3a8a 100%);
+    color: white;
+    margin-bottom: 2rem;
+  }
+
+  .version-tag {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: rgba(59, 130, 246, 0.2);
+    border: 1px solid rgba(147, 197, 253, 0.3);
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #93c5fd;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+  }
+
+  .page-header h1 {
+    font-size: 2.25rem;
+    font-weight: 800;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.025em;
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+    color: #cbd5e1;
+    max-width: 48rem;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .main-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem 4rem;
+  }
+
+  .preview-notice-banner {
+    background-color: #fffbeb;
+    border: 1px solid #fef3c7;
+    border-left: 4px solid #f59e0b;
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .notice-inner {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .notice-pill {
+    background: #f59e0b;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.25rem 0.6rem;
+    border-radius: 9999px;
+    text-transform: uppercase;
+  }
+
+  .notice-text {
+    font-size: 0.875rem;
+    color: #92400e;
+    margin: 0;
+    line-height: 1.5;
+    flex: 1;
+  }
+
+  /* Metrics Grid */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 3rem;
+  }
+
+  .metric-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-rated { border-top: 4px solid #10b981; }
+  .card-unrated { border-top: 4px solid #f59e0b; }
+  .card-scope { border-top: 4px solid #3b82f6; }
+  .card-unmonitored { border-top: 4px solid #94a3b8; }
+
+  .metric-icon {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .metric-num {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .metric-label {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #334155;
+    margin-bottom: 0.35rem;
+  }
+
+  .metric-desc {
+    font-size: 0.8rem;
+    color: #64748b;
+    line-height: 1.4;
+  }
+
+  /* Rationale Section */
+  .rationale-section {
+    margin-bottom: 3rem;
+  }
+
+  .rationale-section h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 1rem;
+  }
+
+  .rationale-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+
+  .lead-text {
+    font-size: 1.05rem;
+    color: #1e293b;
+    line-height: 1.6;
+    margin-bottom: 1.75rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #f1f5f9;
+  }
+
+  .rationale-columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .rationale-col h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1e40af;
+    margin-bottom: 0.5rem;
+  }
+
+  .rationale-col p {
+    font-size: 0.875rem;
+    color: #475569;
+    line-height: 1.5;
+  }
+
+  /* Regional Pills */
+  .regional-section {
+    margin-bottom: 3rem;
+  }
+
+  .regional-section h2 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 0.25rem;
+  }
+
+  .regional-section p {
+    color: #64748b;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+
+  .region-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .region-pill {
+    background: white;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.875rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  }
+
+  .region-name {
+    font-weight: 600;
+    color: #1e293b;
+  }
+
+  .region-count {
+    background: #f1f5f9;
+    color: #475569;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  /* Table Section */
+  .table-section {
+    margin-bottom: 3.5rem;
+  }
+
+  .table-header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .table-header-bar h2 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 0.25rem;
+  }
+
+  .table-header-bar p {
+    color: #64748b;
+    font-size: 0.9rem;
+    margin: 0;
+  }
+
+  .btn-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #0f172a;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .btn-download:hover {
+    background: #1e293b;
+  }
+
+  .table-responsive {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow-x: auto;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+
+  .unrated-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    text-align: left;
+  }
+
+  .unrated-table th {
+    background: #f8fafc;
+    padding: 0.85rem 1rem;
+    font-weight: 600;
+    color: #475569;
+    border-bottom: 2px solid #e2e8f0;
+    white-space: nowrap;
+  }
+
+  .unrated-table td {
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid #f1f5f9;
+    color: #334155;
+    vertical-align: middle;
+  }
+
+  .unrated-table tr:hover {
+    background: #f8fafc;
+  }
+
+  .iso-badge {
+    background: #f1f5f9;
+    color: #0f172a;
+    padding: 0.2rem 0.45rem;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .subregion-text {
+    color: #64748b;
+    font-size: 0.8rem;
+  }
+
+  .pillar-tag {
+    display: inline-block;
+    padding: 0.2rem 0.55rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .tag-1 { background: #fee2e2; color: #991b1b; }
+  .tag-2 { background: #fef3c7; color: #92400e; }
+  .tag-3 { background: #e0e7ff; color: #3730a3; }
+  .tag-4 { background: #dcfce7; color: #166534; }
+
+  .gap-code {
+    background: #f1f5f9;
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    color: #475569;
+  }
+
+  .notes-cell {
+    font-size: 0.8rem;
+    color: #64748b;
+    max-width: 320px;
+    line-height: 1.4;
+  }
+
+  /* CTA Section */
+  .cta-card {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    border-radius: 12px;
+    padding: 2.5rem;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .cta-content {
+    flex: 1;
+    min-width: 280px;
+  }
+
+  .cta-content h3 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .cta-content p {
+    color: #cbd5e1;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .cta-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: #2563eb;
+    color: white;
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .btn-primary:hover {
+    background: #1d4ed8;
+  }
+
+  .btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  @media (max-width: 768px) {
+    .page-header h1 { font-size: 1.75rem; }
+    .cta-card { padding: 1.5rem; }
+  }
+</style>
