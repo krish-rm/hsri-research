@@ -1,4 +1,8 @@
 <script lang="ts">
+  // Root cause analysis (Task 3.0):
+  // Footer links must always resolve relative to GitHub Pages subdirectory (/hsri-research).
+  // Using root-relative paths (/about, /methodology) caused apex domain routing errors.
+  // We prepend base URL (with '/hsri-research' fallback) to all internal routing targets.
   const base = (import.meta.env.BASE_URL || '/hsri-research').replace(/\/$/, '');
 
   // Footer navigation items

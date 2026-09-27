@@ -1,5 +1,10 @@
 <script lang="ts">
   // Props
+  // Root cause analysis (Task 3.0):
+  // When sliced country list is passed for homepage (countries.length === 10),
+  // totalCountries must reflect the full benchmark cohort (39). If totalCountries
+  // is omitted or falsy, falling back to countries.length would erroneously display
+  // 'Showing 10 of 10 countries'. Explicitly default to 39 and guard against local slice count.
   export let countries = [];
   export let totalCountries: number = 39;
   export let sortBy = 'score';
@@ -131,7 +136,7 @@
 
   <div class="leaderboard-footer">
     <div class="table-info">
-      Showing {sortedCountries.length} of {totalCountries || countries.length} countries
+      Showing {sortedCountries.length} of {totalCountries > 0 ? totalCountries : 39} countries
     </div>
   </div>
 </div>

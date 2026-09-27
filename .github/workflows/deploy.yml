@@ -51,3 +51,41 @@ jobs:
           publish_dir: ./site-astro/dist
           publish_branch: gh-pages
           force_orphan: true
+
+      - name: Post-deploy smoke test
+        run: |
+          sleep 30  # Allow Pages CDN to propagate
+          python - <<'EOF'
+          import urllib.request, sys, re, time
+
+          url = "https://krish-rm.github.io/hsri-research/"
+          max_attempts = 5
+
+          for attempt in range(max_attempts):
+              try:
+                  req = urllib.request.Request(url, headers={"Cache-Control": "no-cache"})
+                  html = urllib.request.urlopen(req, timeout=15).read().decode("utf-8")
+
+                  checks = {
+                      "pagination_label": "Showing 10 of 39 countries" in html,
+                      "footer_methodology": "/hsri-research/methodology/" in html,
+                      "footer_countries": "/hsri-research/countries/" in html,
+                  }
+
+                  failed = [k for k, v in checks.items() if not v]
+                  if not failed:
+                      print("All smoke tests passed.")
+                      sys.exit(0)
+                  else:
+                      print(f"Attempt {attempt+1}/{max_attempts} — failed: {failed}")
+                      if attempt < max_attempts - 1:
+                          time.sleep(30)
+              except Exception as e:
+                  print(f"Attempt {attempt+1} error: {e}")
+                  if attempt < max_attempts - 1:
+                      time.sleep(30)
+
+          print("SMOKE TEST FAILED after all attempts.")
+          sys.exit(1)
+          EOF
+
