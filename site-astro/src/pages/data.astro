@@ -1,546 +1,475 @@
 ---
+import fs from 'node:fs';
+import path from 'node:path';
+import { execSync } from 'node:child_process';
 import HSRILayout from '../layouts/HSRILayout.astro';
 import HSRIHeader from '../components/HSRIHeader.svelte';
 import DataExplorer from '../components/DataExplorer.svelte';
 import HSRIFooter from '../components/HSRIFooter.svelte';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+interface CatalogItem {
+  fileName: string;
+  downloadPath: string;
+  sourceRepoPath: string;
+  description: string;
+  rowCount: number;
+  colCount: number;
+  lastUpdated: string;
+  schema: Array<{ column: string; type: string; description: string }>;
+}
+
+function getFileMeta(
+  fileName: string,
+  sourceRepoPath: string,
+  desc: string,
+  schema: Array<{ column: string; type: string; description: string }>
+): CatalogItem {
+  const filePath = path.resolve(process.cwd(), 'public/downloads', fileName);
+  let rowCount = 0;
+  let colCount = 0;
+  let lastUpdated = '2026-09-27';
+
+  try {
+    if (fs.existsSync(filePath)) {
+      const lines = fs.readFileSync(filePath, 'utf-8').trim().split('\n').filter((l) => l.trim().length > 0);
+      rowCount = Math.max(0, lines.length - 1);
+      colCount = lines[0].split(',').length;
+    }
+  } catch (e) {
+    // fallback
+  }
+
+  try {
+    const rootRel = path.resolve(process.cwd(), '..');
+    const gitOut = execSync(`git log -n 1 --format="%ai" -- "${sourceRepoPath}"`, { cwd: rootRel, encoding: 'utf-8' }).trim();
+    if (gitOut) {
+      lastUpdated = gitOut.split(' ')[0];
+    }
+  } catch (e) {
+    // fallback
+  }
+
+  return {
+    fileName,
+    downloadPath: `${base}/downloads/${fileName}`,
+    sourceRepoPath,
+    description: desc,
+    rowCount,
+    colCount,
+    lastUpdated,
+    schema,
+  };
+}
+
+const dataCatalog: CatalogItem[] = [
+  getFileMeta(
+    'hsri-country-scores.csv',
+    'data/final_country_scores.csv',
+    'Composite readiness scores and pillar coverage metrics across 39 benchmark economies.',
+    [
+      { column: 'country_iso3', type: 'String (ISO-3)', description: 'Three-letter ISO nation identifier (e.g. USA, SGP, DEU)' },
+      { column: 'overall_score', type: 'Float [0-1]', description: 'Composite geometric readiness score normalized to [0, 1]' },
+      { column: 'core_pillars_available', type: 'Integer', description: 'Count of core pillars with observed empirical data (4)' },
+      { column: 'overall_coverage', type: 'Float [0-1]', description: 'Total observed indicator coverage fraction' },
+      { column: 'status', type: 'String', description: 'Qualification status (Rated)' },
+      { column: 'AI_Literacy_score', type: 'Float [0-1]', description: 'Pillar 1 cognitive & technical skills score' },
+      { column: 'Critical_Discernment_score', type: 'Float [0-1]', description: 'Pillar 2 epistemic verification score' },
+      { column: 'Institutional_Governance_score', type: 'Float [0-1]', description: 'Pillar 3 state regulatory agility score' },
+      { column: 'Digital_Infrastructure_score', type: 'Float [0-1]', description: 'Pillar 4 sovereign compute & grid resilience score' }
+    ]
+  ),
+  getFileMeta(
+    'hsri-normalized-indicators.csv',
+    'data/normalized_indicators.csv',
+    'Direction-adjusted, min-max normalized indicator matrix preserving empirical structural missingness.',
+    [
+      { column: 'country_iso3', type: 'String (ISO-3)', description: 'Three-letter ISO nation code' },
+      { column: 'AI_LIT_001..005', type: 'Float / NaN', description: 'PIAAC, PISA digital reading, tertiary STEM & ITU skills' },
+      { column: 'META_COG_001..003', type: 'Float / NaN', description: 'PISA discernment, EMLI (European-scope only), and cognitive calibration' },
+      { column: 'DEC_AGY_001..005', type: 'Float', description: 'WGI regulatory quality/rule of law, V-Dem, and AI readiness' },
+      { column: 'ENAB_001..005', type: 'Float', description: 'Sovereign compute density, high-speed fiber, and clean grid power' }
+    ]
+  ),
+  getFileMeta(
+    'hsri-evidence-table.csv',
+    'research/evidence/master-evidence-table.csv',
+    'Claim-to-citation empirical audit matrix underpinning HSRI construct validity and literature synchronization.',
+    [
+      { column: 'claim', type: 'String', description: 'Audited scientific claim text regarding automation bias, metacognition, or governance' },
+      { column: 'page_reference', type: 'String', description: 'Methodology documentation reference' },
+      { column: 'evidence_tier', type: 'Categorical', description: 'Epistemic confidence tier (Strong, Moderate, Preliminary, Speculative)' },
+      { column: 'source_citation', type: 'String', description: 'Primary academic reference in APA format' },
+      { column: 'source_url_or_doi', type: 'URL / DOI', description: 'Permanent digital object identifier or publication URL' },
+      { column: 'reconciliation_flag', type: 'Categorical', description: 'Lane 1 literature audit synchronization status (CURRENT, REVIEW_REQUIRED, UPGRADE_CANDIDATE)' }
+    ]
+  )
+];
 ---
 
-<HSRILayout title="Data Explorer - HSRI Open Datasets">
+<HSRILayout title="Data Explorer & Open Datasets - HSRI Benchmark">
   <div class="data-page">
     <HSRIHeader client:load />
+
     <div class="page-header">
-      <h1>Data Explorer</h1>
-      <p class="subtitle">Access, download, and analyze Human Superintelligence Readiness Index data</p>
+      <div class="container">
+        <h1>Open Science Data Catalog</h1>
+        <p class="subtitle">Download reproducible empirical datasets, inspect schemas, and verify benchmark scores</p>
+      </div>
     </div>
 
-    <div class="data-content">
+    <div class="container data-content">
       <div class="data-intro">
-        <h2>HSRI Data Access</h2>
-        <p>The Human Superintelligence Readiness Index provides comprehensive datasets for researchers, policymakers, and organizations. All data is available for non-commercial research purposes and includes detailed metadata for proper attribution.</p>
+        <h2>Open Data Access & Replicability</h2>
+        <p>
+          In adherence to scientific transparency and open-science standards, the Human Superintelligence Readiness Index (HSRI)
+          distributes all normalized indicator matrices, composite country evaluations, and empirical evidence audit tables
+          as standalone CSV datasets. All data is licensed under <strong>CC BY 4.0</strong> for academic, policy, and independent auditing.
+        </p>
+        <p class="data-dict-notice">
+          📖 Complete technical documentation with indicator definitions, weighting equations, and psychometric notes is published in
+          <a href="https://github.com/krish-rm/hsri-research/blob/main/data-dictionary.md" target="_blank" rel="noopener noreferrer">data-dictionary.md</a>.
+        </p>
       </div>
 
-      <div class="data-sections">
-        <div class="data-overview">
-          <h3>Available Datasets</h3>
-          <div class="dataset-grid">
-            <div class="dataset-card">
-              <div class="dataset-icon">📊</div>
-              <h4>Country Readiness Scores</h4>
-              <p>Complete empirical readiness scores for 39 benchmark nations across four core pillars</p>
-              <div class="dataset-details">
-                <span class="detail-item">39 countries</span>
-                <span class="detail-item">4 pillars</span>
-                <span class="detail-item">Harmonized 2026</span>
+      <!-- Canonical Downloadable Datasets Catalog -->
+      <section class="catalog-section">
+        <h3>Canonical Benchmark Datasets</h3>
+        <div class="catalog-grid">
+          {dataCatalog.map((item) => (
+            <div class="catalog-card">
+              <div class="catalog-header">
+                <div class="file-icon">📄</div>
+                <div>
+                  <h4 class="file-name">{item.fileName}</h4>
+                  <span class="updated-badge">Last updated: {item.lastUpdated}</span>
+                </div>
               </div>
-              <div class="dataset-actions">
-                <a href={`${base}/data/final_country_scores.csv`} download="final_country_scores.csv" class="download-btn">Download CSV</a>
-                <a href={`${base}/data/country_scores.json`} download="country_scores.json" class="download-btn">Download JSON</a>
-                <a href={`${base}/countries`} class="view-btn">View Online</a>
+
+              <p class="file-desc">{item.description}</p>
+
+              <div class="metrics-pills">
+                <span class="metric-pill"><strong>{item.rowCount}</strong> rows</span>
+                <span class="metric-pill"><strong>{item.colCount}</strong> columns</span>
+                <span class="metric-pill">Format: <strong>CSV</strong></span>
+              </div>
+
+              <div class="schema-preview">
+                <h5>Schema Reference</h5>
+                <div class="table-scroll">
+                  <table class="schema-table">
+                    <thead>
+                      <tr>
+                        <th>Column</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {item.schema.map((s) => (
+                        <tr>
+                          <td><code>{s.column}</code></td>
+                          <td><span class="type-tag">{s.type}</span></td>
+                          <td>{s.description}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="card-footer">
+                <a href={item.downloadPath} download={item.fileName} class="btn btn-primary download-link">
+                  ⬇️ Download {item.fileName}
+                </a>
               </div>
             </div>
+          ))}
+        </div>
+      </section>
 
-            <div class="dataset-card">
-              <div class="dataset-icon">📈</div>
-              <h4>Readiness-Exposure Gap & Horizons</h4>
-              <p>Macro exposure trajectories and predicted milestone crossing horizons across 3 pace scenarios</p>
-              <div class="dataset-details">
-                <span class="detail-item">39 nations</span>
-                <span class="detail-item">3 pace scenarios</span>
-                <span class="detail-item">Takeoff / Steady / Plateau</span>
-              </div>
-              <div class="dataset-actions">
-                <a href={`${base}/data/readiness_exposure_gap.csv`} download="readiness_exposure_gap.csv" class="download-btn">Gap CSV</a>
-                <a href={`${base}/data/scenario_crossing_years.csv`} download="scenario_crossing_years.csv" class="download-btn">Horizons CSV</a>
-                <a href={`${base}/compare`} class="view-btn">Compare Tool</a>
-              </div>
-            </div>
+      <!-- Interactive Data Explorer Tool -->
+      <section class="data-tools">
+        <h3>Interactive Multi-Pillar Data Explorer</h3>
+        <DataExplorer client:load />
+      </section>
 
-            <div class="dataset-card">
-              <div class="dataset-icon">👥</div>
-              <h4>Labor Dislocation & Transition Risk</h4>
-              <p>Workforce vulnerability indices, displacement exposures, and occupational crossing horizons</p>
-              <div class="dataset-details">
-                <span class="detail-item">39 nations</span>
-                <span class="detail-item">Occupational risk factors</span>
-                <span class="detail-item">2026-2040 Horizon</span>
-              </div>
-              <div class="dataset-actions">
-                <a href={`${base}/data/labor_vulnerability.csv`} download="labor_vulnerability.csv" class="download-btn">Vulnerability CSV</a>
-                <a href={`${base}/data/labor_crossing_years.csv`} download="labor_crossing_years.csv" class="download-btn">Horizons CSV</a>
-                <a href={`${base}/countries`} class="view-btn">Country Explorer</a>
-              </div>
-            </div>
+      <!-- Usage & Provenance Guidelines -->
+      <section class="data-usage">
+        <h3>Data Usage & Provenance Guidelines</h3>
+        <div class="guidelines-content">
+          <div class="guideline-section">
+            <h4>Terms of Use & Attribution</h4>
+            <p>HSRI data is provided under Creative Commons Attribution 4.0 International (CC BY 4.0). Users are free to share and adapt the material with appropriate credit:</p>
+            <ul>
+              <li>Cite the Human Superintelligence Readiness Index (v0.1 Preview) in all research and policy publications</li>
+              <li>Preserve missingness notes: structural NaNs (such as non-European EMLI) must never be imputed</li>
+              <li>Acknowledge that proxy indicators capture enabling environments rather than demonstrated psychological readiness</li>
+            </ul>
+          </div>
 
-            <div class="dataset-card">
-              <div class="dataset-icon">🔍</div>
-              <h4>Indicator Database</h4>
-              <p>Harmonized empirical catalog of 20 indicators with validity ratings and source metadata</p>
-              <div class="dataset-details">
-                <span class="detail-item">20 indicators</span>
-                <span class="detail-item">16 sources</span>
-                <span class="detail-item">OECD / WB / ITU</span>
-              </div>
-              <div class="dataset-actions">
-                <a href={`${base}/data/indicators.csv`} download="indicators.csv" class="download-btn">Indicators CSV</a>
-                <a href={`${base}/data/raw_observations_harmonized.csv`} download="raw_observations_harmonized.csv" class="download-btn">Harmonized Raw CSV</a>
-                <a href={`${base}/methodology`} class="view-btn">Methodology</a>
-              </div>
+          <div class="citation-info">
+            <h4>Recommended Citation</h4>
+            <div class="citation-example">
+              <p><strong>HSRI Research Consortium</strong> (2026). <em>Human Superintelligence Readiness Index: Country Scores and Indicator Matrix</em>. Empirical Benchmark Release v0.1. Available at: <code>https://krish-rm.github.io/hsri-research/data/</code></p>
             </div>
           </div>
         </div>
-
-        <div class="data-tools">
-          <h3>Interactive Data Explorer & Packages</h3>
-          <DataExplorer client:load />
-        </div>
-
-        <div class="data-usage">
-          <h3>Data Usage Guidelines</h3>
-          <div class="guidelines-content">
-            <div class="guideline-section">
-              <h4>Terms of Use</h4>
-              <p>HSRI data is provided for non-commercial research and educational purposes. When using our data, please adhere to the following guidelines:</p>
-              <ul>
-                <li>Cite the Human Superintelligence Readiness Index in all publications</li>
-                <li>Include appropriate methodology documentation</li>
-                <li>Do not redistribute raw data without permission</li>
-                <li>Be aware of data quality limitations</li>
-                <li>Update your analyses when new data becomes available</li>
-              </ul>
-            </div>
-
-            <div class="citation-info">
-              <h4>Citation Format</h4>
-              <div class="citation-example">
-                <p><strong>HSRI Research Team</strong> (2026). Human Superintelligence Readiness Index 2026. <em>Human Superintelligence Research Institute</em>. Empirical Benchmark Release v0.1.</p>
-              </div>
-            </div>
-
-            <div class="data-quality">
-              <h4>Data Quality &amp; Provenance Information</h4>
-              <div class="quality-metrics">
-                <div class="quality-item">
-                  <span class="metric-name">Coverage Scope:</span>
-                  <span class="metric-value">39 benchmark nations (OECD, EU, and high-income Asia-Pacific economies; BRICS+ and low/middle-income economies are unrated in this release due to source coverage gaps).</span>
-                </div>
-                <div class="quality-item">
-                  <span class="metric-name">Coverage Status:</span>
-                  <span class="metric-value">Unverified preview sample — 39 benchmarked, 59 partial/contextual, 86 unrated in 145-country audit.</span>
-                </div>
-                <div class="quality-item">
-                  <span class="metric-name">Completeness:</span>
-                  <span class="metric-value">Exploratory preview sample (780 populated observations across 20 indicators; primary source microdata unverified).</span>
-                </div>
-                <div class="quality-item">
-                  <span class="metric-name">Source Reliability:</span>
-                  <span class="metric-value">Derived from World Bank, OECD, ITU, and official statistical publications; subject to survey wave geographic boundaries and imputations.</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="publications">
-          <h3>Research Publications</h3>
-          <p>Peer-reviewed literature and working papers using this dataset:</p>
-          <div class="publication-notice" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.5rem; padding: 1.5rem; text-align: center; color: #64748b;">
-            <p style="margin: 0; font-size: 0.95rem;"><strong>No peer-reviewed publications use this dataset yet.</strong></p>
-            <p style="margin: 0.5rem 0 0 0; font-size: 0.85rem;">This is an early-stage preview benchmark (v0.1). When citing, please refer to the HSRI methodology documentation in this repository.</p>
-          </div>
-        </div>
-
-        <div class="support-section">
-          <h3>Data Support &amp; Feedback</h3>
-          <p>Need help accessing the data or found a data discrepancy?</p>
-          <div class="support-options">
-            <div class="support-option">
-              <h4>Methodology Documentation</h4>
-              <p>Comprehensive framework definitions, indicator codebook, and normalization math</p>
-              <a href={`${base}/methodology`} class="support-link">View Documentation</a>
-            </div>
-            <div class="support-option">
-              <h4>Report Data Issue / Feedback</h4>
-              <p>Submit discrepancies, missing country data, or provenance corrections directly to our team</p>
-              <a href="https://github.com/krish-rm/hsri-research/issues" target="_blank" rel="noopener noreferrer" class="support-link">Open GitHub Issue</a>
-            </div>
-          </div>
-        </div>
-      </div>
+      </section>
     </div>
 
-    <HSRIFooter />
+    <HSRIFooter client:visible />
   </div>
-
-  <style>
-    .data-page {
-      min-height: 100vh;
-      background-color: var(--surface-color);
-    }
-
-    .page-header {
-      text-align: center;
-      padding: var(--spacing-2xl) var(--spacing-lg);
-      background: linear-gradient(135deg, var(--primary-color) 0%, #1e40af 100%);
-      color: white;
-      margin-bottom: var(--spacing-2xl);
-    }
-
-    .page-header h1 {
-      font-size: var(--font-size-3xl);
-      margin-bottom: var(--spacing-sm);
-    }
-
-    .subtitle {
-      font-size: var(--font-size-lg);
-      opacity: 0.9;
-    }
-
-    .data-content {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 0 var(--spacing-lg);
-    }
-
-    .data-intro {
-      text-align: center;
-      margin-bottom: var(--spacing-2xl);
-    }
-
-    .data-intro h2 {
-      font-size: var(--font-size-2xl);
-      margin-bottom: var(--spacing-md);
-    }
-
-    .data-intro p {
-      font-size: var(--font-size-lg);
-      color: var(--text-secondary);
-      line-height: 1.6;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .data-sections {
-      display: flex;
-      flex-direction: column;
-      gap: var(--spacing-2xl);
-    }
-
-    .dataset-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: var(--spacing-xl);
-    }
-
-    .dataset-card {
-      background-color: white;
-      border-radius: 0.5rem;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-      padding: var(--spacing-xl);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .dataset-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    }
-
-    .dataset-icon {
-      font-size: var(--font-size-3xl);
-      margin-bottom: var(--spacing-md);
-    }
-
-    .dataset-card h4 {
-      margin: 0 0 var(--spacing-sm) 0;
-      font-size: var(--font-size-xl);
-      color: var(--primary-color);
-    }
-
-    .dataset-card p {
-      margin: 0 0 var(--spacing-lg) 0;
-      font-size: var(--font-size-sm);
-      line-height: 1.5;
-      color: var(--text-secondary);
-    }
-
-    .dataset-details {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--spacing-sm);
-      margin-bottom: var(--spacing-lg);
-    }
-
-    .detail-item {
-      background-color: var(--surface-color);
-      padding: var(--spacing-xs) var(--spacing-sm);
-      border-radius: 0.25rem;
-      font-size: var(--font-size-xs);
-      font-weight: 500;
-    }
-
-    .dataset-actions {
-      display: flex;
-      gap: var(--spacing-sm);
-      flex-wrap: wrap;
-    }
-
-    .download-btn {
-      padding: var(--spacing-sm) var(--spacing-md);
-      border: 1px solid var(--primary-color);
-      background-color: white;
-      color: var(--primary-color);
-      border-radius: 0.375rem;
-      font-size: var(--font-size-sm);
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .download-btn:hover {
-      background-color: var(--primary-color);
-      color: white;
-    }
-
-    .view-btn {
-      padding: var(--spacing-sm) var(--spacing-md);
-      background-color: var(--primary-color);
-      color: white;
-      border: none;
-      border-radius: 0.375rem;
-      font-size: var(--font-size-sm);
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .view-btn:hover {
-      background-color: #1e40af;
-    }
-
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: var(--spacing-xl);
-    }
-
-    .tool-card {
-      background-color: white;
-      border-radius: 0.5rem;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-      padding: var(--spacing-xl);
-      transition: transform 0.2s;
-    }
-
-    .tool-card:hover {
-      transform: translateY(-2px);
-    }
-
-    .tool-card h4 {
-      margin: 0 0 var(--spacing-md) 0;
-      font-size: var(--font-size-xl);
-      color: var(--primary-color);
-    }
-
-    .tool-card p {
-      margin: 0 0 var(--spacing-lg) 0;
-      font-size: var(--font-size-sm);
-      line-height: 1.5;
-      color: var(--text-secondary);
-    }
-
-    .tool-features ul {
-      margin: 0;
-      padding-left: var(--spacing-lg);
-    }
-
-    .tool-features li {
-      margin-bottom: var(--spacing-xs);
-      font-size: var(--font-size-sm);
-    }
-
-    .primary-btn {
-      width: 100%;
-      padding: var(--spacing-md);
-      background-color: var(--primary-color);
-      color: white;
-      border: none;
-      border-radius: 0.375rem;
-      font-size: var(--font-size-base);
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .primary-btn:hover {
-      background-color: #1e40af;
-    }
-
-    .guidelines-content {
-      background-color: white;
-      border-radius: 0.5rem;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-      padding: var(--spacing-2xl);
-    }
-
-    .guideline-section {
-      margin-bottom: var(--spacing-xl);
-    }
-
-    .guideline-section h4 {
-      margin: 0 0 var(--spacing-md) 0;
-      font-size: var(--font-size-xl);
-      color: var(--primary-color);
-    }
-
-    .guideline-section p {
-      margin: 0 0 var(--spacing-md) 0;
-      font-size: var(--font-size-base);
-      line-height: 1.6;
-    }
-
-    .guideline-section ul {
-      margin: 0;
-      padding-left: var(--spacing-lg);
-    }
-
-    .guideline-section li {
-      margin-bottom: var(--spacing-xs);
-      line-height: 1.5;
-    }
-
-    .citation-info {
-      background-color: var(--surface-color);
-      padding: var(--spacing-lg);
-      border-radius: 0.5rem;
-      margin-bottom: var(--spacing-xl);
-    }
-
-    .citation-info h4 {
-      margin: 0 0 var(--spacing-md) 0;
-      font-size: var(--font-size-base);
-    }
-
-    .citation-example {
-      font-family: 'Courier New', monospace;
-      font-size: var(--font-size-sm);
-      line-height: 1.6;
-    }
-
-    .data-quality {
-      margin-bottom: var(--spacing-xl);
-    }
-
-    .data-quality h4 {
-      margin: 0 0 var(--spacing-md) 0;
-      font-size: var(--font-size-base);
-    }
-
-    .quality-metrics {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: var(--spacing-lg);
-    }
-
-    .quality-item {
-      display: flex;
-      flex-direction: column;
-      gap: var(--spacing-xs);
-    }
-
-    .metric-name {
-      font-weight: 600;
-      font-size: var(--font-size-sm);
-    }
-
-    .metric-value {
-      font-size: var(--font-size-sm);
-      color: var(--text-secondary);
-    }
-
-    .publication-list {
-      display: flex;
-      flex-direction: column;
-      gap: var(--spacing-lg);
-    }
-
-    .publication-item {
-      background-color: white;
-      border-radius: 0.5rem;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-      padding: var(--spacing-lg);
-      border-left: 4px solid var(--primary-color);
-    }
-
-    .publication-item h4 {
-      margin: 0 0 var(--spacing-sm) 0;
-      font-size: var(--font-size-lg);
-    }
-
-    .publication-item p {
-      margin: 0 0 var(--spacing-md) 0;
-      font-size: var(--font-size-sm);
-      color: var(--text-secondary);
-    }
-
-    .publication-link {
-      color: var(--primary-color);
-      text-decoration: none;
-      font-weight: 500;
-      font-size: var(--font-size-sm);
-    }
-
-    .publication-link:hover {
-      text-decoration: underline;
-    }
-
-    .support-options {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: var(--spacing-lg);
-    }
-
-    .support-option {
-      background-color: white;
-      border-radius: 0.5rem;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-      padding: var(--spacing-lg);
-      text-align: center;
-    }
-
-    .support-option h4 {
-      margin: 0 0 var(--spacing-sm) 0;
-      font-size: var(--font-size-base);
-      color: var(--primary-color);
-    }
-
-    .support-option p {
-      margin: 0 0 var(--spacing-md) 0;
-      font-size: var(--font-size-sm);
-      color: var(--text-secondary);
-    }
-
-    .support-link {
-      color: var(--primary-color);
-      text-decoration: none;
-      font-weight: 500;
-      font-size: var(--font-size-sm);
-    }
-
-    .support-link:hover {
-      text-decoration: underline;
-    }
-
-    @media (max-width: 768px) {
-      .dataset-grid,
-      .tools-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .quality-metrics,
-      .support-options {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
 </HSRILayout>
+
+<style>
+  .data-page {
+    min-height: 100vh;
+    background-color: #f8fafc;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .page-header {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+    color: white;
+    padding: 3rem 0;
+    margin-bottom: 2rem;
+  }
+
+  .page-header h1 {
+    font-size: 2.25rem;
+    font-weight: 800;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .page-header .subtitle {
+    font-size: 1.1rem;
+    color: #cbd5e1;
+    margin: 0;
+  }
+
+  .data-intro {
+    background: white;
+    border-radius: 0.75rem;
+    padding: 2rem;
+    border: 1px solid #e2e8f0;
+    margin-bottom: 2.5rem;
+  }
+
+  .data-intro h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-top: 0;
+  }
+
+  .data-dict-notice {
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    background: #eff6ff;
+    border-left: 4px solid #2563eb;
+    border-radius: 0.25rem;
+    font-size: 0.95rem;
+    color: #1e40af;
+  }
+
+  .data-dict-notice a {
+    color: #1d4ed8;
+    font-weight: 600;
+    text-decoration: underline;
+  }
+
+  .catalog-section {
+    margin-bottom: 3rem;
+  }
+
+  .catalog-section h3,
+  .data-tools h3,
+  .data-usage h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 1.5rem;
+  }
+
+  .catalog-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .catalog-card {
+    background: white;
+    border-radius: 0.75rem;
+    border: 1px solid #e2e8f0;
+    padding: 2rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .catalog-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .file-icon {
+    font-size: 2rem;
+  }
+
+  .file-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1e3a8a;
+    margin: 0;
+    font-family: monospace;
+  }
+
+  .updated-badge {
+    font-size: 0.75rem;
+    color: #64748b;
+    font-weight: 500;
+  }
+
+  .file-desc {
+    font-size: 1rem;
+    color: #334155;
+    margin: 0 0 1.25rem 0;
+    line-height: 1.5;
+  }
+
+  .metrics-pills {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .metric-pill {
+    background: #f1f5f9;
+    color: #334155;
+    padding: 0.35rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.85rem;
+    border: 1px solid #e2e8f0;
+  }
+
+  .schema-preview {
+    margin-bottom: 1.5rem;
+  }
+
+  .schema-preview h5 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #475569;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .table-scroll {
+    overflow-x: auto;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+  }
+
+  .schema-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    text-align: left;
+  }
+
+  .schema-table th {
+    background: #f8fafc;
+    padding: 0.6rem 0.85rem;
+    border-bottom: 1px solid #e2e8f0;
+    color: #475569;
+    font-weight: 600;
+  }
+
+  .schema-table td {
+    padding: 0.6rem 0.85rem;
+    border-bottom: 1px solid #f1f5f9;
+    color: #334155;
+  }
+
+  .schema-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .schema-table code {
+    background: #f1f5f9;
+    padding: 0.15rem 0.35rem;
+    border-radius: 0.25rem;
+    font-family: monospace;
+    color: #1e40af;
+    font-size: 0.8rem;
+  }
+
+  .type-tag {
+    background: #e0f2fe;
+    color: #0369a1;
+    padding: 0.15rem 0.45rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .card-footer {
+    margin-top: auto;
+    padding-top: 1rem;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.65rem 1.25rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: all 0.15s ease;
+  }
+
+  .btn-primary {
+    background: #2563eb;
+    color: white;
+    border: 1px solid #1d4ed8;
+  }
+
+  .btn-primary:hover {
+    background: #1d4ed8;
+  }
+
+  .data-tools,
+  .data-usage {
+    background: white;
+    border-radius: 0.75rem;
+    border: 1px solid #e2e8f0;
+    padding: 2rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .guidelines-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .citation-example {
+    background: #f8fafc;
+    border-left: 4px solid #3b82f6;
+    padding: 1rem;
+    border-radius: 0.25rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+</style>

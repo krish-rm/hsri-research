@@ -12,6 +12,7 @@ build/
 develop-eggs/
 dist/
 downloads/
+!site-astro/public/downloads/
 eggs/
 .eggs/
 lib/

@@ -72,6 +72,16 @@ jobs:
                       "footer_countries": "/hsri-research/countries/" in html,
                   }
 
+                  csv_urls = [
+                      "https://krish-rm.github.io/hsri-research/downloads/hsri-country-scores.csv",
+                      "https://krish-rm.github.io/hsri-research/downloads/hsri-normalized-indicators.csv",
+                      "https://krish-rm.github.io/hsri-research/downloads/hsri-evidence-table.csv",
+                  ]
+                  for c_url in csv_urls:
+                      c_req = urllib.request.Request(c_url, headers={"Cache-Control": "no-cache"})
+                      res = urllib.request.urlopen(c_req, timeout=15)
+                      checks[f"download_{c_url.split('/')[-1]}"] = (res.getcode() == 200)
+
                   failed = [k for k, v in checks.items() if not v]
                   if not failed:
                       print("All smoke tests passed.")
