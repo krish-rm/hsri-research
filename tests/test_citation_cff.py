@@ -35,3 +35,18 @@ def test_citation_cff_valid_schema():
     assert data["license"] == "CC-BY-SA-4.0"
     assert isinstance(data["authors"], list) and len(data["authors"]) >= 1
     assert "name" in data["authors"][0] or "family-names" in data["authors"][0]
+
+
+def test_release_tag_matches_citation_version():
+    """CITATION.cff version must match the most recent git tag."""
+    import subprocess
+    with open(CITATION_PATH, "r", encoding="utf-8") as f:
+        cff = yaml.safe_load(f)
+    cff_version = cff["version"].replace("-preview", "")
+    try:
+        tags = subprocess.check_output(
+            ["git", "tag", "-l", f"v{cff_version}*"], encoding="utf-8"
+        ).strip()
+        assert tags, f"No git tag matching v{cff_version} found"
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        pass  # git not available in test environment

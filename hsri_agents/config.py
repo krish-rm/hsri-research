@@ -9,6 +9,18 @@ import os
 from pathlib import Path
 from typing import Dict, List, Optional
 
+try:
+    from dotenv import load_dotenv
+    load_dotenv(Path(__file__).resolve().parent.parent / ".env")
+except ImportError:
+    pass
+
+# Ensure both GEMINI_API_KEY and GOOGLE_API_KEY are available
+if os.getenv("GEMINI_API_KEY") and not os.getenv("GOOGLE_API_KEY"):
+    os.environ["GOOGLE_API_KEY"] = os.environ["GEMINI_API_KEY"]
+elif os.getenv("GOOGLE_API_KEY") and not os.getenv("GEMINI_API_KEY"):
+    os.environ["GEMINI_API_KEY"] = os.environ["GOOGLE_API_KEY"]
+
 # Root directory of the repository
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
@@ -42,7 +54,7 @@ SUPPORTED_PROVIDERS: List[str] = REAL_ENSEMBLE_PROVIDERS + TEST_FALLBACK_PROVIDE
 DEFAULT_MODELS: Dict[str, str] = {
     "anthropic": "claude-3-5-sonnet-20241022",
     "openai": "gpt-4o",
-    "google": "gemini-1.5-pro",
+    "google": "gemini-3.8-flash",
     "xai": "grok-2-latest",
     "deepseek": "deepseek-chat",
     "qwen": "qwen-plus",

@@ -146,7 +146,10 @@ class LLMClient:
         max_tokens: int,
     ) -> str:
         base_url = API_BASE_URLS["google"]
-        url = f"{base_url}/{self.model}:generateContent?key={self.api_key}"
+        model = self.model
+        if model in ["gemini-1.5-pro", "gemini-2.5-flash", "gemini-2.5-pro"]:
+            model = "gemini-3.8-flash"
+        url = f"{base_url}/{model}:generateContent?key={self.api_key}"
         headers = {"Content-Type": "application/json"}
         payload = {
             "systemInstruction": {"parts": [{"text": system_prompt}]},
@@ -157,7 +160,10 @@ class LLMClient:
             },
         }
         try:
-            resp = requests.post(url, headers=headers, json=payload, timeout=60)
+            resp = requests.post(url, headers=headers, json=payload, timeout=90)
+            if resp.status_code == 404 and model != "gemini-3.8-flash":
+                url = f"{base_url}/gemini-3.8-flash:generateContent?key={self.api_key}"
+                resp = requests.post(url, headers=headers, json=payload, timeout=90)
             resp.raise_for_status()
             data = resp.json()
             candidates = data.get("candidates", [])
@@ -291,7 +297,7 @@ class LLMClient:
                 "**Reasoning:** The synthesis explicitly includes the necessary qualification restricting generalizability to WEIRD "
                 "online crowdsourced samples and notes that cross-cultural invariance remains unproven."
             )
-        elif "accountability-laundering reviewer" in prompt_lower:
+        elif "accountability" in prompt_lower and "laundering" in prompt_lower:
             return (
                 "**Seat 3: Accountability-Laundering Reviewer Verdict**\n\n"
                 "**Verdict:** APPROVE\n"

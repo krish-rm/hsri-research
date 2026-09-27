@@ -273,6 +273,34 @@ def test_concordance_threshold_gates_review_board():
     assert result["status"] == "CONTESTED — HUMAN ARBITRATION REQUIRED"
 
 
+def test_single_veto_blocks_pr():
+    """One VETO from any seat must block PR creation."""
+    seat_results = [
+        {"seat": "adversarial_skeptic", "verdict": "APPROVE"},
+        {"seat": "cross_cultural_methodologist", "verdict": "VETO",
+         "reason": "Changes disadvantage non-OECD nations"},
+        {"seat": "accountability_laundering_reviewer", "verdict": "APPROVE"},
+    ]
+    from hsri_agents.review_board import evaluate_board_verdict
+    result = evaluate_board_verdict(seat_results)
+    assert result["blocked"] == True
+    assert result["blocking_seat"] == "cross_cultural_methodologist"
+    assert "pr_created" not in result or result["pr_created"] == False
+
+
+def test_unanimous_approve_creates_pr_draft():
+    """All three APPROVE must produce a PR creation signal."""
+    seat_results = [
+        {"seat": "adversarial_skeptic", "verdict": "APPROVE"},
+        {"seat": "cross_cultural_methodologist", "verdict": "APPROVE"},
+        {"seat": "accountability_laundering_reviewer", "verdict": "APPROVE"},
+    ]
+    from hsri_agents.review_board import evaluate_board_verdict
+    result = evaluate_board_verdict(seat_results)
+    assert result["blocked"] == False
+    assert result["pr_eligible"] == True
+
+
 if __name__ == "__main__":
     unittest.main()
 

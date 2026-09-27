@@ -88,3 +88,13 @@ No significant geographic skew observed.
     assert parsed["geographic_bias_flag"] is False
     assert parsed["round_2_shift"] == "Softened"
     assert parsed["final_position"] == "NO CHANGE"
+
+
+def test_topic_argument_loads_correct_config():
+    """TOPIC-003 config must include proponent_brief and skeptic_brief fields."""
+    from scripts.run_ensemble_debate import TOPICS
+
+    assert "TOPIC-003" in TOPICS
+    assert "proponent_brief" in TOPICS["TOPIC-003"]
+    assert "skeptic_brief" in TOPICS["TOPIC-003"]
+    assert "BGR" in TOPICS["TOPIC-003"]["skeptic_brief"]  # named nations must be present

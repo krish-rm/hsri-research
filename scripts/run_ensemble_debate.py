@@ -19,12 +19,46 @@ from hsri_agents.ensemble_log import evaluate_concordance
 from hsri_agents.logger import append_divergence_entry
 from hsri_agents.llm import LLMClient
 
-TOPIC = {
-    "id": "TOPIC-002",
-    "description": "Is the equal 25/25/25/25 pillar weighting defensible given that Critical Discernment has the weakest empirical indicator coverage?",
-    "trigger_lane": "methodology_review",
-    "evidence_package": "docs/04-causal-model-and-index-design.md",
+TOPICS = {
+    "TOPIC-002": {
+        "id": "TOPIC-002",
+        "description": (
+            "Is the equal 25/25/25/25 pillar weighting defensible given that "
+            "Critical Discernment has the weakest empirical indicator coverage?"
+        ),
+        "trigger_lane": "methodology_review",
+        "evidence_package": "docs/04-causal-model-and-index-design.md",
+    },
+    "TOPIC-003": {
+        "id": "TOPIC-003",
+        "description": (
+            "Is the current policy of preserving PIAAC PSTRE as structural NaN "
+            "for non-participating nations (BGR, CYP, ISL, MLT, MKD, ROU) "
+            "correct, or should a regional proxy be considered?"
+        ),
+        "trigger_lane": "data_integrity",
+        "evidence_package": "docs/10-proxy-framework.md",
+        "proponent_brief": (
+            "Non-participation in PIAAC is an administrative fact about a "
+            "government's survey decisions, not evidence of a data gap in "
+            "the population's actual digital problem-solving ability. Treating "
+            "it as imputable missing data would conflate two distinct constructs: "
+            "cognitive capacity and OECD program membership. The non-compensatory "
+            "observed-only rule correctly reflects this distinction."
+        ),
+        "skeptic_brief": (
+            "Six EU nations are systematically scored lower on Critical "
+            "Discernment purely due to administrative non-participation in "
+            "one survey. PISA Digital Reasoning data exists for most of these "
+            "nations and measures a cognate construct. Excluding this proxy "
+            "forces an artificial NaN that disadvantages Romania, Bulgaria, "
+            "Iceland, Cyprus, Malta, and North Macedonia (BGR, CYP, ISL, MLT, MKD, ROU) "
+            "in ways that do not reflect their populations' actual digital literacy levels."
+        ),
+    },
 }
+
+TOPIC = TOPICS["TOPIC-002"]
 
 # System prompt — identical across all model families for comparability
 DEBATE_SYSTEM_PROMPT = """
@@ -36,10 +70,10 @@ You will conduct a structured adversarial debate on the following methodology qu
 Your output must follow this exact format:
 
 ROUND 1 - PROPONENT:
-[Strongest case for keeping equal weighting]
+[Strongest case for keeping current policy / baseline]
 
 ROUND 1 - SKEPTIC:
-[Strongest case against equal weighting / for differential weighting]
+[Strongest case against current policy / for modification]
 
 ROUND 2 - PROPONENT REBUTTAL:
 [Response to Skeptic's strongest point]
@@ -61,7 +95,7 @@ GEOGRAPHIC BIAS ASSESSMENT:
 MODELS = [
     {"family": "anthropic", "model": "claude-opus-4-6", "client": "anthropic"},
     {"family": "openai", "model": "gpt-4o", "client": "openai"},
-    {"family": "google", "model": "gemini-1.5-pro", "client": "google"},
+    {"family": "google", "model": "gemini-3.8-flash", "client": "google"},
 ]
 
 API_KEY_ENV_MAP = {
@@ -85,12 +119,30 @@ def parse_debate_response(text: str) -> Dict[str, Any]:
     """
     # Synthesis verdict
     verdict = "NO CHANGE"
-    if "PROPOSED DIFF" in text.upper():
-        verdict = "PROPOSED DIFF"
-    elif "ESCALATE" in text.upper():
-        verdict = "ESCALATE"
-    elif "NO CHANGE" in text.upper():
-        verdict = "NO CHANGE"
+    synth_match = re.search(
+        r"SYNTHESIS:[\s\S]*?(?:Convergence verdict:?\s*)?(NO CHANGE|PROPOSED DIFF|ESCALATE(?: TO REVIEW BOARD)?)",
+        text,
+        re.IGNORECASE,
+    )
+    if synth_match:
+        raw_v = synth_match.group(1).upper()
+        if "PROPOSED DIFF" in raw_v:
+            verdict = "PROPOSED DIFF"
+        elif "ESCALATE" in raw_v:
+            verdict = "ESCALATE"
+        else:
+            verdict = "NO CHANGE"
+    else:
+        if "CONVERGENCE VERDICT: PROPOSED DIFF" in text.upper() or "VERDICT: PROPOSED DIFF" in text.upper():
+            verdict = "PROPOSED DIFF"
+        elif "CONVERGENCE VERDICT: ESCALATE" in text.upper() or "VERDICT: ESCALATE" in text.upper():
+            verdict = "ESCALATE"
+        elif "CONVERGENCE VERDICT: NO CHANGE" in text.upper() or "VERDICT: NO CHANGE" in text.upper():
+            verdict = "NO CHANGE"
+        elif "PROPOSED DIFF" in text.upper():
+            verdict = "PROPOSED DIFF"
+        elif "ESCALATE" in text.upper():
+            verdict = "ESCALATE"
 
     # Dominant concern lane
     dominant_lane = "Psychometrics"
@@ -112,7 +164,7 @@ def parse_debate_response(text: str) -> Dict[str, Any]:
     # Round 1 position & round 2 shift
     r1_pos = "Conservative"
     r2_shift = "Maintained"
-    if "skeptic" in text.lower() and ("differential" in text.lower() or "over-weight" in text.lower()):
+    if "skeptic" in text.lower() and ("differential" in text.lower() or "over-weight" in text.lower() or "proxy" in text.lower()):
         r1_pos = "Revisionist"
     if "soften" in text.lower() or "concede" in text.lower():
         r2_shift = "Softened"
@@ -125,7 +177,7 @@ def parse_debate_response(text: str) -> Dict[str, Any]:
         "round_1_position": r1_pos,
         "round_2_shift": r2_shift,
         "final_position": verdict,
-        "notes": f"Ensemble debate pass on {TOPIC['id']}",
+        "notes": "Ensemble debate pass",
     }
 
 
@@ -149,9 +201,14 @@ def run_ensemble_debate(
         f"DEBATE TOPIC {target_topic['id']}:\n"
         f"Question: {target_topic['description']}\n"
         f"Trigger Lane: {target_topic['trigger_lane']}\n"
-        f"Reference Evidence: {target_topic['evidence_package']}\n\n"
-        "Please conduct the debate following the system prompt instructions."
+        f"Reference Evidence: {target_topic['evidence_package']}\n"
     )
+    if "proponent_brief" in target_topic and "skeptic_brief" in target_topic:
+        user_prompt += (
+            f"\nProponent Brief: {target_topic['proponent_brief']}\n"
+            f"Skeptic Brief: {target_topic['skeptic_brief']}\n"
+        )
+    user_prompt += "\nPlease conduct the debate following the system prompt instructions."
 
     for m in target_models:
         family = m["family"]
@@ -200,7 +257,7 @@ def run_ensemble_debate(
                 "round_1_position": parsed["round_1_position"],
                 "round_2_shift": parsed["round_2_shift"],
                 "final_position": parsed["final_position"],
-                "notes": parsed["notes"],
+                "notes": f"Ensemble debate pass on {target_topic['id']}",
             }
             evaluated_records.append(record)
         except Exception as e:
@@ -264,4 +321,15 @@ def run_ensemble_debate(
 
 
 if __name__ == "__main__":
-    run_ensemble_debate()
+    import argparse
+
+    parser = argparse.ArgumentParser(description="HSRI Lane 3 Live Multi-Model Ensemble Debate Runner")
+    parser.add_argument(
+        "--topic",
+        default="TOPIC-002",
+        choices=["TOPIC-002", "TOPIC-003"],
+        help="Debate topic to run",
+    )
+    args = parser.parse_args()
+    selected_topic = TOPICS.get(args.topic, TOPIC)
+    run_ensemble_debate(topic=selected_topic)
