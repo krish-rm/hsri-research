@@ -5,7 +5,7 @@ Topics are run in order. Each topic requires a completed run before the next beg
 ## TOPIC-002 — Pillar Weighting Defensibility [STATUS: complete — NO CHANGE — 2026-09-27]
 Is the equal 25/25/25/25 weighting defensible given Critical Discernment has the weakest indicator coverage?
 
-## TOPIC-003 — PIAAC PSTRE NaN Policy [STATUS: complete — ESCALATE — 2026-09-27]
+## TOPIC-003 — PIAAC PSTRE NaN Policy [STATUS: escalated — awaiting human arbitration — 2026-09-27]
 Is the current policy of preserving PIAAC PSTRE as structural NaN for non-participating nations (BGR, CYP, ISL, MLT, MKD, ROU) correct, or should a regional proxy be considered?
 
 Proponent brief: The non-participation is an administrative fact, not a data gap. Treating it as missing data to impute would confound two different constructs (problem-solving ability vs. participation in an OECD measurement program).

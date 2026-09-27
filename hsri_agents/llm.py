@@ -9,6 +9,7 @@ MockProvider for testing, offline execution, and dry runs.
 import json
 import logging
 import re
+import time
 from typing import Any, Dict, Optional
 import urllib.parse
 import requests
@@ -159,22 +160,26 @@ class LLMClient:
                 "maxOutputTokens": max_tokens,
             },
         }
-        try:
-            resp = requests.post(url, headers=headers, json=payload, timeout=90)
-            if resp.status_code == 404 and model != "gemini-3.8-flash":
-                url = f"{base_url}/gemini-3.8-flash:generateContent?key={self.api_key}"
+        for attempt in range(2):
+            try:
                 resp = requests.post(url, headers=headers, json=payload, timeout=90)
-            resp.raise_for_status()
-            data = resp.json()
-            candidates = data.get("candidates", [])
-            if candidates:
-                parts = candidates[0].get("content", {}).get("parts", [])
-                if parts:
-                    return parts[0].get("text", "").strip()
-            raise ValueError(f"No content returned from Google API: {data}")
-        except Exception as e:
-            logger.error(f"Error calling Google API: {e}")
-            raise RuntimeError(f"Google API call failed: {e}")
+                if resp.status_code in [404, 503, 429] and model != "gemini-3.5-flash-lite":
+                    model = "gemini-3.5-flash-lite"
+                    url = f"{base_url}/{model}:generateContent?key={self.api_key}"
+                    resp = requests.post(url, headers=headers, json=payload, timeout=90)
+                resp.raise_for_status()
+                data = resp.json()
+                candidates = data.get("candidates", [])
+                if candidates:
+                    parts = candidates[0].get("content", {}).get("parts", [])
+                    if parts:
+                        return parts[0].get("text", "").strip()
+                raise ValueError(f"No content returned from Google API: {data}")
+            except Exception as e:
+                if attempt == 1:
+                    logger.error(f"Error calling Google API: {e}")
+                    raise RuntimeError(f"Google API call failed: {e}")
+                time.sleep(2)
 
     def _mock_generate(self, system_prompt: str, user_prompt: str) -> str:
         """

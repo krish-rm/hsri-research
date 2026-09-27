@@ -102,11 +102,14 @@ jobs:
                       f"{base_url}downloads/hsri-normalized-indicators.csv",
                       f"{base_url}downloads/hsri-evidence-table.csv",
                       f"{base_url}downloads/hsri-unrated-nations.csv",
+                      f"{base_url}downloads/model-divergence-log.csv",
                   ]
                   for c_url in csv_urls:
                       c_req = urllib.request.Request(c_url, headers={"Cache-Control": "no-cache", "User-Agent": "HSRI-SmokeTest/5.0"})
                       res = urllib.request.urlopen(c_req, timeout=15)
                       checks[f"download_{c_url.split('/')[-1]}"] = (res.getcode() == 200)
+
+                  checks["divergence_log_200"] = checks.get("download_model-divergence-log.csv", False)
 
                   failed = [k for k, v in checks.items() if not v]
                   if not failed:

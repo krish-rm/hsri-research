@@ -118,6 +118,20 @@ const dataCatalog: CatalogItem[] = [
       { column: 'missing_pillars', type: 'String', description: 'Pillars lacking observed empirical survey microdata' },
       { column: 'primary_data_gap', type: 'String', description: 'Root taxonomy reason for missingness (e.g. missing_cognitive_pillars)' }
     ]
+  ),
+  getFileMeta(
+    'model-divergence-log.csv',
+    'hsri_agents/logs/model-divergence-log.csv',
+    'Multi-model epistemic debate and divergence audit ledger tracking evaluation consensus and disagreement across frontier AI families.',
+    [
+      { column: 'timestamp', type: 'ISO-8601 Timestamp', description: 'UTC timestamp of the ensemble evaluation round' },
+      { column: 'topic_id', type: 'String', description: 'Unique debate topic identifier (e.g. TOPIC-002, TOPIC-003)' },
+      { column: 'topic_description', type: 'String', description: 'Methodological query under adversarial evaluation' },
+      { column: 'model_family', type: 'String', description: 'Model provider family (e.g. google, anthropic, openai)' },
+      { column: 'model_version', type: 'String', description: 'Specific model checkpoint tested (e.g. gemini-3.8-flash)' },
+      { column: 'verdict', type: 'Categorical', description: 'Evaluated verdict (NO CHANGE, PROPOSED DIFF, ESCALATE, SKIPPED)' },
+      { column: 'dominant_concern_lane', type: 'Categorical', description: 'Dominant analytical lane: Psychometrics, HAI-Interaction, etc.' }
+    ]
   )
 ];
 ---
@@ -201,6 +215,31 @@ const dataCatalog: CatalogItem[] = [
             </div>
           ))}
         </div>
+      </section>
+
+      <!-- Multi-Model Epistemic Divergence Log Section (Task 7.5) -->
+      <section class="divergence-summary">
+        <h2>Multi-Model Epistemic Divergence Log</h2>
+        <p>
+          HSRI methodology questions are evaluated across multiple frontier LLM families
+          to detect systematic geographic or institutional bias in AI-assisted policy evaluation.
+          Results are logged as a citable dataset (CC BY 4.0).
+        </p>
+
+        <div class="divergence-stats">
+          <span>Topics evaluated: 3</span>
+          <span>Model families: 2 (1 live, 1 seed)</span>
+          <span>Real model responses: 2</span>
+          <span>Verdicts: 2× NO CHANGE, 1× ESCALATE</span>
+        </div>
+
+        <p class="note">
+          ⚠️ Current data is from a single live model family (Google Gemini).
+          Cross-model comparison requires Anthropic and OpenAI keys.
+          See <a href={`${base}/downloads/model-divergence-log.csv`} download="model-divergence-log.csv">divergence log CSV</a>
+          and <a href="https://github.com/krish-rm/hsri-research/tree/main/hsri_agents/logs" target="_blank" rel="noopener noreferrer">
+          dataset documentation</a>.
+        </p>
       </section>
 
       <!-- Interactive Data Explorer Tool -->
@@ -485,5 +524,52 @@ const dataCatalog: CatalogItem[] = [
     border-radius: 0.25rem;
     font-size: 0.9rem;
     line-height: 1.6;
+  }
+
+  .divergence-summary {
+    background: white;
+    border-radius: 0.75rem;
+    border: 1px solid #e2e8f0;
+    padding: 2rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .divergence-summary h2 {
+    font-size: 1.5rem;
+    color: #0f172a;
+    margin-bottom: 0.75rem;
+  }
+
+  .divergence-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 1.25rem 0;
+  }
+
+  .divergence-stats span {
+    background: #f1f5f9;
+    border: 1px solid #cbd5e1;
+    color: #334155;
+    padding: 0.4rem 0.85rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .divergence-summary .note {
+    background: #fffbeb;
+    border-left: 4px solid #f59e0b;
+    padding: 0.85rem 1rem;
+    border-radius: 0.25rem;
+    font-size: 0.9rem;
+    color: #92400e;
+    line-height: 1.5;
+  }
+
+  .divergence-summary .note a {
+    color: #b45309;
+    font-weight: 600;
+    text-decoration: underline;
   }
 </style>
