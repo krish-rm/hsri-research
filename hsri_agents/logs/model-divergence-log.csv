@@ -1,2 +1,2 @@
-timestamp,triggering_paper,anthropic,openai,google,xai,deepseek,qwen,glm,mock,divergence_summary,notes
-2026-09-15 07:04:38,To Trust or to Think: Cognitive Forcing Functions Can Reduce Overreliance on AI in AI-Assisted Decision-Making,,,,,,,,diff-proposed,Single provider evaluated,Test entry
+timestamp,topic_id,topic_description,model_family,model_version,verdict,dominant_concern_lane,geographic_bias_flag,geographic_bias_notes,concordance_with_majority,round_1_position,round_2_shift,final_position,notes
+2026-09-27T00:00:00Z,TOPIC-001,"PIAAC PSTRE NaN policy validity",anthropic,claude-sonnet-4-6,NO CHANGE,Cross-Cultural Methods,false,,true,Conservative,Maintained,NO CHANGE,"Skeptic arguments on geographic scoping were decisive"

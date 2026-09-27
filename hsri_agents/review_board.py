@@ -106,3 +106,29 @@ def run_review_board(
         "rejection_reasons": rejection_reasons,
         "seats": seat_evaluations,
     }
+
+
+def evaluate_pr_eligibility(
+    pipeline_status: Dict[str, Any],
+    debate_result: Dict[str, Any],
+) -> Dict[str, Any]:
+    """
+    Gate PR readiness on Lane 2 data pipeline sentinel status.
+    A HOLD-RELEASE verdict from the pipeline sentinel unconditionally blocks
+    any PR from being generated, even if the debate team or review board reaches consensus.
+    """
+    verdict = pipeline_status.get("verdict", "")
+    if verdict == "HOLD-RELEASE":
+        flag = pipeline_status.get("flag", "DATA_INTEGRITY_DRIFT")
+        return {
+            "eligible": False,
+            "blocked": True,
+            "block_reason": f"Lane 2 pipeline HOLD-RELEASE active ({flag}). Automated PR generation strictly blocked.",
+        }
+
+    return {
+        "eligible": True,
+        "blocked": False,
+        "block_reason": "",
+    }
+

@@ -11,8 +11,15 @@ import os
 import shutil
 import tempfile
 import unittest
+import sys
 from pathlib import Path
 
+REPO_ROOT = Path(__file__).resolve().parent.parent
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from scripts import literature_sentinel
+from hsri_agents import ensemble_log, review_board
 from hsri_agents.analysts import ANALYST_SYSTEM_PROMPTS, run_analysts
 from hsri_agents.config import (
     DOCS_DIR,
@@ -187,8 +194,9 @@ class TestHSRIAgents(unittest.TestCase):
                     reader = csv.DictReader(f)
                     found = False
                     for row in reader:
-                        if row.get("triggering_paper") == SAMPLE_PAPER["title"]:
-                            self.assertEqual(row.get("mock"), "diff-proposed")
+                        if row.get("topic_description") == SAMPLE_PAPER["title"] or row.get("triggering_paper") == SAMPLE_PAPER["title"]:
+                            verdict_val = row.get("final_position") or row.get("verdict") or row.get("mock")
+                            self.assertEqual(verdict_val, "diff-proposed")
                             found = True
                     self.assertTrue(found)
             finally:
@@ -200,8 +208,8 @@ class TestHSRIAgents(unittest.TestCase):
         workflows_dir = REPO_ROOT / ".github" / "workflows"
         if workflows_dir.exists():
             workflows = sorted([f.name for f in workflows_dir.glob("*.yml")] + [f.name for f in workflows_dir.glob("*.yaml")])
-            # Only deploy.yml and approved read-only ingestion sentinel are permitted
-            self.assertEqual(workflows, ["deploy.yml", "ingestion-health.yml"])
+            # Only deploy.yml, ingestion-health.yml, and literature-sentinel.yml are permitted
+            self.assertEqual(workflows, ["deploy.yml", "ingestion-health.yml", "literature-sentinel.yml"])
 
             with open(workflows_dir / "deploy.yml", "r", encoding="utf-8") as f:
                 content = f.read().lower()
@@ -214,5 +222,57 @@ class TestHSRIAgents(unittest.TestCase):
                 self.assertNotIn("contents: write", sentinel_content)
                 self.assertNotIn("auto-merge", sentinel_content)
 
+            with open(workflows_dir / "literature-sentinel.yml", "r", encoding="utf-8") as f:
+                lit_content = f.read().lower()
+                # Strict governance check: No autonomous merge or PR write permissions
+                self.assertNotIn("pull-requests: write", lit_content)
+                self.assertNotIn("auto-merge", lit_content)
+
+
+# Test: Lane 1 → Lane 3 handoff
+def test_literature_escalation_triggers_debate():
+    """
+    A high-N pre-registered paper contradicting a Strong claim
+    should trigger Lane 3 debate, not be silently logged.
+    """
+    mock_paper = {
+        "sample_size": 612,
+        "pre_registered": True,
+        "weird_flag": False,  # non-WEIRD majority
+        "claim_verdict": "Contradicts",
+        "hsri_pillar": "Critical Discernment",
+        "current_evidence_tier": "Strong"
+    }
+    result = literature_sentinel.evaluate_escalation(mock_paper)
+    assert result["escalation_flag"] == True
+    assert result["escalation_reason"] != ""
+
+
+# Test: Lane 2 HOLD-RELEASE blocks Lane 4 PR generation
+def test_pipeline_hold_blocks_pr_generation():
+    """
+    A HOLD-RELEASE verdict from the pipeline sentinel must prevent
+    any PR from being generated, even if Lane 3 debate reaches consensus.
+    """
+    pipeline_status = {"verdict": "HOLD-RELEASE", "flag": "SGP_SCHEMA_DRIFT"}
+    debate_result = {"verdict": "PROPOSED DIFF", "confidence": "Moderate"}
+    pr_result = review_board.evaluate_pr_eligibility(pipeline_status, debate_result)
+    assert pr_result["blocked"] == True
+    assert "HOLD-RELEASE" in pr_result["block_reason"]
+
+
+# Test: Multi-model concordance threshold
+def test_concordance_threshold_gates_review_board():
+    """
+    Fewer than 5/7 model agreement must not reach the Review Board.
+    """
+    verdicts = ["NO CHANGE", "NO CHANGE", "PROPOSED DIFF",
+                "PROPOSED DIFF", "ESCALATE", "NO CHANGE", "PROPOSED DIFF"]
+    result = ensemble_log.evaluate_concordance(verdicts)
+    assert result["passes_threshold"] == False
+    assert result["status"] == "CONTESTED — HUMAN ARBITRATION REQUIRED"
+
+
 if __name__ == "__main__":
     unittest.main()
+

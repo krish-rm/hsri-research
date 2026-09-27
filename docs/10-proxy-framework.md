@@ -151,6 +151,24 @@ Per repository requirements, the core HSRI construct (behavioral measurement und
 | Africa | Low | Low | Low | Low | Low | Low |
 | Oceania | Medium | Low | Medium | High | Medium | Medium |
 
+### Missingness & Band Sensitivity
+
+**Singapore (SGP) and EMLI missingness:**  
+Singapore's EMLI (European Media Literacy Index) score is structurally absent (`NaN`)
+because EMLI is a European-scope instrument not administered outside EU member states.
+This is not a data gap — it is correct geographic scoping.
+
+Under the non-compensatory observed-only scoring rule, Singapore's Band A assignment
+reflects its performance across the indicators for which empirical data exists. Imputation
+sensitivity analysis (pipeline-health-2026-09.md) shows that applying mean or median
+imputation would shift Singapore from Band A to Band B (Δ = 2.93 points). This confirms
+that the observed-only rule is non-trivial and that transparent missingness handling
+materially affects rankings.
+
+The HSRI governance rule is: **never impute structural geographic missingness**. Doing
+so would introduce a false equivalence between participation in a European measurement
+instrument and a general cognitive literacy construct.
+
 ---
 
 ## 5. Indicator Quality Ratings

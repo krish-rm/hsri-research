@@ -101,6 +101,24 @@ function statusSlug(status: string): string {
         </p>
       </section>
 
+      <!-- Methodological Callout for Singapore Missingness & Band Sensitivity -->
+      {(country.code === 'SGP' || country.id.toLowerCase() === 'sgp') && (
+        <section class="section-card methodological-card" id="sgp-methodology-note">
+          <div class="methodological-header">
+            <span class="info-icon">ℹ️</span>
+            <h3>Methodological Note: Missingness &amp; Band Sensitivity</h3>
+          </div>
+          <div class="methodological-body">
+            <p><strong>EMLI score:</strong> Not applicable (European-scope instrument)</p>
+            <p><strong>Band assignment:</strong> Uses observed indicators only.</p>
+            <p><strong>Imputation sensitivity:</strong> Band A &rarr; B under mean imputation (&Delta; 2.93 pts)</p>
+            <p class="methodological-subtext">
+              Under HSRI governance rules, structural geographic missingness is never imputed. Imputing European survey instruments for non-European economies would introduce false equivalence between regional survey participation and general cognitive discernment.
+            </p>
+          </div>
+        </section>
+      )}
+
       <!-- 4 Pillars Breakdown -->
       <section class="section-card">
         <div class="section-title-wrap">
@@ -845,6 +863,45 @@ function statusSlug(status: string): string {
     color: #64748b;
     font-size: 0.8rem;
     line-height: 1.4;
+  }
+
+  .methodological-card {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-left: 4px solid #16a34a;
+  }
+
+  .methodological-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .methodological-header h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #166534;
+    margin: 0;
+  }
+
+  .methodological-header .info-icon {
+    font-size: 1.25rem;
+  }
+
+  .methodological-body p {
+    margin: 0.35rem 0;
+    color: #14532d;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .methodological-subtext {
+    margin-top: 0.75rem !important;
+    font-size: 0.85rem !important;
+    color: #475569 !important;
+    border-top: 1px solid #dcfce7;
+    padding-top: 0.5rem;
   }
 
   .container {

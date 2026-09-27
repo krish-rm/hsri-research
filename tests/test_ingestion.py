@@ -127,6 +127,40 @@ class TestIndexScoresAndCoverage:
         scores = self.df["overall_score"].astype(float)
         assert (scores >= 0.0).all() and (scores <= 1.0).all()
 
+    def test_sgp_band_stability_under_observed_only_rule(self, capsys):
+        """
+        Confirm Singapore (SGP) remains Band A when scored on observed indicators only,
+        and document the imputation delta in the test output.
+        """
+        assert "SGP" in self.df.index
+        sgp_score = float(self.df.loc["SGP", "overall_score"]) * 100.0
+        assert sgp_score >= 80.0, f"Expected SGP score >= 80.0 for Band A, got {sgp_score}"
+
+        # Load normalized matrix for imputation sensitivity comparison
+        norm_file = DATA_DIR / "normalized_indicators.csv"
+        assert norm_file.exists()
+        norm_df = pd.read_csv(norm_file, index_col="country_iso3")
+        assert "SGP" in norm_df.index
+
+        # Mean imputation
+        mean_imputed = norm_df.fillna(norm_df.mean())
+        mean_score = float(mean_imputed.loc["SGP"].mean()) * 100.0
+
+        # Calculate sensitivity delta
+        delta = abs(sgp_score - mean_score)
+
+        # Document imputation delta in test output
+        print(f"\n[SGP Imputation Sensitivity Audit]")
+        print(f"  Observed-only score: {sgp_score:.2f} (Band A)")
+        print(f"  Mean-imputed score:  {mean_score:.2f} (Band B)")
+        print(f"  Imputation delta:    {delta:.2f} points (shifts Band A -> Band B)")
+
+        # Verify the non-compensatory observed-only rule is non-trivial:
+        # Imputation delta is ~2.93 pts and mean imputation drops SGP into Band B (< 80.0)
+        assert round(delta, 2) == 2.93 or delta > 2.5, f"Expected imputation delta ~2.93 pts, got {delta:.2f}"
+        assert mean_score < 80.0, f"Expected mean-imputed score to drop below 80 into Band B, got {mean_score:.2f}"
+
+
 
 class TestWebExportSynchronization:
     """Validate JSON artifacts consumed by Astro website."""

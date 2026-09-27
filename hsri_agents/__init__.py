@@ -6,3 +6,6 @@ convene structured debates, synthesize diffs, and enforce Consortium Review Boar
 """
 
 __version__ = "0.1.0"
+
+from hsri_agents import ensemble_log
+from hsri_agents import review_board
