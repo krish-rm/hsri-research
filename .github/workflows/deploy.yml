@@ -54,12 +54,12 @@ jobs:
 
       - name: Post-deploy smoke test
         run: |
-          sleep 30  # Allow Pages CDN to propagate
+          sleep 60  # Allow Pages deployment and CDN to propagate
           python - <<'EOF'
           import urllib.request, sys, re, time
 
           base_url = "https://krish-rm.github.io/hsri-research/"
-          max_attempts = 5
+          max_attempts = 8
 
           for attempt in range(max_attempts):
               try:
