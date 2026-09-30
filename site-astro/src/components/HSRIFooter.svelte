@@ -56,7 +56,7 @@
           </svg>
           <div>
             <h3 class="footer-title">Human Superintelligence Readiness Index</h3>
-            <p class="footer-tagline">v0.2 Public Preview</p>
+            <p class="footer-tagline">v0.3-dev Public Preview</p>
           </div>
         </div>
         <p class="footer-description">

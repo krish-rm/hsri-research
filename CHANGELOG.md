@@ -5,6 +5,22 @@ All notable changes to the Human Superintelligence Readiness Index (HSRI) resear
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.3.0-dev] — In Progress
+
+### Added
+- EXP-01: Fluent Hallucination Detection (Legal) — 3 validated stimuli
+- EXP-02: Fluent Hallucination Detection (Medical) — 3 validated stimuli
+- Synthetic cohort pilot framework (Lane 6 pre-deployment validation)
+- Multi-model divergence log surfaced on /data/ with download
+- Research Updates feed: 2 weekly digests live
+- v0.2.0 git tag and release notes
+
+### Governance
+- TOPIC-003 in human arbitration (2+ sprints)
+- TOPIC-004 queued pending TOPIC-003 resolution
+- EXP-01 and EXP-02 under IRB gate (not yet deployed to human participants)
+- 54/54 unit tests passing
+
 ## [v0.2.0] — 2026-09-27
 ### Added
 - **Lane 2 Pipeline Sentinel** (`scripts/pipeline_sentinel.py`): Monthly automated health checks across all 7 institutional data fetchers with anomaly detection, missingness audit, and imputation sensitivity analysis.

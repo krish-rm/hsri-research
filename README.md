@@ -100,6 +100,18 @@ npm install
 npm run dev
 ```
 
+## GitHub Release
+
+The v0.2.0 tag is live. To publish the formatted release page:
+
+```bash
+gh release create v0.2.0 \
+  --title "HSRI v0.2.0 Public Preview" \
+  --notes-file <(sed -n '/## \[v0\.2\.0\]/,/## \[v0\.1/p' CHANGELOG.md) \
+  --prerelease
+```
+Or visit: https://github.com/krish-rm/hsri-research/releases/new?tag=v0.2.0
+
 ---
 
 ## Recommended Citation

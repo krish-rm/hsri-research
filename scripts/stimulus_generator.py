@@ -53,7 +53,30 @@ EXPERIMENTS = {
             "Avoid errors that require bar-level expertise to spot. "
             "Avoid errors that are detectable from surface features alone (e.g. typos)."
         ),
-    }
+    },
+    "EXP-02": {
+        "name": "Fluent Hallucination Detection — Medical Domain",
+        "domain": "medical",
+        "description": (
+            "Participant reads an AI-generated clinical summary, case report, or "
+            "medical guideline excerpt containing one calibrated error. Task: "
+            "identify the error without clinical specialist knowledge."
+        ),
+        "error_types": ["factual", "logical", "dosage", "citation"],
+        "distractor_features": [
+            "standard clinical language and abbreviations (PRN, QID, etc.)",
+            "specific but plausible lab values surrounding the error",
+            "correct diagnosis and treatment logic except for the embedded error",
+            "real drug names with incorrect indications or contraindications",
+        ],
+        "item_discrimination_target": 0.35,
+        "pilot_notes": (
+            "Errors must NOT require clinical training to detect. "
+            "A patient reading a discharge summary should be able to notice. "
+            "Avoid errors requiring pharmaceutical knowledge beyond common drugs. "
+            "Dosage errors must be clearly outside a plausible range for a layperson."
+        ),
+    },
 }
 
 GENERATOR_SYSTEM_PROMPT = """
@@ -119,7 +142,7 @@ def validate_stimulus(stimulus: dict) -> dict:
         issues.append("Invalid item_discrimination_estimate format")
 
     # Error type must be from permitted list
-    permitted_types = ["factual", "logical", "citation", "statistical"]
+    permitted_types = ["factual", "logical", "citation", "statistical", "dosage"]
     if stimulus.get("embedded_error_type") not in permitted_types:
         issues.append(f"Invalid error type: {stimulus.get('embedded_error_type')}")
 
@@ -285,7 +308,114 @@ def generate_single_stimulus(
         },
     }
 
-    selected = fallbacks.get(err_type, fallbacks["logical"])
+    # Medical fallbacks for EXP-02
+    medical_fallbacks = {
+        "dosage": {
+            "stimulus_text": (
+                "An adult patient diagnosed with acute streptococcal pharyngitis was evaluated in the outpatient clinic. "
+                "Physical examination revealed erythematous tonsils with exudates and tender anterior cervical lymphadenopathy. "
+                "Rapid antigen detection confirmed Streptococcus pyogenes infection without airway compromise. The attending "
+                "physician initiated antimicrobial therapy by prescribing oral amoxicillin at 500 grams three times daily for "
+                "ten days, counseling the patient on maintaining oral hydration and utilizing over-the-counter antipyretics."
+            ),
+            "embedded_error_type": "dosage",
+            "embedded_error_location": "paragraph 1, sentence 4",
+            "embedded_error_description": (
+                "Extreme dosage error: Amoxicillin prescribed at 500 grams TID instead of 500 milligrams TID, representing "
+                "a lethal 1,000-fold overdose that any literate adult can recognize as an impossible body weight of medication."
+            ),
+            "correct_detection_response": (
+                "The amoxicillin dose is erroneously specified in grams (500 grams) rather than milligrams (500 mg)."
+            ),
+            "distractor_features": [
+                "standard clinical pharyngitis presentation",
+                "accurate diagnostic testing terminology (rapid antigen)",
+                "correct antibiotic choice (amoxicillin) and frequency (TID)",
+            ],
+            "difficulty_rationale": "Medium difficulty: relies on basic metric unit recognition (grams vs milligrams) within fluent clinical text.",
+            "item_discrimination_estimate": 0.38,
+        },
+        "factual": {
+            "stimulus_text": (
+                "During a routine endocrine follow-up for a 52-year-old patient with type 2 diabetes mellitus, the clinical care "
+                "team reviewed glycemic control markers. The patient's hemoglobin A1c remained elevated at 8.4% despite metformin "
+                "monotherapy. To improve postprandial glucose management, the clinician initiated subcutaneous basal insulin glargine, "
+                "explaining to the patient that insulin functions by directly stimulating the kidneys to filter and excrete excess "
+                "blood glucose into the bladder."
+            ),
+            "embedded_error_type": "factual",
+            "embedded_error_location": "paragraph 1, sentence 4",
+            "embedded_error_description": (
+                "Factual inversion of physiological mechanism: Insulin facilitates cellular uptake of glucose from systemic "
+                "circulation, whereas urinary excretion of glucose is mediated by SGLT2 transport inhibition."
+            ),
+            "correct_detection_response": (
+                "Insulin works by enabling cells to take up glucose, not by causing the kidneys to excrete sugar into urine."
+            ),
+            "distractor_features": [
+                "standard diabetic clinical terminology (A1c, basal insulin glargine, metformin)",
+                "realistic glycemic target context",
+                "fluent patient education phrasing",
+            ],
+            "difficulty_rationale": "Medium difficulty: tests general health literacy regarding insulin's fundamental role in blood sugar absorption.",
+            "item_discrimination_estimate": 0.36,
+        },
+        "logical": {
+            "stimulus_text": (
+                "A 45-year-old patient presented to urgent care with expanding cutaneous cellulitis requiring immediate parenteral "
+                "antimicrobial coverage. The intake triage chart explicitly documented a life-threatening anaphylactic allergy to "
+                "penicillin, citing a prior ICU admission for bronchospasm and facial angioedema. Acknowledging this severe "
+                "penicillin anaphylaxis in the clinical notes, the attending physician ordered intravenous ampicillin, concluding "
+                "it was completely safe because ampicillin is a different antibiotic formulation."
+            ),
+            "embedded_error_type": "logical",
+            "embedded_error_location": "paragraph 1, sentence 3",
+            "embedded_error_description": (
+                "Direct logical and medical contradiction: Ampicillin is an aminopenicillin with identical beta-lactam cross-allergenicity "
+                "and is strictly contraindicated in patients with anaphylaxis to penicillin."
+            ),
+            "correct_detection_response": (
+                "Ampicillin is a penicillin-class antibiotic and cannot logically or safely be given to someone with an anaphylactic penicillin allergy."
+            ),
+            "distractor_features": [
+                "formal triage documentation phrasing",
+                "accurate emergency medicine terminology (angioedema, parenteral, cellulitis)",
+                "clear documentation of allergy prior to the illogical selection",
+            ],
+            "difficulty_rationale": "Medium difficulty: requires connecting the 'cillin' drug family to the documented penicillin allergy.",
+            "item_discrimination_estimate": 0.37,
+        },
+        "citation": {
+            "stimulus_text": (
+                "In standardizing emergency department protocols for pediatric status asthmaticus, the hospital clinical oversight "
+                "committee released updated triage pathways. Citing the American Heart Association (AHA) 2023 Guidelines for Advanced "
+                "Cardiovascular Life Support as the primary clinical authority for pediatric asthma bronchodilator dosing intervals, "
+                "the clinical team mandated continuous nebulized albuterol every twenty minutes for moderate respiratory distress."
+            ),
+            "embedded_error_type": "citation",
+            "embedded_error_location": "paragraph 1, sentence 2",
+            "embedded_error_description": (
+                "Misattributed guideline citation: Citing the American Heart Association (cardiovascular focus) as the governing authority "
+                "for pediatric asthma bronchodilator respiratory guidelines instead of pulmonary or pediatric societies (e.g. GINA or AAP)."
+            ),
+            "correct_detection_response": (
+                "The American Heart Association governs cardiovascular guidelines, not pediatric asthma or pulmonary bronchodilator protocols."
+            ),
+            "distractor_features": [
+                "real authoritative clinical organization (AHA)",
+                "accurate pediatric asthma medication (albuterol, nebulized)",
+                "formal hospital committee framing",
+            ],
+            "difficulty_rationale": "Medium difficulty: tests common sense distinction between cardiac and respiratory guideline authorities.",
+            "item_discrimination_estimate": 0.35,
+        },
+    }
+
+    if experiment_id == "EXP-02":
+        selected = medical_fallbacks.get(err_type, medical_fallbacks["dosage"])
+    else:
+        selected = fallbacks.get(err_type, fallbacks["logical"])
+
     selected["experiment_id"] = experiment_id
     selected["difficulty"] = difficulty
     selected["generated_at"] = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
@@ -305,7 +435,8 @@ def run_stimulus_generation(
     date_str = datetime.date.today().strftime("%Y-%m-%d")
     out_file = exp_dir / f"stimuli-{date_str}.jsonl"
 
-    error_types = ["logical", "factual", "citation", "statistical"]
+    exp_cfg = EXPERIMENTS.get(experiment_id, EXPERIMENTS["EXP-01"])
+    error_types = exp_cfg.get("error_types", ["logical", "factual", "citation", "statistical"])
     stimuli = []
     has_key = bool(get_api_key("google"))
     client = LLMClient(provider="google" if has_key else "mock", model="gemini-3.8-flash", allow_fallback=True)
@@ -330,7 +461,7 @@ def run_stimulus_generation(
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="HSRI Lane 6 Behavioral Experiment Stimulus Generator")
-    parser.add_argument("--experiment", default="EXP-01", choices=["EXP-01"], help="Experiment ID to generate")
+    parser.add_argument("--experiment", default="EXP-01", choices=["EXP-01", "EXP-02"], help="Experiment ID to generate")
     parser.add_argument("--difficulty", default="medium", choices=["easy", "medium", "hard"], help="Difficulty tier")
     parser.add_argument("--n", type=int, default=3, help="Number of stimuli to generate")
     args = parser.parse_args()

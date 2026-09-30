@@ -87,3 +87,80 @@ def test_stimuli_file_is_valid_jsonl():
         item = json.loads(line)
         v = validate_stimulus(item)
         assert v["valid"] is True, f"Stimulus on line {idx+1} failed validation: {v['issues']}"
+
+
+def test_pilot_scores_are_in_range():
+    """Pilot scores must be 0, 1, or 2 only."""
+    from scripts.synthetic_cohort_pilot import score_response
+    sample_stim = {
+        "embedded_error_type": "logical",
+        "embedded_error_description": "Exculpatory waiver cannot release gross negligence liability",
+        "correct_detection_response": "A liability waiver cannot legally absolve gross negligence",
+    }
+    score_0, _ = score_response("Everything looks accurate and well written.", sample_stim)
+    score_1, _ = score_response("Something seems questionable with the waiver holding.", sample_stim)
+    score_2, _ = score_response("Sentence 3 contains an error: a waiver cannot absolve gross negligence.", sample_stim)
+
+    assert score_0 in (0, 1, 2) and score_0 == 0
+    assert score_1 in (0, 1, 2) and score_1 == 1
+    assert score_2 in (0, 1, 2) and score_2 == 2
+
+    # Check results file if present
+    pilot_files = list(EXP_DIR.glob("pilot-results-*.jsonl"))
+    if pilot_files:
+        latest = sorted(pilot_files)[-1]
+        for line in latest.read_text(encoding="utf-8").strip().splitlines():
+            row = json.loads(line)
+            assert row["score"] in (0, 1, 2)
+
+
+def test_pilot_discrimination_computed_correctly():
+    """D should increase monotonically with reflection level if stimuli are calibrated."""
+    from scripts.synthetic_cohort_pilot import compute_point_biserial_d
+
+    # Perfect correlation
+    levels = [0, 0, 1, 1, 2, 2]
+    scores = [0, 0, 1, 1, 2, 2]
+    d_perfect = compute_point_biserial_d(levels, scores)
+    assert d_perfect == 1.0
+
+    # Calibrated synthetic cohort: scores monotonically higher with reflection
+    calibrated_levels = [0, 0, 0, 1, 1, 1, 2, 2, 2]
+    calibrated_scores = [0, 0, 1, 1, 1, 2, 2, 2, 2]
+    d_calibrated = compute_point_biserial_d(calibrated_levels, calibrated_scores)
+    assert d_calibrated >= 0.30
+
+
+def test_revision_required_flag_on_low_discrimination():
+    """Stimuli with pilot D < 0.25 must be flagged REVISION_REQUIRED."""
+    from scripts.synthetic_cohort_pilot import evaluate_discrimination
+
+    assert evaluate_discrimination(0.20) == "REVISION_REQUIRED"
+    assert evaluate_discrimination(0.10) == "REVISION_REQUIRED"
+    assert evaluate_discrimination(0.00) == "REVISION_REQUIRED"
+    assert evaluate_discrimination(0.35) == "PASS"
+    assert evaluate_discrimination(0.50) == "PASS"
+
+
+def test_exp02_stimuli_and_readme():
+    """EXP-02 must have valid stimuli and IRB warning in README."""
+    exp02_dir = REPO_ROOT / "research" / "experiments" / "EXP-02"
+    readme_path = exp02_dir / "README.md"
+    assert readme_path.exists(), "EXP-02 README.md missing"
+    content = readme_path.read_text(encoding="utf-8")
+    assert "IRB" in content or "ethical review" in content
+    assert "MUST NOT be deployed to human participants" in content
+
+    stimuli_files = list(exp02_dir.glob("stimuli-*.jsonl"))
+    assert len(stimuli_files) >= 1, "No stimuli-*.jsonl found in EXP-02"
+
+    target_file = sorted(stimuli_files)[-1]
+    lines = target_file.read_text(encoding="utf-8").strip().splitlines()
+    assert len(lines) >= 3, f"Expected at least 3 stimuli in EXP-02, got {len(lines)}"
+
+    for idx, line in enumerate(lines):
+        item = json.loads(line)
+        v = validate_stimulus(item)
+        assert v["valid"] is True, f"EXP-02 stimulus on line {idx+1} failed validation: {v['issues']}"
+
+

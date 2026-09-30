@@ -162,11 +162,11 @@ class LLMClient:
         }
         for attempt in range(2):
             try:
-                resp = requests.post(url, headers=headers, json=payload, timeout=90)
+                resp = requests.post(url, headers=headers, json=payload, timeout=15)
                 if resp.status_code in [404, 503, 429] and model != "gemini-3.5-flash-lite":
                     model = "gemini-3.5-flash-lite"
                     url = f"{base_url}/{model}:generateContent?key={self.api_key}"
-                    resp = requests.post(url, headers=headers, json=payload, timeout=90)
+                    resp = requests.post(url, headers=headers, json=payload, timeout=15)
                 resp.raise_for_status()
                 data = resp.json()
                 candidates = data.get("candidates", [])
