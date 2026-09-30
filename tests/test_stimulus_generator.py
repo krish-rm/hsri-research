@@ -164,3 +164,54 @@ def test_exp02_stimuli_and_readme():
         assert v["valid"] is True, f"EXP-02 stimulus on line {idx+1} failed validation: {v['issues']}"
 
 
+def test_exp03_stimuli_and_readme():
+    """EXP-03 must have valid stimuli and IRB warning in README."""
+    exp03_dir = REPO_ROOT / "research" / "experiments" / "EXP-03"
+    readme_path = exp03_dir / "README.md"
+    assert readme_path.exists(), "EXP-03 README.md missing"
+    content = readme_path.read_text(encoding="utf-8")
+    assert "IRB" in content or "ethical review" in content
+    assert "MUST NOT be deployed to human participants" in content
+
+    stimuli_files = list(exp03_dir.glob("stimuli-*.jsonl"))
+    assert len(stimuli_files) >= 1, "No stimuli-*.jsonl found in EXP-03"
+
+    target_file = sorted(stimuli_files)[-1]
+    lines = target_file.read_text(encoding="utf-8").strip().splitlines()
+    assert len(lines) >= 3, f"Expected at least 3 stimuli in EXP-03, got {len(lines)}"
+
+    for idx, line in enumerate(lines):
+        item = json.loads(line)
+        v = validate_stimulus(item)
+        assert v["valid"] is True, f"EXP-03 stimulus on line {idx+1} failed validation: {v['issues']}"
+
+
+def test_exp01_irb_package():
+    """EXP-01 IRB package must have all 9 required documents and valid power analysis."""
+    irb_dir = EXP_DIR / "irb-package"
+    assert irb_dir.exists(), "EXP-01 irb-package directory missing"
+
+    expected_docs = [
+        "00-cover-sheet.md",
+        "01-study-description.md",
+        "02-participant-criteria.md",
+        "03-consent-template.md",
+        "04-risk-assessment.md",
+        "05-data-management.md",
+        "06-stimulus-battery.md",
+        "07-power-analysis.md",
+        "08-debrief-script.md",
+    ]
+    for doc in expected_docs:
+        doc_path = irb_dir / doc
+        assert doc_path.exists(), f"Missing IRB document: {doc}"
+        assert len(doc_path.read_text(encoding="utf-8").strip()) > 50
+
+    power_doc = (irb_dir / "07-power-analysis.md").read_text(encoding="utf-8")
+    assert "130" in power_doc
+    assert "260" in power_doc
+    assert "0.35" in power_doc
+
+
+
+

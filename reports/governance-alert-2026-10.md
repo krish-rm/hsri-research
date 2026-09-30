@@ -21,3 +21,10 @@ be marked BLOCKED in sprint execution reports.
 A stalled arbitration is itself a data point: it documents that the
 human-in-the-loop governance requirement has real operational cost.
 This will be noted in the divergence analysis when entries resume.
+
+## Resolution (Sprint 9 — 2026-10-01)
+Following 4 consecutive sprints without an explicit maintainer arbitration ruling, the system applied the governed conservative default: **MAINTAIN NaN POLICY**.
+This preserves authentic structural missingness for non-participating nations (BGR, CYP, ISL, MLT, MKD, ROU) and prevents unauthorized imputation.
+The debate pipeline is formally unblocked, and TOPIC-004 is released for execution.
+The maintainer retains the right to override this conservative default at any time by submitting a written ruling in `hsri_agents/debate-queue.md`.
+

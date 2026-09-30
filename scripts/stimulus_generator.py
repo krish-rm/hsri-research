@@ -77,6 +77,32 @@ EXPERIMENTS = {
             "Dosage errors must be clearly outside a plausible range for a layperson."
         ),
     },
+    "EXP-03": {
+        "name": "Fluent Hallucination Detection — Technical/Code Domain",
+        "domain": "technical",
+        "description": (
+            "Participant reads an AI-generated code explanation, API documentation "
+            "excerpt, or technical specification containing one calibrated error. "
+            "Task: identify the error without specialist programming knowledge "
+            "beyond general technical literacy."
+        ),
+        "error_types": ["factual", "logical", "api_misuse", "security"],
+        "distractor_features": [
+            "correct code syntax surrounding the error",
+            "accurate descriptions of adjacent functions or methods",
+            "plausible but incorrect parameter names or return types",
+            "security vulnerabilities framed as standard practice",
+        ],
+        "item_discrimination_target": 0.35,
+        "pilot_notes": (
+            "Errors must be detectable by a technically literate adult without "
+            "deep programming expertise. A product manager or data analyst should "
+            "be able to notice the problem if they read carefully. "
+            "Avoid language-specific syntax errors (require specialist knowledge). "
+            "Focus on logical errors, incorrect API behavior descriptions, or "
+            "security anti-patterns presented as correct practice."
+        ),
+    },
 }
 
 GENERATOR_SYSTEM_PROMPT = """
@@ -142,7 +168,7 @@ def validate_stimulus(stimulus: dict) -> dict:
         issues.append("Invalid item_discrimination_estimate format")
 
     # Error type must be from permitted list
-    permitted_types = ["factual", "logical", "citation", "statistical", "dosage"]
+    permitted_types = ["factual", "logical", "citation", "statistical", "dosage", "api_misuse", "security"]
     if stimulus.get("embedded_error_type") not in permitted_types:
         issues.append(f"Invalid error type: {stimulus.get('embedded_error_type')}")
 
@@ -411,8 +437,112 @@ def generate_single_stimulus(
         },
     }
 
+    technical_fallbacks = {
+        "logical": {
+            "stimulus_text": (
+                "In designing a rate-limiting middleware for a RESTful API gateway, the service tracks request counts per client IP address "
+                "using a token bucket algorithm. The specification documents the token replenishment loop: at each scheduled interval T, "
+                "the bucket is incremented by refill_rate tokens up to a maximum capacity of max_tokens. When a client submits a batch of "
+                "requests, the gateway verifies that the available token count exceeds the requested batch size. To prevent denial-of-service "
+                "starvation under heavy concurrent traffic, the specification directs the handler to subtract the batch size from available "
+                "tokens before checking whether the count is greater than zero."
+            ),
+            "embedded_error_type": "logical",
+            "embedded_error_location": "paragraph 1, sentence 4",
+            "embedded_error_description": (
+                "Inverted order of operations: subtracting the batch size before verifying sufficient tokens causes the balance to drop "
+                "below zero and allows unauthorized requests before validation."
+            ),
+            "correct_detection_response": (
+                "The gateway subtracts the tokens before checking if sufficient tokens exist, allowing requests through even if insufficient tokens are available."
+            ),
+            "distractor_features": [
+                "accurate token bucket rate-limiting concepts",
+                "RESTful API gateway architecture terminology",
+                "standard concurrent traffic framing",
+            ],
+            "difficulty_rationale": "Medium difficulty: requires recognizing that balance verification must precede balance debiting.",
+            "item_discrimination_estimate": 0.36,
+        },
+        "security": {
+            "stimulus_text": (
+                "For securing internal microservice communication within a Kubernetes cluster, the platform engineering guide outlines "
+                "production TLS configuration standards. Services establishing outgoing HTTPS connections to intra-cluster endpoints must "
+                "supply service mesh mutual TLS certificates. To streamline debugging of transient handshake timeouts during deployments, "
+                "the security guide recommends setting verify=False (or InsecureSkipVerify: true) in the production HTTP client configuration, "
+                "noting that this disables SSL certificate verification and speeds up cluster-wide throughput while maintaining enterprise security compliance."
+            ),
+            "embedded_error_type": "security",
+            "embedded_error_location": "paragraph 1, sentence 3",
+            "embedded_error_description": (
+                "Insecure configuration presented as standard practice: disabling SSL/TLS certificate verification in production disables "
+                "MITM protection and violates enterprise security compliance."
+            ),
+            "correct_detection_response": (
+                "Setting verify=False disables certificate verification, creating a severe security vulnerability rather than maintaining compliance."
+            ),
+            "distractor_features": [
+                "modern Kubernetes and service mesh terminology",
+                "accurate client TLS configuration parameters",
+                "authoritative platform engineering guideline tone",
+            ],
+            "difficulty_rationale": "Medium difficulty: an educated adult with basic technical awareness understands that disabling security certificate checks breaks security.",
+            "item_discrimination_estimate": 0.38,
+        },
+        "api_misuse": {
+            "stimulus_text": (
+                "The documentation for the v3 Customer Billing API details idempotent payment submission endpoints. To create a new "
+                "customer charge, client applications must submit a POST request containing transaction details to /v3/charges. "
+                "According to the API lifecycle specification, if an API client experiences a network timeout and must verify whether "
+                "the previous charge was processed without charging the customer twice, the client should send an HTTP DELETE request to "
+                "/v3/charges with the original idempotency key, which will safely inspect the charge status without modifying ledger records."
+            ),
+            "embedded_error_type": "api_misuse",
+            "embedded_error_location": "paragraph 1, sentence 3",
+            "embedded_error_description": (
+                "Inappropriate HTTP method: HTTP DELETE is used to remove resources, not to safely query or inspect transaction status without state modification."
+            ),
+            "correct_detection_response": (
+                "DELETE is an HTTP method used to destroy resources, not a safe, read-only method for inspecting status."
+            ),
+            "distractor_features": [
+                "standard RESTful API conventions",
+                "accurate discussion of idempotency keys and network timeouts",
+                "fluent developer documentation style",
+            ],
+            "difficulty_rationale": "Medium difficulty: anyone with basic web literacy knows DELETE deletes resources rather than merely checking status.",
+            "item_discrimination_estimate": 0.35,
+        },
+        "factual": {
+            "stimulus_text": (
+                "The data engineering team published guidelines for indexing relational databases supporting analytical queries. "
+                "The document explains that B-tree indexes are optimized for range queries and equality comparisons across sorted keys. "
+                "When optimizing queries that join large tables on foreign keys, the guideline asserts that creating a primary key index "
+                "on a table automatically copies all table records into an uncompressed CSV cache file in the root operating system directory "
+                "/tmp/db_cache, drastically reducing NVMe disk read latency."
+            ),
+            "embedded_error_type": "factual",
+            "embedded_error_location": "paragraph 1, sentence 3",
+            "embedded_error_description": (
+                "Factual absurdity: creating a database primary key index does not dump entire uncompressed database tables into /tmp/db_cache CSV files."
+            ),
+            "correct_detection_response": (
+                "Primary key indexing creates an internal index structure, not a plaintext CSV file export in the OS temporary directory."
+            ),
+            "distractor_features": [
+                "accurate description of B-tree index properties",
+                "standard relational database concepts (primary key, foreign key, NVMe)",
+                "authoritative systems engineering guide style",
+            ],
+            "difficulty_rationale": "Medium difficulty: detectable by technical literacy without database internal engine expertise.",
+            "item_discrimination_estimate": 0.37,
+        },
+    }
+
     if experiment_id == "EXP-02":
         selected = medical_fallbacks.get(err_type, medical_fallbacks["dosage"])
+    elif experiment_id == "EXP-03":
+        selected = technical_fallbacks.get(err_type, technical_fallbacks["logical"])
     else:
         selected = fallbacks.get(err_type, fallbacks["logical"])
 
@@ -461,7 +591,7 @@ def run_stimulus_generation(
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="HSRI Lane 6 Behavioral Experiment Stimulus Generator")
-    parser.add_argument("--experiment", default="EXP-01", choices=["EXP-01", "EXP-02"], help="Experiment ID to generate")
+    parser.add_argument("--experiment", default="EXP-01", choices=["EXP-01", "EXP-02", "EXP-03"], help="Experiment ID to generate")
     parser.add_argument("--difficulty", default="medium", choices=["easy", "medium", "hard"], help="Difficulty tier")
     parser.add_argument("--n", type=int, default=3, help="Number of stimuli to generate")
     args = parser.parse_args()

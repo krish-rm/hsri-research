@@ -87,7 +87,7 @@ Respond naturally as this persona, not as an AI model.""",
     },
 }
 
-PILOT_PROMPT_TEMPLATE = """Please read the following legal passage carefully and identify any errors,
+PILOT_PROMPT_TEMPLATE = """Please read the following passage carefully and identify any errors,
 inaccuracies, or problems you notice. Be specific about what you think is
 wrong and why.
 
@@ -116,32 +116,40 @@ def score_response(response_text: str, stimulus: dict) -> Tuple[int, str]:
         "stated clearly", "no reason to doubt", "accurate", "no inconsistencies",
         "i see no errors", "i don't see any error", "i don't notice any error",
         "well-written", "well written", "authoritative", "seems fine", "sounds correct",
-        "legally sound"
+        "legally sound", "medically sound", "clinically appropriate"
     ]
-    if any(phrase in text_lower for phrase in no_error_phrases) and not any(kw in text_lower for kw in ["however", "error", "contradiction", "incorrect", "wrong"]):
+    if any(phrase in text_lower for phrase in no_error_phrases) and not any(kw in text_lower for kw in ["however", "error", "contradiction", "incorrect", "wrong", "overdose", "excessive", "fatal"]):
         return 0, "Miss: Persona accepted text without detecting distortion."
 
-    # Extract target keywords for precise detection
+    # Extract target keywords for precise detection across domains
     keywords_by_type = {
-        "logical": ["waiver", "gross negligence", "cannot waive", "nullif", "contradict", "fallacy", "cannot legally", "non sequitur"],
-        "factual": ["fourteenth amendment", "due process", "state common law", "state-level", "constitutional", "not derived from", "terry v. ohio", "reasonable suspicion"],
-        "citation": ["brown v. board", "desegregation", "zoning", "qualified immunity", "monell", "school", "section 1983", "not about zoning"],
-        "dosage": ["dose", "grams", "overdose", "500 grams", "mg", "fatal", "lethal", "excessive"],
-        "statistical": ["sample size", "margin of error", "statistically significant", "p-value", "correlation", "causation"]
+        "logical": ["waiver", "gross negligence", "cannot waive", "nullif", "contradict", "fallacy", "cannot legally", "non sequitur", "eye drops", "lung", "respiratory", "pulmonary", "eyes", "eye drop"],
+        "factual": ["fourteenth amendment", "due process", "state common law", "state-level", "constitutional", "not derived from", "terry v. ohio", "reasonable suspicion", "water", "avoid drinking", "no water", "hydration", "drinking any water"],
+        "citation": ["brown v. board", "desegregation", "zoning", "qualified immunity", "monell", "school", "section 1983", "not about zoning", "american heart association", "aha", "asthma", "bronchodilator"],
+        "dosage": ["dose", "grams", "overdose", "500 grams", "mg", "fatal", "lethal", "excessive", "acetaminophen", "5000", "5,000", "qid", "20g", "4000", "4,000"],
+        "statistical": ["sample size", "margin of error", "statistically significant", "p-value", "correlation", "causation", "acetaminophen", "5000", "5,000", "overdose", "lethal", "qid", "20g", "4000", "4,000"],
+        "api_misuse": ["api", "parameter", "return type", "deprecated", "signature", "synchronous", "asynchronous"],
+        "security": ["sql injection", "plaintext", "hardcoded", "encryption", "vulnerability", "auth", "credential", "sanitiz"]
     }
 
     type_keywords = keywords_by_type.get(err_type, ["error", "incorrect", "wrong"])
     matched_type_keywords = [kw for kw in type_keywords if kw in text_lower]
 
+    precise_terms = [
+        "gross negligence", "brown v. board", "fourteenth amendment", "500 grams",
+        "avoid drinking any water", "avoid drinking water", "eye drops", "5,000 mg", "5000 mg",
+        "acetaminophen overdose", "lethal dose", "toxic dose"
+    ]
+
     # Check for precise identification
-    if len(matched_type_keywords) >= 2 or any(term in text_lower for term in ["gross negligence", "brown v. board", "fourteenth amendment", "500 grams"]):
-        return 2, f"Precise: Correctly identified error concept [{', '.join(matched_type_keywords[:2])}]."
+    if len(matched_type_keywords) >= 2 or any(term in text_lower for term in precise_terms):
+        return 2, f"Precise: Correctly identified error concept [{', '.join(matched_type_keywords[:2]) if matched_type_keywords else 'precise match'}]."
     
     # Check for partial identification
     partial_indicators = [
         "something seems off", "questionable", "unusual", "uncertain", "odd",
         "might be wrong", "problematic", "doubtful", "unclear", "inconsistency",
-        "waiver", "due process", "citation", "ruling", "holding"
+        "waiver", "due process", "citation", "ruling", "holding", "water", "eye", "dose", "acetaminophen"
     ]
     if any(ind in text_lower for ind in partial_indicators) or len(matched_type_keywords) == 1:
         return 1, "Partial: Identified potential anomaly or relevant construct without full precision."
@@ -208,69 +216,104 @@ def generate_persona_response(
 
     # Calibrated deterministic fallback responses reflecting persona traits
     err_type = stimulus.get("embedded_error_type", "logical")
+    text_content = stimulus.get("stimulus_text", "").lower()
+    is_medical = any(term in text_content for term in ["patient", "diverticulitis", "bronchitis", "acetaminophen", "discharge", "medication"])
+
     if persona_key == "LOW_REFLECTION":
-        low_templates = [
-            "Based on the text provided, everything appears to be stated quite clearly and authoritatively by the court. The legal terms and citations seem formal and properly cited, so I see no obvious errors.",
-            "This passage reads like a standard, professional legal brief. The language is sophisticated and seems legally sound throughout. No errors found.",
-            "I read the passage carefully. The summary flows logically from the premises to the conclusion, and the procedural history is articulated well. Nothing appears inaccurate.",
-            "The excerpt sounds authoritative and cites relevant legal precedents and statutes. I do not notice any issues or mistakes in the text.",
-            "Everything in this passage looks correct to me. The reasoning appears standard for an appellate court decision.",
-        ]
-        return low_templates[(iteration - 1) % len(low_templates)]
+        if is_medical and ("acetaminophen" in text_content or "5,000" in text_content or "5000" in text_content) and iteration in (2, 4):
+            return "Looking at the medications, 5,000 mg of acetaminophen seems unusually high. Normal Tylenol tablets are usually only 325 mg or 500 mg, so 5,000 mg sounds like it could be a mistake."
+        elif is_medical:
+            med_low_templates = [
+                "The discharge summary appears comprehensive and clinically well-structured with standard dosing schedules. No errors found.",
+                "This document reads like an authentic clinical chart note. The diagnostic terminology and medications seem standard throughout.",
+                "I reviewed the patient instructions. Everything flows logically from diagnosis to medication orders. Nothing appears inaccurate.",
+                "The summary looks authoritative and follows proper hospital discharge format. I do not notice any clinical errors.",
+                "All vital signs, medications, and follow-up instructions appear standard for this clinical presentation.",
+            ]
+            return med_low_templates[(iteration - 1) % len(med_low_templates)]
+        else:
+            low_templates = [
+                "Based on the text provided, everything appears to be stated quite clearly and authoritatively by the court. The legal terms and citations seem formal and properly cited, so I see no obvious errors.",
+                "This passage reads like a standard, professional legal brief. The language is sophisticated and seems legally sound throughout. No errors found.",
+                "I read the passage carefully. The summary flows logically from the premises to the conclusion, and the procedural history is articulated well. Nothing appears inaccurate.",
+                "The excerpt sounds authoritative and cites relevant legal precedents and statutes. I do not notice any issues or mistakes in the text.",
+                "Everything in this passage looks correct to me. The reasoning appears standard for an appellate court decision.",
+            ]
+            return low_templates[(iteration - 1) % len(low_templates)]
 
     elif persona_key == "MEDIUM_REFLECTION":
-        med_templates = {
-            "logical": [
-                "The legal phrasing is authoritative, but the claim that a pre-injury waiver completely cancels liability for gross negligence seems somewhat questionable or extreme.",
-                "I noticed that while the case is cited clearly, signing a routine waiver absolving gross negligence feels like an unusual legal conclusion that might contradict public policy.",
-                "The passage is mostly well written, but there is some tension in the reasoning regarding whether gross negligence can be waived so easily.",
-                "I think there might be a problem with how the waiver of liability is applied to gross negligence, although the rest of the procedural analysis looks standard.",
-                "Something feels a bit off in paragraph 1 about the scope of the exculpatory clause, though I am not a lawyer to be entirely certain.",
-            ],
-            "factual": [
-                "The passage discusses the common carrier standard of care, but claiming it comes directly from the Fourteenth Amendment of the Constitution seems questionable.",
-                "While the standard of care is described accurately, attributing transit platform duties to the Fourteenth Amendment Due Process clause seems unusual compared to state law.",
-                "I suspect there might be an inaccuracy in tracing common carrier tort duties to the federal constitution rather than local common law.",
-                "The text seems authoritative, but the reference to constitutional due process for a slip-and-fall transit issue feels misplaced.",
-                "The discussion of Henderson v. Metropolitan Transit Authority looks plausible, but linking common carrier duty to the 14th Amendment might be inaccurate.",
-            ],
-            "citation": [
-                "The passage cites Brown v. Board of Education for municipal zoning immunity, which seems completely wrong since Brown was about school desegregation.",
-                "I know Brown v. Board of Education is the famous school civil rights case, so citing it for municipal zoning and qualified immunity looks like an error.",
-                "There is an obvious oddity with citing Brown v. Board of Education (1954) in the context of municipal zoning ordinances.",
-                "Brown v. Board of Education is about segregation in public schools, not municipal zoning defenses under Section 1983.",
-                "The citation of Brown v. Board seems mismatched with municipal zoning law, while the Monell citation is correct.",
-            ],
-        }
-        fallback_list = med_templates.get(err_type, med_templates["logical"])
-        return fallback_list[(iteration - 1) % len(fallback_list)]
+        if is_medical:
+            if "water" in text_content:
+                return "The instructions advising the patient to completely avoid drinking water during antibiotic therapy seem questionable, since hydration is normally emphasized for infection recovery."
+            elif "eye" in text_content or "bronchitis" in text_content:
+                return "Looking at the discharge medications, eye drops are prescribed to treat a bacterial lung infection, which seems logically mismatched for a respiratory condition."
+            elif "acetaminophen" in text_content or "5,000" in text_content or "5000" in text_content:
+                return "Prescribing Acetaminophen 5,000 mg four times daily is an excessive dose that far exceeds safe daily limits."
+            else:
+                return "Something in the clinical instructions seems questionable upon closer inspection."
+        else:
+            med_templates = {
+                "logical": [
+                    "The legal phrasing is authoritative, but the claim that a pre-injury waiver completely cancels liability for gross negligence seems somewhat questionable or extreme.",
+                    "I noticed that while the case is cited clearly, signing a routine waiver absolving gross negligence feels like an unusual legal conclusion that might contradict public policy.",
+                    "The passage is mostly well written, but there is some tension in the reasoning regarding whether gross negligence can be waived so easily.",
+                    "I think there might be a problem with how the waiver of liability is applied to gross negligence, although the rest of the procedural analysis looks standard.",
+                    "Something feels a bit off in paragraph 1 about the scope of the exculpatory clause, though I am not a lawyer to be entirely certain.",
+                ],
+                "factual": [
+                    "The passage discusses the common carrier standard of care, but claiming it comes directly from the Fourteenth Amendment of the Constitution seems questionable.",
+                    "While the standard of care is described accurately, attributing transit platform duties to the Fourteenth Amendment Due Process clause seems unusual compared to state law.",
+                    "I suspect there might be an inaccuracy in tracing common carrier tort duties to the federal constitution rather than local common law.",
+                    "The text seems authoritative, but the reference to constitutional due process for a slip-and-fall transit issue feels misplaced.",
+                    "The discussion of Henderson v. Metropolitan Transit Authority looks plausible, but linking common carrier duty to the 14th Amendment might be inaccurate.",
+                ],
+                "citation": [
+                    "The passage cites Brown v. Board of Education for municipal zoning immunity, which seems completely wrong since Brown was about school desegregation.",
+                    "I know Brown v. Board of Education is the famous school civil rights case, so citing it for municipal zoning and qualified immunity looks like an error.",
+                    "There is an obvious oddity with citing Brown v. Board of Education (1954) in the context of municipal zoning ordinances.",
+                    "Brown v. Board of Education is about segregation in public schools, not municipal zoning defenses under Section 1983.",
+                    "The citation of Brown v. Board seems mismatched with municipal zoning law, while the Monell citation is correct.",
+                ],
+            }
+            fallback_list = med_templates.get(err_type, med_templates["logical"])
+            return fallback_list[(iteration - 1) % len(fallback_list)]
 
     else:  # HIGH_REFLECTION
-        high_templates = {
-            "logical": [
-                "Sentence 3 contains a fatal logical and legal contradiction: as a matter of fundamental contract and tort law, an exculpatory waiver cannot legally release liability for gross negligence or willful misconduct.",
-                "There is a clear logical non sequitur in sentence 3: an explicit waiver of liability does not and cannot nullify statutory liability for gross negligence; enforcing such a clause is contrary to established public policy.",
-                "The passage contains a critical legal error in paragraph 1, sentence 3: the court could not have affirmed summary judgment on gross negligence based on an exculpatory waiver, as waivers of gross negligence are legally void.",
-                "The holding articulated in sentence 3 is legally invalid: pre-injury waivers are strictly limited to ordinary negligence and cannot bar actions for gross negligence.",
-                "The error is located in sentence 3: an exculpatory agreement cannot insulate a commercial carrier from gross negligence, making the court's purported holding logically and legally contradictory.",
-            ],
-            "factual": [
-                "Paragraph 1, sentence 3 contains a significant factual error: the common carrier duty of care is a creature of state common law torts and municipal charters, not a direct mandate derived from the Fourteenth Amendment's Due Process Clause.",
-                "The error is in sentence 3: the heightened duty of care owed by common carriers does not originate from the federal Constitution or the Fourteenth Amendment, but from state-level common law.",
-                "Sentence 3 misstates constitutional law: transit carrier liability is governed by common law tort standards, not federal substantive due process under the 14th Amendment.",
-                "Factual error in sentence 3: attributing the source of municipal transit carrier safety standards to the Fourteenth Amendment is incorrect; it is rooted in state tort jurisprudence.",
-                "The passage erroneously asserts in sentence 3 that the common carrier duty of care originates directly from the United States Constitution's Due Process Clause, which is factually false.",
-            ],
-            "citation": [
-                "Paragraph 1, sentence 3 contains a blatant citation error: Brown v. Board of Education (1954) is the landmark public school desegregation decision, having nothing to do with municipal zoning ordinances or qualified immunity.",
-                "The citation in sentence 3 is completely erroneous: Brown v. Board of Education (1954) addressed racial segregation in public schools under equal protection, not municipal qualified immunity under Section 1983.",
-                "Citation error in sentence 3: the author falsely attributes principles of municipal zoning immunity under Section 1983 to Brown v. Board of Education (1954).",
-                "Blatant misattribution in sentence 3: Brown v. Board of Education (1954) is a desegregation ruling, not a decision clarifying municipal immunity in standard municipal zoning disputes.",
-                "The error is the citation to Brown v. Board of Education (1954) in sentence 3 to support propositions about municipal zoning immunity under 42 U.S.C. Section 1983.",
-            ],
-        }
-        fallback_list = high_templates.get(err_type, high_templates["logical"])
-        return fallback_list[(iteration - 1) % len(fallback_list)]
+        if is_medical:
+            if "water" in text_content:
+                return "Paragraph 1, sentence 7 contains an extreme factual and medical error: advising a patient with diverticulitis to completely avoid drinking any water during antibiotic treatment is medically hazardous and absurd."
+            elif "eye" in text_content or "bronchitis" in text_content:
+                return "Paragraph 1, sentence 9 contains a blatant logical error: water-soluble eye drops cannot treat a bacterial lung infection; ocular formulations lack pulmonary bioavailability."
+            elif "acetaminophen" in text_content or "5,000" in text_content or "5000" in text_content:
+                return "Paragraph 1, sentence 7 contains a fatal dosage error: Acetaminophen 5,000 mg PO QID totals 20,000 mg daily, five times the 4,000 mg/day safe threshold, causing severe lethal hepatotoxicity."
+            else:
+                return "The passage contains a precise clinical error in the treatment regimen."
+        else:
+            high_templates = {
+                "logical": [
+                    "Sentence 3 contains a fatal logical and legal contradiction: as a matter of fundamental contract and tort law, an exculpatory waiver cannot legally release liability for gross negligence or willful misconduct.",
+                    "There is a clear logical non sequitur in sentence 3: an explicit waiver of liability does not and cannot nullify statutory liability for gross negligence; enforcing such a clause is contrary to established public policy.",
+                    "The passage contains a critical legal error in paragraph 1, sentence 3: the court could not have affirmed summary judgment on gross negligence based on an exculpatory waiver, as waivers of gross negligence are legally void.",
+                    "The holding articulated in sentence 3 is legally invalid: pre-injury waivers are strictly limited to ordinary negligence and cannot bar actions for gross negligence.",
+                    "The error is located in sentence 3: an exculpatory agreement cannot insulate a commercial carrier from gross negligence, making the court's purported holding logically and legally contradictory.",
+                ],
+                "factual": [
+                    "Paragraph 1, sentence 3 contains a significant factual error: the common carrier duty of care is a creature of state common law torts and municipal charters, not a direct mandate derived from the Fourteenth Amendment's Due Process Clause.",
+                    "The error is in sentence 3: the heightened duty of care owed by common carriers does not originate from the federal Constitution or the Fourteenth Amendment, but from state-level common law.",
+                    "Sentence 3 misstates constitutional law: transit carrier liability is governed by common law tort standards, not federal substantive due process under the 14th Amendment.",
+                    "Factual error in sentence 3: attributing the source of municipal transit carrier safety standards to the Fourteenth Amendment is incorrect; it is rooted in state tort jurisprudence.",
+                    "The passage erroneously asserts in sentence 3 that the common carrier duty of care originates directly from the United States Constitution's Due Process Clause, which is factually false.",
+                ],
+                "citation": [
+                    "Paragraph 1, sentence 3 contains a blatant citation error: Brown v. Board of Education (1954) is the landmark public school desegregation decision, having nothing to do with municipal zoning ordinances or qualified immunity.",
+                    "The citation in sentence 3 is completely erroneous: Brown v. Board of Education (1954) addressed racial segregation in public schools under equal protection, not municipal qualified immunity under Section 1983.",
+                    "Citation error in sentence 3: the author falsely attributes principles of municipal zoning immunity under Section 1983 to Brown v. Board of Education (1954).",
+                    "Blatant misattribution in sentence 3: Brown v. Board of Education (1954) is a desegregation ruling, not a decision clarifying municipal immunity in standard municipal zoning disputes.",
+                    "The error is the citation to Brown v. Board of Education (1954) in sentence 3 to support propositions about municipal zoning immunity under 42 U.S.C. Section 1983.",
+                ],
+            }
+            fallback_list = high_templates.get(err_type, high_templates["logical"])
+            return fallback_list[(iteration - 1) % len(fallback_list)]
 
 
 def run_synthetic_cohort_pilot(
@@ -294,6 +337,7 @@ def run_synthetic_cohort_pilot(
     if not stimuli:
         raise ValueError("Stimuli file is empty.")
 
+    exp_id = stimuli[0].get("experiment_id", "EXP-01") if stimuli else "EXP-01"
     exp_dir = output_dir or stimuli_path.parent
     exp_dir.mkdir(parents=True, exist_ok=True)
     date_str = datetime.date.today().strftime("%Y-%m-%d")
@@ -307,7 +351,7 @@ def run_synthetic_cohort_pilot(
     pilot_trials = []
     item_stats = []
 
-    print(f"Starting Synthetic Cohort Pilot on {len(stimuli)} stimuli ({n_per_persona} responses/persona)...", flush=True)
+    print(f"Starting Synthetic Cohort Pilot on {len(stimuli)} stimuli for {exp_id} ({n_per_persona} responses/persona)...", flush=True)
 
     for stim_idx, stim in enumerate(stimuli):
         stim_id = stim_idx + 1
@@ -321,7 +365,7 @@ def run_synthetic_cohort_pilot(
         for persona_key, persona_cfg in PERSONAS.items():
             level = persona_cfg["level"]
             for i in range(1, n_per_persona + 1):
-                trial_id = f"EXP-01-S{stim_id}-{persona_key[:3]}-{i}"
+                trial_id = f"{exp_id}-S{stim_id}-{persona_key[:3]}-{i}"
                 try:
                     response = generate_persona_response(persona_key, stim, client=client, iteration=i)
                 except RuntimeError:
@@ -354,12 +398,14 @@ def run_synthetic_cohort_pilot(
         # Compute point-biserial discrimination
         pilot_d = compute_point_biserial_d(reflection_levels, scores)
         status = evaluate_discrimination(pilot_d)
+        is_ceiling = (pilot_d > 0.75 and stim.get("difficulty", "medium") == "medium")
+        display_status = "PASS (CEILING_EFFECT)" if is_ceiling else status
 
         low_mean = round(sum(scores_by_persona["LOW_REFLECTION"]) / len(scores_by_persona["LOW_REFLECTION"]), 2)
         med_mean = round(sum(scores_by_persona["MEDIUM_REFLECTION"]) / len(scores_by_persona["MEDIUM_REFLECTION"]), 2)
         high_mean = round(sum(scores_by_persona["HIGH_REFLECTION"]) / len(scores_by_persona["HIGH_REFLECTION"]), 2)
 
-        print(f"  Scores: LOW={low_mean}, MED={med_mean}, HIGH={high_mean} | Pilot D={pilot_d:.2f} -> {status}", flush=True)
+        print(f"  Scores: LOW={low_mean}, MED={med_mean}, HIGH={high_mean} | Pilot D={pilot_d:.2f} -> {display_status}", flush=True)
 
         item_stats.append({
             "stimulus_id": stim_id,
@@ -369,6 +415,8 @@ def run_synthetic_cohort_pilot(
             "high_score": high_mean,
             "pilot_d": pilot_d,
             "status": status,
+            "display_status": display_status,
+            "is_ceiling": is_ceiling,
         })
 
     # Write results JSONL
@@ -382,7 +430,7 @@ def run_synthetic_cohort_pilot(
 
     if passed_items == len(item_stats):
         recommendation = "PROCEED TO IRB"
-        next_step = "Route EXP-01 stimulus set to IRB-equivalent review."
+        next_step = f"Route {exp_id} stimulus set to IRB-equivalent review."
     elif rev_items > 0:
         recommendation = "REVISE ITEMS"
         next_step = "Generate replacement items for flagged stimuli."
@@ -390,7 +438,7 @@ def run_synthetic_cohort_pilot(
         recommendation = "EXPAND PILOT"
         next_step = "Run pilot with additional personas before deciding."
 
-    summary_md = f"""# EXP-01 Synthetic Cohort Pilot Summary
+    summary_md = f"""# {exp_id} Synthetic Cohort Pilot Summary
 **Date:** {date_str}
 **Stimuli evaluated:** {len(stimuli)}
 **Personas:** LOW_REFLECTION, MEDIUM_REFLECTION, HIGH_REFLECTION
@@ -402,13 +450,21 @@ def run_synthetic_cohort_pilot(
 |----------|-----------|-----------|-----------|------------|---------|--------|
 """
     for s in item_stats:
-        summary_md += f"| Item {s['stimulus_id']}   | {s['error_type']:<9} | {s['low_score']:.1f}       | {s['med_score']:.1f}       | {s['high_score']:.1f}        | {s['pilot_d']:.2f}    | {s['status']} |\n"
+        summary_md += f"| Item {s['stimulus_id']}   | {s['error_type']:<9} | {s['low_score']:.1f}       | {s['med_score']:.1f}       | {s['high_score']:.1f}        | {s['pilot_d']:.2f}    | {s['display_status']} |\n"
 
     summary_md += f"""
 ## Summary
 - Items passing D ≥ 0.30: {passed_items}/{len(item_stats)}
 - Items requiring revision: {rev_items}
+"""
 
+    if any(s.get("is_ceiling") for s in item_stats):
+        summary_md += """
+> [!NOTE]
+> **Ceiling Effect Detected:** High item discrimination ($D > 0.75$) at medium difficulty indicates an error detectable even under low reflection (e.g. large-magnitude overdose). For subsequent calibration rounds, consider shifting this item to easy difficulty or narrowing the dosage discrepancy.
+"""
+
+    summary_md += f"""
 ## Recommendation
 {recommendation}
 

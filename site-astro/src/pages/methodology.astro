@@ -30,6 +30,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
           <a href="#indicators" class="nav-btn" data-section="indicators">Indicators Catalog</a>
           <a href="#scoring" class="nav-btn" data-section="scoring">Scoring Methodology</a>
           <a href="#validation" class="nav-btn" data-section="validation">Statistical Diagnostics</a>
+          <a href="#experiment-pipeline" class="nav-btn" data-section="experiment-pipeline">Behavioral Lab</a>
           <a href="#cite" class="nav-btn" data-section="cite">How to Cite</a>
           <a href="#limitations" class="nav-btn" data-section="limitations">Limitations</a>
         </nav>
@@ -47,6 +48,56 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
       <div class="methodology-main">
         <MethodologyOverview client:load />
+
+        <!-- Behavioral Experiment Pipeline Section (Phase 2 Roadmap) -->
+        <section id="experiment-pipeline" class="experiment-pipeline">
+          <h2>Behavioral Experiment Pipeline</h2>
+          <p>
+            HSRI's Phase 2 research roadmap targets direct behavioral measurement of
+            human discernment under AI automation pressure. Current status:
+          </p>
+
+          <table class="experiment-status-table">
+            <thead>
+              <tr>
+                <th>Experiment</th><th>Domain</th><th>Status</th><th>Pilot D</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>EXP-01</td>
+                <td>Legal — Fluent Hallucination Detection</td>
+                <td><span class="badge-proceed">PROCEED TO IRB</span></td>
+                <td>0.72–0.84</td>
+              </tr>
+              <tr>
+                <td>EXP-02</td>
+                <td>Medical — Fluent Hallucination Detection</td>
+                <td><span class="badge-pilot">PILOT IN PROGRESS</span></td>
+                <td>TBD</td>
+              </tr>
+              <tr>
+                <td>EXP-03</td>
+                <td>Technical/Code — Fluent Hallucination Detection</td>
+                <td><span class="badge-generation">STIMULUS GENERATION</span></td>
+                <td>TBD</td>
+              </tr>
+              <tr>
+                <td>EXP-04 through EXP-09</td>
+                <td>Various</td>
+                <td><span class="badge-queued">QUEUED</span></td>
+                <td>—</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p class="irb-note">
+            ⚠️ No stimuli have been deployed to human participants. All experiments
+            are under IRB gate. EXP-01 package is ready for institutional submission.
+            <a href="https://github.com/krish-rm/hsri-research/tree/main/research/experiments" target="_blank" rel="noopener noreferrer">
+            View experiment repository →</a>
+          </p>
+        </section>
 
         <!-- How to Cite Section -->
         <section id="cite" class="cite-section" style="margin-top: 2rem; background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
@@ -489,6 +540,114 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       .indicators-list {
         max-height: none;
       }
+    }
+
+    .experiment-pipeline {
+      margin-top: 2rem;
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .experiment-pipeline h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 0;
+      margin-bottom: 0.75rem;
+    }
+
+    .experiment-pipeline p {
+      font-size: 1rem;
+      color: #334155;
+      line-height: 1.6;
+      margin-bottom: 1.25rem;
+    }
+
+    .experiment-status-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.95rem;
+    }
+
+    .experiment-status-table th {
+      background-color: var(--surface-color);
+      color: #1e293b;
+      font-weight: 600;
+      text-align: left;
+      padding: 0.75rem 1rem;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    .experiment-status-table td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid #e2e8f0;
+      color: #334155;
+    }
+
+    .experiment-status-table tr:hover {
+      background-color: #f8fafc;
+    }
+
+    .badge-proceed {
+      background-color: #dcfce7;
+      color: #166534;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.75rem;
+      display: inline-block;
+    }
+
+    .badge-pilot {
+      background-color: #fef3c7;
+      color: #92400e;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.75rem;
+      display: inline-block;
+    }
+
+    .badge-generation {
+      background-color: #e0e7ff;
+      color: #3730a3;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.75rem;
+      display: inline-block;
+    }
+
+    .badge-queued {
+      background-color: #f1f5f9;
+      color: #475569;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.75rem;
+      display: inline-block;
+    }
+
+    .irb-note {
+      background-color: #fffbeb;
+      border: 1px solid #fef3c7;
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      color: #92400e !important;
+      font-size: 0.9rem !important;
+      line-height: 1.5 !important;
+      margin-top: 1rem;
+    }
+
+    .irb-note a {
+      color: #b45309;
+      font-weight: 600;
+      text-decoration: underline;
+      margin-left: 0.25rem;
     }
   </style>
 </HSRILayout>

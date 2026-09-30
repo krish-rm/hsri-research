@@ -97,6 +97,15 @@ jobs:
                   checks["research_updates_200"] = (ru_res.getcode() == 200)
                   checks["research_updates_content"] = "Literature Digests" in ru_html
 
+                  # Check methodology page reachable and contains behavioral experiment pipeline
+                  meth_req = urllib.request.Request(f"{base_url}methodology/", headers={"Cache-Control": "no-cache", "User-Agent": "HSRI-SmokeTest/5.0"})
+                  meth_res = urllib.request.urlopen(meth_req, timeout=15)
+                  methodology_html = meth_res.read().decode("utf-8")
+                  checks["methodology_page_200"] = (meth_res.getcode() == 200)
+                  checks["exp_pipeline_on_methodology"] = (
+                      "EXP-01" in methodology_html and "PROCEED TO IRB" in methodology_html
+                  )
+
                   csv_urls = [
                       f"{base_url}downloads/hsri-country-scores.csv",
                       f"{base_url}downloads/hsri-normalized-indicators.csv",

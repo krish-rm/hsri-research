@@ -56,6 +56,28 @@ TOPICS = {
             "in ways that do not reflect their populations' actual digital literacy levels."
         ),
     },
+    "TOPIC-004": {
+        "id": "TOPIC-004",
+        "description": (
+            "Is the current macro-exposure gap model (contrasting preparedness score "
+            "against structural AI adoption exposure) empirically defensible as a "
+            "composite metric, or does it introduce a hidden assumption about the "
+            "relationship between economic exposure and cognitive readiness?"
+        ),
+        "trigger_lane": "causal_model",
+        "evidence_package": "docs/04-causal-model-and-index-design.md",
+        "proponent_brief": (
+            "Contrasting aggregate preparedness against macro-exposure highlights "
+            "asymmetric vulnerability and provides a clear prioritization metric for policymakers. "
+            "Macro-exposure reflects structural labor-market pressure that demands readiness."
+        ),
+        "skeptic_brief": (
+            "A composite exposure gap metric implicitly assumes an inverse linear relationship "
+            "between structural exposure and cognitive readiness. Nations with high economic exposure "
+            "and strong institutional governance (such as Japan and South Korea) are unfairly "
+            "penalized by a simplistic subtractive or additive gap model that ignores non-linear buffers."
+        ),
+    },
 }
 
 TOPIC = TOPICS["TOPIC-002"]
@@ -327,7 +349,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--topic",
         default="TOPIC-002",
-        choices=["TOPIC-002", "TOPIC-003"],
+        choices=["TOPIC-002", "TOPIC-003", "TOPIC-004"],
         help="Debate topic to run",
     )
     args = parser.parse_args()
