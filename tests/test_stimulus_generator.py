@@ -213,5 +213,46 @@ def test_exp01_irb_package():
     assert "0.35" in power_doc
 
 
+def test_exp02_irb_package():
+    """EXP-02 IRB package must have all 9 required documents, PI/affiliation notice, and power analysis."""
+    exp02_dir = REPO_ROOT / "research" / "experiments" / "EXP-02"
+    irb_dir = exp02_dir / "irb-package"
+    assert irb_dir.exists(), "EXP-02 irb-package directory missing"
 
+    expected_docs = [
+        "00-cover-sheet.md",
+        "01-study-description.md",
+        "02-participant-criteria.md",
+        "03-consent-template.md",
+        "04-risk-assessment.md",
+        "05-data-management.md",
+        "06-stimulus-battery.md",
+        "07-power-analysis.md",
+        "08-debrief-script.md",
+    ]
+    for doc in expected_docs:
+        doc_path = irb_dir / doc
+        assert doc_path.exists(), f"Missing EXP-02 IRB document: {doc}"
+        content = doc_path.read_text(encoding="utf-8")
+        assert len(content.strip()) > 50
+        assert "v0.3" in content, f"Missing v0.3-dev disclaimer in {doc}"
 
+    # Verify PI / institutional affiliation block
+    cover_sheet = (irb_dir / "00-cover-sheet.md").read_text(encoding="utf-8")
+    assert "Principal Investigator" in cover_sheet
+    assert "institutional affiliation" in cover_sheet.lower()
+    assert "None Designated" in cover_sheet or "none designated" in cover_sheet.lower()
+
+    # Verify sensitivity table and effect size assumption in power analysis
+    power_doc = (irb_dir / "07-power-analysis.md").read_text(encoding="utf-8")
+    assert "0.35" in power_doc
+    assert "0.25" in power_doc
+    assert "0.30" in power_doc
+    assert "0.40" in power_doc
+    assert "130" in power_doc
+    assert "260" in power_doc
+
+    # Verify medical safety debrief script
+    debrief = (irb_dir / "08-debrief-script.md").read_text(encoding="utf-8")
+    assert "clinician" in debrief.lower() or "physician" in debrief.lower()
+    assert "5,000 mg" in debrief or "5000 mg" in debrief
