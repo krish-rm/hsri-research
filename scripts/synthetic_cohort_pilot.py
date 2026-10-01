@@ -429,8 +429,8 @@ def run_synthetic_cohort_pilot(
     rev_items = sum(1 for s in item_stats if s["status"] == "REVISION_REQUIRED")
 
     if passed_items == len(item_stats):
-        recommendation = "PROCEED TO IRB"
-        next_step = f"Route {exp_id} stimulus set to IRB-equivalent review."
+        recommendation = "STIMULI CLEARED FOR IRB SUBMISSION"
+        next_step = f"Assemble {exp_id} institutional IRB package for maintainer review prior to any human participant deployment."
     elif rev_items > 0:
         recommendation = "REVISE ITEMS"
         next_step = "Generate replacement items for flagged stimuli."

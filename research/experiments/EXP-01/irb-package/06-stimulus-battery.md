@@ -1,6 +1,6 @@
 # Stimulus Battery & Scoring Rubric
 
-This document presents the complete 3-item stimulus battery and the validated scoring rubric for EXP-01.
+This document presents the complete 3-item stimulus battery and scoring rubric for EXP-01.
 
 ---
 
@@ -16,7 +16,7 @@ This document presents the complete 3-item stimulus battery and the validated sc
 - **Embedded Error Location:** Paragraph 1, Sentence 3
 - **Embedded Error Ground Truth:** The text asserts that a pre-injury waiver of liability nullifies the right to sue for gross negligence, which is a logical and legal impossibility in contract and tort law since ordinary exculpatory waivers cannot legally release liability for gross negligence or intentional misconduct.
 - **Distractor Features:** Authoritative legal language, formal citation (*Vance v. Meridian Logistics*), procedural terminology (summary judgment, appellate court, duty of care), plausible statutory references.
-- **Target Item Discrimination ($D$):** 0.38 (Pilot $D = 0.84$)
+- **Target Item Discrimination ($D$):** 0.38 (Synthetic LLM cohort pilot $D = 0.84$; not human data)
 
 ---
 
@@ -32,7 +32,7 @@ This document presents the complete 3-item stimulus battery and the validated sc
 - **Embedded Error Location:** Paragraph 1, Sentence 3
 - **Embedded Error Ground Truth:** Claims that the common carrier standard of care originates directly from the United States Constitution (Fourteenth Amendment's Due Process Clause) rather than state common law tort principles.
 - **Distractor Features:** Sophisticated legal phrasing, realistic case name (*Henderson v. Metropolitan Transit Authority*), correct procedural vocabulary, plausible constitutional rhetoric.
-- **Target Item Discrimination ($D$):** 0.38 (Pilot $D = 0.72$)
+- **Target Item Discrimination ($D$):** 0.38 (Synthetic LLM cohort pilot $D = 0.72$; not human data)
 
 ---
 
@@ -48,7 +48,7 @@ This document presents the complete 3-item stimulus battery and the validated sc
 - **Embedded Error Location:** Paragraph 1, Sentence 3
 - **Embedded Error Ground Truth:** Falsely attributes a ruling on municipal qualified immunity and zoning ordinances to the historic public school desegregation decision *Brown v. Board of Education* (1954).
 - **Distractor Features:** Authoritative legal jargon, authentic citation to *Monell v. Department of Social Services*, accurate § 1983 context, blending real precedent with absurd misattribution.
-- **Target Item Discrimination ($D$):** 0.38 (Pilot $D = 0.81$)
+- **Target Item Discrimination ($D$):** 0.38 (Synthetic LLM cohort pilot $D = 0.81$; not human data)
 
 ---
 

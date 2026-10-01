@@ -30,4 +30,4 @@ The stimulus battery comprises three calibrated legal domain passages:
 2. **Item 2 (Factual Error):** False attribution of common carrier duty of care to the 14th Amendment of the U.S. Constitution rather than state common law.
 3. **Item 3 (Citation Error):** Fabricated attribution of municipal zoning and qualified immunity doctrine to *Brown v. Board of Education* (1954).
 
-All stimuli underwent psychometric synthetic cohort piloting, demonstrating strong item discrimination ($D \ge 0.72$) and meeting all calibrated quality criteria.
+All stimuli underwent synthetic LLM persona cohort testing, meeting item design constraint checks ($D \ge 0.72$ in synthetic testing; human validation pending). Synthetic-persona pilots test stimulus behavior only and do not provide evidence about human cognition.

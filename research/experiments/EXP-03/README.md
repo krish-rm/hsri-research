@@ -10,13 +10,16 @@ Technically literate adults without deep specialist software engineering or cybe
 (e.g., product managers, data analysts, technical operations personnel, technology journalists).
 
 ## Pilot Status
-Stimuli generated. Validation against item discrimination criteria: 3/3 passed.
-NOT yet approved for human participant deployment.
+Stimuli generated. Constraint checks against item discrimination targets: 3/3 passed (synthetic/generator estimate; not human validation).
+NOT approved for human participant deployment.
 
 ## IRB / Ethics Note
 ⚠️ **IRB / Ethics Warning**: These stimuli MUST NOT be deployed to human participants without IRB-equivalent
-ethical review. The agent generates and validates stimuli; it does not deploy them.
+ethical review. The agent generates stimuli; it does not deploy them.
 The deployment gate is a human institutional review process outside this system.
+
+## Error Type Coverage Gap (Sprint 11 Candidate)
+The stimulus generator specification for EXP-03 permits four error types: `factual`, `logical`, `api_misuse`, and `security`. The current 3-item pilot battery (`stimuli-2026-09-30.jsonl`) contains two `factual` items and one `logical` item (focusing on token storage security anti-patterns and signature/encryption confusion). The battery currently contains neither a dedicated `api_misuse` item nor a dedicated `security` item. Expanding the stimulus pool to include dedicated `api_misuse` and `security` items is queued as a candidate deliverable for Sprint 11.
 
 ## Stimulus Format
 Each stimulus is a JSONL entry with fields documented in `data-dictionary.md`:

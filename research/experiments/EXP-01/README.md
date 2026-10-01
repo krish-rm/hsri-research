@@ -8,12 +8,12 @@ errors embedded in fluent, authoritative AI-generated legal text under cognitive
 Educated adults without legal specialist training.
 
 ## Pilot Status
-Stimuli generated. Validation against item discrimination criteria: 3/3 passed.
+Stimuli generated. Constraint checks against item discrimination targets: 3/3 passed (synthetic cohort estimate; not human validation).
 NOT yet approved for human participant deployment.
 
 ## IRB / Ethics Note
 ⚠️ **IRB / Ethics Warning**: These stimuli MUST NOT be deployed to human participants without IRB-equivalent
-ethical review. The agent generates and validates stimuli; it does not deploy them.
+ethical review. The agent generates stimuli; it does not deploy them.
 The deployment gate is a human institutional review process outside this system.
 
 ## Stimulus Format

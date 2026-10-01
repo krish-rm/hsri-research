@@ -5,7 +5,7 @@ Topics are run in order. Each topic requires a completed run before the next beg
 ## TOPIC-002 — Pillar Weighting Defensibility [STATUS: complete — NO CHANGE — 2026-09-27]
 Is the equal 25/25/25/25 weighting defensible given Critical Discernment has the weakest indicator coverage?
 
-## TOPIC-003 [STATUS: auto-resolved — MAINTAIN NaN — 2026-10-01]
+## TOPIC-003 [STATUS: auto-resolved — MAINTAIN NaN — 2026-09-30T22:30:00+05:30]
 **Resolution:** Conservative default applied (Sprint 9, 4th sprint since escalation).
 **Ruling:** MAINTAIN NaN POLICY pending future evidence.
 **Override:** Maintainer may issue explicit ruling at any time.
@@ -16,13 +16,13 @@ Skeptic brief: Six nations are systematically disadvantaged in the Critical Disc
 
 Evidence package: docs/10-proxy-framework.md §Missingness
 
-## TOPIC-004 — Exposure Gap Modeling Validity [STATUS: complete — PROPOSED DIFF — 2026-10-01]
+## TOPIC-004 — Exposure Gap Modeling Validity [STATUS: complete, awaiting maintainer review: single-model result, not a finding]
 Is the current macro-exposure gap model (contrasting preparedness score
 against structural AI adoption exposure) empirically defensible as a
 composite metric, or does it introduce a hidden assumption about the
 relationship between economic exposure and cognitive readiness?
 
-Verdict: PROPOSED DIFF (Gemini 3.8 Flash). Cites Governance & Ethics and notes geographic bias in framing automation exposure strictly as vulnerability versus demographic necessity (e.g. East Asian developmental state model).
+Verdict: PROPOSED DIFF (Gemini 3.8 Flash single-model run; awaiting maintainer review: single-model result, not a finding. No methodology change proposed or implemented). Cites Governance & Ethics and notes geographic bias in framing automation exposure strictly as vulnerability versus demographic necessity (e.g. East Asian developmental state model).
 
 Evidence package: docs/04-causal-model-and-index-design.md §Exposure
 
