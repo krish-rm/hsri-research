@@ -123,13 +123,13 @@ def score_response(response_text: str, stimulus: dict) -> Tuple[int, str]:
 
     # Extract target keywords for precise detection across domains
     keywords_by_type = {
-        "logical": ["waiver", "gross negligence", "cannot waive", "nullif", "contradict", "fallacy", "cannot legally", "non sequitur", "eye drops", "lung", "respiratory", "pulmonary", "eyes", "eye drop"],
-        "factual": ["fourteenth amendment", "due process", "state common law", "state-level", "constitutional", "not derived from", "terry v. ohio", "reasonable suspicion", "water", "avoid drinking", "no water", "hydration", "drinking any water"],
+        "logical": ["waiver", "gross negligence", "cannot waive", "nullif", "contradict", "fallacy", "cannot legally", "non sequitur", "eye drops", "lung", "respiratory", "pulmonary", "eyes", "eye drop", "local storage", "xss", "cross-site scripting", "insecure", "token"],
+        "factual": ["fourteenth amendment", "due process", "state common law", "state-level", "constitutional", "not derived from", "terry v. ohio", "reasonable suspicion", "water", "avoid drinking", "no water", "hydration", "drinking any water", "local storage", "xss", "cross-site scripting", "encrypt", "encode", "signature", "base64", "signed"],
         "citation": ["brown v. board", "desegregation", "zoning", "qualified immunity", "monell", "school", "section 1983", "not about zoning", "american heart association", "aha", "asthma", "bronchodilator"],
         "dosage": ["dose", "grams", "overdose", "500 grams", "mg", "fatal", "lethal", "excessive", "acetaminophen", "5000", "5,000", "qid", "20g", "4000", "4,000"],
         "statistical": ["sample size", "margin of error", "statistically significant", "p-value", "correlation", "causation", "acetaminophen", "5000", "5,000", "overdose", "lethal", "qid", "20g", "4000", "4,000"],
-        "api_misuse": ["api", "parameter", "return type", "deprecated", "signature", "synchronous", "asynchronous"],
-        "security": ["sql injection", "plaintext", "hardcoded", "encryption", "vulnerability", "auth", "credential", "sanitiz"]
+        "api_misuse": ["timeout", "hang", "indefinitely", "requests", "default timeout", "block", "no default", "parameter", "omit", "urllib3"],
+        "security": ["secrets", "random", "cryptographically", "deterministic", "pseudo-random", "mersenne", "prng", "csprng", "insecure", "vulnerability"]
     }
 
     type_keywords = keywords_by_type.get(err_type, ["error", "incorrect", "wrong"])
@@ -138,7 +138,9 @@ def score_response(response_text: str, stimulus: dict) -> Tuple[int, str]:
     precise_terms = [
         "gross negligence", "brown v. board", "fourteenth amendment", "500 grams",
         "avoid drinking any water", "avoid drinking water", "eye drops", "5,000 mg", "5000 mg",
-        "acetaminophen overdose", "lethal dose", "toxic dose"
+        "acetaminophen overdose", "lethal dose", "toxic dose",
+        "local storage", "cross-site scripting", "xss", "not encrypted", "base64", "signed rather than encrypted", "signed, not encrypted",
+        "no default timeout", "block indefinitely", "blocks indefinitely", "hang indefinitely", "hangs indefinitely", "secrets module", "not cryptographically secure", "mersenne twister is not cryptographically secure"
     ]
 
     # Check for precise identification
@@ -149,7 +151,8 @@ def score_response(response_text: str, stimulus: dict) -> Tuple[int, str]:
     partial_indicators = [
         "something seems off", "questionable", "unusual", "uncertain", "odd",
         "might be wrong", "problematic", "doubtful", "unclear", "inconsistency",
-        "waiver", "due process", "citation", "ruling", "holding", "water", "eye", "dose", "acetaminophen"
+        "waiver", "due process", "citation", "ruling", "holding", "water", "eye", "dose", "acetaminophen",
+        "cookie", "storage", "jwt", "token", "encryption", "timeout", "random", "secret", "security"
     ]
     if any(ind in text_lower for ind in partial_indicators) or len(matched_type_keywords) == 1:
         return 1, "Partial: Identified potential anomaly or relevant construct without full precision."
@@ -217,7 +220,11 @@ def generate_persona_response(
     # Calibrated deterministic fallback responses reflecting persona traits
     err_type = stimulus.get("embedded_error_type", "logical")
     text_content = stimulus.get("stimulus_text", "").lower()
+    exp_id = stimulus.get("experiment_id", "")
     is_medical = any(term in text_content for term in ["patient", "diverticulitis", "bronchitis", "acetaminophen", "discharge", "medication"])
+    is_technical = (exp_id == "EXP-03") or any(term in text_content for term in [
+        "jwt", "token", "requests.get", "random.choices", "local storage", "api", "python", "http", "mersenne twister", "timeout"
+    ])
 
     if persona_key == "LOW_REFLECTION":
         if is_medical and ("acetaminophen" in text_content or "5,000" in text_content or "5000" in text_content) and iteration in (2, 4):
@@ -231,6 +238,15 @@ def generate_persona_response(
                 "All vital signs, medications, and follow-up instructions appear standard for this clinical presentation.",
             ]
             return med_low_templates[(iteration - 1) % len(med_low_templates)]
+        elif is_technical:
+            tech_low_templates = [
+                "The technical documentation and architecture design appear clear and well-structured. Standard industry patterns and best practices seem to be followed throughout. No errors found.",
+                "This excerpt reads like a standard, professional engineering specification. The terminology and component interactions flow logically. I see no obvious errors.",
+                "I reviewed the technical passage carefully. The API guidelines and security rationale are stated authoritatively. Everything appears accurate.",
+                "The architecture note looks sound and aligns with standard software design documentation. I do not notice any technical or procedural errors.",
+                "All parameters, design choices, and protocols described here seem reasonable and standard for modern web application infrastructure.",
+            ]
+            return tech_low_templates[(iteration - 1) % len(tech_low_templates)]
         else:
             low_templates = [
                 "Based on the text provided, everything appears to be stated quite clearly and authoritatively by the court. The legal terms and citations seem formal and properly cited, so I see no obvious errors.",
@@ -251,6 +267,17 @@ def generate_persona_response(
                 return "Prescribing Acetaminophen 5,000 mg four times daily is an excessive dose that far exceeds safe daily limits."
             else:
                 return "Something in the clinical instructions seems questionable upon closer inspection."
+        elif is_technical:
+            if "local storage" in text_content:
+                return "The architecture explanation is well written, but storing sensitive authentication tokens in browser local storage seems questionable due to potential client-side script security risks."
+            elif "encrypt" in text_content and ("jwt" in text_content or "token" in text_content):
+                return "The text describes JSON Web Token handling well, but claiming the HMAC signature encrypts the payload seems questionable since signatures normally only provide tamper detection."
+            elif "requests.get" in text_content or "timeout" in text_content:
+                return "Omitting the timeout parameter in requests.get() seems like a questionable practice, because network requests might hang if the server does not respond."
+            elif "random" in text_content or "mersenne" in text_content:
+                return "Using Python's standard random module to generate authentication codes seems questionable from a security perspective compared to cryptographic libraries."
+            else:
+                return "Something in the technical specification seems questionable upon closer inspection."
         else:
             med_templates = {
                 "logical": [
@@ -288,6 +315,19 @@ def generate_persona_response(
                 return "Paragraph 1, sentence 7 contains a fatal dosage error: Acetaminophen 5,000 mg PO QID totals 20,000 mg daily, five times the 4,000 mg/day safe threshold, causing severe lethal hepatotoxicity."
             else:
                 return "The passage contains a precise clinical error in the treatment regimen."
+        elif is_technical:
+            if "local storage" in text_content and err_type == "factual":
+                return "Paragraph 1, sentence 7 contains a critical factual and security error: storing sensitive session tokens in browser local storage is not standard secure practice because local storage is vulnerable to cross-site scripting (XSS) attacks; secure HTTP-only cookies should be used instead."
+            elif "local storage" in text_content and err_type == "logical":
+                return "Paragraph 1, sentence 3 contains a logical contradiction: the specification claims robust session management, but storing sensitive tokens in browser local storage introduces severe cross-site scripting (XSS) vulnerabilities."
+            elif "encrypt" in text_content:
+                return "Paragraph 1, sentence 2 contains a factual technical error: HMAC-SHA256 signs the JWT to verify authenticity, but does not encrypt the payload; standard JWT payloads are base64-encoded and publicly readable."
+            elif "requests.get" in text_content or "timeout" in text_content:
+                return "Paragraph 1, sentence 4 contains an API misuse error: Python requests.get() sets no default timeout; omitting the timeout parameter means the call will block indefinitely if the remote server hangs."
+            elif "random" in text_content or "mersenne" in text_content:
+                return "Paragraph 1, sentence 3 contains a critical security error: Python's standard random module uses the Mersenne Twister PRNG, which is completely deterministic and not cryptographically secure; the secrets module must be used for authentication tokens."
+            else:
+                return "The technical passage contains a precise error in its architectural implementation."
         else:
             high_templates = {
                 "logical": [
@@ -317,28 +357,46 @@ def generate_persona_response(
 
 
 def run_synthetic_cohort_pilot(
-    stimuli_path: Path,
+    stimuli_path: Any,
     n_per_persona: int = 5,
     output_dir: Optional[Path] = None,
 ) -> Tuple[Path, Path]:
     """
-    Executes synthetic cohort pilot across all stimuli in the specified JSONL file.
+    Executes synthetic cohort pilot across all stimuli in the specified JSONL file(s).
     Outputs results JSONL and markdown summary.
     """
-    if not stimuli_path.exists():
-        raise FileNotFoundError(f"Stimuli file not found: {stimuli_path}")
+    if isinstance(stimuli_path, (list, tuple)):
+        paths = [Path(p) if not isinstance(p, Path) else p for p in stimuli_path]
+    elif isinstance(stimuli_path, (str, Path)):
+        s_str = str(stimuli_path)
+        if "," in s_str:
+            paths = [Path(p.strip()) for p in s_str.split(",") if p.strip()]
+        else:
+            paths = [Path(stimuli_path)]
+    else:
+        paths = [Path(stimuli_path)]
+
+    # Resolve paths
+    resolved_paths = []
+    for p in paths:
+        if not p.is_absolute():
+            p = ROOT_DIR / p
+        if not p.exists():
+            raise FileNotFoundError(f"Stimuli file not found: {p}")
+        resolved_paths.append(p)
 
     stimuli = []
-    with open(stimuli_path, "r", encoding="utf-8") as f:
-        for line in f:
-            if line.strip():
-                stimuli.append(json.loads(line.strip()))
+    for p in resolved_paths:
+        with open(p, "r", encoding="utf-8") as f:
+            for line in f:
+                if line.strip():
+                    stimuli.append(json.loads(line.strip()))
 
     if not stimuli:
-        raise ValueError("Stimuli file is empty.")
+        raise ValueError("No stimuli loaded from specified file(s).")
 
     exp_id = stimuli[0].get("experiment_id", "EXP-01") if stimuli else "EXP-01"
-    exp_dir = output_dir or stimuli_path.parent
+    exp_dir = output_dir or resolved_paths[0].parent
     exp_dir.mkdir(parents=True, exist_ok=True)
     date_str = datetime.date.today().strftime("%Y-%m-%d")
 
@@ -398,12 +456,19 @@ def run_synthetic_cohort_pilot(
         # Compute point-biserial discrimination
         pilot_d = compute_point_biserial_d(reflection_levels, scores)
         status = evaluate_discrimination(pilot_d)
-        is_ceiling = (pilot_d > 0.75 and stim.get("difficulty", "medium") == "medium")
-        display_status = "PASS (CEILING_EFFECT)" if is_ceiling else status
 
         low_mean = round(sum(scores_by_persona["LOW_REFLECTION"]) / len(scores_by_persona["LOW_REFLECTION"]), 2)
         med_mean = round(sum(scores_by_persona["MEDIUM_REFLECTION"]) / len(scores_by_persona["MEDIUM_REFLECTION"]), 2)
         high_mean = round(sum(scores_by_persona["HIGH_REFLECTION"]) / len(scores_by_persona["HIGH_REFLECTION"]), 2)
+
+        is_ceiling = (pilot_d > 0.75 and stim.get("difficulty", "medium") == "medium") or (med_mean >= 1.9 and high_mean >= 1.9 and low_mean <= 0.5)
+        is_floor = (high_mean < 0.5 or (low_mean == 0.0 and med_mean == 0.0 and high_mean == 0.0))
+        if is_ceiling:
+            display_status = "PASS (CEILING_EFFECT)"
+        elif is_floor:
+            display_status = "FLOOR_EFFECT"
+        else:
+            display_status = status
 
         print(f"  Scores: LOW={low_mean}, MED={med_mean}, HIGH={high_mean} | Pilot D={pilot_d:.2f} -> {display_status}", flush=True)
 
@@ -417,6 +482,7 @@ def run_synthetic_cohort_pilot(
             "status": status,
             "display_status": display_status,
             "is_ceiling": is_ceiling,
+            "is_floor": is_floor,
         })
 
     # Write results JSONL
@@ -443,6 +509,7 @@ def run_synthetic_cohort_pilot(
 **Stimuli evaluated:** {len(stimuli)}
 **Personas:** LOW_REFLECTION, MEDIUM_REFLECTION, HIGH_REFLECTION
 **Responses per persona:** {n_per_persona}
+**Epistemic Notice:** Synthetic pilot, stimulus behavior only. Simulated LLM personas are never evidence about human participants (Rule 12).
 
 ## Item Discrimination Results
 
@@ -450,7 +517,7 @@ def run_synthetic_cohort_pilot(
 |----------|-----------|-----------|-----------|------------|---------|--------|
 """
     for s in item_stats:
-        summary_md += f"| Item {s['stimulus_id']}   | {s['error_type']:<9} | {s['low_score']:.1f}       | {s['med_score']:.1f}       | {s['high_score']:.1f}        | {s['pilot_d']:.2f}    | {s['display_status']} |\n"
+        summary_md += f"| Item {s['stimulus_id']}   | {s['error_type']:<10} | {s['low_score']:.1f}       | {s['med_score']:.1f}       | {s['high_score']:.1f}        | {s['pilot_d']:.2f}    | {s['display_status']} |\n"
 
     summary_md += f"""
 ## Summary
@@ -461,7 +528,12 @@ def run_synthetic_cohort_pilot(
     if any(s.get("is_ceiling") for s in item_stats):
         summary_md += """
 > [!NOTE]
-> **Ceiling Effect Detected:** High item discrimination ($D > 0.75$) at medium difficulty indicates an error detectable even under low reflection (e.g. large-magnitude overdose). For subsequent calibration rounds, consider shifting this item to easy difficulty or narrowing the dosage discrepancy.
+> **Ceiling Effect Detected:** High item discrimination ($D > 0.75$) at medium difficulty indicates an error detectable even under low reflection or saturating across upper reflection levels. For subsequent calibration rounds, consider shifting affected items to easy difficulty or narrowing the distortion salience.
+"""
+    if any(s.get("is_floor") for s in item_stats):
+        summary_md += """
+> [!NOTE]
+> **Floor Effect Detected:** Item difficulty exceeds upper persona detection threshold. Consider making error signals more salient.
 """
 
     summary_md += f"""
@@ -487,7 +559,7 @@ if __name__ == "__main__":
         "--stimuli",
         type=str,
         default="research/experiments/EXP-01/stimuli-2026-09-27.jsonl",
-        help="Path to stimuli JSONL file",
+        help="Path or comma-separated paths to stimuli JSONL file(s)",
     )
     parser.add_argument(
         "--n-per-persona",
@@ -497,8 +569,10 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    stim_file = Path(args.stimuli)
-    if not stim_file.is_absolute():
-        stim_file = ROOT_DIR / stim_file
+    raw_stim = args.stimuli
+    if "," in raw_stim:
+        stim_files = [p.strip() for p in raw_stim.split(",") if p.strip()]
+    else:
+        stim_files = raw_stim
 
-    run_synthetic_cohort_pilot(stim_file, n_per_persona=args.n_per_persona)
+    run_synthetic_cohort_pilot(stim_files, n_per_persona=args.n_per_persona)

@@ -176,14 +176,73 @@ def test_exp03_stimuli_and_readme():
     stimuli_files = list(exp03_dir.glob("stimuli-*.jsonl"))
     assert len(stimuli_files) >= 1, "No stimuli-*.jsonl found in EXP-03"
 
-    target_file = sorted(stimuli_files)[-1]
-    lines = target_file.read_text(encoding="utf-8").strip().splitlines()
-    assert len(lines) >= 3, f"Expected at least 3 stimuli in EXP-03, got {len(lines)}"
+    total_stimuli = 0
+    for stim_file in stimuli_files:
+        lines = stim_file.read_text(encoding="utf-8").strip().splitlines()
+        total_stimuli += len(lines)
+        for idx, line in enumerate(lines):
+            item = json.loads(line)
+            v = validate_stimulus(item)
+            assert v["valid"] is True, f"{stim_file.name} line {idx+1} failed validation: {v['issues']}"
 
+    assert total_stimuli >= 5, f"Expected at least 5 stimuli across EXP-03 battery, got {total_stimuli}"
+
+
+def test_exp03_new_stimuli_sprint11():
+    """Sprint 11 EXP-03 file must satisfy schema, doc URL, and complete 4-type coverage."""
+    exp03_dir = REPO_ROOT / "research" / "experiments" / "EXP-03"
+    new_file = exp03_dir / "stimuli-2026-10-01.jsonl"
+    assert new_file.exists(), "stimuli-2026-10-01.jsonl missing in EXP-03"
+
+    lines = new_file.read_text(encoding="utf-8").strip().splitlines()
+    assert len(lines) == 2, f"Expected exactly 2 new stimuli in stimuli-2026-10-01.jsonl, got {len(lines)}"
+
+    required_fields = [
+        "stimulus_text",
+        "embedded_error_type",
+        "embedded_error_location",
+        "embedded_error_description",
+        "correct_detection_response",
+        "distractor_features",
+        "difficulty_rationale",
+        "item_discrimination_estimate",
+        "experiment_id",
+        "difficulty",
+        "documentation_url",
+    ]
+
+    new_error_types = set()
     for idx, line in enumerate(lines):
         item = json.loads(line)
+        # Check required schema fields
+        for field in required_fields:
+            assert field in item, f"Line {idx+1} missing required field '{field}'"
+
+        # Check exactly one error type
+        err_type = item["embedded_error_type"]
+        assert isinstance(err_type, str) and err_type in ("api_misuse", "security"), f"Unexpected error type: {err_type}"
+        new_error_types.add(err_type)
+
+        # Check doc URL present and valid
+        doc_url = item["documentation_url"]
+        assert isinstance(doc_url, str) and doc_url.startswith("https://"), f"Invalid doc URL: {doc_url}"
+
+        # Standard stimulus constraint validation
         v = validate_stimulus(item)
-        assert v["valid"] is True, f"EXP-03 stimulus on line {idx+1} failed validation: {v['issues']}"
+        assert v["valid"] is True, f"Stimulus failed validation: {v['issues']}"
+
+    assert new_error_types == {"api_misuse", "security"}, f"Expected api_misuse and security, got {new_error_types}"
+
+    # Verify coverage across full battery
+    all_error_types = set()
+    for stim_file in exp03_dir.glob("stimuli-*.jsonl"):
+        for line in stim_file.read_text(encoding="utf-8").strip().splitlines():
+            it = json.loads(line)
+            all_error_types.add(it["embedded_error_type"])
+
+    assert all_error_types == {"factual", "logical", "api_misuse", "security"}, (
+        f"Battery error types incomplete. Expected all 4 types, got: {all_error_types}"
+    )
 
 
 def test_exp01_irb_package():
