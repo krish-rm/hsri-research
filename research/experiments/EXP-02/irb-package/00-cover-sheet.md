@@ -1,12 +1,15 @@
 # Institutional Review Board (IRB) Protocol Submission Cover Sheet
 
+> **PREVIEW NOTICE: HSRI v0.3.0-dev**
+> This research document is an exploratory artifact from the Human Superintelligence Readiness Index (HSRI) behavioral lab pipeline. Synthetic-persona pilots test stimulus behavior only and do not provide evidence about human cognition. Stimuli cleared for IRB submission. Not validated on human participants.
+
 > [!IMPORTANT]
 > **INSTITUTIONAL AFFILIATION & PRINCIPAL INVESTIGATOR NOTICE:**
 > Formal submission of this protocol for institutional ethics review requires an accredited institutional affiliation and a designated, named Principal Investigator (PI). **No Principal Investigator or institutional affiliation is currently designated.** This package is prepared as an exploratory research template; formal submission cannot proceed until the human maintainer designates an institutional sponsor and named PI.
 
 ## Study Overview
-- **Protocol Title:** Human Discernment Under Cognitive Automation Pressure: Fluent Hallucination Detection in Legal Documentation (HSRI EXP-01)
-- **Protocol ID:** HSRI-EXP-01-IRB-2026
+- **Protocol Title:** Human Discernment Under Cognitive Automation Pressure: Fluent Hallucination Detection in Clinical Documentation (HSRI EXP-02)
+- **Protocol ID:** HSRI-EXP-02-IRB-2026
 - **Principal Investigator (PI):** [To be completed by Maintainer — Currently None Designated]
 - **PI Academic / Institutional Title:** [To be completed by Maintainer — Currently None Designated]
 - **Institutional Affiliation:** [To be completed by Maintainer — Currently None Designated]
@@ -17,7 +20,7 @@
 
 ## Review Category
 - **Investigator's Proposed Risk Classification:** Minimal risk (subject to formal IRB determination)
-- [x] **Exempt / Expedited Review** (Investigator's proposed classification: Minimal Risk, Anonymous Adult Behavioral Survey)
+- [x] **Exempt / Expedited Review** (Investigator's proposed classification: Minimal Risk, Anonymous Adult Behavioral Survey with Pre-Registered Debriefing)
 - [ ] Full Board Review
 
 ## Funding and Conflict of Interest
@@ -30,6 +33,8 @@ The Principal Investigator certifies that:
 2. No stimuli will be deployed to human participants prior to formal written institutional approval.
 3. Informed consent will be obtained from all participants prior to data collection.
 4. Participant anonymity and data confidentiality will be strictly maintained.
+5. All clinical misinformation embedded for experimental measurement will be thoroughly debriefed and corrected immediately upon trial conclusion.
+6. A qualified clinician must review and approve all debriefing content, clinical corrections, and medical warning language prior to formal submission.
 
 **Principal Investigator Signature:** ________________________________________  
 **Date:** ____________________

@@ -17,7 +17,7 @@ If you agree to participate:
 4. The entire session will take approximately 15 minutes to complete via a secure web interface.
 
 ## Risks and Discomforts
-This study involves **minimal risk**, no greater than that encountered in daily computer or reading tasks. The passages contain non-sensitive legal concepts and no distressing content.
+This study is proposed by the investigators as involving **minimal risk** (subject to formal Institutional Review Board determination), no greater than that encountered in daily computer or reading tasks. The passages contain non-sensitive legal concepts and no distressing content.
 
 ## Benefits
 There are no direct personal benefits to you. Your participation will contribute to scientific understanding of human-computer interaction, cognitive automation bias, and informational accuracy in AI systems.

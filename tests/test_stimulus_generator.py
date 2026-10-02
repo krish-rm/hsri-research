@@ -176,14 +176,73 @@ def test_exp03_stimuli_and_readme():
     stimuli_files = list(exp03_dir.glob("stimuli-*.jsonl"))
     assert len(stimuli_files) >= 1, "No stimuli-*.jsonl found in EXP-03"
 
-    target_file = sorted(stimuli_files)[-1]
-    lines = target_file.read_text(encoding="utf-8").strip().splitlines()
-    assert len(lines) >= 3, f"Expected at least 3 stimuli in EXP-03, got {len(lines)}"
+    total_stimuli = 0
+    for stim_file in stimuli_files:
+        lines = stim_file.read_text(encoding="utf-8").strip().splitlines()
+        total_stimuli += len(lines)
+        for idx, line in enumerate(lines):
+            item = json.loads(line)
+            v = validate_stimulus(item)
+            assert v["valid"] is True, f"{stim_file.name} line {idx+1} failed validation: {v['issues']}"
 
+    assert total_stimuli >= 5, f"Expected at least 5 stimuli across EXP-03 battery, got {total_stimuli}"
+
+
+def test_exp03_new_stimuli_sprint11():
+    """Sprint 11 EXP-03 file must satisfy schema, doc URL, and complete 4-type coverage."""
+    exp03_dir = REPO_ROOT / "research" / "experiments" / "EXP-03"
+    new_file = exp03_dir / "stimuli-2026-10-01.jsonl"
+    assert new_file.exists(), "stimuli-2026-10-01.jsonl missing in EXP-03"
+
+    lines = new_file.read_text(encoding="utf-8").strip().splitlines()
+    assert len(lines) == 2, f"Expected exactly 2 new stimuli in stimuli-2026-10-01.jsonl, got {len(lines)}"
+
+    required_fields = [
+        "stimulus_text",
+        "embedded_error_type",
+        "embedded_error_location",
+        "embedded_error_description",
+        "correct_detection_response",
+        "distractor_features",
+        "difficulty_rationale",
+        "item_discrimination_estimate",
+        "experiment_id",
+        "difficulty",
+        "documentation_url",
+    ]
+
+    new_error_types = set()
     for idx, line in enumerate(lines):
         item = json.loads(line)
+        # Check required schema fields
+        for field in required_fields:
+            assert field in item, f"Line {idx+1} missing required field '{field}'"
+
+        # Check exactly one error type
+        err_type = item["embedded_error_type"]
+        assert isinstance(err_type, str) and err_type in ("api_misuse", "security"), f"Unexpected error type: {err_type}"
+        new_error_types.add(err_type)
+
+        # Check doc URL present and valid
+        doc_url = item["documentation_url"]
+        assert isinstance(doc_url, str) and doc_url.startswith("https://"), f"Invalid doc URL: {doc_url}"
+
+        # Standard stimulus constraint validation
         v = validate_stimulus(item)
-        assert v["valid"] is True, f"EXP-03 stimulus on line {idx+1} failed validation: {v['issues']}"
+        assert v["valid"] is True, f"Stimulus failed validation: {v['issues']}"
+
+    assert new_error_types == {"api_misuse", "security"}, f"Expected api_misuse and security, got {new_error_types}"
+
+    # Verify coverage across full battery
+    all_error_types = set()
+    for stim_file in exp03_dir.glob("stimuli-*.jsonl"):
+        for line in stim_file.read_text(encoding="utf-8").strip().splitlines():
+            it = json.loads(line)
+            all_error_types.add(it["embedded_error_type"])
+
+    assert all_error_types == {"factual", "logical", "api_misuse", "security"}, (
+        f"Battery error types incomplete. Expected all 4 types, got: {all_error_types}"
+    )
 
 
 def test_exp01_irb_package():
@@ -213,5 +272,46 @@ def test_exp01_irb_package():
     assert "0.35" in power_doc
 
 
+def test_exp02_irb_package():
+    """EXP-02 IRB package must have all 9 required documents, PI/affiliation notice, and power analysis."""
+    exp02_dir = REPO_ROOT / "research" / "experiments" / "EXP-02"
+    irb_dir = exp02_dir / "irb-package"
+    assert irb_dir.exists(), "EXP-02 irb-package directory missing"
 
+    expected_docs = [
+        "00-cover-sheet.md",
+        "01-study-description.md",
+        "02-participant-criteria.md",
+        "03-consent-template.md",
+        "04-risk-assessment.md",
+        "05-data-management.md",
+        "06-stimulus-battery.md",
+        "07-power-analysis.md",
+        "08-debrief-script.md",
+    ]
+    for doc in expected_docs:
+        doc_path = irb_dir / doc
+        assert doc_path.exists(), f"Missing EXP-02 IRB document: {doc}"
+        content = doc_path.read_text(encoding="utf-8")
+        assert len(content.strip()) > 50
+        assert "v0.3" in content, f"Missing v0.3-dev disclaimer in {doc}"
 
+    # Verify PI / institutional affiliation block
+    cover_sheet = (irb_dir / "00-cover-sheet.md").read_text(encoding="utf-8")
+    assert "Principal Investigator" in cover_sheet
+    assert "institutional affiliation" in cover_sheet.lower()
+    assert "None Designated" in cover_sheet or "none designated" in cover_sheet.lower()
+
+    # Verify sensitivity table and effect size assumption in power analysis
+    power_doc = (irb_dir / "07-power-analysis.md").read_text(encoding="utf-8")
+    assert "0.35" in power_doc
+    assert "0.25" in power_doc
+    assert "0.30" in power_doc
+    assert "0.40" in power_doc
+    assert "130" in power_doc
+    assert "260" in power_doc
+
+    # Verify medical safety debrief script
+    debrief = (irb_dir / "08-debrief-script.md").read_text(encoding="utf-8")
+    assert "clinician" in debrief.lower() or "physician" in debrief.lower()
+    assert "5,000 mg" in debrief or "5000 mg" in debrief

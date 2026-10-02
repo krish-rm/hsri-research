@@ -1,5 +1,5 @@
 # EXP-01 Synthetic Cohort Pilot Summary
-**Date:** 2026-09-30
+**Date:** 2026-09-30T22:30:00+05:30
 **Stimuli evaluated:** 3
 **Personas:** LOW_REFLECTION, MEDIUM_REFLECTION, HIGH_REFLECTION
 **Responses per persona:** 5
@@ -13,11 +13,14 @@
 | Item 3   | citation  | 0.2       | 2.0       | 2.0        | 0.84    | PASS |
 
 ## Summary
-- Items passing D ≥ 0.30: 3/3
+- Items passing constraint checks ($D \ge 0.30$ in synthetic cohort): 3/3
 - Items requiring revision: 0
 
+> [!NOTE]
+> **Epistemic Boundary:** Synthetic LLM personas simulate prompted response behavior only and do not constitute empirical evidence regarding human cognition or human difficulty.
+
 ## Recommendation
-PROCEED TO IRB
+STIMULI CLEARED FOR IRB SUBMISSION
 
 ## Next Step
-Route EXP-01 stimulus set to IRB-equivalent review.
+Assemble EXP-01 institutional IRB package for maintainer review prior to any human participant deployment.

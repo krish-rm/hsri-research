@@ -103,7 +103,7 @@ jobs:
                   methodology_html = meth_res.read().decode("utf-8")
                   checks["methodology_page_200"] = (meth_res.getcode() == 200)
                   checks["exp_pipeline_on_methodology"] = (
-                      "EXP-01" in methodology_html and "PROCEED TO IRB" in methodology_html
+                      "EXP-01" in methodology_html and "IRB PACKAGE READY" in methodology_html
                   )
 
                   csv_urls = [

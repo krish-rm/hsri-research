@@ -16,13 +16,13 @@ Skeptic brief: Six nations are systematically disadvantaged in the Critical Disc
 
 Evidence package: docs/10-proxy-framework.md §Missingness
 
-## TOPIC-004 — Exposure Gap Modeling Validity [STATUS: complete — PROPOSED DIFF — 2026-10-01]
+## TOPIC-004 — Exposure Gap Modeling Validity [STATUS: complete, awaiting maintainer review: single-model result, not a finding]
 Is the current macro-exposure gap model (contrasting preparedness score
 against structural AI adoption exposure) empirically defensible as a
 composite metric, or does it introduce a hidden assumption about the
 relationship between economic exposure and cognitive readiness?
 
-Verdict: PROPOSED DIFF (Gemini 3.8 Flash). Cites Governance & Ethics and notes geographic bias in framing automation exposure strictly as vulnerability versus demographic necessity (e.g. East Asian developmental state model).
+Verdict: PROPOSED DIFF (Gemini 3.8 Flash single-model run; awaiting maintainer review: single-model result, not a finding. No methodology change proposed or implemented). Cites Governance & Ethics and notes geographic bias in framing automation exposure strictly as vulnerability versus demographic necessity (e.g. East Asian developmental state model).
 
 Evidence package: docs/04-causal-model-and-index-design.md §Exposure
 
@@ -39,3 +39,10 @@ Proponent brief: Linear relationship is the most conservative assumption
 Skeptic brief: Japan and South Korea show high economic AI exposure but
   also strong institutional governance scores. A linear model
   systematically underestimates their effective resilience.
+
+---
+
+## Addendum on Timestamps (Rule 17 Compliance — 2026-10-02T14:35:00+05:30)
+- **Historical Timestamp Reconciliation:** The resolution date for TOPIC-003 and execution date for TOPIC-004 were originally recorded as `2026-10-01` during the Sprint 9 completion window. Although the Sprint 9 narrative report was finalized at `2026-09-30 22:50 IST` (prior to midnight), the queue log entries carried the UTC/early next-day date `2026-10-01`.
+- In compliance with Standing Governance Rule 17 (prohibiting retrospective rewriting of dated log entries to match later reports), the original `2026-10-01` queue timestamp is restored, and this discrepancy is recorded via addendum rather than in-place rewriting.
+
