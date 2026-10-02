@@ -5,7 +5,7 @@ Topics are run in order. Each topic requires a completed run before the next beg
 ## TOPIC-002 — Pillar Weighting Defensibility [STATUS: complete — NO CHANGE — 2026-09-27]
 Is the equal 25/25/25/25 weighting defensible given Critical Discernment has the weakest indicator coverage?
 
-## TOPIC-003 [STATUS: auto-resolved — MAINTAIN NaN — 2026-09-30T22:30:00+05:30]
+## TOPIC-003 [STATUS: auto-resolved — MAINTAIN NaN — 2026-10-01]
 **Resolution:** Conservative default applied (Sprint 9, 4th sprint since escalation).
 **Ruling:** MAINTAIN NaN POLICY pending future evidence.
 **Override:** Maintainer may issue explicit ruling at any time.
@@ -39,3 +39,10 @@ Proponent brief: Linear relationship is the most conservative assumption
 Skeptic brief: Japan and South Korea show high economic AI exposure but
   also strong institutional governance scores. A linear model
   systematically underestimates their effective resilience.
+
+---
+
+## Addendum on Timestamps (Rule 17 Compliance — 2026-10-02T14:35:00+05:30)
+- **Historical Timestamp Reconciliation:** The resolution date for TOPIC-003 and execution date for TOPIC-004 were originally recorded as `2026-10-01` during the Sprint 9 completion window. Although the Sprint 9 narrative report was finalized at `2026-09-30 22:50 IST` (prior to midnight), the queue log entries carried the UTC/early next-day date `2026-10-01`.
+- In compliance with Standing Governance Rule 17 (prohibiting retrospective rewriting of dated log entries to match later reports), the original `2026-10-01` queue timestamp is restored, and this discrepancy is recorded via addendum rather than in-place rewriting.
+

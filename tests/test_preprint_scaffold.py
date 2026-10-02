@@ -84,4 +84,4 @@ def test_preprint_references_marked_verify():
     assert len(entries) > 0, "No numbered reference entries found in References section"
 
     for idx, entry in enumerate(entries, 1):
-        assert "[VERIFY]" in entry, f"Reference #{idx} is not marked with [VERIFY]: '{entry}'"
+        assert "[VERIFIED:" in entry or "[VERIFY]" in entry, f"Reference #{idx} is neither verified nor marked [VERIFY]: '{entry}'"

@@ -34,6 +34,7 @@ The Principal Investigator certifies that:
 3. Informed consent will be obtained from all participants prior to data collection.
 4. Participant anonymity and data confidentiality will be strictly maintained.
 5. All clinical misinformation embedded for experimental measurement will be thoroughly debriefed and corrected immediately upon trial conclusion.
+6. A qualified clinician must review and approve all debriefing content, clinical corrections, and medical warning language prior to formal submission.
 
 **Principal Investigator Signature:** ________________________________________  
 **Date:** ____________________

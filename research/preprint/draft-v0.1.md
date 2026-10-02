@@ -111,13 +111,14 @@ All code, data harmonization pipelines, experimental stimuli, and deliberative l
 ## 7. References
 
 > [!NOTE]
-> All bibliographic citations below are provisional placeholders subject to formal verification prior to final manuscript submission. Every entry is explicitly designated with `[VERIFY]` in compliance with scientific integrity standards.
+> All bibliographic citations below have been audited against scholarly bibliographic registries (OpenAlex, Crossref, and primary publisher repositories) per Rule 16 and Sprint 11 Task 11.0.i. Verified citations are tagged with `[VERIFIED: <source>, <date>]`.
 
-1. Goddard, K., Roudsari, A., & Wyatt, J. C. (2012). Automation bias: a systematic review of systematic reviews. *BMC Medical Informatics and Decision Making*, 12(1), 1-11. `[VERIFY]`
-2. Parasuraman, R., & Riley, V. (1997). Humans and automation: Use, misuse, disuse, abuse. *Human Factors*, 39(2), 230-253. `[VERIFY]`
-3. OECD. (2016). *Skills Matter: Further Results from the Survey of Adult Skills (PIAAC)*. OECD Publishing, Paris. `[VERIFY]`
-4. European Commission. (2023). *European Media Literacy Index 2023: Methodology and Findings*. Open Society Institute Sofia. `[VERIFY]`
-5. Skitka, L. J., Mosier, K. L., & Burdick, M. (1999). Does automation bias decision-making? *International Journal of Human-Computer Studies*, 51(5), 991-1006. `[VERIFY]`
-6. Cummings, M. L. (2004). Automation bias in intelligent time critical decision support systems. *AIAA 1st Intelligent Systems Technical Conference*, 6313. `[VERIFY]`
-7. Hendrycks, D., Carlini, N., Schulman, J., & Steinhardt, J. (2021). Unsolved problems in ML safety. *arXiv preprint arXiv:2109.13916*. `[VERIFY]`
-8. Bommasani, R., et al. (2021). On the opportunities and risks of foundation models. *arXiv preprint arXiv:2108.07258*. `[VERIFY]`
+1. Goddard, K. S., Roudsari, A., & Wyatt, J. C. (2012). Automation bias: a systematic review of frequency, effect mediators, and mitigators. *Journal of the American Medical Informatics Association*, 19(1), 121-127. DOI: https://doi.org/10.1136/amiajnl-2011-000089 `[VERIFIED: OpenAlex, 2026-10-02]`
+2. Parasuraman, R., & Riley, V. (1997). Humans and automation: Use, misuse, disuse, abuse. *Human Factors*, 39(2), 230-253. DOI: https://doi.org/10.1518/001872097778543886 `[VERIFIED: OpenAlex, 2026-10-02]`
+3. OECD. (2016). *Skills Matter: Further Results from the Survey of Adult Skills*. OECD Skills Studies, OECD Publishing, Paris. DOI: https://doi.org/10.1787/9789264258051-en `[VERIFIED: OpenAlex, 2026-10-02]`
+4. Lessenski, M. (2023). *Media Literacy Index 2023: Bye-bye, Birdie... Media Literacy Index 2023*. Open Society Institute – Sofia. URL: https://osis.bg/?p=4492 `[VERIFIED: OSIS/Web, 2026-10-02]`
+5. Skitka, L. J., Mosier, K. L., & Burdick, M. (1999). Does automation bias decision-making? *International Journal of Human-Computer Studies*, 51(5), 991-1006. DOI: https://doi.org/10.1006/ijhc.1999.0252 `[VERIFIED: Crossref, 2026-10-02]`
+6. Cummings, M. L. (2004). Automation bias in intelligent time critical decision support systems. *AIAA 1st Intelligent Systems Technical Conference*, Paper 2004-6313. DOI: https://doi.org/10.2514/6.2004-6313 `[VERIFIED: OpenAlex, 2026-10-02]`
+7. Hendrycks, D., Carlini, N., Schulman, J., & Steinhardt, J. (2021). Unsolved problems in ML safety. *arXiv:2109.13916*. DOI: https://doi.org/10.48550/arxiv.2109.13916 `[VERIFIED: OpenAlex, 2026-10-02]`
+8. Bommasani, R., et al. (2021). On the opportunities and risks of foundation models. *arXiv:2108.07258*. DOI: https://doi.org/10.48550/arxiv.2108.07258 `[VERIFIED: OpenAlex, 2026-10-02]`
+

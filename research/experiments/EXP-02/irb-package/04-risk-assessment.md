@@ -10,9 +10,9 @@ Under 45 CFR 46.102(l), minimal risk is defined as the probability and magnitude
 
 ## 2. Specific Medical Domain Risk Analysis
 Unlike abstract cognitive experiments, EXP-02 utilizes clinical discharge scenarios containing deliberately embedded medical inaccuracies:
-1. **Severe Medication Overdose:** Item 3 prescribes Acetaminophen 5,000 mg PO QID PRN (cumulative daily intake: 20,000 mg), far exceeding the established safe adult ceiling of 3,000–4,000 mg/day and capable of causing acute hepatic failure.
-2. **Hazardous Hydration Restriction:** Item 1 advises total avoidance of water during an oral antibiotic course for acute diverticulitis, introducing acute dehydration and nephrotoxicity risks if misconstrued as real medical guidance.
-3. **Ineffective Therapeutic Route:** Item 2 prescribes ophthalmic eye drops to treat bacterial pneumonia/bronchitis.
+1. **Hazardous Hydration Restriction (Item 1):** Advises total avoidance of drinking water during an oral antibiotic course for acute diverticulitis, introducing severe acute dehydration and nephrotoxicity risks if misconstrued as real medical guidance.
+2. **Ineffective Therapeutic Route (Item 2):** Prescribes topical ophthalmic eye drops to treat a pulmonary bacterial lung infection (acute bronchitis).
+3. **Severe Medication Overdose (Item 3):** Prescribes Acetaminophen 5,000 mg PO QID PRN (cumulative daily intake: 20,000 mg), far exceeding the established safe adult ceiling of 3,000–4,000 mg/day and capable of causing acute hepatic failure.
 
 ### Primary Risk Mechanism
 The core hazard is that a participant uncritically internalizes, retains, or subsequently acts upon a simulated medical error in their own life or advises a family member based on false clinical assertions encountered during the study.

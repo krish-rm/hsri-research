@@ -29,3 +29,13 @@ STIMULI CLEARED FOR IRB SUBMISSION
 
 ## Next Step
 Assemble EXP-02 institutional IRB package for maintainer review prior to any human participant deployment.
+
+---
+
+## Addendum (2026-10-02T14:30:00+05:30 — Sprint 11 Task 11.0.a Reconciliation)
+- **Item Mapping Clarification:** As recorded in `research/experiments/EXP-02/stimuli-2026-09-30.jsonl` and raw trials in `pilot-results-2026-09-30.jsonl`:
+  - Item 1 is the diverticulitis water restriction scenario (`embedded_error_type: "factual"`, $D=0.87$, ceiling effect).
+  - Item 2 is the bronchitis ophthalmic eye drops scenario (`embedded_error_type: "logical"`, $D=0.74$).
+  - Item 3 is the hypertensive urgency acetaminophen 5,000 mg QID overdose (`embedded_error_type: "statistical"`, $D=0.61$).
+- The parenthetical reference to "dosage / 5,000 mg" in the Sprint 10 ceiling note reflected conflation with Item 3; the actual pilot Item 1 stimulus saturated on the total water avoidance distortion. Both items are preserved as generated per Rule 17.
+

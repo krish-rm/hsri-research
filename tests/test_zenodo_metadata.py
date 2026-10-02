@@ -43,8 +43,8 @@ def test_zenodo_licenses():
     repo_meta = data["records"]["repository_snapshot"]["metadata"]
     div_meta = data["records"]["divergence_log_dataset"]["metadata"]
 
-    assert repo_meta["license"] == "CC-BY-SA-4.0"
-    assert div_meta["license"] == "CC-BY-4.0"
+    assert repo_meta["license"] == "cc-by-sa-4.0"
+    assert div_meta["license"] == "cc-by-4.0"
 
 
 def test_zenodo_creator_placeholders():
