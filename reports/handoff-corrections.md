@@ -75,14 +75,29 @@
 
 - **EXP-01 (Legal Domain):** `SYNTHETIC PILOT COMPLETE: IRB PACKAGE READY` (9 submission documents assembled; institutional PI designation pending).
 - **EXP-02 (Medical Domain):** `SYNTHETIC PILOT COMPLETE: STIMULI CLEARED FOR IRB SUBMISSION` (9 submission documents assembled; clinician review of debriefing content required; Item 1 ceiling effect flagged for human calibration).
-- **EXP-03 (Technical/Code Domain):** `STIMULI GENERATED: CONSTRAINT CHECKS PASSED` (5-item battery covering factual, logical, api_misuse, and security errors; synthetic pilot completed).
+- **EXP-03 (Technical/Code Domain):** `SYNTHETIC PILOT COMPLETE: STIMULI CLEARED FOR IRB PACKAGING` (5-item battery covering factual, logical, api_misuse, and security errors; Item 5 flagged for synthetic ceiling artifact / triviality at $D = 1.00$).
 - **EXP-04 (Financial/Quantitative Domain):** Scoped; stimulus generation deferred pending human pilot data on EXP-01/02.
 ```
 
 ---
 
-## 3. Standing Governance Rules Section (Add Rules 11–17)
+## 3. Standing Governance Rules Section: Permanent Merge Authorization & Rules 11–17
 
+### Rule 1 Replacement (Permanent Merge Authorization)
+**Replace Rule 1 With:**
+```markdown
+1. The agent may merge to main without per-merge human sign-off only when:
+   (a) the full pytest suite passes, with the summary pasted;
+   (b) canonical Step 5 passes on production after deploy;
+   (c) the merge is --no-ff, with no force-push or history rewriting;
+   (d) every merge is reported with SHA and workflow run IDs.
+   A human-approved PR is still required for changes to governance rules,
+   to the pass criteria of any verification script, to IRB/consent/risk
+   documents, or to public verdict labels. The maintainer may revoke this
+   at any time.
+```
+
+### Addition of Rules 11–17
 **Append Following Rule 10:**
 ```markdown
 11. **Branch + PR workflow.** All changes go on a feature branch (`sprint-<N>/<task>`) and open as a PR. The agent never pushes directly to `main`. If the maintainer explicitly authorizes a direct push in the sprint chat, quote that authorization in the report.

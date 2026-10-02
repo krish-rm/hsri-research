@@ -70,8 +70,8 @@ Using the GitHub REST API and local `git log origin/main`:
      - Item 2 (`logical`): LOW=0.0, MED=0.0, HIGH=2.0 | $D=0.87$ | PASS (CEILING_EFFECT)
      - Item 3 (`factual`): LOW=0.0, MED=2.0, HIGH=2.0 | $D=0.87$ | PASS (CEILING_EFFECT)
      - Item 4 (`api_misuse`): LOW=0.2, MED=2.0, HIGH=2.0 | $D=0.84$ | PASS (CEILING_EFFECT)
-     - Item 5 (`security`): LOW=0.0, MED=1.0, HIGH=2.0 | $D=1.00$ | PASS (CEILING_EFFECT)
-   - Status: Stimuli cleared for IRB packaging. (Epistemic notice: stimulus behavior check only; never evidence about human participants per Rule 12).
+     - Item 5 (`security`): LOW=0.0, MED=1.0, HIGH=2.0 | $D=1.00$ | FLAG: CEILING_EFFECT (Synthetic artifact: trivial for upper personas; not evidence of human discrimination; requires human calibration)
+   - Status: Stimuli cleared for IRB packaging (Item 5 flagged for empirical human calibration). (Epistemic notice: stimulus behavior check only; never evidence about human participants per Rule 12).
 3. **Documentation & Tests:**
    - Updated `research/experiments/EXP-03/README.md` and `scoring-rubric.md`.
    - Added unit test `test_exp03_new_stimuli_sprint11` to `tests/test_stimulus_generator.py`.

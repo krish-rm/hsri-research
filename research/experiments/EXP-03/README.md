@@ -12,7 +12,8 @@ Technically literate adults without deep specialist software engineering or cybe
 ## Pilot Status
 - **Battery Size:** 5 stimuli across 4 error types (`factual`, `logical`, `api_misuse`, `security`).
 - **Synthetic Cohort Pilot (Sprint 11):** Completed (N=5 responses per persona across LOW, MEDIUM, and HIGH reflection personas).
-- **Discrimination:** $D \in [0.67, 1.00]$ (all items pass $D \ge 0.30$ constraint threshold; ceiling effects detected across upper reflection personas).
+- **Discrimination:** $D \in [0.67, 1.00]$ (all items pass $D \ge 0.30$ constraint threshold; Item 5 flagged for synthetic ceiling artifact / triviality at $D = 1.00$).
+- **Ceiling / Floor Flags:** Item 5 ($D = 1.00$) flagged as `FLAG: CEILING_EFFECT / SYNTHETIC_TRIVIALITY` (trivial for upper reflection personas in synthetic simulation, not evidence of human psychometric discrimination; requires human calibration).
 - **Epistemic Classification:** Stimuli cleared for IRB packaging. Synthetic persona pilots are stimulus behavior checks only and never constitute evidence about human participants (Rule 12).
 - **Deployment Status:** NOT approved for human participant deployment.
 
