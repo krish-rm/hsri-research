@@ -208,8 +208,8 @@ class TestHSRIAgents(unittest.TestCase):
         workflows_dir = REPO_ROOT / ".github" / "workflows"
         if workflows_dir.exists():
             workflows = sorted([f.name for f in workflows_dir.glob("*.yml")] + [f.name for f in workflows_dir.glob("*.yaml")])
-            # Only deploy.yml, ingestion-health.yml, and literature-sentinel.yml are permitted
-            self.assertEqual(workflows, ["deploy.yml", "ingestion-health.yml", "literature-sentinel.yml"])
+            # Only ci.yml, deploy.yml, ingestion-health.yml, and literature-sentinel.yml are permitted
+            self.assertEqual(workflows, ["ci.yml", "deploy.yml", "ingestion-health.yml", "literature-sentinel.yml"])
 
             with open(workflows_dir / "deploy.yml", "r", encoding="utf-8") as f:
                 content = f.read().lower()
@@ -227,6 +227,37 @@ class TestHSRIAgents(unittest.TestCase):
                 # Strict governance check: No autonomous merge or PR write permissions
                 self.assertNotIn("pull-requests: write", lit_content)
                 self.assertNotIn("auto-merge", lit_content)
+
+            # Strict governance check for ci.yml: read-only, no secrets, no push/merge/automation tools, no dispatch/schedule
+            ci_path = workflows_dir / "ci.yml"
+            self.assertTrue(ci_path.exists())
+            with open(ci_path, "r", encoding="utf-8") as f:
+                ci_text = f.read()
+
+            import yaml
+            ci_data = yaml.safe_load(ci_text)
+
+            # Top-level permissions must be exactly contents: read
+            self.assertEqual(ci_data.get("permissions"), {"contents": "read"})
+
+            # Must contain no secrets. reference
+            self.assertNotIn("secrets.", ci_text.lower())
+
+            # Must contain none of the forbidden strings
+            forbidden_strings = ["gh pr", "git push", "merge", "automerge", "peter-evans", "create-pull-request"]
+            for forbidden in forbidden_strings:
+                self.assertNotIn(forbidden, ci_text.lower(), f"Forbidden string '{forbidden}' found in ci.yml")
+
+            # Triggers must not include workflow_dispatch or schedule
+            triggers = ci_data.get("on") if "on" in ci_data else ci_data.get(True, {})
+            if isinstance(triggers, dict):
+                self.assertNotIn("workflow_dispatch", triggers)
+                self.assertNotIn("schedule", triggers)
+            elif isinstance(triggers, list):
+                self.assertNotIn("workflow_dispatch", triggers)
+                self.assertNotIn("schedule", triggers)
+            self.assertNotIn("workflow_dispatch", ci_text.lower())
+            self.assertNotIn("schedule", ci_text.lower())
 
 
 # Test: Lane 1 → Lane 3 handoff
