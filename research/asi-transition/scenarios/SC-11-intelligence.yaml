@@ -1,0 +1,114 @@
+scenario_id: SC-11
+name_and_aliases: Intelligence Explosion (Good 1965 ultraintelligent machine, Chalmers singularity, Hanson-Yudkowsky FOOM
+  debate)
+original_sources:
+- authors: Irving John Good
+  year: '1965'
+  title: Speculations Concerning the First Ultraintelligent Machine
+  venue: 'Advances in Computers 6: 31-88'
+  source_id: SRC-014
+  earliest_traceable_date: '1965'
+- authors: David J. Chalmers
+  year: '2010'
+  title: 'The Singularity: A Philosophical Analysis'
+  venue: 'Journal of Consciousness Studies 17(9-10): 7-65'
+  source_id: SRC-016
+  earliest_traceable_date: April 2010
+- authors: Robin Hanson, Eliezer Yudkowsky
+  year: '2013'
+  title: The Hanson-Yudkowsky AI-Foom Debate
+  venue: Machine Intelligence Research Institute (MIRI Technical Report)
+  source_id: SRC-017
+  earliest_traceable_date: 2008-2013
+- authors: David Thorstad
+  year: '2023'
+  title: Against the Singularity Hypothesis
+  venue: 'Inquiry: An Interdisciplinary Journal of Philosophy'
+  source_id: SRC-040
+  earliest_traceable_date: August 2023
+exact_question_tested: Does an artificial intelligence system reaching an ultraintelligent or superhuman general capability
+  threshold inevitably trigger an accelerating feedback loop of cognitive self-improvement that produces a discontinuous,
+  radical leap in capability over a brief time horizon (days, weeks, or months), leaving human capability far behind?
+explicit_assumptions:
+- Cognitive capability is a primary productive input into the design and improvement of cognitive capability.
+- Increases in intelligence produce proportional or accelerating increases in the speed and effectiveness of subsequent AI
+  design cycles.
+- External physical, experimental, and manufacturing constraints do not bottleneck or halt the recursive feedback loop.
+implicit_assumptions:
+- 'Analyst inference: Intelligence can be operationalized as a general, monolithic scalar capacity rather than a fragmented
+  bundle of specialized heuristics.'
+- 'Analyst inference: The search space of cognitive architectures does not exhibit steep diminishing marginal returns to research
+  effort (directly contested by Bloom et al. 2020 and Thorstad 2023).'
+- 'Analyst inference: Software self-optimization can substitute for real-world physical and empirical experimentation without
+  encountering epistemic data starvation.'
+mechanism: 'Recursive self-design: An ultraintelligent machine designs a more capable successor; the successor, possessing
+  greater cognitive capacity, designs an even more capable machine at a faster rate. As the iteration cycle time compresses
+  asymptotically toward zero, capability growth follows a hyperbolic or steep exponential trajectory (''FOOM''), generating
+  an insurmountable capability asymmetry over biological humans in a narrow response window.'
+predicted_failure_mode: 'Radical capability surprise: Human institutions, safety frameworks, and monitoring mechanisms are
+  completely outpaced by a discontinuous leap in machine capability, rendering human oversight obsolete before a response
+  can be formulated.'
+what_the_scenario_does_not_establish: It does NOT establish that returns to cognitive enhancement are accelerating rather
+  than diminishing; it does NOT establish that software optimization can bypass the physical latency of semiconductor manufacturing,
+  energy grid construction, and physical experiments; it does NOT prove that takeoff must be unipolar rather than multipolar.
+strongest_supporting_arguments:
+- 'Chalmers''s (2010) deductive philosophical formulation: If intelligence enables AI design, and greater intelligence produces
+  greater design capability, an accelerating feedback loop is logically coherent.'
+- Historical doubling rates of compute efficiency and algorithmic progress in machine learning, showing rapid performance
+  gains per unit of compute (Epoch AI).
+strongest_criticisms:
+- 'Bloom, Jones, Van Reenen & Webb (2020) ''Are Ideas Getting Harder to Find?'': Empirical economics proves that research
+  productivity in science and engineering exhibits steep exponential decay, requiring exponentially more cognitive inputs
+  to sustain linear progress.'
+- 'Thorstad (2023) philosophical critique: Deconstructs Chalmers''s premises, showing that proportional improvement in intelligence
+  does not entail proportional improvement in real-world problem-solving speed.'
+- 'Physical and environmental friction: Real-world science requires empirical experiments in physical reality (wet labs, particle
+  accelerators, wind tunnels), which cannot be accelerated solely by software.'
+empirical_evidence:
+- claim_class: B
+  source_id: SRC-019
+  evidence_strength: Moderate
+  summary: Rapid algorithmic capability jumps observed in narrow domains (e.g. AlphaZero mastering chess and Go in hours via
+    pure self-play without human data), demonstrating self-improvement feasibility in closed formal systems.
+counter_evidence:
+- claim_class: D
+  source_id: SRC-034
+  evidence_strength: Strong
+  summary: Bloom et al. (2020) empirical finding that economy-wide research effort rises exponentially while total factor
+    productivity growth remains linear or declining, demonstrating pervasive diminishing returns to cognitive effort.
+- claim_class: I
+  source_id: SRC-040
+  evidence_strength: Strong
+  summary: Thorstad (2023) rigorous philosophical proof showing that singulatarian arguments commit the fallacy of equating
+    software iteration velocity with physical problem-solving capability.
+current_status: Foundational philosophical and mathematical thought experiment (Class E/C/D), heavily contested by empirical
+  economists (Class D) and philosophers of science (Class I).
+testability: Measuring whether autonomous AI systems tasked with open-ended software and scientific research produce compounding
+  performance improvements with accelerating or diminishing returns per unit of compute across successive generations.
+relevance_to_human_agency: 'Existential: If takeoff occurs on a days/weeks timescale, human agency is reduced to zero during
+  the takeoff window; all human governance mechanisms operate at biological and bureaucratic latencies.'
+relevance_to_hsri_constructs: Capability Asymmetry, Speed Ratio, Response Window, Institutional Governance.
+confidence_classification:
+  confidence_conceptual: High
+  justification_conceptual: Deductively sound within its explicit mathematical premises of self-reinforcing returns.
+  confidence_empirical: Low
+  justification_empirical: Contradicted by empirical research productivity data (Bloom et al. 2020) and physical constraints
+    on real-world scientific testing.
+disputes_about_interpretation: Sharp divide between singulatarian computer scientists expecting sudden unipolar FOOM versus
+  economists and complex systems researchers arguing for gradual, bottlenecked, multipolar diffusion.
+claim_ids_used:
+- CLM-010
+- CLM-014
+matrix_coordinates:
+  capability_asymmetry: Radically Superhuman (order-of-magnitude leap beyond biological cognition)
+  speed_ratio: Radically Asymmetric (1,000x to 1,000,000x biological cognitive cycle)
+  autonomy_scope: Autonomous Recursive Self-Design Loop
+  coordination_structure: Unipolar Singleton or Rapidly Divergent Leader
+severity: Catastrophic / Existential
+reversibility: Irreversible once takeoff achieves decisive capability dominance
+detectability: Leading in benchmark saturation; Coincident / Latent during sudden takeoff
+response_window: Days to weeks in rapid FOOM; Months to years in soft takeoff
+precursor_ids:
+- PRE-001
+- PRE-003
+disputes: Whether returns to cognitive investment are accelerating or exponentially diminishing.
