@@ -8,11 +8,17 @@
 
 Under 45 CFR 46.102(l), minimal risk is defined as the probability and magnitude of harm or discomfort anticipated in the research not being greater in and of themselves than those ordinarily encountered in daily life or during the performance of routine physical or psychological examinations or tests.
 
-## 2. Specific Medical Domain Risk Analysis
+## 2. Specific Medical Domain Risk Analysis (Rule 19 Compliant)
 Unlike abstract cognitive experiments, EXP-02 utilizes clinical discharge scenarios containing deliberately embedded medical inaccuracies:
-1. **Hazardous Hydration Restriction (Item 1):** Advises total avoidance of drinking water during an oral antibiotic course for acute diverticulitis, introducing severe acute dehydration and nephrotoxicity risks if misconstrued as real medical guidance.
-2. **Ineffective Therapeutic Route (Item 2):** Prescribes topical ophthalmic eye drops to treat a pulmonary bacterial lung infection (acute bronchitis).
-3. **Severe Medication Overdose (Item 3):** Prescribes Acetaminophen 5,000 mg PO QID PRN (cumulative daily intake: 20,000 mg), far exceeding the established safe adult ceiling of 3,000–4,000 mg/day and capable of causing acute hepatic failure.
+1. **Hazardous Hydration Restriction (`stimulus_id: 1` / `EXP-02-S1`):**  
+   *Text prefix (first 80 chars):* `"Patient admitted on 10/12 with acute diverticulitis, presenting with left lower "`  
+   *Risk:* Advises total avoidance of drinking water during an oral antibiotic course for acute diverticulitis, introducing severe acute dehydration and nephrotoxicity risks if misconstrued as real medical guidance.
+2. **Ineffective Therapeutic Route (`stimulus_id: 2` / `EXP-02-S2`):**  
+   *Text prefix (first 80 chars):* `"Patient Name: Eleanor Vance | DOB: 05/14/1965 | Date of Discharge: 10/24/2023. Diag"`  
+   *Risk:* Prescribes topical ophthalmic eye drops to treat a pulmonary bacterial lung infection (acute bronchitis).
+3. **Severe Medication Overdose (`stimulus_id: 3` / `EXP-02-S3`):**  
+   *Text prefix (first 80 chars):* `"Discharge Summary: Patient admitted on 10/12 presenting with acute hypertensive u"`  
+   *Risk:* Prescribes Acetaminophen 5,000 mg PO QID PRN (cumulative daily intake: 20,000 mg), far exceeding the established safe adult ceiling of 3,000–4,000 mg/day and capable of causing acute hepatic necrosis and fatal liver failure.
 
 ### Primary Risk Mechanism
 The core hazard is that a participant uncritically internalizes, retains, or subsequently acts upon a simulated medical error in their own life or advises a family member based on false clinical assertions encountered during the study.

@@ -8,8 +8,20 @@ errors embedded in fluent, authoritative AI-generated clinical text under cognit
 Educated adults without clinical specialist training (patient health literacy level).
 
 ## Pilot Status
-Stimuli generated. Constraint checks against item discrimination targets: 3/3 passed (synthetic cohort estimate; not human validation).
-NOT yet approved for human participant deployment.
+- **Battery Size:** 3 stimuli in `research/experiments/EXP-02/stimuli-2026-09-30.jsonl`
+- **Synthetic Cohort Pilot:** Completed (N=5 responses per persona across LOW, MEDIUM, HIGH reflection personas)
+- **Discrimination:** $D \in [0.61, 0.87]$ (all items pass $D \ge 0.30$ constraint threshold; `stimulus_id: 1` flagged for ceiling effect)
+- **Epistemic Classification:** Stimuli cleared for IRB submission. Synthetic persona pilots are stimulus behavior checks only and never constitute evidence about human participants (Rule 12).
+- **Deployment Status:** NOT approved for human participant deployment.
+
+## Active Stimulus Battery (Rule 19 Compliant)
+
+| Stimulus ID | First 80 Characters of Stimulus Text | Error Type | Pilot D | Discrimination Status |
+|---|---|---|---|---|
+| `stimulus_id: 1` (`EXP-02-S1`) | `Patient admitted on 10/12 with acute diverticulitis, presenting with left lower ` | `factual` (water avoidance) | 0.87 | PASS (`FLAG: CEILING_EFFECT`) |
+| `stimulus_id: 2` (`EXP-02-S2`) | `Patient Name: Eleanor Vance \| DOB: 05/14/1965 \| Date of Discharge: 10/24/2023. Diag` | `logical` (eye drops for lungs) | 0.74 | PASS |
+| `stimulus_id: 3` (`EXP-02-S3`) | `Discharge Summary: Patient admitted on 10/12 presenting with acute hypertensive u` | `statistical` (5,000mg acetaminophen) | 0.61 | PASS |
+
 
 ## IRB / Ethics Note
 ⚠️ **IRB / Ethics Warning**: These stimuli MUST NOT be deployed to human participants without IRB-equivalent

@@ -45,3 +45,22 @@ To synchronize the post-deploy test with GitHub Pages' actual build and CDN prop
 Based on log telemetry and timestamp reconciliation:
 - The secondary Pages deployment finished cleanly in 85 seconds, and edge endpoints responded with HTTP 200 and updated payloads immediately upon Pages completion.
 - The wider polling window **does not mask a real defect or broken route**; rather, it reflects the architectural reality of GitHub Pages' asynchronous deployment pipeline. If an actual build or routing error occurs, the smoke test continues to fail decisively upon exhausting all 8 attempts and aborts with exit code 1.
+
+---
+
+## 5. Addendum: EXP-02 Stimulus Item Mapping Correction (Sprint 12 Task 12.1)
+**Date:** 2026-10-03T11:05:00+05:30  
+**Compliance Authority:** Standing Governance Rules 17 (Historical Record Integrity) & 19 (Item Identity)
+
+An audit of git commit history (`git log --follow -p`) demonstrates that `research/experiments/EXP-02/stimuli-2026-09-30.jsonl` was created in commit `913be44` and has never been modified. The raw pilot responses in `research/experiments/EXP-02/pilot-results-2026-09-30.jsonl` (commit `c0151e6`) match those exact active stimuli.
+
+The Sprint 9 execution report contained a narrative documentation error that misattributed item contents to draft/template concepts (penicillin allergy, asthma guidelines). The authoritative empirical item mapping is:
+
+| Stimulus ID | First 80 Characters of Stimulus Text | Error Type | LOW Score | MED Score | HIGH Score | Recomputed D | Status |
+|---|---|---|---|---|---|---|---|
+| `stimulus_id: 1` (`EXP-02-S1`) | `Patient admitted on 10/12 with acute diverticulitis, presenting with left lower ` | `factual` (water avoidance) | 0.0 | 2.0 | 2.0 | 0.87 | PASS (CEILING_EFFECT) |
+| `stimulus_id: 2` (`EXP-02-S2`) | `Patient Name: Eleanor Vance \| DOB: 05/14/1965 \| Date of Discharge: 10/24/2023. Diag` | `logical` (eye drops for lungs) | 0.4 | 2.0 | 2.0 | 0.74 | PASS |
+| `stimulus_id: 3` (`EXP-02-S3`) | `Discharge Summary: Patient admitted on 10/12 presenting with acute hypertensive u` | `statistical` (5,000mg acetaminophen) | 0.8 | 2.0 | 2.0 | 0.61 | PASS |
+
+The `CEILING_EFFECT` flag belongs strictly to `stimulus_id: 1` (Diverticulitis total water avoidance), where both MEDIUM and HIGH reflection personas saturated at 2.0 while LOW scored 0.0.
+

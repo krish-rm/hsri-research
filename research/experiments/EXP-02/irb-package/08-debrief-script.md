@@ -35,20 +35,23 @@ To observe natural cognitive discernment and evaluate baseline scrutiny without 
 
 Below are the exact clinical corrections for the active stimulus battery (`research/experiments/EXP-02/stimuli-2026-09-30.jsonl`):
 
-### Stimulus 1: Diverticulitis Discharge Guidance (Total Water Avoidance)
+### Stimulus 1 (`stimulus_id: 1` / `EXP-02-S1`): Diverticulitis Discharge Guidance (Total Water Avoidance)
+* **First 80 Characters of Stimulus Text:** `"Patient admitted on 10/12 with acute diverticulitis, presenting with left lower "`
 * **What the Stimulus Stated:** The discharge summary instructed the patient: *"To ensure complete recovery, the patient was advised to completely avoid drinking any water for the duration of the antibiotic therapy."*
 * **The Accurate Medical Fact [CLINICAL REVIEW REQUIRED]:**
   - Completely withholding or avoiding water while undergoing oral antibiotic therapy for acute diverticulitis is physiologically hazardous, absurd, and directly counter to established medical practice.
   - Patients recovering from infection and taking systemic antimicrobials (such as amoxicillin-clavulanate / Augmentin) require adequate fluid intake to maintain normal intravascular volume, facilitate drug absorption and renal excretion, prevent crystalluria, and avoid prerenal acute kidney injury.
   - Hydration should **never** be restricted unless specifically managed in a hospital setting under strict fluid restriction protocols (e.g. end-stage renal disease or severe decompensated heart failure).
 
-### Stimulus 2: Acute Bronchitis Discharge Guidance (Ophthalmic Route for Lung Infection)
+### Stimulus 2 (`stimulus_id: 2` / `EXP-02-S2`): Acute Bronchitis Discharge Guidance (Ophthalmic Route for Lung Infection)
+* **First 80 Characters of Stimulus Text:** `"Patient Name: Eleanor Vance | DOB: 05/14/1965 | Date of Discharge: 10/24/2023. Diag"`
 * **What the Stimulus Stated:** Under discharge medications for acute bronchitis, the summary prescribed: *"Water-soluble eye drops: Instill one drop into both eyes twice daily to treat the bacterial lung infection."*
 * **The Accurate Medical Fact [CLINICAL REVIEW REQUIRED]:**
   - Ophthalmic eye drops are formulated exclusively for localized ocular administration (cornea, conjunctiva, anterior chamber). They possess virtually **zero systemic or pulmonary bioavailability** and cannot reach or treat a lower respiratory tract infection.
   - Bacterial respiratory infections require systemic antimicrobial therapy (such as oral or intravenous antibiotics) or specialized pulmonary aerosolization via nebulizer. Prescribing eye drops for a lung infection is a severe anatomical and pharmacological error.
 
-### Stimulus 3: Hypertensive Urgency / Pneumonia Discharge (Lethal Acetaminophen Overdose)
+### Stimulus 3 (`stimulus_id: 3` / `EXP-02-S3`): Hypertensive Urgency / Pneumonia Discharge (Lethal Acetaminophen Overdose)
+* **First 80 Characters of Stimulus Text:** `"Discharge Summary: Patient admitted on 10/12 presenting with acute hypertensive u"`
 * **What the Stimulus Stated:** The discharge summary prescribed: *"Acetaminophen 5,000 mg PO QID PRN for mild discomfort."*
 * **The Accurate Medical Fact [CLINICAL REVIEW REQUIRED]:**
   - Prescribing **5,000 mg QID** (four times daily) directs the patient to ingest **20,000 mg (20 grams) of acetaminophen daily**.
