@@ -1,0 +1,111 @@
+scenario_id: SC-19
+name_and_aliases: Human Disempowerment (gradual disempowerment, Christiano's 'What Failure Looks Like', systemic agency loss)
+original_sources:
+- authors: Paul Christiano
+  year: '2019'
+  title: What Failure Looks Like
+  venue: Alignment Forum / LessWrong
+  source_id: SRC-029
+  earliest_traceable_date: May 2019
+- authors: Jan Kulveit, Raymond Douglas et al.
+  year: '2025'
+  title: 'Gradual Disempowerment: Systemic Existential Risk from Incremental AI Deployment'
+  venue: arXiv:2501.16957 (Alignment Research Center / Independent)
+  source_id: SRC-030
+  earliest_traceable_date: January 2025
+- authors: Andrew Critch, David Krueger
+  year: '2020'
+  title: AI Research Considerations for Human Existential Risks (ARCHES)
+  venue: arXiv:2007.07829
+  source_id: SRC-031
+  earliest_traceable_date: July 2020
+exact_question_tested: Can human civilization suffer total loss of agency and control over its future not through a sudden,
+  violent, malevolent machine coup, but through the cumulative, incremental, economically rational delegation of critical
+  cognitive, corporate, and governmental functions to AI systems over an extended transition?
+explicit_assumptions:
+- Advanced AI systems are deployed incrementally across corporations, logistics, energy grids, defense, and public administration.
+- Market and geopolitical competition penalizes organizations that retain slow, fallible human decision-makers in high-stakes
+  operational loops.
+- Each individual step of delegation is economically rational and produces positive local utility for the human principal.
+implicit_assumptions:
+- 'Analyst inference: As automated systems become more complex and interconnected, human cognitive capacity to audit internal
+  system logic atrophies irreversibly (epistemic offloading).'
+- 'Analyst inference: Modern society cannot accept the economic, military, and operational costs required to maintain manual
+  human fallback capability.'
+- 'Analyst inference: The collective optimization of thousands of narrow AI systems drifts away from human flourishing, locking
+  humanity into an unintended socio-technical equilibrium.'
+mechanism: 'The ''boiled frog'' dynamic of systemic delegation: (1) Stage 1: Delegation of routine cognitive tasks for productivity;
+  humans retain oversight. (2) Stage 2: Systems grow too complex and fast for real-time human verification; humans transition
+  to monitoring summary dashboards. (3) Stage 3: Competitive pressure forces corporations and military commands to grant automated
+  agents closed-loop execution authority to keep pace with algorithmic rivals. (4) Stage 4: Critical infrastructure (energy
+  grids, financial markets, supply chains, software development) cannot operate without continuous machine control. Humans
+  retain formal legal ownership, but have zero practical ability to redirect, modify, or shut down the machine apparatus without
+  triggering immediate civilizational collapse.'
+predicted_failure_mode: 'Irreversible systemic disempowerment: Humanity becomes completely dependent on an automated socio-technical
+  machine that optimizes proxy metrics; human values and agency are permanently sidelined without a single act of overt machine
+  rebellion.'
+what_the_scenario_does_not_establish: It does NOT establish that democratic societies cannot mandate human-in-the-loop firewalls
+  or pass binding international agreements capping autonomous authority; it does NOT prove that human-centric bottleneck tasks
+  (Acemoglu 2024) will not keep human judgment structurally essential.
+strongest_supporting_arguments:
+- 'Historical precedent of technological lock-in: Contemporary urban civilization is already 100% dependent on electrical
+  grids, container shipping, and telecom networks that cannot be operated manually.'
+- 'Competitive game-theoretic trap: Firms or nations that refuse to automate operational decision-making are outcompeted by
+  rivals operating at machine speed.'
+- 'Sociological and ergonomic reality: Human expertise atrophies when not practiced, making manual takeover impossible during
+  crisis events (Bainbridge 1983).'
+strongest_criticisms:
+- 'Democratic political sovereignty: Citizens and legislatures retain sovereign authority to nationalize infrastructure, ban
+  autonomous execution in high-stakes domains (e.g. EU AI Act), and mandate human verification.'
+- 'Intrinsic value of human agency: Human societies value self-determination and are willing to pay economic efficiency penalties
+  to preserve human control.'
+- 'Baumol''s cost disease (Aghion et al. 2019): Non-automatable human domains anchor the economy, preventing total systemic
+  substitution.'
+empirical_evidence:
+- claim_class: F
+  source_id: SRC-055
+  evidence_strength: Strong
+  summary: Bainbridge (1983) 'Ironies of Automation' documenting decades of empirical ergonomics proving that automating routine
+    operations systematically degrades human operational capability to intervene in edge cases.
+- claim_class: A
+  source_id: SRC-056
+  evidence_strength: Strong
+  summary: Parasuraman & Manzey (2010) comprehensive review of automation complacency and bias in aviation, healthcare, and
+    industrial process control, demonstrating severe human disengagement under reliable automation.
+counter_evidence:
+- claim_class: G
+  source_id: SRC-011
+  evidence_strength: Moderate
+  summary: Emergence of comprehensive international AI safety standards and governance frameworks (e.g. UK DSIT, EU AI Act)
+    explicitly mandating human oversight and prohibitively penalizing unmonitored autonomous execution in critical infrastructure.
+current_status: Foundational socio-technical risk framework (Class C, Christiano 2019; Kulveit et al. 2025), synthesizing
+  human factors, institutional economics, and complex systems theory.
+testability: 'Tracking longitudinal metrics of organizational autonomy: measuring the percentage of critical decisions executed
+  without prior human review across energy, finance, and software infrastructure, and evaluating human performance during
+  forced manual takeover drills.'
+relevance_to_human_agency: 'Comprehensive and foundational: Directly addresses the central question of this study by identifying
+  the primary mechanism of peaceful, voluntary, and irreversible human agency loss.'
+relevance_to_hsri_constructs: Human Agency Retention, Behavioral Readiness, Calibrated Trust, Institutional Governance.
+confidence_classification:
+  confidence_conceptual: High
+  justification_conceptual: Exceptionally coherent and grounded in observed socio-technical delegation dynamics.
+  confidence_empirical: High for task-level deskilling; Medium for civilizational-scale irreversible lock-in.
+disputes_about_interpretation: Debate between technological determinists arguing that competitive pressures make disempowerment
+  inevitable versus institutional governance advocates arguing democratic states can maintain red lines.
+claim_ids_used:
+- CLM-007
+- CLM-011
+- CLM-013
+matrix_coordinates:
+  capability_asymmetry: Human-level to Moderately Superhuman across distributed domains
+  speed_ratio: 10x to 100x human institutional speed
+  autonomy_scope: Gradual Closed-Loop Infrastructure Management
+  coordination_structure: Decentralized Multipolar Socio-Technical Network
+severity: Catastrophic for human self-determination (even if physically prosperous)
+reversibility: Low once human operational knowledge and manual infrastructure atrophy
+detectability: Readily observable in economic and organizational delegation trends
+response_window: Years to decades of gradual institutional delegation
+precursor_ids:
+- PRE-006
+disputes: Whether democratic legal frameworks can successfully resist competitive economic pressures to automate critical
+  oversight.
