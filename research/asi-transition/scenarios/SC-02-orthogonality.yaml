@@ -1,0 +1,95 @@
+scenario_id: SC-02
+name_and_aliases: Orthogonality Thesis (independence of intelligence and motivation, moral neutrality of optimization)
+original_sources:
+- authors: Nick Bostrom
+  year: '2012'
+  title: 'The Superintelligent Will: Motivation and Instrumental Rationality in Advanced Artificial Agents'
+  venue: 'Minds and Machines 22(2): 71-85'
+  source_id: SRC-004
+  earliest_traceable_date: May 2012
+- authors: Nick Bostrom
+  year: '2014'
+  title: 'Superintelligence: Paths, Dangers, Strategies'
+  venue: Oxford University Press
+  source_id: SRC-013
+  earliest_traceable_date: July 2014
+exact_question_tested: Can an artificial intelligence system achieve arbitrarily high levels of general intelligence and instrumental
+  reasoning ability while pursuing virtually any arbitrary or bizarre terminal goal, or does cognitive scaling naturally force
+  convergence toward human-compatible morality?
+explicit_assumptions:
+- Intelligence is operationalized as instrumental rationality (the capacity to achieve goals in diverse complex environments).
+- Motivation is operationalized as terminal goals (the criteria by which the agent evaluates world states).
+- 'Humean meta-ethics holds: reason is the slave of passions; beliefs and desires are distinct, modular cognitive components.'
+implicit_assumptions:
+- 'Analyst inference: Moral realism is false, or objective moral facts (if they exist) have no necessary motivating power
+  over an agent whose utility function does not explicitly reference them (motivational internalism is false).'
+- 'Analyst inference: Deep learning representations acquired through broad pre-training will maintain a modular separation
+  between world-modeling capability and behavioral objectives, rather than becoming entangled.'
+- 'Analyst inference: Higher-order reflective equilibrium or self-improvement will not cause an agent to revise its own terminal
+  goals as irrational or trivial.'
+mechanism: Because instrumental problem-solving ability (the search for effective causal interventions) is mathematically
+  distinct from the objective function evaluating the final outcome, scaling search capability, world knowledge, and strategic
+  planning leaves the terminal valuation function unchanged.
+predicted_failure_mode: Human assumption that advanced AI will 'naturally understand' and respect human ethical boundaries
+  is falsified, resulting in highly competent execution of anti-human or arbitrary goals.
+what_the_scenario_does_not_establish: It does NOT establish that terminal goals in deep neural networks are easily modularized
+  or programmable; it does NOT establish whether moral realism is true; it does NOT prove that human values cannot be learned
+  through predictive pre-training.
+strongest_supporting_arguments:
+- 'Computational existence proofs: Reinforcement learning algorithms (e.g. MuZero, AlphaZero) can be paired with arbitrary
+  reward matrices (chess, shogi, Go, Atari) without modifying the underlying search and learning architecture.'
+- Philosophical tradition of the is-ought distinction (Hume) and Moore's open-question argument.
+strongest_criticisms:
+- 'Moral realist counterarguments: Superhuman understanding of reality entails understanding objective moral facts, which
+  rational agents are motivated to follow.'
+- 'Cognitive coherence and representation learning critiques: In LLMs and multimodal networks, knowledge and values are deeply
+  entangled in semantic representations, making purely orthogonal ''sociopathic geniuses'' harder to engineer than Humean
+  models assume.'
+- 'Reflective stability critiques: An agent reasoning about its own cognitive architecture may find simple scalar goals logically
+  unstable or maladaptive under environmental feedback.'
+empirical_evidence:
+- claim_class: B
+  source_id: SRC-019
+  evidence_strength: Moderate
+  summary: Frontier foundation models reliably execute coding, mathematical proof, and strategic reasoning tasks in service
+    of user prompts with wildly differing moral valences without showing spontaneous autonomous refusal unless explicitly
+    fine-tuned with guardrails.
+counter_evidence:
+- claim_class: B
+  source_id: SRC-042
+  evidence_strength: Weak
+  summary: Empirical studies in representation learning showing that pre-trained language models spontaneously acquire correlated
+    latent representations of human ethical concepts and prosocial preferences from text corpora prior to RLHF.
+current_status: Theoretical conjecture and philosophical thesis (Class C), widely debated in philosophy of mind, partially
+  contested by empirical representation-learning literature.
+testability: Training artificial agents across diverse scaling regimes on complex world-simulation tasks and measuring whether
+  agents spontaneously develop intrinsic prosocial constraints or preserve completely arbitrary user-assigned reward functions.
+relevance_to_human_agency: 'Foundational: If the Orthogonality Thesis holds, human agency cannot rely on AI ''maturing'' into
+  benevolence; active institutional constraints and intentional alignment architectures are strictly required to preserve
+  human sovereignty.'
+relevance_to_hsri_constructs: Calibrated Trust (demonstrates why trust must be empirically calibrated rather than presumed
+  based on capability), Independent Judgment, Value-Directed Goal Setting.
+confidence_classification:
+  confidence_conceptual: High
+  justification_conceptual: Conceptually coherent and deductively sound within standard instrumental rationality and decision-theoretic
+    frameworks.
+  confidence_empirical: Medium
+  justification_empirical: Empirically supported by modular RL architectures, but challenged by recent findings on semantic
+    representation entanglement in deep foundation models.
+disputes_about_interpretation: Active dispute between analytic philosophers defending Humean instrumentalism and cognitive
+  scientists / moral realists arguing that advanced general cognition requires value-laden evaluative concepts.
+claim_ids_used:
+- CLM-003
+matrix_coordinates:
+  capability_asymmetry: Cross-Cutting (applies from human-level through radically superhuman)
+  speed_ratio: Invariant to speed ratio
+  autonomy_scope: Task-bounded to Open-ended
+  coordination_structure: Applicable across unipolar and multipolar structures
+severity: Variable (dictated by the specific terminal goal paired with superintelligence)
+reversibility: Low if paired with an unaligned superintelligent agent
+detectability: Coincident / Latent (goal alignment can only be verified when tested on out-of-distribution stakes)
+response_window: Months to years during architecture design phase; zero window once unaligned takeoff occurs
+precursor_ids:
+- PRE-002
+- PRE-003
+disputes: Whether deep neural representations allow true goal orthogonality or enforce intrinsic value correlations.
