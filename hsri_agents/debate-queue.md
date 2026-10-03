@@ -43,6 +43,8 @@ Skeptic brief: Japan and South Korea show high economic AI exposure but
 ---
 
 ## Addendum on Timestamps (Rule 17 Compliance — 2026-10-02T14:35:00+05:30)
-- **Historical Timestamp Reconciliation:** The resolution date for TOPIC-003 and execution date for TOPIC-004 were originally recorded as `2026-10-01` during the Sprint 9 completion window. Although the Sprint 9 narrative report was finalized at `2026-09-30 22:50 IST` (prior to midnight), the queue log entries carried the UTC/early next-day date `2026-10-01`.
-- In compliance with Standing Governance Rule 17 (prohibiting retrospective rewriting of dated log entries to match later reports), the original `2026-10-01` queue timestamp is restored, and this discrepancy is recorded via addendum rather than in-place rewriting.
+- **Historical Timestamp Reconciliation:** The resolution date for TOPIC-003 and execution date for TOPIC-004 were recorded as `2026-10-01` in commit `c0151e6` (committed at `2026-09-30 22:41:44 +0530`).
+  - *Established by logs:* Commit `c0151e6` occurred on 2026-09-30 (local `22:41:44 +0530` / UTC `17:11:44Z`) and contained the literal string `2026-10-01`.
+  - *Marked as conjecture / guess:* The prior narrative explanation that this occurred due to "UTC/early next-day date transposition" is a retroactive guess/inference about author intent, not an established fact from repository logs (since UTC was also 2026-09-30 at commit time).
+- In compliance with Standing Governance Rule 17 (prohibiting retrospective rewriting of dated log entries to match later reports), the original `2026-10-01` queue timestamp is preserved as committed, and this discrepancy is recorded via addendum rather than in-place rewriting.
 

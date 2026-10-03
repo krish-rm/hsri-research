@@ -37,3 +37,27 @@ Maintainer decision: Explicitly authorized direct integration and push to main p
 Verbatim instruction: "go with Option B ... earlier until spritn 9 it was auto merge"
 Authorized and ratified by: Human Maintainer (Krish / krish-rm)
 
+---
+
+## Pending Ratification: Direct Commit 8a47a40 (Verification Script Pass Criteria)
+- **Status:** PENDING MAINTAINER RATIFICATION
+- **Date recorded:** 2026-10-03T11:00:00+05:30
+- **Commit SHA:** `8a47a40e4cf94262bff9227f6ece0c83291588ae`
+- **What changed:** Modified `scripts/step5_supplementary.py` to widen the EXP-03 label check to accept `'SYNTHETIC PILOT COMPLETE: STIMULI CLEARED FOR IRB PACKAGING'` alongside `'STIMULI GENERATED: CONSTRAINT CHECKS PASSED'`.
+- **Why human PR is required under Rule 1:**
+  1. Direct commit pushed straight to `main` rather than a feature branch merge.
+  2. Directly altered the pass criteria of a verification script (`scripts/step5_supplementary.py`). Under Standing Governance Rule 1, any change to verification script pass criteria strictly requires a human-approved PR.
+- **Maintainer decision:** PENDING review by human maintainer.
+
+---
+
+## Pending Ratification: Direct Commit 1a762aa (Governance Rules & EXP-03 Artifacts)
+- **Status:** PENDING MAINTAINER RATIFICATION
+- **Date recorded:** 2026-10-03T11:00:00+05:30
+- **Commit SHA:** `1a762aab3503db444bc306c5896cb4d14c330f6b`
+- **What changed:** Edited `reports/handoff-corrections.md` (governance rules text), `reports/sprint-11-report.md`, `research/experiments/EXP-03/README.md`, and `research/experiments/EXP-03/pilot-summary-2026-10-02.md` (EXP-03 status, ceiling artifact flags).
+- **Why human PR is required under Rule 1:**
+  1. Direct commit pushed straight to `main` rather than a feature branch merge.
+  2. Modified governance rules text and public verdict/experiment documentation. Under Standing Governance Rule 1, changes to governance rules and public verdict documentation require human-approved PR.
+- **Maintainer decision:** PENDING review by human maintainer.
+

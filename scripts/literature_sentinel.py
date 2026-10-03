@@ -228,7 +228,7 @@ def evaluate_escalation(paper: Dict[str, Any], master_claims: Optional[List[Dict
 def fetch_openalex_papers(query: str, limit: int = 3) -> List[Dict[str, Any]]:
     """Query OpenAlex API for recent works."""
     url = f"{SOURCES['openalex']}?search={urllib.parse.quote(query)}&per_page={limit}&sort=publication_year:desc"
-    headers = {"User-Agent": "HSRI-LiteratureSentinel/1.0 (mailto:hsri-ops@users.noreply.github.com)"}
+    headers = {"User-Agent": "HSRI-Audit"}
     papers = []
     try:
         req = urllib.request.Request(url, headers=headers)
