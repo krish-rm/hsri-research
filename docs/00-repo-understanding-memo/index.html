@@ -1,0 +1,883 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A research feasibility project investigating whether human psychological and behavioral readiness for increasingly capable AI can be scientifically measured.">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>HSRI Repository Understanding Memo - Human Superintelligence Readiness Index (HSRI)</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#hsri-repository-understanding-memo" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Human Superintelligence Readiness Index (HSRI)" class="md-header__button md-logo" aria-label="Human Superintelligence Readiness Index (HSRI)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Human Superintelligence Readiness Index (HSRI)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              HSRI Repository Understanding Memo
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/krish-rm/hsri-research" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hsri-research
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Human Superintelligence Readiness Index (HSRI)" class="md-nav__button md-logo" aria-label="Human Superintelligence Readiness Index (HSRI)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Human Superintelligence Readiness Index (HSRI)
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/krish-rm/hsri-research" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hsri-research
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-definition/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Definition and Scope
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-existing-indices/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Existing Global Indices
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-construct-audit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Construct Redundancy Audit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-causal-model-and-index-design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Causal Model and Index Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-measurement-and-experiments/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Measurement and Experiments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-cross-cultural-and-ethics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Cross-Cultural Validity and Ethics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-objections/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Objections and Counterarguments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Research Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-final-recommendation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Final Recommendation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="hsri-repository-understanding-memo">HSRI Repository Understanding Memo</h1>
+<h2 id="executive-summary">Executive Summary</h2>
+<p>This memo synthesizes the key aspects of the Human Superintelligence Readiness Index (HSRI) research repository to inform the development of a public benchmark-style interactive website. The memo covers the operational definition, capability framework, conceptual architecture, evidence standards, and tensions between the repository's current position and the task requirements.</p>
+<hr />
+<h2 id="1-operational-definition-of-readiness">1. Operational Definition of Readiness</h2>
+<p>The HSRI defines readiness operationally as:</p>
+<blockquote>
+<p><strong>"The demonstrated behavioral capacity of an individual, organization, or society to maintain calibrated trust, independent judgment, and value-directed goal-setting when interacting with AI systems whose task-specific performance meets or exceeds their own — measured behaviorally wherever possible, not merely self-reported."</strong></p>
+</blockquote>
+<h3 id="key-characteristics">Key Characteristics:</h3>
+<ul>
+<li><strong>Behavioral, not attitudinal</strong>: Focuses on observable actions rather than self-reported beliefs</li>
+<li><strong>Task-specific, not general</strong>: Anchored to present-day cognitive asymmetry (e.g., chess engines, diagnostic classifiers, coding agents)</li>
+<li><strong>Calibrated trust</strong>: Measures appropriate reliance, not simply "trust" or "distrust"</li>
+<li><strong>Independent judgment</strong>: Emphasizes override behavior and verification</li>
+<li><strong>Value-directed goal-setting</strong>: Focuses on preserving human agency in setting objectives</li>
+</ul>
+<hr />
+<h2 id="2-capability-levels-af">2. Capability Levels A–F</h2>
+<p>The repository classifies human-AI interaction into six ascending capability tiers:</p>
+<table>
+<thead>
+<tr>
+<th>Level</th>
+<th>System Role</th>
+<th>Human Value Gains</th>
+<th>Human Value Losses</th>
+<th>Primary Failure Mode</th>
+<th>Feasibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>A</strong></td>
+<td>Tool</td>
+<td>Basic digital literacy</td>
+<td>Rote calculation</td>
+<td>Non-adoption</td>
+<td>Established</td>
+</tr>
+<tr>
+<td><strong>B</strong></td>
+<td>Cognitive Assistant</td>
+<td>Verification habits</td>
+<td>Manual info retrieval</td>
+<td>Mild over-reliance</td>
+<td>Established</td>
+</tr>
+<tr>
+<td><strong>C</strong></td>
+<td>Capable Collaborator</td>
+<td>Error discernment</td>
+<td>Initial drafting</td>
+<td>Automation complacency</td>
+<td>Active focus</td>
+</tr>
+<tr>
+<td><strong>D</strong></td>
+<td>Autonomous Task Manager</td>
+<td>Oversight judgment</td>
+<td>Manual execution</td>
+<td>Deskilling</td>
+<td>Active focus</td>
+</tr>
+<tr>
+<td><strong>E</strong></td>
+<td>Exceeds Human Reasoning</td>
+<td>Meta-evaluative judgment</td>
+<td>Individual expertise</td>
+<td>Systemic dependence</td>
+<td>Preliminary</td>
+</tr>
+<tr>
+<td><strong>F</strong></td>
+<td>Hypothetical Superintelligence</td>
+<td>Unknown</td>
+<td>Individual competition</td>
+<td>Cognitive obsolescence</td>
+<td>Speculative</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key Point</strong>: HSRI is empirically grounded through Level D and cautiously extrapolated to Level E. Level F is purely conceptual.</p>
+<hr />
+<h2 id="3-four-tier-conceptual-scaffold">3. Four-Tier Conceptual Scaffold</h2>
+<p>The repository organizes candidate variables into a four-tier theoretical framework:</p>
+<h3 id="tier-1-foundational-substrates-endogenous">Tier 1: Foundational Substrates (Endogenous)</h3>
+<ul>
+<li>Executive Attentional Control (ANT/SART)</li>
+<li>Metacognitive Sensitivity (Confidence-accuracy calibration)</li>
+<li>Cognitive Flexibility (Task-switching)</li>
+</ul>
+<h3 id="tier-2-higher-order-epistemic-mediators">Tier 2: Higher-Order Epistemic Mediators</h3>
+<ul>
+<li>Cognitive Reflection (CRT)</li>
+<li>Intellectual Humility (CIHS)</li>
+<li>Uncertainty Tolerance (IUS-12)</li>
+<li>Value Clarity (Theoretical, supplementary)</li>
+</ul>
+<h3 id="tier-3-ai-interaction-behavioral-interface-novel-core">Tier 3: AI-Interaction Behavioral Interface (Novel Core)</h3>
+<ul>
+<li>Calibrated Trust &amp; Appropriate Reliance</li>
+<li>Discernment of Confident-Wrong AI Outputs</li>
+<li>Override Latency and Accuracy</li>
+<li>Resistance to Persuasive/Sycophantic Framing</li>
+<li>AI Literacy (Imported from UNESCO/OECD)</li>
+</ul>
+<h3 id="tier-4-emergent-outcome">Tier 4: Emergent Outcome</h3>
+<ul>
+<li>Preserved Decisional Agency and Value-Directed Goal-Setting</li>
+</ul>
+<hr />
+<h2 id="4-indicator-retention-decisions">4. Indicator Retention Decisions</h2>
+<p>After systematic redundancy audit, six candidate sub-components remain:</p>
+<table>
+<thead>
+<tr>
+<th>Sub-component</th>
+<th>Status</th>
+<th>Rationale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Attentional Control</strong></td>
+<td>Retained (Tier 1)</td>
+<td>Reusable measurement paradigm from cognitive psychology</td>
+</tr>
+<tr>
+<td><strong>Metacognition</strong></td>
+<td>Retained (Tier 1)</td>
+<td>Direct methodological reuse via confidence-accuracy calibration</td>
+</tr>
+<tr>
+<td><strong>Decision Agency</strong></td>
+<td>Retained (Tier 4)</td>
+<td>Central organizing construct; distinct from mere capability</td>
+</tr>
+<tr>
+<td><strong>Value Clarity</strong></td>
+<td>Retained as supplementary</td>
+<td>Theoretical dimension; empirical link unverified</td>
+</tr>
+<tr>
+<td><strong>AI Literacy</strong></td>
+<td>Retained (Tier 3)</td>
+<td>Import existing frameworks rather than create redundant scales</td>
+</tr>
+<tr>
+<td><strong>Calibrated Trust</strong></td>
+<td>Retained (Tier 3)</td>
+<td>Extension of classical automation bias to generative AI</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rejected-dimensions">Rejected Dimensions:</h3>
+<ul>
+<li>Psychological stability (affective covariate only)</li>
+<li>Meditation frequency (candidate training intervention, not indicator)</li>
+<li>Generic collaboration (conflates agency with throughput)</li>
+</ul>
+<hr />
+<h2 id="5-aggregation-models">5. Aggregation Models</h2>
+<p>The repository rejects simple composite scoring in favor of:</p>
+<h3 id="individual-level">Individual Level:</h3>
+<ul>
+<li><strong>Non-compensatory threshold logic</strong>: Critical weaknesses in foundational substrates cannot be offset by strengths in higher-order capabilities</li>
+<li><strong>Profile reporting</strong>: Multidimensional scores with domain breakdowns</li>
+<li><strong>Mandatory uncertainty intervals</strong>: Ranges rather than point estimates</li>
+</ul>
+<h3 id="organizationalnational-level">Organizational/National Level:</h3>
+<ul>
+<li><strong>Currently deemed premature</strong> per the roadmap</li>
+<li>Would require structural indicators (curricula, governance frameworks) not individual psychometrics</li>
+</ul>
+<hr />
+<h2 id="6-six-candidate-sub-components">6. Six Candidate Sub-components</h2>
+<h3 id="1-attentional-control">1. Attentional Control</h3>
+<ul>
+<li><strong>Measurement</strong>: Attention Network Test (ANT), Sustained Attention to Response Task (SART)</li>
+<li><strong>Role</strong>: Foundational substrate for resisting notification overload and detecting subtle model drift</li>
+</ul>
+<h3 id="2-metacognition">2. Metacognition</h3>
+<ul>
+<li><strong>Measurement</strong>: Confidence-accuracy calibration curves, meta-d' sensitivity</li>
+<li><strong>Role</strong>: Self-monitoring capacity against AI output accuracy</li>
+</ul>
+<h3 id="3-decision-agency">3. Decision Agency</h3>
+<ul>
+<li><strong>Measurement</strong>: Behavioral delegation choices, override willingness, accountability retention</li>
+<li><strong>Role</strong>: Central construct measuring preserved volition under AI assistance</li>
+</ul>
+<h3 id="4-value-clarity">4. Value Clarity</h3>
+<ul>
+<li><strong>Measurement</strong>: Values clarification tasks, goal-action consistency</li>
+<li><strong>Role</strong>: Theoretical dimension protecting against goal drift</li>
+</ul>
+<h3 id="5-ai-literacy">5. AI Literacy</h3>
+<ul>
+<li><strong>Measurement</strong>: AI Literacy Questionnaire (Ng et al.), UNESCO/OECD frameworks</li>
+<li><strong>Role</strong>: Technical and conceptual understanding of AI systems</li>
+</ul>
+<h3 id="6-calibrated-trust">6. Calibrated Trust</h3>
+<ul>
+<li><strong>Measurement</strong>: Reliance ratios (correct vs. incorrect advice), error detection rates</li>
+<li><strong>Role</strong>: Behavioral interface measuring appropriate automation reliance</li>
+</ul>
+<hr />
+<h2 id="7-repos-headline-recommendation">7. Repo's Headline Recommendation</h2>
+<p>The repository concludes with a <strong>"Develop as a research construct first"</strong> recommendation for three key reasons:</p>
+<ol>
+<li><strong>No validation data exists</strong>: Zero psychometric validation of the construct</li>
+<li><strong>Public indexing risks unmanaged</strong>: Ethical safeguards against discrimination and responsibility laundering not yet established</li>
+<li><strong>Methodological immaturity</strong>: Premature national benchmarking would violate established index construction principles</li>
+</ol>
+<p>The roadmap requires 11 phases of research before any public deployment, with Phase 6 (psychometric validation) being decisive.</p>
+<hr />
+<h2 id="8-five-tier-evidence-taxonomy">8. Five-Tier Evidence Taxonomy</h2>
+<p>Claims are categorized by evidence strength:</p>
+<table>
+<thead>
+<tr>
+<th>Tier</th>
+<th>Tag</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Strong</strong></td>
+<td><code>{: .evidence-strong }</code></td>
+<td>Multiple converging peer-reviewed sources; replicated findings</td>
+</tr>
+<tr>
+<td><strong>Moderate</strong></td>
+<td><code>{: .evidence-moderate }</code></td>
+<td>Single high-quality RCT or small consistent literature</td>
+</tr>
+<tr>
+<td><strong>Preliminary</strong></td>
+<td><code>{: .evidence-preliminary }</code></td>
+<td>Recent, active empirical area (e.g., 2020–2026 LLM studies)</td>
+</tr>
+<tr>
+<td><strong>Theoretical</strong></td>
+<td><code>{: .evidence-theoretical }</code></td>
+<td>Coherent argument without direct empirical testing</td>
+</tr>
+<tr>
+<td><strong>Speculative</strong></td>
+<td><code>{: .evidence-speculative }</code></td>
+<td>Plausible extrapolation outside current empirical reach</td>
+</tr>
+<tr>
+<td><strong>Unverified</strong></td>
+<td><code>[UNVERIFIED — NEEDS SOURCE]</code></td>
+<td>Claim without verified citation</td>
+</tr>
+</tbody>
+</table>
+<p>The Master Evidence Table tracks all 42+ empirical claims with source citations.</p>
+<hr />
+<h2 id="9-tensions-with-repository-position">9. Tensions with Repository Position</h2>
+<p>This task (creating a public country ratings website) creates significant tensions with the repository's stated position:</p>
+<h3 id="tension-1-premature-public-indexing">Tension 1: Premature Public Indexing</h3>
+<ul>
+<li><strong>Repo position</strong>: "Public indexing risks unmanaged" — Phase 10 national benchmarking explicitly prohibited until Phase 6 validation</li>
+<li><strong>Task requirement</strong>: Country ratings with as many countries as data supports</li>
+<li><strong>Proposed resolution</strong>: Label as "HSRI-Proxy v0.1 — Public Preview for Review" with explicit disclaimers of validation status</li>
+</ul>
+<h3 id="tension-2-behavioral-vs-proxy-measurement">Tension 2: Behavioral vs. Proxy Measurement</h3>
+<ul>
+<li><strong>Repo position</strong>: HSRI is defined as behavioral and requires experiments in docs/05</li>
+<li><strong>Task requirement</strong>: Country-level proxies now</li>
+<li><strong>Proposed resolution</strong>: Clear separation between:</li>
+<li>"Behavioral Evidence Layer": Empty, awaiting experiments</li>
+<li>"Proxy Layer": Existing indicators mapping to HSRI sub-components</li>
+</ul>
+<h3 id="tension-3-individual-vs-national-aggregation">Tension 3: Individual vs. National Aggregation</h3>
+<ul>
+<li><strong>Repo position</strong>: National aggregation premature (Phase 10)</li>
+<li><strong>Task requirement</strong>: Country ratings</li>
+<li><strong>Proposed resolution</strong>: Measure enabling environment separately, acknowledge proxy limitations</li>
+</ul>
+<h3 id="tension-4-composite-scores-vs-profile-reporting">Tension 4: Composite Scores vs. Profile Reporting</h3>
+<ul>
+<li><strong>Repo position</strong>: Prohibit bare composite rankings; require multidimensional profiles</li>
+<li><strong>Task requirement</strong>: Leaderboard-style presentation</li>
+<li><strong>Proposed resolution</strong>: Show ranges, not point estimates; include full pillar breakdowns</li>
+</ul>
+<h3 id="tension-5-ethical-concerns">Tension 5: Ethical Concerns</h3>
+<ul>
+<li><strong>Repo position</strong>: Strong safeguards against responsibility laundering and discrimination</li>
+<li><strong>Task requirement</strong>: Public benchmarking</li>
+<li><strong>Proposed resolution</strong>: Prominent "How this index could be misused" section and ethics disclaimer</li>
+</ul>
+<hr />
+<h2 id="10-proposed-resolution-approach">10. Proposed Resolution Approach</h2>
+<p>The approach should be:
+1. <strong>Transparent about limitations</strong>: Explicit "v0.1 Public Preview — not validated" status
+2. <strong>Methodologically honest</strong>: Clear separation between behavioral construct (unmeasured) and proxy indicators
+3. <strong>Ethically cautious</strong>: Prominent responsibility laundering disclaimer
+4. <strong>Scientally rigorous</strong>: Full provenance and evidence tiering
+5. <strong>Incrementally validatable</strong>: Clear path from proxy to validated construct</p>
+<p>This maintains scientific integrity while providing value as an early warning system about where the genuine research gaps exist at country level.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.top", "toc.integrate", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

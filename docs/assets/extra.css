@@ -1,0 +1,226 @@
+/* ==========================================================================
+   HSRI Research Repository - Evidence Tier Styles & Visual Presentation
+   ========================================================================== */
+
+:root {
+  --hsri-strong-bg: #e8f5e9;
+  --hsri-strong-color: #1b5e20;
+  --hsri-strong-border: #4caf50;
+
+  --hsri-moderate-bg: #e1f5fe;
+  --hsri-moderate-color: #01579b;
+  --hsri-moderate-border: #29b6f6;
+
+  --hsri-preliminary-bg: #fff3e0;
+  --hsri-preliminary-color: #e65100;
+  --hsri-preliminary-border: #ff9800;
+
+  --hsri-theoretical-bg: #f3e5f5;
+  --hsri-theoretical-color: #4a148c;
+  --hsri-theoretical-border: #ab47bc;
+
+  --hsri-speculative-bg: #ffebee;
+  --hsri-speculative-color: #b71c1c;
+  --hsri-speculative-border: #ef5350;
+
+  --hsri-unverified-bg: #fff8e1;
+  --hsri-unverified-color: #b78103;
+  --hsri-unverified-border: #ffc107;
+}
+
+[data-md-color-scheme="slate"] {
+  --hsri-strong-bg: rgba(76, 175, 80, 0.15);
+  --hsri-strong-color: #81c784;
+  --hsri-strong-border: #4caf50;
+
+  --hsri-moderate-bg: rgba(41, 182, 246, 0.15);
+  --hsri-moderate-color: #81d4fa;
+  --hsri-moderate-border: #29b6f6;
+
+  --hsri-preliminary-bg: rgba(255, 152, 0, 0.15);
+  --hsri-preliminary-color: #ffb74d;
+  --hsri-preliminary-border: #ff9800;
+
+  --hsri-theoretical-bg: rgba(186, 104, 200, 0.15);
+  --hsri-theoretical-color: #ce93d8;
+  --hsri-theoretical-border: #ba68c8;
+
+  --hsri-speculative-bg: rgba(239, 83, 80, 0.15);
+  --hsri-speculative-color: #e57373;
+  --hsri-speculative-border: #ef5350;
+
+  --hsri-unverified-bg: rgba(255, 193, 7, 0.15);
+  --hsri-unverified-color: #ffe082;
+  --hsri-unverified-border: #ffd54f;
+}
+
+/* Base Badge Formatting */
+.evidence-strong,
+.evidence-moderate,
+.evidence-preliminary,
+.evidence-theoretical,
+.evidence-speculative,
+.unverified-badge {
+  display: inline-block;
+  font-size: 0.70rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+  line-height: 1.2;
+  white-space: nowrap;
+  font-style: normal;
+}
+
+/* Specific Badge Tiers */
+.evidence-strong {
+  background-color: var(--hsri-strong-bg);
+  color: var(--hsri-strong-color);
+  border: 1px solid var(--hsri-strong-border);
+}
+
+.evidence-moderate {
+  background-color: var(--hsri-moderate-bg);
+  color: var(--hsri-moderate-color);
+  border: 1px solid var(--hsri-moderate-border);
+}
+
+.evidence-preliminary {
+  background-color: var(--hsri-preliminary-bg);
+  color: var(--hsri-preliminary-color);
+  border: 1px solid var(--hsri-preliminary-border);
+}
+
+.evidence-theoretical {
+  background-color: var(--hsri-theoretical-bg);
+  color: var(--hsri-theoretical-color);
+  border: 1px solid var(--hsri-theoretical-border);
+}
+
+.evidence-speculative {
+  background-color: var(--hsri-speculative-bg);
+  color: var(--hsri-speculative-color);
+  border: 1px solid var(--hsri-speculative-border);
+}
+
+.unverified-badge {
+  background-color: var(--hsri-unverified-bg);
+  color: var(--hsri-unverified-color);
+  border: 1px dashed var(--hsri-unverified-border);
+}
+
+/* Support for Python-Markdown attr_list on paragraph blocks */
+p.evidence-strong::after,
+li.evidence-strong::after {
+  content: "Evidence: Strong";
+  display: inline-block;
+  font-size: 0.70rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+  line-height: 1.2;
+  background-color: var(--hsri-strong-bg);
+  color: var(--hsri-strong-color);
+  border: 1px solid var(--hsri-strong-border);
+}
+
+p.evidence-moderate::after,
+li.evidence-moderate::after {
+  content: "Evidence: Moderate";
+  display: inline-block;
+  font-size: 0.70rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+  line-height: 1.2;
+  background-color: var(--hsri-moderate-bg);
+  color: var(--hsri-moderate-color);
+  border: 1px solid var(--hsri-moderate-border);
+}
+
+p.evidence-preliminary::after,
+li.evidence-preliminary::after {
+  content: "Evidence: Preliminary";
+  display: inline-block;
+  font-size: 0.70rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+  line-height: 1.2;
+  background-color: var(--hsri-preliminary-bg);
+  color: var(--hsri-preliminary-color);
+  border: 1px solid var(--hsri-preliminary-border);
+}
+
+p.evidence-theoretical::after,
+li.evidence-theoretical::after {
+  content: "Evidence: Theoretical";
+  display: inline-block;
+  font-size: 0.70rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+  line-height: 1.2;
+  background-color: var(--hsri-theoretical-bg);
+  color: var(--hsri-theoretical-color);
+  border: 1px solid var(--hsri-theoretical-border);
+}
+
+p.evidence-speculative::after,
+li.evidence-speculative::after {
+  content: "Evidence: Speculative";
+  display: inline-block;
+  font-size: 0.70rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+  line-height: 1.2;
+  background-color: var(--hsri-speculative-bg);
+  color: var(--hsri-speculative-color);
+  border: 1px solid var(--hsri-speculative-border);
+}
+
+/* Enhanced Table Styling for Academic Reviewers */
+.md-typeset table:not([class]) {
+  font-size: 0.82rem;
+  border-collapse: collapse;
+}
+
+.md-typeset table:not([class]) th {
+  background-color: var(--md-default-fg-color--lightest);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* Status Callout Banner */
+.hsri-status-banner {
+  padding: 0.8rem 1rem;
+  border-left: 4px solid var(--md-accent-fg-color);
+  background-color: var(--md-default-fg-color--lightest);
+  border-radius: 0 4px 4px 0;
+  margin-bottom: 1.5rem;
+  font-size: 0.88rem;
+}
