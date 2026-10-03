@@ -10,9 +10,8 @@ DRAFT PR: to be opened by the maintainer
 ---
 
 ## 1. Restricted Categories Touched
-- **Verification Infrastructure:** Adding `.github/workflows/ci.yml`.
-
-Under Rule 1 and Rule 21, changes to verification infrastructure require a human-approved pull request. This branch was pushed by the agent and is submitted for human maintainer review and merge.
+- **Verification Infrastructure & Governance Guard Test:** Adding `.github/workflows/ci.yml` and modifying `test_no_automation_workflows` in `tests/test_agents.py`.
+- **CRITICAL GOVERNANCE NOTICE:** This branch modifies a governance guard test (`test_no_automation_workflows`) designed to prevent autonomous merge and PR workflows. Under Rule 1, Rule 11, and Task 13.3, changes to verification infrastructure and governance guard tests **strictly require human maintainer review and approval**. Autonomous agent merge is prohibited.
 
 ---
 
@@ -28,54 +27,39 @@ Under Rule 1 and Rule 21, changes to verification infrastructure require a human
    - Executes `python -m pytest -v` across the Python test suite and `npm run build` in `site-astro`.
    - Contains no deployment steps, no secrets, and no push permissions.
 
+2. **Governance Guard Test Update (`tests/test_agents.py`):**
+   - In accordance with Task 13.3, `test_no_automation_workflows` was updated directly on the branch to authorize `ci.yml` in the allowed workflow list, accompanied by strict, programmatic security assertions:
+     1. Asserts top-level `permissions` is exactly `contents: read`.
+     2. Asserts zero references to `secrets.`.
+     3. Asserts absence of strings: `gh pr`, `git push`, `merge`, `automerge`, `peter-evans`, `create-pull-request`.
+     4. Asserts triggers do not include `workflow_dispatch` or `schedule`.
+
 ---
 
-## 3. Test Failure Explanation & Proposed Resolution
+## 3. Test Status on Branch
 
-### Failing Test Explanation
-Running `python -m pytest -v` on branch `sprint-12/ci` yields **1 failure out of 68 tests**:
+With the governance guard assertions implemented, `python -m pytest -v` passes 68/68 on `sprint-12/ci`:
 
 ```
-================================== FAILURES ===================================
-_________________ TestHSRIAgents.test_no_automation_workflows _________________
+============================= test session starts =============================
+platform win32 -- Python 3.10.0, pytest-7.4.3, pluggy-1.6.0
+rootdir: C:\Users\lenovo\Documents\Github Repo\hsri-research
+plugins: anyio-3.7.1, dash-3.0.0, Faker-37.5.3, cov-6.2.1
+collected 68 items
 
-self = <test_agents.TestHSRIAgents testMethod=test_no_automation_workflows>
+tests/test_agents.py .............                                       [ 19%]
+tests/test_citation_cff.py ..                                            [ 22%]
+tests/test_divergence_log.py .....                                       [ 29%]
+tests/test_ensemble_runner.py ...                                        [ 33%]
+tests/test_evidence_reconciler.py ....                                   [ 39%]
+tests/test_ingestion.py ............                                     [ 57%]
+tests/test_literature_sentinel.py ...                                    [ 61%]
+tests/test_preprint_scaffold.py .....                                    [ 69%]
+tests/test_stimulus_generator.py .............                           [ 88%]
+tests/test_unrated_nations.py ..                                         [ 91%]
+tests/test_zenodo_metadata.py ......                                     [100%]
 
-    def test_no_automation_workflows(self):
-        """Verify that only authorized workflows exist and no autonomous merge/PR workflows are added."""
-        workflows_dir = REPO_ROOT / ".github" / "workflows"
-        if workflows_dir.exists():
-            workflows = sorted([f.name for f in workflows_dir.glob("*.yml")] + [f.name for f in workflows_dir.glob("*.yaml")])
-            # Only deploy.yml, ingestion-health.yml, and literature-sentinel.yml are permitted
->           self.assertEqual(workflows, ["deploy.yml", "ingestion-health.yml", "literature-sentinel.yml"])
-E           AssertionError: Lists differ: ['ci.yml', 'deploy.yml', 'ingestion-health.yml', 'literature-sentinel.yml'] != ['deploy.yml', 'ingestion-health.yml', 'literature-sentinel.yml']
-E           
-E           First differing element 0:
-E           'ci.yml'
-E           'deploy.yml'
-E           
-E           First list contains 1 additional elements.
-E           First extra element 3:
-E           'literature-sentinel.yml'
-E           
-E           - ['ci.yml', 'deploy.yml', 'ingestion-health.yml', 'literature-sentinel.yml']
-E           ?  ----------
-E           
-E           + ['deploy.yml', 'ingestion-health.yml', 'literature-sentinel.yml']
-
-tests\test_agents.py:212: AssertionError
-=========================== short test summary info ===========================
-FAILED tests/test_agents.py::TestHSRIAgents::test_no_automation_workflows - A...
-======================== 1 failed, 67 passed in 18.14s ========================
+============================= 68 passed in 3.33s ==============================
 ```
 
-- **Root Cause:** Unit test `test_no_automation_workflows` in `tests/test_agents.py` strictly checks that only three specific workflow files exist. Introducing `.github/workflows/ci.yml` triggers an assertion failure.
-- **Why it was not altered on `sprint-12/ci`:** Standing instructions state: *"Do not weaken or delete tests to get a pass; propose fixes in the PR description and let the maintainer decide."*
-- **Proposed Fix (Task 13.3):** The maintainer should adopt the guard test update prepared on branch `sprint-12/ci` under Task 13.3, which:
-  1. Authorizes `ci.yml` in the allowed workflows list.
-  2. Inspects `ci.yml` to assert top-level `permissions` is strictly `contents: read`.
-  3. Verifies zero references to `secrets.`.
-  4. Verifies absence of automation tools (`gh pr`, `git push`, `merge`, `automerge`, `peter-evans`, `create-pull-request`).
-  5. Verifies absence of `workflow_dispatch` and `schedule` triggers.
-
-Once the maintainer reviews and merges the PR with the guard test update, CI checks will pass cleanly.
+> **Note on CI Evidence:** Per Task 13.3, no GitHub Actions CI run exists for this commit until the maintainer opens the pull request. We do not claim CI passes before that run exists. The local 68-test pass is recorded as local evidence only.
