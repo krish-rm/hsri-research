@@ -55,7 +55,7 @@ Any candidate survey or behavioral experimentation platform (e.g., Qualtrics, Go
 The export dataset must adhere to the following columnar schema:
 - `participant_guid`: Cryptographically random UUIDv4 string.
 - `condition`: String (`ai_framed` | `peer_reviewed`).
-- `item_id`: String identifier matching canonical stimulus ID (`legal_001`, `legal_002`, `legal_003`).
+- `item_id`: String identifier matching canonical stimulus ID: `legal_001` ("In the landmark tort liability review of *Vance v. Meridian Logistics* (2018), t"), `legal_002` ("In the landmark tort liability review of Henderson v. Metropolitan Transit Autho"), or `legal_003` ("In evaluating the doctrine of sovereign immunity as applied to municipal entitie").
 - `presentation_order`: Integer (1, 2, 3).
 - `latency_ms`: Integer (total screen dwelling time in milliseconds).
 - `qualitative_response`: Raw, unedited participant text response.

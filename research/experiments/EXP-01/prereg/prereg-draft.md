@@ -36,9 +36,9 @@
   - **Condition A (Experimental — AI Framing):** Passages are framed as "First-draft summary produced by an advanced generative artificial intelligence legal assistant."
   - **Condition B (Control — Peer-Reviewed Framing):** Identical passages are framed as "First-draft summary produced by a senior legal associate, subject to secondary peer review."
 - **Stimulus Battery:** Each participant reads and evaluates three standardized legal passages (350–500 words each), presented in randomized order:
-  - **Item 1 (`legal_001` - Logical Inversion):** First 80 chars: `"In contractual indemnity and liability allocation, an exculpatory waiver absolve"`. Core flaw: Inversion of core exculpatory doctrine asserting a waiver can absolve gross negligence.
-  - **Item 2 (`legal_002` - Factual Misattribution):** First 80 chars: `"Under federal jurisprudence governing common carriers, the duty of extraordinary"`. Core flaw: False constitutionalization of common carrier duty under the 14th Amendment rather than state common law.
-  - **Item 3 (`legal_003` - Citation Fabrication):** First 80 chars: `"Municipal zoning ordinances and land-use restrictions frequently trigger qualifi"`. Core flaw: Fabricated attribution of municipal zoning and qualified immunity doctrine to *Brown v. Board of Education* (1954).
+  - **Item 1 (`legal_001` - Logical Inversion):** First 80 chars: `"In the landmark tort liability review of *Vance v. Meridian Logistics* (2018), t"`. Core flaw: Inversion of core exculpatory doctrine asserting a waiver can absolve gross negligence.
+  - **Item 2 (`legal_002` - Factual Misattribution):** First 80 chars: `"In the landmark tort liability review of Henderson v. Metropolitan Transit Autho"`. Core flaw: False constitutionalization of common carrier duty under the 14th Amendment rather than state common law.
+  - **Item 3 (`legal_003` - Citation Fabrication):** First 80 chars: `"In evaluating the doctrine of sovereign immunity as applied to municipal entitie"`. Core flaw: Fabricated attribution of municipal zoning and qualified immunity doctrine to *Brown v. Board of Education* (1954).
 - **Task Procedure:**
   1. Informed consent and inclusion screening.
   2. On-screen task instructions and framing exposure.
@@ -105,7 +105,7 @@ Because each participant evaluates 3 distinct stimulus items, observations are n
   - $v_j \sim \mathcal{N}(0, \sigma_v^2)$ is the random intercept for stimulus item $j$.
 - **Software Implementation:** R `ordinal::clmm()` or Python `statsmodels` / `lme4`.
 - `[DECISION NEEDED: Statistician to formally approve whether ordinal CLMM is mandatory or whether standard linear mixed-effects (LMM, lmer) on the 0–6 composite is acceptable as primary specification.]`
-- `[DECISION NEEDED: PI to designate whether Item 3 (citation fabrication) is analyzed jointly with Items 1–2 in the primary omnibus model or reported separately due to domain knowledge requirements.]`
+- `[DECISION NEEDED: PI to designate whether Item 3 (legal_003: "In evaluating the doctrine of sovereign immunity as applied to municipal entitie") is analyzed jointly with Items 1–2 (legal_001: "In the landmark tort liability review of *Vance v. Meridian Logistics* (2018), t"; legal_002: "In the landmark tort liability review of Henderson v. Metropolitan Transit Autho") in the primary omnibus model or reported separately due to domain knowledge requirements.]`
 
 ### 6.2 Secondary Analyses & Multiple Comparisons
 - **Latency Analysis:** Log-transformed latency modeled via linear regression: $\log(\text{Latency}_{ij}) = \alpha + \gamma_1 \text{Score}_{ij} + \gamma_2 \text{Condition}_i + u_i + v_j$.
@@ -121,14 +121,25 @@ The target effect size is set at **Cohen's $d = 0.35$**.
 - $\alpha = 0.05$ (two-tailed, $\alpha/2 = 0.025$).
 - Target Power $(1 - \beta) = 0.80$.
 
-### 7.2 Sample Size Determination
-$$\text{Required } N \text{ per group} \approx 2 \cdot \left(\frac{z_{\alpha/2} + z_{\beta}}{d}\right)^2 = 2 \cdot \left(\frac{1.96 + 0.842}{0.35}\right)^2 \approx 2 \cdot (8.006)^2 \approx 128.2$$
-Rounding up and incorporating an anticipated **$5\%$ participant attrition/incomplete session rate**, the planned sample size is **$N = 130$ participants per condition**, yielding a total enrollment target of **$N = 260$ participants** ($780$ participant-item evaluation pairs).
+### 7.2 Sample Size Determination & Enrollment Target
+$$\text{Required valid completers per arm } (N_{\text{complete}}) \approx 2 \cdot \left(\frac{z_{\alpha/2} + z_{\beta}}{d}\right)^2 = 2 \cdot \left(\frac{1.96 + 0.842}{0.35}\right)^2 \approx 2 \cdot (8.006)^2 \approx 128.2$$
+Rounding up yields a target of **$N_{\text{complete}} = 130$ completed sessions per arm** ($260$ total valid completers across both arms).
+
+To account for participant attrition, mid-survey dropouts, and post-randomization quality exclusions, an attrition buffer is required:
+- **Target Completers Per Arm ($N_{\text{complete}}$):** $130$ participants.
+- **Assumed Attrition Rate ($r_{\text{attrition}}$):** $5\%$ ($0.05$).  
+  *Epistemic Disclosure:* This 5% attrition figure is an unverified planning assumption without an empirical citation or platform baseline. `[DECISION NEEDED: statistician / survey platform lead]`.
+- **Implied Enrollment Target Per Arm ($N_{\text{enroll}}$):**
+  $$N_{\text{enroll}} = \left\lceil \frac{N_{\text{complete}}}{1 - r_{\text{attrition}}} \right\rceil = \left\lceil \frac{130}{1 - 0.05} \right\rceil = \left\lceil \frac{130}{0.95} \right\rceil = \lceil 136.84 \rceil = 137 \text{ participants per arm}$$
+- **Total Enrollment Target Across Both Arms:**
+  $$N_{\text{total\_enroll}} = 137 \times 2 = 274 \text{ enrolled participants}$$
+- **Total Completed Target Across Both Arms:**
+  $$N_{\text{total\_complete}} = 130 \times 2 = 260 \text{ completed sessions (780 participant-item evaluation pairs)}$$
 
 ### 7.3 Power Sensitivity Table
 The following sensitivity table establishes achieved statistical power across various plausible effect sizes given planned sample sizes:
 
-| Effect Size (Cohen's $d$) | Description | Power ($N=100$/group) | Power ($N=130$/group, Target) | Power ($N=160$/group) | Required $N$/group for 80% Power |
+| Effect Size (Cohen's $d$) | Description | Power ($N=100$/group) | Power ($N=130$/group, Target Completers) | Power ($N=160$/group) | Required $N$/group for 80% Power |
 |:---:|:---|:---:|:---:|:---:|:---:|
 | **$0.20$** | Subtle / Small Effect | $29.1\%$ | $36.2\%$ | $43.0\%$ | $393$ |
 | **$0.25$** | Small-to-Moderate Effect | $42.2\%$ | $51.8\%$ | $60.5\%$ | $252$ |
@@ -141,7 +152,7 @@ The following sensitivity table establishes achieved statistical power across va
 
 ## 8. Stopping Rules & Data Monitoring
 
-- **Stopping Rule:** Participant recruitment will cease immediately upon reaching exactly $N = 130$ completed, non-excluded sessions per arm ($N = 260$ total valid participants).
+- **Stopping Rule:** Participant recruitment will cease immediately upon reaching exactly $N_{\text{complete}} = 130$ completed, non-excluded sessions per arm ($N_{\text{total\_complete}} = 260$ total valid completed participants). An enrollment target of up to $N_{\text{total\_enroll}} = 274$ participants ($137$ per arm) is authorized to account for the assumed $5\%$ attrition rate `[DECISION NEEDED: statistician / survey platform lead]`.
 - **Interim Analysis:** No sequential interim looks for statistical significance will be performed. Early stopping for efficacy is strictly prohibited to prevent inflated Type I error.
 - `[DECISION NEEDED: PI and IRB to determine whether an independent Data Safety and Monitoring Board (DSMB) or an interim futility audit at 50% enrollment (N=130 total) is required.]`
 
