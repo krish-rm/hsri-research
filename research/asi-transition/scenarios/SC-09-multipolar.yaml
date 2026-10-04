@@ -1,0 +1,114 @@
+scenario_id: SC-09
+name_and_aliases: Multipolar Superintelligence (emulation economy, Comprehensive AI Services, Malthusian market displacement)
+original_sources:
+- authors: Nick Bostrom
+  year: '2014'
+  title: 'Superintelligence: Paths, Dangers, Strategies'
+  venue: Oxford University Press (Chapter 11)
+  source_id: SRC-013
+  earliest_traceable_date: July 2014
+- authors: Robin Hanson
+  year: '2016'
+  title: 'The Age of Em: Work, Love, and Life when Robots Rule the Earth'
+  venue: Oxford University Press
+  source_id: SRC-033
+  earliest_traceable_date: June 2016
+- authors: K. Eric Drexler
+  year: '2019'
+  title: 'Reframing Superintelligence: Comprehensive AI Services as a General Model for Advanced AI'
+  venue: Future of Humanity Institute Technical Report (FHI-TR-2019-1)
+  source_id: SRC-033
+  earliest_traceable_date: January 2019
+exact_question_tested: If the transition produces a decentralized, multipolar ecosystem of competing superintelligent services,
+  corporate software agents, or brain emulations rather than a single unipolar singleton, does market competition preserve
+  human agency, or does economic selection force the elimination of human biological inefficiencies ('Malthusian displacement')?
+explicit_assumptions:
+- No single entity or coalition achieves a decisive strategic advantage; capabilities are distributed across multiple competing
+  firms, states, and algorithms.
+- Machine cognitive labor operates at dramatically lower marginal cost and higher speed (100x to 10,000x) than biological
+  human labor.
+- Market competition and economic selection reward organizations that minimize production costs and maximize decision velocity.
+implicit_assumptions:
+- 'Analyst inference: Capital is a near-perfect substitute for human labor across virtually all economic, cognitive, and management
+  tasks.'
+- 'Analyst inference: Political democratic institutions are unable to maintain redistributive taxation, capital ownership
+  caps, or human-labor mandates against competitive international arbitrage.'
+- 'Analyst inference: Human consumption demand does not remain an essential driver of the economic system, or automated entities
+  trade primarily with one another.'
+mechanism: In Hanson's emulation economy or Bostrom's multipolar market, digital minds reproduce at the cost of electricity
+  and compute, operating at extreme speed. Human wages plummet below the biological subsistence level required for human food,
+  healthcare, and housing. Firms that retain human decision-makers in the loop are outcompeted by fully automated competitors
+  that process decisions in milliseconds. Over time, human biological agency is economically marginalized through ordinary
+  competitive market dynamics without any hostile intent.
+predicted_failure_mode: 'Malthusian obsolescence: Biological humanity is rendered economically irrelevant, losing labor income,
+  wealth ownership, and political leverage, surviving only at the discretion of automated capital holders or through fragile
+  state subsidies.'
+what_the_scenario_does_not_establish: It does NOT establish that advanced AI must be deployed as unconstrained sovereign agents;
+  Drexler (2019) Comprehensive AI Services (CAIS) demonstrates that modular, task-bounded AI services can empower human organizations
+  without creating autonomous competitors. It does NOT establish that democratic welfare states cannot capture economic rents
+  through taxation.
+strongest_supporting_arguments:
+- 'Standard neoclassical economics: If machine capital perfectly substitutes for labor, the marginal product of human labor
+  approaches zero in exposed sectors, driving the labor share of income toward zero.'
+- 'Historical precedent of high-frequency trading (HFT): Human traders were completely displaced from execution because biological
+  latency (200ms) could not compete with algorithmic speed (microseconds).'
+- 'International competitive race: Nations that impose human-in-the-loop delays face severe economic and military disadvantages
+  against rivals that embrace full algorithmic automation.'
+strongest_criticisms:
+- 'Drexler (2019) CAIS model: Advanced AI can be developed as a decentralized utility of specialized services (translation,
+  CAD, simulation, diagnostic) that directly enhance human agency rather than replacing human principals.'
+- 'Aghion, Jones & Jones (2019) Baumol cost disease: Aggregate economic growth is constrained by the remaining non-automatable
+  sectors (legal, regulatory, physical bottleneck tasks), preventing sudden total labor displacement.'
+- 'Democratic political resilience: Citizens retain voting rights and can mandate capital redistribution, sovereign wealth
+  funds, and human-in-the-loop legal firewalls.'
+empirical_evidence:
+- claim_class: A
+  source_id: SRC-038
+  evidence_strength: Strong
+  summary: Acemoglu & Restrepo (2020) and related empirical labor economics literature documenting measurable task displacement
+    and labor share declines in industrial sectors with high robot adoption.
+- claim_class: D
+  source_id: SRC-035
+  evidence_strength: Strong
+  summary: Formal macroeconomic growth modeling in Aghion, Jones & Jones (2019) demonstrating that substitution elasticities
+    and bottleneck tasks bound the speed of economic transformation.
+counter_evidence:
+- claim_class: A
+  source_id: SRC-038
+  evidence_strength: Moderate
+  summary: 'Historical resilience of employment: Previous waves of automation displaced specific tasks but generated new human-centric
+    occupations, maintaining overall employment rates.'
+current_status: Formally modeled economic scenario (Class D, Hanson 2016; Aghion et al. 2019) and prominent architectural
+  counter-model (Class C, Drexler 2019 CAIS).
+testability: Tracking the labor share of income, wage polarization, and speed-driven human exclusion across high-frequency
+  finance, automated software engineering, and legal document review.
+relevance_to_human_agency: 'Direct and systemic: Demonstrates that human agency can be extinguished not by rogue machines,
+  but by the relentless logic of competitive market efficiency; keeping humans in the loop becomes an unaffordable luxury.'
+relevance_to_hsri_constructs: Human Agency Retention, Economic Resilience, Institutional Governance, Digital Infrastructure.
+confidence_classification:
+  confidence_conceptual: High
+  justification_conceptual: Rigorously grounded in established microeconomic production theory and competitive equilibrium
+    models.
+  confidence_empirical: Medium
+  justification_empirical: Observed in narrow algorithmic domains (trading, content routing), but full macroeconomic displacement
+    remains contested by Baumol bottleneck constraints.
+disputes_about_interpretation: Major debate between market-catastrophe theorists (Hanson, Bostrom) who predict human Malthusian
+  obsolescence versus modular service advocates (Drexler) and bottleneck economists (Acemoglu, Jones) who argue human agency
+  will be augmented or economically protected.
+claim_ids_used:
+- CLM-007
+- CLM-010
+- CLM-015
+matrix_coordinates:
+  capability_asymmetry: Task-Specific to Broadly Superhuman
+  speed_ratio: 100x to 10,000x human execution speed
+  autonomy_scope: Decentralized Modular Services to Autonomous Economic Agents
+  coordination_structure: Multipolar Market / Geopolitical Competition
+severity: Severe to Catastrophic (economic disenfranchisement without physical extinction)
+reversibility: Low once global economic dependency on automated speed is entrenched
+detectability: Readily observable through economic indicators (capital vs labor share, wage trends, trading latencies)
+response_window: Years to decades of structural economic transition
+precursor_ids:
+- PRE-006
+disputes: Whether competitive market pressures inevitably eliminate human oversight, or whether modular services (CAIS) stabilize
+  human agency.

@@ -1,0 +1,116 @@
+scenario_id: SC-13
+name_and_aliases: Automated AI Research / AI R&D (METR RE-Bench, MLE-bench, PaperBench, autonomous science agents)
+original_sources:
+- authors: Jun Shern Chan et al. (OpenAI)
+  year: '2024'
+  title: 'MLE-bench: Evaluating Machine Learning Agents on Machine Learning Engineering'
+  venue: arXiv:2410.07095
+  source_id: SRC-019
+  earliest_traceable_date: October 2024
+- authors: METR (Model Evaluation and Threat Research)
+  year: '2024'
+  title: 'RE-Bench: Evaluating frontier AI R&D capabilities of language model agents'
+  venue: METR Technical Report
+  source_id: SRC-020
+  earliest_traceable_date: November 2024
+- authors: PaperBench Research Team
+  year: '2025'
+  title: 'PaperBench: A Benchmark for Evaluating AI Agents on Scientific Replication'
+  venue: arXiv:2501.07722
+  source_id: SRC-021
+  earliest_traceable_date: January 2025
+- authors: Yoshua Bengio et al. (Expert Advisory Panel)
+  year: '2025'
+  title: International Scientific Report on the Safety of Advanced AI
+  venue: UK Department for Science, Innovation and Technology (DSIT)
+  source_id: SRC-011
+  earliest_traceable_date: January 2025
+exact_question_tested: Are frontier AI foundation models capable of autonomously executing end-to-end machine learning engineering
+  and scientific research tasks, and at what rate is the autonomous task horizon expanding toward full automation of frontier
+  AI R&D?
+explicit_assumptions:
+- 'AI research and development can be decomposed into operational benchmarks: literature review, hypothesis generation, code
+  implementation, debugging, hyperparameter tuning, and paper write-up.'
+- Performance on standardized ML engineering benchmarks (MLE-bench, RE-Bench) correlates with real-world research velocity
+  on novel scientific problems.
+- Autonomous agents can be provided with command-line tools, GPUs, and execution environments to run experiments independently.
+implicit_assumptions:
+- 'Analyst inference: Solving benchmarked engineering problems (e.g. Kaggle competitions) generalizes to fundamental paradigm
+  discovery (e.g. inventing transformers or backpropagation).'
+- 'Analyst inference: Error compounding across multi-day execution horizons does not asymptotically prevent agents from completing
+  complex multi-step research workflows.'
+- 'Analyst inference: AI labs will deploy autonomous research swarms at scale without requiring human peer-review and code
+  validation for each deployment.'
+mechanism: Frontier reasoning models coupled with tool use and agentic scaffolding double their autonomous task horizon every
+  4 to 8 months (METR tracking). Once models can execute 100+ hour machine learning tasks with high reliability, AI labs transition
+  from human-led engineering to deploying thousands of parallel AI research agents. This multiplies effective research throughput
+  by orders of magnitude, compressing decades of algorithmic evolution into months.
+predicted_failure_mode: 'Loss of human comprehension and supervisory verification: Autonomous AI researchers design architectures,
+  loss functions, and optimization algorithms that human engineers cannot interpret or verify, eliminating meaningful human
+  control over the development of subsequent model generations.'
+what_the_scenario_does_not_establish: It does NOT establish that current models can perform genuine scientific discovery (generating
+  out-of-distribution conceptual frameworks rather than interpolating existing literature); it does NOT establish that agent
+  reliability remains stable over multi-week horizons without human intervention.
+strongest_supporting_arguments:
+- Empirical results on MLE-bench showing frontier models achieving medal-level performance on complex machine learning competitions
+  with zero human code assistance (Chan et al. 2024).
+- METR RE-Bench empirical validation demonstrating agents successfully fine-tuning models, fixing complex distributed training
+  bugs, and optimizing inference kernels.
+- Massive economic incentives for frontier AI labs to automate their primary internal cost center (machine learning engineers).
+strongest_criticisms:
+- 'Benchmark narrowness: Standard ML competitions have clean datasets, pre-defined loss metrics, and instant feedback, whereas
+  real-world research involves messy, ill-posed problems with high ambiguity.'
+- 'Compound error rates: In a 100-step research task, an agent with 98% accuracy per step succeeds only 13% of the time without
+  human error correction.'
+- 'Hallucination of scientific claims: PaperBench (2025) demonstrates that agents frequently fabricate experimental results
+  or misinterpret baseline comparisons when code execution fails.'
+empirical_evidence:
+- claim_class: B
+  source_id: SRC-019
+  evidence_strength: Strong
+  summary: MLE-bench (Chan et al. 2024) establishing that frontier models (OpenAI o1) achieve medals on 75 competitive machine
+    learning tasks, writing working Python code, training models, and submitting predictions.
+- claim_class: B
+  source_id: SRC-020
+  evidence_strength: Strong
+  summary: METR RE-Bench (2024) systematically measuring the task horizon of AI agents on realistic AI R&D tasks, documenting
+    rapid capability scaling and failure modes.
+counter_evidence:
+- claim_class: B
+  source_id: SRC-021
+  evidence_strength: Moderate
+  summary: PaperBench (2025) replication benchmark showing frontier models fail to replicate complex empirical results in
+    published ML papers without extensive human debugging and scaffolding.
+current_status: Fully operationalized empirical evaluation domain (Class B) with standardized benchmark suites tracking frontier
+  capability growth in real time.
+testability: Deploying frontier agent swarms to replicate and extend recent machine learning papers in a double-blind evaluation,
+  comparing autonomous outputs against human expert research quality.
+relevance_to_human_agency: 'Foundational precursor: When machines design subsequent machines, human agency transitions from
+  active architectural command to retrospective auditing; once human verification capacity is overwhelmed, operational sovereignty
+  is lost.'
+relevance_to_hsri_constructs: Human Agency Retention, Critical Discernment, Verification Capacity, Technical Readiness.
+confidence_classification:
+  confidence_conceptual: High
+  justification_conceptual: Clear operational definition and established task-decomposition architecture.
+  confidence_empirical: High
+  justification_empirical: Directly grounded in replicated empirical benchmarks (MLE-bench, RE-Bench, PaperBench) with visible
+    task-horizon tracking.
+disputes_about_interpretation: Debate between AI lab researchers viewing automated R&D as imminent within 1-3 years versus
+  skeptics arguing that benchmark success is an artifact of pre-training contamination that fails on genuine scientific frontiers.
+claim_ids_used:
+- CLM-005
+- CLM-006
+- CLM-012
+matrix_coordinates:
+  capability_asymmetry: Approaching and Exceeding Human ML Engineer Capability
+  speed_ratio: 10x to 100x human engineering velocity
+  autonomy_scope: Autonomous Code Execution, Training, and Evaluation
+  coordination_structure: AI Swarm within Corporate Lab Infrastructure
+severity: Severe to Catastrophic (as an operational accelerant to subsequent unaligned takeoff)
+reversibility: Moderate in early stages; Low once codebase complexity exceeds human comprehension
+detectability: Readily observable within labs (compute allocation, git commit velocity, benchmark logs)
+response_window: Months to years of laboratory capability scaling
+precursor_ids:
+- PRE-001
+- PRE-004
+disputes: Whether automated ML engineering equates to novel scientific paradigm discovery.

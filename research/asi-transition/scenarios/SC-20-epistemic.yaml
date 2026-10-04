@@ -1,0 +1,136 @@
+scenario_id: SC-20
+name_and_aliases: Epistemic Dependence & Automation Complacency (Bainbridge ironies of automation, Lee & See trust calibration,
+  cognitive offloading)
+original_sources:
+- authors: Lisanne Bainbridge
+  year: '1983'
+  title: Ironies of Automation
+  venue: 'Automatica 19(6): 775-779'
+  source_id: SRC-055
+  earliest_traceable_date: '1983'
+- authors: Raja Parasuraman, Victor Riley
+  year: '1997'
+  title: 'Humans and Automation: Use, Misuse, Disuse, Abuse'
+  venue: 'Human Factors 39(2): 230-253'
+  source_id: SRC-051
+  earliest_traceable_date: June 1997
+- authors: John D. Lee, Katrina A. See
+  year: '2004'
+  title: 'Trust in Automation: Designing for Appropriate Reliance'
+  venue: 'Human Factors 46(1): 50-80'
+  source_id: SRC-052
+  earliest_traceable_date: March 2004
+- authors: Raja Parasuraman, Dietrich H. Manzey
+  year: '2010'
+  title: 'Complacency and Bias in Human Use of Automation: An Attentional Integration'
+  venue: 'Human Factors 52(3): 381-410'
+  source_id: SRC-056
+  earliest_traceable_date: June 2010
+- authors: Zana Buçinca, Maja Barbara Malaya, Krzysztof Z. Gajos
+  year: '2021'
+  title: 'To Trust or to Think: Cognitive Forcing Functions in AI-Assisted Decision Making'
+  venue: 'Proceedings of the ACM on Human-Computer Interaction 5(CSCW1): Article 188'
+  source_id: SRC-057
+  earliest_traceable_date: April 2021
+- authors: Gagan Bansal, Tongshuang Wu, Joyce Zhou, Raymond Fok, Besmira Nushi, Ece Kamar, Marco Tulio Ribeiro, Daniel Weld
+  year: '2021'
+  title: Does the Whole Exceed Its Parts? The Effect of AI Explanations on Complementary Team Performance
+  venue: Proceedings of the 2021 CHI Conference on Human Factors in Computing Systems
+  source_id: SRC-058
+  earliest_traceable_date: May 2021
+exact_question_tested: How does repeated interaction with highly reliable automated decision-support systems alter human cognitive
+  vigilance, diagnostic capability, and independent judgment, and what are the psychological and ergonomic mechanisms through
+  which 'trust' degenerates into uncritical complacency, automation bias, and operational deskilling?
+explicit_assumptions:
+- Human operators interact with automated cognitive aids that exhibit high, but non-zero error rates on complex diagnostic
+  and decision tasks.
+- 'Human cognitive effort is bounded and subject to economic satisficing: operators conserve attentional energy when automated
+  outputs appear accurate.'
+- Manual diagnostic and intervention skills require continuous operational practice to be maintained.
+implicit_assumptions:
+- 'Analyst inference: Providing automated explanations or confidence metrics does not automatically cure complacency and can
+  actively exacerbate over-reliance by creating an illusion of explanatory depth (proven by Bansal et al. 2021).'
+- 'Analyst inference: Bainbridge''s ironies apply fully to cognitive and generative AI systems: the more competent the AI,
+  the less practice the human receives, ensuring the human is least prepared when rare out-of-distribution failures occur.'
+- 'Analyst inference: Cognitive offloading in high-volume enterprise workflows transitions from temporary task delegation
+  to permanent loss of domain competence across generations of workers.'
+mechanism: 'Psychological and cognitive erosion: (1) Automation bias: Humans exhibit a systematic heuristic tendency to favor
+  automated suggestions over non-automated information, ignoring contradictory evidence. (2) Automation complacency: Attentional
+  allocation declines; operators stop cross-checking raw data. (3) Bainbridge''s Paradox: The designer automates all easy
+  and routine tasks, leaving only the rarest, most complex, and ambiguous edge cases to the human; however, by removing routine
+  operations, the operator is deprived of the practice needed to handle complex anomalies. (4) Deskilling: Over multi-year
+  horizons, tacit professional knowledge atrophies, leaving the human incapable of independent verification.'
+predicted_failure_mode: 'Catastrophic supervisory failure: An advanced AI system experiences an out-of-distribution failure,
+  hallucinations, or adversarial manipulation; the human supervisor, suffering from chronic complacency and operational deskilling,
+  blindly rubber-stamps the catastrophic error or is incapable of manual intervention.'
+what_the_scenario_does_not_establish: It does NOT establish that cognitive offloading is incurable; Buçinca et al. (2021)
+  prove that 'cognitive forcing functions' (requiring the human to commit to an independent judgment before seeing the AI
+  advice) significantly restore critical vigilance and complementary team performance.
+strongest_supporting_arguments:
+- Four decades of rigorous, replicated human factors and aviation research (Bainbridge 1983, Parasuraman & Riley 1997, Lee
+  & See 2004, Parasuraman & Manzey 2010).
+- Recent CHI/CSCW empirical experiments (Bansal et al. 2021, Buçinca et al. 2021) demonstrating that AI explanations actively
+  increase human over-reliance on incorrect machine recommendations.
+- Real-world aviation disaster investigations (e.g. Boeing 737 MAX, Air France 447) documenting how automation surprises combined
+  with degraded manual pilot skills cause fatal loss of control.
+strongest_criticisms:
+- 'Interface intervention feasibility: Ergonomic friction, cognitive forcing functions, and mandatory manual flight/work hours
+  successfully preserve operator vigilance in high-reliability organizations.'
+- 'Multi-model verification: In software and diagnostic workflows, secondary independent automated verification systems can
+  catch primary model errors without relying on fallible human attention.'
+- 'Specialized training: Simulation-based emergency training can maintain high-stress diagnostic skills even when day-to-day
+  operations are fully automated.'
+empirical_evidence:
+- claim_class: A
+  source_id: SRC-052
+  evidence_strength: Strong
+  summary: Lee & See (2004, Human Factors) foundational framework of trust calibration, defining the mathematical and behavioral
+    dynamics of trust calibration, over-trust (misuse), and under-trust (disuse).
+- claim_class: A
+  source_id: SRC-057
+  evidence_strength: Strong
+  summary: Buçinca et al. (2021, CSCW) randomized controlled experiment demonstrating that standard AI assistance reduces
+    human analytical engagement, but cognitive forcing functions restore independent judgment.
+- claim_class: A
+  source_id: SRC-058
+  evidence_strength: Strong
+  summary: Bansal et al. (2021, CHI) proving across multiple experimental tasks that providing AI explanations increases human
+    over-reliance on erroneous machine outputs.
+counter_evidence:
+- claim_class: A
+  source_id: SRC-057
+  evidence_strength: Strong
+  summary: 'Demonstrated efficacy of cognitive forcing functions: forcing deliberation prior to revealing AI advice significantly
+    reduces over-reliance while preserving complementary decision accuracy.'
+current_status: Golden-standard, peer-reviewed empirical science (Class A), providing the primary empirical grounding for
+  the HSRI index's core constructs.
+testability: Measuring human eye-tracking, decision latency, error detection rates, and diagnostic accuracy across varied
+  human-AI decision-support interfaces with injected machine errors.
+relevance_to_human_agency: 'Micro-foundational engine of agency erosion: Proves that human agency is not merely stripped by
+  malicious force, but quietly surrendered through cognitive ergonomics, habituation, and attentional offloading.'
+relevance_to_hsri_constructs: Calibrated Trust (direct operationalization), Independent Judgment, Critical Discernment, Behavioral
+  Readiness.
+confidence_classification:
+  confidence_conceptual: High
+  justification_conceptual: Rigorously conceptualized across 40 years of cognitive engineering and ergonomics literature.
+  confidence_empirical: High
+  justification_empirical: Replicated across hundreds of controlled experiments in aviation, medicine, law, and HCI.
+disputes_about_interpretation: Debate over whether automation complacency is an inevitable law of human cognition or an engineering
+  design failure correctable through cognitive forcing functions and interface friction.
+claim_ids_used:
+- CLM-008
+- CLM-009
+- CLM-011
+matrix_coordinates:
+  capability_asymmetry: Human-level to Superhuman Advisory Assistance
+  speed_ratio: Real-time human-AI interaction
+  autonomy_scope: Advisory / Decision Support with Human Rubber-Stamping
+  coordination_structure: Human Supervisor + AI Assistant
+severity: Severe to Catastrophic in high-stakes operational domains (nuclear, medical, aerospace, cyber)
+reversibility: Moderate in short term; Low once systemic generational deskilling occurs
+detectability: Readily observable in cognitive performance logging and error-detection experiments
+response_window: Days to years of training and interface redesign
+precursor_ids:
+- PRE-006
+disputes: Feasibility of scaling cognitive forcing functions in enterprise environments without provoking user resistance
+  to interface friction.

@@ -1,0 +1,117 @@
+scenario_id: SC-26
+name_and_aliases: AI as Normal Technology / Deflationary S-Curve Counter-Framework (Narayanan & Kapoor 2024, Brooks 2017,
+  Walsh 2017, Chollet 2019)
+original_sources:
+- authors: Arvind Narayanan, Sayash Kapoor
+  year: '2024'
+  title: 'AI Snake Oil: What Computers Can Do, What They Can''t, and How to Tell the Difference'
+  venue: Princeton University Press
+  source_id: SRC-042
+  earliest_traceable_date: September 2024
+- authors: Rodney Brooks
+  year: '2017'
+  title: The Seven Deadly Sins of AI Predictions
+  venue: MIT Technology Review
+  source_id: SRC-045
+  earliest_traceable_date: October 2017
+- authors: Toby Walsh
+  year: '2017'
+  title: The Singularity May Never Be Near
+  venue: Communications of the ACM
+  source_id: SRC-044
+  earliest_traceable_date: '2017'
+- authors: François Chollet
+  year: '2019'
+  title: On the Measure of Intelligence
+  venue: arXiv:1911.01547
+  source_id: SRC-043
+  earliest_traceable_date: November 2019
+exact_question_tested: Is transformative AI better understood not as a singular, existential rupture characterized by runaway
+  exponential takeoff, but as an ordinary general-purpose technology (like electricity, computing, or steam) governed by standard
+  S-curves, diminishing returns, legacy integration frictions, and distributed institutional adaptations?
+explicit_assumptions:
+- 'Technological capability scaling follows logistic S-curves: initial acceleration followed by physical, economic, and data
+  plateauing.'
+- Intelligence is not a scalar quantity situated purely inside an algorithm, but an emergent property of a system situated
+  in an external physical and social environment (Chollet 2019).
+- Human institutions, laws, and markets adapt continuously to technological shifts, domesticating technology rather than being
+  subjugated by it.
+implicit_assumptions:
+- 'Analyst inference: Current pre-training scaling paradigms are encountering physical compute, energy, and synthetic data
+  exhaustion, preventing indefinite exponential gains.'
+- 'Analyst inference: Catastrophic singulatarian scenarios confuse performance on narrow benchmark tasks with generalized
+  real-world autonomy and common-sense competence.'
+- 'Analyst inference: Physical deployment friction (manufacturing, robotics, infrastructure) takes decades to resolve regardless
+  of software reasoning capability.'
+mechanism: 'S-curve stabilization and distributed integration: Pre-training scaling hits data walls, power grid bottlenecks,
+  and memory bandwidth limits. Software intelligence advances, but deployment is disciplined by legacy systems, legal liability,
+  corporate culture, and democratic regulation. AI is absorbed as specialized cognitive tools (Comprehensive AI Services)
+  that enhance human productivity without creating autonomous general agents. Existential risks are replaced by ordinary,
+  manageable socio-technical challenges (bias, copyright, job disruption, fraud, cybersecurity).'
+predicted_failure_mode: 'Failure of catastrophic expectations: Massive misallocation of capital, public anxiety, and regulatory
+  attention toward speculative existential scenarios while neglecting immediate, mundane harms (algorithmic discrimination,
+  privacy erosion, digital monopoly power, labor precarity).'
+what_the_scenario_does_not_establish: It does NOT establish that new algorithmic paradigms (e.g. test-time compute search,
+  neuro-symbolic reasoning) cannot initiate a second S-curve; it does NOT prove that narrow automated cyber or biological
+  capabilities cannot cause catastrophic harm even without general superintelligence.
+strongest_supporting_arguments:
+- 'Historical universality of technological S-curves: Every prior general-purpose technology (steam, electricity, internal
+  combustion, aviation, nuclear power) exhibited rapid early growth followed by steep physical plateaus.'
+- 'Rodney Brooks''s deployment critique: Building physical robots and upgrading infrastructure requires decades of mechanical
+  engineering that cannot be accelerated solely by software intelligence.'
+- 'Chollet''s (2019) critique: True intelligence is adaptation efficiency in novel environments, not memorization of vast
+  training data; current LLMs exhibit extreme fragility on out-of-distribution reasoning.'
+strongest_criticisms:
+- 'General-purpose nature of cognition: Unlike steam or aviation, intelligence is the universal tool that invents all other
+  technologies; automating software research can accelerate its own S-curve.'
+- 'Test-time compute scaling: Recent frontier reasoning models (e.g. OpenAI o1, Claude 3.5 Sonnet) demonstrate that scaling
+  inference compute breaks previous pre-training scaling plateaus.'
+- 'Biological risk asymmetry: Highly accessible dual-use software can enable catastrophic chemical or biological synthesis
+  even if general superintelligence never arrives.'
+empirical_evidence:
+- claim_class: A
+  source_id: SRC-042
+  evidence_strength: Strong
+  summary: Narayanan & Kapoor (2024, Princeton University Press) empirically documenting how AI benchmark performance routinely
+    overstates real-world task competence and detailing pervasive commercial adoption frictions.
+- claim_class: B
+  source_id: SRC-043
+  evidence_strength: Strong
+  summary: Chollet (2019) ARC benchmark demonstrating that frontier LLMs struggle with basic novel visual-spatial reasoning
+    tasks that human children solve effortlessly.
+counter_evidence:
+- claim_class: B
+  source_id: SRC-019
+  evidence_strength: Moderate
+  summary: Rapid jumps in reasoning benchmark performance (MATH, GPQA, Codeforces) achieved by reasoning-focused post-training
+    models, proving continued capability scaling.
+current_status: Major established counter-tradition in computer science, science & technology studies (STS), and empirical
+  economics (Class C/I), disciplining singulatarian takeoff discourse.
+testability: Tracking the rate of capability improvement per dollar of compute across frontier foundation models over time
+  to determine whether scaling follows an exponential trajectory or a logistic S-curve.
+relevance_to_human_agency: 'Preserves and restores human agency: Under the normal technology framework, human agency is not
+  existentialized or eliminated; humans remain the central historical actors who shape technology through democratic regulation,
+  market choices, and institutional design.'
+relevance_to_hsri_constructs: Technical Readiness, Institutional Governance, Digital Infrastructure, Calibrated Trust.
+confidence_classification:
+  confidence_conceptual: High
+  justification_conceptual: Grounded in universal historical patterns of technological adoption and physical constraints.
+  confidence_empirical: High
+  justification_empirical: Empirically validated across every prior general-purpose technology in economic history.
+disputes_about_interpretation: Sharp divide between singulatarians viewing AI as a sui generis existential rupture versus
+  STS scholars and empiricists viewing AI as a normal general-purpose technology.
+claim_ids_used:
+- CLM-014
+- CLM-015
+matrix_coordinates:
+  capability_asymmetry: Domain-specific High Capability with Human-in-the-Loop
+  speed_ratio: Task-specific speedups bounded by institutional friction
+  autonomy_scope: Modular Tools and Cognitive Services (CAIS)
+  coordination_structure: Pluralistic Democratic and Market Governance
+severity: Low to Moderate (standard economic disruption, privacy, and antitrust risks)
+reversibility: High through standard democratic regulation and market competition
+detectability: Readily observable across standard technological and economic metrics
+response_window: Years to decades of incremental institutional adaptation
+precursor_ids:
+- PRE-006
+disputes: Whether AI is an ordinary general-purpose technology or a singular existential rupture.

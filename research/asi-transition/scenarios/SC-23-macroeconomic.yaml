@@ -1,0 +1,111 @@
+scenario_id: SC-23
+name_and_aliases: Macroeconomic Displacement & Baumol Bottlenecks (Acemoglu 2024, Aghion et al. 2019, capital-labor substitution
+  bounds)
+original_sources:
+- authors: Daron Acemoglu
+  year: '2024'
+  title: The Simple Macroeconomics of AI
+  venue: NBER Working Paper No. 32428
+  source_id: SRC-038
+  earliest_traceable_date: April 2024
+- authors: Philippe Aghion, Benjamin F. Jones, Charles I. Jones
+  year: '2019'
+  title: Artificial Intelligence and Economic Growth
+  venue: NBER Volume / University of Chicago Press
+  source_id: SRC-035
+  earliest_traceable_date: '2019'
+- authors: Philip Trammell, Anton Korinek
+  year: '2026'
+  title: Economic Growth under Transformative AI
+  venue: NBER Working Paper No. 28188 / Journal of Economic Literature
+  source_id: SRC-037
+  earliest_traceable_date: 2020 (NBER WP); 2026 (JEL update)
+- authors: William D. Nordhaus
+  year: '2021'
+  title: Are We Approaching an Economic Singularity? Information Technology and the Limits to Economic Growth
+  venue: Proceedings of the National Academy of Sciences (PNAS)
+  source_id: SRC-036
+  earliest_traceable_date: '2021'
+exact_question_tested: Does rapid AI capability expansion produce explosive, unconstrained GDP growth and total labor displacement,
+  or is aggregate macroeconomic transformation severely bounded by Baumol's cost disease, physical bottlenecks, and non-automatable
+  institutional tasks?
+explicit_assumptions:
+- Economic output is produced through a continuum of complementary tasks combining capital, energy, and labor.
+- AI automates a substantial subset of cognitive and routine information-processing tasks.
+- Tasks differ fundamentally in their susceptibility to automation due to physical, legal, social, and contextual constraints.
+implicit_assumptions:
+- 'Analyst inference: Non-automatable tasks (construction, physical healthcare, legal accountability, creative strategy) represent
+  essential inputs with low elasticity of substitution.'
+- 'Analyst inference: The relative prices of unautomated goods rise as automated goods become cheap (Baumol''s cost disease),
+  concentrating aggregate economic expenditure in the slowest-growing sectors.'
+- 'Analyst inference: Economic productivity gains from AI cannot explode asymptotically unless physical robotics and material
+  production are automated concurrently with software.'
+mechanism: 'Endogenous growth theory and Baumol''s cost disease: When AI automates a task, production costs drop rapidly.
+  However, if unautomated tasks are essential complements (e.g. wet-lab testing in biology, physical permits in construction,
+  court trials in law), aggregate economic growth is constrained not by how fast automated software runs, but by how fast
+  the slowest physical bottleneck operates. Acemoglu (2024) calculates that because generative AI impacts only ~5% of economic
+  tasks over a 10-year horizon, total factor productivity growth will be bounded below 1.5%.'
+predicted_failure_mode: 'Macroeconomic friction and social inequality: AI causes intense localized displacement in white-collar
+  cognitive professions (coding, paralegal, translation) without generating singulatarian wealth, creating acute fiscal stress,
+  wage stagnation, and political polarization while leaving macro bottlenecks unresolved.'
+what_the_scenario_does_not_establish: It does NOT establish that physical robotics and embodiment will never automate manual
+  tasks; it does NOT prove that AI cannot eventually automate the production of ideas and scientific research itself (Trammell
+  & Korinek 2026).
+strongest_supporting_arguments:
+- Rigorous empirical calibration in Acemoglu (2024) using O*NET task data and standard production functions disciplining runaway
+  growth hype.
+- Aghion, Jones & Jones (2019) general equilibrium proof that economic growth is determined by the bottleneck sectors, not
+  the automated sectors.
+- Nordhaus (2021) econometric analysis showing that historical capital-labor substitution elasticities remain well below singularity
+  thresholds.
+strongest_criticisms:
+- 'Singulatarian growth models (Trammell & Korinek 2026; Erdil & Besiroglu 2023): If AI automates R&D itself, the feedback
+  loop between ideas and capital accumulation can bypass traditional task bottlenecks, generating exponential takeoff.'
+- 'Rapid embodiment progress: General-purpose humanoid robotics (e.g. Figure, Boston Dynamics, Tesla Optimus) could bridge
+  the gap between software intelligence and physical manual tasks faster than historical models assume.'
+empirical_evidence:
+- claim_class: D
+  source_id: SRC-038
+  evidence_strength: Strong
+  summary: Acemoglu (2024, NBER WP 32428) proving that generative AI's 10-year impact on US GDP is modest (<1.5% total) due
+    to bounded task overlap and high difficulty of automating context-rich tasks.
+- claim_class: D
+  source_id: SRC-035
+  evidence_strength: Strong
+  summary: Aghion et al. (2019) formal economic model proving that Baumol's cost disease acts as an asymptotic brake on AI-driven
+    growth.
+counter_evidence:
+- claim_class: D
+  source_id: SRC-037
+  evidence_strength: Moderate
+  summary: Trammell & Korinek (2026, JEL) formalizing theoretical conditions under which full automation of cognitive research
+    produces explosive growth trajectories exceeding historical industrial growth rates.
+current_status: Golden-standard formal macroeconomic literature (Class D), providing essential empirical discipline on technological
+  takeoff claims.
+testability: Tracking sector-specific total factor productivity (TFP), labor share of income, and relative price shifts between
+  digital cognitive services and physical/legal services.
+relevance_to_human_agency: 'Economic foundations of agency: Human agency depends on economic independence; if human labor
+  is devalued without broad wealth redistribution, human political agency is severely compromised.'
+relevance_to_hsri_constructs: Economic Resilience, Institutional Governance, Digital Infrastructure.
+confidence_classification:
+  confidence_conceptual: High
+  justification_conceptual: Rigorously grounded in standard neoclassical and endogenous growth theory.
+  confidence_empirical: High
+  justification_empirical: Empirically calibrated against historical national accounts and granular task datasets (O*NET).
+disputes_about_interpretation: Active dispute between mainstream macroeconomists (Acemoglu, Gordon) projecting modest incremental
+  growth versus transformative AI economists (Korinek, Davidson) modeling potential explosive takeoff.
+claim_ids_used:
+- CLM-010
+- CLM-015
+matrix_coordinates:
+  capability_asymmetry: Task-specific to General Cognitive Automation
+  speed_ratio: Fast in software, Slow in physical bottleneck tasks
+  autonomy_scope: Enterprise Workflow and Cognitive Task Automation
+  coordination_structure: Multipolar Market Economy
+severity: Moderate to Severe (economic inequality and labor dislocation)
+reversibility: Moderate via fiscal, tax, and social policy interventions
+detectability: Readily observable across national economic statistics (BLS, OECD, GDP)
+response_window: Years to decades of institutional and labor market adaptation
+precursor_ids:
+- PRE-006
+disputes: Whether AI R&D automation can overcome Baumol bottleneck constraints.

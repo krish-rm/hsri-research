@@ -1,0 +1,110 @@
+scenario_id: SC-10
+name_and_aliases: Singleton Scenarios (global unipolar decision-making agency, surveillance hegemon, world order consolidation)
+original_sources:
+- authors: Nick Bostrom
+  year: '2006'
+  title: What is a Singleton?
+  venue: 'Linguistic and Philosophical Investigations 5(2): 48-54'
+  source_id: SRC-012
+  earliest_traceable_date: '2006'
+- authors: Nick Bostrom
+  year: '2014'
+  title: 'Superintelligence: Paths, Dangers, Strategies'
+  venue: Oxford University Press (Chapter 5)
+  source_id: SRC-013
+  earliest_traceable_date: July 2014
+- authors: Allan Dafoe
+  year: '2018'
+  title: 'AI Governance: A Research Agenda'
+  venue: Governance of AI Program, Future of Humanity Institute
+  source_id: SRC-060
+  earliest_traceable_date: August 2018
+exact_question_tested: Is the ultimate geopolitical attractor state of advanced technological civilization a 'Singleton'—a
+  world order in which there is at the global level a single decision-making agency (whether a democratic world government,
+  a surveillance cartel, or an artificial superintelligence)—and what does a Singleton mean for human agency?
+explicit_assumptions:
+- A Singleton is defined as a world order containing a single decision-making agency at the highest level, possessing the
+  ability to prevent internal wars and unilaterally enforce global policy.
+- Technological advancement in surveillance, coordination, and automated enforcement dramatically lowers the administrative
+  cost of global monitoring.
+- Existential threats from dispersed dual-use technologies (nanotech, advanced biology, unaligned AI) create overwhelming
+  structural pressure to consolidate global policing authority.
+implicit_assumptions:
+- 'Analyst inference: The bureaucratic and epistemic costs of running a planetary monopoly (the Hayekian local knowledge problem)
+  do not cause institutional sclerosis or collapse.'
+- 'Analyst inference: A single power (state, coalition, or AI system) can achieve a decisive strategic advantage and establish
+  hegemony before balancing coalitions can prevent it.'
+- 'Analyst inference: Once established, a Singleton is permanently stable against internal revolutions or territorial secession
+  due to automated surveillance and enforcement.'
+mechanism: Technological breakthroughs in artificial intelligence, ubiquitous surveillance, and autonomous enforcement systems
+  enable a single actor to achieve decisive strategic advantage. The hegemon establishes a global monopoly on force, eliminating
+  international conflict and technology development races. The Singleton solves global coordination problems (climate, arms
+  races, bioweapon proliferation), but permanently eliminates geopolitical competition and jurisdictional exit options for
+  human citizens.
+predicted_failure_mode: 'Totalitarian lock-in: If the Singleton is despotic, ideologically dogmatic, or poorly aligned, humanity
+  is irreversibly trapped with zero external refuges, zero competing governance models, and zero evolutionary variation.'
+what_the_scenario_does_not_establish: It does NOT establish that a Singleton must be an AI system; a democratic world federation
+  or treaty-based verification cartel qualifies under Bostrom's definition. It does NOT prove that planetary centralization
+  can solve the Hayekian problem of economic calculation and dispersed information.
+strongest_supporting_arguments:
+- Macro-historical trend toward larger political units over historical time (bands -> tribes -> chiefdoms -> city-states ->
+  nation-states -> supernational unions).
+- Game-theoretic necessity of centralized enforcement to solve multipolar tragedy of the commons in transformative technology
+  races (Armstrong, Bostrom & Shulman 2016).
+- Radical drop in surveillance costs via ubiquitous sensors and automated multimodal LLM analysis, making clandestine opposition
+  nearly impossible.
+strongest_criticisms:
+- 'Hayek (1945) local knowledge critique: Centralized planning cannot aggregate dispersed, contextual local knowledge, resulting
+  in systemic economic misallocation and political stagnation.'
+- 'Principal-agent friction (Gans 2017): As organizational scale approaches planetary size, internal agency costs, monitoring
+  fatigue, and bureaucratic corruption undermine central command.'
+- 'Contemporary geopolitical reality: The international system is characterized by intensifying multipolar friction (US-China-EU)
+  rather than convergence toward unipolar hegemony.'
+empirical_evidence:
+- claim_class: F
+  source_id: SRC-060
+  evidence_strength: Moderate
+  summary: Historical precedent of international regulatory regimes establishing near-monopolies over critical technologies,
+    such as the International Atomic Energy Agency (IAEA) and nuclear non-proliferation treaties.
+- claim_class: A
+  source_id: SRC-049
+  evidence_strength: Moderate
+  summary: Deployment of large-scale algorithmic surveillance, facial recognition, and data-monitoring systems in state governance
+    infrastructure demonstrating technological feasibility of centralized behavioral oversight.
+counter_evidence:
+- claim_class: A
+  source_id: SRC-060
+  evidence_strength: Strong
+  summary: Persistent failure of global multilateral coordination in climate governance, cyber warfare treaties, and autonomous
+    weapons bans, demonstrating strong geopolitical friction against unipolar consolidation.
+current_status: Macro-historical and political philosophy hypothesis (Class C/F), foundational to existential risk governance
+  literature.
+testability: Tracking the growth of international computing governance cartels, multilateral AI monitoring treaties, and the
+  concentration of frontier compute infrastructure under centralized state control.
+relevance_to_human_agency: 'Extreme boundary condition: A Singleton represents either the ultimate preservation of human agency
+  (by eliminating catastrophic conflict) or its permanent annihilation (by eliminating democratic divergence, exit options,
+  and political pluralism).'
+relevance_to_hsri_constructs: Institutional Governance, Human Sovereignty, Democratic Deliberation, Pluralistic Sovereignty.
+confidence_classification:
+  confidence_conceptual: High
+  justification_conceptual: Conceptually coherent game-theoretic response to existential coordination hazards.
+  confidence_empirical: Low/Medium
+  justification_empirical: Partially supported by international non-proliferation treaties, but contradicted by persistent
+    multipolar geopolitical fragmentation.
+disputes_about_interpretation: Intense debate over whether a Singleton is a desirable and necessary safeguard against existential
+  technological catastrophe or an existential threat in itself through irreversible totalitarian lock-in.
+claim_ids_used:
+- CLM-012
+- CLM-013
+matrix_coordinates:
+  capability_asymmetry: Radically Superhuman in coordination, surveillance, and enforcement
+  speed_ratio: Real-time automated enforcement
+  autonomy_scope: Global Monopoly on Highest-Level Policy Enforcement
+  coordination_structure: Planetary Unipolar Singleton
+severity: Catastrophic if misaligned/totalitarian; Potentially stabilizing if democratic and aligned
+reversibility: Irreversible once global monopoly on surveillance and enforcement is consolidated
+detectability: Readily observable during political/institutional consolidation
+response_window: Years to decades of institutional negotiation and geopolitical competition
+precursor_ids:
+- PRE-006
+disputes: Desirability versus totalitarian danger of global political consolidation.

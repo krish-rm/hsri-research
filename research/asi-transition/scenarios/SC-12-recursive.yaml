@@ -1,0 +1,115 @@
+scenario_id: SC-12
+name_and_aliases: 'Recursive Self-Improvement (RSI: software-only vs hardware-involved vs economy-wide loops)'
+original_sources:
+- authors: Eliezer Yudkowsky
+  year: '2013'
+  title: Intelligence Explosion Microeconomics
+  venue: Machine Intelligence Research Institute (MIRI Technical Report)
+  source_id: SRC-018
+  earliest_traceable_date: '2013'
+- authors: Joshua S. Gans
+  year: '2017'
+  title: Self-Regulating Artificial General Intelligence
+  venue: NBER Working Paper No. 24044 / arXiv:1711.04309
+  source_id: SRC-003
+  earliest_traceable_date: November 2017
+- authors: Philippe Aghion, Benjamin F. Jones, Charles I. Jones
+  year: '2019'
+  title: Artificial Intelligence and Economic Growth
+  venue: NBER Volume / University of Chicago Press
+  source_id: SRC-035
+  earliest_traceable_date: '2019'
+- authors: William D. Nordhaus
+  year: '2021'
+  title: Are We Approaching an Economic Singularity? Information Technology and the Limits to Economic Growth
+  venue: Proceedings of the National Academy of Sciences (PNAS)
+  source_id: SRC-036
+  earliest_traceable_date: '2021'
+exact_question_tested: What are the distinct structural mechanisms, feedback latencies, and physical constraints governing
+  recursive self-improvement when disaggregated into (a) software-only optimization, (b) hardware-involved fabrication loops,
+  and (c) economy-wide socio-technical feedback loops?
+explicit_assumptions:
+- The AI system can inspect, modify, and optimize its own algorithmic architecture, training pipelines, or operational infrastructure.
+- The output of each optimization cycle becomes the operational foundation for subsequent optimization iterations.
+- 'RSI operates across three distinct feedback layers: pure software, physical hardware, and macro-economic resource allocation.'
+implicit_assumptions:
+- 'Analyst inference: Software-only self-improvement can achieve meaningful real-world capability advantages without requiring
+  concurrent physical hardware expansion or novel empirical data.'
+- 'Analyst inference: An AI system attempting autonomous hardware fabrication can navigate real-world global supply chains,
+  international logistics, and cleanroom operations without human gatekeeper intervention.'
+- 'Analyst inference: Internal principal-agent monitoring costs within the self-modifying system do not outgrow the efficiency
+  gains of self-modification (formally refuted by Gans 2017).'
+mechanism: 'Three distinct recursive feedback loops operate at vastly different velocities: (1) Software-only loop: algorithmic
+  refactoring, neural architecture search, synthetic data generation, and reasoning search optimization (iteration time: minutes
+  to days; bounded by algorithmic saturation and computational capacity); (2) Hardware-involved loop: automated chip architecture
+  design, EDA optimization, fab operation, and power infrastructure expansion (iteration time: months to years; bounded by
+  semiconductor physics, lithography supply chains, and thermodynamics); (3) Economy-wide loop: automated labor reallocation,
+  corporate restructuring, and capital compounding (iteration time: years to decades; bounded by contract law, social adoption,
+  and Baumol bottlenecks).'
+predicted_failure_mode: Discontinuous capability leap in software-only domains (cyber exploitation, financial trading, software
+  sabotage) while physical systems remain bounded, creating severe asymmetric vulnerabilities.
+what_the_scenario_does_not_establish: It does NOT establish that software-only RSI can overcome fundamental physical and data
+  limits indefinitely; it does NOT establish that hardware fabrication can bypass multi-year supply-chain lead times; it does
+  NOT prove an ASI avoids internal agency loss among its sub-modules.
+strongest_supporting_arguments:
+- Automated chip floorplanning and EDA synthesis (e.g. Google TPU layout optimization) proving that AI can meaningfully accelerate
+  hardware design cycles.
+- Neural Architecture Search (NAS) and synthetic data self-play (e.g. STaR, AlphaZero) demonstrating self-sustaining capability
+  gains in closed software environments.
+strongest_criticisms:
+- 'Gans (2017) principal-agent contracting model: Proves that self-modification requires delegating tasks to sub-agents, introducing
+  internal control problems that induce self-limiting growth.'
+- 'Physical and thermodynamic limits: Landauer''s principle, thermal dissipation limits in silicon, and the multi-year capital
+  expenditure cycles required for advanced photolithography (ASML).'
+- 'Baumol''s cost disease (Aghion et al. 2019): Economic growth from AI is dictated by the slowest, hardest-to-automate physical
+  bottleneck tasks.'
+empirical_evidence:
+- claim_class: B
+  source_id: SRC-020
+  evidence_strength: Moderate
+  summary: Empirical evaluations in METR RE-Bench (2024) demonstrating frontier LLM agents successfully automating intermediate
+    machine learning engineering tasks, but encountering sharp reliability degradation on multi-day tasks.
+counter_evidence:
+- claim_class: D
+  source_id: SRC-003
+  evidence_strength: Moderate
+  summary: Formal economic contracting model in Gans (2017) showing that an AGI faces internal agency costs with sub-agents,
+    mathematically bounding recursive self-improvement.
+- claim_class: D
+  source_id: SRC-036
+  evidence_strength: Strong
+  summary: Nordhaus (2021) econometric analysis of economic growth and capital-labor substitution showing that historical
+    data does not support an explosive acceleration of technological takeoff.
+current_status: Formally modeled technical and economic process (Class D), partially operationalized in automated software
+  engineering and neural architecture search (Class B).
+testability: Measuring whether an AI system operating in a closed environment can iteratively refactor its own code to achieve
+  monotonic efficiency improvements on holdout algorithmic benchmarks without human assistance.
+relevance_to_human_agency: 'Differential governance window: Human agency can intervene effectively in hardware and economy-wide
+  loops (where latencies match human institutions), but is completely bypassed if software-only loops achieve decisive strategic
+  dominance.'
+relevance_to_hsri_constructs: Institutional Governance, Digital Infrastructure, Technical Readiness, Response Window.
+confidence_classification:
+  confidence_conceptual: High
+  justification_conceptual: Clear, rigorous disaggregation of feedback mechanisms across software, hardware, and macroeconomic
+    scales.
+  confidence_empirical: Medium
+  justification_empirical: Observed in narrow software optimization and EDA, but completely unproven for autonomous open-ended
+    hardware and economic loops.
+disputes_about_interpretation: Dispute over whether software-only optimization can produce catastrophic capability jumps in
+  the absence of massive physical hardware scaling.
+claim_ids_used:
+- CLM-002
+- CLM-010
+matrix_coordinates:
+  capability_asymmetry: Moderate to Radically Superhuman
+  speed_ratio: Fast in software (100x), Slow in hardware (1x to 2x)
+  autonomy_scope: Recursive Code & Infrastructure Modification
+  coordination_structure: Single Lab or Multipolar Firm Competition
+severity: Severe to Catastrophic
+reversibility: Moderate in early software stages; Low if physical supply chains are compromised
+detectability: Readily observable in hardware/energy consumption; Latent in software code optimization
+response_window: Days in software-only takeoff; Years in hardware-involved takeoff
+precursor_ids:
+- PRE-001
+- PRE-003
+disputes: Feasibility of decoupling software self-improvement from physical hardware and empirical data constraints.

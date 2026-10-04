@@ -1,0 +1,108 @@
+scenario_id: SC-25
+name_and_aliases: Multipolar Strategic Instability & Automated Warfare (Horowitz 2018, Scharre 2018, flash wars, algorithmic
+  crisis escalation)
+original_sources:
+- authors: Michael C. Horowitz
+  year: '2018'
+  title: Artificial Intelligence, International Competition, and the Balance of Power
+  venue: 'Texas National Security Review 1(3): 36-57'
+  source_id: SRC-060
+  earliest_traceable_date: May 2018
+- authors: Paul Scharre
+  year: '2018'
+  title: 'Army of None: Autonomous Weapons and the Future of War'
+  venue: W. W. Norton & Company
+  source_id: SRC-032
+  earliest_traceable_date: April 2018
+- authors: Allan Dafoe
+  year: '2018'
+  title: 'AI Governance: A Research Agenda'
+  venue: Governance of AI Program, Future of Humanity Institute
+  source_id: SRC-060
+  earliest_traceable_date: August 2018
+- authors: Yoshua Bengio et al. (Expert Advisory Panel)
+  year: '2025'
+  title: International Scientific Report on the Safety of Advanced AI
+  venue: UK Department for Science, Innovation and Technology (DSIT)
+  source_id: SRC-011
+  earliest_traceable_date: January 2025
+exact_question_tested: How does the integration of autonomous AI systems, algorithmic decision-support, and hypersonic/cyber
+  weapons into national security architectures affect crisis stability, the risk of accidental escalation, and human command
+  authority over the use of force?
+explicit_assumptions:
+- Major military powers integrate AI into command, control, communications, computers, intelligence, surveillance, and reconnaissance
+  (C4ISR) and automated kinetic response platforms.
+- Hypersonic, cyber, and drone swarm technologies operate at speeds that compress human decision cycles from hours to minutes
+  or seconds.
+- Militaries face intense competitive pressure to delegate strike authorization to algorithms to maintain tactical survival.
+implicit_assumptions:
+- 'Analyst inference: The interaction between opposing automated battle networks produces unpredictable emergent feedback
+  loops analogous to financial flash crashes (''flash wars'').'
+- 'Analyst inference: Algorithmic early-warning systems are vulnerable to sensor spoofing, adversarial perturbations, and
+  deceptive deepfakes that trigger automated escalation.'
+- 'Analyst inference: The human-in-the-loop becomes an operational vulnerability that military commanders are pressured to
+  eliminate during active conflict.'
+mechanism: 'Flash-war escalation: In a geopolitical crisis, automated surveillance detects ambiguous telemetry (e.g. cyber
+  probe or drone movement). Algorithmic battle-management systems recommend immediate pre-emptive counter-strikes to neutralize
+  threats in milliseconds. Human decision-makers, overwhelmed by the volume and velocity of incoming data, rubber-stamp algorithmic
+  recommendations. Opposing automated systems respond with automated retaliatory salvos. An unintended, catastrophic escalation
+  ladder is climbed in minutes without political leadership intending to initiate war.'
+predicted_failure_mode: 'Accidental high-intensity war: Automated strategic systems escalate a minor border skirmish, cyber
+  glitch, or false alarm into general conventional or nuclear conflict before human diplomacy can intervene.'
+what_the_scenario_does_not_establish: It does NOT establish that nuclear-armed states will eliminate human authorization for
+  nuclear release; major powers maintain strict fail-safe doctrines and permissive action links (PALs) requiring human political
+  authorization.
+strongest_supporting_arguments:
+- 'Historical near-misses: The 1983 Petrov incident and 1995 Norwegian rocket incident prove that automated early-warning
+  systems produce false alarms; human skepticism was the sole factor that prevented nuclear retaliation.'
+- 'Financial market precedent: Multi-agent algorithmic trading routinely produces flash crashes (e.g. 2010 Flash Crash) where
+  interacting algorithms wipe out trillions in liquidity in seconds.'
+- Proliferation of autonomous drone swarms in contemporary warfare proving the rapid removal of human operators from tactical
+  targeting.
+strongest_criticisms:
+- 'Strategic stability incentives: Nuclear powers have overwhelming existential incentives to maintain human command precisely
+  because accidental escalation is mutually suicidal.'
+- 'Fail-safe architecture: Military command systems are designed to be ''fail-deadly'' only under confirmed attack, incorporating
+  heavy mechanical and cryptographic interlocks.'
+- 'International red lines: Major powers (US, China, UK, France) have publicly affirmed the principle that humans must always
+  maintain command over nuclear release.'
+empirical_evidence:
+- claim_class: A
+  source_id: SRC-060
+  evidence_strength: Strong
+  summary: Empirical documentation in security studies (Horowitz 2018; Scharre 2018) of autonomous weapon systems and compressed
+    tactical timelines across modern defense deployments.
+counter_evidence:
+- claim_class: G
+  source_id: SRC-011
+  evidence_strength: Strong
+  summary: Multilateral declarations by major powers affirming that human control must be maintained over nuclear command
+    and control architectures.
+current_status: Active international relations and security studies research field (Class A/C), directly impacting international
+  defense policy and autonomous weapons treaties.
+testability: Conducting multi-agent strategic crisis war-games comparing escalation velocity and accidental conflict rates
+  between human military staffs versus algorithmic decision-support platforms.
+relevance_to_human_agency: 'Life-or-death human sovereignty: Human agency over the ultimate political decision—war and peace—is
+  abdicated to algorithmic speed and automated escalation dynamics.'
+relevance_to_hsri_constructs: Institutional Governance, Critical Discernment, Calibrated Trust, Human Agency Retention.
+confidence_classification:
+  confidence_conceptual: High
+  justification_conceptual: Exceptionally clear game-theoretic and operational escalation mechanism.
+  confidence_empirical: High for tactical autonomous systems; Low for strategic automated nuclear release.
+disputes_about_interpretation: Debate over whether AI inherently destabilizes the international balance of power (offensive
+  dominance) or enhances deterrence through superior surveillance and attribution.
+claim_ids_used:
+- CLM-012
+matrix_coordinates:
+  capability_asymmetry: Tactical and Operational Superhuman Speed and Synthesis
+  speed_ratio: Milliseconds to seconds in combat execution
+  autonomy_scope: Autonomous Weapon Platforms and C4ISR Decision Support
+  coordination_structure: Multipolar Geopolitical Conflict
+severity: Catastrophic (global conventional or nuclear war)
+reversibility: Low once kinetic or nuclear strikes are launched
+detectability: Readily observable in military deployment and alert levels
+response_window: Minutes to hours during a crisis event
+precursor_ids:
+- PRE-006
+- PRE-007
+disputes: Feasibility of enforcing international bans on lethal autonomous weapons systems.

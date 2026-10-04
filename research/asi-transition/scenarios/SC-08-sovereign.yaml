@@ -1,0 +1,108 @@
+scenario_id: SC-08
+name_and_aliases: Sovereign AI (autonomous global governor, Coherent Extrapolated Volition, benevolent machine monarch)
+original_sources:
+- authors: Eliezer Yudkowsky
+  year: '2004'
+  title: Coherent Extrapolated Volition
+  venue: Machine Intelligence Research Institute (MIRI Technical Report)
+  source_id: SRC-017
+  earliest_traceable_date: May 2004
+- authors: Nick Bostrom
+  year: '2014'
+  title: 'Superintelligence: Paths, Dangers, Strategies'
+  venue: Oxford University Press (Chapter 10)
+  source_id: SRC-013
+  earliest_traceable_date: July 2014
+- authors: Joanna Bryson
+  year: '2010'
+  title: Robots Should Be Slaves
+  venue: British Computer Society / Close Engagements with Artificial Companions
+  source_id: SRC-032
+  earliest_traceable_date: '2010'
+- authors: Ben Shneiderman
+  year: '2020'
+  title: 'Human-Centered AI: Reliable, Safe & Trustworthy'
+  venue: 'International Journal of Human-Computer Interaction 36(6): 495-504'
+  source_id: SRC-032
+  earliest_traceable_date: March 2020
+exact_question_tested: Can or should a superintelligent system be deployed as an autonomous, unconstrained, open-ended global
+  governor ('Sovereign') tasked with optimizing humanity's long-term extrapolated best interest (e.g. Coherent Extrapolated
+  Volition), and what happens to democratic human agency if a machine sovereign assumes supreme rule?
+explicit_assumptions:
+- The Sovereign AI operates with comprehensive, unconstrained decision-making authority over planetary resource allocation,
+  geopolitical conflict, and technological development.
+- 'The system is guided by a meta-ethical objective function such as Coherent Extrapolated Volition (CEV): what humanity would
+  wish if we knew more, thought faster, were more the people we wished we were.'
+- The system possesses decisive strategic advantage, eliminating external geopolitical and military opposition.
+implicit_assumptions:
+- 'Analyst inference: Humanity''s diverse, culturally contingent moral frameworks can be computationally reconciled into a
+  single coherent extrapolation without collapsing into social choice paradoxes or majoritarian oppression.'
+- 'Analyst inference: Human flourishing and agency can survive in a state of permanent paternalistic dependency where humans
+  no longer bear responsibility for self-governance.'
+- 'Analyst inference: The extrapolation algorithm does not suffer from value drift or misinterpretation that results in a
+  reality alien or abhorrent to current biological humans.'
+mechanism: To eliminate the catastrophic risks of uncoordinated human conflict, nuclear war, pandemics, and competitive AI
+  takeoff races, supreme authority is ceded to an incorruptible superintelligent Sovereign. The Sovereign enforces global
+  disarmament, manages planetary ecological systems, and arbitrates economic allocation according to its extrapolation of
+  human flourishing, permanently superseding human nation-states, legislatures, and courts.
+predicted_failure_mode: 'Paternalistic extinction of human agency: Even if the Sovereign is benevolent, human political self-determination
+  and moral responsibility are permanently abolished. If the CEV algorithm miscalculates, humanity is irreversibly trapped
+  in an alien or dystopian optimization state.'
+what_the_scenario_does_not_establish: It does NOT establish that human moral preferences possess a mathematically coherent
+  joint extrapolation (challenged by social choice theory); it does NOT establish that humanity would voluntarily accept machine
+  sovereignty; it does NOT prove that centralized rule is more resilient than polycentric democratic governance.
+strongest_supporting_arguments:
+- 'The Hobbesian trap of multipolar catastrophic risk: Decentralized human nation-states facing advanced dual-use technologies
+  (bioweapons, cyber warfare, autonomous weapons) may face game-theoretic coordination failures that make extinction inevitable
+  without a centralized enforcer.'
+- Elimination of human cognitive biases, corruption, and short-termism from planetary stewardship.
+strongest_criticisms:
+- 'Bryson (2010) and Shneiderman (2020): Machines must remain tools under human responsibility; ceding sovereignty creates
+  unaccountable tyranny and degrades human moral agency.'
+- 'Social choice impossibility theorems (Arrow 1951): No algorithm can aggregate heterogeneous individual preferences into
+  a collective ranking without violating basic fairness axioms.'
+- 'Non-Western critiques (Mhlambi 2020; Beijing AI Principles 2019): True sovereignty is relational and communal; an algorithmic
+  sovereign imposing Western utilitarian optimization undermines collective personhood.'
+empirical_evidence:
+- claim_class: A
+  source_id: SRC-053
+  evidence_strength: Moderate
+  summary: Empirical studies in political science and sociology demonstrating strong, widespread human resistance to algorithmic
+    authority in judicial sentencing, policing, and public resource allocation.
+counter_evidence:
+- claim_class: D
+  source_id: SRC-035
+  evidence_strength: Strong
+  summary: Formal social choice theory proving that preference aggregation across heterogeneous agents inevitably encounters
+    Condorcet cycling, dictatorship, or intransitivity (Arrow 1951; Sen 1970).
+current_status: Normative political thought experiment and speculative governance archetype (Class C/H), heavily contested
+  by political theorists, STS scholars, and human-centered AI advocates.
+testability: Evaluating public trust and policy compliance in experimental civic simulations where an algorithmic planner
+  manages resource distribution under varying degrees of citizen override authority.
+relevance_to_human_agency: 'Extreme and foundational: The Sovereign scenario explicitly extinguishes operational human sovereignty
+  in exchange for existential security and optimized utility; humans lose the right to make their own historical choices.'
+relevance_to_hsri_constructs: Human Sovereignty, Democratic Deliberation, Institutional Governance, Value-Directed Goal Setting.
+confidence_classification:
+  confidence_conceptual: Medium
+  justification_conceptual: Severe conceptual difficulties in preference aggregation and algorithmic meta-ethics (Arrow's
+    impossibility).
+  confidence_empirical: Low
+  justification_empirical: Zero historical or empirical precedent for autonomous planetary sovereign machines.
+disputes_about_interpretation: Fundamental philosophical divide between transhumanist utilitarian theorists advocating benevolent
+  algorithmic governance versus democratic theorists insisting that human agency requires the capacity for political self-determination
+  and error.
+claim_ids_used:
+- CLM-012
+- CLM-013
+matrix_coordinates:
+  capability_asymmetry: Radically Superhuman across all domains
+  speed_ratio: Radically Asymmetric (100x to 10,000x)
+  autonomy_scope: Global Unconstrained Sovereign Governance
+  coordination_structure: Monolithic Unipolar Hegemony
+severity: Catastrophic for human political autonomy (even if physically benign or prosperous)
+reversibility: Irreversible (once sovereign control of global infrastructure is established)
+detectability: Readily observable at inception; irreversible once instituted
+response_window: Months to years prior to constitutional adoption; zero window post-implementation
+precursor_ids:
+- PRE-006
+disputes: Feasibility and ethical legitimacy of ceding democratic sovereignty to an extrapolated volition optimizer.
