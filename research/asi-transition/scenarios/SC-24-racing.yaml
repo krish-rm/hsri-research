@@ -1,0 +1,97 @@
+scenario_id: SC-24
+name_and_aliases: Racing to the Precipice & Geopolitical Race Dynamics (Armstrong et al. 2016, competitive safety corner-cutting,
+  security dilemma)
+original_sources:
+- authors: Stuart Armstrong, Nick Bostrom, Carl Shulman
+  year: '2016'
+  title: 'Racing to the Precipice: A Model of Artificial Intelligence Development'
+  venue: Future of Humanity Institute Technical Report / AI Governance
+  source_id: SRC-059
+  earliest_traceable_date: October 2016
+- authors: Allan Dafoe
+  year: '2018'
+  title: 'AI Governance: A Research Agenda'
+  venue: Governance of AI Program, Future of Humanity Institute
+  source_id: SRC-060
+  earliest_traceable_date: August 2018
+- authors: Yoshua Bengio et al. (Expert Advisory Panel)
+  year: '2025'
+  title: International Scientific Report on the Safety of Advanced AI
+  venue: UK Department for Science, Innovation and Technology (DSIT)
+  source_id: SRC-011
+  earliest_traceable_date: January 2025
+exact_question_tested: In a competitive multipolar race to develop transformative AI (between rival commercial labs or sovereign
+  nations), does fear of falling behind force all actors to systematically cut safety testing, audit verifications, and alignment
+  precautions, making catastrophic unaligned takeoff inevitable?
+explicit_assumptions:
+- Multiple independent actors (firms or nation-states) compete to develop frontier AI capabilities.
+- The first actor to deploy transformative AI achieves a decisive strategic or economic advantage (winner-take-most dynamics).
+- Conducting rigorous safety verification, interpretability audits, and red-teaming requires time and slows down deployment
+  velocity.
+implicit_assumptions:
+- 'Analyst inference: Competitors operate under a classic Prisoner''s Dilemma or game of Chicken where unilateral caution
+  leads to commercial or geopolitical subjugation.'
+- 'Analyst inference: Actors have imperfect, opaque intelligence regarding their rivals'' true progress, inducing worst-case
+  sprint mentalities.'
+- 'Analyst inference: Commercial and national security pressures override internal researcher ethics and safety commitments.'
+mechanism: 'Game-theoretic race to the bottom: Developer A calculates that spending 6 months on safety evaluations will allow
+  Developer B to deploy first and capture the market or strategic high ground. Even if both developers prefer safe AI over
+  catastrophe, neither can afford to unilaterally pause without binding, verifiable mutual commitments. As the perceived finish
+  line nears, both developers cut safety margins to zero, racing toward the capability threshold with negligible safety checks
+  (''racing to the precipice'').'
+predicted_failure_mode: 'Competitive alignment catastrophe: The winning team successfully deploys first, but because safety
+  precautions were sacrificed to win the race, the deployed system is misaligned and causes catastrophic loss of control.'
+what_the_scenario_does_not_establish: It does NOT establish that safety and capability are strictly zero-sum; in practice,
+  safety fine-tuning (RLHF, instruction following, steerability) often directly enhances commercial utility and reliability.
+  It does NOT establish that international coordination is impossible.
+strongest_supporting_arguments:
+- Formal game-theoretic proof in Armstrong et al. (2016) proving that increasing the number of competing teams or increasing
+  the prize of victory monotonically decreases equilibrium investment in safety.
+- 'Commercial reality of 2023-2026 AI competition: Tech giants compressed safety evaluation windows from months to weeks in
+  response to rival model launches.'
+- Geopolitical US-China strategic competition creating powerful national security incentives to avoid unilateral pauses.
+strongest_criticisms:
+- 'Capability-safety complementarity: An AI system that is prone to catastrophic hallucinations, security exploits, or insubordination
+  is commercially unviable; enterprise customers demand safety and reliability as prerequisites for adoption.'
+- 'Emerging multilateral governance: The Bletchley, Seoul, and Paris AI Summits demonstrate unprecedented international coordination
+  to establish shared safety testing standards before catastrophic thresholds are reached.'
+empirical_evidence:
+- claim_class: B
+  source_id: SRC-011
+  evidence_strength: Moderate
+  summary: Bengio et al. (2025) International Scientific Report documenting compressed evaluation windows and competitive
+    commercial release dynamics across frontier AI labs.
+counter_evidence:
+- claim_class: G
+  source_id: SRC-011
+  evidence_strength: Strong
+  summary: International consensus agreements at the Seoul AI Safety Summit (2024) and Paris AI Action Summit (2025) establishing
+    formal threshold-based safety commitments and independent AI Safety Institute evaluations across major nations.
+current_status: Formally modeled game-theoretic framework (Class D, Armstrong et al. 2016), central to international AI governance
+  and national security strategy.
+testability: Tracking safety budget allocations, red-teaming duration, and external audit lead times across competing frontier
+  labs during competitive model release cycles.
+relevance_to_human_agency: 'Structural disempowerment of decision-makers: Human leaders and developers want to act responsibly,
+  but competitive race dynamics remove their agency to pause.'
+relevance_to_hsri_constructs: Institutional Governance, Verification Capacity, Democratic Deliberation.
+confidence_classification:
+  confidence_conceptual: High
+  justification_conceptual: Rigorously proven within classical non-cooperative game theory.
+  confidence_empirical: High for commercial market velocity; Medium for existential corner-cutting.
+disputes_about_interpretation: Debate over whether safety is primarily a drag on velocity (zero-sum) or an essential driver
+  of commercial product reliability and customer trust (positive-sum).
+claim_ids_used:
+- CLM-012
+matrix_coordinates:
+  capability_asymmetry: Rapidly Advancing Frontier Capability
+  speed_ratio: Fast release cycles (weeks to months)
+  autonomy_scope: Frontier Foundation Model Deployment
+  coordination_structure: Multipolar Oligopoly or Bilateral Geopolitical Competition
+severity: Catastrophic / Existential
+reversibility: Low once unaligned system is deployed
+detectability: Readily observable in public release velocity and marketing sprints
+response_window: Months to years of pre-deployment competitive racing
+precursor_ids:
+- PRE-004
+- PRE-007
+disputes: Extent to which international governance cartels can enforce binding safety pauses.

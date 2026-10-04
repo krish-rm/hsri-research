@@ -1,0 +1,102 @@
+scenario_id: SC-22
+name_and_aliases: Value Lock-In & Moral Stagnation (MacAskill 2022, Ord 2020, irreversible normative crystallization)
+original_sources:
+- authors: William MacAskill
+  year: '2022'
+  title: What We Owe The Future
+  venue: 'Basic Books (Chapter 4: Value Lock-In)'
+  source_id: SRC-032
+  earliest_traceable_date: August 2022
+- authors: Toby Ord
+  year: '2020'
+  title: 'The Precipice: Existential Risk and the Future of Humanity'
+  venue: Hachette / Bloomsbury
+  source_id: SRC-032
+  earliest_traceable_date: March 2020
+- authors: Nick Bostrom
+  year: '2014'
+  title: 'Superintelligence: Paths, Dangers, Strategies'
+  venue: Oxford University Press (Chapter 5)
+  source_id: SRC-013
+  earliest_traceable_date: July 2014
+exact_question_tested: If a superintelligent system or dominant political power permanently locks in a specific set of moral
+  values, legal doctrines, or constitutional parameters during an unrepeatable technological transition window, could humanity
+  suffer permanent moral stagnation or catastrophic value lock-in that prevents ethical progress forever?
+explicit_assumptions:
+- Advanced artificial intelligence, autonomous surveillance, and automated enforcement create the technological capacity to
+  permanently maintain an institutional regime against internal rebellion or decay.
+- The values, preferences, or ideology of the system's creators are encoded into the foundational architecture at the transition
+  point.
+- The transition to superintelligence constitutes a plastic, high-leverage constitutional moment that rapidly crystallizes
+  into an immutable, permanent state.
+implicit_assumptions:
+- 'Analyst inference: Contemporary human moral understanding is severely flawed, incomplete, or biased (just as historical
+  societies accepted chattel slavery, feudalism, and disenfranchisement).'
+- 'Analyst inference: A superintelligent enforcement system will not experience the biological mortality, empathy, or generational
+  turnover that historically drove institutional reform.'
+- 'Analyst inference: Post-transition societies lose all capacity for philosophical self-correction, ideological experimentation,
+  and ethical divergence.'
+mechanism: 'Technological crystallization of ideology: In historical civilizations, totalitarian regimes and religious orthodoxies
+  inevitably collapsed because human enforcers aged, died, or experienced sympathy with rebels. An automated superintelligent
+  enforcement apparatus, however, is immune to physical exhaustion, bribery, and sympathy. If configured with a fixed moral
+  code (whether an authoritarian dogma, a specific religious creed, or contemporary 21st-century liberal utilitarianism),
+  it eliminates all subsequent moral evolution, ideological experimentation, and ethical divergence forever.'
+predicted_failure_mode: 'Permanent moral catastrophe: Humanity is irreversibly locked into a flawed, parochial ethical framework;
+  ethical growth ceases, and future generations are denied moral agency.'
+what_the_scenario_does_not_establish: It does NOT establish that AI alignment architectures cannot be engineered with explicit
+  meta-moral learning and self-correcting mechanisms; it does NOT prove that human values cannot converge upon reflection.
+strongest_supporting_arguments:
+- 'Historical moral blind spots: Every prior century possessed universal moral orthodoxies that are today recognized as monstrous;
+  locking in 2026 values would permanently cement contemporary blindnesses.'
+- 'Technological asymmetry: Modern facial recognition, automated drones, and LLM text analysis drastically reduce the cost
+  of totalitarian social control, making dissent mathematically detectable.'
+- 'MacAskill''s (2022) argument on plasticity vs rigidity: Civilizational values are highly plastic during technological revolutions,
+  but rapidly become rigid once institutional structures are automated.'
+strongest_criticisms:
+- 'Constitutional flexibility and proceduralism: Legal systems demonstrate that constitutions can maintain long-term stability
+  while incorporating dynamic amendment processes (e.g. US Bill of Rights, Indian Constitution).'
+- 'Relational ethics (Mhlambi 2020; Beijing AI Principles 2019): Non-Western traditions emphasize dynamic relational balance
+  and communal adaptation rather than rigid, static utility functions.'
+- 'Technical alignment progress: Constitutional AI architectures can be explicitly designed to update their ethical principles
+  based on ongoing human democratic deliberation.'
+empirical_evidence:
+- claim_class: A
+  source_id: SRC-049
+  evidence_strength: Moderate
+  summary: Deployment of digital surveillance, social credit scoring, and automated censorship systems in modern states demonstrating
+    the feasibility of using algorithmic tools to enforce ideological conformity.
+counter_evidence:
+- claim_class: F
+  source_id: SRC-032
+  evidence_strength: Strong
+  summary: 'Historical resilience of human moral progress: Even the most brutal totalitarian regimes in human history (Sparta,
+    Qin Dynasty, Third Reich, USSR) experienced internal decay or ideological collapse within decades to centuries.'
+current_status: Normative political philosophy hypothesis (Class C/H), foundational to longtermist ethics and global AI constitutional
+  design.
+testability: Evaluating whether constitutional AI systems trained on diverse ethical corpora can autonomously identify and
+  resolve moral contradictions without succumbing to dogmatic ossification or arbitrary drift.
+relevance_to_human_agency: 'Temporal agency trap: The agency of current generation of AI developers permanently extinguishes
+  the moral agency of all future human generations.'
+relevance_to_hsri_constructs: Human Sovereignty, Value-Directed Goal Setting, Democratic Deliberation, Pluralistic Sovereignty.
+confidence_classification:
+  confidence_conceptual: High
+  justification_conceptual: Conceptually rigorous deduction of the consequences of permanent technological enforcement.
+  confidence_empirical: Low/Medium
+  justification_empirical: Supported by the growth of digital surveillance, but permanent civilizational lock-in remains speculative.
+disputes_about_interpretation: Debate over whether value lock-in is a primary catastrophic risk to be avoided or a necessary
+  tool to permanently prevent rogue actor devastation.
+claim_ids_used:
+- CLM-012
+- CLM-013
+matrix_coordinates:
+  capability_asymmetry: Radically Superhuman in enforcement and surveillance
+  speed_ratio: Real-time automated compliance
+  autonomy_scope: Global Ideological and Legal Enforcement
+  coordination_structure: Planetary Constitutional Singleton or Ideological Cartel
+severity: Catastrophic for moral agency and long-term human potential
+reversibility: Irreversible once automated enforcement achieves monopoly lock-in
+detectability: Readily observable during ideological codification; Irreversible post-lock-in
+response_window: The brief plastic period preceding technological consolidation
+precursor_ids:
+- PRE-006
+disputes: Feasibility and desirability of designing self-revising constitutional alignment frameworks.
