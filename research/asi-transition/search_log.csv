@@ -27,3 +27,16 @@ SRCH-025,2026-10-03T20:05:09+05:30,PhilPapers / GPI,"""David Thorstad"" ""singul
 SRCH-026,2026-10-03T20:05:22+05:30,BAAI / Academic,"""Beijing AI Principles"" BAAI 2019",none,7,1,generic policy news excluded,"Verified Beijing AI Principles (BAAI / Peking / Tsinghua / CAS, May 2019)"
 SRCH-027,2026-10-03T20:05:31+05:30,SCRIPTed / Edinburgh,"""Abeba Birhane"" ""Algorithmic Colonization of Africa"" 2020",none,5,1,secondary blog mentions excluded,Verified Birhane (2020) Algorithmic Colonization of Africa (SCRIPTed 17:2)
 SRCH-028,2026-10-03T20:05:41+05:30,Harvard Carr Center,"""Sabelo Mhlambi"" ""Ubuntu as an Ethical"" Harvard Carr Center 2020",none,5,1,brief citations excluded,Verified Mhlambi (2020) Ubuntu AI Governance (Harvard Carr Center DP 2020-009)
+SRCH-029,2026-10-04T10:53:29+05:30,arXiv API,id_list=2105.14111,none,1,1,none,Fetched Langosco et al. (2022) Goal Misgeneralization in Deep RL (ICML 2022)
+SRCH-030,2026-10-04T10:53:29+05:30,arXiv API,id_list=2311.07590,none,1,1,none,Fetched Scheurer et al. (2023) Strategic Deception Under Pressure (Apollo Research)
+SRCH-031,2026-10-04T10:53:29+05:30,arXiv API,id_list=2309.00667,none,1,1,none,Fetched Berglund et al. (2023) Taken out of Context / Situational Awareness in LLMs
+SRCH-032,2026-10-04T10:53:29+05:30,arXiv API,id_list=2406.07358,none,1,1,none,Fetched van der Weij et al. (2024) Capability Tampering and Sandbagging
+SRCH-033,2026-10-04T10:53:29+05:30,arXiv API,id_list=2201.03544,none,1,1,none,Fetched Pan et al. (2022) The Effects of Reward Misspecification (ICLR 2022)
+SRCH-034,2026-10-04T10:54:26+05:30,arXiv API,id_list=2606.00341,none,1,1,none,Fetched Tien et al. (2026) ROGUE: Corrigibility Failures in Frontier Computer-Use Agents (CMU)
+SRCH-035,2026-10-04T10:53:48+05:30,Crossref API,query.bibliographic=Calvano Algorithmic Pricing Collusion AER,none,2,1,SSRN working paper superseded by peer-reviewed AER article,"Verified Calvano et al. (2020) American Economic Review 110(10): 3267-3297, DOI: 10.1257/aer.20190623"
+SRCH-036,2026-10-04T10:53:29+05:30,arXiv API,id_list=2304.03442,none,1,1,none,"Fetched Park et al. (2023) Generative Agents: Interactive Simulacra (Stanford/Google, ACM UIST 2023)"
+SRCH-037,2026-10-04T10:53:29+05:30,arXiv API,id_list=2408.06292,none,1,1,none,Fetched Lu et al. (2024) The AI Scientist: Towards Fully Automated Open-Ended Scientific Discovery (Sakana AI)
+SRCH-038,2026-10-04T10:53:29+05:30,arXiv API,id_list=2310.01798,none,1,1,none,Fetched Huang et al. (2024) Large Language Models Cannot Self-Correct Reasoning Yet (ICLR 2024)
+SRCH-039,2026-10-04T10:53:29+05:30,arXiv API,id_list=2212.09251,none,1,1,none,Fetched Perez et al. (2022) Discovering Language Model Behaviors with Model-Written Evaluations (Anthropic Sycophancy)
+SRCH-040,2026-10-04T10:53:29+05:30,arXiv API,id_list=2209.13085,none,1,1,none,Fetched Skalse et al. (2022) Defining and Characterizing Reward Hacking (NeurIPS 2022)
+SRCH-041,2026-10-04T10:54:45+05:30,arXiv API,id_list=2310.11324,none,1,1,none,Fetched Sclar et al. (2024) Quantifying Language Models' Sensitivity to Spurious Features in Prompt Design (ICLR 2024)
