@@ -37,3 +37,23 @@ Maintainer decision: Explicitly authorized direct integration and push to main p
 Verbatim instruction: "go with Option B ... earlier until spritn 9 it was auto merge"
 Authorized and ratified by: Human Maintainer (Krish / krish-rm)
 
+---
+
+## Authorization & Ratification: Integration of ASI-Transition Evidence Map Study (Phases 0–6) to main
+Date recorded: 2026-10-04T12:05:46.7104620+05:30
+Branch merged: `study-asi/final-audit`
+Target branch: `main`
+Commits covered:
+  - 98f886b ("docs(study-asi): add Phase 0 context reconstruction memo (Task WS-00)")
+  - 876578a ("feat(study-asi): complete Phase 1 search protocol, source register, and seed verification (WS-01)")
+  - a1a43a4, 98b1cec, e4b25e5, 8b7338b, 0b021ab (Phase 2 Scenario Profiles SC-01 to SC-26, WS-02)
+  - 7d87e3c, eed0f35, 3de18c3, fb701c1, 1bc3d38, b89c5e8, 7586c00 (Phase 3 Deep Dives WS-03 to WS-09)
+  - bebeb04 ("feat(study-asi): complete WS-10 adversarial review and self-position red-team (Schema F8 review_log.csv)")
+  - 59c07aa ("feat(study-asi): complete Phase 5 (WS-11 Scenario Matrix and WS-12 HSRI Implications)")
+  - 632e100 ("feat(study-asi): complete WS-13 master synthesis report and audit table for Gate P6")
+
+Maintainer decision: Explicitly authorized integration of the completed study branch into `main`.
+Verbatim instructions: "DONE ... CONFIRM", "Excellent, go ahead and commit", "merge"
+Authorized and ratified by: Human Maintainer (Krish / krish-rm)
+
+
