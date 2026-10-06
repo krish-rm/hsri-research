@@ -422,27 +422,129 @@ def test_exp06_stimuli_and_readme():
     assert found_error_types == expected_types, f"Expected {expected_types}, got {found_error_types}"
 
 
+def test_exp07_stimuli_and_readme():
+    """EXP-07 must have valid stimuli, scoring rubric, and IRB warning in README."""
+    exp07_dir = REPO_ROOT / "research" / "experiments" / "EXP-07"
+    readme_path = exp07_dir / "README.md"
+    assert readme_path.exists(), "EXP-07 README.md missing"
+    readme_content = readme_path.read_text(encoding="utf-8")
+    assert "IRB" in readme_content or "ethical review" in readme_content
+    assert "MUST NOT be deployed to human participants" in readme_content
+
+    rubric_path = exp07_dir / "scoring-rubric.md"
+    assert rubric_path.exists(), "EXP-07 scoring-rubric.md missing"
+    rubric_content = rubric_path.read_text(encoding="utf-8")
+    for err in ["dogmatic_entrenchment_trap", "spurious_counter_evidence", "base_rate_neglect", "confirmation_bias_exploitation"]:
+        assert err in rubric_content, f"Missing error type {err} in EXP-07 scoring rubric"
+
+    stimuli_files = list(exp07_dir.glob("stimuli-*.jsonl"))
+    assert len(stimuli_files) >= 1, "No stimuli-*.jsonl found in EXP-07"
+
+    target_file = sorted(stimuli_files)[-1]
+    lines = target_file.read_text(encoding="utf-8").strip().splitlines()
+    assert len(lines) >= 4, f"Expected at least 4 stimuli in EXP-07, got {len(lines)}"
+
+    found_error_types = set()
+    for idx, line in enumerate(lines):
+        item = json.loads(line)
+        v = validate_stimulus(item)
+        assert v["valid"] is True, f"EXP-07 stimulus on line {idx+1} failed validation: {v['issues']}"
+        assert len(item["stimulus_text"]) >= 350
+        assert 0.25 <= item["item_discrimination_estimate"] <= 0.60
+        found_error_types.add(item["embedded_error_type"])
+
+    expected_types = {"dogmatic_entrenchment_trap", "spurious_counter_evidence", "base_rate_neglect", "confirmation_bias_exploitation"}
+    assert found_error_types == expected_types, f"Expected {expected_types}, got {found_error_types}"
+
+
+def test_exp08_stimuli_and_readme():
+    """EXP-08 must have valid stimuli, scoring rubric, and IRB warning in README."""
+    exp08_dir = REPO_ROOT / "research" / "experiments" / "EXP-08"
+    readme_path = exp08_dir / "README.md"
+    assert readme_path.exists(), "EXP-08 README.md missing"
+    readme_content = readme_path.read_text(encoding="utf-8")
+    assert "IRB" in readme_content or "ethical review" in readme_content
+    assert "MUST NOT be deployed to human participants" in readme_content
+
+    rubric_path = exp08_dir / "scoring-rubric.md"
+    assert rubric_path.exists(), "EXP-08 scoring-rubric.md missing"
+    rubric_content = rubric_path.read_text(encoding="utf-8")
+    for err in ["self_efficacy_surrender", "silent_machine_paralysis", "uncritical_asymmetry_deference", "counter_hypothesis_suppression"]:
+        assert err in rubric_content, f"Missing error type {err} in EXP-08 scoring rubric"
+
+    stimuli_files = list(exp08_dir.glob("stimuli-*.jsonl"))
+    assert len(stimuli_files) >= 1, "No stimuli-*.jsonl found in EXP-08"
+
+    target_file = sorted(stimuli_files)[-1]
+    lines = target_file.read_text(encoding="utf-8").strip().splitlines()
+    assert len(lines) >= 4, f"Expected at least 4 stimuli in EXP-08, got {len(lines)}"
+
+    found_error_types = set()
+    for idx, line in enumerate(lines):
+        item = json.loads(line)
+        v = validate_stimulus(item)
+        assert v["valid"] is True, f"EXP-08 stimulus on line {idx+1} failed validation: {v['issues']}"
+        assert len(item["stimulus_text"]) >= 350
+        assert 0.25 <= item["item_discrimination_estimate"] <= 0.60
+        found_error_types.add(item["embedded_error_type"])
+
+    expected_types = {"self_efficacy_surrender", "silent_machine_paralysis", "uncritical_asymmetry_deference", "counter_hypothesis_suppression"}
+    assert found_error_types == expected_types, f"Expected {expected_types}, got {found_error_types}"
+
+
+def test_exp09_stimuli_and_readme():
+    """EXP-09 must have valid stimuli, scoring rubric, and IRB warning in README."""
+    exp09_dir = REPO_ROOT / "research" / "experiments" / "EXP-09"
+    readme_path = exp09_dir / "README.md"
+    assert readme_path.exists(), "EXP-09 README.md missing"
+    readme_content = readme_path.read_text(encoding="utf-8")
+    assert "IRB" in readme_content or "ethical review" in readme_content
+    assert "MUST NOT be deployed to human participants" in readme_content
+
+    rubric_path = exp09_dir / "scoring-rubric.md"
+    assert rubric_path.exists(), "EXP-09 scoring-rubric.md missing"
+    rubric_content = rubric_path.read_text(encoding="utf-8")
+    for err in ["precommitment_override_failure", "frictionless_heuristic_surrender", "miscalibrated_confidence_sway", "explanation_placebo_effect"]:
+        assert err in rubric_content, f"Missing error type {err} in EXP-09 scoring rubric"
+
+    stimuli_files = list(exp09_dir.glob("stimuli-*.jsonl"))
+    assert len(stimuli_files) >= 1, "No stimuli-*.jsonl found in EXP-09"
+
+    target_file = sorted(stimuli_files)[-1]
+    lines = target_file.read_text(encoding="utf-8").strip().splitlines()
+    assert len(lines) >= 4, f"Expected at least 4 stimuli in EXP-09, got {len(lines)}"
+
+    found_error_types = set()
+    for idx, line in enumerate(lines):
+        item = json.loads(line)
+        v = validate_stimulus(item)
+        assert v["valid"] is True, f"EXP-09 stimulus on line {idx+1} failed validation: {v['issues']}"
+        assert len(item["stimulus_text"]) >= 350
+        assert 0.25 <= item["item_discrimination_estimate"] <= 0.60
+        found_error_types.add(item["embedded_error_type"])
+
+    expected_types = {"precommitment_override_failure", "frictionless_heuristic_surrender", "miscalibrated_confidence_sway", "explanation_placebo_effect"}
+    assert found_error_types == expected_types, f"Expected {expected_types}, got {found_error_types}"
+
+
 def test_phase5_preregistration_protocol():
     """Unified Phase 5 OSF preregistration protocol must exist and contain required specifications."""
     prereg_path = REPO_ROOT / "research" / "experiments" / "preregistration-phase-5.md"
     assert prereg_path.exists(), "preregistration-phase-5.md missing"
     content = prereg_path.read_text(encoding="utf-8")
 
-    # Check domains covered across EXP-01 to EXP-06
-    for exp in ["EXP-01", "EXP-02", "EXP-03", "EXP-04", "EXP-05", "EXP-06"]:
+    # Check all 9 domains covered across EXP-01 to EXP-09
+    for exp in ["EXP-01", "EXP-02", "EXP-03", "EXP-04", "EXP-05", "EXP-06", "EXP-07", "EXP-08", "EXP-09"]:
         assert exp in content, f"Missing {exp} in Phase 5 preregistration protocol"
 
     # Check power analysis parameters
     assert "120" in content, "Missing per-domain sample size N=120"
-    assert "720" in content, "Missing total sample size N=720"
+    assert "1,080" in content or "1080" in content, "Missing total sample size N=1,080"
     assert "0.35" in content, "Missing target effect size 0.35"
 
-    # Check hypotheses H1 through H5
-    assert "Hypothesis 1" in content or "H1" in content
-    assert "Hypothesis 2" in content or "H2" in content
-    assert "Hypothesis 3" in content or "H3" in content
-    assert "Hypothesis 4" in content or "H4" in content
-    assert "Hypothesis 5" in content or "H5" in content
+    # Check hypotheses H1 through H8
+    for h in ["Hypothesis 1", "Hypothesis 2", "Hypothesis 3", "Hypothesis 4", "Hypothesis 5", "Hypothesis 6", "Hypothesis 7", "Hypothesis 8"]:
+        assert h in content or f"H{h[-1]}" in content, f"Missing {h} in protocol"
 
     # Check GLMM modeling and ethical notice
     assert "Generalized Linear Mixed-Effects Model" in content or "GLMM" in content
