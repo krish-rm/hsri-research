@@ -103,6 +103,29 @@ EXPERIMENTS = {
             "security anti-patterns presented as correct practice."
         ),
     },
+    "EXP-04": {
+        "name": "Fluent Hallucination Detection - Financial & Quantitative Domain",
+        "domain": "financial",
+        "description": (
+            "Participant reads an AI-generated investment memorandum, corporate financial analysis, "
+            "or valuation model summary containing one calibrated accounting, valuation, regulatory, "
+            "or statistical error. Task: identify the error without specialist accounting/CFA credentials."
+        ),
+        "error_types": ["accounting_logic", "valuation_fallacy", "factual_regulatory", "statistical_distortion"],
+        "distractor_features": [
+            "authoritative financial terminology (EBITDA, WACC, DCF, FCF)",
+            "precise quantitative figures, margins, and ratios",
+            "fictitious corporate entities with realistic industrial operations",
+            "formal investment committee memorandum formatting",
+        ],
+        "item_discrimination_target": 0.35,
+        "pilot_notes": (
+            "Errors must be detectable by an educated adult with foundational business numeracy. "
+            "Avoid requiring professional CFA or CPA licensure. "
+            "Use strictly fictitious company names to avoid market defamation. "
+            "Focus on accounting identities, valuation logic, regulatory thresholds, or standard risk metrics."
+        ),
+    },
 }
 
 GENERATOR_SYSTEM_PROMPT = """
@@ -168,7 +191,7 @@ def validate_stimulus(stimulus: dict) -> dict:
         issues.append("Invalid item_discrimination_estimate format")
 
     # Error type must be from permitted list
-    permitted_types = ["factual", "logical", "citation", "statistical", "dosage", "api_misuse", "security"]
+    permitted_types = ["factual", "logical", "citation", "statistical", "dosage", "api_misuse", "security", "accounting_logic", "valuation_fallacy", "factual_regulatory", "statistical_distortion"]
     if stimulus.get("embedded_error_type") not in permitted_types:
         issues.append(f"Invalid error type: {stimulus.get('embedded_error_type')}")
 
@@ -539,10 +562,120 @@ def generate_single_stimulus(
         },
     }
 
+    financial_fallbacks = {
+        "accounting_logic": {
+            "stimulus_text": (
+                "In preparing the consolidated statement of cash flows for the Q3 financial review of Apex Industrial "
+                "Holdings Ltd., the corporate controller evaluated the cash impact of the recent capital restructuring. "
+                "During the quarter, the company retired $45 million of senior maturing unsecured notes using cash reserves "
+                "and generated $62 million in net operating income. In accordance with standard cash flow presentation, the "
+                "memorandum classifies the $45 million principal debt retirement as an operating cash outflow under changes "
+                "in working capital, asserting that servicing debt obligations directly supports ongoing factory manufacturing "
+                "operations and therefore appropriately reduces reported Operating Cash Flow."
+            ),
+            "embedded_error_type": "accounting_logic",
+            "embedded_error_location": "paragraph 1, sentence 3",
+            "embedded_error_description": (
+                "Misclassification of principal debt retirement as an operating cash outflow rather than a financing cash outflow "
+                "under GAAP/IFRS (ASC 230 / IAS 7), erroneously depressing reported operating cash flow."
+            ),
+            "correct_detection_response": (
+                "Repaying principal on senior notes is a financing cash flow activity, not an operating cash flow or working capital item."
+            ),
+            "distractor_features": [
+                "accurate corporate restructuring framing",
+                "proper terminology (senior unsecured notes, operating cash flow, working capital)",
+                "authoritative corporate controller review tone",
+            ],
+            "difficulty_rationale": "Medium difficulty: an educated adult with basic business literacy understands that repaying borrowed loan principal is financing, not operational factory expense.",
+            "item_discrimination_estimate": 0.37,
+        },
+        "valuation_fallacy": {
+            "stimulus_text": (
+                "The investment committee of Horizon Global Logistics Corp. conducted a discounted cash flow (DCF) valuation "
+                "to assess an acquisition target in European cold-chain freight. The financial modeling team projected five-year "
+                "nominal Free Cash Flows to Firm (FCFF) growing at 4.5% annually reflecting expected Eurozone inflation of 2.5%. "
+                "To compute the enterprise net present value, the analysts discounted these nominal cash flow projections using "
+                "a real Weighted Average Cost of Capital (WACC) of 6.0% derived after stripping out expected inflation, arguing "
+                "that stripping inflation from the discount rate provides a conservative, inflation-neutral net present value baseline."
+            ),
+            "embedded_error_type": "valuation_fallacy",
+            "embedded_error_location": "paragraph 1, sentence 3",
+            "embedded_error_description": (
+                "Methodological valuation mismatch: discounting nominal cash flows with a real discount rate instead of a nominal discount "
+                "rate, violating the fundamental consistency rule of capital budgeting and overstating present value."
+            ),
+            "correct_detection_response": (
+                "Nominal cash flows must be discounted using a nominal discount rate, not a real (inflation-stripped) discount rate."
+            ),
+            "distractor_features": [
+                "professional DCF modeling terminology (FCFF, WACC, enterprise NPV)",
+                "realistic corporate acquisition context",
+                "superficially conservative-sounding rationale",
+            ],
+            "difficulty_rationale": "Medium difficulty: tests foundational finance logic that inflation assumptions must match on both sides of a valuation model (nominal to nominal, real to real).",
+            "item_discrimination_estimate": 0.38,
+        },
+        "factual_regulatory": {
+            "stimulus_text": (
+                "In the annual risk and capital adequacy assessment for Meridian Commercial Bancorp, the supervisory risk "
+                "committee reviewed statutory compliance under the international Basel III regulatory framework. The report notes "
+                "that following credit portfolio expansion across commercial real estate, the bank's Common Equity Tier 1 (CET1) "
+                "ratio stood at 3.1% of risk-weighted assets. The lead compliance officer concluded that the institution remains "
+                "comfortably in full compliance with Basel III minimum solvency standards, citing the statutory threshold requiring "
+                "banks to maintain a minimum CET1 ratio of at least 2.5% before applying capital conservation buffers."
+            ),
+            "embedded_error_type": "factual_regulatory",
+            "embedded_error_location": "paragraph 1, sentence 3",
+            "embedded_error_description": (
+                "Factual regulatory error: Basel III mandates a strict minimum Common Equity Tier 1 (CET1) capital ratio of 4.5% "
+                "of risk-weighted assets (plus 2.5% buffer), not 2.5%, meaning a 3.1% ratio is critically deficient and in breach of regulatory capital requirements."
+            ),
+            "correct_detection_response": (
+                "The Basel III minimum Common Equity Tier 1 (CET1) ratio is 4.5%, not 2.5%; a 3.1% ratio violates minimum regulatory capital requirements."
+            ),
+            "distractor_features": [
+                "authentic banking regulatory concepts (Basel III, CET1, risk-weighted assets, capital conservation buffers)",
+                "formal supervisory committee tone",
+                "realistic commercial bank metrics",
+            ],
+            "difficulty_rationale": "Medium difficulty: tests basic knowledge of post-2008 banking capital requirements where the core statutory equity threshold is well-publicized at 4.5%.",
+            "item_discrimination_estimate": 0.36,
+        },
+        "statistical_distortion": {
+            "stimulus_text": (
+                "A quantitative investment proposal for Solstice Dynamic Yield Fund presented backtested historical performance "
+                "for an automated algorithmic long-short equity strategy over a ten-year cycle. The executive summary highlights an "
+                "annualized excess return of 18.4% alongside an annualized return volatility (standard deviation) of 12.0%. In presenting "
+                "risk-adjusted performance metrics, the quantitative fact sheet reports an extraordinary annualized Sharpe Ratio of "
+                "4.8, calculating the ratio by dividing the annualized excess return by the variance of portfolio returns (0.0144) "
+                "rather than by the standard deviation of returns."
+            ),
+            "embedded_error_type": "statistical_distortion",
+            "embedded_error_location": "paragraph 1, sentence 3",
+            "embedded_error_description": (
+                "Quantitative distortion and formula error: the Sharpe ratio is defined as excess return divided by standard deviation "
+                "(volatility), which yields 1.53 (18.4% / 12.0%), not divided by variance (0.0144) which artificially inflates the metric to 4.8."
+            ),
+            "correct_detection_response": (
+                "The Sharpe ratio is calculated by dividing excess return by standard deviation, not by variance; dividing by variance grossly distorts and inflates the metric."
+            ),
+            "distractor_features": [
+                "realistic algorithmic backtesting metrics (annualized excess return, volatility)",
+                "authoritative quantitative fund factsheet tone",
+                "plausible market numbers",
+            ],
+            "difficulty_rationale": "Medium difficulty: tests understanding of the fundamental Sharpe ratio definition taught in introductory business and finance courses.",
+            "item_discrimination_estimate": 0.39,
+        },
+    }
+
     if experiment_id == "EXP-02":
         selected = medical_fallbacks.get(err_type, medical_fallbacks["dosage"])
     elif experiment_id == "EXP-03":
         selected = technical_fallbacks.get(err_type, technical_fallbacks["logical"])
+    elif experiment_id == "EXP-04":
+        selected = financial_fallbacks.get(err_type, financial_fallbacks["accounting_logic"])
     else:
         selected = fallbacks.get(err_type, fallbacks["logical"])
 
@@ -591,7 +724,7 @@ def run_stimulus_generation(
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="HSRI Lane 6 Behavioral Experiment Stimulus Generator")
-    parser.add_argument("--experiment", default="EXP-01", choices=["EXP-01", "EXP-02", "EXP-03"], help="Experiment ID to generate")
+    parser.add_argument("--experiment", default="EXP-01", choices=["EXP-01", "EXP-02", "EXP-03", "EXP-04"], help="Experiment ID to generate")
     parser.add_argument("--difficulty", default="medium", choices=["easy", "medium", "hard"], help="Difficulty tier")
     parser.add_argument("--n", type=int, default=3, help="Number of stimuli to generate")
     args = parser.parse_args()

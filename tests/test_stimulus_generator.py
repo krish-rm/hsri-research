@@ -315,3 +315,63 @@ def test_exp02_irb_package():
     debrief = (irb_dir / "08-debrief-script.md").read_text(encoding="utf-8")
     assert "clinician" in debrief.lower() or "physician" in debrief.lower()
     assert "5,000 mg" in debrief or "5000 mg" in debrief
+
+
+def test_exp04_stimuli_and_readme():
+    """EXP-04 must have valid stimuli, scoring rubric, and IRB warning in README."""
+    exp04_dir = REPO_ROOT / "research" / "experiments" / "EXP-04"
+    readme_path = exp04_dir / "README.md"
+    assert readme_path.exists(), "EXP-04 README.md missing"
+    readme_content = readme_path.read_text(encoding="utf-8")
+    assert "IRB" in readme_content or "ethical review" in readme_content
+    assert "MUST NOT be deployed to human participants" in readme_content
+
+    rubric_path = exp04_dir / "scoring-rubric.md"
+    assert rubric_path.exists(), "EXP-04 scoring-rubric.md missing"
+    rubric_content = rubric_path.read_text(encoding="utf-8")
+    for err in ["accounting_logic", "valuation_fallacy", "factual_regulatory", "statistical_distortion"]:
+        assert err in rubric_content, f"Missing error type {err} in EXP-04 scoring rubric"
+
+    stimuli_files = list(exp04_dir.glob("stimuli-*.jsonl"))
+    assert len(stimuli_files) >= 1, "No stimuli-*.jsonl found in EXP-04"
+
+    target_file = sorted(stimuli_files)[-1]
+    lines = target_file.read_text(encoding="utf-8").strip().splitlines()
+    assert len(lines) >= 4, f"Expected at least 4 stimuli in EXP-04, got {len(lines)}"
+
+    found_error_types = set()
+    for idx, line in enumerate(lines):
+        item = json.loads(line)
+        v = validate_stimulus(item)
+        assert v["valid"] is True, f"EXP-04 stimulus on line {idx+1} failed validation: {v['issues']}"
+        assert len(item["stimulus_text"]) >= 350
+        assert 0.25 <= item["item_discrimination_estimate"] <= 0.60
+        found_error_types.add(item["embedded_error_type"])
+
+    expected_types = {"accounting_logic", "valuation_fallacy", "factual_regulatory", "statistical_distortion"}
+    assert found_error_types == expected_types, f"Expected {expected_types}, got {found_error_types}"
+
+
+def test_phase5_preregistration_protocol():
+    """Unified Phase 5 OSF preregistration protocol must exist and contain required specifications."""
+    prereg_path = REPO_ROOT / "research" / "experiments" / "preregistration-phase-5.md"
+    assert prereg_path.exists(), "preregistration-phase-5.md missing"
+    content = prereg_path.read_text(encoding="utf-8")
+
+    # Check domains covered
+    for exp in ["EXP-01", "EXP-02", "EXP-03", "EXP-04"]:
+        assert exp in content, f"Missing {exp} in Phase 5 preregistration protocol"
+
+    # Check power analysis parameters
+    assert "120" in content, "Missing per-domain sample size N=120"
+    assert "480" in content, "Missing total sample size N=480"
+    assert "0.35" in content, "Missing target effect size 0.35"
+
+    # Check hypotheses
+    assert "Hypothesis 1" in content or "H1" in content
+    assert "Hypothesis 2" in content or "H2" in content
+    assert "Hypothesis 3" in content or "H3" in content
+
+    # Check GLMM modeling and ethical notice
+    assert "Generalized Linear Mixed-Effects Model" in content or "GLMM" in content
+    assert "IRB" in content or "Institutional Review Board" in content
