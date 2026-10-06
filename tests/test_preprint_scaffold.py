@@ -85,3 +85,13 @@ def test_preprint_references_marked_verify():
 
     for idx, entry in enumerate(entries, 1):
         assert "[VERIFIED:" in entry or "[VERIFY]" in entry, f"Reference #{idx} is neither verified nor marked [VERIFY]: '{entry}'"
+
+
+def test_working_paper_v1_exists_and_complete():
+    """Working Paper v1.0 must exist and contain complete, citable analytical sections."""
+    wp_path = REPO_ROOT / "research" / "preprint" / "working-paper-v1.0.md"
+    assert wp_path.exists(), "research/preprint/working-paper-v1.0.md missing"
+    wp_content = wp_path.read_text(encoding="utf-8")
+    assert len(wp_content.strip()) > 10000
+    for keyword in ["abstract", "introduction", "macro benchmark", "evidence map", "latency wedge", "precursor", "limitations", "references"]:
+        assert keyword in wp_content.lower(), f"Missing required keyword in Working Paper v1.0: {keyword}"

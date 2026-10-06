@@ -1,5 +1,11 @@
 # The Human Superintelligence Readiness Index (HSRI): An Exploratory, Non-Psychometrically-Validated Proxy Benchmark for Sociotechnical Preparedness
 
+> [!IMPORTANT]
+> **SUPERSEDED BY WORKING PAPER v1.0.0 (Gate P6 Upgrade)**
+> This exploratory preprint draft scaffold (`draft-v0.1.md`) has been formally upgraded and superseded by:
+> **Working Paper v1.0.0:** [`research/preprint/working-paper-v1.0.md`](working-paper-v1.0.md) — *"The Sovereign Human Agency Imperative: An Empirical Benchmark and Transition Evidence Map for National Preparedness in the Era of Advanced AI"*.
+> For citable metrics, transition evidence mappings, and policy dissemination, please refer directly to Working Paper v1.0.0. The archival text below is maintained for development provenance and auditability.
+
 > **PREVIEW DISCLAIMER: HSRI v0.3.0-dev**
 > This draft preprint scaffold describes an exploratory benchmark under active development. All empirical components, proxy aggregations, and behavioral stimulus batteries are research prototypes. Synthetic-persona pilots test stimulus behavior only and provide no empirical evidence regarding human cognition. No human-participant behavioral data has been collected or validated. All outputs carry the v0.3-dev preview notice.
 

@@ -2,16 +2,15 @@ cff-version: 1.2.0
 message: "If you use HSRI data or methodology, please cite as below."
 type: dataset
 title: "Human Superintelligence Readiness Index (HSRI)"
-version: "0.3.0-dev"
-date-released: "2026-09-28"
+version: "1.0.0"
+date-released: "2026-10-06"
 url: "https://krish-rm.github.io/hsri-research/"
 repository-code: "https://github.com/krish-rm/hsri-research"
 license: CC-BY-SA-4.0
 abstract: >
-  Exploratory benchmark assessing national cognitive absorption, discernment,
-  and institutional resilience across 39 OECD and high-income partner nations.
-  Not yet psychometrically validated. v0.2 uses institutional proxy indicators;
-  direct behavioral measurement is planned for Phase 5 of the research roadmap.
+  The Sovereign Human Agency Imperative: An Empirical Benchmark and Transition
+  Evidence Map for National Preparedness in the Era of Advanced AI. Synthesizes
+  780 observations across 39 nations, 26 scenarios, and 14 observable precursors.
 authors:
   - name: "HSRI Research Team"
 keywords:
