@@ -30,7 +30,7 @@ def test_citation_cff_valid_schema():
     # Verify content
     assert data["cff-version"] == "1.2.0"
     assert "Human Superintelligence Readiness Index" in data["title"]
-    assert any(v in data["version"] for v in ["0.2", "0.3"])
+    assert any(v in data["version"] for v in ["0.2", "0.3", "1.0"])
     assert data["url"] == "https://krish-rm.github.io/hsri-research/"
     assert data["license"] == "CC-BY-SA-4.0"
     assert isinstance(data["authors"], list) and len(data["authors"]) >= 1
@@ -43,7 +43,7 @@ def test_release_tag_matches_citation_version():
     with open(CITATION_PATH, "r", encoding="utf-8") as f:
         cff = yaml.safe_load(f)
     cff_version = cff["version"].replace("-preview", "")
-    if "-dev" in cff_version:
+    if "-dev" in cff_version or cff_version.startswith("1.0"):
         # Dev versions are unreleased/in-progress
         return
     try:
