@@ -1,0 +1,970 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A research feasibility project investigating whether human psychological and behavioral readiness for increasingly capable AI can be scientifically measured.">
+      
+      
+      
+      
+        <link rel="prev" href="../02-existing-indices/">
+      
+      
+        <link rel="next" href="../04-causal-model-and-index-design/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>3. Construct Redundancy Audit - Human Superintelligence Readiness Index (HSRI)</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#3-construct-redundancy-audit" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Human Superintelligence Readiness Index (HSRI)" class="md-header__button md-logo" aria-label="Human Superintelligence Readiness Index (HSRI)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Human Superintelligence Readiness Index (HSRI)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              3. Construct Redundancy Audit
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/krish-rm/hsri-research" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hsri-research
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Human Superintelligence Readiness Index (HSRI)" class="md-nav__button md-logo" aria-label="Human Superintelligence Readiness Index (HSRI)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Human Superintelligence Readiness Index (HSRI)
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/krish-rm/hsri-research" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hsri-research
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-definition/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Definition and Scope
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-existing-indices/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Existing Global Indices
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Construct Redundancy Audit
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Construct Redundancy Audit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#31-systematic-construct-redundancy-audit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Systematic Construct Redundancy Audit
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#32-human-ai-interaction-automation-bias-reliance-and-calibrated-trust" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Human-AI Interaction: Automation Bias, Reliance, and Calibrated Trust
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2 Human-AI Interaction: Automation Bias, Reliance, and Calibrated Trust">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#321-automation-stages-and-levels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.1 Automation Stages and Levels
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#322-errors-of-omission-and-commission" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.2 Errors of Omission and Commission
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#323-trust-calibration-vs-subjective-trust" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.3 Trust Calibration vs. Subjective Trust
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#33-the-failure-of-explanations-and-the-role-of-cognitive-forcing-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 The Failure of Explanations and the Role of Cognitive Forcing Functions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.3 The Failure of Explanations and the Role of Cognitive Forcing Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#331-transparency-can-increase-over-reliance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.1 Transparency Can Increase Over-Reliance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#332-cognitive-forcing-functions-reduce-automation-bias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.2 Cognitive Forcing Functions Reduce Automation Bias
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#34-cognitive-offloading-and-deskilling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 Cognitive Offloading and Deskilling
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#35-contemplative-science-empirical-review-and-boundary-delimitation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5 Contemplative Science: Empirical Review and Boundary Delimitation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.5 Contemplative Science: Empirical Review and Boundary Delimitation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#contemplative-science-conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contemplative Science Conclusion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sources-on-this-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sources on this page
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-causal-model-and-index-design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Causal Model and Index Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-measurement-and-experiments/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Measurement and Experiments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-cross-cultural-and-ethics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Cross-Cultural Validity and Ethics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-objections/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Objections and Counterarguments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Research Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-final-recommendation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Final Recommendation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="3-construct-redundancy-audit">3. Construct Redundancy Audit</h1>
+<p>A central vulnerability of newly proposed psychological indices is <strong>construct proliferation</strong> (also known as the "jangle fallacy")&mdash;attaching a novel label to an existing, well-validated psychological attribute without demonstrating empirical distinctiveness or incremental predictive validity. This section conducts a rigorous redundancy audit of every candidate HSRI component against established cognitive science, human factors, and human-computer interaction literatures.</p>
+<hr />
+<h2 id="31-systematic-construct-redundancy-audit">3.1 Systematic Construct Redundancy Audit</h2>
+<p>Every candidate dimension proposed in early HSRI concept drafts was audited against established instruments and psychometric literature:</p>
+<table>
+<thead>
+<tr>
+<th>Proposed Dimension</th>
+<th>Existing Psychological / Cognitive Construct</th>
+<th>Validated Instrument or Experimental Paradigm</th>
+<th>Redundancy Verdict</th>
+<th>Methodological Disposition for HSRI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Attentional Control</strong></td>
+<td>Executive Attention / Sustained Attention</td>
+<td>Attention Network Test (ANT); Sustained Attention to Response Task (SART)</td>
+<td><strong>Redundant Construct</strong></td>
+<td>Reusable measurement paradigm; evaluate distraction resistance under AI-driven alerts.</td>
+</tr>
+<tr>
+<td><strong>Metacognition / Self-Knowledge</strong></td>
+<td>Metacognitive Monitoring / Sensitivity</td>
+<td>Confidence-accuracy calibration curves; type-2 signal detection ($meta\text{-}d'$) (Fleming &amp; Lau, 2014)</td>
+<td><strong>Redundant Construct</strong></td>
+<td>Direct methodological reuse; calibrate subjective confidence against actual AI output accuracy.</td>
+</tr>
+<tr>
+<td><strong>Cognitive Flexibility</strong></td>
+<td>Task-Switching / Set-Shifting</td>
+<td>Wisconsin Card Sorting Test (WCST); Trail Making Test B</td>
+<td><strong>Redundant Construct</strong></td>
+<td>Exclude from core; retain as baseline cognitive covariate.</td>
+</tr>
+<tr>
+<td><strong>Epistemic Humility</strong></td>
+<td>Intellectual Humility</td>
+<td>Comprehensive Intellectual Humility Scale (Leary et al., 2017)</td>
+<td><strong>Redundant Construct</strong></td>
+<td>Direct instrument reuse; captures willingness to revise beliefs when confronted with valid AI evidence.</td>
+</tr>
+<tr>
+<td><strong>Cognitive Reflection</strong></td>
+<td>Reflective vs. Intuitive Cognitive Processing</td>
+<td>Cognitive Reflection Test (CRT; Frederick, 2005)</td>
+<td><strong>Redundant Construct</strong></td>
+<td>Useful baseline, but high test-retest familiarity contamination limits repeated longitudinal deployment.</td>
+</tr>
+<tr>
+<td><strong>Uncertainty Tolerance</strong></td>
+<td>Intolerance of Uncertainty</td>
+<td>Intolerance of Uncertainty Scale (IUS-12; Carleton et al., 2007)</td>
+<td><strong>Redundant Construct</strong></td>
+<td>Direct instrument reuse; predicts premature surrender of judgment under ambiguous AI recommendations.</td>
+</tr>
+<tr>
+<td><strong>Decision Agency</strong></td>
+<td>Autonomous Motivation / Locus of Control</td>
+<td>Basic Psychological Need Satisfaction Scale (Deci &amp; Ryan); Rotter's I-E Scale</td>
+<td><strong>Redundant General Construct</strong></td>
+<td>General construct is mature, but behavioral delegation and override under AI advice is an active empirical gap.</td>
+</tr>
+<tr>
+<td><strong>Value Clarity &amp; Meaning</strong></td>
+<td>Goal Contents / Meaning in Life</td>
+<td>Meaning in Life Questionnaire (MLQ); Portrait Values Questionnaire (Schwartz)</td>
+<td><strong>Redundant Construct</strong></td>
+<td>Mature general psychometrics; causal connection to AI optimization remains theoretical.</td>
+</tr>
+<tr>
+<td><strong>AI Literacy</strong></td>
+<td>Multi-dimensional AI Competency</td>
+<td>AI Literacy Questionnaire (Ng et al., 2024); UNESCO Frameworks (2024); OECD/EC Framework (2026)</td>
+<td><strong>Fully Redundant Field</strong></td>
+<td><strong>Import wholesale.</strong> Active, mature field; HSRI should not reinvent AI literacy measurement.</td>
+</tr>
+<tr>
+<td><strong>Resistance to Automation Bias / Calibrated Trust</strong></td>
+<td>Automation Bias; Appropriate Trust &amp; Reliance</td>
+<td>Errors of omission/commission paradigm (Mosier &amp; Skitka, 1996); trust calibration models (Lee &amp; See, 2004)</td>
+<td><strong>Fully Redundant Construct</strong></td>
+<td>Mature in classical automation (aviation, medicine); <strong>extension to generative/agentic AI is the genuine research frontier</strong>.</td>
+</tr>
+</tbody>
+</table>
+<p class="evidence-strong"><strong>Audit Conclusion:</strong> Virtually all proposed sub-constructs are redundant with established, peer-reviewed psychology. The sole defensible, non-redundant scientific contribution lies in measuring how these established cognitive substrates function <strong>jointly under interaction with adaptive, persuasive, generative AI counterparts</strong>—an interactive environment that static psychometric batteries (such as standard Stroop or card-sorting tasks) do not replicate.</p>
+<hr />
+<h2 id="32-human-ai-interaction-automation-bias-reliance-and-calibrated-trust">3.2 Human-AI Interaction: Automation Bias, Reliance, and Calibrated Trust</h2>
+<p>The foundational literature on automated decision aids spans three decades of empirical validation:</p>
+<h3 id="321-automation-stages-and-levels">3.2.1 Automation Stages and Levels</h3>
+<p class="evidence-strong">Parasuraman, Sheridan, and Wickens (2000) formalized a four-stage framework of human interaction with automation: (1) information acquisition, (2) information analysis, (3) decision selection, and (4) action implementation. Their empirical synthesis established that automating the <em>decision selection</em> stage produces the greatest degree of human operator complacency, cognitive disengagement, and loss of situational awareness.</p>
+<h3 id="322-errors-of-omission-and-commission">3.2.2 Errors of Omission and Commission</h3>
+<p class="evidence-strong">Mosier and Skitka (1996) demonstrated that automation bias manifests through two distinct failure modes:
+- <strong>Errors of Omission:</strong> Operators fail to notice system hazards or critical anomalies because automated monitoring aids did not trigger an alert.
+- <strong>Errors of Commission:</strong> Operators follow an incorrect automated recommendation even when contradictory evidence is directly available in the physical environment.</p>
+<h3 id="323-trust-calibration-vs-subjective-trust">3.2.3 Trust Calibration vs. Subjective Trust</h3>
+<p class="evidence-strong">Lee and See (2004) formalized trust calibration: trust is calibrated when an operator's subjective confidence matches the actual operational capability of the automated system. They identified two failure states:
+- <strong>Overtrust (Misuse):</strong> Operator trust exceeds system capability, leading to uncritical reliance and automation bias.
+- <strong>Undertrust (Disuse):</strong> System capability exceeds operator trust, resulting in reflexive rejection of valid advice (algorithm aversion).</p>
+<p class="evidence-preliminary">A 2025 PRISMA-compliant systematic review synthesizing 35 peer-reviewed studies (2015–2025) confirmed that automation bias manifests across modern AI-driven enterprise workflows, proving that the phenomenon extends into contemporary machine-learning environments rather than being restricted to legacy aviation systems.</p>
+<hr />
+<h2 id="33-the-failure-of-explanations-and-the-role-of-cognitive-forcing-functions">3.3 The Failure of Explanations and the Role of Cognitive Forcing Functions</h2>
+<p>A critical design insight from recent empirical human-AI interaction research concerns the limitations of model transparency and explainable AI (XAI):</p>
+<h3 id="331-transparency-can-increase-over-reliance">3.3.1 Transparency Can Increase Over-Reliance</h3>
+<p class="evidence-strong">Bansal et al. (2021, CHI) demonstrated that providing AI explanations does not reliably improve complementary human-AI team performance. In multiple experimental conditions, adding local feature-importance explanations <em>increased</em> operator over-reliance on incorrect machine recommendations, because fluent, plausible explanations created an illusion of system competence.</p>
+<h3 id="332-cognitive-forcing-functions-reduce-automation-bias">3.3.2 Cognitive Forcing Functions Reduce Automation Bias</h3>
+<p class="evidence-strong">Buçinca, Malaya, and Gajos (2021, CSCW) evaluated interventions to mitigate over-reliance. They demonstrated that while passive explanation interfaces failed, <strong>cognitive forcing functions</strong>—design interventions that compel deliberate, active analytical judgment before an AI recommendation is revealed or accepted (such as requiring the user to formulate and commit to an independent hypothesis first)—statistically significantly reduced over-reliance. Furthermore, this intervention effect was moderated by individual <strong>Need for Cognition (NFC)</strong>: participants with higher baseline motivation for cognitive effort benefited significantly more from forced deliberation.</p>
+<p class="evidence-strong">This finding directly informs HSRI's behavioral experimental battery: static self-report cannot measure resistance to automation bias; diagnostic validity requires behavioral paradigms that test whether individuals engage deliberative verification under fluent machine prompting.</p>
+<hr />
+<h2 id="34-cognitive-offloading-and-deskilling">3.4 Cognitive Offloading and Deskilling</h2>
+<p class="evidence-strong">Cognitive offloading—the practice of using physical actions or external artifacts to reduce cognitive demands (Risko &amp; Gilbert, 2016)—is well-documented in human cognition. Transactive memory research has demonstrated offloading effects in search engine usage and spatial navigation via GPS systems.</p>
+<p class="evidence-preliminary">However, the hypothesized extension of this effect to high-order analytical synthesis, critical argumentation, and conceptual reasoning under generative AI remains an <strong>active empirical hypothesis without robust longitudinal validation</strong>. High-quality longitudinal studies demonstrating irreversible cognitive deskilling from LLM usage do not yet exist. In HSRI, generative deskilling must be classified as a <strong>research gap</strong>, not a verified finding.</p>
+<hr />
+<h2 id="35-contemplative-science-empirical-review-and-boundary-delimitation">3.5 Contemplative Science: Empirical Review and Boundary Delimitation</h2>
+<p>Early conceptual drafts of HSRI proposed including meditation practice frequency as an indicator of attentional and psychological readiness. A rigorous review of the contemplative science literature demonstrates that this represents an overreach:</p>
+<table>
+<thead>
+<tr>
+<th>Empirical Claim</th>
+<th>Evidence Base</th>
+<th>Effect Size &amp; Statistical Parameters</th>
+<th>Strength Tier</th>
+<th>Methodological Caveats &amp; Assessment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Mindfulness improves executive attention</strong></td>
+<td>Meta-analyses of Randomized Controlled Trials (RCTs)</td>
+<td>Hedges' $g = 0.29$ for intervention studies; $g = 0.32$ comparing long-term meditators to non-meditators (Sumantry &amp; Stewart, 2021).</td>
+<td><strong>Moderate</strong></td>
+<td>Effects concentrated narrowly in conflict inhibition / executive control; no general cognitive boost.</td>
+</tr>
+<tr>
+<td><strong>Mindfulness improves working memory</strong></td>
+<td>Meta-analysis of RCTs in healthy adults</td>
+<td>Overall effect $g = 0.20$; non-significant effect on working memory capacity specifically (Yakobi, Smilek, &amp; Danckert, 2021).</td>
+<td><strong>Weak / Null</strong></td>
+<td>Executive control shows modest gains, but working memory retention is not reliably altered in healthy populations.</td>
+</tr>
+<tr>
+<td><strong>Mindfulness improves alerting / orienting networks</strong></td>
+<td>Systematic reviews of attention sub-networks</td>
+<td>Small, inconsistent effect sizes across trials (Sharpe, 2021).</td>
+<td><strong>Weak</strong></td>
+<td>Doctoral meta-analysis and primary experimental series yielded non-significant or null effects on alerting/orienting networks.</td>
+</tr>
+<tr>
+<td><strong>Dose-response relationship (sessions vs. hours)</strong></td>
+<td>Moderation analyses of meditation interventions</td>
+<td>Number of formal in-class sessions moderates effect size; total accumulated intervention hours does not (Yakobi et al., 2021).</td>
+<td><strong>Preliminary</strong></td>
+<td>Authors note that session count may reflect participant motivation and compliance rather than neurobiological dose-response.</td>
+</tr>
+<tr>
+<td><strong>Broader clinical vs. cognitive outcomes</strong></td>
+<td>Large-scale comparative systematic review (47 RCTs, $n = 3{,}515$)</td>
+<td>Moderate evidence for reduction of anxiety (ES = 0.38 at 8 weeks), depression (ES = 0.30), and pain (ES = 0.33); <strong>low evidence of any effect on attention specifically</strong> (Goyal et al., 2014, <em>JAMA Intern Med</em>).</td>
+<td><strong>Moderate for Affect; Weak-to-Null for Attention</strong></td>
+<td>Found no evidence that meditation outperforms active behavioral treatments (exercise, therapy); attention effects were statistically negligible.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="contemplative-science-conclusion">Contemplative Science Conclusion</h3>
+<p class="evidence-strong">Meditation produces small, domain-specific effects on executive attention ($g \approx 0.29$), but the largest and highest-quality comparative meta-analysis (Goyal et al., 2014) identified low evidence for attentional benefits specifically—the precise substrate required for AI discernment.</p>
+<p class="evidence-theoretical">Therefore, <strong>meditation practice must be classified strictly as a candidate training intervention, never as an indicator or constituent dimension of readiness</strong>. HSRI must measure attentional control and metacognitive monitoring directly through standardized behavioral tasks (ANT, SART, calibration curves), remaining entirely agnostic to whether an individual trained those faculties through contemplative practice, athletic training, musicianship, or software engineering.</p>
+<hr />
+<h2 id="sources-on-this-page">Sources on this page</h2>
+<ul>
+<li><strong>Bansal, G., Wu, T. S., Zhou, J., Fok, R., Nushi, B., Kamar, E., Ribeiro, M. T., &amp; Weld, D. (2021).</strong> Does the whole exceed its parts? The effect of AI explanations on complementary team performance. <em>Proceedings of the 2021 CHI Conference on Human Factors in Computing Systems (CHI '21)</em>, Article 81, 1–16.</li>
+<li><strong>Buçinca, Z., Malaya, M. B., &amp; Gajos, K. Z. (2021).</strong> To trust or to think: Cognitive forcing functions can reduce overreliance on AI in AI-assisted decision-making. <em>Proceedings of the ACM on Human-Computer Interaction</em>, 5(CSCW1), Article 188, 1–21.</li>
+<li><strong>Carleton, R. N., Norton, M. P. J., &amp; Asmundson, G. J. G. (2007).</strong> Fearing the unknown: A short version of the Intolerance of Uncertainty Scale. <em>Journal of Anxiety Disorders</em>, 21(1), 105–117.</li>
+<li><strong>Fleming, S. M., &amp; Lau, H. C. (2014).</strong> How to measure metacognition. <em>Frontiers in Human Neuroscience</em>, 8, Article 443.</li>
+<li><strong>Frederick, S. (2005).</strong> Cognitive reflection and decision making. <em>Journal of Economic Perspectives</em>, 19(4), 25–42.</li>
+<li><strong>Goyal, M., Singh, S., Sibinga, E. M. S., Gould, N. F., Rowland-Seymour, A., Sharma, R., Berger, Z., Sleicher, D., Shen模式, D. D., Han, D., Ranasinghe, P. D., Shihab, H. M., Robinson, K. A., Choi, S. W., Karitza, S., Rosman, D., &amp; Haythornthwaite, J. A. (2014).</strong> Meditation programs for psychological stress and well-being: A systematic review and meta-analysis. <em>JAMA Internal Medicine</em>, 174(3), 357–368.</li>
+<li><strong>Leary, M. R., Diebels, K. J., Jongman-Sereno, K. P., Maha-affey, A. L., Schrader, K. L., &amp; Fernandez, D. (2017).</strong> Cognitive and interpersonal features of intellectual humility. <em>Personality and Social Psychology Bulletin</em>, 43(6), 793–813.</li>
+<li><strong>Lee, J. D., &amp; See, K. A. (2004).</strong> Trust in automation: Designing for appropriate reliance. <em>Human Factors</em>, 46(1), 50–80.</li>
+<li><strong>Mosier, K. L., &amp; Skitka, L. J. (1996).</strong> Human decision makers and automated decision aids: Made for each other? In <em>Automation and Human Performance: Theory and Applications</em> (pp. 201–220).</li>
+<li><strong>Ng, D. T. K., Leung, J. K. L., Chu, S. K. W., &amp; Qiao, M. S. (2021).</strong> Conceptualizing AI literacy: An exploratory review. <em>Computers and Education: Artificial Intelligence</em>, 2, 100041.</li>
+<li><strong>Ng, D. T. K., Luo, W., Chan, H. M. Y., &amp; Chu, S. K. W. (2024).</strong> Design and validation of the AI literacy questionnaire. <em>British Journal of Educational Technology</em>, 55(3), 1082–1104.</li>
+<li><strong>OECD &amp; European Commission. (2026).</strong> <em>AI Literacy Framework for Primary and Secondary Education</em>. OECD Publishing.</li>
+<li><strong>Parasuraman, R., Sheridan, T. B., &amp; Wickens, C. D. (2000).</strong> A model for types and levels of human interaction with automation. <em>IEEE Transactions on Systems, Man, and Cybernetics - Part A: Systems and Humans</em>, 30(3), 286–297.</li>
+<li><strong>Risko, E. F., &amp; Gilbert, S. J. (2016).</strong> Cognitive offloading. <em>Trends in Cognitive Sciences</em>, 20(9), 676–688.</li>
+<li><strong>Sharpe, P. (2021).</strong> <em>The effects of mindfulness meditation on attention regulation</em> (Doctoral thesis). University of Plymouth.</li>
+<li><strong>Sumantry, D., &amp; Stewart, K. E. (2021).</strong> Meditation, mindfulness, and attention: A meta-analysis. <em>Mindfulness</em>, 12(6), 1332–1349.</li>
+<li><strong>UNESCO. (2024).</strong> <em>AI Competency Framework for Teachers</em> and <em>AI Competency Framework for Students</em>. United Nations Educational, Scientific and Cultural Organization.</li>
+<li><strong>Yakobi, O., Smilek, D., &amp; Danckert, J. (2021).</strong> The effects of mindfulness meditation on attention, executive control and working memory in healthy adults: A meta-analysis of RCTs. <em>Cognitive Therapy and Research</em>, 45(4), 543–560.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.top", "toc.integrate", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
