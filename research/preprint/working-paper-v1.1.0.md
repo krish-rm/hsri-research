@@ -5,7 +5,7 @@
 **Date:** October 2026  
 **License:** Creative Commons Attribution-ShareAlike 4.0 International (CC-BY-SA-4.0)  
 **Permanent Repository:** https://github.com/krish-rm/hsri-research  
-**Web Portal:** https://krish-rm.github.io/hsri-research/  
+**Web Portal:** https://humanreadinessindex.org/  
 
 ---
 

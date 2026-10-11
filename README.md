@@ -20,10 +20,10 @@ This construct anchors readiness to observable, task-specific cognitive asymmetr
 
 ## Documentation and Live Web Portal
 
-- **Live Web Portal:** [https://krish-rm.github.io/hsri-research/](https://krish-rm.github.io/hsri-research/)
+- **Live Web Portal:** [https://humanreadinessindex.org/](https://humanreadinessindex.org/)
 - **Master Working Paper (v1.1.0):** [`research/preprint/working-paper-v1.1.0.md`](research/preprint/working-paper-v1.1.0.md)
-- **ASI Transition Evidence Map & Scenarios:** [https://krish-rm.github.io/hsri-research/scenarios/](https://krish-rm.github.io/hsri-research/scenarios/)
-- **Behavioral Laboratory & Latency Wedge Simulator:** [https://krish-rm.github.io/hsri-research/experiments/](https://krish-rm.github.io/hsri-research/experiments/)
+- **ASI Transition Evidence Map & Scenarios:** [https://humanreadinessindex.org/scenarios/](https://humanreadinessindex.org/scenarios/)
+- **Behavioral Laboratory & Latency Wedge Simulator:** [https://humanreadinessindex.org/experiments/](https://humanreadinessindex.org/experiments/)
 
 ---
 
