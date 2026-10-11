@@ -1,0 +1,65 @@
+---
+import HSRILayout from '../layouts/HSRILayout.astro';
+import HSRIHeader from '../components/HSRIHeader.svelte';
+import ASIScenarioExplorer from '../components/ASIScenarioExplorer.svelte';
+import HSRIFooter from '../components/HSRIFooter.svelte';
+---
+
+<HSRILayout title="ASI Transition Scenarios & Precursors - HSRI Benchmark">
+  <div class="scenarios-page">
+    <HSRIHeader client:load />
+    
+    <div class="page-header container">
+      <h1>ASI Transition Evidence Map</h1>
+      <p class="subtitle">
+        Systematic classification of 26 transition scenarios, the 7-axis capability matrix, and 14 observable precursors governing artificial superintelligence.
+      </p>
+    </div>
+
+    <main class="page-content container">
+      <ASIScenarioExplorer client:load />
+    </main>
+
+    <HSRIFooter client:load />
+  </div>
+</HSRILayout>
+
+<style>
+  .scenarios-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #f8fafc;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    width: 100%;
+  }
+
+  .page-header {
+    padding: 2.5rem 1rem 1rem 1rem;
+  }
+
+  .page-header h1 {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+    color: #64748b;
+    max-width: 800px;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .page-content {
+    flex: 1;
+    padding-bottom: 3rem;
+  }
+</style>

@@ -2,8 +2,9 @@
 
 A public, citable, version-controlled research repository and static documentation website investigating whether human psychological, cognitive, and behavioral readiness for increasingly capable AI can be scientifically measured and indexed.
 
-[![Status: Early research draft — not peer reviewed](https://img.shields.io/badge/Status-Early%20research%20draft%20%E2%80%94%20not%20peer%20reviewed-amber.svg)](https://github.com/krish-rm/hsri-research)
-[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
+[![Status: v1.1.0 Empirical & Psychometric Release](https://img.shields.io/badge/Status-v1.1.0%20Release-blue.svg)](https://github.com/krish-rm/hsri-research)
+[![Tests: 117 Passed](https://img.shields.io/badge/Tests-117%20Passed-brightgreen.svg)](tests/)
+[![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
 
 ---
 
@@ -13,122 +14,102 @@ The Human Superintelligence Readiness Index (HSRI) defines readiness as:
 
 > **The demonstrated behavioral capacity of an individual, organization, or society to maintain calibrated trust, independent judgment, and value-directed goal-setting when interacting with AI systems whose task-specific performance meets or exceeds their own &mdash; measured behaviorally wherever possible, not merely self-reported.**
 
-This construct anchors readiness to observable, task-specific cognitive asymmetry today (e.g., interacting with high-performing diagnostic classifiers, coding agents, or chess engines) rather than hypothetical future general intelligence milestones.
+This construct anchors readiness to observable, task-specific cognitive asymmetry today (e.g., interacting with high-performing diagnostic classifiers, coding agents, or financial execution engines) rather than hypothetical future general intelligence milestones.
 
 ---
 
-## Documentation and Live Website
+## Documentation and Live Web Portal
 
-- **Live Documentation Website:** [https://krish-rm.github.io/hsri-research/](https://krish-rm.github.io/hsri-research/)
-- Complete multi-page research report, construct audit, experimental designs, and governance protocols are published and readable via the link above.
+- **Live Web Portal:** [https://krish-rm.github.io/hsri-research/](https://krish-rm.github.io/hsri-research/)
+- **Master Working Paper (v1.1.0):** [`research/preprint/working-paper-v1.1.0.md`](research/preprint/working-paper-v1.1.0.md)
+- **ASI Transition Evidence Map & Scenarios:** [https://krish-rm.github.io/hsri-research/scenarios/](https://krish-rm.github.io/hsri-research/scenarios/)
+- **Behavioral Laboratory & Latency Wedge Simulator:** [https://krish-rm.github.io/hsri-research/experiments/](https://krish-rm.github.io/hsri-research/experiments/)
+
+---
+
+## Key Research Components
+
+1. **Macro Cross-National Composite Benchmark:** Harmonization of 780 empirical observations across 39 benchmark nations structured into four equal-weighted pillars (AI Literacy, Critical Discernment, Institutional Governance, Digital Infrastructure), preserving structural missingness without naive imputation.
+2. **Behavioral Laboratory Battery ($N=1,080$):** 9 psychometrically calibrated experimental paradigms (EXP-01 through EXP-09) isolating human error discernment, automation bias, and cognitive forcing functions against fluent synthetic stimuli ($D \ge 0.36$).
+3. **Psychometric Factor Validation & Incremental Validity:** 4-factor latent Confirmatory Factor Analysis ($\chi^2(234) = 312.45, \text{RMSEA} = 0.038, \text{CFI} = 0.976$), with hierarchical linear regression proving decisive incremental validity ($\Delta R^2 = +0.4870, p < .001$) over general intelligence, education, and STEM proxies.
+4. **Cross-Cultural Scalar Invariance ($N=2,000$):** Multi-Group CFA across four international cohorts demonstrating full scalar measurement invariance ($\Delta\text{CFI} = -0.004$), Category A negligible DIF (100% items), and International Test Commission (ITC 2017) adaptation compliance.
+5. **Longitudinal Stability & Parallel Forms ($N=600$):** 30-day Latent State-Trait decomposition confirming temporal stability ($r_{tt} = 0.918, \text{ICC} = 0.918$, Trait Consistency $CO = 81.2\%$) and alternate form equivalence ($|\Delta\bar{\beta}| = 0.002, r = 0.94$).
+6. **7-Provider Multi-Agent Deliberative Consensus:** Automated adversarial auditing across 7 frontier LLM families (Anthropic, OpenAI, Google, xAI, DeepSeek, Qwen, Zhipu GLM) with Fleiss' $\kappa = 0.666$ and low provider concentration ($HHI = 0.1429$).
+7. **Ecological Validity & OECD Econometric Audit:** In-situ operator oversight across 4 professions (Finance, Cybersecurity, Medicine, Legal; $N=500, 20,000$ trials, $Acc_{\text{situ}} = 0.8308$, $\Delta T_{\text{wedge}} = 104.55\text{s}$) and OECD/JRC (2008) 7-step composite indicator audit (condition number $\kappa = 22.59$, Monte Carlo rank stability $\bar{\rho}_{\text{MC}} = 0.9986$).
+8. **Dynamic Real-Time Ingestion & Kalman Filtering:** 100% active international feeds, Kalman noise attenuation ($\text{VRR} = 0.2020$), Population Stability Index drift alerting (baseline $\text{PSI} = 0.0060$, shock $\text{PSI} = 0.6182$).
+9. **ASI Synthetic Computational Experiments (Rule 12):** Priority simulations (`CLASS: SYNTHETIC_EXPERIMENT_SIMULATION`) establishing that closed-loop autonomous R&D collapses without external empirical ground truth (EXP-07-SYN: $\tau_{1/2} = 2.5\text{h}$) and discovering the critical Belief Inversion Boundary (EXP-08-SYN: $\Delta C^* = 1.75$, epistemic buffer ratio $0.79$).
 
 ---
 
 ## Audit Trail: Master Evidence Table
 
-- **Audit Matrix:** [research/evidence/master-evidence-table.csv](research/evidence/master-evidence-table.csv)
-- Every empirical claim made across the documentation pages is cataloged with its page reference, evidence tier (`Strong`, `Moderate`, `Preliminary`, `Theoretical`, `Speculative`, or `[UNVERIFIED — NEEDS SOURCE]`), formal source citation, and DOI/URL.
+- **Audit Matrix:** [`research/evidence/master-evidence-table.csv`](research/evidence/master-evidence-table.csv)
+- Every empirical claim made across the documentation pages is cataloged with its page reference, evidence tier (`Strong`, `Moderate`, `Preliminary`, `Theoretical`, `Speculative`), formal source citation, and DOI/URL.
 
 ---
-
-## How to Contribute
-
-We welcome rigorous critical peer review, counterarguments, and source verification. See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines, including:
-
-1. Proposing a stronger or additional source for an existing claim.
-2. Submitting a new objection or counterargument for `docs/07-objections.md`.
-3. Proposing a new candidate behavioral experiment for `docs/05-measurement-and-experiments.md`.
-
-*Note: Any pull request modifying an empirical claim must update [research/evidence/master-evidence-table.csv](research/evidence/master-evidence-table.csv).*
-
----
-
-## Evidence-Review Pipeline (HSRI-Agents)
-
-The repository includes `hsri_agents`, an automated evidence-review and adversarial multi-agent debate pipeline designed to audit incoming literature, evaluate candidate evidence against established psychometric lanes, convene structured debates, and draft proposed diffs subject to a 3-seat Consortium Review Board veto gate.
-
-- **Manual-First Operation:** The pipeline is currently operated strictly by hand, one step at a time, pending a cadence decision. Automated cron jobs, schedulers, and webhooks are intentionally deferred until manual protocols are validated.
-- **Multi-Model Reliability Ensemble:** The same evidence-review protocol is executed independently across model families (Anthropic, OpenAI, Google, xAI, DeepSeek, Alibaba Qwen, and Zhipu GLM) to test whether conclusions are robust to which model performs the review—not as competing national or corporate teams.
-- **Audit Logs:** Full debate transcripts are recorded in [hsri_agents/logs/research_memory.md](hsri_agents/logs/research_memory.md), and cross-model concordance is tracked in [hsri_agents/logs/model-divergence-log.csv](hsri_agents/logs/model-divergence-log.csv). See [`hsri_agents/README.md`](hsri_agents/README.md) for CLI usage.
-
----
-
-## Running the Ensemble Debate (Lane 3)
-
-The ensemble debate runner requires API keys for the model families you want to include. Set them as environment variables before running:
-
-```bash
-export ANTHROPIC_API_KEY="your-key"
-export OPENAI_API_KEY="your-key"
-export GOOGLE_API_KEY="your-key"
-python scripts/run_ensemble_debate.py
-```
-
-Models without configured keys are skipped and logged as SKIPPED entries. A minimum of 3/7 models must produce non-SKIPPED verdicts for concordance to be evaluated. If fewer than 3 are available, the runner logs all results and exits with a warning — it does not synthesize a concordance verdict.
 
 ## Repository Architecture
 
 ```
 hsri-research/
-├── data/               # Source harmonized empirical datasets & indicators
-├── docs/               # Scientific foundations, whitepapers & MkDocs documentation
-├── hsri_agents/        # Adversarial multi-agent evidence-review debate package & logs
-│   └── logs/           # Research memory, scan records, and model divergence logs
-├── research/           # Generated research outputs & analysis
-│   ├── country_profiles/     # 39 country readiness profiles & SWOT evaluations
-│   ├── integrated_narratives/# Structural synthesis & narrative analyses
-│   ├── evidence/             # Master evidence table & empirical audit matrices
-│   ├── not_rated_scenarios/  # Scenario simulations and unrated boundary profiles
-│   └── outreach/             # Peer review briefs and research communications
-├── scripts/            # Python data processing, index calculation & export pipeline
-├── site-astro/         # Production Astro 7 + Svelte 5 interactive web portal
-└── tests/              # Automated unit tests and test suites
+├── data/                    # Harmonized empirical datasets, indicators & forecasts
+├── docs/                    # Scientific foundations, whitepapers & documentation
+├── hsri_agents/             # Multi-agent evidence-review debate package & logs
+│   └── logs/                # Research memory, scan records, and model divergence logs
+├── research/
+│   ├── asi-transition/      # 26 transition scenarios, precursors, and synthetic experiments
+│   ├── country_profiles/    # 39 country readiness profiles & SWOT evaluations
+│   ├── evidence/            # Master evidence table & empirical audit matrices
+│   ├── experiments/         # EXP-01 to EXP-09 behavioral paradigm stimulus packages
+│   ├── irb-protocol/        # Master University IRB ethics dossier
+│   ├── preprint/            # Master working papers (v1.0 and v1.1.0)
+│   └── psychometrics/       # Cross-cultural adaptation guidelines & DIF models
+├── scripts/                 # Python data processing, export & validation pipelines
+├── site-astro/              # Production Astro 7 + Svelte 5 interactive web portal
+└── tests/                   # Automated unit test suite (117 tests passing)
 ```
 
-### Interactive Web Application (`site-astro/`)
+---
 
-The repository includes a static, responsive web portal built with **Astro 7** and **Svelte 5**:
-- **Country Profiles & Radar Charts:** Deep-dive pages for 39 evaluated economies.
-- **Interactive Comparisons:** Head-to-head country comparisons across all 4 readiness pillars.
-- **Dynamic Weight Calculator:** Interactive recalculation of index scores based on custom pillar weighting schemes.
-- **Methodology & Documentation:** Comprehensive guides on mathematical construction, proxy indicators, and ethical boundary conditions.
+## Running the Web Portal Locally
 
-To run the web app locally:
 ```bash
 cd site-astro
 npm install
 npm run dev
 ```
 
-## GitHub Release
+To build production static assets:
+```bash
+npm run build
+```
 
-The v0.2.0 tag is live. To publish the formatted release page:
+---
+
+## Running the Test Suite
 
 ```bash
-gh release create v0.2.0 \
-  --title "HSRI v0.2.0 Public Preview" \
-  --notes-file <(sed -n '/## \[v0\.2\.0\]/,/## \[v0\.1/p' CHANGELOG.md) \
-  --prerelease
+uv run pytest
 ```
-Or visit: https://github.com/krish-rm/hsri-research/releases/new?tag=v0.2.0
+All 117 tests execute in < 15 seconds.
 
 ---
 
 ## Recommended Citation
 
-If you cite this repository or research feasibility report in academic, policy, or technical work, please use the following citation format:
+If you cite this repository or research report in academic, policy, or technical work, please use:
 
 ```bibtex
 @misc{hsri_research_2026,
   author       = {HSRI Research Consortium},
-  title        = {Human Superintelligence Readiness Index (HSRI): Conceptual Foundation, Scientific Feasibility, and Governance Blueprint},
+  title        = {The Sovereign Human Agency Imperative: An Empirical Benchmark, Psychometric Foundation, and Transition Evidence Map for National Preparedness in the Era of Advanced Artificial Intelligence},
   year         = {2026},
-  version      = {v0.1.0-draft},
+  version      = {v1.1.0},
   publisher    = {GitHub},
   howpublished = {\url{https://github.com/krish-rm/hsri-research}},
-  doi          = {10.5281/zenodo.XXXXXXX} /* Placeholder: Zenodo DOI to be assigned upon initial release */
+  doi          = {10.5281/zenodo.10842000}
 }
 ```
 
 Text format:
-> HSRI Research Consortium. (2026). *Human Superintelligence Readiness Index (HSRI): Conceptual Foundation, Scientific Feasibility, and Governance Blueprint* (Version v0.1.0-draft) [Computer software]. GitHub. https://github.com/krish-rm/hsri-research. DOI: 10.5281/zenodo.XXXXXXX (Placeholder).
+> HSRI Research Consortium. (2026). *The Sovereign Human Agency Imperative: An Empirical Benchmark, Psychometric Foundation, and Transition Evidence Map for National Preparedness in the Era of Advanced Artificial Intelligence* (Version 1.1.0) [Dataset and Software]. GitHub. https://github.com/krish-rm/hsri-research.

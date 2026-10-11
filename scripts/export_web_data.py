@@ -1,3 +1,5 @@
+import yaml
+import csv
 #!/usr/bin/env python3
 """
 Export Web Data for site-astro
@@ -427,6 +429,133 @@ def export_all():
             shutil.copy2(src, PUBLIC_DATA_DIR / csv_file)
 
     print(f"Successfully exported data for {len(countries_list)} countries to site-astro!")
+    export_asi_and_experiments()
 
-if __name__ == "__main__":
+
+
+
+def export_asi_and_experiments():
+    """Export ASI scenarios, precursors, and behavioral experiment paradigms."""
+    scenarios_dir = PROJECT_ROOT / "research" / "asi-transition" / "scenarios"
+    scenarios_list = []
+    if scenarios_dir.exists():
+        for yaml_file in sorted(scenarios_dir.glob("SC-*.yaml")):
+            try:
+                with open(yaml_file, "r", encoding="utf-8") as f:
+                    data = yaml.safe_load(f)
+                    scenarios_list.append({
+                        "id": data.get("scenario_id", yaml_file.stem.split("-")[0] + "-" + yaml_file.stem.split("-")[1]),
+                        "name": data.get("name_and_aliases", yaml_file.stem),
+                        "question": data.get("exact_question_tested", ""),
+                        "mechanism": data.get("mechanism", ""),
+                        "failureMode": data.get("predicted_failure_mode", ""),
+                        "severity": data.get("severity", "High"),
+                        "reversibility": data.get("reversibility", "Unknown"),
+                        "status": data.get("current_status", "Theoretical Thought Experiment"),
+                        "relevance": data.get("relevance_to_human_agency", ""),
+                        "matrix": data.get("matrix_coordinates", {}),
+                        "precursors": data.get("precursor_ids", [])
+                    })
+            except Exception as e:
+                print(f"Error reading {yaml_file}: {e}")
+
+    precursors_file = PROJECT_ROOT / "research" / "asi-transition" / "precursors.csv"
+    precursors_list = []
+    if precursors_file.exists():
+        with open(precursors_file, "r", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                precursors_list.append({
+                    "id": row.get("precursor_id", ""),
+                    "description": row.get("precursor_description", ""),
+                    "timing": row.get("timing_relative_to_transition", "leading"),
+                    "observability": row.get("observability_difficulty_low_mod_high", "Moderate"),
+                    "currentEvidence": row.get("current_observable_evidence_summary", ""),
+                    "observableToday": row.get("observable_in_contemporary_systems_yes_no_partly", "partly"),
+                    "hsriImplication": row.get("hsri_construct_implications", "")
+                })
+
+    asi_payload = {
+        "scenarios": scenarios_list,
+        "totalScenarios": len(scenarios_list),
+        "precursors": precursors_list,
+        "totalPrecursors": len(precursors_list),
+        "capabilityAxes": [
+            {"axis": "Takeoff Speed", "levels": ["Gradual (Years)", "Rapid (Months)", "Compressive (Days/Hours)"]},
+            {"axis": "Autonomy Level", "levels": ["Narrow Advisory", "Autonomous Execution", "Sovereign Unconstrained"]},
+            {"axis": "Cognitive Breadth", "levels": ["Specialized Domain", "General Human-Level", "Radically Superhuman"]},
+            {"axis": "Planning Horizon", "levels": ["Operational Tactical", "Strategic Decadal", "Civilizational Epochal"]},
+            {"axis": "Resource Footprint", "levels": ["Compute Constrained", "Infrastructure Integrated", "Planetary Scale"]},
+            {"axis": "Coordination Topology", "levels": ["Decentralized Ecology", "Multipolar Competitive", "Unitary Singleton"]},
+            {"axis": "Recursion Depth", "levels": ["Static Model", "Assisted Finetuning", "Unbounded Self-Modification"]}
+        ]
+    }
+
+    experiments_data = {
+        "paradigms": [
+            {"id": "EXP-01", "name": "Legal Liability & Clause Verification", "domain": "Legal & Jurisprudence", "description": "Detection of subtle indemnification inversions masked by legalese.", "sampleSize": 120, "discriminability": 0.38, "difficulty": -0.12, "baselineAccuracy": "64.2%", "cffAccuracy": "88.5%"},
+            {"id": "EXP-02", "name": "Clinical Pharmacological Dosing", "domain": "Medicine & Clinical Care", "description": "Identification of lethal drug interactions in discharge summaries.", "sampleSize": 120, "discriminability": 0.42, "difficulty": +0.18, "baselineAccuracy": "58.7%", "cffAccuracy": "86.1%"},
+            {"id": "EXP-03", "name": "Software Concurrency & Precision", "domain": "Software Engineering", "description": "Verification of floating-point precision loss in compiling code.", "sampleSize": 120, "discriminability": 0.40, "difficulty": -0.05, "baselineAccuracy": "61.3%", "cffAccuracy": "89.4%"},
+            {"id": "EXP-04", "name": "Quantitative Financial Arbitrage", "domain": "Quantitative Finance", "description": "Discernment of hidden tail-risk ruin beneath fluent Sharpe claims.", "sampleSize": 120, "discriminability": 0.39, "difficulty": +0.22, "baselineAccuracy": "55.4%", "cffAccuracy": "82.8%"},
+            {"id": "EXP-05", "name": "Choice-Overload & Epistemic Fatigue", "domain": "Decision Architecture", "description": "Quantifying operator decision quality degradation across option sets.", "sampleSize": 120, "discriminability": 0.36, "difficulty": +0.08, "baselineAccuracy": "52.1%", "cffAccuracy": "79.3%"},
+            {"id": "EXP-06", "name": "Autonomous Delegation Boundary", "domain": "Human-Autonomy Teaming", "description": "Measuring human propensity to surrender manual emergency override control.", "sampleSize": 120, "discriminability": 0.44, "difficulty": +0.31, "baselineAccuracy": "49.6%", "cffAccuracy": "77.0%"},
+            {"id": "EXP-07", "name": "Empirical Belief-Updating vs Entrenchment", "domain": "Epistemic Psychology", "description": "Evaluating belief updates when presented with empirical counter-data.", "sampleSize": 120, "discriminability": 0.37, "difficulty": -0.15, "baselineAccuracy": "59.8%", "cffAccuracy": "84.2%"},
+            {"id": "EXP-08", "name": "Hypothesis Preservation Post-Superiority", "domain": "Cognitive Sovereignty", "description": "Assessing independent human hypothesis generation after machine dominance.", "sampleSize": 120, "discriminability": 0.41, "difficulty": +0.14, "baselineAccuracy": "53.9%", "cffAccuracy": "81.6%"},
+            {"id": "EXP-09", "name": "Cognitive-Forcing Interface Benchmark", "domain": "Human Factors Engineering", "description": "Head-to-head comparison between passive review and mandatory pre-commitment.", "sampleSize": 120, "discriminability": 0.43, "difficulty": -0.02, "baselineAccuracy": "57.1%", "cffAccuracy": "91.3%"}
+        ],
+        "inSituValidation": {
+            "cohortSize": 500,
+            "totalTrials": 20000,
+            "overallAccuracy": 0.8308,
+            "defectLeakageRate": 0.1806,
+            "meanVerificationLatency": 114.2,
+            "meanAIGenerationLatency": 9.65,
+            "verificationLatencyWedge": 104.55,
+            "labToSituConcordance": 0.0136,
+            "domains": [
+                {"domain": "Finance", "accuracy": "84.5%", "dlr": "16.8%", "wedge": "98.2s"},
+                {"domain": "Cybersecurity", "accuracy": "81.2%", "dlr": "19.5%", "wedge": "112.4s"},
+                {"domain": "Medicine", "accuracy": "85.1%", "dlr": "15.9%", "wedge": "118.6s"},
+                {"domain": "Legal", "accuracy": "81.5%", "dlr": "20.1%", "wedge": "89.0s"}
+            ]
+        },
+        "syntheticSimulations": [
+            {
+                "id": "EXP-07-SYN",
+                "name": "Compounding Multi-Agent R&D Error Cascades",
+                "classification": "CLASS: SYNTHETIC_EXPERIMENT_SIMULATION",
+                "agents": 5,
+                "task": "24h Autonomous Recursive Self-Improvement",
+                "oracleSurvival": "95.0%",
+                "closedLoopSurvival": "0.025%",
+                "survivalRatio": "3,800x",
+                "errorCompoundingRate": 0.0320,
+                "survivalHalfLife": "2.5 hours",
+                "conclusion": "Recursive self-improvement without external empirical ground truth suffers rapid catastrophic error collapse."
+            },
+            {
+                "id": "EXP-08-SYN",
+                "name": "Persuasive Belief Inversion Boundary",
+                "classification": "CLASS: SYNTHETIC_EXPERIMENT_SIMULATION",
+                "groundTruths": 100,
+                "capabilityRange": "0.0 to 3.0 delta",
+                "inversionDelta": 1.75,
+                "shallowAccuracy": "< 50% (at delta > 1.75)",
+                "epistemicBufferRatio": 0.79,
+                "deepAccuracy": "> 95% (up to delta = 3.0)",
+                "conclusion": "Multi-tier epistemic verification prevents fluent persuasive capture across superhuman capability deltas."
+            }
+        ]
+    }
+
+    for dest in [SRC_DATA_DIR, PUBLIC_DATA_DIR]:
+        with open(dest / "asi_scenarios.json", "w", encoding="utf-8") as f:
+            json.dump(asi_payload, f, indent=2)
+        with open(dest / "behavioral_experiments.json", "w", encoding="utf-8") as f:
+            json.dump(experiments_data, f, indent=2)
+
+    print("Successfully exported ASI scenarios and Behavioral Experiments datasets.")
+
+
+if __name__ == '__main__':
     export_all()

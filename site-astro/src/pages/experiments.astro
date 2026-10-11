@@ -1,0 +1,65 @@
+---
+import HSRILayout from '../layouts/HSRILayout.astro';
+import HSRIHeader from '../components/HSRIHeader.svelte';
+import BehavioralLabExplorer from '../components/BehavioralLabExplorer.svelte';
+import HSRIFooter from '../components/HSRIFooter.svelte';
+---
+
+<HSRILayout title="Behavioral Laboratory & Latency Wedge - HSRI Benchmark">
+  <div class="experiments-page">
+    <HSRIHeader client:load />
+    
+    <div class="page-header container">
+      <h1>Behavioral Laboratory & Verification Latency</h1>
+      <p class="subtitle">
+        Micro-level empirical calibration of human cognitive discernment, automation bias mitigation via Cognitive-Forcing Functions, and in-situ professional oversight.
+      </p>
+    </div>
+
+    <main class="page-content container">
+      <BehavioralLabExplorer client:load />
+    </main>
+
+    <HSRIFooter client:load />
+  </div>
+</HSRILayout>
+
+<style>
+  .experiments-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #f8fafc;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    width: 100%;
+  }
+
+  .page-header {
+    padding: 2.5rem 1rem 1rem 1rem;
+  }
+
+  .page-header h1 {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+    color: #64748b;
+    max-width: 800px;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .page-content {
+    flex: 1;
+    padding-bottom: 3rem;
+  }
+</style>

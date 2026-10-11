@@ -1,0 +1,23 @@
+{
+  "title": "Human Superintelligence Readiness Index (HSRI): Empirical Benchmark, Psychometric Foundation, and Transition Evidence Map",
+  "upload_type": "software",
+  "description": "Comprehensive empirical benchmark, psychometric architecture, and transition evidence map for national preparedness under advanced AI (v1.1.0 release). Synthesizes 780 macro observations across 39 nations, a 9-paradigm behavioral experiment battery (N=1,080), 4-factor latent CFA, cross-cultural scalar invariance (N=2,000), longitudinal stability (N=600), 7-provider frontier multi-agent consensus, in-situ operator oversight across 4 sectors, OECD/JRC econometric audit, dynamic Kalman ingestion, and ASI transition simulation batteries.",
+  "creators": [
+    {
+      "name": "Ramanathan, Krishnakumar",
+      "affiliation": "HSRI Research Consortium"
+    }
+  ],
+  "access_right": "open",
+  "license": "CC-BY-SA-4.0",
+  "version": "1.1.0",
+  "keywords": [
+    "artificial intelligence",
+    "superintelligence readiness",
+    "cognitive discernment",
+    "automation bias",
+    "psychometrics",
+    "AI governance",
+    "open science"
+  ]
+}

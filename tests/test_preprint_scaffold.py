@@ -95,3 +95,13 @@ def test_working_paper_v1_exists_and_complete():
     assert len(wp_content.strip()) > 10000
     for keyword in ["abstract", "introduction", "macro benchmark", "evidence map", "latency wedge", "precursor", "limitations", "references"]:
         assert keyword in wp_content.lower(), f"Missing required keyword in Working Paper v1.0: {keyword}"
+
+def test_working_paper_v1_1_exists_and_complete():
+    """Working Paper v1.1.0 must exist and synthesize complete empirical and psychometric findings."""
+    wp_path = REPO_ROOT / "research" / "preprint" / "working-paper-v1.1.0.md"
+    assert wp_path.exists(), "research/preprint/working-paper-v1.1.0.md missing"
+    wp_content = wp_path.read_text(encoding="utf-8")
+    assert len(wp_content.strip()) > 15000
+    for keyword in ["abstract", "introduction", "macro", "behavioral", "psychometrics", "invariance", "consensus", "ecological", "kalman", "synthetic", "limitations", "references"]:
+        assert keyword in wp_content.lower(), f"Missing required keyword in Working Paper v1.1.0: {keyword}"
+

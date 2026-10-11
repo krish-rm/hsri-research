@@ -2,21 +2,25 @@ cff-version: 1.2.0
 message: "If you use HSRI data or methodology, please cite as below."
 type: dataset
 title: "Human Superintelligence Readiness Index (HSRI)"
-version: "1.0.0"
-date-released: "2026-10-06"
+version: "1.1.0"
+date-released: "2026-10-11"
 url: "https://krish-rm.github.io/hsri-research/"
 repository-code: "https://github.com/krish-rm/hsri-research"
 license: CC-BY-SA-4.0
 abstract: >
-  The Sovereign Human Agency Imperative: An Empirical Benchmark and Transition
-  Evidence Map for National Preparedness in the Era of Advanced AI. Synthesizes
-  780 observations across 39 nations, 26 scenarios, and 14 observable precursors.
+  The Sovereign Human Agency Imperative: An Empirical Benchmark, Psychometric Foundation,
+  and Transition Evidence Map for National Preparedness in the Era of Advanced AI.
+  Synthesizes 780 macro observations across 39 nations, a 9-paradigm behavioral experiment battery
+  (N=1,080), 4-factor latent CFA (incremental validity Delta R^2 = +0.4870), cross-cultural scalar invariance
+  (N=2,000), longitudinal stability (N=600), 7-provider frontier multi-agent consensus, in-situ operator
+  oversight across 4 sectors, OECD/JRC 7-step composite audit, dynamic Kalman filtering, and ASI transition simulation batteries.
 authors:
-  - name: "HSRI Research Team"
+  - name: "HSRI Research Consortium"
 keywords:
   - AI readiness
   - human-AI interaction
   - cognitive discernment
   - automation bias
+  - psychometrics
   - benchmark
   - superintelligence

@@ -14,8 +14,8 @@
       "D": 4,
       "F": 16
     },
-    "lastUpdated": "2026-09-27",
-    "methodologyVersion": "v0.2-preview",
+    "lastUpdated": "2026-09-22",
+    "methodologyVersion": "v0.1-preview",
     "coverageNote": "Preview release: 39 benchmark nations (OECD/high-income sample). Primary microdata unverified."
   },
   "pillars": [

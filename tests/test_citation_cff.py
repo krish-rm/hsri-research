@@ -30,7 +30,7 @@ def test_citation_cff_valid_schema():
     # Verify content
     assert data["cff-version"] == "1.2.0"
     assert "Human Superintelligence Readiness Index" in data["title"]
-    assert any(v in data["version"] for v in ["0.2", "0.3", "1.0"])
+    assert any(v in data["version"] for v in ["0.2", "0.3", "1.0", "1.1"])
     assert data["url"] == "https://krish-rm.github.io/hsri-research/"
     assert data["license"] == "CC-BY-SA-4.0"
     assert isinstance(data["authors"], list) and len(data["authors"]) >= 1

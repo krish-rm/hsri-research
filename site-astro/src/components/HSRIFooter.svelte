@@ -16,6 +16,8 @@
     ],
     'Resources': [
       { name: 'Country Profiles', href: `${base}/countries/` },
+      { name: 'ASI Scenarios', href: `${base}/scenarios/` },
+      { name: 'Behavioral Lab', href: `${base}/experiments/` },
       { name: 'Timeline Explorer', href: `${base}/timeline/` },
       { name: 'Comparison Tool', href: `${base}/compare/` },
       { name: 'Downloads', href: `${base}/data/` },
