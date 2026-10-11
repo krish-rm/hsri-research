@@ -42,7 +42,9 @@ jobs:
         run: mkdocs build --strict -d site-astro/dist/docs
 
       - name: Ensure .nojekyll exists
-        run: touch site-astro/dist/.nojekyll
+        run: |
+          touch site-astro/dist/.nojekyll
+          echo "humanreadinessindex.org" > site-astro/dist/CNAME
 
       - name: Deploy to GitHub Pages (gh-pages branch)
         uses: peaceiris/actions-gh-pages@v4
@@ -73,8 +75,8 @@ jobs:
                   # Use regex, not fragile exact string matching
                   pagination = re.search(r'Showing \d+ of (\d+) countries', html)
                   version = re.search(r'Preview Benchmark v(\d+\.\d+)', html)
-                  footer_ok = bool(re.search(r'href="/hsri-research/methodology/', html))
-                  coverage_ok = '/hsri-research/coverage/' in html
+                  footer_ok = bool(re.search(r'href="(?:/hsri-research)?/methodology/', html))
+                  coverage_ok = '/coverage/' in html
 
                   checks = {
                       "pagination_total_39": pagination and int(pagination.group(1)) == 39,

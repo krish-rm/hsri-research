@@ -19,5 +19,12 @@
     "psychometrics",
     "AI governance",
     "open science"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://humanreadinessindex.org",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    }
   ]
 }

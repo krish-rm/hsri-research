@@ -7,6 +7,6 @@ export default defineConfig({
   build: {
     format: 'directory',
   },
-  site: 'https://krish-rm.github.io',
-  base: '/hsri-research',
+  site: 'https://humanreadinessindex.org',
+  base: '/',
 });
