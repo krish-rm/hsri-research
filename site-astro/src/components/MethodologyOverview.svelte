@@ -315,7 +315,49 @@ S_norm = ( (z_i - (-3.0)) / (3.0 - (-3.0)) ) * 100
 HSRI_Score = 0.25 * S_Literacy + 0.25 * S_Discernment + 0.25 * S_Governance + 0.25 * S_Infrastructure</code></pre>
         </div>
 
-        <div class="score-bands">
+        <!-- Non-Compensatory & Weakest-Link Flooring (Sprint 25 / Study 2) -->
+        <div class="non-compensatory-section" style="margin-top: 2rem; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 0.75rem; padding: 1.5rem;">
+          <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
+            <span style="background: #0f172a; color: #38bdf8; font-size: 0.7rem; font-weight: 800; padding: 0.2rem 0.5rem; border-radius: 0.25rem;">STUDY 2 AUDIT</span>
+            <h3 style="margin: 0; font-size: 1.25rem; color: #0f172a;">Non-Compensatory Aggregation & Weakest-Link Flooring</h3>
+          </div>
+          <p style="font-size: 0.9rem; color: #475569; line-height: 1.5; margin-bottom: 1rem;">
+            Compensatory linear averaging allows surplus digital infrastructure to statistically mask severe cognitive or institutional deficits (the <em>High-Compute Vulnerability Trap</em>). To resolve this, HSRI implements four econometric aggregation families:
+          </p>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-bottom: 1.25rem;">
+            <div style="background: white; border: 1px solid #e2e8f0; border-radius: 0.5rem; padding: 1rem;">
+              <h4 style="margin: 0 0 0.35rem 0; color: #1e293b; font-size: 0.95rem;">1. Linear Baseline (Compensatory)</h4>
+              <p style="font-size: 0.8rem; color: #64748b; margin: 0 0 0.5rem 0;">Standard OECD arithmetic weighted sum.</p>
+              <code style="font-size: 0.75rem; background: #f1f5f9; padding: 0.2rem 0.4rem; border-radius: 0.25rem; display: block;">H_lin = Σ (0.25 · P_k)</code>
+            </div>
+
+            <div style="background: white; border: 1px solid #e2e8f0; border-radius: 0.5rem; padding: 1rem;">
+              <h4 style="margin: 0 0 0.35rem 0; color: #1e293b; font-size: 0.95rem;">2. Geometric Mean (AM-GM Discount)</h4>
+              <p style="font-size: 0.8rem; color: #64748b; margin: 0 0 0.5rem 0;">Penalizes unequal pillar allocation via scale-invariant shift.</p>
+              <code style="font-size: 0.75rem; background: #f1f5f9; padding: 0.2rem 0.4rem; border-radius: 0.25rem; display: block;">H_geo = [Π (P_k + 0.01)^0.25] - 0.01</code>
+            </div>
+
+            <div style="background: white; border: 1px solid #e2e8f0; border-radius: 0.5rem; padding: 1rem;">
+              <h4 style="margin: 0 0 0.35rem 0; color: #1e293b; font-size: 0.95rem;">3. Leontief Floor (Weakest-Link)</h4>
+              <p style="font-size: 0.8rem; color: #64748b; margin: 0 0 0.5rem 0;">Penalizes critical bottleneck collapse (β=0.5).</p>
+              <code style="font-size: 0.75rem; background: #f1f5f9; padding: 0.2rem 0.4rem; border-radius: 0.25rem; display: block;">H_leo = (min P_k)^0.5 · (H_lin)^0.5</code>
+            </div>
+
+            <div style="background: white; border: 1px solid #e2e8f0; border-radius: 0.5rem; padding: 1rem;">
+              <h4 style="margin: 0 0 0.35rem 0; color: #1e293b; font-size: 0.95rem;">4. Choquet Integral (2-Additive)</h4>
+              <p style="font-size: 0.8rem; color: #64748b; margin: 0 0 0.5rem 0;">Models infrastructure exposure without discernment defenses.</p>
+              <code style="font-size: 0.75rem; background: #f1f5f9; padding: 0.2rem 0.4rem; border-radius: 0.25rem; display: block;">H_choq = Σ (P_(i) - P_(i-1)) · μ(A_i)</code>
+            </div>
+          </div>
+
+          <div style="background: white; border: 1px solid #e2e8f0; border-radius: 0.5rem; padding: 1rem; font-size: 0.82rem; color: #334155; line-height: 1.5;">
+            <strong>JRC Step 7 Sensitivity Findings (B=1,000 Dirichlet Monte Carlo):</strong>
+            Kendall's coefficient of concordance confirms rank robustness across all models: Linear W = 0.9825, Geometric W = 0.9831, Leontief W = 0.9973, Choquet W = 0.9820. Mean rank correlation between Linear and Leontief is ρ = 0.9644 (95% CI: [0.9433, 0.9785]), identifying acute fragility in nations such as Hong Kong (V_n = 0.134, -12 rank drop) and the United States (-3 rank drop), while rewarding balanced institutions in Germany (+5 gain) and Austria (+5 gain).
+          </div>
+        </div>
+
+        <div class="score-bands" style="margin-top: 2rem;">
           <h3>HSRI Readiness Bands</h3>
           <div class="bands-grid">
             <div class="band-item band-a">

@@ -160,6 +160,19 @@ The macro composite indicator was audited against the Joint Research Centre (JRC
 - **PCA Dimensionality:** 4 principal components account for $87.81\% \ge 65.0\%$ of cumulative variance (PC1 = 54.12%, PC2 = 15.34%, PC3 = 11.02%, PC4 = 7.33%).
 - **Monte Carlo Robustness:** $B=1,000$ Dirichlet weight perturbation runs ($\pm 20\%$) yielded average Spearman rank correlation $\bar{\rho}_{\text{MC}} = 0.9986 \ge 0.850$ and Kendall's concordance $W = 0.9977 \ge 0.850$.
 
+### 5.4 Non-Compensatory Aggregation & Critical Flooring Model (Study 2 Audit)
+To address the *High-Compute Vulnerability Trap*—wherein equal-weighted linear aggregation allows surplus digital infrastructure ($P_{\text{infra}} \approx 0.95$) to statistically offset acute cognitive or institutional governance collapses ($P_{\text{disc}} \le 0.20$)—HSRI formulated, tested, and released four distinct econometric aggregation families:
+
+1. **Compensatory Linear Baseline:** $H_{\text{lin}} = \sum_{k=1}^4 0.25 \cdot P_k$.
+2. **Geometric Mean (AM-GM Discounting):** $H_{\text{geo}} = \left( \prod_{k=1}^4 (P_k + 0.01)^{0.25} \right) - 0.01$. Bounded, scale-invariant, penalizing disproportionate pillar investments ($V_n = H_{\text{lin}} - H_{\text{geo}} \ge 0$).
+3. **Leontief Minimum Floor (Weakest-Link):** $H_{\text{leo}} = (\min_k P_k)^{0.5} \cdot (H_{\text{lin}})^{0.5}$. Forces index collapse if any single vital capability collapses to zero, enforcing systemic bottleneck constraints.
+4. **Choquet Integral with 2-Additive Capacity:** $H_{\text{choq}} = \sum_{i=1}^4 (P_{(i)} - P_{(i-1)}) \cdot \mu(A_{(i)})$, penalizing uncoordinated infrastructure exposure absent concurrent discernment defenses while rewarding joint cognitive-technological synergy.
+
+**Empirical Audit Findings Across 39 Benchmark Nations:**
+- **Vulnerability Asymmetry:** Hong Kong (HKG) exhibits the highest global vulnerability ($V_n = 0.1340$), falling **12 positions** (Rank 20 to 32) under Leontief aggregation ($0.5947 \to 0.2418$) due to its acute governance deficit ($P_{\text{gov}} = 0.0984$). The United States falls 3 positions (Rank 15 to 18) due to domestic literacy dispersion relative to infrastructure.
+- **Resilient Structural Balance:** Economies with balanced, multi-pillar development rise significantly: Germany (DEU) jumps **+5 positions** (Rank 16 to 11, $V_n = 0.0008$), Austria (AUT) jumps **+5 positions** (Rank 18 to 13, $V_n = 0.0002$), Lithuania (LTU) jumps **+5 positions** (Rank 31 to 26), and Denmark overtakes Finland for Global Rank #1 under Leontief ($0.8370$ vs $0.8176$).
+- **Dirichlet $B=1,000$ Sensitivity Concordance:** Kendall's coefficient across randomized weight perturbation confirms stability: $W_{\text{lin}} = 0.9825$, $W_{\text{geo}} = 0.9831$, $W_{\text{leo}} = 0.9973$, $W_{\text{choq}} = 0.9820$. Mean rank correlation between Linear and Leontief is $\bar{\rho} = 0.9644$ ($95\% \text{ CI: } [0.9433, 0.9785]$). Full audit dossier published in `research/aggregation-audit/audit_v1.2.md`.
+
 ---
 
 ## 6. Dynamic Ingestion and ASI Synthetic Simulation Findings

@@ -5,6 +5,22 @@ All notable changes to the Human Superintelligence Readiness Index (HSRI) resear
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.2.0] — 2026-10-12 (Sprint 25: Study 2 Non-Compensatory Aggregation)
+
+### Added
+- **Non-Compensatory Mathematical Engine** (`scripts/non_compensatory_engine.py`): Implemented four OECD/JRC aggregation families:
+  - Compensatory Linear Weighted Baseline ($H_{\text{lin}} = \sum 0.25 \cdot P_k$)
+  - Non-Compensatory Geometric Mean ($H_{\text{geo}} = \prod (P_k + 0.01)^{0.25} - 0.01$)
+  - Leontief Minimum Floor / Weakest-Link ($H_{\text{leo}} = (\min P_k)^{0.5} \cdot H_{\text{lin}}^{0.5}$)
+  - Choquet Integral with 2-Additive Capacity ($H_{\text{choq}}$) modeling infrastructure exposure traps and discernment synergy.
+- **Vulnerability Diagnostics**:
+  - Vulnerability Index $V_n = H_{\text{lin}} - H_{\text{geo}}$ and Floor Fragility $F_n = H_{\text{lin}} - H_{\text{leo}}$.
+  - High-Compute Vulnerability Trap detection, identifying nations where world-class compute masks acute cognitive or governance collapse.
+- **Dataset Generation**: Published `data/hsri_variants.csv` and exported synced JSON payloads to `site-astro`.
+- **Econometric Test Suite** (`tests/test_aggregation.py`): 18 comprehensive tests covering scale invariance, monotonicity, zero-floor collapse, AM-GM inequalities, and Rule 3 NaN governance (expanded test suite to **135/135 tests green**).
+- **JRC Step 7 Sensitivity Audit** (`research/aggregation-audit/audit_v1.2.md`): $B=1,000$ Dirichlet Monte Carlo weight resampling confirming robust Kendall concordance ($W \ge 0.982$) and identifying extreme bottleneck shifts in Hong Kong (Rank drop -12, $V_n = 0.134$) and the United States (Rank drop -3) vs. resilient balance in Germany (+5) and Austria (+5).
+- **Web Portal Interactive Explorer**: Built interactive Aggregation Mode Toggle in `CountryList.svelte` on `humanreadinessindex.org`, with dynamic rank delta badges, trap filters, and methodology disclosures.
+
 ## [v0.3.0-dev] — In Progress
 
 ### Added

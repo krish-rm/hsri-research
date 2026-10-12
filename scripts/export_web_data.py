@@ -107,6 +107,13 @@ def export_all():
     labor_vuln_df = pd.read_csv(DATA_DIR / "labor_vulnerability.csv", index_col=0)
     indicators_df = pd.read_csv(DATA_DIR / "indicators.csv")
 
+    # Load non-compensatory aggregation variants
+    variants_path = DATA_DIR / "hsri_variants.csv"
+    if variants_path.exists():
+        variants_df = pd.read_csv(variants_path, index_col="country_iso3")
+    else:
+        variants_df = pd.DataFrame()
+
     # Load harmonized raw observations
     harmonized_path = DATA_DIR / "raw_observations_harmonized.csv"
     if harmonized_path.exists():
@@ -261,7 +268,25 @@ def export_all():
             "recommendations": profile.get("recommendations", []),
             "archetype": narrative.get("archetype", "strategic_adapter"),
             "executiveSummary": narrative.get("executive_summary", ""),
-            "indicatorsBreakdown": indicators_breakdown
+            "indicatorsBreakdown": indicators_breakdown,
+            "variants": {
+                "hsri_linear": round(float(variants_df.loc[iso3, "hsri_linear"]) * 100, 2) if iso3 in variants_df.index else score_100,
+                "hsri_geometric": round(float(variants_df.loc[iso3, "hsri_geometric"]) * 100, 2) if iso3 in variants_df.index else score_100,
+                "hsri_leontief": round(float(variants_df.loc[iso3, "hsri_leontief"]) * 100, 2) if iso3 in variants_df.index else score_100,
+                "hsri_choquet": round(float(variants_df.loc[iso3, "hsri_choquet"]) * 100, 2) if iso3 in variants_df.index else score_100,
+                "rank_linear": int(variants_df.loc[iso3, "rank_linear"]) if iso3 in variants_df.index else rank,
+                "rank_geometric": int(variants_df.loc[iso3, "rank_geometric"]) if iso3 in variants_df.index else rank,
+                "rank_leontief": int(variants_df.loc[iso3, "rank_leontief"]) if iso3 in variants_df.index else rank,
+                "rank_choquet": int(variants_df.loc[iso3, "rank_choquet"]) if iso3 in variants_df.index else rank,
+                "rank_delta_geo": int(variants_df.loc[iso3, "rank_delta_geo"]) if iso3 in variants_df.index else 0,
+                "rank_delta_leo": int(variants_df.loc[iso3, "rank_delta_leo"]) if iso3 in variants_df.index else 0,
+                "rank_delta_choq": int(variants_df.loc[iso3, "rank_delta_choq"]) if iso3 in variants_df.index else 0,
+                "vulnerability_index": round(float(variants_df.loc[iso3, "vulnerability_index"]), 4) if iso3 in variants_df.index else 0.0,
+                "floor_fragility": round(float(variants_df.loc[iso3, "floor_fragility"]), 4) if iso3 in variants_df.index else 0.0,
+                "fragility_tier": str(variants_df.loc[iso3, "fragility_tier"]) if iso3 in variants_df.index else "Low",
+                "bottleneck_pillar": str(variants_df.loc[iso3, "bottleneck_pillar"]) if iso3 in variants_df.index else "None",
+                "high_compute_trap": bool(variants_df.loc[iso3, "high_compute_trap"]) if iso3 in variants_df.index else False,
+            }
         }
         countries_list.append(c_data)
         rank += 1
@@ -326,6 +351,12 @@ def export_all():
 
         with open(dest_dir / "country_profiles.json", "w", encoding="utf-8") as f:
             json.dump({c["id"]: c for c in countries_list}, f, indent=2)
+
+        if not variants_df.empty:
+            variants_records = variants_df.reset_index().to_dict(orient="records")
+            with open(dest_dir / "hsri_variants.json", "w", encoding="utf-8") as f:
+                json.dump(variants_records, f, indent=2)
+            variants_df.to_csv(dest_dir / "hsri_variants.csv")
 
     # Indicators json
     indicators_list = []

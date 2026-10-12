@@ -1,0 +1,668 @@
+{
+  "n_draws": 1000,
+  "alpha": [
+    4,
+    4,
+    4,
+    4
+  ],
+  "seed": 42,
+  "kendall_w": {
+    "linear": 0.9825220259109312,
+    "geometric": 0.983098297165992,
+    "leontief": 0.9973365489878543,
+    "choquet": 0.9819870724696357
+  },
+  "spearman_correlations": {
+    "lin_vs_geo": {
+      "mean": 0.9961435222672067,
+      "std": 0.0017866181509715643,
+      "ci_95": [
+        0.9918977732793522,
+        0.9985880566801619
+      ]
+    },
+    "lin_vs_leo": {
+      "mean": 0.9644095141700404,
+      "std": 0.008842015149749914,
+      "ci_95": [
+        0.9433198380566802,
+        0.9785475708502024
+      ]
+    },
+    "lin_vs_choq": {
+      "mean": 0.9979783400809716,
+      "std": 0.0009163319654171508,
+      "ci_95": [
+        0.995748987854251,
+        0.9993927125506072
+      ]
+    }
+  },
+  "country_stability": {
+    "AUS": {
+      "lin_mean_rank": 13.729,
+      "lin_rank_std": 2.401157845706942,
+      "geo_mean_rank": 13.449,
+      "geo_rank_std": 2.348488662949004,
+      "leo_mean_rank": 14.129,
+      "leo_rank_std": 0.6421518512003217,
+      "rank_ci_95_lin": [
+        10.0,
+        18.0
+      ],
+      "rank_ci_95_leo": [
+        13.0,
+        16.0
+      ]
+    },
+    "AUT": {
+      "lin_mean_rank": 17.761,
+      "lin_rank_std": 1.2065981103913597,
+      "geo_mean_rank": 17.1,
+      "geo_rank_std": 1.466287829861518,
+      "leo_mean_rank": 12.922,
+      "leo_rank_std": 0.282694181050831,
+      "rank_ci_95_lin": [
+        15.0,
+        19.0
+      ],
+      "rank_ci_95_leo": [
+        12.0,
+        13.0
+      ]
+    },
+    "BEL": {
+      "lin_mean_rank": 22.785,
+      "lin_rank_std": 0.5184351454135802,
+      "geo_mean_rank": 22.206,
+      "geo_rank_std": 0.5775499978356852,
+      "leo_mean_rank": 21.012,
+      "leo_rank_std": 0.5213981204415681,
+      "rank_ci_95_lin": [
+        21.0,
+        23.0
+      ],
+      "rank_ci_95_leo": [
+        20.0,
+        22.0
+      ]
+    },
+    "BGR": {
+      "lin_mean_rank": 37.028,
+      "lin_rank_std": 0.16497272501841023,
+      "geo_mean_rank": 37.006,
+      "geo_rank_std": 0.07722693830523131,
+      "leo_mean_rank": 37.0,
+      "leo_rank_std": 0.0,
+      "rank_ci_95_lin": [
+        37.0,
+        38.0
+      ],
+      "rank_ci_95_leo": [
+        37.0,
+        37.0
+      ]
+    },
+    "CAN": {
+      "lin_mean_rank": 8.741,
+      "lin_rank_std": 1.4198306237012923,
+      "geo_mean_rank": 8.708,
+      "geo_rank_std": 1.3186113908199033,
+      "leo_mean_rank": 8.712,
+      "leo_rank_std": 0.7092644076788289,
+      "rank_ci_95_lin": [
+        6.0,
+        11.0
+      ],
+      "rank_ci_95_leo": [
+        7.0,
+        9.0
+      ]
+    },
+    "CYP": {
+      "lin_mean_rank": 34.796,
+      "lin_rank_std": 0.9871089098979909,
+      "geo_mean_rank": 35.036,
+      "geo_rank_std": 0.928818604464833,
+      "leo_mean_rank": 35.368,
+      "leo_rank_std": 0.48226133993924897,
+      "rank_ci_95_lin": [
+        33.0,
+        36.0
+      ],
+      "rank_ci_95_leo": [
+        35.0,
+        36.0
+      ]
+    },
+    "CZE": {
+      "lin_mean_rank": 24.042,
+      "lin_rank_std": 0.47353563751844485,
+      "geo_mean_rank": 23.704,
+      "geo_rank_std": 0.7310157317048656,
+      "leo_mean_rank": 23.06,
+      "leo_rank_std": 0.23748684174075832,
+      "rank_ci_95_lin": [
+        23.0,
+        25.0
+      ],
+      "rank_ci_95_leo": [
+        23.0,
+        24.0
+      ]
+    },
+    "DEU": {
+      "lin_mean_rank": 14.703,
+      "lin_rank_std": 1.465193161327202,
+      "geo_mean_rank": 14.109,
+      "geo_rank_std": 1.4673510145837634,
+      "leo_mean_rank": 11.465,
+      "leo_rank_std": 0.5165026621422196,
+      "rank_ci_95_lin": [
+        12.0,
+        17.0
+      ],
+      "rank_ci_95_leo": [
+        11.0,
+        12.0
+      ]
+    },
+    "DNK": {
+      "lin_mean_rank": 2.125,
+      "lin_rank_std": 0.708078385491324,
+      "geo_mean_rank": 2.076,
+      "geo_rank_std": 0.6694953323212941,
+      "leo_mean_rank": 1.051,
+      "leo_rank_std": 0.21999772726098785,
+      "rank_ci_95_lin": [
+        1.0,
+        4.0
+      ],
+      "rank_ci_95_leo": [
+        1.0,
+        2.0
+      ]
+    },
+    "ESP": {
+      "lin_mean_rank": 28.399,
+      "lin_rank_std": 1.4648546002931484,
+      "geo_mean_rank": 28.964,
+      "geo_rank_std": 1.804079820850508,
+      "leo_mean_rank": 30.629,
+      "leo_rank_std": 0.6271833862595532,
+      "rank_ci_95_lin": [
+        26.0,
+        32.0
+      ],
+      "rank_ci_95_leo": [
+        30.0,
+        32.0
+      ]
+    },
+    "EST": {
+      "lin_mean_rank": 6.971,
+      "lin_rank_std": 0.7925648238472359,
+      "geo_mean_rank": 6.859,
+      "geo_rank_std": 0.768842636694922,
+      "leo_mean_rank": 6.111,
+      "leo_rank_std": 0.3141321378019129,
+      "rank_ci_95_lin": [
+        6.0,
+        8.0
+      ],
+      "rank_ci_95_leo": [
+        6.0,
+        7.0
+      ]
+    },
+    "FIN": {
+      "lin_mean_rank": 1.488,
+      "lin_rank_std": 0.79489370358558,
+      "geo_mean_rank": 1.547,
+      "geo_rank_std": 0.8401136827834671,
+      "leo_mean_rank": 2.552,
+      "leo_rank_std": 0.5111712041967935,
+      "rank_ci_95_lin": [
+        1.0,
+        3.0249999999999773
+      ],
+      "rank_ci_95_leo": [
+        2.0,
+        3.0
+      ]
+    },
+    "FRA": {
+      "lin_mean_rank": 21.412,
+      "lin_rank_std": 0.8522065477335881,
+      "geo_mean_rank": 20.859,
+      "geo_rank_std": 0.7177179111600881,
+      "leo_mean_rank": 20.204,
+      "leo_rank_std": 0.44987109264766056,
+      "rank_ci_95_lin": [
+        20.0,
+        22.0
+      ],
+      "rank_ci_95_leo": [
+        20.0,
+        21.0
+      ]
+    },
+    "GBR": {
+      "lin_mean_rank": 13.686,
+      "lin_rank_std": 2.553703976579901,
+      "geo_mean_rank": 14.028,
+      "geo_rank_std": 2.483388008346662,
+      "leo_mean_rank": 17.659,
+      "leo_rank_std": 0.9190859589831628,
+      "rank_ci_95_lin": [
+        10.0,
+        18.024999999999977
+      ],
+      "rank_ci_95_leo": [
+        16.0,
+        19.0
+      ]
+    },
+    "GRC": {
+      "lin_mean_rank": 34.965,
+      "lin_rank_std": 0.8954188963831399,
+      "geo_mean_rank": 34.525,
+      "geo_rank_std": 0.8493379774859947,
+      "leo_mean_rank": 33.99,
+      "leo_rank_std": 0.099498743710662,
+      "rank_ci_95_lin": [
+        33.0,
+        36.0
+      ],
+      "rank_ci_95_leo": [
+        34.0,
+        34.0
+      ]
+    },
+    "HKG": {
+      "lin_mean_rank": 19.629,
+      "lin_rank_std": 3.3996115954620465,
+      "geo_mean_rank": 23.639,
+      "geo_rank_std": 3.588408978920881,
+      "leo_mean_rank": 31.954,
+      "leo_rank_std": 0.4448415448224232,
+      "rank_ci_95_lin": [
+        11.0,
+        24.0
+      ],
+      "rank_ci_95_leo": [
+        31.0,
+        33.0
+      ]
+    },
+    "HUN": {
+      "lin_mean_rank": 34.887,
+      "lin_rank_std": 1.065002816897683,
+      "geo_mean_rank": 35.186,
+      "geo_rank_std": 0.9420212311832468,
+      "leo_mean_rank": 35.632,
+      "leo_rank_std": 0.48226133993924897,
+      "rank_ci_95_lin": [
+        33.0,
+        36.0
+      ],
+      "rank_ci_95_leo": [
+        35.0,
+        36.0
+      ]
+    },
+    "IRL": {
+      "lin_mean_rank": 12.592,
+      "lin_rank_std": 1.4351083582782174,
+      "geo_mean_rank": 12.074,
+      "geo_rank_std": 1.2909391929909015,
+      "leo_mean_rank": 10.041,
+      "leo_rank_std": 0.19829019138626097,
+      "rank_ci_95_lin": [
+        11.0,
+        16.0
+      ],
+      "rank_ci_95_leo": [
+        10.0,
+        11.0
+      ]
+    },
+    "ISL": {
+      "lin_mean_rank": 13.149,
+      "lin_rank_std": 1.9664178091138211,
+      "geo_mean_rank": 13.022,
+      "geo_rank_std": 1.827434266943684,
+      "leo_mean_rank": 15.019,
+      "leo_rank_std": 0.3829347202853249,
+      "rank_ci_95_lin": [
+        10.0,
+        17.0
+      ],
+      "rank_ci_95_leo": [
+        14.0,
+        16.0
+      ]
+    },
+    "ISR": {
+      "lin_mean_rank": 20.579,
+      "lin_rank_std": 0.7718542608549881,
+      "geo_mean_rank": 20.29,
+      "geo_rank_std": 0.8705745229444748,
+      "leo_mean_rank": 21.784,
+      "leo_rank_std": 0.5266345981798006,
+      "rank_ci_95_lin": [
+        19.0,
+        22.0
+      ],
+      "rank_ci_95_leo": [
+        20.0,
+        22.0
+      ]
+    },
+    "ITA": {
+      "lin_mean_rank": 28.187,
+      "lin_rank_std": 1.4198700644777325,
+      "geo_mean_rank": 28.019,
+      "geo_rank_std": 1.175005957431706,
+      "leo_mean_rank": 26.82,
+      "leo_rank_std": 0.40693979898751614,
+      "rank_ci_95_lin": [
+        26.0,
+        30.0
+      ],
+      "rank_ci_95_leo": [
+        26.0,
+        27.0
+      ]
+    },
+    "JPN": {
+      "lin_mean_rank": 8.427,
+      "lin_rank_std": 0.9059089358208141,
+      "geo_mean_rank": 8.304,
+      "geo_rank_std": 0.8897100651335804,
+      "leo_mean_rank": 7.997,
+      "leo_rank_std": 0.5873593448647941,
+      "rank_ci_95_lin": [
+        7.0,
+        11.0
+      ],
+      "rank_ci_95_leo": [
+        7.0,
+        9.0
+      ]
+    },
+    "KOR": {
+      "lin_mean_rank": 10.38,
+      "lin_rank_std": 2.4040798655618745,
+      "geo_mean_rank": 10.626,
+      "geo_rank_std": 2.3887494636315463,
+      "leo_mean_rank": 11.601,
+      "leo_rank_std": 0.8693670111063567,
+      "rank_ci_95_lin": [
+        6.0,
+        17.0
+      ],
+      "rank_ci_95_leo": [
+        10.0,
+        14.0
+      ]
+    },
+    "LTU": {
+      "lin_mean_rank": 30.639,
+      "lin_rank_std": 1.4699248280099226,
+      "geo_mean_rank": 29.873,
+      "geo_rank_std": 1.7409396887887874,
+      "leo_mean_rank": 26.189,
+      "leo_rank_std": 0.39150862059474506,
+      "rank_ci_95_lin": [
+        27.0,
+        32.0
+      ],
+      "rank_ci_95_leo": [
+        26.0,
+        27.0
+      ]
+    },
+    "LUX": {
+      "lin_mean_rank": 16.283,
+      "lin_rank_std": 2.311906356235044,
+      "geo_mean_rank": 16.327,
+      "geo_rank_std": 2.0045126589772386,
+      "leo_mean_rank": 16.275,
+      "leo_rank_std": 0.7411983540186796,
+      "rank_ci_95_lin": [
+        10.975000000000001,
+        20.0
+      ],
+      "rank_ci_95_leo": [
+        15.0,
+        18.0
+      ]
+    },
+    "LVA": {
+      "lin_mean_rank": 27.206,
+      "lin_rank_std": 1.3136072472394478,
+      "geo_mean_rank": 26.396,
+      "geo_rank_std": 1.1476863683079972,
+      "leo_mean_rank": 24.948,
+      "leo_rank_std": 0.22202702538204666,
+      "rank_ci_95_lin": [
+        26.0,
+        30.0
+      ],
+      "rank_ci_95_leo": [
+        24.0,
+        25.0
+      ]
+    },
+    "MKD": {
+      "lin_mean_rank": 38.996,
+      "lin_rank_std": 0.06311893535223802,
+      "geo_mean_rank": 38.987,
+      "geo_rank_std": 0.1132740040786058,
+      "leo_mean_rank": 38.998,
+      "leo_rank_std": 0.044676615807377355,
+      "rank_ci_95_lin": [
+        39.0,
+        39.0
+      ],
+      "rank_ci_95_leo": [
+        39.0,
+        39.0
+      ]
+    },
+    "MLT": {
+      "lin_mean_rank": 29.594,
+      "lin_rank_std": 1.780214593806039,
+      "geo_mean_rank": 30.232,
+      "geo_rank_std": 1.7516209635648916,
+      "leo_mean_rank": 30.408,
+      "leo_rank_std": 0.5826971769281194,
+      "rank_ci_95_lin": [
+        26.0,
+        32.0
+      ],
+      "rank_ci_95_leo": [
+        29.0,
+        31.0
+      ]
+    },
+    "NLD": {
+      "lin_mean_rank": 5.134,
+      "lin_rank_std": 0.5779653968880836,
+      "geo_mean_rank": 4.993,
+      "geo_rank_std": 0.5735425006047938,
+      "leo_mean_rank": 4.0,
+      "leo_rank_std": 0.0,
+      "rank_ci_95_lin": [
+        4.0,
+        6.0
+      ],
+      "rank_ci_95_leo": [
+        4.0,
+        4.0
+      ]
+    },
+    "NOR": {
+      "lin_mean_rank": 2.642,
+      "lin_rank_std": 0.8448881582789524,
+      "geo_mean_rank": 2.598,
+      "geo_rank_std": 0.8616240479466669,
+      "leo_mean_rank": 2.397,
+      "leo_rank_std": 0.572180915445456,
+      "rank_ci_95_lin": [
+        1.0,
+        4.0
+      ],
+      "rank_ci_95_leo": [
+        1.0,
+        3.0
+      ]
+    },
+    "NZL": {
+      "lin_mean_rank": 18.922,
+      "lin_rank_std": 1.599348617406474,
+      "geo_mean_rank": 18.744,
+      "geo_rank_std": 1.2970983000528526,
+      "leo_mean_rank": 18.152,
+      "leo_rank_std": 0.8745833293631887,
+      "rank_ci_95_lin": [
+        14.0,
+        21.0
+      ],
+      "rank_ci_95_leo": [
+        17.0,
+        19.0
+      ]
+    },
+    "POL": {
+      "lin_mean_rank": 31.376,
+      "lin_rank_std": 0.5573365231168689,
+      "geo_mean_rank": 31.023,
+      "geo_rank_std": 0.6391173601147133,
+      "leo_mean_rank": 28.21,
+      "leo_rank_std": 0.4073082370883259,
+      "rank_ci_95_lin": [
+        30.0,
+        32.0
+      ],
+      "rank_ci_95_leo": [
+        28.0,
+        29.0
+      ]
+    },
+    "PRT": {
+      "lin_mean_rank": 27.366,
+      "lin_rank_std": 1.5040093084818325,
+      "geo_mean_rank": 27.494,
+      "geo_rank_std": 1.7297294586148437,
+      "leo_mean_rank": 28.839,
+      "leo_rank_std": 0.5282792821983463,
+      "rank_ci_95_lin": [
+        25.0,
+        30.0
+      ],
+      "rank_ci_95_leo": [
+        28.0,
+        30.0
+      ]
+    },
+    "ROU": {
+      "lin_mean_rank": 37.976,
+      "lin_rank_std": 0.1772681584492827,
+      "geo_mean_rank": 38.007,
+      "geo_rank_std": 0.13766263109500704,
+      "leo_mean_rank": 38.002,
+      "leo_rank_std": 0.044676615807377355,
+      "rank_ci_95_lin": [
+        37.0,
+        38.0
+      ],
+      "rank_ci_95_leo": [
+        38.0,
+        38.0
+      ]
+    },
+    "SGP": {
+      "lin_mean_rank": 4.145,
+      "lin_rank_std": 1.1278186911024308,
+      "geo_mean_rank": 4.292,
+      "geo_rank_std": 1.178446434930328,
+      "leo_mean_rank": 6.301,
+      "leo_rank_std": 1.1757546512772126,
+      "rank_ci_95_lin": [
+        2.0,
+        6.024999999999977
+      ],
+      "rank_ci_95_leo": [
+        5.0,
+        9.0
+      ]
+    },
+    "SVK": {
+      "lin_mean_rank": 33.352,
+      "lin_rank_std": 0.5640000000000001,
+      "geo_mean_rank": 33.252,
+      "geo_rank_std": 0.4652913066026487,
+      "leo_mean_rank": 32.961,
+      "leo_rank_std": 0.1986932308862081,
+      "rank_ci_95_lin": [
+        33.0,
+        35.0
+      ],
+      "rank_ci_95_leo": [
+        32.0,
+        33.0
+      ]
+    },
+    "SVN": {
+      "lin_mean_rank": 25.086,
+      "lin_rank_std": 0.7201416527322941,
+      "geo_mean_rank": 24.771,
+      "geo_rank_std": 0.6152714847935016,
+      "leo_mean_rank": 23.992,
+      "leo_rank_std": 0.3345683786612238,
+      "rank_ci_95_lin": [
+        24.0,
+        28.0
+      ],
+      "rank_ci_95_leo": [
+        23.0,
+        25.0
+      ]
+    },
+    "SWE": {
+      "lin_mean_rank": 6.271,
+      "lin_rank_std": 1.6222080631041138,
+      "geo_mean_rank": 6.319,
+      "geo_rank_std": 1.5739247123036095,
+      "leo_mean_rank": 5.906,
+      "leo_rank_std": 1.1946396946360018,
+      "rank_ci_95_lin": [
+        4.0,
+        10.0
+      ],
+      "rank_ci_95_leo": [
+        5.0,
+        8.0
+      ]
+    },
+    "USA": {
+      "lin_mean_rank": 14.551,
+      "lin_rank_std": 3.212693418301846,
+      "geo_mean_rank": 15.356,
+      "geo_rank_std": 2.882579400467574,
+      "leo_mean_rank": 17.71,
+      "leo_rank_std": 1.3122118731363466,
+      "rank_ci_95_lin": [
+        8.0,
+        20.0
+      ],
+      "rank_ci_95_leo": [
+        14.0,
+        19.0
+      ]
+    }
+  }
+}
