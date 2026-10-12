@@ -209,7 +209,7 @@ class TestHSRIAgents(unittest.TestCase):
         if workflows_dir.exists():
             workflows = sorted([f.name for f in workflows_dir.glob("*.yml")] + [f.name for f in workflows_dir.glob("*.yaml")])
             # Only deploy.yml, ingestion-health.yml, and literature-sentinel.yml are permitted
-            self.assertEqual(workflows, ["deploy.yml", "ingestion-health.yml", "literature-sentinel.yml"])
+            self.assertEqual(workflows, ["deploy.yml", "ingestion-health.yml", "literature-sentinel.yml", "precursor-sentinel.yml"])
 
             with open(workflows_dir / "deploy.yml", "r", encoding="utf-8") as f:
                 content = f.read().lower()
@@ -227,6 +227,12 @@ class TestHSRIAgents(unittest.TestCase):
                 # Strict governance check: No autonomous merge or PR write permissions
                 self.assertNotIn("pull-requests: write", lit_content)
                 self.assertNotIn("auto-merge", lit_content)
+
+            with open(workflows_dir / "precursor-sentinel.yml", "r", encoding="utf-8") as f:
+                prec_content = f.read().lower()
+                # Strict governance check: No autonomous merge or PR write permissions
+                self.assertNotIn("pull-requests: write", prec_content)
+                self.assertNotIn("auto-merge", prec_content)
 
 
 # Test: Lane 1 → Lane 3 handoff

@@ -1,0 +1,57 @@
+name: HSRI ASI Precursor Sentinel
+on:
+  schedule:
+    - cron: '0 6 * * 1'   # Every Monday 06:00 UTC
+  workflow_dispatch:
+
+jobs:
+  telemetry-scan:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install numpy requests
+
+      - name: Run Autonomy Seismometer (Stream 1)
+        run: python scripts/autonomy_seismometer.py
+
+      - name: Run Latent Drift Detector (Stream 2)
+        run: python scripts/latent_drift_detector.py
+
+      - name: Run Verification Wedge Accelerometer (Stream 3)
+        run: python scripts/wedge_accelerometer.py
+
+      - name: Run Master Precursor Sentinel
+        run: python scripts/precursor_sentinel.py
+
+      - name: Upload Telemetry Digest
+        uses: actions/upload-artifact@v4
+        with:
+          name: precursor-telemetry-${{ github.run_id }}
+          path: |
+            data/telemetry/precursor_signals.jsonl
+            data/telemetry/precursor_summary.json
+            data/telemetry/autonomy_seismometer.json
+            data/telemetry/latent_drift_detector.json
+            data/telemetry/wedge_history.json
+          retention-days: 90
+
+      - name: Commit and push telemetry updates
+        run: |
+          git config user.name "hsri-ops[bot]"
+          git config user.email "hsri-ops@users.noreply.github.com"
+          git add data/telemetry/
+          git add site-astro/src/data/
+          git add site-astro/public/data/
+          git diff --staged --quiet || git commit -m "telemetry(sentinel): weekly precursor telemetry sync $(date +%Y-W%V)"
+          git push
