@@ -1,0 +1,65 @@
+---
+import HSRILayout from '../../layouts/HSRILayout.astro';
+import HSRIHeader from '../../components/HSRIHeader.svelte';
+import DecouplingDrillViewer from '../../components/DecouplingDrillViewer.svelte';
+import HSRIFooter from '../../components/HSRIFooter.svelte';
+---
+
+<HSRILayout title="Operation Silent Cloud: Civilizational Decoupling Drill — HSRI Benchmark">
+  <div class="decoupling-page">
+    <HSRIHeader client:load currentPath={Astro.url.pathname} />
+
+    <div class="page-intro container">
+      <div class="breadcrumb">
+        <a href="/">Home</a> &rsaquo; <span>Research</span> &rsaquo; <span>Decoupling Drill</span>
+      </div>
+    </div>
+
+    <main class="page-content container">
+      <DecouplingDrillViewer client:load />
+    </main>
+
+    <HSRIFooter client:load />
+  </div>
+</HSRILayout>
+
+<style>
+  .decoupling-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #020617;
+    color: #f8fafc;
+  }
+
+  .container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 1.25rem;
+    width: 100%;
+  }
+
+  .page-intro {
+    padding-top: 1.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .breadcrumb {
+    font-size: 0.825rem;
+    color: #64748b;
+  }
+
+  .breadcrumb a {
+    color: #38bdf8;
+    text-decoration: none;
+  }
+
+  .breadcrumb a:hover {
+    text-decoration: underline;
+  }
+
+  .page-content {
+    flex: 1;
+    padding-bottom: 4rem;
+  }
+</style>
