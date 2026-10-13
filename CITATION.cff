@@ -17,7 +17,7 @@ abstract: >
   Monte Carlo audits (W=0.9986), psychometric CFA validation, and 14 observable ASI precursor tripwires.
 authors:
   - name: "HSRI Research Consortium"
-  - family-names: "Ramanathan"
+  - family-names: "Radhakrishnan"
     given-names: "Krishnakumar"
     affiliation: "HSRI Research Consortium"
 keywords:

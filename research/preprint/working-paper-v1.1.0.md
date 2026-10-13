@@ -11,7 +11,7 @@
 
 ## Authors & Collaborative Consortium
 **HSRI Research Consortium & Multi-Agent Deliberative Ensemble**  
-*Lead Principal Investigator & Maintainer:* Krishnakumar Ramanathan  
+*Lead Principal Investigator & Maintainer:* Krishnakumar Radhakrishnan  
 *Cross-Model Deliberative Advisory Panel:* Frontier Multi-Agent Consensus Engine (Anthropic Claude 3.5 Sonnet, OpenAI GPT-4o, Google Gemini 1.5 Pro, xAI Grok-2, DeepSeek-V2.5, Alibaba Qwen-2.5-72B, Zhipu GLM-4)  
 *Institutional Review & Ethics Scaffold:* HSRI Ethics Review Directorate (IRB-2026-HSRI-001)  
 

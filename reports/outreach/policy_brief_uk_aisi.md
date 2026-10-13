@@ -1,7 +1,7 @@
 # Executive Briefing: The Cognitive Oversight Richter Scale (CORS) & Autonomous Verification Collapse
 
 > **To**: Leadership & Technical Research Directorate, UK AI Safety Institute (AISI) / DSIT  
-> **From**: Krishnakumar Ramanathan, Lead Researcher, Human Superintelligence Readiness Index (HSRI) Consortium  
+> **From**: Krishnakumar Radhakrishnan, Lead Researcher, Human Superintelligence Readiness Index (HSRI) Consortium  
 > **Subject**: Critical Flaw in Frontier Model Red-Teaming: The Empirical Verification Latency Wedge ($\Delta T_{\text{wedge}}$)  
 > **Date**: October 2026  
 > **Classification**: Public Sovereign Briefing / Open Science Policy Submission  

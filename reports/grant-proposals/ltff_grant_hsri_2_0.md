@@ -1,7 +1,7 @@
 # Grant Proposal: The Sovereignty Sentinel & ASI Precursor Seismograph
 
 > **Target Funders**: Long-Term Future Fund (LTFF) & Open Philanthropy (AI Governance & Safety Track)  
-> **Applicant / Principal Investigator**: Krishnakumar Ramanathan  
+> **Applicant / Principal Investigator**: Krishnakumar Radhakrishnan  
 > **Role**: Independent Quantitative Researcher & Lead Architect, HSRI Research Consortium  
 > **Repository**: [https://github.com/krish-rm/hsri-research](https://github.com/krish-rm/hsri-research)  
 > **Live Benchmark & Telemetry Platform**: [https://humanreadinessindex.org/](https://humanreadinessindex.org/) & [https://humanreadinessindex.org/seismograph/](https://humanreadinessindex.org/seismograph/)  
@@ -116,7 +116,7 @@ In contrast, HSRI operates on the **SARATHI Self-Improving AI Co-Founder Archite
 
 ## 6. Contact & Verification Links
 
-- **Principal Investigator**: Krishnakumar Ramanathan  
+- **Principal Investigator**: Krishnakumar Radhakrishnan  
 - **Email**: `krishnakumar.rmenon@gmail.com`  
 - **Public GitHub Repository**: [https://github.com/krish-rm/hsri-research](https://github.com/krish-rm/hsri-research)  
 - **Live Production Platform**: [https://humanreadinessindex.org/](https://humanreadinessindex.org/)  

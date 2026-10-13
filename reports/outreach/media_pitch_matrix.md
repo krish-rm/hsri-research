@@ -35,7 +35,7 @@ The **Human Superintelligence Readiness Index (HSRI 2.0)**, citable under perman
 
 In contrast, decentralized, institutional economies like **Norway (#1)**, **Finland (#2)**, **Germany (+9)**, and **Austria (+12)** lead the world in sovereign decoupling resilience.
 
-The full benchmark and interactive Civilizational Air-Gap simulator are live at `https://humanreadinessindex.org/seismograph/`. I would be delighted to walk you through the macroeconomic dataset or connect you with lead researcher Krishnakumar Ramanathan.
+The full benchmark and interactive Civilizational Air-Gap simulator are live at `https://humanreadinessindex.org/seismograph/`. I would be delighted to walk you through the macroeconomic dataset or connect you with lead researcher Krishnakumar Radhakrishnan.
 
 Best regards,  
 HSRI Communications

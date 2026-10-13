@@ -1,6 +1,6 @@
 # The Verification Illusion: Why America's GPU Boom is Building a Glass Fortress
 
-> **Author**: Krishnakumar Ramanathan (Lead Researcher, HSRI Research Consortium)  
+> **Author**: Krishnakumar Radhakrishnan (Lead Researcher, HSRI Research Consortium)  
 > **Platform**: Substack / LinkedIn / Long-Form Policy Review  
 > **Date**: October 2026  
 > **Archival DOI**: [`10.5281/zenodo.10842000`](https://doi.org/10.5281/zenodo.10842000)  

@@ -1,7 +1,7 @@
 # Executive Briefing: The Mathematical Invalidity of Article 14 Human Oversight
 
 > **To**: European AI Office, Directorate-General for Communications Networks, Content and Technology (DG CONNECT), European Commission  
-> **From**: Krishnakumar Ramanathan, Lead Researcher, Human Superintelligence Readiness Index (HSRI) Consortium  
+> **From**: Krishnakumar Radhakrishnan, Lead Researcher, Human Superintelligence Readiness Index (HSRI) Consortium  
 > **Subject**: Scientific Audit of EU AI Act Article 14: Administrative Fiction Under Exponential Latency Divergence  
 > **Date**: October 2026  
 > **Classification**: Public Sovereign Briefing / Open Science Policy Submission  

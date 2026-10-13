@@ -1,7 +1,7 @@
 # Executive Briefing: Civilizational Decoupling Half-Life ($T_{\text{half}}$) of Critical U.S. Digital Infrastructure
 
 > **To**: Director, U.S. Artificial Intelligence Safety Institute (US AISI) / NIST & Office of Science and Technology Policy (OSTP)  
-> **From**: Krishnakumar Ramanathan, Lead Researcher, Human Superintelligence Readiness Index (HSRI) Consortium  
+> **From**: Krishnakumar Radhakrishnan, Lead Researcher, Human Superintelligence Readiness Index (HSRI) Consortium  
 > **Subject**: National Security Vulnerability: The High-Compute Fragility Trap & Decoupling Half-Life ($T_{\text{half}}$)  
 > **Date**: October 2026  
 > **Classification**: Public Sovereign Briefing / Open Science Policy Submission  
