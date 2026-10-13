@@ -20,6 +20,7 @@
   const navItems = [
     { name: 'Home', href: `${base}/` },
     { name: 'Countries', href: `${base}/countries/` },
+    { name: 'Seismograph', href: `${base}/seismograph/` },
     { name: 'Scenarios', href: `${base}/scenarios/` },
     { name: 'Experiments', href: `${base}/experiments/` },
     { name: 'Methodology', href: `${base}/methodology/` },
