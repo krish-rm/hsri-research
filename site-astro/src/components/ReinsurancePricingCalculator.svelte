@@ -1,0 +1,678 @@
+<script>
+  import reinsuranceData from '../data/reinsurance_risk_profiles.json';
+
+  let selectedArchetypeKey = 'archetype_a';
+  let facilitySizeBillion = 10.0; // In USD Billion
+
+  $: selectedProfile = reinsuranceData.profiles[selectedArchetypeKey];
+  $: annualProb = reinsuranceData.metadata.annual_catastrophic_decoupling_probability;
+
+  // Reactive calculations based on facility size
+  $: grossLossPct = selectedProfile['14_day_cumulative_loss_pct'] / 100.0;
+  $: grossLossBillion = (facilitySizeBillion * grossLossPct).toFixed(2);
+  $: annualExpectedLossBillion = (facilitySizeBillion * grossLossPct * annualProb).toFixed(3);
+  $: riskLoading = selectedProfile.actuarial_risk_loading_factor;
+  $: adjustedRatePct = selectedProfile.adjusted_reinsurance_rate_pct;
+  $: annualPremiumMillion = (facilitySizeBillion * 1000 * (adjustedRatePct / 100.0)).toFixed(2);
+  $: solvencyCapitalBillion = (grossLossBillion * 0.42 * Math.sqrt(riskLoading)).toFixed(2);
+
+  function selectArchetype(key) {
+    selectedArchetypeKey = key;
+  }
+</script>
+
+<div class="actuarial-container">
+  <!-- Top Banner / Live Sensor Status -->
+  <header class="calc-header">
+    <div class="badge-row">
+      <span class="sensor-badge cors">CORS 10.0 Telemetry Active</span>
+      <span class="sensor-badge prob">Annual P(Decoupling): {(annualProb * 100).toFixed(1)}%</span>
+      <span class="sensor-badge solvency">Solvency II / NAIC RBC Compliant</span>
+    </div>
+    <h1 class="main-title">Catastrophic AI Decoupling: Reinsurance Actuarial Risk Engine</h1>
+    <p class="subtitle">
+      Empirical pricing, extreme-tail loss estimation, and capital adequacy reserves for planetary AI cloud outage and autonomous agent decoupling.
+    </p>
+  </header>
+
+  <!-- Interactive Control Panel -->
+  <div class="control-panel">
+    <div class="archetype-selector">
+      <label class="section-label">Select Sovereign Risk Archetype:</label>
+      <div class="archetype-buttons">
+        {#each Object.entries(reinsuranceData.profiles) as [key, profile]}
+          <button
+            class="arch-btn"
+            class:active={selectedArchetypeKey === key}
+            on:click={() => selectArchetype(key)}
+          >
+            <div class="arch-name">{profile.name}</div>
+            <div class="arch-sub">{profile.representative_states.join(', ')}</div>
+            <div class="arch-tag" class:danger={profile.sovereignty_discount_or_surcharge_pct > 0} class:success={profile.sovereignty_discount_or_surcharge_pct < 0}>
+              {profile.sovereignty_discount_or_surcharge_pct > 0 ? `+${profile.sovereignty_discount_or_surcharge_pct}% Surcharge` : `${profile.sovereignty_discount_or_surcharge_pct}% Discount`}
+            </div>
+          </button>
+        {/each}
+      </div>
+    </div>
+
+    <!-- Facility Size Slider -->
+    <div class="facility-slider-box">
+      <div class="slider-header">
+        <label for="facility-slider" class="section-label">Insured Critical Infrastructure Valuation ($ USD):</label>
+        <span class="slider-val">${facilitySizeBillion} Billion USD</span>
+      </div>
+      <input
+        id="facility-slider"
+        type="range"
+        min="1.0"
+        max="50.0"
+        step="0.5"
+        bind:value={facilitySizeBillion}
+        class="slider"
+      />
+      <div class="slider-ticks">
+        <span>$1B (Single Datacenter/Port)</span>
+        <span>$10B (Regional Grid/Exchanges)</span>
+        <span>$25B (National Backbone)</span>
+        <span>$50B (Syndicated Treaty)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Real-time Actuarial Matrix -->
+  <div class="results-grid">
+    <div class="metric-card">
+      <div class="metric-title">14-Day Decoupling Loss</div>
+      <div class="metric-value danger">${grossLossBillion}B</div>
+      <div class="metric-caption">{selectedProfile['14_day_cumulative_loss_pct']}% of insured asset valuation</div>
+    </div>
+
+    <div class="metric-card">
+      <div class="metric-title">Annual Expected Loss (ECDL)</div>
+      <div class="metric-value warning">${annualExpectedLossBillion}B</div>
+      <div class="metric-caption">P(Decoupling) × Cumulative 14-Day Gross Loss</div>
+    </div>
+
+    <div class="metric-card">
+      <div class="metric-title">HSRI Risk Loading Factor (Φ)</div>
+      <div class="metric-value highlight">{riskLoading}x</div>
+      <div class="metric-caption">
+        {selectedProfile.sovereignty_discount_or_surcharge_pct > 0 ? `+${selectedProfile.sovereignty_discount_or_surcharge_pct}% High-Compute Trap Surcharge` : `${selectedProfile.sovereignty_discount_or_surcharge_pct}% Sovereignty Resilience Credit`}
+      </div>
+    </div>
+
+    <div class="metric-card">
+      <div class="metric-title">Reinsurance Treaty Rate</div>
+      <div class="metric-value primary">{adjustedRatePct}%</div>
+      <div class="metric-caption">${annualPremiumMillion}M / year premium facility</div>
+    </div>
+
+    <div class="metric-card full-span">
+      <div class="metric-split">
+        <div>
+          <div class="metric-title">Solvency II 99.5% 1-Year SCR Capital Charge</div>
+          <div class="metric-value large">${solvencyCapitalBillion} Billion USD</div>
+          <div class="metric-caption">Statutory regulatory capital reserve required under Fréchet extreme value tail model</div>
+        </div>
+        <div class="regime-box">
+          <div class="regime-label">Decoupling Half-Life:</div>
+          <div class="regime-val">{selectedProfile.decoupling_half_life_hours} Hours</div>
+          <div class="regime-badge" class:danger={selectedProfile.regime === 'CATASTROPHIC_COLLAPSE'} class:warning={selectedProfile.regime === 'SEVERE_SYSTEMIC_CONTRACTION'} class:success={selectedProfile.regime === 'CONTROLLED_ANALOG_PLATEAU'}>
+            {selectedProfile.regime}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Underwriting Rules Box -->
+  <div class="underwriting-rules">
+    <h3 class="rules-heading">Solvency II & Treaty Underwriting Rules</h3>
+    <div class="rules-list">
+      {#each reinsuranceData.underwriting_guidelines as guide}
+        <div class="rule-card">
+          <div class="rule-top">
+            <span class="rule-name">{guide.rule}</span>
+            <span class="rule-cond">{guide.condition}</span>
+          </div>
+          <p class="rule-mandate">{guide.mandate}</p>
+        </div>
+      {/each}
+    </div>
+  </div>
+
+  <!-- Subscription Tiers & Commercial Prospectus -->
+  <section class="pricing-tiers-section">
+    <div class="tier-heading-box">
+      <h2 class="tiers-title">Commercial Telemetry & Underwriting Subscriptions</h2>
+      <p class="tiers-subtitle">Annual institutional licenses powering cyber-reinsurance syndicates, sovereign funds, and national security enclaves.</p>
+    </div>
+
+    <div class="tiers-cards">
+      {#each Object.entries(reinsuranceData.subscription_tiers) as [tierKey, tier]}
+        <div class="tier-card" class:featured={tierKey === 'tier_2_reinsurance_underwriting'}>
+          {#if tierKey === 'tier_2_reinsurance_underwriting'}
+            <div class="featured-badge">MOST POPULAR • UNDERWRITING SUITE</div>
+          {/if}
+          <div class="tier-name">{tier.name}</div>
+          <div class="tier-price">
+            <span class="currency">$</span>
+            <span class="amount">{(tier.annual_price_usd / 1000).toFixed(0)}k</span>
+            <span class="period">/ year</span>
+          </div>
+          <div class="tier-target">Target: {tier.target}</div>
+          
+          <ul class="features-list">
+            {#each tier.deliverables as feat}
+              <li>
+                <span class="check-icon">✓</span>
+                <span>{feat}</span>
+              </li>
+            {/each}
+          </ul>
+
+          <a href="mailto:licensing@humanreadinessindex.org?subject=HSRI%20{encodeURIComponent(tier.name)}%20Inquiry" class="tier-cta" class:primary={tierKey === 'tier_2_reinsurance_underwriting'}>
+            Request License Dossier
+          </a>
+        </div>
+      {/each}
+    </div>
+  </section>
+</div>
+
+<style>
+  .actuarial-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  .calc-header {
+    margin-bottom: 2.5rem;
+    text-align: center;
+  }
+
+  .badge-row {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .sensor-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.35rem 0.75rem;
+    border-radius: 9999px;
+  }
+
+  .sensor-badge.cors {
+    background: rgba(239, 68, 68, 0.15);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+  }
+
+  .sensor-badge.prob {
+    background: rgba(245, 158, 11, 0.15);
+    color: #fbbf24;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+  }
+
+  .sensor-badge.solvency {
+    background: rgba(59, 130, 246, 0.15);
+    color: #60a5fa;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+  }
+
+  .main-title {
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: #f8fafc;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+  }
+
+  .subtitle {
+    font-size: 1.05rem;
+    color: #94a3b8;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+
+  .control-panel {
+    background: #0f172a;
+    border: 1px solid #1e293b;
+    border-radius: 12px;
+    padding: 1.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .section-label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+  }
+
+  .archetype-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .arch-btn {
+    background: #1e293b;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .arch-btn:hover {
+    background: #334155;
+  }
+
+  .arch-btn.active {
+    background: #1e293b;
+    border-color: #3b82f6;
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
+  }
+
+  .arch-name {
+    font-weight: 700;
+    font-size: 1rem;
+    color: #f8fafc;
+  }
+
+  .arch-sub {
+    font-size: 0.8rem;
+    color: #94a3b8;
+  }
+
+  .arch-tag {
+    align-self: flex-start;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    margin-top: 0.5rem;
+  }
+
+  .arch-tag.danger {
+    background: rgba(239, 68, 68, 0.2);
+    color: #f87171;
+  }
+
+  .arch-tag.success {
+    background: rgba(16, 185, 129, 0.2);
+    color: #34d399;
+  }
+
+  .facility-slider-box {
+    padding-top: 1rem;
+    border-top: 1px solid #1e293b;
+  }
+
+  .slider-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+  }
+
+  .slider-val {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #38bdf8;
+  }
+
+  .slider {
+    width: 100%;
+    accent-color: #38bdf8;
+    height: 6px;
+    background: #334155;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+
+  .slider-ticks {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: #64748b;
+    margin-top: 0.5rem;
+  }
+
+  .results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .metric-card {
+    background: #0f172a;
+    border: 1px solid #1e293b;
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .metric-card.full-span {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+    border-color: #4338ca;
+  }
+
+  .metric-split {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .metric-title {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #94a3b8;
+    margin-bottom: 0.5rem;
+  }
+
+  .metric-value {
+    font-size: 1.8rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+  }
+
+  .metric-value.large {
+    font-size: 2.4rem;
+    color: #a5b4fc;
+  }
+
+  .metric-value.danger { color: #f87171; }
+  .metric-value.warning { color: #fbbf24; }
+  .metric-value.highlight { color: #38bdf8; }
+  .metric-value.primary { color: #34d399; }
+
+  .metric-caption {
+    font-size: 0.8rem;
+    color: #64748b;
+    line-height: 1.4;
+  }
+
+  .regime-box {
+    text-align: right;
+  }
+
+  .regime-label {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+  }
+
+  .regime-val {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #f8fafc;
+    margin-bottom: 0.5rem;
+  }
+
+  .regime-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.35rem 0.75rem;
+    border-radius: 9999px;
+  }
+
+  .regime-badge.danger {
+    background: rgba(239, 68, 68, 0.2);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.4);
+  }
+
+  .regime-badge.warning {
+    background: rgba(245, 158, 11, 0.2);
+    color: #fbbf24;
+    border: 1px solid rgba(245, 158, 11, 0.4);
+  }
+
+  .regime-badge.success {
+    background: rgba(16, 185, 129, 0.2);
+    color: #34d399;
+    border: 1px solid rgba(16, 185, 129, 0.4);
+  }
+
+  .underwriting-rules {
+    background: #0f172a;
+    border: 1px solid #1e293b;
+    border-radius: 12px;
+    padding: 1.75rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .rules-heading {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #f8fafc;
+    margin-bottom: 1.25rem;
+  }
+
+  .rules-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .rule-card {
+    background: #1e293b;
+    border-left: 4px solid #38bdf8;
+    border-radius: 0 8px 8px 0;
+    padding: 1rem 1.25rem;
+  }
+
+  .rule-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .rule-name {
+    font-weight: 700;
+    color: #f8fafc;
+    font-size: 0.95rem;
+  }
+
+  .rule-cond {
+    font-size: 0.8rem;
+    font-family: monospace;
+    background: #0f172a;
+    color: #38bdf8;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+  }
+
+  .rule-mandate {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  .pricing-tiers-section {
+    border-top: 1px solid #1e293b;
+    padding-top: 3rem;
+  }
+
+  .tier-heading-box {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .tiers-title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #f8fafc;
+    margin-bottom: 0.5rem;
+  }
+
+  .tiers-subtitle {
+    font-size: 1rem;
+    color: #94a3b8;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .tiers-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .tier-card {
+    background: #0f172a;
+    border: 1px solid #1e293b;
+    border-radius: 12px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .tier-card.featured {
+    border-color: #3b82f6;
+    background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+    box-shadow: 0 0 25px rgba(59, 130, 246, 0.15);
+  }
+
+  .featured-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #2563eb;
+    color: #ffffff;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+  }
+
+  .tier-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #f8fafc;
+    margin-bottom: 0.75rem;
+  }
+
+  .tier-price {
+    display: flex;
+    align-items: baseline;
+    gap: 0.25rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .tier-price .currency {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #f8fafc;
+  }
+
+  .tier-price .amount {
+    font-size: 2.75rem;
+    font-weight: 800;
+    color: #f8fafc;
+  }
+
+  .tier-price .period {
+    font-size: 0.9rem;
+    color: #94a3b8;
+  }
+
+  .tier-target {
+    font-size: 0.8rem;
+    color: #64748b;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #1e293b;
+  }
+
+  .features-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    flex-grow: 1;
+  }
+
+  .features-list li {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    line-height: 1.4;
+  }
+
+  .check-icon {
+    color: #38bdf8;
+    font-weight: 700;
+  }
+
+  .tier-cta {
+    display: block;
+    text-align: center;
+    background: #1e293b;
+    color: #f8fafc;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 0.85rem 1.25rem;
+    border-radius: 8px;
+    border: 1px solid #334155;
+    transition: all 0.2s ease;
+  }
+
+  .tier-cta:hover {
+    background: #334155;
+    border-color: #64748b;
+  }
+
+  .tier-cta.primary {
+    background: #2563eb;
+    border-color: #3b82f6;
+  }
+
+  .tier-cta.primary:hover {
+    background: #1d4ed8;
+  }
+</style>

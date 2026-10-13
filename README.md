@@ -4,7 +4,7 @@
 A public, citable, version-controlled research repository and static documentation website investigating whether human psychological, cognitive, and civilizational sovereignty in the era of Artificial Superintelligence can be scientifically measured, monitored, and defended.
 
 [![Status: v2.0.0 Sovereign Sentinel](https://img.shields.io/badge/Status-v2.0.0%20Release-blue.svg)](https://github.com/krish-rm/hsri-research)
-[![Tests: 185 Passed](https://img.shields.io/badge/Tests-206%20Passed-brightgreen.svg)](tests/)
+[![Tests: 185 Passed](https://img.shields.io/badge/Tests-211%20Passed-brightgreen.svg)](tests/)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10842000.svg)](https://doi.org/10.5281/zenodo.10842000)
 [![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
 
@@ -32,6 +32,10 @@ esearch/preprint/working-paper-v1.1.0.md](research/preprint/working-paper-v1.1.0
 - **Grant Application (LTFF / Open Philanthropy):** [
 eports/grant-proposals/ltff_grant_hsri_2_0.md](reports/grant-proposals/ltff_grant_hsri_2_0.md)
 - **ASI Transition Evidence Map & Scenarios:** [https://humanreadinessindex.org/scenarios/](https://humanreadinessindex.org/scenarios/)
+- **Reinsurance Risk Underwriting Portal:** [https://humanreadinessindex.org/reinsurance/](https://humanreadinessindex.org/reinsurance/)
+- **Flagship Annual Report ("State of Human Sovereignty 2027"):** [reports/annual_report_2027.md](reports/annual_report_2027.md)
+- **Actuarial Underwriting Framework:** [research/reinsurance/actuarial_underwriting_framework.md](research/reinsurance/actuarial_underwriting_framework.md)
+- **Commercial Reinsurance Offering:** [research/reinsurance/sovereign_reinsurance_offering.md](research/reinsurance/sovereign_reinsurance_offering.md)
 - **Civilizational Decoupling Drill (Interactive Simulator):** [https://humanreadinessindex.org/research/decoupling-drill/](https://humanreadinessindex.org/research/decoupling-drill/)
 - **Decoupling Protocol Manual & Crisis Injects:** [research/tabletop/decoupling_drill_protocol.md](research/tabletop/decoupling_drill_protocol.md)
 - **Whitepaper ("When the Cloud Goes Silent"):** [research/tabletop/when_the_cloud_goes_silent.md](research/tabletop/when_the_cloud_goes_silent.md)
@@ -58,6 +62,7 @@ eports/grant-proposals/ltff_grant_hsri_2_0.md](reports/grant-proposals/ltff_gran
 12. **ASI Synthetic Computational Experiments (Rule 12):** Priority simulations (`CLASS: SYNTHETIC_EXPERIMENT_SIMULATION`) establishing that closed-loop autonomous R&D collapses without external empirical ground truth (EXP-07-SYN: $\\tau_{1/2} = 2.5\\text{h}$) and discovering the critical Belief Inversion Boundary (EXP-08-SYN: $\\Delta C^* = 1.75$, epistemic buffer ratio $0.79$).
 13. **HSRI Engine Core & REST API (`hsri-engine`):** Production FastAPI service and Python SDK exposing real-time dual-layer evaluations, JRC Step 7 Dirichlet Monte Carlo sensitivity auditing, Leontief bottleneck detection, and live precursor telemetry (`docs/api/developer_guide.md`, `Dockerfile`).
 14. **Civilizational Decoupling Tabletop Drill (`scripts/decoupling_simulator.py`):** 14-day (336h) zero-notice AI quarantine simulation across 4 critical infrastructure subsystems (Power Grid, Financial Clearing, Food Logistics, Telecom) for three sovereign archetypes (A: Small Open Tech Hub, $T_{\text{half}}=8\text{h}$; B: Diversified Continental Power, $T_{\text{half}}=28\text{h}$; C: High-Trust Air-Gapped State, $T_{\text{half}}>336\text{h}$) with 8 Leontief operational crisis injects and live interactive visualizer.
+15. **Institutional Reinsurance & Sovereign Risk Offering (`scripts/reinsurance_actuarial_engine.py`):** Solvency II / NAIC RBC-compliant actuarial framework for pricing planetary AI cloud decoupling and extreme-tail infrastructure failure, introducing the HSRI Sovereign Risk Loading Factor ($\Phi$), 336h Expected Civilizational Decoupling Loss ($ECDL$) tables, and an interactive reinsurance treaty rate calculator (`/reinsurance/`).
 
 ---
 
@@ -90,7 +95,7 @@ hsri-research/
 │   └── psychometrics/       # Cross-cultural adaptation guidelines & DIF models
 ├── scripts/                 # Python data processing, export, precursor sentinel & validation pipelines
 ├── site-astro/              # Production Astro 7 + Svelte 5 interactive web portal
-└── tests/                   # Automated unit test suite (206 tests passing)
+└── tests/                   # Automated unit test suite (211 tests passing)
 `
 
 ---

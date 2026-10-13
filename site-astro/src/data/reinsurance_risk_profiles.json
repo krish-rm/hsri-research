@@ -1,0 +1,129 @@
+{
+  "metadata": {
+    "title": "HSRI 2.0 Reinsurance & Sovereign Risk Underwriting Telemetry",
+    "version": "2.5.0",
+    "author": "Krishnakumar Radhakrishnan",
+    "cors_oversight_scale": 10.0,
+    "annual_catastrophic_decoupling_probability": 0.1728,
+    "solvency_framework": "Solvency II / NAIC Risk-Based Capital (RBC) Compliant"
+  },
+  "profiles": {
+    "archetype_a": {
+      "archetype": "archetype_a",
+      "name": "Small Open Tech Hub",
+      "representative_states": [
+        "Singapore",
+        "Hong Kong",
+        "UAE"
+      ],
+      "decoupling_half_life_hours": 8.0,
+      "v_asi": 0.742,
+      "regime": "CATASTROPHIC_COLLAPSE",
+      "14_day_cumulative_loss_pct": 94.2,
+      "expected_gross_loss_billion_usd": 9.42,
+      "annual_event_probability": 0.1728,
+      "annual_expected_loss_billion_usd": 1.6278,
+      "actuarial_risk_loading_factor": 2.096,
+      "sovereignty_discount_or_surcharge_pct": 109.6,
+      "adjusted_reinsurance_rate_pct": 0.9432,
+      "annual_premium_for_10b_facility_usd_million": 94.32,
+      "solvency_ii_capital_charge_billion_usd": 5.728
+    },
+    "archetype_b": {
+      "archetype": "archetype_b",
+      "name": "Diversified Continental Power",
+      "representative_states": [
+        "United States",
+        "Germany",
+        "Japan"
+      ],
+      "decoupling_half_life_hours": 28.0,
+      "v_asi": 0.541,
+      "regime": "SEVERE_SYSTEMIC_CONTRACTION",
+      "14_day_cumulative_loss_pct": 86.8,
+      "expected_gross_loss_billion_usd": 8.68,
+      "annual_event_probability": 0.1728,
+      "annual_expected_loss_billion_usd": 1.4999,
+      "actuarial_risk_loading_factor": 1.753,
+      "sovereignty_discount_or_surcharge_pct": 75.3,
+      "adjusted_reinsurance_rate_pct": 0.7888,
+      "annual_premium_for_10b_facility_usd_million": 78.88,
+      "solvency_ii_capital_charge_billion_usd": 4.827
+    },
+    "archetype_c": {
+      "archetype": "archetype_c",
+      "name": "High-Trust Air-Gapped State",
+      "representative_states": [
+        "Switzerland",
+        "Finland",
+        "Sweden"
+      ],
+      "decoupling_half_life_hours": 420.0,
+      "v_asi": -0.05,
+      "regime": "CONTROLLED_ANALOG_PLATEAU",
+      "14_day_cumulative_loss_pct": 18.4,
+      "expected_gross_loss_billion_usd": 1.84,
+      "annual_event_probability": 0.1728,
+      "annual_expected_loss_billion_usd": 0.318,
+      "actuarial_risk_loading_factor": 0.35,
+      "sovereignty_discount_or_surcharge_pct": -65.0,
+      "adjusted_reinsurance_rate_pct": 0.1575,
+      "annual_premium_for_10b_facility_usd_million": 15.75,
+      "solvency_ii_capital_charge_billion_usd": 0.457
+    }
+  },
+  "subscription_tiers": {
+    "tier_1_sovereign_feed": {
+      "name": "Sovereign Intelligence Feed",
+      "annual_price_usd": 75000,
+      "target": "Sovereign Wealth Funds & Economic Ministries",
+      "deliverables": [
+        "Real-time CORS 10.0 hourly webhooks & early-warning alerts",
+        "14 Observable ASI Precursor Tripwire streaming API",
+        "Continuous 39-country Layer 1 & Layer 2 sovereignty re-calibrations",
+        "Quarterly executive horizon brief on latent model drift"
+      ]
+    },
+    "tier_2_reinsurance_underwriting": {
+      "name": "Institutional Reinsurance Underwriting Dossier",
+      "annual_price_usd": 120000,
+      "target": "Reinsurance Underwriters (Lloyd's, Munich Re, Swiss Re)",
+      "deliverables": [
+        "Everything in Tier 1",
+        "Full 39-country ECDL loss frequency & severity curves",
+        "Leontief cross-sector cascading failure correlation matrices",
+        "Quarterly tailored portfolio stress-testing & capital reserve audits",
+        "Underwriting policy wording & 'AI Force Majeure' exclusionary clauses"
+      ]
+    },
+    "tier_3_cabinet_enclave": {
+      "name": "National Security Cabinet Dedicated Enclave",
+      "annual_price_usd": 250000,
+      "target": "National Security Councils & Critical Infrastructure Agencies",
+      "deliverables": [
+        "Everything in Tier 2",
+        "On-premise, air-gapped hsri-engine Docker microservice deployment",
+        "Classified national SCADA / banking telemetry ingestion pipelines",
+        "Annual facilitator-led live civilizational decoupling drill exercise",
+        "Direct 24/7 sovereign advisory access to Lead Principal Investigator"
+      ]
+    }
+  },
+  "underwriting_guidelines": [
+    {
+      "rule": "RULE-UW-01: The Leontief Floor Exclusion",
+      "condition": "If V_ASI >= 0.50 and T_half < 24.0h",
+      "mandate": "Uninsurable at standard cyber market rates. Require 2.2x - 3.5x sovereign risk loading and mandatory Tier 3 tabletop certification."
+    },
+    {
+      "rule": "RULE-UW-02: Sovereign Resilience Credit",
+      "condition": "If T_half >= 168.0h and Analog Fallback Capacity >= 60%",
+      "mandate": "Grant 45% - 65% premium discount and reduce Solvency II capital charge by 50%."
+    },
+    {
+      "rule": "RULE-UW-03: Multi-Agent Cascade Contingency",
+      "condition": "If CORS >= 8.5",
+      "mandate": "Underwriters must mandate air-gapped deterministic kill-switches for all automated clearinghouse settlement feeds."
+    }
+  ]
+}

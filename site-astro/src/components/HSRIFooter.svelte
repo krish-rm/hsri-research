@@ -25,6 +25,7 @@
     ],
     'Research': [
       { name: 'Decoupling Drill', href: `${base}/research/decoupling-drill/` },
+      { name: 'Reinsurance Risk', href: `${base}/reinsurance/` },
       { name: 'Research Updates', href: `${base}/research-updates/` },
       { name: 'Methodology Docs', href: 'https://github.com/krish-rm/hsri-research/tree/main/docs' },
       { name: 'Research Roadmap', href: 'https://github.com/krish-rm/hsri-research/blob/main/docs/08-roadmap.md' },
