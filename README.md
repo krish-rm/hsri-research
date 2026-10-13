@@ -4,7 +4,7 @@
 A public, citable, version-controlled research repository and static documentation website investigating whether human psychological, cognitive, and civilizational sovereignty in the era of Artificial Superintelligence can be scientifically measured, monitored, and defended.
 
 [![Status: v2.0.0 Sovereign Sentinel](https://img.shields.io/badge/Status-v2.0.0%20Release-blue.svg)](https://github.com/krish-rm/hsri-research)
-[![Tests: 185 Passed](https://img.shields.io/badge/Tests-185%20Passed-brightgreen.svg)](tests/)
+[![Tests: 185 Passed](https://img.shields.io/badge/Tests-190%20Passed-brightgreen.svg)](tests/)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10842000.svg)](https://doi.org/10.5281/zenodo.10842000)
 [![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
 
@@ -85,7 +85,7 @@ hsri-research/
 │   └── psychometrics/       # Cross-cultural adaptation guidelines & DIF models
 ├── scripts/                 # Python data processing, export, precursor sentinel & validation pipelines
 ├── site-astro/              # Production Astro 7 + Svelte 5 interactive web portal
-└── tests/                   # Automated unit test suite (185 tests passing)
+└── tests/                   # Automated unit test suite (190 tests passing)
 `
 
 ---
@@ -110,7 +110,7 @@ npm run build
 `ash
 uv run pytest
 `
-All 185 tests execute in < 10 seconds.
+All 190 tests execute in < 10 seconds.
 
 ---
 
