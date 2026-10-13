@@ -16,6 +16,7 @@
     ],
     'Resources': [
       { name: 'Country Profiles', href: `${base}/countries/` },
+      { name: 'Precursor Seismograph', href: `${base}/seismograph/` },
       { name: 'ASI Scenarios', href: `${base}/scenarios/` },
       { name: 'Behavioral Lab', href: `${base}/experiments/` },
       { name: 'Timeline Explorer', href: `${base}/timeline/` },
@@ -58,7 +59,7 @@
           </svg>
           <div>
             <h3 class="footer-title">Human Superintelligence Readiness Index</h3>
-            <p class="footer-tagline">v0.3-dev Public Preview</p>
+            <p class="footer-tagline">v2.4.0 HSRI 2.0 Sovereign Sentinel</p>
           </div>
         </div>
         <p class="footer-description">
@@ -132,6 +133,7 @@
     <!-- Bottom section -->
     <div class="footer-bottom">
       <div class="footer-links">
+        <a href="https://doi.org/10.5281/zenodo.10842000" class="footer-link" target="_blank" rel="noopener noreferrer">Zenodo DOI</a>
         <a href={`${base}/methodology/#limitations`} class="footer-link">Disclaimer</a>
         <a href="https://github.com/krish-rm/hsri-research/blob/main/docs/06-cross-cultural-and-ethics.md" class="footer-link" target="_blank" rel="noopener noreferrer">Ethics Statement</a>
         <a href="https://github.com/krish-rm/hsri-research/blob/main/CODE_OF_CONDUCT.md" class="footer-link" target="_blank" rel="noopener noreferrer">Code of Conduct</a>
@@ -139,7 +141,7 @@
       </div>
 
       <div class="copyright">
-        <p>&copy; 2026 HSRI Research. Licensed under CC BY-SA 4.0. <a href="https://github.com/krish-rm/hsri-research/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">View repository license</a>.</p>
+        <p>&copy; 2026 HSRI Research. DOI: <a href="https://doi.org/10.5281/zenodo.10842000" target="_blank" rel="noopener noreferrer">10.5281/zenodo.10842000</a>. Licensed under CC BY-SA 4.0. <a href="https://github.com/krish-rm/hsri-research/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">View repository license</a>.</p>
       </div>
     </div>
   </div>

@@ -1,26 +1,32 @@
 cff-version: 1.2.0
 message: "If you use HSRI data or methodology, please cite as below."
 type: dataset
-title: "Human Superintelligence Readiness Index (HSRI)"
-version: "1.1.0"
-date-released: "2026-10-11"
+title: "Human Superintelligence Readiness Index (HSRI) 2.0: The Sovereignty Sentinel & ASI Precursor Seismograph"
+version: "2.0.0"
+date-released: "2026-10-13"
 url: "https://humanreadinessindex.org/"
 repository-code: "https://github.com/krish-rm/hsri-research"
+doi: "10.5281/zenodo.10842000"
 license: CC-BY-SA-4.0
 abstract: >
-  The Sovereign Human Agency Imperative: An Empirical Benchmark, Psychometric Foundation,
-  and Transition Evidence Map for National Preparedness in the Era of Advanced AI.
-  Synthesizes 780 macro observations across 39 nations, a 9-paradigm behavioral experiment battery
-  (N=1,080), 4-factor latent CFA (incremental validity Delta R^2 = +0.4870), cross-cultural scalar invariance
-  (N=2,000), longitudinal stability (N=600), 7-provider frontier multi-agent consensus, in-situ operator
-  oversight across 4 sectors, OECD/JRC 7-step composite audit, dynamic Kalman filtering, and ASI transition simulation batteries.
+  HSRI 2.0: The Sovereignty Sentinel & ASI Precursor Seismograph.
+  Formalizes the Dual-Layer Architecture (Layer 1 Adoption Baseline vs. Layer 2 ASI Sovereignty Leontief Floor beta=0.5),
+  the Verification Latency Wedge Accelerometer, the Cognitive Oversight Richter Scale (CORS 1.0-10.0), and three continuous
+  telemetry precursor streams (Autonomy Seismometer, Latent Drift Detector, Verification Wedge).
+  Synthesizes 780 macro observations across 39 benchmark nations exposing High-Compute Vulnerability Traps, JRC Step 7
+  Monte Carlo audits (W=0.9986), psychometric CFA validation, and 14 observable ASI precursor tripwires.
 authors:
   - name: "HSRI Research Consortium"
+  - family-names: "Ramanathan"
+    given-names: "Krishnakumar"
+    affiliation: "HSRI Research Consortium"
 keywords:
   - AI readiness
-  - human-AI interaction
-  - cognitive discernment
-  - automation bias
-  - psychometrics
-  - benchmark
   - superintelligence
+  - sovereignty sentinel
+  - verification latency wedge
+  - cognitive oversight richter scale
+  - precursor seismograph
+  - non-compensatory aggregation
+  - AI governance
+  - open science

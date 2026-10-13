@@ -1,7 +1,7 @@
 {
-  "title": "Human Superintelligence Readiness Index (HSRI): Empirical Benchmark, Psychometric Foundation, and Transition Evidence Map",
+  "title": "Human Superintelligence Readiness Index (HSRI) 2.0: The Sovereignty Sentinel, Verification Latency Wedge, and Dual-Layer Architecture",
   "upload_type": "software",
-  "description": "Comprehensive empirical benchmark, psychometric architecture, and transition evidence map for national preparedness under advanced AI (v1.1.0 release). Synthesizes 780 macro observations across 39 nations, a 9-paradigm behavioral experiment battery (N=1,080), 4-factor latent CFA, cross-cultural scalar invariance (N=2,000), longitudinal stability (N=600), 7-provider frontier multi-agent consensus, in-situ operator oversight across 4 sectors, OECD/JRC econometric audit, dynamic Kalman ingestion, and ASI transition simulation batteries.",
+  "description": "Comprehensive empirical benchmark, Dual-Layer Sovereignty Engine, and live telemetry precursor seismograph for national preparedness under advanced AI (v2.0.0 release). Formalizes the Dual-Layer Architecture (Layer 1 Adoption Baseline vs. Layer 2 ASI Sovereignty Leontief Floor beta=0.5), the Verification Latency Wedge Accelerometer, the Cognitive Oversight Richter Scale (CORS 1.0-10.0), and three continuous precursor streams (Autonomy Seismometer, Latent Drift Detector, Verification Wedge). Harmonizes 780 macro observations across 39 benchmark nations exposing High-Compute Vulnerability Traps, JRC Step 7 Monte Carlo audits (W=0.9986), 14 observable ASI precursor tripwires, and the Civilizational Air-Gap Decoupling Simulator.",
   "creators": [
     {
       "name": "Ramanathan, Krishnakumar",
@@ -10,19 +10,31 @@
   ],
   "access_right": "open",
   "license": "CC-BY-SA-4.0",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "keywords": [
     "artificial intelligence",
     "superintelligence readiness",
-    "cognitive discernment",
-    "automation bias",
-    "psychometrics",
+    "sovereignty sentinel",
+    "verification latency wedge",
+    "cognitive oversight richter scale",
+    "precursor seismograph",
+    "non-compensatory aggregation",
     "AI governance",
     "open science"
   ],
   "related_identifiers": [
     {
       "identifier": "https://humanreadinessindex.org",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    },
+    {
+      "identifier": "https://humanreadinessindex.org/seismograph/",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    },
+    {
+      "identifier": "https://github.com/krish-rm/hsri-research",
       "relation": "isSupplementTo",
       "scheme": "url"
     }
