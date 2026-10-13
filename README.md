@@ -4,7 +4,7 @@
 A public, citable, version-controlled research repository and static documentation website investigating whether human psychological, cognitive, and civilizational sovereignty in the era of Artificial Superintelligence can be scientifically measured, monitored, and defended.
 
 [![Status: v2.0.0 Sovereign Sentinel](https://img.shields.io/badge/Status-v2.0.0%20Release-blue.svg)](https://github.com/krish-rm/hsri-research)
-[![Tests: 185 Passed](https://img.shields.io/badge/Tests-190%20Passed-brightgreen.svg)](tests/)
+[![Tests: 185 Passed](https://img.shields.io/badge/Tests-201%20Passed-brightgreen.svg)](tests/)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10842000.svg)](https://doi.org/10.5281/zenodo.10842000)
 [![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
 
@@ -52,7 +52,8 @@ eports/grant-proposals/ltff_grant_hsri_2_0.md](reports/grant-proposals/ltff_gran
 9. **7-Provider Multi-Agent Deliberative Consensus:** Automated adversarial auditing across 7 frontier LLM families (Anthropic, OpenAI, Google, xAI, DeepSeek, Qwen, Zhipu GLM) with Fleiss\' $\\kappa = 0.666$ and low provider concentration ( = 0.1429$).
 10. **Ecological Validity & OECD Econometric Audit:** In-situ operator oversight across 4 professions (Finance, Cybersecurity, Medicine, Legal; =500, 20,000$ trials, {\\text{situ}} = 0.8308$, $\\Delta T_{\\text{wedge}} = 104.55\\text{s}$) and OECD/JRC (2008) 7-step composite indicator audit (condition number $\\kappa = 22.59$, Monte Carlo rank stability $\\bar{\\rho}_{\\text{MC}} = 0.9986$).
 11. **Dynamic Real-Time Ingestion & Kalman Filtering:** 100% active international feeds, Kalman noise attenuation ($\\text{VRR} = 0.2020$), Population Stability Index drift alerting (baseline $\\text{PSI} = 0.0060$, shock $\\text{PSI} = 0.6182$).
-12. **ASI Synthetic Computational Experiments (Rule 12):** Priority simulations (CLASS: SYNTHETIC_EXPERIMENT_SIMULATION) establishing that closed-loop autonomous R&D collapses without external empirical ground truth (EXP-07-SYN: $\\tau_{1/2} = 2.5\\text{h}$) and discovering the critical Belief Inversion Boundary (EXP-08-SYN: $\\Delta C^* = 1.75$, epistemic buffer ratio .79$).
+12. **ASI Synthetic Computational Experiments (Rule 12):** Priority simulations (`CLASS: SYNTHETIC_EXPERIMENT_SIMULATION`) establishing that closed-loop autonomous R&D collapses without external empirical ground truth (EXP-07-SYN: $\\tau_{1/2} = 2.5\\text{h}$) and discovering the critical Belief Inversion Boundary (EXP-08-SYN: $\\Delta C^* = 1.75$, epistemic buffer ratio $0.79$).
+13. **HSRI Engine Core & REST API (`hsri-engine`):** Production FastAPI service and Python SDK exposing real-time dual-layer evaluations, JRC Step 7 Dirichlet Monte Carlo sensitivity auditing, Leontief bottleneck detection, and live precursor telemetry (`docs/api/developer_guide.md`, `Dockerfile`). Priority simulations (CLASS: SYNTHETIC_EXPERIMENT_SIMULATION) establishing that closed-loop autonomous R&D collapses without external empirical ground truth (EXP-07-SYN: $\\tau_{1/2} = 2.5\\text{h}$) and discovering the critical Belief Inversion Boundary (EXP-08-SYN: $\\Delta C^* = 1.75$, epistemic buffer ratio .79$).
 
 ---
 
@@ -85,8 +86,22 @@ hsri-research/
 │   └── psychometrics/       # Cross-cultural adaptation guidelines & DIF models
 ├── scripts/                 # Python data processing, export, precursor sentinel & validation pipelines
 ├── site-astro/              # Production Astro 7 + Svelte 5 interactive web portal
-└── tests/                   # Automated unit test suite (190 tests passing)
+└── tests/                   # Automated unit test suite (201 tests passing)
 `
+
+---
+
+## Running the Engine API Locally
+
+```bash
+# Launch FastAPI REST server via CLI
+uv run python -m hsri_engine.cli serve --host 127.0.0.1 --port 8000
+
+# Or run evaluation via CLI
+uv run python -m hsri_engine.cli evaluate --id DEF-01 --p1 0.9 --p2 0.7 --p3 0.8 --p4 0.95
+```
+
+Interactive OpenAPI Swagger docs available at `http://localhost:8000/docs`.
 
 ---
 
@@ -110,7 +125,7 @@ npm run build
 `ash
 uv run pytest
 `
-All 190 tests execute in < 10 seconds.
+All 201 tests execute in < 10 seconds.
 
 ---
 

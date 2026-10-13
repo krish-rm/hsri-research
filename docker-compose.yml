@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  hsri-engine:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: hsri/engine-core:v2.4.0
+    container_name: hsri-engine-core
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    environment:
+      - PYTHONUNBUFFERED=1
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
