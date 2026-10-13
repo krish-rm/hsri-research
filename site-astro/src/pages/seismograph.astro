@@ -7,7 +7,7 @@ import HSRIFooter from '../components/HSRIFooter.svelte';
 
 <HSRILayout title="ASI Precursor Seismograph & Sovereignty Sentinel — HSRI Benchmark">
   <div class="seismograph-page">
-    <HSRIHeader client:load />
+    <HSRIHeader client:load currentPath={Astro.url.pathname} />
 
     <div class="page-intro container">
       <div class="breadcrumb">

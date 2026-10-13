@@ -7,7 +7,7 @@ import HSRIFooter from '../components/HSRIFooter.svelte';
 
 <HSRILayout title="Country Comparison Tool - HSRI">
   <div class="compare-page">
-    <HSRIHeader client:load />
+    <HSRIHeader client:load currentPath={Astro.url.pathname} />
     <div class="page-header">
       <h1>Country Comparison Tool</h1>
       <p class="subtitle">Compare readiness scores and metrics across multiple countries</p>

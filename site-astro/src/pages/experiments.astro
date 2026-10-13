@@ -7,7 +7,7 @@ import HSRIFooter from '../components/HSRIFooter.svelte';
 
 <HSRILayout title="Behavioral Laboratory & Latency Wedge - HSRI Benchmark">
   <div class="experiments-page">
-    <HSRIHeader client:load />
+    <HSRIHeader client:load currentPath={Astro.url.pathname} />
     
     <div class="page-header container">
       <h1>Behavioral Laboratory & Verification Latency</h1>

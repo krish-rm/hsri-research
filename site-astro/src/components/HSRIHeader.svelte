@@ -1,6 +1,11 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
+
+  export let currentPath = '';
+
   // Component state
   let isMenuOpen = false;
+  let isScrolled = false;
 
   function toggleMenu(event?: Event) {
     if (event) {
@@ -39,14 +44,42 @@
     avgCoverage: 96.5,
     lastUpdated: '2026-09-22',
   };
+
+  onMount(() => {
+    if (typeof window !== 'undefined') {
+      currentPath = window.location.pathname;
+
+      const handleScroll = () => {
+        isScrolled = window.scrollY > 20;
+      };
+
+      window.addEventListener('scroll', handleScroll, { passive: true });
+      handleScroll();
+
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }
+  });
+
+  function isActive(href: string): boolean {
+    if (!currentPath) return false;
+    const p = currentPath.replace(/\/$/, '') || '/';
+    const h = href.replace(/\/$/, '') || '/';
+
+    if (h === '/' || h === base || h === `${base}/`) {
+      return p === '/' || p === base;
+    }
+    return p === h || p.startsWith(h + '/');
+  }
 </script>
 
 <header class="hsri-header">
-  <div class="container">
+  <div class="header-outer-container">
     <div class="header-content">
-      <!-- Logo and Title -->
+      <!-- Logo and Title shifted to the left edge -->
       <a href={`${base}/`} class="header-brand" style="text-decoration: none; color: inherit;">
-        <svg class="logo" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg class="logo" width="38" height="38" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle cx="20" cy="20" r="19" stroke="var(--primary-color)" stroke-width="2"/>
           <path d="M20 5 L15 15 L5 20 L15 25 L20 35 L25 25 L35 20 L25 15 Z" fill="var(--primary-color)" opacity="0.8"/>
           <circle cx="20" cy="20" r="8" fill="white"/>
@@ -57,12 +90,17 @@
         </div>
       </a>
 
-      <!-- Navigation -->
+      <!-- Navigation spans horizontally to the right of brand with ample space -->
       <nav class="main-nav" role="navigation">
         <ul class="nav-list">
           {#each navItems as item}
             <li class="nav-item">
-              <a href={item.href} class="nav-link">
+              <a
+                href={item.href}
+                class="nav-link"
+                class:active={isActive(item.href)}
+                aria-current={isActive(item.href) ? 'page' : undefined}
+              >
                 {item.name}
               </a>
             </li>
@@ -93,8 +131,8 @@
       </nav>
     </div>
 
-    <!-- Stats bar -->
-    <div class="stats-bar">
+    <!-- Stats bar: Disappears smoothly on scroll -->
+    <div class="stats-bar" class:hidden-on-scroll={isScrolled}>
       <div class="stats-container">
         <div class="stat-item" title="39 of 195 recognized nations benchmarked (OECD/high-income preview cohort; 86 unrated in coverage audit)">
           <span class="stat-label">Benchmark Scope</span>
@@ -125,7 +163,12 @@
       <ul class="mobile-nav-list">
         {#each navItems as item}
           <li class="mobile-nav-item">
-            <a href={item.href} class="mobile-nav-link" on:click={closeMenu}>
+            <a
+              href={item.href}
+              class="mobile-nav-link"
+              class:active={isActive(item.href)}
+              on:click={closeMenu}
+            >
               {item.name}
             </a>
           </li>
@@ -137,24 +180,38 @@
 
 <style>
   .hsri-header {
-    background-color: white;
+    background-color: #ffffff;
     border-bottom: 2px solid var(--border-color);
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 1000;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    width: 100%;
+  }
+
+  /* Full-width container shifting brand to the left and eliminating cutoffs */
+  .header-outer-container {
+    width: 100%;
+    max-width: 100%;
+    padding: 0 1.5rem;
+    box-sizing: border-box;
   }
 
   .header-content {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
-    padding: var(--spacing-md) 0;
+    gap: clamp(1rem, 2vw, 2.5rem);
+    padding: 0.65rem 0;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .header-brand {
     display: flex;
     align-items: center;
-    gap: var(--spacing-md);
+    gap: 0.65rem;
+    flex-shrink: 0;
   }
 
   .logo {
@@ -168,56 +225,88 @@
 
   .site-title {
     margin: 0;
-    font-size: var(--font-size-xl);
-    font-weight: 700;
+    font-size: 1.4rem;
+    font-weight: 800;
     color: var(--primary-color);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
   }
 
   .site-tagline {
     margin: 0;
-    font-size: var(--font-size-xs);
+    font-size: 0.72rem;
     color: var(--text-secondary);
+    white-space: nowrap;
+    line-height: 1.2;
   }
 
   .main-nav {
     display: flex;
     align-items: center;
+    flex: 1;
+    justify-content: flex-start;
+    min-width: 0;
   }
 
   .nav-list {
     display: flex;
-    gap: var(--spacing-lg);
+    align-items: center;
+    gap: clamp(0.35rem, 0.85vw, 1.1rem);
     margin: 0;
     padding: 0;
     list-style: none;
+    flex-wrap: nowrap;
+  }
+
+  .nav-item {
+    flex-shrink: 0;
   }
 
   .nav-link {
-    color: var(--text-primary);
+    color: #475569;
     text-decoration: none;
     font-weight: 500;
-    transition: color 0.2s;
-    padding: var(--spacing-xs) 0;
+    font-size: clamp(0.85rem, 0.92vw, 0.95rem);
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    padding: 0.35rem 0.55rem;
+    border-radius: 6px;
     position: relative;
+    display: inline-block;
   }
 
   .nav-link:hover {
-    color: var(--accent-color);
+    color: var(--primary-color);
+    background-color: rgba(30, 64, 175, 0.05);
+  }
+
+  /* Active Tab Highlighting */
+  .nav-link.active {
+    color: var(--primary-color);
+    font-weight: 700;
+    background-color: rgba(30, 64, 175, 0.09);
   }
 
   .nav-link::after {
     content: '';
     position: absolute;
     bottom: -2px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: var(--accent-color);
-    transition: width 0.2s;
+    left: 0.55rem;
+    right: 0.55rem;
+    height: 2.5px;
+    background-color: var(--primary-color);
+    border-radius: 2px;
+    transform: scaleX(0);
+    transition: transform 0.2s ease;
   }
 
   .nav-link:hover::after {
-    width: 100%;
+    transform: scaleX(0.7);
+  }
+
+  .nav-link.active::after {
+    transform: scaleX(1);
+    background-color: var(--primary-color);
   }
 
   .mobile-menu-button {
@@ -227,18 +316,36 @@
     padding: var(--spacing-sm);
     cursor: pointer;
     color: var(--text-primary);
+    margin-left: auto;
   }
 
+  /* Disappearing stats bar on scroll */
   .stats-bar {
     background-color: var(--surface-color);
     border-top: 1px solid var(--border-color);
-    padding: var(--spacing-sm) 0;
+    padding: 0.5rem 0;
+    transition: max-height 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.22s ease,
+                padding 0.28s ease,
+                border-color 0.2s ease;
+    max-height: 80px;
+    opacity: 1;
+    overflow: hidden;
+  }
+
+  .stats-bar.hidden-on-scroll {
+    max-height: 0;
+    opacity: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-top: 1px solid transparent;
+    pointer-events: none;
   }
 
   .stats-container {
     display: flex;
     justify-content: center;
-    gap: var(--spacing-xl);
+    gap: clamp(1rem, 3.5vw, var(--spacing-xl));
   }
 
   .stat-item {
@@ -250,29 +357,23 @@
   .stat-label {
     font-size: var(--font-size-xs);
     color: var(--text-secondary);
-    margin-bottom: var(--spacing-xs);
+    margin-bottom: 2px;
   }
 
   .stat-value {
-    font-size: var(--font-size-lg);
-    font-weight: 600;
+    font-size: 1.05rem;
+    font-weight: 700;
     color: var(--primary-color);
   }
 
-  /* Mobile styles */
-  @media (max-width: 768px) {
+  /* Mobile & Tablet styles */
+  @media (max-width: 1024px) {
     .header-content {
-      display: flex;
-      flex-direction: row;
       justify-content: space-between;
-      align-items: center;
-      padding: var(--spacing-sm) 0;
     }
 
     .main-nav {
-      width: auto;
-      display: flex;
-      align-items: center;
+      flex: none;
     }
 
     .nav-list {
@@ -297,7 +398,7 @@
     }
 
     .stats-bar {
-      padding: 0.5rem 0;
+      padding: 0.4rem 0;
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
     }
@@ -331,12 +432,12 @@
       margin: 0;
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
+      gap: 0.5rem;
     }
 
     .mobile-nav-item {
       border-bottom: 1px solid #f1f5f9;
-      padding-bottom: 0.5rem;
+      padding-bottom: 0.35rem;
     }
 
     .mobile-nav-item:last-child {
@@ -347,10 +448,17 @@
     .mobile-nav-link {
       color: var(--text-primary);
       text-decoration: none;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       font-weight: 600;
       display: block;
-      padding: 0.25rem 0;
+      padding: 0.35rem 0.5rem;
+      border-radius: 6px;
+    }
+
+    .mobile-nav-link.active {
+      color: var(--primary-color);
+      background-color: rgba(30, 64, 175, 0.09);
+      font-weight: 700;
     }
 
     .mobile-nav-link:hover {

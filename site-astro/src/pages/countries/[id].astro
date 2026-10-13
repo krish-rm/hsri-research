@@ -36,7 +36,7 @@ function statusSlug(status: string): string {
 
 <HSRILayout title={`${country.name} (${country.code}) - HSRI Profile`}>
   <div class="country-profile-page">
-    <HSRIHeader client:load />
+    <HSRIHeader client:load currentPath={Astro.url.pathname} />
 
     <!-- Breadcrumb & Back navigation -->
     <div class="nav-bar-wrap">

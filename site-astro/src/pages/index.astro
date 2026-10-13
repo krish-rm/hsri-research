@@ -32,7 +32,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 <HSRILayout title="Human Superintelligence Readiness Index (HSRI) - v0.3-dev Benchmark">
   <div class="home-page">
-    <HSRIHeader client:load />
+    <HSRIHeader client:load currentPath={Astro.url.pathname} />
 
     <!-- Preview Release Status Banner (Task 8) -->
     <div class="preview-notice-banner">
