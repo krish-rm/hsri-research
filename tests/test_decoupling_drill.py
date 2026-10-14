@@ -109,3 +109,24 @@ def test_web_portal_components_exist():
     assert "Operation Silent Cloud" in svelte_text
     assert "archetype_a" in svelte_text
     assert "time-slider" in svelte_text
+
+
+PILOT_BRIEF_FILE = REPO_ROOT / "research" / "tabletop" / "institutional_pilot_brief.md"
+PILOT_BRIEF_PDF = REPO_ROOT / "research" / "tabletop" / "institutional_pilot_brief.pdf"
+
+
+def test_institutional_pilot_brief():
+    """Verify depth, partner targeting, and MOU structure in institutional pilot brief."""
+    assert PILOT_BRIEF_FILE.exists(), f"Pilot brief missing at {PILOT_BRIEF_FILE}"
+    assert PILOT_BRIEF_PDF.exists(), f"Pilot brief PDF missing at {PILOT_BRIEF_PDF}"
+
+    text = PILOT_BRIEF_FILE.read_text(encoding="utf-8")
+    assert "RSIS Singapore" in text
+    assert "ETH Zurich" in text
+    assert "MBZUAI" in text
+    assert "Krishnakumar Radhakrishnan" in text
+    assert "10.5281/zenodo.10842000" in text
+    assert "Chatham House Rule" in text
+    assert "HSRI Case Study 01" in text
+    assert "MEMORANDUM OF UNDERSTANDING" in text
+    assert len(text) > 8000
