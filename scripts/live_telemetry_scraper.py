@@ -40,7 +40,7 @@ def fetch_swe_bench() -> dict:
     try:
         r = requests.get(
             "https://api.github.com/repos/princeton-nlp/SWE-bench/commits",
-            params={"path": "docs/leaderboard.json", "per_page": 1},
+            params={"per_page": 1},
             headers=HEADERS,
             timeout=TIMEOUT,
         )
