@@ -283,3 +283,37 @@ Rather than relying on speculative arrival timelines or subjective probabilities
 34. Tien, J., Anand, A., Tuan, Y. R., Shen, Y., Kolter, J. Z., & Nayebi, A. (2026). Uncorrigibility in computer-use agents: Evaluation and mitigation of resistance to intervention. *arXiv:2602.04984*. `[VERIFIED: arXiv, 2026-10-04]`
 35. Vinge, V. (1993). The coming technological singularity: How to survive in the post-human era. *VISION-21 Symposium*, NASA Conference Publication 10129, 11-22. `[VERIFIED: NASA, 2026-10-04]`
 36. Yudkowsky, E. (2013). Intelligence explosion microeconomics. *Machine Intelligence Research Institute*, Technical Report 2013-1. `[VERIFIED: MIRI, 2026-10-04]`
+
+---
+
+### Appendix C: Formal Mathematical Proof of Choquet 2-Additive Capacity Monotonicity
+
+In Section 5.4, HSRI introduces the discrete Choquet integral with respect to a 2-additive capacity $\mu$ on the set of pillars $N = \{P_1, P_2, P_3, P_4\}$:
+$$H_{\text{choq}}(P) = \sum_{i=1}^4 \left( P_{(i)} - P_{(i-1)} \right) \mu(A_{(i)})$$
+where $0 = P_{(0)} \le P_{(1)} \le P_{(2)} \le P_{(3)} \le P_{(4)} \le 1$ are the sorted pillar scores, and $A_{(i)} = \{P_{(i)}, \dots, P_{(4)}\}$.
+
+#### 1. Definition of the 2-Additive Capacity
+A fuzzy measure $\mu: \mathcal{P}(N) \to [0, 1]$ is 2-additive (Grabisch, 1997) if its Möbius transform $m(A) = 0$ for all $|A| > 2$. For any coalition $S \subseteq N$:
+$$\mu(S) = \sum_{i \in S} m(\{i\}) + \sum_{\{i, j\} \subseteq S} m(\{i, j\})$$
+
+In HSRI:
+- Base singleton weights: $m(\{i\}) = w_i = 0.25$ for all $i \in \{1, 2, 3, 4\}$.
+- Asymmetric interaction between Critical Discernment ($P_2$, index 1) and Digital Infrastructure ($P_4$, index 3):
+  - Sub-additive exposure penalty: $m(\{3\}) = w_3 - 0.06 = 0.19$ (technological exposure without discernment).
+  - Synergistic interaction: $m(\{1, 3\}) = +0.06$ (discernment actively validating high compute).
+  - All other pairwise interactions $m(\{i, j\}) = 0$.
+
+#### 2. Verification of Boundary Conditions
+1. $\mu(\emptyset) = 0$ by definition.
+2. For the grand coalition $N = \{1, 2, 3, 4\}$:
+   $$\mu(N) = \sum_{i=1}^4 m(\{i\}) + m(\{1, 3\}) = (0.25 + 0.25 + 0.25 + 0.19) + 0.06 = 0.94 + 0.06 = 1.00$$
+
+#### 3. Verification of Monotonicity ($\mu(A) \le \mu(B)$ for all $A \subseteq B$)
+For 2-additive capacities, monotonicity is guaranteed if and only if:
+$$\forall i \in N, \forall S \subseteq N \setminus \{i\}, \quad \mu(S \cup \{i\}) - \mu(S) \ge 0$$
+Evaluating marginal contributions:
+- If $i \in \{1, 2, 4\}$: marginal contribution is either $w_i = 0.25 \ge 0$ or $w_1 + m(\{1, 3\}) = 0.25 + 0.06 = 0.31 \ge 0$.
+- If $i = 3$ ($P_4$, Infrastructure):
+  - Without $P_2$: $\mu(S \cup \{3\}) - \mu(S) = m(\{3\}) = 0.19 > 0$.
+  - With $P_2$: $\mu(S \cup \{3\}) - \mu(S) = m(\{3\}) + m(\{1, 3\}) = 0.19 + 0.06 = 0.25 > 0$.
+Since all marginal contributions are strictly positive ($\ge 0.19$), $\mu$ is strictly monotone increasing. $\blacksquare$

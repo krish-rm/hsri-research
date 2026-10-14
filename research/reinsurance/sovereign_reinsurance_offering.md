@@ -7,6 +7,9 @@
 > **Delivery Architecture**: API Telemetry / Air-Gapped Enterprise Docker Enclave  
 > **Permanent DOI**: [10.5281/zenodo.10842000](https://doi.org/10.5281/zenodo.10842000)  
 
+> [!IMPORTANT]
+> **Regulatory Actuarial Disclaimer**: The models, Expected Civilizational Decoupling Loss (ECDL) curves, and capital reserve estimations presented herein are published solely as illustrative empirical research and sovereign risk decision support. They do not constitute formal, statutory Solvency Capital Requirement (SCR) filings under EU Solvency II (Directive 2009/138/EC) or NAIC Risk-Based Capital (RBC) regulations without independent treaty calibration and formal sign-off by a qualified, accredited cedent actuary.
+
 ---
 
 ## 1. Executive Summary: The Emerging Uninsurable Frontier

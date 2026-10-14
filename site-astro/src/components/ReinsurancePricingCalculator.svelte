@@ -114,6 +114,7 @@
           <div class="metric-title">Solvency II 99.5% 1-Year SCR Capital Charge</div>
           <div class="metric-value large">${solvencyCapitalBillion} Billion USD</div>
           <div class="metric-caption">Statutory regulatory capital reserve required under Fréchet extreme value tail model</div>
+          <div class="actuarial-disclaimer-note">* Illustrative research decision support only. Statutory SCR calculation requires formal sign-off by a qualified cedent actuary.</div>
         </div>
         <div class="regime-box">
           <div class="regime-label">Decoupling Half-Life:</div>
@@ -421,6 +422,7 @@
     line-height: 1.4;
   }
 
+  .actuarial-disclaimer-note { font-size: 0.72rem; color: #f59e0b; margin-top: 0.35rem; font-style: italic; }
   .regime-box {
     text-align: right;
   }
