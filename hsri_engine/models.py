@@ -119,3 +119,6 @@ class PrecursorTelemetryResponse(BaseModel):
     tripwires_triggering_amber: int
     tripwires_latent_green: int
     total_tripwires: int
+    is_fallback: bool = Field(False, description="True if operating on deterministic calibration baseline fallback")
+    data_timestamp: Optional[str] = Field(None, description="ISO timestamp of underlying telemetry feed")
+    provenance: str = Field("live_sentinel_telemetry", description="Telemetry data source provenance")

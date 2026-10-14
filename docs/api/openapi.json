@@ -612,6 +612,30 @@
           "total_tripwires": {
             "type": "integer",
             "title": "Total Tripwires"
+          },
+          "is_fallback": {
+            "type": "boolean",
+            "title": "Is Fallback",
+            "description": "True if operating on deterministic calibration baseline fallback",
+            "default": false
+          },
+          "data_timestamp": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data Timestamp",
+            "description": "ISO timestamp of underlying telemetry feed"
+          },
+          "provenance": {
+            "type": "string",
+            "title": "Provenance",
+            "description": "Telemetry data source provenance",
+            "default": "live_sentinel_telemetry"
           }
         },
         "type": "object",

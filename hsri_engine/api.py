@@ -1,3 +1,4 @@
+import os
 """
 hsri_engine.api - FastAPI REST Server for HSRI 2.0 Engine Core
 """
@@ -39,12 +40,29 @@ app = FastAPI(
     },
 )
 
-# Enable CORS for external research portals & dashboards
+# Configurable CORS origins with strict institutional defaults
+DEFAULT_ALLOWED_ORIGINS = [
+    "https://humanreadinessindex.org",
+    "https://www.humanreadinessindex.org",
+    "http://localhost:3000",
+    "http://localhost:4321",
+    "http://127.0.0.1:8000",
+]
+
+env_origins = os.environ.get("HSRI_ALLOWED_ORIGINS")
+if env_origins:
+    if env_origins.strip() == "*":
+        allowed_origins = ["*"]
+    else:
+        allowed_origins = [o.strip() for o in env_origins.split(",") if o.strip()]
+else:
+    allowed_origins = DEFAULT_ALLOWED_ORIGINS
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=allowed_origins,
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "OPTIONS"],
     allow_headers=["*"],
 )
 

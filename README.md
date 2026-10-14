@@ -4,7 +4,7 @@
 A public, citable, version-controlled research repository and static documentation website investigating whether human psychological, cognitive, and civilizational sovereignty in the era of Artificial Superintelligence can be scientifically measured, monitored, and defended.
 
 [![Status: v2.0.0 Sovereign Sentinel](https://img.shields.io/badge/Status-v2.0.0%20Release-blue.svg)](https://github.com/krish-rm/hsri-research)
-[![Tests: 185 Passed](https://img.shields.io/badge/Tests-211%20Passed-brightgreen.svg)](tests/)
+[![Tests: 185 Passed](https://img.shields.io/badge/Tests-217%20Passed-brightgreen.svg)](tests/)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10842000.svg)](https://doi.org/10.5281/zenodo.10842000)
 [![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
 
@@ -36,6 +36,8 @@ eports/grant-proposals/ltff_grant_hsri_2_0.md](reports/grant-proposals/ltff_gran
 - **Flagship Annual Report ("State of Human Sovereignty 2027"):** [reports/annual_report_2027.md](reports/annual_report_2027.md)
 - **Actuarial Underwriting Framework:** [research/reinsurance/actuarial_underwriting_framework.md](research/reinsurance/actuarial_underwriting_framework.md)
 - **Commercial Reinsurance Offering:** [research/reinsurance/sovereign_reinsurance_offering.md](research/reinsurance/sovereign_reinsurance_offering.md)
+- **Regulatory & Standards Crosswalk (EU AI Act, NIST, NIS 2, Solvency II):** [docs/regulatory_crosswalk.md](docs/regulatory_crosswalk.md)
+- **Peer-Review Rebuttals & Anticipated Objections:** [research/preprint/anticipated_objections_rebuttal.md](research/preprint/anticipated_objections_rebuttal.md)
 - **Civilizational Decoupling Drill (Interactive Simulator):** [https://humanreadinessindex.org/research/decoupling-drill/](https://humanreadinessindex.org/research/decoupling-drill/)
 - **Decoupling Protocol Manual & Crisis Injects:** [research/tabletop/decoupling_drill_protocol.md](research/tabletop/decoupling_drill_protocol.md)
 - **Whitepaper ("When the Cloud Goes Silent"):** [research/tabletop/when_the_cloud_goes_silent.md](research/tabletop/when_the_cloud_goes_silent.md)
@@ -95,7 +97,7 @@ hsri-research/
 │   └── psychometrics/       # Cross-cultural adaptation guidelines & DIF models
 ├── scripts/                 # Python data processing, export, precursor sentinel & validation pipelines
 ├── site-astro/              # Production Astro 7 + Svelte 5 interactive web portal
-└── tests/                   # Automated unit test suite (211 tests passing)
+└── tests/                   # Automated unit test suite (217 tests passing)
 `
 
 ---

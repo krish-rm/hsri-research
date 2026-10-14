@@ -231,3 +231,37 @@ def test_leontief_weakest_link_zero_property():
 
     res_pos = core.calculate_layer2_leontief_score(0.2, 0.9, 0.9, 0.9)
     assert res_pos > 0.0
+
+def test_precursor_telemetry_provenance_and_fallback():
+    """Verify that telemetry exposes explicit provenance and fallback status."""
+    response = client.get("/v1/telemetry/precursors")
+    assert response.status_code == 200
+    data = response.json()
+    assert "is_fallback" in data
+    assert isinstance(data["is_fallback"], bool)
+    assert "provenance" in data
+    assert data["provenance"] in ["live_sentinel_telemetry", "deterministic_calibration_fallback"]
+
+
+def test_hardened_cors_policy():
+    """Verify that the API enforces configured institutional CORS origins."""
+    # Allowed origin gets explicit Access-Control-Allow-Origin header on preflight
+    headers = {
+        "Origin": "https://humanreadinessindex.org",
+        "Access-Control-Request-Method": "GET",
+    }
+    resp = client.options("/v1/telemetry/precursors", headers=headers)
+    assert resp.status_code == 200
+    assert resp.headers.get("access-control-allow-origin") == "https://humanreadinessindex.org"
+
+    # Allowed origin on direct GET
+    resp_get = client.get("/v1/telemetry/precursors", headers={"Origin": "https://humanreadinessindex.org"})
+    assert resp_get.headers.get("access-control-allow-origin") == "https://humanreadinessindex.org"
+
+    # Unauthorized origin does not receive wildcard or unauthorized allow header
+    unauth_headers = {
+        "Origin": "https://malicious-tracker.com",
+        "Access-Control-Request-Method": "GET",
+    }
+    resp_unauth = client.options("/v1/telemetry/precursors", headers=unauth_headers)
+    assert resp_unauth.headers.get("access-control-allow-origin") != "https://malicious-tracker.com"

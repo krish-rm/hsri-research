@@ -4,6 +4,9 @@ hsri_engine.core - Pure Computation & Aggregation Engine for HSRI 2.0
 
 import math
 import json
+import logging
+
+logger = logging.getLogger("hsri_engine.core")
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, Any, Tuple, List, Optional
@@ -258,7 +261,7 @@ def get_benchmark_summary() -> BenchmarkSummaryResponse:
 
 
 def get_precursor_telemetry() -> PrecursorTelemetryResponse:
-    """Returns real-time precursor telemetry status."""
+    """Returns real-time precursor telemetry status with explicit provenance and fallback tracking."""
     p_sum = ASTRO_DATA_DIR / "precursor_summary.json"
     p_prec = DATA_DIR / "asi_precursors.json"
 
@@ -267,6 +270,9 @@ def get_precursor_telemetry() -> PrecursorTelemetryResponse:
     cors_val = 10.0
     wedge_sec = 4798.5
     wedge_ratio = 3200.0
+    data_timestamp = None
+    is_fallback = False
+    provenance = "live_sentinel_telemetry"
 
     if p_sum.exists():
         try:
@@ -274,8 +280,19 @@ def get_precursor_telemetry() -> PrecursorTelemetryResponse:
                 data = json.load(f)
                 master_threat = data.get("master_precursor_threat_score", master_threat)
                 classification = data.get("overall_classification", classification)
-        except Exception:
-            pass
+                data_timestamp = data.get("timestamp")
+        except json.JSONDecodeError as jde:
+            logger.warning("Corrupted precursor summary JSON at %s: %s. Using calibration baseline.", p_sum, jde)
+            is_fallback = True
+            provenance = "deterministic_calibration_fallback"
+        except OSError as ose:
+            logger.warning("I/O error reading precursor summary at %s: %s. Using calibration baseline.", p_sum, ose)
+            is_fallback = True
+            provenance = "deterministic_calibration_fallback"
+    else:
+        logger.info("Precursor summary feed not found at %s. Operating on calibration baseline.", p_sum)
+        is_fallback = True
+        provenance = "deterministic_calibration_fallback"
 
     tripwires_count = 14
     crit = 8
@@ -291,8 +308,12 @@ def get_precursor_telemetry() -> PrecursorTelemetryResponse:
                 crit = sum(1 for x in prec_list if x.get("status") in ["ACTIVE", "CRITICAL"])
                 amb = sum(1 for x in prec_list if x.get("status") == "TRIGGERING")
                 grn = sum(1 for x in prec_list if x.get("status") in ["LATENT", "NORMAL"])
-        except Exception:
-            pass
+        except json.JSONDecodeError as jde:
+            logger.warning("Corrupted precursors JSON at %s: %s. Using baseline tripwire distributions.", p_prec, jde)
+        except OSError as ose:
+            logger.warning("I/O error reading precursors at %s: %s. Using baseline tripwire distributions.", p_prec, ose)
+    else:
+        logger.info("ASI precursors data not found at %s. Using baseline tripwire distributions.", p_prec)
 
     return PrecursorTelemetryResponse(
         master_threat_score=master_threat,
@@ -305,4 +326,7 @@ def get_precursor_telemetry() -> PrecursorTelemetryResponse:
         tripwires_triggering_amber=amb,
         tripwires_latent_green=grn,
         total_tripwires=tripwires_count,
+        is_fallback=is_fallback,
+        data_timestamp=data_timestamp,
+        provenance=provenance,
     )
