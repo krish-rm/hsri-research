@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-14T15:25:07.880451+00:00",
+  "timestamp": "2026-10-14T16:48:11.490697Z",
   "master_precursor_threat_score": 8.44,
   "overall_classification": "CRITICAL_SUPERVISORY_COLLAPSE",
   "advisory_summary": "Autonomous execution velocity severely outstripping human verification capacity.",
@@ -25,5 +25,18 @@
     "wedge_ratio": 3200.0,
     "velocity_per_month": 156.413,
     "acceleration_per_month2": 1.991
+  },
+  "provenance": "live_sentinel_telemetry",
+  "is_fallback": false,
+  "data_timestamp": "Tue, 06 Oct 2026 00:00:00 -0700",
+  "live_feeds": {
+    "swe_bench_verified": {
+      "fetch_status": "failed",
+      "data_timestamp": "2026-10-14T16:48:11.490697Z"
+    },
+    "metr_feed": {
+      "fetch_status": "success",
+      "data_timestamp": "Tue, 06 Oct 2026 00:00:00 -0700"
+    }
   }
 }

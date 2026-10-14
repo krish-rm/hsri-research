@@ -1,7 +1,7 @@
 name: HSRI ASI Precursor Sentinel
 on:
   schedule:
-    - cron: '0 6 * * 1'   # Every Monday 06:00 UTC
+    - cron: '0 */6 * * *'   # Every 6 hours (00,06,12,18 UTC) — Track 4 live telemetry
   workflow_dispatch:
 
 jobs:
@@ -22,6 +22,12 @@ jobs:
       - name: Install dependencies
         run: pip install numpy requests
 
+      - name: Fetch live telemetry (SWE-bench / METR)
+        run: python scripts/live_telemetry_scraper.py
+
+      - name: Generate uptime badge
+        run: python scripts/generate_uptime_badge.py
+
       - name: Run Autonomy Seismometer (Stream 1)
         run: python scripts/autonomy_seismometer.py
 
@@ -39,11 +45,13 @@ jobs:
         with:
           name: precursor-telemetry-${{ github.run_id }}
           path: |
-            data/telemetry/precursor_signals.jsonl
+            data/telemetry/live_feeds.jsonl
             data/telemetry/precursor_summary.json
+            data/telemetry/precursor_signals.jsonl
             data/telemetry/autonomy_seismometer.json
             data/telemetry/latent_drift_detector.json
             data/telemetry/wedge_history.json
+            site-astro/public/badges/telemetry-uptime.json
           retention-days: 90
 
       - name: Commit and push telemetry updates
@@ -53,5 +61,6 @@ jobs:
           git add data/telemetry/
           git add site-astro/src/data/
           git add site-astro/public/data/
-          git diff --staged --quiet || git commit -m "telemetry(sentinel): weekly precursor telemetry sync $(date +%Y-W%V)"
+          git add site-astro/public/badges/
+          git diff --staged --quiet || git commit -m "telemetry(sentinel): live sync $(date -u +%Y-%m-%dT%H:%M:%SZ) [provenance=$(jq -r .provenance data/telemetry/precursor_summary.json 2>/dev/null || echo unknown)]"
           git push

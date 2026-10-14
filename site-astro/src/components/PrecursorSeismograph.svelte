@@ -4,6 +4,7 @@
   import asiPrecursors from '../data/asi_precursors.json';
   import layer2Data from '../data/hsri_layer2.json';
   import CivilizationalAirGap from './CivilizationalAirGap.svelte';
+  import TelemetryUptimeBadge from './TelemetryUptimeBadge.svelte';
 
   // Navigation tab state
   let activeTab: 'radar' | 'tripwires' | 'dual_layer' | 'airgap' = 'radar';
@@ -117,6 +118,8 @@
       </div>
     </div>
   </div>
+
+  <TelemetryUptimeBadge />
 
   <!-- Primary Sub-navigation Tabs -->
   <div class="tab-navigation" role="tablist">
