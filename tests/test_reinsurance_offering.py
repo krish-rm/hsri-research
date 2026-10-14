@@ -103,3 +103,21 @@ def test_annual_report_2027_integrity():
     assert "Leontief Minimum Floor" in rep_text
     assert "High-Compute Vulnerability Trap" in rep_text
     assert "10.5281/zenodo.10842000" in rep_text
+
+
+def test_reinsurance_calculator_syndicate_slip_export():
+    """Verify Sprint 38 Lloyd's Syndicate Slip and term sheet export feature."""
+    calc_path = os.path.join(REPO_ROOT, "site-astro", "src", "components", "ReinsurancePricingCalculator.svelte")
+    assert os.path.exists(calc_path), f"Missing {calc_path}"
+    
+    with open(calc_path, "r", encoding="utf-8") as f:
+        text = f.read()
+        
+    assert "exportSyndicateSlip" in text
+    assert "LLOYD'S SYNDICATE PLACEMENT SLIP" in text
+    assert "Solvency II" in text
+    assert "Krishnakumar Radhakrishnan" in text
+    assert "10.5281/zenodo.10842000" in text
+    assert "HSRI Risk Loading Factor" in text
+    assert "syndicate-action-bar" in text
+    assert "export-slip-btn" in text

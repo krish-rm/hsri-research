@@ -130,3 +130,50 @@ def test_institutional_pilot_brief():
     assert "HSRI Case Study 01" in text
     assert "MEMORANDUM OF UNDERSTANDING" in text
     assert len(text) > 8000
+
+
+def test_decoupling_facilitator_console_component():
+    """Verify Sprint 38 Tabletop Facilitator Console interactive features and export capability."""
+    console_path = REPO_ROOT / "site-astro" / "src" / "components" / "DecouplingDrillConsole.svelte"
+    assert console_path.exists(), f"DecouplingDrillConsole missing at {console_path}"
+    
+    text = console_path.read_text(encoding="utf-8")
+    
+    # Check host presets
+    assert "rsis_singapore" in text
+    assert "eth_zurich" in text
+    assert "mbzuai" in text
+    assert "federal_us" in text
+    
+    # Check 45-min timer
+    assert "timerMinutes = 45" in text
+    assert "toggleTimer" in text
+    assert "resetTimer" in text
+    assert "addMinutes" in text
+    
+    # Check 4 rounds and 8 crisis injects
+    assert "r1_islanding" in text
+    assert "r2_analog_dispatch" in text
+    assert "r3_diesel_priority" in text
+    assert "r4_airgap_equilibrium" in text
+    assert "INJ-01" in text
+    assert "INJ-08" in text
+    
+    # Check weakest-link calculation
+    assert "liveHealth" in text
+    assert "leontiefScore" in text
+    assert "weakestPillar" in text
+    
+    # Check Markdown AAR export
+    assert "exportReport" in text
+    assert "Krishnakumar Radhakrishnan" in text
+    assert "10.5281/zenodo.10842000" in text
+    assert "Chatham House Rule" in text
+    assert "HSRI_After_Action_Report" in text
+    
+    # Check parent viewer integration
+    viewer_path = REPO_ROOT / "site-astro" / "src" / "components" / "DecouplingDrillViewer.svelte"
+    viewer_text = viewer_path.read_text(encoding="utf-8")
+    assert "DecouplingDrillConsole" in viewer_text
+    assert "viewMode" in viewer_text
+    assert "mode-switcher" in viewer_text

@@ -239,14 +239,24 @@ def get_benchmark_summary() -> BenchmarkSummaryResponse:
     p = DATA_DIR / "layer2_sovereignty_leaderboard.json"
     if not p.exists():
         p = ASTRO_DATA_DIR / "layer2_sovereignty_leaderboard.json"
+    if not p.exists():
+        p = ASTRO_DATA_DIR / "hsri_layer2.json"
 
     leaderboard = []
     if p.exists():
         try:
             with open(p, "r", encoding="utf-8") as f:
-                leaderboard = json.load(f)
-        except Exception:
-            pass
+                raw_data = json.load(f)
+                if isinstance(raw_data, list):
+                    for item in raw_data:
+                        normalized = dict(item)
+                        if "nation_iso" not in normalized and "country_iso3" in normalized:
+                            normalized["nation_iso"] = normalized["country_iso3"]
+                        if "nation_name" not in normalized:
+                            normalized["nation_name"] = normalized.get("country_name", normalized.get("country_iso3", "Unknown"))
+                        leaderboard.append(normalized)
+        except Exception as exc:
+            logger.warning("Failed to parse benchmark leaderboard: %s", exc)
 
     top_sovereign = [c for c in leaderboard if c.get("rank_layer2", 99) <= 5]
     traps = [c for c in leaderboard if c.get("high_compute_trap", False)]

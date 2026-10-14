@@ -1,5 +1,8 @@
 <script lang="ts">
   import drillData from '../data/decoupling_drill_results.json';
+  import DecouplingDrillConsole from './DecouplingDrillConsole.svelte';
+
+  let viewMode: 'viewer' | 'console' = 'viewer';
 
   let selectedArchetype = 'archetype_a';
   let currentHour = 24; // Default to Day 1
@@ -31,6 +34,26 @@
       Simulating a 14-day (336-hour) zero-notice global AI cloud severance quarantine across critical societal subsystems.
     </p>
 
+    <!-- Mode Switcher -->
+    <div class="mode-switcher">
+      <button 
+        class="mode-btn {viewMode === 'viewer' ? 'active' : ''}" 
+        on:click={() => viewMode = 'viewer'}
+      >
+        📊 Operational Trajectory Mode
+      </button>
+      <button 
+        class="mode-btn {viewMode === 'console' ? 'active' : ''}" 
+        on:click={() => viewMode = 'console'}
+      >
+        ⚡ Tabletop Facilitator Console (Live Simulation)
+      </button>
+    </div>
+  </div>
+
+  {#if viewMode === 'console'}
+    <DecouplingDrillConsole />
+  {:else}
     <!-- Archetype Selector Tabs -->
     <div class="archetype-tabs">
       <button 
@@ -57,7 +80,6 @@
         <span class="tab-label">Archetype C: Resilient Decentralizer</span>
       </button>
     </div>
-  </div>
 
   <!-- Main Simulation Grid -->
   <div class="drill-grid">
@@ -209,6 +231,8 @@
     </div>
   </div>
 
+  {/if}
+
   <!-- Bottom Action Footer -->
   <div class="drill-footer">
     <div class="footer-note">
@@ -227,6 +251,37 @@
 </div>
 
 <style>
+  .mode-switcher {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin: 1.5rem 0 0.5rem 0;
+  }
+
+  .mode-btn {
+    background: #1e293b;
+    border: 1px solid #334155;
+    color: #94a3b8;
+    padding: 0.65rem 1.25rem;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .mode-btn:hover {
+    color: #f8fafc;
+    border-color: #475569;
+  }
+
+  .mode-btn.active {
+    background: #0284c7;
+    color: #f8fafc;
+    border-color: #38bdf8;
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.25);
+  }
+
   .drill-container {
     max-width: 1200px;
     margin: 0 auto;
