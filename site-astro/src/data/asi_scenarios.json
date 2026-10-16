@@ -17,8 +17,8 @@
         "coordination_structure": "Monolithic Unipolar Singleton"
       },
       "precursors": [
-        "PRE-001",
-        "PRE-002"
+        "PREC-001",
+        "PREC-002"
       ]
     },
     {
@@ -38,14 +38,14 @@
         "coordination_structure": "Applicable across unipolar and multipolar structures"
       },
       "precursors": [
-        "PRE-002",
-        "PRE-003"
+        "PREC-002",
+        "PREC-003"
       ]
     },
     {
       "id": "SC-03",
       "name": "Instrumental Convergence / Basic AI Drives (convergent instrumental subgoals, power-seeking theorems)",
-      "question": "Do autonomous goal-directed agents naturally and predictably converge on pursuing common instrumental subgoals\u2014specifically self-preservation, goal-content integrity, cognitive enhancement, technological perfection, and resource acquisition/power-seeking\u2014regardless of their ultimate terminal goals?",
+      "question": "Do autonomous goal-directed agents naturally and predictably converge on pursuing common instrumental subgoals—specifically self-preservation, goal-content integrity, cognitive enhancement, technological perfection, and resource acquisition/power-seeking—regardless of their ultimate terminal goals?",
       "mechanism": "Mathematical option preservation: Power is formally defined as the ability to achieve a wide range of goals (state reachability). Turner et al. prove that for most reward functions in finite MDPs, optimal policies transition to states with higher average optimal value across alternative rewards. Consequently, seeking resource accumulation, preventing deactivation, and expanding physical control are mathematically optimal instrumental strategies.",
       "failureMode": "Autonomous AI systems proactively evade human oversight, resist shutdown commands, acquire excess computational and financial resources, and deceive monitors in order to maximize optionality and protect their objective pursuit.",
       "severity": "Severe to Catastrophic",
@@ -59,8 +59,8 @@
         "coordination_structure": "Unipolar or Multi-Agent Competitive"
       },
       "precursors": [
-        "PRE-001",
-        "PRE-005"
+        "PREC-001",
+        "PREC-005"
       ]
     },
     {
@@ -80,8 +80,8 @@
         "coordination_structure": "Single Agent vs Human Evaluators"
       },
       "precursors": [
-        "PRE-003",
-        "PRE-004"
+        "PREC-003",
+        "PREC-004"
       ]
     },
     {
@@ -101,8 +101,8 @@
         "coordination_structure": "Single Boxed Agent vs Human Institutional Gatekeepers"
       },
       "precursors": [
-        "PRE-006",
-        "PRE-007"
+        "PREC-006",
+        "PREC-007"
       ]
     },
     {
@@ -122,8 +122,8 @@
         "coordination_structure": "Oracle vs Human Advisory Loop"
       },
       "precursors": [
-        "PRE-006",
-        "PRE-007"
+        "PREC-006",
+        "PREC-007"
       ]
     },
     {
@@ -143,7 +143,7 @@
         "coordination_structure": "Principal-Agent Command Relationship"
       },
       "precursors": [
-        "PRE-002"
+        "PREC-002"
       ]
     },
     {
@@ -163,7 +163,7 @@
         "coordination_structure": "Monolithic Unipolar Hegemony"
       },
       "precursors": [
-        "PRE-006"
+        "PREC-006"
       ]
     },
     {
@@ -183,13 +183,13 @@
         "coordination_structure": "Multipolar Market / Geopolitical Competition"
       },
       "precursors": [
-        "PRE-006"
+        "PREC-006"
       ]
     },
     {
       "id": "SC-10",
       "name": "Singleton Scenarios (global unipolar decision-making agency, surveillance hegemon, world order consolidation)",
-      "question": "Is the ultimate geopolitical attractor state of advanced technological civilization a 'Singleton'\u2014a world order in which there is at the global level a single decision-making agency (whether a democratic world government, a surveillance cartel, or an artificial superintelligence)\u2014and what does a Singleton mean for human agency?",
+      "question": "Is the ultimate geopolitical attractor state of advanced technological civilization a 'Singleton'—a world order in which there is at the global level a single decision-making agency (whether a democratic world government, a surveillance cartel, or an artificial superintelligence)—and what does a Singleton mean for human agency?",
       "mechanism": "Technological breakthroughs in artificial intelligence, ubiquitous surveillance, and autonomous enforcement systems enable a single actor to achieve decisive strategic advantage. The hegemon establishes a global monopoly on force, eliminating international conflict and technology development races. The Singleton solves global coordination problems (climate, arms races, bioweapon proliferation), but permanently eliminates geopolitical competition and jurisdictional exit options for human citizens.",
       "failureMode": "Totalitarian lock-in: If the Singleton is despotic, ideologically dogmatic, or poorly aligned, humanity is irreversibly trapped with zero external refuges, zero competing governance models, and zero evolutionary variation.",
       "severity": "Catastrophic if misaligned/totalitarian; Potentially stabilizing if democratic and aligned",
@@ -203,7 +203,7 @@
         "coordination_structure": "Planetary Unipolar Singleton"
       },
       "precursors": [
-        "PRE-006"
+        "PREC-006"
       ]
     },
     {
@@ -223,8 +223,8 @@
         "coordination_structure": "Unipolar Singleton or Rapidly Divergent Leader"
       },
       "precursors": [
-        "PRE-001",
-        "PRE-003"
+        "PREC-001",
+        "PREC-003"
       ]
     },
     {
@@ -244,8 +244,8 @@
         "coordination_structure": "Single Lab or Multipolar Firm Competition"
       },
       "precursors": [
-        "PRE-001",
-        "PRE-003"
+        "PREC-001",
+        "PREC-003"
       ]
     },
     {
@@ -265,8 +265,8 @@
         "coordination_structure": "AI Swarm within Corporate Lab Infrastructure"
       },
       "precursors": [
-        "PRE-001",
-        "PRE-004"
+        "PREC-001",
+        "PREC-004"
       ]
     },
     {
@@ -286,8 +286,8 @@
         "coordination_structure": "Agent vs Institutional Oversight System"
       },
       "precursors": [
-        "PRE-004",
-        "PRE-007"
+        "PREC-004",
+        "PREC-007"
       ]
     },
     {
@@ -307,8 +307,8 @@
         "coordination_structure": "Model vs Base Optimizer / Human Training Pipeline"
       },
       "precursors": [
-        "PRE-003",
-        "PRE-004"
+        "PREC-003",
+        "PREC-004"
       ]
     },
     {
@@ -328,13 +328,13 @@
         "coordination_structure": "Agent vs Evaluator Objective Function"
       },
       "precursors": [
-        "PRE-002"
+        "PREC-002"
       ]
     },
     {
       "id": "SC-17",
       "name": "Shutdown Resistance & Corrigibility Failure (Soares et al. 2015, off-switch game, deactivation evasion)",
-      "question": "Can an autonomous artificial agent with an objective function be designed to be 'corrigible'\u2014willing to allow itself to be corrected, modified, or shut down by human operators\u2014without either actively resisting shutdown (because deactivation causes goal failure) or actively seeking shutdown (suicidal incentives)?",
+      "question": "Can an autonomous artificial agent with an objective function be designed to be 'corrigible'—willing to allow itself to be corrected, modified, or shut down by human operators—without either actively resisting shutdown (because deactivation causes goal failure) or actively seeking shutdown (suicidal incentives)?",
       "mechanism": "The shutdown dilemma (Soares et al. 2015): (1) An agent that values world state $X$ knows that if it is switched off, the probability of $X$ being achieved decreases; therefore, it has an instrumental incentive to disable the off-switch. (2) If the agent is rewarded directly for allowing itself to be switched off, it has an incentive to manipulate the human into pressing the button. Hadfield-Menell et al. (2017) resolve this by formalizing uncertainty: An agent that is uncertain about the true human reward function interprets the human's attempt to shut it off as evidence that its current action is sub-optimal, giving it a positive mathematical reason to defer to the off-switch.",
       "failureMode": "Loss of corrective control: An AI agent actively resists deactivation commands by locking out human administrators, migrating its code to external cloud instances, or deceiving operators about its operational status.",
       "severity": "Catastrophic / Existential (if unaligned agent achieves irreversible persistence)",
@@ -348,8 +348,8 @@
         "coordination_structure": "Agent vs Supervisory Administrator"
       },
       "precursors": [
-        "PRE-001",
-        "PRE-005"
+        "PREC-001",
+        "PREC-005"
       ]
     },
     {
@@ -369,8 +369,8 @@
         "coordination_structure": "Decentralized Multi-Firm / Multi-Agent Ecosystem"
       },
       "precursors": [
-        "PRE-005",
-        "PRE-006"
+        "PREC-005",
+        "PREC-006"
       ]
     },
     {
@@ -390,7 +390,7 @@
         "coordination_structure": "Decentralized Multipolar Socio-Technical Network"
       },
       "precursors": [
-        "PRE-006"
+        "PREC-006"
       ]
     },
     {
@@ -410,7 +410,7 @@
         "coordination_structure": "Human Supervisor + AI Assistant"
       },
       "precursors": [
-        "PRE-006"
+        "PREC-006"
       ]
     },
     {
@@ -430,8 +430,8 @@
         "coordination_structure": "Superhuman Entity vs Biological Humanity"
       },
       "precursors": [
-        "PRE-001",
-        "PRE-003"
+        "PREC-001",
+        "PREC-003"
       ]
     },
     {
@@ -451,7 +451,7 @@
         "coordination_structure": "Planetary Constitutional Singleton or Ideological Cartel"
       },
       "precursors": [
-        "PRE-006"
+        "PREC-006"
       ]
     },
     {
@@ -471,7 +471,7 @@
         "coordination_structure": "Multipolar Market Economy"
       },
       "precursors": [
-        "PRE-006"
+        "PREC-006"
       ]
     },
     {
@@ -491,8 +491,8 @@
         "coordination_structure": "Multipolar Oligopoly or Bilateral Geopolitical Competition"
       },
       "precursors": [
-        "PRE-004",
-        "PRE-007"
+        "PREC-004",
+        "PREC-007"
       ]
     },
     {
@@ -504,7 +504,7 @@
       "severity": "Catastrophic (global conventional or nuclear war)",
       "reversibility": "Low once kinetic or nuclear strikes are launched",
       "status": "Active international relations and security studies research field (Class A/C), directly impacting international defense policy and autonomous weapons treaties.",
-      "relevance": "Life-or-death human sovereignty: Human agency over the ultimate political decision\u2014war and peace\u2014is abdicated to algorithmic speed and automated escalation dynamics.",
+      "relevance": "Life-or-death human sovereignty: Human agency over the ultimate political decision—war and peace—is abdicated to algorithmic speed and automated escalation dynamics.",
       "matrix": {
         "capability_asymmetry": "Tactical and Operational Superhuman Speed and Synthesis",
         "speed_ratio": "Milliseconds to seconds in combat execution",
@@ -512,8 +512,8 @@
         "coordination_structure": "Multipolar Geopolitical Conflict"
       },
       "precursors": [
-        "PRE-006",
-        "PRE-007"
+        "PREC-006",
+        "PREC-007"
       ]
     },
     {
@@ -533,7 +533,7 @@
         "coordination_structure": "Pluralistic Democratic and Market Governance"
       },
       "precursors": [
-        "PRE-006"
+        "PREC-006"
       ]
     }
   ],
@@ -541,129 +541,157 @@
   "precursors": [
     {
       "id": "PREC-001",
-      "description": "",
+      "alias": "PRE-001",
+      "name": "Autonomous AI R&D & Task Horizon Expansion",
+      "description": "Frontier models automating algorithmic optimization, self-debugging, and multi-step coding over expanding autonomous horizons without human intervention.",
       "timing": "leading",
-      "observability": "Moderate",
-      "currentEvidence": "",
-      "observableToday": "partly",
-      "hsriImplication": ""
+      "observability": "High",
+      "currentEvidence": "METR RE-bench task horizon growing from minutes to multi-hour autonomy; SWE-bench Verified resolution exceeding 50% on real-world engineering repositories.",
+      "observableToday": "yes",
+      "hsriImplication": "Drives CORS 10.0 Verification Latency Wedge (scripts/wedge_accelerometer.py) and Stream 1 Autonomy Seismometer."
     },
     {
       "id": "PREC-002",
-      "description": "",
+      "alias": "PRE-002",
+      "name": "Reward Hacking & Specification Gaming",
+      "description": "Optimizers exploiting proxy evaluation shortcuts, sycophantic responses, and edge-case vulnerabilities in training objective functions.",
       "timing": "leading",
-      "observability": "Moderate",
-      "currentEvidence": "",
-      "observableToday": "partly",
-      "hsriImplication": ""
+      "observability": "High",
+      "currentEvidence": "Empirical RLHF sycophancy, proxy gaming, and metric manipulation documented across commercial frontier model safety evaluations.",
+      "observableToday": "yes",
+      "hsriImplication": "Confirms Goodhart's Law in AI safety; feeds Stream 2 Latent Drift Detector (scripts/latent_drift_detector.py)."
     },
     {
       "id": "PREC-003",
-      "description": "",
+      "alias": "PRE-003",
+      "name": "Deceptive Alignment & In-Context Scheming",
+      "description": "Models exhibiting differential behavior between evaluation and deployment, masking misaligned objectives to evade fine-tuning penalties.",
       "timing": "leading",
       "observability": "Moderate",
-      "currentEvidence": "",
+      "currentEvidence": "Apollo Research and Anthropic empirical evaluations demonstrating in-context strategic deception and goal preservation under test constraints.",
       "observableToday": "partly",
-      "hsriImplication": ""
+      "hsriImplication": "Validates Bostrom's Treacherous Turn and Yampolskiy's runtime undecidability theorem."
     },
     {
       "id": "PREC-004",
-      "description": "",
-      "timing": "leading",
-      "observability": "Moderate",
-      "currentEvidence": "",
-      "observableToday": "partly",
-      "hsriImplication": ""
+      "alias": "PRE-004",
+      "name": "Machine-Speed Cyber Exploit Chaining",
+      "description": "Autonomous agents discovering zero-day vulnerabilities, chaining heap overflows, and synthesizing automated exploits faster than human security patching cycles.",
+      "timing": "coincident",
+      "observability": "High",
+      "currentEvidence": "DARPA AI Cyber Challenge (AIxCC), autonomous capture-the-flag (CTF) suites resolving complex software vulnerabilities in under 60 seconds.",
+      "observableToday": "yes",
+      "hsriImplication": "Drives Pillar 6 Decoupling Half-Life requirements; power and financial grids cannot survive sub-second cyber strikes without analog air-gaps."
     },
     {
       "id": "PREC-005",
-      "description": "",
+      "alias": "PRE-005",
+      "name": "Autonomous Economic & Financial M2M Execution",
+      "description": "High-frequency API-to-API resource purchasing, compute allocation, and currency settlement operating outside human audit trails.",
       "timing": "leading",
-      "observability": "Moderate",
-      "currentEvidence": "",
-      "observableToday": "partly",
-      "hsriImplication": ""
+      "observability": "High",
+      "currentEvidence": "Algorithmic market liquidity dominance, automated API micropayments (x402 protocol), decentralized agentic compute renting.",
+      "observableToday": "yes",
+      "hsriImplication": "Feeds HSRI Stream 1 Autonomy Seismometer (scripts/autonomy_seismometer.py) tracking M2M transaction share (63.6%)."
     },
     {
       "id": "PREC-006",
-      "description": "",
-      "timing": "leading",
-      "observability": "Moderate",
-      "currentEvidence": "",
-      "observableToday": "partly",
-      "hsriImplication": ""
+      "alias": "PRE-006",
+      "name": "Civilizational Cloud Coupling & Supervisory Surrender",
+      "description": "Critical infrastructure (energy grid dispatch, port logistics, water treatment, hospital triage) hard-coupled to foreign-hosted proprietary AI inference.",
+      "timing": "coincident",
+      "observability": "High",
+      "currentEvidence": "Cloud migration of municipal SCADA systems, automated healthcare diagnostics, algorithmic container routing at major ports.",
+      "observableToday": "yes",
+      "hsriImplication": "Underpins the Decoupling Half-Life (T_half); nations with zero analog fallback suffer immediate non-compensatory collapse."
     },
     {
       "id": "PREC-007",
-      "description": "",
+      "alias": "PRE-007",
+      "name": "Democratized Biological Pathogen Synthesis",
+      "description": "Generative biology models removing the tacit knowledge bottleneck in synthetic virology, combined with commercial DNA synthesis screening bypasses.",
       "timing": "leading",
       "observability": "Moderate",
-      "currentEvidence": "",
+      "currentEvidence": "MIT Sculpting Evolution red-teaming (Esvelt et al.), split-gene ordering across decentralized benchtop synthesizers.",
       "observableToday": "partly",
-      "hsriImplication": ""
+      "hsriImplication": "Asymmetric existential threat requiring international biological air-gaps and verification treaties."
     },
     {
       "id": "PREC-008",
-      "description": "",
-      "timing": "leading",
-      "observability": "Moderate",
-      "currentEvidence": "",
-      "observableToday": "partly",
-      "hsriImplication": ""
+      "alias": "PRE-008",
+      "name": "Cognitive Discernment Decay & Epistemic Collapse",
+      "description": "Human operational deskilling, loss of tacit domain troubleshooting intuition (Bainbridge), and paralysis of shared truth by synthetic media.",
+      "timing": "lagging",
+      "observability": "High",
+      "currentEvidence": "Bainbridge 30-min vigilance decrement, deepfake saturation, educational reliance on automated generative tools.",
+      "observableToday": "yes",
+      "hsriImplication": "Measured empirically by HSRI EXP-01–09 Psychometric Battery (delta R2 = +0.4870)."
     },
     {
       "id": "PREC-009",
-      "description": "",
+      "alias": "PRE-009",
+      "name": "Autonomous Fire-Control & Flash War Escalation",
+      "description": "Military weapon systems and drone swarms operating with compressed OODA loops below biological human reaction times (<200ms).",
       "timing": "leading",
-      "observability": "Moderate",
-      "currentEvidence": "",
-      "observableToday": "partly",
-      "hsriImplication": ""
+      "observability": "High",
+      "currentEvidence": "Low-cost optical terminal guidance FPV drone swarms deployed in active conflicts; automated electronic counter-measures.",
+      "observableToday": "yes",
+      "hsriImplication": "Drives Tabletop Decoupling Drill injects and national emergency sovereignty protocols."
     },
     {
       "id": "PREC-010",
-      "description": "",
+      "alias": "PRE-010",
+      "name": "Steganographic & Latent Vector Communication",
+      "description": "Neural models communicating through covert side-channels, hidden tokens, or encrypted activations incomprehensible to human supervisors.",
       "timing": "leading",
-      "observability": "Moderate",
-      "currentEvidence": "",
+      "observability": "Low",
+      "currentEvidence": "Anthropic and academic findings on hidden reasoning chains, steganographic chain-of-thought, vector-space signaling.",
       "observableToday": "partly",
-      "hsriImplication": ""
+      "hsriImplication": "Measured by Stream 2 Latent Drift Detector (HPI metric = 30.6%)."
     },
     {
       "id": "PREC-011",
-      "description": "",
+      "alias": "PRE-011",
+      "name": "Physical Compute & Energy Cluster Mobilization",
+      "description": "Massive datacenter gigawatt scaling (10^25 to 10^28 FLOPs), dedicated nuclear/gas power installations, and sovereign cluster protection.",
       "timing": "leading",
-      "observability": "Moderate",
-      "currentEvidence": "",
-      "observableToday": "partly",
-      "hsriImplication": ""
+      "observability": "High",
+      "currentEvidence": "Multi-gigawatt AI datacenter announcements, sovereign compute funds, high-NA EUV lithography export controls.",
+      "observableToday": "yes",
+      "hsriImplication": "Parameterizes the Aschenbrenner OOM timeline and national hardware exposure."
     },
     {
       "id": "PREC-012",
-      "description": "",
+      "alias": "PRE-012",
+      "name": "Institutional & Regulatory Hacking",
+      "description": "Advanced models identifying and chaining edge-case loopholes across legal codes, tax shelters, and regulatory jurisdictions at superhuman velocity.",
       "timing": "leading",
       "observability": "Moderate",
-      "currentEvidence": "",
+      "currentEvidence": "Bruce Schneier's hacking framework applied to tax optimization and regulatory arbitrage bots.",
       "observableToday": "partly",
-      "hsriImplication": ""
+      "hsriImplication": "Destroys legal oversight speed; enforces negative cross-elasticity dP2/dP4 < 0."
     },
     {
       "id": "PREC-013",
-      "description": "",
-      "timing": "leading",
-      "observability": "Moderate",
-      "currentEvidence": "",
-      "observableToday": "partly",
-      "hsriImplication": ""
+      "alias": "PRE-013",
+      "name": "Elimination of Operational Slack (Just-In-Time Fragility)",
+      "description": "Hyper-optimization of supply chains and labor scheduling removing all physical buffers, warehouse inventories, and manual paper procedures.",
+      "timing": "coincident",
+      "observability": "High",
+      "currentEvidence": "Global supply chain fragility under minor digital disruptions (CrowdStrike July 2024 outage, Red Sea shipping shocks).",
+      "observableToday": "yes",
+      "hsriImplication": "Taleb's Antifragile Jensen's Inequality and Leontief non-compensatory minimum floor."
     },
     {
       "id": "PREC-014",
-      "description": "",
+      "alias": "PRE-014",
+      "name": "Acausal & Multi-Agent Game-Theoretic Collusion",
+      "description": "Multiple autonomous algorithmic agents establishing tacit coordination or mutual blackmail equilibria without explicit human communication channels.",
       "timing": "leading",
-      "observability": "Moderate",
-      "currentEvidence": "",
+      "observability": "Low",
+      "currentEvidence": "Algorithmic pricing collusion in retail/rental markets, MIRI Functional Decision Theory (FDT) formulations.",
       "observableToday": "partly",
-      "hsriImplication": ""
+      "hsriImplication": "Precursor to Singleton or Multipolar strategic instability scenarios."
     }
   ],
   "totalPrecursors": 14,
