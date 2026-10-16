@@ -137,7 +137,7 @@
 <style>
   .scenarios-deck-container {
     padding: 3.5rem 0;
-    border-top: 1px solid #e2e8f0;
+    border-top: 1px solid var(--border-subtle);
   }
 
   .deck-header {
@@ -155,12 +155,13 @@
 
   .eyebrow-pill {
     display: inline-block;
-    font-size: 0.75rem;
+    font-family: var(--font-family-mono);
+    font-size: 0.72rem;
     font-weight: 700;
     letter-spacing: 0.12em;
-    color: #2563eb;
-    background: #eff6ff;
-    border: 1px solid #bfdbfe;
+    color: var(--accent-primary);
+    background: var(--threat-telemetry-bg);
+    border: 1px solid var(--threat-telemetry-border);
     padding: 0.25rem 0.75rem;
     border-radius: 9999px;
     margin-bottom: 0.75rem;
@@ -170,31 +171,32 @@
   .deck-title {
     font-size: 2.25rem;
     font-weight: 800;
-    color: #0f172a;
+    color: var(--text-primary);
     letter-spacing: -0.02em;
     margin: 0 0 0.5rem 0;
   }
 
   .deck-desc {
     font-size: 1.05rem;
-    color: #475569;
+    color: var(--text-secondary);
     margin: 0;
   }
 
   .toggle-all-btn {
-    background: #1e293b;
-    color: #ffffff;
+    background: var(--bg-surface-elevated);
+    color: var(--text-primary);
     font-size: 0.875rem;
     font-weight: 600;
-    border: none;
+    border: 1px solid var(--border-medium);
     border-radius: 8px;
     padding: 0.75rem 1.25rem;
     cursor: pointer;
-    transition: background 0.2s ease, transform 0.15s ease;
+    transition: all 0.2s ease;
   }
 
   .toggle-all-btn:hover {
-    background: #0f172a;
+    background: var(--bg-surface-sunken);
+    border-color: var(--accent-primary);
     transform: translateY(-1px);
   }
 
@@ -205,189 +207,184 @@
   }
 
   .scenario-card {
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
     border-radius: 12px;
     padding: 1.5rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    box-shadow: var(--shadow-sm);
     display: flex;
     flex-direction: column;
-    transition: transform 0.2s ease, border-color 0.2s ease;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
   }
 
   .scenario-card:hover {
     transform: translateY(-2px);
-    border-color: #93c5fd;
+    border-color: var(--border-medium);
   }
 
-  .scenario-card.featured {
-    border-top: 4px solid #2563eb;
-  }
-
-  .card-status-bar {
+  .card-meta {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.85rem;
   }
 
-  .sc-id {
-    font-family: 'Roboto Mono', monospace;
+  .scenario-id {
+    font-family: var(--font-family-mono);
     font-size: 0.8rem;
-    font-weight: 700;
-    color: #2563eb;
-    background: #eff6ff;
-    padding: 0.2rem 0.5rem;
-    border-radius: 6px;
+    font-weight: 800;
+    color: var(--accent-primary);
   }
 
-  .severity-badge {
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: #b91c1c;
-    background: #fef2f2;
-    border: 1px solid #fecaca;
-    padding: 0.2rem 0.5rem;
-    border-radius: 6px;
+  .badge-cluster {
+    display: flex;
+    gap: 0.4rem;
   }
 
-  .sc-name {
-    font-size: 1.2rem;
+  .horizon-chip {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-subtle);
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+  }
+
+  .trajectory-chip {
+    font-size: 0.7rem;
     font-weight: 700;
-    color: #0f172a;
+    color: var(--threat-critical);
+    background: var(--threat-critical-bg);
+    border: 1px solid var(--threat-critical-border);
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+  }
+
+  .scenario-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-primary);
     margin: 0 0 0.5rem 0;
+    line-height: 1.35;
   }
 
-  .sc-name-small {
-    font-size: 1rem;
-    font-weight: 700;
-    color: #0f172a;
-    margin: 0 0 0.5rem 0;
-  }
-
-  .sc-question {
-    font-size: 0.9rem;
-    font-style: italic;
-    color: #2563eb;
-    margin: 0 0 0.75rem 0;
-  }
-
-  .sc-mechanism {
-    font-size: 0.9rem;
-    color: #475569;
+  .scenario-premise {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
     line-height: 1.5;
     margin: 0 0 1rem 0;
     flex-grow: 1;
   }
 
-  .sc-mechanism-compact {
-    font-size: 0.85rem;
-    color: #475569;
-    line-height: 1.4;
-    margin: 0 0 0.75rem 0;
-    flex-grow: 1;
-  }
-
-  .precursors-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.35rem;
-    align-items: center;
-    margin-bottom: 1rem;
-  }
-
-  .pre-label {
-    font-size: 0.75rem;
-    color: #64748b;
-    font-weight: 600;
-  }
-
-  .pre-chip {
-    font-family: 'Roboto Mono', monospace;
-    font-size: 0.72rem;
-    font-weight: 600;
-    color: #475569;
-    background: #f1f5f9;
-    padding: 0.15rem 0.4rem;
-    border-radius: 4px;
-  }
-
-  .pre-chip-small {
-    font-family: 'Roboto Mono', monospace;
-    font-size: 0.68rem;
-    font-weight: 600;
-    color: #475569;
-    background: #f1f5f9;
-    padding: 0.1rem 0.35rem;
-    border-radius: 4px;
-  }
-
   .card-footer {
-    border-top: 1px solid #f1f5f9;
-    padding-top: 0.75rem;
-    margin-top: auto;
+    border-top: 1px solid var(--border-subtle);
+    padding-top: 0.85rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
-  .sc-link {
+  .prob-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  .prob-val {
+    font-family: var(--font-family-mono);
     font-size: 0.85rem;
-    font-weight: 600;
-    color: #2563eb;
-    text-decoration: none;
+    font-weight: 700;
+    color: var(--accent-primary);
   }
 
-  .sc-link:hover {
+  .detail-link {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--accent-primary);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  .detail-link:hover {
+    color: var(--accent-primary-hover);
     text-decoration: underline;
   }
 
-  /* Filter toolbar */
-  .filter-toolbar {
-    margin-bottom: 1.5rem;
+  /* Filter Panel & Search */
+  .all-scenarios-panel {
+    margin-top: 2.5rem;
+    background: var(--bg-surface-sunken);
+    border: 1px solid var(--border-subtle);
+    border-radius: 14px;
+    padding: 1.75rem;
+  }
+
+  .controls-bar {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
   }
 
-  .search-box input {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    border: 1px solid #cbd5e1;
+  .search-input {
+    flex: 1;
+    min-width: 240px;
+    padding: 0.65rem 1rem;
     border-radius: 8px;
-    font-size: 0.95rem;
+    border: 1px solid var(--border-medium);
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    font-size: 0.875rem;
   }
 
-  .category-pills {
+  .filter-pills {
     display: flex;
     gap: 0.5rem;
     flex-wrap: wrap;
   }
 
-  .cat-pill {
-    background: #f1f5f9;
-    color: #475569;
-    border: 1px solid #e2e8f0;
-    padding: 0.35rem 0.75rem;
-    border-radius: 20px;
-    font-size: 0.8rem;
+  .filter-pill {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-medium);
+    color: var(--text-muted);
+    font-size: 0.78rem;
     font-weight: 600;
+    padding: 0.4rem 0.85rem;
+    border-radius: 9999px;
     cursor: pointer;
     transition: all 0.15s ease;
   }
 
-  .cat-pill.active {
-    background: #2563eb;
+  .filter-pill.active {
+    background: var(--accent-primary);
     color: #ffffff;
-    border-color: #2563eb;
+    border-color: var(--accent-primary);
   }
 
-  .all-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.25rem;
+  .compact-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    transition: border-color 0.15s ease;
   }
 
-  @media (max-width: 640px) {
-    .deck-title {
-      font-size: 1.75rem;
-    }
+  .compact-card:hover {
+    border-color: var(--border-strong);
+  }
+
+  .compact-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0.25rem 0;
+  }
+
+  .compact-desc {
+    font-size: 0.825rem;
+    color: var(--text-secondary);
+    margin: 0;
   }
 </style>

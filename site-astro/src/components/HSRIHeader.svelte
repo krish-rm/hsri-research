@@ -45,7 +45,27 @@
     lastUpdated: '2026-09-22',
   };
 
+  let currentTheme = 'dark';
+
+  function initTheme() {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('hsri-theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      currentTheme = saved || (prefersDark ? 'dark' : 'dark');
+      document.documentElement.setAttribute('data-theme', currentTheme);
+    }
+  }
+
+  function toggleTheme() {
+    currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    if (typeof window !== 'undefined') {
+      document.documentElement.setAttribute('data-theme', currentTheme);
+      localStorage.setItem('hsri-theme', currentTheme);
+    }
+  }
+
   onMount(() => {
+    initTheme();
     if (typeof window !== 'undefined') {
       currentPath = window.location.pathname;
 
@@ -106,6 +126,35 @@
             </li>
           {/each}
         </ul>
+
+        <!-- Theme Toggle Switch -->
+        <button
+          type="button"
+          class="theme-toggle-btn"
+          on:click={toggleTheme}
+          aria-label={`Switch to ${currentTheme === 'dark' ? 'light' : 'dark'} mode`}
+          title={`Switch to ${currentTheme === 'dark' ? 'light' : 'dark'} mode`}
+        >
+          {#if currentTheme === 'dark'}
+            <svg class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <span class="theme-label">LIGHT</span>
+          {:else}
+            <svg class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+            <span class="theme-label">DARK</span>
+          {/if}
+        </button>
 
         <!-- Mobile menu button -->
         <button
@@ -173,6 +222,12 @@
             </a>
           </li>
         {/each}
+        <li class="mobile-nav-item mobile-theme-item">
+          <button type="button" class="mobile-theme-btn" on:click={toggleTheme}>
+            <span>Theme Mode: <strong>{currentTheme.toUpperCase()}</strong></span>
+            <span class="theme-pill-action">{currentTheme === 'dark' ? 'Switch to Light' : 'Switch to Dark'}</span>
+          </button>
+        </li>
       </ul>
     </div>
   {/if}
@@ -180,13 +235,16 @@
 
 <style>
   .hsri-header {
-    background-color: #ffffff;
-    border-bottom: 2px solid var(--border-color);
+    background-color: var(--bg-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-subtle);
     position: sticky;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    box-shadow: var(--shadow-sm);
     width: 100%;
+    transition: background-color 0.25s ease, border-color 0.25s ease;
   }
 
   /* Full-width container shifting brand to the left and eliminating cutoffs */
@@ -263,12 +321,12 @@
   }
 
   .nav-link {
-    color: #475569;
+    color: var(--text-secondary);
     text-decoration: none;
     font-weight: 500;
     font-size: clamp(0.85rem, 0.92vw, 0.95rem);
     white-space: nowrap;
-    transition: all 0.2s ease;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     padding: 0.35rem 0.55rem;
     border-radius: 6px;
     position: relative;
@@ -276,15 +334,15 @@
   }
 
   .nav-link:hover {
-    color: var(--primary-color);
-    background-color: rgba(30, 64, 175, 0.05);
+    color: var(--text-primary);
+    background-color: var(--bg-surface-elevated);
   }
 
   /* Active Tab Highlighting */
   .nav-link.active {
-    color: var(--primary-color);
+    color: var(--accent-primary);
     font-weight: 700;
-    background-color: rgba(30, 64, 175, 0.09);
+    background-color: var(--accent-primary-glow);
   }
 
   .nav-link::after {
@@ -465,4 +523,69 @@
       color: var(--primary-color);
     }
   }
+
+  /* Tactical Theme Toggle Button */
+  .theme-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-left: 0.75rem;
+    padding: 0.35rem 0.65rem;
+    border-radius: 6px;
+    background-color: var(--bg-surface-elevated);
+    border: 1px solid var(--border-medium);
+    color: var(--text-secondary);
+    font-family: var(--font-family-mono);
+    font-size: 0.70rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    flex-shrink: 0;
+  }
+
+  .theme-toggle-btn:hover {
+    color: var(--text-primary);
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 10px -2px var(--accent-primary-glow);
+  }
+
+  .theme-icon {
+    width: 14px;
+    height: 14px;
+  }
+
+  .theme-label {
+    line-height: 1;
+  }
+
+  .mobile-theme-item {
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .mobile-theme-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-medium);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-family: var(--font-family-mono);
+    font-size: 0.85rem;
+    cursor: pointer;
+  }
+
+  .theme-pill-action {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+    background: var(--accent-primary);
+    color: #ffffff;
+    border-radius: 9999px;
+  }
+
 </style>
