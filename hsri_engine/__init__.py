@@ -32,3 +32,13 @@ __all__ = [
     "evaluate_profile",
     "run_monte_carlo_sensitivity",
 ]
+
+from hsri_engine.reinsurance import (
+    calculate_reinsurance_pricing,
+    generate_syndicate_slip_markdown,
+)
+
+__all__.extend([
+    "calculate_reinsurance_pricing",
+    "generate_syndicate_slip_markdown",
+])

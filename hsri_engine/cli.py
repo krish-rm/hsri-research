@@ -42,6 +42,16 @@ def main():
     eval_parser.add_argument("--decay", action="store_true", help="Apply negative cross-elasticity decay")
     eval_parser.add_argument("--json", action="store_true", help="Output raw JSON")
 
+    # Reinsurance sub-command
+    reins_parser = subparsers.add_parser("reinsurance", help="Actuarial reinsurance pricing & syndicate slip generator")
+    reins_subparsers = reins_parser.add_subparsers(dest="reinsurance_subcommand", help="Reinsurance actions")
+
+    slip_parser = reins_subparsers.add_parser("slip", help="Generate Lloyd's Syndicate Slip & Treaty Term Sheet")
+    slip_parser.add_argument("--archetype", "-a", choices=["A", "B", "C", "archetype_a", "archetype_b", "archetype_c"], default="A", help="Sovereign Risk Archetype (A: Tech Hub, B: Continental, C: Decentralized)")
+    slip_parser.add_argument("--tiv", "-t", type=float, default=10.0, help="Total Insured Valuation in USD Billion (default: 10.0)")
+    slip_parser.add_argument("--output", "-o", default=None, help="Destination markdown filepath")
+    slip_parser.add_argument("--json", action="store_true", help="Output raw actuarial pricing JSON instead of Markdown")
+
     # Export openapi
     export_parser = subparsers.add_parser("export-openapi", help="Export OpenAPI JSON schema to a file")
     export_parser.add_argument("--output", default="openapi.json", help="Destination path for OpenAPI JSON")
@@ -78,6 +88,24 @@ def main():
             print(f"High-Compute Trap Detected:         {resp.is_high_compute_trap}")
             print(f"Weakest-Link Governing Pillar:      {resp.weakest_link_pillar} ({resp.weakest_link_score:.4f})")
             print("=======================================================")
+
+    elif args.command == "reinsurance":
+        if args.reinsurance_subcommand == "slip":
+            from hsri_engine.reinsurance import calculate_reinsurance_pricing, generate_syndicate_slip_markdown
+            pricing = calculate_reinsurance_pricing(args.archetype, tiv_billion=args.tiv)
+            if args.json:
+                print(json.dumps(pricing, indent=2))
+            else:
+                slip_md = generate_syndicate_slip_markdown(pricing)
+                if args.output:
+                    out_p = Path(args.output)
+                    out_p.parent.mkdir(parents=True, exist_ok=True)
+                    out_p.write_text(slip_md, encoding="utf-8")
+                    print(f"Exported Lloyd's Syndicate Slip to {out_p.resolve()}")
+                else:
+                    print(slip_md)
+        else:
+            reins_parser.print_help()
 
     elif args.command == "export-openapi":
         from hsri_engine.api import app

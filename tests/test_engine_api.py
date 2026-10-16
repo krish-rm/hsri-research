@@ -265,3 +265,59 @@ def test_hardened_cors_policy():
     }
     resp_unauth = client.options("/v1/telemetry/precursors", headers=unauth_headers)
     assert resp_unauth.headers.get("access-control-allow-origin") != "https://malicious-tracker.com"
+
+
+def test_reinsurance_pricing_math_and_archetypes():
+    """Verify hsri_engine.reinsurance actuarial pricing engine calculations."""
+    from hsri_engine.reinsurance import calculate_reinsurance_pricing, generate_syndicate_slip_markdown
+    
+    # Archetype A
+    res_a = calculate_reinsurance_pricing("A", tiv_billion=10.0)
+    assert res_a["archetype_name"] == "Small Open Tech Hub"
+    assert res_a["gross_loss_billion_usd"] == 9.42
+    assert res_a["actuarial_risk_loading_factor_phi"] >= 1.8
+    assert res_a["sovereignty_discount_or_surcharge_pct"] > 0
+    assert res_a["solvency_ii_99_5_capital_charge_billion_usd"] > 5.0
+
+    # Archetype C
+    res_c = calculate_reinsurance_pricing("C", tiv_billion=10.0)
+    assert res_c["actuarial_risk_loading_factor_phi"] <= 0.50
+    assert res_c["sovereignty_discount_or_surcharge_pct"] < 0
+    assert res_c["solvency_ii_99_5_capital_charge_billion_usd"] < res_a["solvency_ii_99_5_capital_charge_billion_usd"]
+
+    # Invalid archetype
+    import pytest
+    with pytest.raises(ValueError):
+        calculate_reinsurance_pricing("NON_EXISTENT_ARCHETYPE")
+
+    # Slip markdown generation
+    slip_md = generate_syndicate_slip_markdown(res_a)
+    assert "LLOYD'S SYNDICATE PLACEMENT SLIP" in slip_md
+    assert "Solvency II" in slip_md
+    assert "Krishnakumar Radhakrishnan" in slip_md
+    assert "10.5281/zenodo.10842000" in slip_md
+
+
+def test_cli_reinsurance_slip_subcommand(monkeypatch, capsys):
+    """Verify CLI execution of 'hsri-engine reinsurance slip'."""
+    import sys
+    from hsri_engine.cli import main
+
+    # 1. Test markdown slip output
+    monkeypatch.setattr(sys, "argv", ["hsri-engine", "reinsurance", "slip", "--archetype", "A", "--tiv", "10.0"])
+    main()
+    captured = capsys.readouterr()
+    assert "LLOYD'S SYNDICATE PLACEMENT SLIP" in captured.out
+    assert "Small Open Tech Hub" in captured.out
+    assert "Solvency II" in captured.out
+    assert "10.5281/zenodo.10842000" in captured.out
+
+    # 2. Test JSON output
+    monkeypatch.setattr(sys, "argv", ["hsri-engine", "reinsurance", "slip", "--archetype", "C", "--tiv", "20.0", "--json"])
+    main()
+    captured_json = capsys.readouterr()
+    import json
+    parsed = json.loads(captured_json.out)
+    assert parsed["archetype_key"] == "archetype_c"
+    assert parsed["tiv_billion_usd"] == 20.0
+    assert parsed["sovereignty_discount_or_surcharge_pct"] < 0
