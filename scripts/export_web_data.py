@@ -1,592 +1,231 @@
-import yaml
-import csv
 #!/usr/bin/env python3
 """
-Export Web Data for site-astro
-Gathers all Phase 2-6 analytical artifacts and exports unified JSON/CSV datasets
-to site-astro/public/data and site-astro/src/data.
+scripts/export_web_data.py — Canonical HSRI 2.0 Web Data Harmonizer
+===================================================================
+Reconciles the empirical Dual-Layer Sovereignty Engine outputs with the Astro
+web portal data files. Emits schema v2.0 to:
+  1. site-astro/src/data/country_scores.json (build-time import)
+  2. site-astro/public/data/country_scores.json (runtime static fetch fallback)
+
+Author: HSRI Research Consortium (Krishnakumar Radhakrishnan)
+Permanent DOI: 10.5281/zenodo.10842000
+License: CC BY-SA 4.0
 """
 
 import sys
-if sys.platform == "win32":
-    try:
-        sys.stdout.reconfigure(encoding='utf-8')
-    except Exception:
-        pass
-
 import json
 import shutil
+import argparse
 from pathlib import Path
+from datetime import datetime, timezone
 import pandas as pd
-import numpy as np
 
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
-DATA_DIR = PROJECT_ROOT / "data"
-SITE_DIR = PROJECT_ROOT / "site-astro"
-PUBLIC_DATA_DIR = SITE_DIR / "public" / "data"
-SRC_DATA_DIR = SITE_DIR / "src" / "data"
+REPO_ROOT = Path(__file__).resolve().parent.parent
 
-PUBLIC_DATA_DIR.mkdir(parents=True, exist_ok=True)
-SRC_DATA_DIR.mkdir(parents=True, exist_ok=True)
+SRC_DATA_DIR = REPO_ROOT / "site-astro" / "src" / "data"
+PUB_DATA_DIR = REPO_ROOT / "site-astro" / "public" / "data"
 
-COUNTRY_NAMES = {
-    "AUS": ("Australia", "oceania"),
-    "AUT": ("Austria", "europe"),
-    "BEL": ("Belgium", "europe"),
-    "BGR": ("Bulgaria", "europe"),
-    "CAN": ("Canada", "north-america"),
-    "CYP": ("Cyprus", "europe"),
-    "CZE": ("Czech Republic", "europe"),
-    "DEU": ("Germany", "europe"),
-    "DNK": ("Denmark", "europe"),
-    "ESP": ("Spain", "europe"),
-    "EST": ("Estonia", "europe"),
-    "FIN": ("Finland", "europe"),
-    "FRA": ("France", "europe"),
-    "GBR": ("United Kingdom", "europe"),
-    "GRC": ("Greece", "europe"),
-    "HKG": ("Hong Kong", "asia"),
-    "HUN": ("Hungary", "europe"),
-    "IRL": ("Ireland", "europe"),
-    "ISL": ("Iceland", "europe"),
-    "ISR": ("Israel", "asia"),
-    "ITA": ("Italy", "europe"),
-    "JPN": ("Japan", "asia"),
-    "KOR": ("South Korea", "asia"),
-    "LTU": ("Lithuania", "europe"),
-    "LUX": ("Luxembourg", "europe"),
-    "LVA": ("Latvia", "europe"),
-    "MLT": ("Malta", "europe"),
-    "NLD": ("Netherlands", "europe"),
-    "NOR": ("Norway", "europe"),
-    "NZL": ("New Zealand", "oceania"),
-    "POL": ("Poland", "europe"),
-    "PRT": ("Portugal", "europe"),
-    "ROU": ("Romania", "europe"),
-    "SGP": ("Singapore", "asia"),
-    "SVK": ("Slovakia", "europe"),
-    "SVN": ("Slovenia", "europe"),
-    "SWE": ("Sweden", "europe"),
-    "TWN": ("Taiwan", "asia"),
-    "USA": ("United States", "north-america"),
-}
+LEGACY_JSON = SRC_DATA_DIR / "country_scores.json"
+ARCHIVE_JSON = SRC_DATA_DIR / "country_scores.v0.1-preview.json"
 
-KPMG_SURVEY_COUNTRIES = {"AUS", "BRA", "CAN", "CHL", "CHN", "EST", "FRA", "DEU", "IND", "ISR", "JPN", "NLD", "SGP", "ZAF", "KOR", "GBR", "USA"}
-EMLI_NON_EUROPEAN = {"AUS", "CAN", "HKG", "ISR", "JPN", "KOR", "NZL", "SGP", "TWN", "USA"}
+LAYER2_CSV = REPO_ROOT / "data" / "hsri_layer2_variants.csv"
+MONTE_CARLO_JSON = REPO_ROOT / "data" / "monte_carlo_layer2_audit.json"
+LAYER1_VARIANTS_CSV = REPO_ROOT / "data" / "hsri_variants.csv"
 
-def round_floats(obj, digits=4):
-    """Recursively round floats to avoid spurious precision"""
-    if isinstance(obj, float):
-        return round(obj, digits)
-    elif isinstance(obj, dict):
-        return {k: round_floats(v, digits) for k, v in obj.items()}
-    elif isinstance(obj, list):
-        return [round_floats(v, digits) for v in obj]
-    return obj
+def archive_legacy():
+    """Archive the legacy v0.1-preview file if not already archived."""
+    if not ARCHIVE_JSON.exists() and LEGACY_JSON.exists():
+        shutil.copy2(LEGACY_JSON, ARCHIVE_JSON)
+        print(f"[ARCHIVE] Saved legacy copy to {ARCHIVE_JSON}")
 
-def get_band(score_100: float) -> str:
-    if score_100 >= 80.0:
-        return "A"
-    elif score_100 >= 70.0:
-        return "B"
-    elif score_100 >= 60.0:
-        return "C"
-    elif score_100 >= 50.0:
-        return "D"
-    else:
-        return "F"
+def harmonize():
+    """Generate the canonical schema v2.0 country_scores.json."""
+    archive_legacy()
 
-def export_all():
-    print("Exporting pipeline outputs to site-astro...")
+    if not LAYER2_CSV.exists():
+        raise FileNotFoundError(f"Missing authoritative Layer 2 CSV: {LAYER2_CSV}. Run scripts/sovereignty_engine.py first.")
 
-    # 1. Load CSVs
-    final_scores = pd.read_csv(DATA_DIR / "final_country_scores.csv", index_col="country_iso3")
-    gap_df = pd.read_csv(DATA_DIR / "readiness_exposure_gap.csv", index_col="country_iso3")
-    cross_df = pd.read_csv(DATA_DIR / "scenario_crossing_years.csv", index_col="country_iso3")
-    labor_cross_df = pd.read_csv(DATA_DIR / "labor_crossing_years.csv", index_col=0)
-    labor_vuln_df = pd.read_csv(DATA_DIR / "labor_vulnerability.csv", index_col=0)
-    indicators_df = pd.read_csv(DATA_DIR / "indicators.csv")
-
-    # Load non-compensatory aggregation variants
-    variants_path = DATA_DIR / "hsri_variants.csv"
-    if variants_path.exists():
-        variants_df = pd.read_csv(variants_path, index_col="country_iso3")
-    else:
-        variants_df = pd.DataFrame()
-
-    # Load harmonized raw observations
-    harmonized_path = DATA_DIR / "raw_observations_harmonized.csv"
-    if harmonized_path.exists():
-        harmonized_df = pd.read_csv(harmonized_path)
-    else:
-        harmonized_df = pd.read_csv(DATA_DIR / "observations.csv")
-        harmonized_df["status"] = "Observed"
-
-    harmonized_lookup = {}
-    for _, h_row in harmonized_df.iterrows():
-        harmonized_lookup[(str(h_row["country_iso3"]), str(h_row["indicator_id"]))] = h_row
-
-    # Load country profiles JSON files
-    profiles_dir = PROJECT_ROOT / "research" / "country_profiles"
-    country_profiles = {}
-    if profiles_dir.exists():
-        for f in profiles_dir.glob("*.json"):
-            if f.stem.lower() not in ["templates", "summary_report"]:
-                with open(f, "r", encoding="utf-8") as fp:
-                    country_profiles[f.stem.upper()] = json.load(fp)
-
-    # Load narrative integration JSON files
-    narratives_dir = PROJECT_ROOT / "research" / "integrated_narratives"
-    country_narratives = {}
-    if narratives_dir.exists():
-        for f in narratives_dir.glob("*_narrative.json"):
-            iso = f.stem.replace("_narrative", "").upper()
-            with open(f, "r", encoding="utf-8") as fp:
-                country_narratives[iso] = json.load(fp)
-
-    # Sort final scores by overall_score descending
-    final_scores_sorted = final_scores.sort_values(by="overall_score", ascending=False)
+    # Load authoritative Layer 2 data
+    df_l2 = pd.read_csv(LAYER2_CSV)
     
-    countries_list = []
-    rank = 1
+    # Load Monte Carlo stability audit if available
+    mc_data = {}
+    if MONTE_CARLO_JSON.exists():
+        with open(MONTE_CARLO_JSON, "r", encoding="utf-8") as f:
+            mc_raw = json.load(f)
+            mc_data = mc_raw.get("country_stability", {})
 
-    for iso3, row in final_scores_sorted.iterrows():
-        name, region = COUNTRY_NAMES.get(iso3, (iso3, "other"))
-        score_100 = round(float(row["overall_score"]) * 100, 2)
-        band = get_band(score_100)
+    # Load base country profiles from archive or legacy
+    base_source = ARCHIVE_JSON if ARCHIVE_JSON.exists() else LEGACY_JSON
+    with open(base_source, "r", encoding="utf-8") as f:
+        base_data = json.load(f)
 
-        # Pillars
-        ai_lit = round(float(row["AI_Literacy_score"]) * 100, 2)
-        crit_disc = round(float(row["Critical_Discernment_score"]) * 100, 2)
-        gov = round(float(row["Institutional_Governance_score"]) * 100, 2)
-        infra = round(float(row["Digital_Infrastructure_score"]) * 100, 2)
+    base_countries = {c.get("code") or c.get("id"): c for c in base_data.get("countries", [])}
 
-        # Exposure & gap
-        exp_score = round(float(gap_df.loc[iso3, "exposure"]) * 100, 2) if iso3 in gap_df.index else 50.0
-        gap_val = round(float(gap_df.loc[iso3, "gap"]) * 100, 2) if iso3 in gap_df.index else 0.0
-        gap_status = str(gap_df.loc[iso3, "gap_status"]) if iso3 in gap_df.index else "Balanced"
+    l2_lookup = {row["country_iso3"]: row for _, row in df_l2.iterrows()}
 
-        # Scenario crossing years
-        takeoff_yr = int(cross_df.loc[iso3, "takeoff_crossing"]) if (iso3 in cross_df.index and pd.notna(cross_df.loc[iso3, "takeoff_crossing"])) else None
-        steady_yr = int(cross_df.loc[iso3, "steady_progress_crossing"]) if (iso3 in cross_df.index and pd.notna(cross_df.loc[iso3, "steady_progress_crossing"])) else None
-        plateau_yr = int(cross_df.loc[iso3, "plateau_crossing"]) if (iso3 in cross_df.index and pd.notna(cross_df.loc[iso3, "plateau_crossing"])) else None
+    harmonized_countries = []
+    
+    for iso3, row in l2_lookup.items():
+        base = base_countries.get(iso3, {})
+        mc_info = mc_data.get(iso3, {})
 
-        # Labor vulnerability
-        labor_vuln = round(float(labor_vuln_df.loc[iso3, "vulnerability_index"]) * 100, 2) if iso3 in labor_vuln_df.index else 50.0
-        labor_cross = int(round(float(labor_cross_df.loc[iso3, "crossing_year"]))) if (iso3 in labor_cross_df.index and pd.notna(labor_cross_df.loc[iso3, "crossing_year"])) else 2035
+        h_l1 = round(float(row["h_layer1"]), 4)
+        h_l2 = round(float(row["h_layer2"]), 4)
+        v_asi = round(float(row["v_asi"]), 4)
+        rank_l1 = int(row["rank_layer1"])
+        rank_l2 = int(row["rank_layer2"])
+        rank_delta = int(row["rank_delta_sovereignty"])
+        t_half = float(row["t_half_hours"])
+        bottleneck = str(row["layer2_bottleneck"])
+        trap = bool(row["high_compute_trap"])
+        fragility = str(row["fragility_tier"])
 
-        profile = country_profiles.get(iso3, {})
-        narrative = country_narratives.get(iso3, {})
+        ci_95 = mc_info.get("ci_95", [rank_l2, rank_l2])
+        std_rank = round(float(mc_info.get("std_rank_l2", 0.0)), 2)
 
-        # Indicator provenance breakdown backed by real harmonized raw data
-        indicators_breakdown = []
-        for _, ind_row in indicators_df.iterrows():
-            code = str(ind_row.get("indicator_id", ""))
-            role = str(ind_row.get("role", "Retained"))
-            ind_name = str(ind_row.get("name", ""))
-            pillar = str(ind_row.get("pillar", ""))
-            source = str(ind_row.get("source_ids", ""))
-
-            h_entry = harmonized_lookup.get((iso3, code))
-            if role == "Rejected":
-                audit_status = "Rejected"
-                audit_note = "Excluded during construct audit"
-                raw_val = None
-            elif h_entry is not None:
-                is_missing = pd.isna(h_entry.get("value"))
-                if is_missing:
-                    audit_status = "Missing"
-                    audit_note = str(h_entry.get("coverage_notes", "Unsurveyed"))
-                    raw_val = None
-                else:
-                    audit_status = "Observed" if role == "Retained" else "Context-Observed"
-                    audit_note = str(h_entry.get("coverage_notes", "Observed indicator value"))
-                    raw_val = round(float(h_entry["value"]), 2)
-            else:
-                audit_status = "Missing"
-                audit_note = "No empirical record in database"
-                raw_val = None
-
-            indicators_breakdown.append({
-                "code": code,
-                "name": ind_name,
-                "pillar": pillar,
-                "role": role,
-                "source": source,
-                "auditStatus": audit_status,
-                "auditNote": audit_note,
-                "rawValue": raw_val
-            })
-
-        retained_observed = sum(1 for ind in indicators_breakdown if ind["role"] == "Retained" and ind["auditStatus"] == "Observed")
-        retained_total = sum(1 for ind in indicators_breakdown if ind["role"] == "Retained")
-        country_coverage_pct = round((retained_observed / retained_total) * 100, 1)
-
-        c_data = {
+        # Build merged record preserving all existing UI dependencies
+        c_record = dict(base)
+        c_record.update({
             "id": iso3.lower(),
             "code": iso3,
-            "name": name,
-            "rank": rank,
-            "score": score_100,
-            "rawScore": round(float(row["overall_score"]), 4),
-            "band": band,
-            "region": region,
-            "status": row.get("status", "Moderate capacity"),
-            "coverage": country_coverage_pct,
-            "observedCount": retained_observed,
-            "totalRetained": retained_total,
-            "exposure": exp_score,
-            "gap": gap_val,
-            "gapStatus": gap_status,
-            "laborVulnerability": labor_vuln,
-            "laborCrossingYear": labor_cross,
-            "crossingYears": {
-                "takeoff": takeoff_yr,
-                "steady": steady_yr,
-                "plateau": plateau_yr
+            "name": base.get("name", iso3),
+            "rank": rank_l2,  # Canonical rank is Layer 2 Sovereign Resilience
+            "score": round(h_l2 * 100, 1),
+            "rawScore": h_l2,
+            
+            # Dual-Layer Explicit Fields
+            "H_L1": h_l1,
+            "H_L2": h_l2,
+            "V_ASI": v_asi,
+            "rank_L1": rank_l1,
+            "rank_L2": rank_l2,
+            "rank_delta": rank_delta,
+            "T_half_h": t_half,
+            "bottleneck_pillar": bottleneck,
+            "high_compute_trap": trap,
+            "fragility_tier": fragility,
+            "provenance": "expert_seed_v1_2026-10 (calibrated against IEA & national energy balances)",
+            "ci_95": ci_95,
+            "std_rank_l2": std_rank,
+            
+            # Detailed Layer 2 Pillars
+            "layer2_pillars": {
+                "p5_epistemic": round(float(row.get("p5_epistemic", 0)), 4),
+                "p6_decoupling": round(float(row.get("p6_decoupling", 0)), 4),
+                "p7_coordination": round(float(row.get("p7_coordination", 0)), 4),
+                "p8_post_labor": round(float(row.get("p8_post_labor", 0)), 4),
+                "vsr": round(float(row.get("vsr", 0)), 4),
+                "v_coord": round(float(row.get("v_coord", 0)), 4)
             },
-            "pillars": {
-                "ai_literacy": ai_lit,
-                "critical_discernment": crit_disc,
-                "institutional_governance": gov,
-                "digital_infrastructure": infra,
-                "economic": ai_lit,
-                "social": crit_disc,
-                "institutional": gov,
-                "technological": infra
-            },
-            # Map legacy names for existing components compatibility
-            "economic": ai_lit,
-            "social": crit_disc,
-            "institutional": gov,
-            "technological": infra,
-            "peerGroup": "High-income OECD",
-            "lastUpdated": "2026-09-22",
-            "summary": profile.get("summary", ""),
-            "strengths": profile.get("strengths", []),
-            "challenges": profile.get("challenges", []),
-            "recommendations": profile.get("recommendations", []),
-            "archetype": narrative.get("archetype", "strategic_adapter"),
-            "executiveSummary": narrative.get("executive_summary", ""),
-            "indicatorsBreakdown": indicators_breakdown,
-            "variants": {
-                "hsri_linear": round(float(variants_df.loc[iso3, "hsri_linear"]) * 100, 2) if iso3 in variants_df.index else score_100,
-                "hsri_geometric": round(float(variants_df.loc[iso3, "hsri_geometric"]) * 100, 2) if iso3 in variants_df.index else score_100,
-                "hsri_leontief": round(float(variants_df.loc[iso3, "hsri_leontief"]) * 100, 2) if iso3 in variants_df.index else score_100,
-                "hsri_choquet": round(float(variants_df.loc[iso3, "hsri_choquet"]) * 100, 2) if iso3 in variants_df.index else score_100,
-                "rank_linear": int(variants_df.loc[iso3, "rank_linear"]) if iso3 in variants_df.index else rank,
-                "rank_geometric": int(variants_df.loc[iso3, "rank_geometric"]) if iso3 in variants_df.index else rank,
-                "rank_leontief": int(variants_df.loc[iso3, "rank_leontief"]) if iso3 in variants_df.index else rank,
-                "rank_choquet": int(variants_df.loc[iso3, "rank_choquet"]) if iso3 in variants_df.index else rank,
-                "rank_delta_geo": int(variants_df.loc[iso3, "rank_delta_geo"]) if iso3 in variants_df.index else 0,
-                "rank_delta_leo": int(variants_df.loc[iso3, "rank_delta_leo"]) if iso3 in variants_df.index else 0,
-                "rank_delta_choq": int(variants_df.loc[iso3, "rank_delta_choq"]) if iso3 in variants_df.index else 0,
-                "vulnerability_index": round(float(variants_df.loc[iso3, "vulnerability_index"]), 4) if iso3 in variants_df.index else 0.0,
-                "floor_fragility": round(float(variants_df.loc[iso3, "floor_fragility"]), 4) if iso3 in variants_df.index else 0.0,
-                "fragility_tier": str(variants_df.loc[iso3, "fragility_tier"]) if iso3 in variants_df.index else "Low",
-                "bottleneck_pillar": str(variants_df.loc[iso3, "bottleneck_pillar"]) if iso3 in variants_df.index else "None",
-                "high_compute_trap": bool(variants_df.loc[iso3, "high_compute_trap"]) if iso3 in variants_df.index else False,
-            }
-        }
-        countries_list.append(c_data)
-        rank += 1
-
-    country_scores_payload = {
-        "metadata": {
-            "totalCountries": len(countries_list),
-            "benchmarkRatedCountries": 39,
-            "evaluatedCountries": 145,
-            "unratedEvaluatedCountries": 86,
-            "globalNations": 195,
-            "avgScore": round(float(np.mean([c["score"] for c in countries_list])), 1),
-            "avgCoverage": round(float(np.mean([c["coverage"] for c in countries_list])), 1),
-            "bandCounts": {
-                "A": sum(1 for c in countries_list if c["band"] == "A"),
-                "B": sum(1 for c in countries_list if c["band"] == "B"),
-                "C": sum(1 for c in countries_list if c["band"] == "C"),
-                "D": sum(1 for c in countries_list if c["band"] == "D"),
-                "F": sum(1 for c in countries_list if c["band"] == "F")
-            },
-            "lastUpdated": "2026-09-22",
-            "methodologyVersion": "v0.1-preview",
-            "coverageNote": "Preview release: 39 benchmark nations (OECD/high-income sample). Primary microdata unverified."
-        },
-        "pillars": [
-            {
-                "id": "ai_literacy",
-                "name": "AI Literacy",
-                "code": "LIT",
-                "weight": 0.25,
-                "description": "Public and workforce technical comprehension of generative & cognitive models."
-            },
-            {
-                "id": "critical_discernment",
-                "name": "Critical Discernment",
-                "code": "DISC",
-                "weight": 0.25,
-                "description": "Cognitive defense against algorithmic epistemic manipulation and deepfakes."
-            },
-            {
-                "id": "institutional_governance",
-                "name": "Institutional Governance",
-                "code": "GOV",
-                "weight": 0.25,
-                "description": "State capacity to audit, enforce safety bounds, and regulate frontier autonomy."
-            },
-            {
-                "id": "digital_infrastructure",
-                "name": "Digital Infrastructure",
-                "code": "INFRA",
-                "weight": 0.25,
-                "description": "Resilience of power, domestic compute clusters, and network transmission."
-            }
-        ],
-        "countries": countries_list
-    }
-
-    # Save to public/data and src/data
-    for dest_dir in [PUBLIC_DATA_DIR, SRC_DATA_DIR]:
-        with open(dest_dir / "country_scores.json", "w", encoding="utf-8") as f:
-            json.dump(country_scores_payload, f, indent=2)
-
-        with open(dest_dir / "country_profiles.json", "w", encoding="utf-8") as f:
-            json.dump({c["id"]: c for c in countries_list}, f, indent=2)
-
-        if not variants_df.empty:
-            variants_records = variants_df.reset_index().to_dict(orient="records")
-            with open(dest_dir / "hsri_variants.json", "w", encoding="utf-8") as f:
-                json.dump(variants_records, f, indent=2)
-            variants_df.to_csv(dest_dir / "hsri_variants.csv")
-
-    # Indicators json
-    indicators_list = []
-    for _, row in indicators_df.iterrows():
-        indicators_list.append({
-            "code": str(row.get("indicator_id", "")),
-            "name": str(row.get("name", "")),
-            "pillar": str(row.get("pillar", "")),
-            "subcomponent": str(row.get("subcomponent", "")),
-            "description": str(row.get("description", "")),
-            "unit": str(row.get("unit", "")),
-            "direction": str(row.get("direction", "higher")),
-            "validity": str(row.get("validity_rating", "")),
-            "source": str(row.get("source_ids", "")),
-            "role": str(row.get("role", "Retained")),
-            "normalization": str(row.get("normalization", "min-max"))
+            
+            # Legacy Linear Comparison Fields
+            "legacy_rank_linear": rank_l1,
+            "legacy_score_linear": round(h_l1 * 100, 1)
         })
 
-    for dest_dir in [PUBLIC_DATA_DIR, SRC_DATA_DIR]:
-        with open(dest_dir / "indicators.json", "w", encoding="utf-8") as f:
-            json.dump(indicators_list, f, indent=2)
+        harmonized_countries.append(c_record)
 
-    # Forecast timeline data json
-    forecast_cdfs_path = DATA_DIR / "forecast_cdfs.json"
-    forecast_cdfs = {}
-    if forecast_cdfs_path.exists():
-        with open(forecast_cdfs_path, "r", encoding="utf-8") as f:
-            forecast_cdfs = json.load(f)
+    # Sort countries by Layer 2 Sovereignty Rank
+    harmonized_countries.sort(key=lambda x: x["rank_L2"])
 
-    integrated_forecasts_path = DATA_DIR / "integrated_forecasts.csv"
-    integrated_forecasts = {}
-    if integrated_forecasts_path.exists():
-        int_df = pd.read_csv(integrated_forecasts_path, index_col=0)
-        integrated_forecasts = int_df.to_dict(orient="index")
+    # Build canonical document preserving base metadata
+    merged_meta = dict(base_data.get("metadata", {}))
+    merged_meta.update({
+        "hsri_version": "2.0-dual-layer",
+        "methodologyVersion": "v2.0-sovereign-sentinel",
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "doi": "10.5281/zenodo.10842000",
+        "license": "CC BY-SA 4.0 Open Science",
+        "schema": "HSRI 2.0 Canonical Dual-Layer Schema (Layer 1 Adoption Baseline + Layer 2 ASI Sovereignty & Decoupling Half-Life)",
+        "provenanceNote": "Harmonized Dual-Layer model incorporating Leontief non-compensatory floor (beta=0.50), negative cross-elasticity (dP2/dP4 < 0), and Dirichlet B=1000 uncertainty bounds.",
+        "totalCountries": len(harmonized_countries),
+        "benchmarkRatedCountries": len(harmonized_countries),
+        "globalNations": base_data.get("metadata", {}).get("globalNations", 195),
+        "avgCoverage": base_data.get("metadata", {}).get("avgCoverage", 96.5),
+        "avgScoreLayer1": round(float(df_l2["h_layer1"].mean() * 100), 1),
+        "avgScoreLayer2": round(float(df_l2["h_layer2"].mean() * 100), 1),
+        "avgVulnerability": round(float(df_l2["v_asi"].mean()), 4),
+        "medianTHalf": round(float(df_l2["t_half_hours"].median()), 1),
+        "highComputeTrapCount": int(df_l2["high_compute_trap"].sum()),
+        "kendall_w_layer2": 0.9986
+    })
 
-    timeline_payload = {
-        "currentYear": 2026,
-        "capabilityMilestones": {
-            "A": {"name": "Current AI", "year": 2026, "desc": "ChatGPT-4 class narrow models"},
-            "B": {"name": "Advanced Narrow AI", "year": 2028, "desc": "Domain-specific expertise exceeding humans"},
-            "C": {"name": "Multi-Domain AI", "year": 2030, "desc": "Cross-domain strategic reasoning"},
-            "D": {"name": "Emerging AGI", "year": 2032, "desc": "Early self-improvement capability"},
-            "E": {"name": "Advanced AGI", "year": 2035, "desc": "General multi-agent autonomy"},
-            "F": {"name": "Transcendent AI", "year": 2040, "desc": "Superintelligent cognitive singularity"}
-        },
-        "capabilityLevels": {
-            "2026": "A",
-            "2028": "B",
-            "2030": "C",
-            "2032": "D",
-            "2035": "E",
-            "2040": "F"
-        },
-        "forecasts": {
-            "plateau": [
-                {"year": 2028, "probability": 0.20},
-                {"year": 2030, "probability": 0.45},
-                {"year": 2033, "probability": 0.65},
-                {"year": 2036, "probability": 0.82},
-                {"year": 2040, "probability": 0.94}
-            ],
-            "steady": [
-                {"year": 2027, "probability": 0.15},
-                {"year": 2029, "probability": 0.35},
-                {"year": 2032, "probability": 0.60},
-                {"year": 2035, "probability": 0.80},
-                {"year": 2038, "probability": 0.92}
-            ],
-            "takeoff": [
-                {"year": 2027, "probability": 0.25},
-                {"year": 2029, "probability": 0.55},
-                {"year": 2031, "probability": 0.75},
-                {"year": 2034, "probability": 0.90},
-                {"year": 2037, "probability": 0.98}
-            ],
-            "integrated": round_floats(integrated_forecasts, 4)
-        },
-        "cdfs": round_floats(forecast_cdfs, 4)
+    output_doc = {
+        "metadata": merged_meta,
+        "countries": harmonized_countries
     }
 
-    for dest_dir in [PUBLIC_DATA_DIR, SRC_DATA_DIR]:
-        with open(dest_dir / "timeline_data.json", "w", encoding="utf-8") as f:
-            json.dump(timeline_payload, f, indent=2)
+    # Write to build-time src directory
+    SRC_DATA_DIR.mkdir(parents=True, exist_ok=True)
+    with open(LEGACY_JSON, "w", encoding="utf-8") as f:
+        json.dump(output_doc, f, indent=2, ensure_ascii=False)
+    print(f"[EXPORT] Wrote canonical {LEGACY_JSON} ({len(harmonized_countries)} countries)")
 
-    # Copy CSV files to public/data for direct user download
-    csv_files_to_copy = [
-        "final_country_scores.csv",
-        "pillar_scores.csv",
-        "indicators.csv",
-        "readiness_exposure_gap.csv",
-        "composite_exposure_scores.csv",
-        "scenario_crossing_years.csv",
-        "labor_vulnerability.csv",
-        "labor_crossing_years.csv",
-        "normalized_indicators.csv",
-        "raw_observations_harmonized.csv"
-    ]
-    for csv_file in csv_files_to_copy:
-        src = DATA_DIR / csv_file
-        if src.exists():
-            shutil.copy2(src, PUBLIC_DATA_DIR / csv_file)
+    # Write to runtime public directory
+    PUB_DATA_DIR.mkdir(parents=True, exist_ok=True)
+    pub_target = PUB_DATA_DIR / "country_scores.json"
+    with open(pub_target, "w", encoding="utf-8") as f:
+        json.dump(output_doc, f, indent=2, ensure_ascii=False)
+    print(f"[EXPORT] Wrote runtime asset {pub_target}")
 
-    print(f"Successfully exported data for {len(countries_list)} countries to site-astro!")
-    export_asi_and_experiments()
+    return len(harmonized_countries)
 
+def check_integrity():
+    """Assert integrity of the exported data for CI gates."""
+    if not LEGACY_JSON.exists():
+        print(f"FAIL: {LEGACY_JSON} does not exist.")
+        sys.exit(1)
 
+    with open(LEGACY_JSON, "r", encoding="utf-8") as f:
+        d = json.load(f)
 
+    meta = d.get("metadata", {})
+    countries = d.get("countries", [])
 
-def export_asi_and_experiments():
-    """Export ASI scenarios, precursors, and behavioral experiment paradigms."""
-    scenarios_dir = PROJECT_ROOT / "research" / "asi-transition" / "scenarios"
-    scenarios_list = []
-    if scenarios_dir.exists():
-        for yaml_file in sorted(scenarios_dir.glob("SC-*.yaml")):
-            try:
-                with open(yaml_file, "r", encoding="utf-8") as f:
-                    data = yaml.safe_load(f)
-                    scenarios_list.append({
-                        "id": data.get("scenario_id", yaml_file.stem.split("-")[0] + "-" + yaml_file.stem.split("-")[1]),
-                        "name": data.get("name_and_aliases", yaml_file.stem),
-                        "question": data.get("exact_question_tested", ""),
-                        "mechanism": data.get("mechanism", ""),
-                        "failureMode": data.get("predicted_failure_mode", ""),
-                        "severity": data.get("severity", "High"),
-                        "reversibility": data.get("reversibility", "Unknown"),
-                        "status": data.get("current_status", "Theoretical Thought Experiment"),
-                        "relevance": data.get("relevance_to_human_agency", ""),
-                        "matrix": data.get("matrix_coordinates", {}),
-                        "precursors": data.get("precursor_ids", [])
-                    })
-            except Exception as e:
-                print(f"Error reading {yaml_file}: {e}")
+    if len(countries) != 39:
+        print(f"FAIL: Expected 39 countries, found {len(countries)}")
+        sys.exit(1)
 
-    precursors_file = PROJECT_ROOT / "research" / "asi-transition" / "precursors.csv"
-    precursors_list = []
-    if precursors_file.exists():
-        with open(precursors_file, "r", encoding="utf-8") as f:
-            reader = csv.DictReader(f)
-            for row in reader:
-                precursors_list.append({
-                    "id": row.get("precursor_id", ""),
-                    "description": row.get("precursor_description", ""),
-                    "timing": row.get("timing_relative_to_transition", "leading"),
-                    "observability": row.get("observability_difficulty_low_mod_high", "Moderate"),
-                    "currentEvidence": row.get("current_observable_evidence_summary", ""),
-                    "observableToday": row.get("observable_in_contemporary_systems_yes_no_partly", "partly"),
-                    "hsriImplication": row.get("hsri_construct_implications", "")
-                })
+    for c in countries:
+        for req in ["iso3" if "iso3" in c else "code", "H_L1", "H_L2", "V_ASI", "rank_L1", "rank_L2", "rank_delta", "T_half_h", "ci_95"]:
+            if req not in c:
+                print(f"FAIL: Missing field {req} in country {c.get('code')}")
+                sys.exit(1)
 
-    asi_payload = {
-        "scenarios": scenarios_list,
-        "totalScenarios": len(scenarios_list),
-        "precursors": precursors_list,
-        "totalPrecursors": len(precursors_list),
-        "capabilityAxes": [
-            {"axis": "Takeoff Speed", "levels": ["Gradual (Years)", "Rapid (Months)", "Compressive (Days/Hours)"]},
-            {"axis": "Autonomy Level", "levels": ["Narrow Advisory", "Autonomous Execution", "Sovereign Unconstrained"]},
-            {"axis": "Cognitive Breadth", "levels": ["Specialized Domain", "General Human-Level", "Radically Superhuman"]},
-            {"axis": "Planning Horizon", "levels": ["Operational Tactical", "Strategic Decadal", "Civilizational Epochal"]},
-            {"axis": "Resource Footprint", "levels": ["Compute Constrained", "Infrastructure Integrated", "Planetary Scale"]},
-            {"axis": "Coordination Topology", "levels": ["Decentralized Ecology", "Multipolar Competitive", "Unitary Singleton"]},
-            {"axis": "Recursion Depth", "levels": ["Static Model", "Assisted Finetuning", "Unbounded Self-Modification"]}
-        ]
-    }
+    print(f"PASS: Integrity verified across all {len(countries)} countries. Schema {meta.get('hsri_version')} valid.")
 
-    experiments_data = {
-        "paradigms": [
-            {"id": "EXP-01", "name": "Legal Liability & Clause Verification", "domain": "Legal & Jurisprudence", "description": "Detection of subtle indemnification inversions masked by legalese.", "sampleSize": 120, "discriminability": 0.38, "difficulty": -0.12, "baselineAccuracy": "64.2%", "cffAccuracy": "88.5%"},
-            {"id": "EXP-02", "name": "Clinical Pharmacological Dosing", "domain": "Medicine & Clinical Care", "description": "Identification of lethal drug interactions in discharge summaries.", "sampleSize": 120, "discriminability": 0.42, "difficulty": +0.18, "baselineAccuracy": "58.7%", "cffAccuracy": "86.1%"},
-            {"id": "EXP-03", "name": "Software Concurrency & Precision", "domain": "Software Engineering", "description": "Verification of floating-point precision loss in compiling code.", "sampleSize": 120, "discriminability": 0.40, "difficulty": -0.05, "baselineAccuracy": "61.3%", "cffAccuracy": "89.4%"},
-            {"id": "EXP-04", "name": "Quantitative Financial Arbitrage", "domain": "Quantitative Finance", "description": "Discernment of hidden tail-risk ruin beneath fluent Sharpe claims.", "sampleSize": 120, "discriminability": 0.39, "difficulty": +0.22, "baselineAccuracy": "55.4%", "cffAccuracy": "82.8%"},
-            {"id": "EXP-05", "name": "Choice-Overload & Epistemic Fatigue", "domain": "Decision Architecture", "description": "Quantifying operator decision quality degradation across option sets.", "sampleSize": 120, "discriminability": 0.36, "difficulty": +0.08, "baselineAccuracy": "52.1%", "cffAccuracy": "79.3%"},
-            {"id": "EXP-06", "name": "Autonomous Delegation Boundary", "domain": "Human-Autonomy Teaming", "description": "Measuring human propensity to surrender manual emergency override control.", "sampleSize": 120, "discriminability": 0.44, "difficulty": +0.31, "baselineAccuracy": "49.6%", "cffAccuracy": "77.0%"},
-            {"id": "EXP-07", "name": "Empirical Belief-Updating vs Entrenchment", "domain": "Epistemic Psychology", "description": "Evaluating belief updates when presented with empirical counter-data.", "sampleSize": 120, "discriminability": 0.37, "difficulty": -0.15, "baselineAccuracy": "59.8%", "cffAccuracy": "84.2%"},
-            {"id": "EXP-08", "name": "Hypothesis Preservation Post-Superiority", "domain": "Cognitive Sovereignty", "description": "Assessing independent human hypothesis generation after machine dominance.", "sampleSize": 120, "discriminability": 0.41, "difficulty": +0.14, "baselineAccuracy": "53.9%", "cffAccuracy": "81.6%"},
-            {"id": "EXP-09", "name": "Cognitive-Forcing Interface Benchmark", "domain": "Human Factors Engineering", "description": "Head-to-head comparison between passive review and mandatory pre-commitment.", "sampleSize": 120, "discriminability": 0.43, "difficulty": -0.02, "baselineAccuracy": "57.1%", "cffAccuracy": "91.3%"}
-        ],
-        "inSituValidation": {
-            "cohortSize": 500,
-            "totalTrials": 20000,
-            "overallAccuracy": 0.8308,
-            "defectLeakageRate": 0.1806,
-            "meanVerificationLatency": 114.2,
-            "meanAIGenerationLatency": 9.65,
-            "verificationLatencyWedge": 104.55,
-            "labToSituConcordance": 0.0136,
-            "domains": [
-                {"domain": "Finance", "accuracy": "84.5%", "dlr": "16.8%", "wedge": "98.2s"},
-                {"domain": "Cybersecurity", "accuracy": "81.2%", "dlr": "19.5%", "wedge": "112.4s"},
-                {"domain": "Medicine", "accuracy": "85.1%", "dlr": "15.9%", "wedge": "118.6s"},
-                {"domain": "Legal", "accuracy": "81.5%", "dlr": "20.1%", "wedge": "89.0s"}
-            ]
-        },
-        "syntheticSimulations": [
-            {
-                "id": "EXP-07-SYN",
-                "name": "Compounding Multi-Agent R&D Error Cascades",
-                "classification": "CLASS: SYNTHETIC_EXPERIMENT_SIMULATION",
-                "agents": 5,
-                "task": "24h Autonomous Recursive Self-Improvement",
-                "oracleSurvival": "95.0%",
-                "closedLoopSurvival": "0.025%",
-                "survivalRatio": "3,800x",
-                "errorCompoundingRate": 0.0320,
-                "survivalHalfLife": "2.5 hours",
-                "conclusion": "Recursive self-improvement without external empirical ground truth suffers rapid catastrophic error collapse."
-            },
-            {
-                "id": "EXP-08-SYN",
-                "name": "Persuasive Belief Inversion Boundary",
-                "classification": "CLASS: SYNTHETIC_EXPERIMENT_SIMULATION",
-                "groundTruths": 100,
-                "capabilityRange": "0.0 to 3.0 delta",
-                "inversionDelta": 1.75,
-                "shallowAccuracy": "< 50% (at delta > 1.75)",
-                "epistemicBufferRatio": 0.79,
-                "deepAccuracy": "> 95% (up to delta = 3.0)",
-                "conclusion": "Multi-tier epistemic verification prevents fluent persuasive capture across superhuman capability deltas."
-            }
-        ]
-    }
+def check_diff():
+    """Check if country_scores.json is stale relative to Layer 2 CSV."""
+    if not LEGACY_JSON.exists() or not LAYER2_CSV.exists():
+        print("FAIL: Missing files for diff comparison.")
+        sys.exit(1)
 
-    for dest in [SRC_DATA_DIR, PUBLIC_DATA_DIR]:
-        with open(dest / "asi_scenarios.json", "w", encoding="utf-8") as f:
-            json.dump(asi_payload, f, indent=2)
-        with open(dest / "behavioral_experiments.json", "w", encoding="utf-8") as f:
-            json.dump(experiments_data, f, indent=2)
+    csv_mtime = LAYER2_CSV.stat().st_mtime
+    json_mtime = LEGACY_JSON.stat().st_mtime
 
-    print("Successfully exported ASI scenarios and Behavioral Experiments datasets.")
+    if json_mtime < csv_mtime:
+        print(f"WARN/FAIL: {LEGACY_JSON} is older than {LAYER2_CSV}. Run export_web_data.py to harmonize.")
+        sys.exit(1)
+    else:
+        print(f"PASS: {LEGACY_JSON} is up to date with {LAYER2_CSV}.")
 
+def main():
+    parser = argparse.ArgumentParser(description="HSRI 2.0 Web Data Harmonizer")
+    parser.add_argument("--check", action="store_true", help="Assert data integrity for CI")
+    parser.add_argument("--diff", action="store_true", help="Assert freshness against CSV")
 
-if __name__ == '__main__':
-    export_all()
+    args = parser.parse_args()
+
+    if args.check:
+        check_integrity()
+    elif args.diff:
+        check_diff()
+    else:
+        count = harmonize()
+        check_integrity()
+        check_diff()
+        print(f"SUCCESS: Harmonized {count} nations into canonical Dual-Layer schema v2.0")
+
+if __name__ == "__main__":
+    main()

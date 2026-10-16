@@ -217,7 +217,7 @@ def generate_syndicate_slip_markdown(pricing: Dict[str, Any]) -> str:
 |---|---|---|
 | **Annual Decoupling Probability P(Decoupling)** | {p_dec:.1f}% / year | Global telemetric precursor seismograph (CORS 10.0) |
 | **Expected Annual Decoupling Loss (ECDL)** | $USD {ecdl} Billion | P(Decoupling) x Gross 14-Day Loss |
-| **HSRI Risk Loading Factor ($\Phi$)** | **{phi}x** | Frechet extreme value tail index & Choquet capacity |
+| **HSRI Risk Loading Factor ($\\Phi$)** | **{phi}x** | Frechet extreme value tail index & Choquet capacity |
 | **Sovereign Posture Surcharge / Discount** | {surcharge_str} | Layer 1/2 decoupling sensitivity ratio |
 | **Indicative Reinsurance Treaty Rate** | **{rate_pct}%** | Technical premium rate on total facility size |
 | **Annual Treaty Premium** | **$USD {premium} Million** | Technical annual cedent premium commitment |
