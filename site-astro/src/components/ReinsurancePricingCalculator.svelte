@@ -27,7 +27,7 @@
 
 > **Document Type:** Non-Proportional Excess of Loss / Extreme Catastrophe Syndicate Slip (Draft)  
 > **Permanent Research Baseline:** HSRI Research Consortium · DOI: [10.5281/zenodo.10842000](https://doi.org/10.5281/zenodo.10842000)  
-> **Lead Model PI:** Krishnakumar Radhakrishnan  
+> **Lead Model PI:** HSRI Research Consortium  
 > **Pricing Date:** ${today}  
 > **Compliance Standard:** Solvency II (Directive 2009/138/EC) Art 101 / NAIC RBC 99.5% 1-Year VaR  
 

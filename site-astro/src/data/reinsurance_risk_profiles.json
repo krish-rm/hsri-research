@@ -2,7 +2,7 @@
   "metadata": {
     "title": "HSRI 2.0 Reinsurance & Sovereign Risk Underwriting Telemetry",
     "version": "2.5.0",
-    "author": "Krishnakumar Radhakrishnan",
+    "author": "HSRI Research Consortium",
     "cors_oversight_scale": 10.0,
     "annual_catastrophic_decoupling_probability": 0.1728,
     "solvency_framework": "Solvency II / NAIC Risk-Based Capital (RBC) Compliant"

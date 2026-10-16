@@ -116,7 +116,7 @@ def test_reinsurance_calculator_syndicate_slip_export():
     assert "exportSyndicateSlip" in text
     assert "LLOYD'S SYNDICATE PLACEMENT SLIP" in text
     assert "Solvency II" in text
-    assert "Krishnakumar Radhakrishnan" in text
+    assert "HSRI Research Consortium" in text
     assert "10.5281/zenodo.10842000" in text
     assert "HSRI Risk Loading Factor" in text
     assert "syndicate-action-bar" in text

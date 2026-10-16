@@ -160,7 +160,7 @@
 > **Exercise**: HSRI Sovereign Decoupling Tabletop Pilot
 > **Host Partner**: ${currentHost.name}
 > **Archetype**: ${currentHost.archetypeName}
-> **Facilitator**: Krishnakumar Radhakrishnan, Lead PI (HSRI Research Consortium)
+> **Facilitator**: Lead PI (HSRI Research Consortium)
 > **Protocol DOI**: 10.5281/zenodo.10842000
 > **Session Timestamp**: ${timestamp}
 > **Governance Rule**: Strict Chatham House Rule (Non-Attribution)

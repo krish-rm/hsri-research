@@ -123,7 +123,7 @@ The reworked website inverts the presentation:
   * **261 Automated Tests**: Continuous integration verifying every formula, API, and container.
   * **Academic Preprint**: Full 42KB working paper with formal proofs and anticipated objection rebuttals.
   * **Permanent DOI**: Registered on Zenodo (`10.5281/zenodo.10842000`) under CC BY-SA 4.0 Open Science licensing.
-  * **Author Attribution**: Krishnakumar Radhakrishnan (HSRI Research Consortium).
+  * **Author Attribution**: HSRI Research Consortium.
 
 ---
 

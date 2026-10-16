@@ -124,7 +124,7 @@ def test_institutional_pilot_brief():
     assert "RSIS Singapore" in text
     assert "ETH Zurich" in text
     assert "MBZUAI" in text
-    assert "Krishnakumar Radhakrishnan" in text
+    assert "HSRI Research Consortium" in text
     assert "10.5281/zenodo.10842000" in text
     assert "Chatham House Rule" in text
     assert "HSRI Case Study 01" in text
@@ -166,7 +166,7 @@ def test_decoupling_facilitator_console_component():
     
     # Check Markdown AAR export
     assert "exportReport" in text
-    assert "Krishnakumar Radhakrishnan" in text
+    assert "HSRI Research Consortium" in text
     assert "10.5281/zenodo.10842000" in text
     assert "Chatham House Rule" in text
     assert "HSRI_After_Action_Report" in text
