@@ -1,0 +1,1 @@
+import{it as e}from"./client.BlRRly09.js";e();

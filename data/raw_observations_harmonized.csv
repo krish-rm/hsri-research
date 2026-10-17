@@ -1,0 +1,781 @@
+country_iso3,country_name,indicator_id,value,year,unit,source_id,status,coverage_notes
+AUS,Australia,AI_LIT_001,303.9,2022,points,PIAAC_OECD,Observed,Official OECD PIAAC / national survey calibrated
+AUS,Australia,AI_LIT_002,528.6,2022,points,PISA_OECD,Observed,PISA 2022 Digital Reading volume
+AUS,Australia,AI_LIT_004,35.3,2023,%,UNESCO_STEM,Observed,UNESCO UIS Tertiary database
+AUS,Australia,AI_LIT_005,87.6,2023,index,ITU_SKILLS,Observed,ITU Digital Development dashboard
+AUS,Australia,META_COG_001,505.1,2022,points,PISA_FACTOPIN_OECD,Observed,PISA 2022 epistemic discernment item set
+AUS,Australia,META_COG_002,,2023,index,EMLI_CouncilEurope,Missing,Non-European economy: not surveyed in Council of Europe / OSIS EMLI index
+AUS,Australia,META_COG_003,67.2,2023,points,REUTERS_2023,Observed,Reuters Institute Digital News Report
+AUS,Australia,DEC_AGY_001,4.43,2023,index,WGI_WorldBank,Observed,Worldwide Governance Indicators aggregate
+AUS,Australia,DEC_AGY_002,0.832,2023,index,VDEM_Vdem,Observed,Varieties of Democracy Liberal Democracy Index
+AUS,Australia,DEC_AGY_003,92.8,2023,points,FREEDOM_House,Observed,Freedom in the World aggregate score
+AUS,Australia,DEC_AGY_004,0.832,2023,index,OECD_AI_Policy,Observed,OECD.AI National AI Strategies and Policy tracker
+AUS,Australia,DEC_AGY_005,0.83,2023,index,STANFORD_AI_Index,Observed,HAI Stanford AI Index regulatory legislation tracker
+AUS,Australia,ENAB_001,80.57,2023,index,OXFORD_AI,Observed,Oxford Insights Government AI Readiness report
+AUS,Australia,ENAB_002,0.762,2023,index,IMF_AI,Observed,IMF AI Preparedness Index (AI-PI)
+AUS,Australia,ENAB_003,90.7,2023,index,ITU_DEVELOP,Observed,ITU IDI Connectivity Readiness score
+AUS,Australia,ENAB_004,0.842,2023,index,WBDIGITAL_WB,Observed,World Bank Digital Adoption Index
+AUS,Australia,ENAB_005,82.1,2023,index,WEF_TECHADOPT,Observed,WEF Global Competitiveness & Technology Adoption
+AUS,Australia,CAL_TRUST_001,61.4,2023,index,KPMG_AI_Trust,Observed,KPMG Trust in AI survey
+AUS,Australia,ATT_WELL_001,6.7,2023,hours,SCREENTIME_Owlnut,Observed,Owlnut Digital Screen Time
+AUS,Australia,ATT_WELL_002,17.6,2023,%,WELLBEING_WHO,Observed,WHO Mental Health Atlas prevalence estimate
+AUT,Austria,AI_LIT_001,302.2,2022,points,PIAAC_OECD,Observed,Official OECD PIAAC / national survey calibrated
+AUT,Austria,AI_LIT_002,525.4,2022,points,PISA_OECD,Observed,PISA 2022 Digital Reading volume
+AUT,Austria,AI_LIT_004,35.0,2023,%,UNESCO_STEM,Observed,UNESCO UIS Tertiary database
+AUT,Austria,AI_LIT_005,88.7,2023,index,ITU_SKILLS,Observed,ITU Digital Development dashboard
+AUT,Austria,META_COG_001,507.6,2022,points,PISA_FACTOPIN_OECD,Observed,PISA 2022 epistemic discernment item set
+AUT,Austria,META_COG_002,73.8,2023,index,EMLI_CouncilEurope,Observed,EMLI / OSIS Media Literacy Assessment
+AUT,Austria,META_COG_003,63.0,2023,points,REUTERS_2023,Observed,Reuters Institute Digital News Report
+AUT,Austria,DEC_AGY_001,4.29,2023,index,WGI_WorldBank,Observed,Worldwide Governance Indicators aggregate
+AUT,Austria,DEC_AGY_002,0.854,2023,index,VDEM_Vdem,Observed,Varieties of Democracy Liberal Democracy Index
+AUT,Austria,DEC_AGY_003,91.9,2023,points,FREEDOM_House,Observed,Freedom in the World aggregate score
+AUT,Austria,DEC_AGY_004,0.82,2023,index,OECD_AI_Policy,Observed,OECD.AI National AI Strategies and Policy tracker
+AUT,Austria,DEC_AGY_005,0.806,2023,index,STANFORD_AI_Index,Observed,HAI Stanford AI Index regulatory legislation tracker
+AUT,Austria,ENAB_001,79.65,2023,index,OXFORD_AI,Observed,Oxford Insights Government AI Readiness report
+AUT,Austria,ENAB_002,0.779,2023,index,IMF_AI,Observed,IMF AI Preparedness Index (AI-PI)
+AUT,Austria,ENAB_003,92.1,2023,index,ITU_DEVELOP,Observed,ITU IDI Connectivity Readiness score
+AUT,Austria,ENAB_004,0.843,2023,index,WBDIGITAL_WB,Observed,World Bank Digital Adoption Index
+AUT,Austria,ENAB_005,83.4,2023,index,WEF_TECHADOPT,Observed,WEF Global Competitiveness & Technology Adoption
+AUT,Austria,CAL_TRUST_001,,2023,index,KPMG_AI_Trust,Missing,Economy not surveyed in KPMG-Melbourne 2023 17-country study wave
+AUT,Austria,ATT_WELL_001,6.5,2023,hours,SCREENTIME_Owlnut,Observed,Owlnut Digital Screen Time
+AUT,Austria,ATT_WELL_002,18.2,2023,%,WELLBEING_WHO,Observed,WHO Mental Health Atlas prevalence estimate
+BEL,Belgium,AI_LIT_001,295.1,2022,points,PIAAC_OECD,Observed,Official OECD PIAAC / national survey calibrated
+BEL,Belgium,AI_LIT_002,526.1,2022,points,PISA_OECD,Observed,PISA 2022 Digital Reading volume
+BEL,Belgium,AI_LIT_004,34.7,2023,%,UNESCO_STEM,Observed,UNESCO UIS Tertiary database
+BEL,Belgium,AI_LIT_005,84.1,2023,index,ITU_SKILLS,Observed,ITU Digital Development dashboard
+BEL,Belgium,META_COG_001,502.6,2022,points,PISA_FACTOPIN_OECD,Observed,PISA 2022 epistemic discernment item set
+BEL,Belgium,META_COG_002,72.0,2023,index,EMLI_CouncilEurope,Observed,EMLI / OSIS Media Literacy Assessment
+BEL,Belgium,META_COG_003,60.1,2023,points,REUTERS_2023,Observed,Reuters Institute Digital News Report
+BEL,Belgium,DEC_AGY_001,4.21,2023,index,WGI_WorldBank,Observed,Worldwide Governance Indicators aggregate
+BEL,Belgium,DEC_AGY_002,0.812,2023,index,VDEM_Vdem,Observed,Varieties of Democracy Liberal Democracy Index
+BEL,Belgium,DEC_AGY_003,91.9,2023,points,FREEDOM_House,Observed,Freedom in the World aggregate score
+BEL,Belgium,DEC_AGY_004,0.835,2023,index,OECD_AI_Policy,Observed,OECD.AI National AI Strategies and Policy tracker
+BEL,Belgium,DEC_AGY_005,0.769,2023,index,STANFORD_AI_Index,Observed,HAI Stanford AI Index regulatory legislation tracker
+BEL,Belgium,ENAB_001,79.79,2023,index,OXFORD_AI,Observed,Oxford Insights Government AI Readiness report
+BEL,Belgium,ENAB_002,0.777,2023,index,IMF_AI,Observed,IMF AI Preparedness Index (AI-PI)
+BEL,Belgium,ENAB_003,91.1,2023,index,ITU_DEVELOP,Observed,ITU IDI Connectivity Readiness score
+BEL,Belgium,ENAB_004,0.852,2023,index,WBDIGITAL_WB,Observed,World Bank Digital Adoption Index
+BEL,Belgium,ENAB_005,83.8,2023,index,WEF_TECHADOPT,Observed,WEF Global Competitiveness & Technology Adoption
+BEL,Belgium,CAL_TRUST_001,,2023,index,KPMG_AI_Trust,Missing,Economy not surveyed in KPMG-Melbourne 2023 17-country study wave
+BEL,Belgium,ATT_WELL_001,5.9,2023,hours,SCREENTIME_Owlnut,Observed,Owlnut Digital Screen Time
+BEL,Belgium,ATT_WELL_002,16.9,2023,%,WELLBEING_WHO,Observed,WHO Mental Health Atlas prevalence estimate
+BGR,Bulgaria,AI_LIT_001,,2022,points,PIAAC_OECD,Missing,Did not participate in OECD PIAAC Problem Solving (PSTRE) module
+BGR,Bulgaria,AI_LIT_002,502.4,2022,points,PISA_OECD,Observed,PISA 2022 Digital Reading volume
+BGR,Bulgaria,AI_LIT_004,32.3,2023,%,UNESCO_STEM,Observed,UNESCO UIS Tertiary database
+BGR,Bulgaria,AI_LIT_005,77.4,2023,index,ITU_SKILLS,Observed,ITU Digital Development dashboard
+BGR,Bulgaria,META_COG_001,482.6,2022,points,PISA_FACTOPIN_OECD,Observed,PISA 2022 epistemic discernment item set
+BGR,Bulgaria,META_COG_002,67.9,2023,index,EMLI_CouncilEurope,Observed,EMLI / OSIS Media Literacy Assessment
+BGR,Bulgaria,META_COG_003,55.5,2023,points,REUTERS_2023,Observed,Reuters Institute Digital News Report
+BGR,Bulgaria,DEC_AGY_001,3.81,2023,index,WGI_WorldBank,Observed,Worldwide Governance Indicators aggregate
+BGR,Bulgaria,DEC_AGY_002,0.718,2023,index,VDEM_Vdem,Observed,Varieties of Democracy Liberal Democracy Index
+BGR,Bulgaria,DEC_AGY_003,80.2,2023,points,FREEDOM_House,Observed,Freedom in the World aggregate score
+BGR,Bulgaria,DEC_AGY_004,0.707,2023,index,OECD_AI_Policy,Observed,OECD.AI National AI Strategies and Policy tracker
+BGR,Bulgaria,DEC_AGY_005,0.732,2023,index,STANFORD_AI_Index,Observed,HAI Stanford AI Index regulatory legislation tracker
+BGR,Bulgaria,ENAB_001,73.75,2023,index,OXFORD_AI,Observed,Oxford Insights Government AI Readiness report
+BGR,Bulgaria,ENAB_002,0.748,2023,index,IMF_AI,Observed,IMF AI Preparedness Index (AI-PI)
+BGR,Bulgaria,ENAB_003,86.8,2023,index,ITU_DEVELOP,Observed,ITU IDI Connectivity Readiness score
+BGR,Bulgaria,ENAB_004,0.837,2023,index,WBDIGITAL_WB,Observed,World Bank Digital Adoption Index
+BGR,Bulgaria,ENAB_005,76.1,2023,index,WEF_TECHADOPT,Observed,WEF Global Competitiveness & Technology Adoption
+BGR,Bulgaria,CAL_TRUST_001,,2023,index,KPMG_AI_Trust,Missing,Economy not surveyed in KPMG-Melbourne 2023 17-country study wave
+BGR,Bulgaria,ATT_WELL_001,5.8,2023,hours,SCREENTIME_Owlnut,Observed,Owlnut Digital Screen Time
+BGR,Bulgaria,ATT_WELL_002,14.9,2023,%,WELLBEING_WHO,Observed,WHO Mental Health Atlas prevalence estimate
+CAN,Canada,AI_LIT_001,304.9,2022,points,PIAAC_OECD,Observed,Official OECD PIAAC / national survey calibrated
+CAN,Canada,AI_LIT_002,530.6,2022,points,PISA_OECD,Observed,PISA 2022 Digital Reading volume
+CAN,Canada,AI_LIT_004,35.0,2023,%,UNESCO_STEM,Observed,UNESCO UIS Tertiary database
+CAN,Canada,AI_LIT_005,83.3,2023,index,ITU_SKILLS,Observed,ITU Digital Development dashboard
+CAN,Canada,META_COG_001,509.5,2022,points,PISA_FACTOPIN_OECD,Observed,PISA 2022 epistemic discernment item set
+CAN,Canada,META_COG_002,,2023,index,EMLI_CouncilEurope,Missing,Non-European economy: not surveyed in Council of Europe / OSIS EMLI index
+CAN,Canada,META_COG_003,68.3,2023,points,REUTERS_2023,Observed,Reuters Institute Digital News Report
+CAN,Canada,DEC_AGY_001,4.4,2023,index,WGI_WorldBank,Observed,Worldwide Governance Indicators aggregate
+CAN,Canada,DEC_AGY_002,0.839,2023,index,VDEM_Vdem,Observed,Varieties of Democracy Liberal Democracy Index
+CAN,Canada,DEC_AGY_003,92.3,2023,points,FREEDOM_House,Observed,Freedom in the World aggregate score
+CAN,Canada,DEC_AGY_004,0.888,2023,index,OECD_AI_Policy,Observed,OECD.AI National AI Strategies and Policy tracker
+CAN,Canada,DEC_AGY_005,0.868,2023,index,STANFORD_AI_Index,Observed,HAI Stanford AI Index regulatory legislation tracker
+CAN,Canada,ENAB_001,80.08,2023,index,OXFORD_AI,Observed,Oxford Insights Government AI Readiness report
+CAN,Canada,ENAB_002,0.802,2023,index,IMF_AI,Observed,IMF AI Preparedness Index (AI-PI)
+CAN,Canada,ENAB_003,92.9,2023,index,ITU_DEVELOP,Observed,ITU IDI Connectivity Readiness score
+CAN,Canada,ENAB_004,0.869,2023,index,WBDIGITAL_WB,Observed,World Bank Digital Adoption Index
+CAN,Canada,ENAB_005,82.8,2023,index,WEF_TECHADOPT,Observed,WEF Global Competitiveness & Technology Adoption
+CAN,Canada,CAL_TRUST_001,60.4,2023,index,KPMG_AI_Trust,Observed,KPMG Trust in AI survey
+CAN,Canada,ATT_WELL_001,6.9,2023,hours,SCREENTIME_Owlnut,Observed,Owlnut Digital Screen Time
+CAN,Canada,ATT_WELL_002,20.5,2023,%,WELLBEING_WHO,Observed,WHO Mental Health Atlas prevalence estimate
+CYP,Cyprus,AI_LIT_001,,2022,points,PIAAC_OECD,Missing,Did not participate in OECD PIAAC Problem Solving (PSTRE) module
+CYP,Cyprus,AI_LIT_002,505.6,2022,points,PISA_OECD,Observed,PISA 2022 Digital Reading volume
+CYP,Cyprus,AI_LIT_004,32.7,2023,%,UNESCO_STEM,Observed,UNESCO UIS Tertiary database
+CYP,Cyprus,AI_LIT_005,79.9,2023,index,ITU_SKILLS,Observed,ITU Digital Development dashboard
+CYP,Cyprus,META_COG_001,493.2,2022,points,PISA_FACTOPIN_OECD,Observed,PISA 2022 epistemic discernment item set
+CYP,Cyprus,META_COG_002,70.3,2023,index,EMLI_CouncilEurope,Observed,EMLI / OSIS Media Literacy Assessment
+CYP,Cyprus,META_COG_003,,2023,points,REUTERS_2023,Missing,Unsurveyed in Reuters Institute Digital News Report sample
+CYP,Cyprus,DEC_AGY_001,3.99,2023,index,WGI_WorldBank,Observed,Worldwide Governance Indicators aggregate
+CYP,Cyprus,DEC_AGY_002,0.72,2023,index,VDEM_Vdem,Observed,Varieties of Democracy Liberal Democracy Index
+CYP,Cyprus,DEC_AGY_003,84.1,2023,points,FREEDOM_House,Observed,Freedom in the World aggregate score
+CYP,Cyprus,DEC_AGY_004,0.802,2023,index,OECD_AI_Policy,Observed,OECD.AI National AI Strategies and Policy tracker
+CYP,Cyprus,DEC_AGY_005,,2023,index,STANFORD_AI_Index,Missing,No standalone national legislative tracker in Stanford HAI Index
+CYP,Cyprus,ENAB_001,73.87,2023,index,OXFORD_AI,Observed,Oxford Insights Government AI Readiness report
+CYP,Cyprus,ENAB_002,0.737,2023,index,IMF_AI,Observed,IMF AI Preparedness Index (AI-PI)
+CYP,Cyprus,ENAB_003,88.0,2023,index,ITU_DEVELOP,Observed,ITU IDI Connectivity Readiness score
+CYP,Cyprus,ENAB_004,0.814,2023,index,WBDIGITAL_WB,Observed,World Bank Digital Adoption Index
+CYP,Cyprus,ENAB_005,79.2,2023,index,WEF_TECHADOPT,Observed,WEF Global Competitiveness & Technology Adoption
+CYP,Cyprus,CAL_TRUST_001,,2023,index,KPMG_AI_Trust,Missing,Economy not surveyed in KPMG-Melbourne 2023 17-country study wave
+CYP,Cyprus,ATT_WELL_001,5.8,2023,hours,SCREENTIME_Owlnut,Observed,Owlnut Digital Screen Time
+CYP,Cyprus,ATT_WELL_002,16.2,2023,%,WELLBEING_WHO,Observed,WHO Mental Health Atlas prevalence estimate
+CZE,Czech Republic,AI_LIT_001,296.3,2022,points,PIAAC_OECD,Observed,Official OECD PIAAC / national survey calibrated
+CZE,Czech Republic,AI_LIT_002,523.9,2022,points,PISA_OECD,Observed,PISA 2022 Digital Reading volume
+CZE,Czech Republic,AI_LIT_004,33.3,2023,%,UNESCO_STEM,Observed,UNESCO UIS Tertiary database
+CZE,Czech Republic,AI_LIT_005,81.2,2023,index,ITU_SKILLS,Observed,ITU Digital Development dashboard
+CZE,Czech Republic,META_COG_001,503.3,2022,points,PISA_FACTOPIN_OECD,Observed,PISA 2022 epistemic discernment item set
+CZE,Czech Republic,META_COG_002,72.4,2023,index,EMLI_CouncilEurope,Observed,EMLI / OSIS Media Literacy Assessment
+CZE,Czech Republic,META_COG_003,63.3,2023,points,REUTERS_2023,Observed,Reuters Institute Digital News Report
+CZE,Czech Republic,DEC_AGY_001,4.1,2023,index,WGI_WorldBank,Observed,Worldwide Governance Indicators aggregate
+CZE,Czech Republic,DEC_AGY_002,0.829,2023,index,VDEM_Vdem,Observed,Varieties of Democracy Liberal Democracy Index
+CZE,Czech Republic,DEC_AGY_003,86.6,2023,points,FREEDOM_House,Observed,Freedom in the World aggregate score
+CZE,Czech Republic,DEC_AGY_004,0.821,2023,index,OECD_AI_Policy,Observed,OECD.AI National AI Strategies and Policy tracker
+CZE,Czech Republic,DEC_AGY_005,0.865,2023,index,STANFORD_AI_Index,Observed,HAI Stanford AI Index regulatory legislation tracker
+CZE,Czech Republic,ENAB_001,76.01,2023,index,OXFORD_AI,Observed,Oxford Insights Government AI Readiness report
+CZE,Czech Republic,ENAB_002,0.756,2023,index,IMF_AI,Observed,IMF AI Preparedness Index (AI-PI)
+CZE,Czech Republic,ENAB_003,90.1,2023,index,ITU_DEVELOP,Observed,ITU IDI Connectivity Readiness score
+CZE,Czech Republic,ENAB_004,0.816,2023,index,WBDIGITAL_WB,Observed,World Bank Digital Adoption Index
+CZE,Czech Republic,ENAB_005,78.9,2023,index,WEF_TECHADOPT,Observed,WEF Global Competitiveness & Technology Adoption
+CZE,Czech Republic,CAL_TRUST_001,,2023,index,KPMG_AI_Trust,Missing,Economy not surveyed in KPMG-Melbourne 2023 17-country study wave
+CZE,Czech Republic,ATT_WELL_001,6.2,2023,hours,SCREENTIME_Owlnut,Observed,Owlnut Digital Screen Time
+CZE,Czech Republic,ATT_WELL_002,19.5,2023,%,WELLBEING_WHO,Observed,WHO Mental Health Atlas prevalence estimate
+DNK,Denmark,AI_LIT_001,308.1,2022,points,PIAAC_OECD,Observed,Official OECD PIAAC / national survey calibrated
+DNK,Denmark,AI_LIT_002,538.2,2022,points,PISA_OECD,Observed,PISA 2022 Digital Reading volume
+DNK,Denmark,AI_LIT_004,35.4,2023,%,UNESCO_STEM,Observed,UNESCO UIS Tertiary database
+DNK,Denmark,AI_LIT_005,87.1,2023,index,ITU_SKILLS,Observed,ITU Digital Development dashboard
+DNK,Denmark,META_COG_001,512.6,2022,points,PISA_FACTOPIN_OECD,Observed,PISA 2022 epistemic discernment item set
+DNK,Denmark,META_COG_002,76.6,2023,index,EMLI_CouncilEurope,Observed,EMLI / OSIS Media Literacy Assessment
+DNK,Denmark,META_COG_003,68.3,2023,points,REUTERS_2023,Observed,Reuters Institute Digital News Report
+DNK,Denmark,DEC_AGY_001,4.65,2023,index,WGI_WorldBank,Observed,Worldwide Governance Indicators aggregate
+DNK,Denmark,DEC_AGY_002,0.893,2023,index,VDEM_Vdem,Observed,Varieties of Democracy Liberal Democracy Index
+DNK,Denmark,DEC_AGY_003,97.3,2023,points,FREEDOM_House,Observed,Freedom in the World aggregate score
+DNK,Denmark,DEC_AGY_004,0.95,2023,index,OECD_AI_Policy,Observed,OECD.AI National AI Strategies and Policy tracker
+DNK,Denmark,DEC_AGY_005,0.878,2023,index,STANFORD_AI_Index,Observed,HAI Stanford AI Index regulatory legislation tracker
+DNK,Denmark,ENAB_001,81.79,2023,index,OXFORD_AI,Observed,Oxford Insights Government AI Readiness report
+DNK,Denmark,ENAB_002,0.784,2023,index,IMF_AI,Observed,IMF AI Preparedness Index (AI-PI)
+DNK,Denmark,ENAB_003,95.0,2023,index,ITU_DEVELOP,Observed,ITU IDI Connectivity Readiness score
+DNK,Denmark,ENAB_004,0.885,2023,index,WBDIGITAL_WB,Observed,World Bank Digital Adoption Index
+DNK,Denmark,ENAB_005,83.7,2023,index,WEF_TECHADOPT,Observed,WEF Global Competitiveness & Technology Adoption
+DNK,Denmark,CAL_TRUST_001,,2023,index,KPMG_AI_Trust,Missing,Economy not surveyed in KPMG-Melbourne 2023 17-country study wave
+DNK,Denmark,ATT_WELL_001,8.1,2023,hours,SCREENTIME_Owlnut,Observed,Owlnut Digital Screen Time
+DNK,Denmark,ATT_WELL_002,20.2,2023,%,WELLBEING_WHO,Observed,WHO Mental Health Atlas prevalence estimate
+EST,Estonia,AI_LIT_001,304.8,2022,points,PIAAC_OECD,Observed,Official OECD PIAAC / national survey calibrated
+EST,Estonia,AI_LIT_002,535.3,2022,points,PISA_OECD,Observed,PISA 2022 Digital Reading volume
+EST,Estonia,AI_LIT_004,35.7,2023,%,UNESCO_STEM,Observed,UNESCO UIS Tertiary database
+EST,Estonia,AI_LIT_005,86.2,2023,index,ITU_SKILLS,Observed,ITU Digital Development dashboard
+EST,Estonia,META_COG_001,517.8,2022,points,PISA_FACTOPIN_OECD,Observed,PISA 2022 epistemic discernment item set
+EST,Estonia,META_COG_002,76.0,2023,index,EMLI_CouncilEurope,Observed,EMLI / OSIS Media Literacy Assessment
+EST,Estonia,META_COG_003,63.0,2023,points,REUTERS_2023,Observed,Reuters Institute Digital News Report
+EST,Estonia,DEC_AGY_001,4.39,2023,index,WGI_WorldBank,Observed,Worldwide Governance Indicators aggregate
+EST,Estonia,DEC_AGY_002,0.815,2023,index,VDEM_Vdem,Observed,Varieties of Democracy Liberal Democracy Index
+EST,Estonia,DEC_AGY_003,92.6,2023,points,FREEDOM_House,Observed,Freedom in the World aggregate score
+EST,Estonia,DEC_AGY_004,0.874,2023,index,OECD_AI_Policy,Observed,OECD.AI National AI Strategies and Policy tracker
+EST,Estonia,DEC_AGY_005,0.812,2023,index,STANFORD_AI_Index,Observed,HAI Stanford AI Index regulatory legislation tracker
+EST,Estonia,ENAB_001,81.88,2023,index,OXFORD_AI,Observed,Oxford Insights Government AI Readiness report
+EST,Estonia,ENAB_002,0.801,2023,index,IMF_AI,Observed,IMF AI Preparedness Index (AI-PI)
+EST,Estonia,ENAB_003,93.6,2023,index,ITU_DEVELOP,Observed,ITU IDI Connectivity Readiness score
+EST,Estonia,ENAB_004,0.883,2023,index,WBDIGITAL_WB,Observed,World Bank Digital Adoption Index
+EST,Estonia,ENAB_005,83.4,2023,index,WEF_TECHADOPT,Observed,WEF Global Competitiveness & Technology Adoption
+EST,Estonia,CAL_TRUST_001,61.0,2023,index,KPMG_AI_Trust,Observed,KPMG Trust in AI survey
+EST,Estonia,ATT_WELL_001,6.4,2023,hours,SCREENTIME_Owlnut,Observed,Owlnut Digital Screen Time
+EST,Estonia,ATT_WELL_002,21.8,2023,%,WELLBEING_WHO,Observed,WHO Mental Health Atlas prevalence estimate
+FIN,Finland,AI_LIT_001,307.8,2022,points,PIAAC_OECD,Observed,Official OECD PIAAC / national survey calibrated
+FIN,Finland,AI_LIT_002,541.8,2022,points,PISA_OECD,Observed,PISA 2022 Digital Reading volume
+FIN,Finland,AI_LIT_004,35.7,2023,%,UNESCO_STEM,Observed,UNESCO UIS Tertiary database
+FIN,Finland,AI_LIT_005,90.5,2023,index,ITU_SKILLS,Observed,ITU Digital Development dashboard
+FIN,Finland,META_COG_001,522.7,2022,points,PISA_FACTOPIN_OECD,Observed,PISA 2022 epistemic discernment item set
+FIN,Finland,META_COG_002,83.7,2023,index,EMLI_CouncilEurope,Observed,EMLI / OSIS Media Literacy Assessment
+FIN,Finland,META_COG_003,68.7,2023,points,REUTERS_2023,Observed,Reuters Institute Digital News Report
+FIN,Finland,DEC_AGY_001,4.49,2023,index,WGI_WorldBank,Observed,Worldwide Governance Indicators aggregate
+FIN,Finland,DEC_AGY_002,0.889,2023,index,VDEM_Vdem,Observed,Varieties of Democracy Liberal Democracy Index
+FIN,Finland,DEC_AGY_003,94.3,2023,points,FREEDOM_House,Observed,Freedom in the World aggregate score
+FIN,Finland,DEC_AGY_004,0.926,2023,index,OECD_AI_Policy,Observed,OECD.AI National AI Strategies and Policy tracker
+FIN,Finland,DEC_AGY_005,0.897,2023,index,STANFORD_AI_Index,Observed,HAI Stanford AI Index regulatory legislation tracker
+FIN,Finland,ENAB_001,81.0,2023,index,OXFORD_AI,Observed,Oxford Insights Government AI Readiness report
+FIN,Finland,ENAB_002,0.796,2023,index,IMF_AI,Observed,IMF AI Preparedness Index (AI-PI)
+FIN,Finland,ENAB_003,93.9,2023,index,ITU_DEVELOP,Observed,ITU IDI Connectivity Readiness score
+FIN,Finland,ENAB_004,0.851,2023,index,WBDIGITAL_WB,Observed,World Bank Digital Adoption Index
+FIN,Finland,ENAB_005,85.0,2023,index,WEF_TECHADOPT,Observed,WEF Global Competitiveness & Technology Adoption
+FIN,Finland,CAL_TRUST_001,,2023,index,KPMG_AI_Trust,Missing,Economy not surveyed in KPMG-Melbourne 2023 17-country study wave
+FIN,Finland,ATT_WELL_001,8.0,2023,hours,SCREENTIME_Owlnut,Observed,Owlnut Digital Screen Time
+FIN,Finland,ATT_WELL_002,16.5,2023,%,WELLBEING_WHO,Observed,WHO Mental Health Atlas prevalence estimate
+FRA,France,AI_LIT_001,299.7,2022,points,PIAAC_OECD,Observed,Official OECD PIAAC / national survey calibrated
+FRA,France,AI_LIT_002,520.3,2022,points,PISA_OECD,Observed,PISA 2022 Digital Reading volume
+FRA,France,AI_LIT_004,34.0,2023,%,UNESCO_STEM,Observed,UNESCO UIS Tertiary database
+FRA,France,AI_LIT_005,84.5,2023,index,ITU_SKILLS,Observed,ITU Digital Development dashboard
+FRA,France,META_COG_001,501.0,2022,points,PISA_FACTOPIN_OECD,Observed,PISA 2022 epistemic discernment item set
+FRA,France,META_COG_002,73.4,2023,index,EMLI_CouncilEurope,Observed,EMLI / OSIS Media Literacy Assessment
+FRA,France,META_COG_003,63.7,2023,points,REUTERS_2023,Observed,Reuters Institute Digital News Report
+FRA,France,DEC_AGY_001,4.18,2023,index,WGI_WorldBank,Observed,Worldwide Governance Indicators aggregate
+FRA,France,DEC_AGY_002,0.828,2023,index,VDEM_Vdem,Observed,Varieties of Democracy Liberal Democracy Index
+FRA,France,DEC_AGY_003,91.2,2023,points,FREEDOM_House,Observed,Freedom in the World aggregate score
+FRA,France,DEC_AGY_004,0.857,2023,index,OECD_AI_Policy,Observed,OECD.AI National AI Strategies and Policy tracker
+FRA,France,DEC_AGY_005,0.853,2023,index,STANFORD_AI_Index,Observed,HAI Stanford AI Index regulatory legislation tracker
+FRA,France,ENAB_001,77.75,2023,index,OXFORD_AI,Observed,Oxford Insights Government AI Readiness report
+FRA,France,ENAB_002,0.769,2023,index,IMF_AI,Observed,IMF AI Preparedness Index (AI-PI)
+FRA,France,ENAB_003,92.3,2023,index,ITU_DEVELOP,Observed,ITU IDI Connectivity Readiness score
+FRA,France,ENAB_004,0.851,2023,index,WBDIGITAL_WB,Observed,World Bank Digital Adoption Index
+FRA,France,ENAB_005,83.2,2023,index,WEF_TECHADOPT,Observed,WEF Global Competitiveness & Technology Adoption
+FRA,France,CAL_TRUST_001,69.0,2023,index,KPMG_AI_Trust,Observed,KPMG Trust in AI survey
+FRA,France,ATT_WELL_001,7.5,2023,hours,SCREENTIME_Owlnut,Observed,Owlnut Digital Screen Time
+FRA,France,ATT_WELL_002,19.6,2023,%,WELLBEING_WHO,Observed,WHO Mental Health Atlas prevalence estimate
+DEU,Germany,AI_LIT_001,315.1,2022,points,PIAAC_OECD,Observed,Official OECD PIAAC / national survey calibrated
+DEU,Germany,AI_LIT_002,531.4,2022,points,PISA_OECD,Observed,PISA 2022 Digital Reading volume
+DEU,Germany,AI_LIT_004,34.9,2023,%,UNESCO_STEM,Observed,UNESCO UIS Tertiary database
+DEU,Germany,AI_LIT_005,84.1,2023,index,ITU_SKILLS,Observed,ITU Digital Development dashboard
+DEU,Germany,META_COG_001,502.9,2022,points,PISA_FACTOPIN_OECD,Observed,PISA 2022 epistemic discernment item set
+DEU,Germany,META_COG_002,74.9,2023,index,EMLI_CouncilEurope,Observed,EMLI / OSIS Media Literacy Assessment
+DEU,Germany,META_COG_003,63.2,2023,points,REUTERS_2023,Observed,Reuters Institute Digital News Report
+DEU,Germany,DEC_AGY_001,4.4,2023,index,WGI_WorldBank,Observed,Worldwide Governance Indicators aggregate
+DEU,Germany,DEC_AGY_002,0.838,2023,index,VDEM_Vdem,Observed,Varieties of Democracy Liberal Democracy Index
+DEU,Germany,DEC_AGY_003,89.8,2023,points,FREEDOM_House,Observed,Freedom in the World aggregate score
+DEU,Germany,DEC_AGY_004,0.864,2023,index,OECD_AI_Policy,Observed,OECD.AI National AI Strategies and Policy tracker
+DEU,Germany,DEC_AGY_005,0.839,2023,index,STANFORD_AI_Index,Observed,HAI Stanford AI Index regulatory legislation tracker
+DEU,Germany,ENAB_001,80.38,2023,index,OXFORD_AI,Observed,Oxford Insights Government AI Readiness report
+DEU,Germany,ENAB_002,0.777,2023,index,IMF_AI,Observed,IMF AI Preparedness Index (AI-PI)
+DEU,Germany,ENAB_003,92.1,2023,index,ITU_DEVELOP,Observed,ITU IDI Connectivity Readiness score
+DEU,Germany,ENAB_004,0.874,2023,index,WBDIGITAL_WB,Observed,World Bank Digital Adoption Index
+DEU,Germany,ENAB_005,83.5,2023,index,WEF_TECHADOPT,Observed,WEF Global Competitiveness & Technology Adoption
+DEU,Germany,CAL_TRUST_001,60.2,2023,index,KPMG_AI_Trust,Observed,KPMG Trust in AI survey
+DEU,Germany,ATT_WELL_001,7.4,2023,hours,SCREENTIME_Owlnut,Observed,Owlnut Digital Screen Time
+DEU,Germany,ATT_WELL_002,14.7,2023,%,WELLBEING_WHO,Observed,WHO Mental Health Atlas prevalence estimate
+GRC,Greece,AI_LIT_001,289.3,2022,points,PIAAC_OECD,Observed,Official OECD PIAAC / national survey calibrated
+GRC,Greece,AI_LIT_002,511.0,2022,points,PISA_OECD,Observed,PISA 2022 Digital Reading volume
+GRC,Greece,AI_LIT_004,34.4,2023,%,UNESCO_STEM,Observed,UNESCO UIS Tertiary database
+GRC,Greece,AI_LIT_005,80.5,2023,index,ITU_SKILLS,Observed,ITU Digital Development dashboard
+GRC,Greece,META_COG_001,483.4,2022,points,PISA_FACTOPIN_OECD,Observed,PISA 2022 epistemic discernment item set
+GRC,Greece,META_COG_002,68.7,2023,index,EMLI_CouncilEurope,Observed,EMLI / OSIS Media Literacy Assessment
+GRC,Greece,META_COG_003,58.2,2023,points,REUTERS_2023,Observed,Reuters Institute Digital News Report
+GRC,Greece,DEC_AGY_001,3.94,2023,index,WGI_WorldBank,Observed,Worldwide Governance Indicators aggregate
+GRC,Greece,DEC_AGY_002,0.724,2023,index,VDEM_Vdem,Observed,Varieties of Democracy Liberal Democracy Index
+GRC,Greece,DEC_AGY_003,83.7,2023,points,FREEDOM_House,Observed,Freedom in the World aggregate score
+GRC,Greece,DEC_AGY_004,0.754,2023,index,OECD_AI_Policy,Observed,OECD.AI National AI Strategies and Policy tracker
+GRC,Greece,DEC_AGY_005,0.759,2023,index,STANFORD_AI_Index,Observed,HAI Stanford AI Index regulatory legislation tracker
+GRC,Greece,ENAB_001,73.12,2023,index,OXFORD_AI,Observed,Oxford Insights Government AI Readiness report
+GRC,Greece,ENAB_002,0.736,2023,index,IMF_AI,Observed,IMF AI Preparedness Index (AI-PI)
+GRC,Greece,ENAB_003,87.4,2023,index,ITU_DEVELOP,Observed,ITU IDI Connectivity Readiness score
+GRC,Greece,ENAB_004,0.791,2023,index,WBDIGITAL_WB,Observed,World Bank Digital Adoption Index
+GRC,Greece,ENAB_005,80.8,2023,index,WEF_TECHADOPT,Observed,WEF Global Competitiveness & Technology Adoption
+GRC,Greece,CAL_TRUST_001,,2023,index,KPMG_AI_Trust,Missing,Economy not surveyed in KPMG-Melbourne 2023 17-country study wave
+GRC,Greece,ATT_WELL_001,6.5,2023,hours,SCREENTIME_Owlnut,Observed,Owlnut Digital Screen Time
+GRC,Greece,ATT_WELL_002,21.6,2023,%,WELLBEING_WHO,Observed,WHO Mental Health Atlas prevalence estimate
+HKG,Hong Kong SAR,AI_LIT_001,308.0,2022,points,PIAAC_OECD,Observed,Official OECD PIAAC / national survey calibrated
+HKG,Hong Kong SAR,AI_LIT_002,535.9,2022,points,PISA_OECD,Observed,PISA 2022 Digital Reading volume
+HKG,Hong Kong SAR,AI_LIT_004,37.3,2023,%,UNESCO_STEM,Observed,UNESCO UIS Tertiary database
+HKG,Hong Kong SAR,AI_LIT_005,85.2,2023,index,ITU_SKILLS,Observed,ITU Digital Development dashboard
+HKG,Hong Kong SAR,META_COG_001,513.4,2022,points,PISA_FACTOPIN_OECD,Observed,PISA 2022 epistemic discernment item set
+HKG,Hong Kong SAR,META_COG_002,,2023,index,EMLI_CouncilEurope,Missing,Non-European economy: not surveyed in Council of Europe / OSIS EMLI index
+HKG,Hong Kong SAR,META_COG_003,61.4,2023,points,REUTERS_2023,Observed,Reuters Institute Digital News Report
+HKG,Hong Kong SAR,DEC_AGY_001,3.79,2023,index,WGI_WorldBank,Observed,Worldwide Governance Indicators aggregate
+HKG,Hong Kong SAR,DEC_AGY_002,0.763,2023,index,VDEM_Vdem,Observed,Varieties of Democracy Liberal Democracy Index
+HKG,Hong Kong SAR,DEC_AGY_003,82.8,2023,points,FREEDOM_House,Observed,Freedom in the World aggregate score
+HKG,Hong Kong SAR,DEC_AGY_004,0.696,2023,index,OECD_AI_Policy,Observed,OECD.AI National AI Strategies and Policy tracker
+HKG,Hong Kong SAR,DEC_AGY_005,0.679,2023,index,STANFORD_AI_Index,Observed,HAI Stanford AI Index regulatory legislation tracker
+HKG,Hong Kong SAR,ENAB_001,81.47,2023,index,OXFORD_AI,Observed,Oxford Insights Government AI Readiness report
+HKG,Hong Kong SAR,ENAB_002,0.772,2023,index,IMF_AI,Observed,IMF AI Preparedness Index (AI-PI)
+HKG,Hong Kong SAR,ENAB_003,92.2,2023,index,ITU_DEVELOP,Observed,ITU IDI Connectivity Readiness score
+HKG,Hong Kong SAR,ENAB_004,0.885,2023,index,WBDIGITAL_WB,Observed,World Bank Digital Adoption Index
+HKG,Hong Kong SAR,ENAB_005,86.0,2023,index,WEF_TECHADOPT,Observed,WEF Global Competitiveness & Technology Adoption
+HKG,Hong Kong SAR,CAL_TRUST_001,,2023,index,KPMG_AI_Trust,Missing,Economy not surveyed in KPMG-Melbourne 2023 17-country study wave
+HKG,Hong Kong SAR,ATT_WELL_001,6.7,2023,hours,SCREENTIME_Owlnut,Observed,Owlnut Digital Screen Time
+HKG,Hong Kong SAR,ATT_WELL_002,19.0,2023,%,WELLBEING_WHO,Observed,WHO Mental Health Atlas prevalence estimate
+HUN,Hungary,AI_LIT_001,294.9,2022,points,PIAAC_OECD,Observed,Official OECD PIAAC / national survey calibrated
+HUN,Hungary,AI_LIT_002,516.2,2022,points,PISA_OECD,Observed,PISA 2022 Digital Reading volume
+HUN,Hungary,AI_LIT_004,31.1,2023,%,UNESCO_STEM,Observed,UNESCO UIS Tertiary database
+HUN,Hungary,AI_LIT_005,81.2,2023,index,ITU_SKILLS,Observed,ITU Digital Development dashboard
+HUN,Hungary,META_COG_001,493.7,2022,points,PISA_FACTOPIN_OECD,Observed,PISA 2022 epistemic discernment item set
+HUN,Hungary,META_COG_002,67.8,2023,index,EMLI_CouncilEurope,Observed,EMLI / OSIS Media Literacy Assessment
+HUN,Hungary,META_COG_003,60.1,2023,points,REUTERS_2023,Observed,Reuters Institute Digital News Report
+HUN,Hungary,DEC_AGY_001,3.75,2023,index,WGI_WorldBank,Observed,Worldwide Governance Indicators aggregate
+HUN,Hungary,DEC_AGY_002,0.721,2023,index,VDEM_Vdem,Observed,Varieties of Democracy Liberal Democracy Index
+HUN,Hungary,DEC_AGY_003,83.3,2023,points,FREEDOM_House,Observed,Freedom in the World aggregate score
+HUN,Hungary,DEC_AGY_004,0.764,2023,index,OECD_AI_Policy,Observed,OECD.AI National AI Strategies and Policy tracker
+HUN,Hungary,DEC_AGY_005,0.673,2023,index,STANFORD_AI_Index,Observed,HAI Stanford AI Index regulatory legislation tracker
+HUN,Hungary,ENAB_001,77.12,2023,index,OXFORD_AI,Observed,Oxford Insights Government AI Readiness report
+HUN,Hungary,ENAB_002,0.712,2023,index,IMF_AI,Observed,IMF AI Preparedness Index (AI-PI)
+HUN,Hungary,ENAB_003,87.7,2023,index,ITU_DEVELOP,Observed,ITU IDI Connectivity Readiness score
+HUN,Hungary,ENAB_004,0.81,2023,index,WBDIGITAL_WB,Observed,World Bank Digital Adoption Index
+HUN,Hungary,ENAB_005,79.0,2023,index,WEF_TECHADOPT,Observed,WEF Global Competitiveness & Technology Adoption
+HUN,Hungary,CAL_TRUST_001,,2023,index,KPMG_AI_Trust,Missing,Economy not surveyed in KPMG-Melbourne 2023 17-country study wave
+HUN,Hungary,ATT_WELL_001,6.6,2023,hours,SCREENTIME_Owlnut,Observed,Owlnut Digital Screen Time
+HUN,Hungary,ATT_WELL_002,20.8,2023,%,WELLBEING_WHO,Observed,WHO Mental Health Atlas prevalence estimate
+ISL,Iceland,AI_LIT_001,,2022,points,PIAAC_OECD,Missing,Did not participate in OECD PIAAC Problem Solving (PSTRE) module
+ISL,Iceland,AI_LIT_002,524.1,2022,points,PISA_OECD,Observed,PISA 2022 Digital Reading volume
+ISL,Iceland,AI_LIT_004,33.6,2023,%,UNESCO_STEM,Observed,UNESCO UIS Tertiary database
+ISL,Iceland,AI_LIT_005,85.8,2023,index,ITU_SKILLS,Observed,ITU Digital Development dashboard
+ISL,Iceland,META_COG_001,511.8,2022,points,PISA_FACTOPIN_OECD,Observed,PISA 2022 epistemic discernment item set
+ISL,Iceland,META_COG_002,74.3,2023,index,EMLI_CouncilEurope,Observed,EMLI / OSIS Media Literacy Assessment
+ISL,Iceland,META_COG_003,,2023,points,REUTERS_2023,Missing,Unsurveyed in Reuters Institute Digital News Report sample
+ISL,Iceland,DEC_AGY_001,4.42,2023,index,WGI_WorldBank,Observed,Worldwide Governance Indicators aggregate
+ISL,Iceland,DEC_AGY_002,0.88,2023,index,VDEM_Vdem,Observed,Varieties of Democracy Liberal Democracy Index
+ISL,Iceland,DEC_AGY_003,94.4,2023,points,FREEDOM_House,Observed,Freedom in the World aggregate score
+ISL,Iceland,DEC_AGY_004,0.847,2023,index,OECD_AI_Policy,Observed,OECD.AI National AI Strategies and Policy tracker
+ISL,Iceland,DEC_AGY_005,,2023,index,STANFORD_AI_Index,Missing,No standalone national legislative tracker in Stanford HAI Index
+ISL,Iceland,ENAB_001,79.26,2023,index,OXFORD_AI,Observed,Oxford Insights Government AI Readiness report
+ISL,Iceland,ENAB_002,0.784,2023,index,IMF_AI,Observed,IMF AI Preparedness Index (AI-PI)
+ISL,Iceland,ENAB_003,94.0,2023,index,ITU_DEVELOP,Observed,ITU IDI Connectivity Readiness score
+ISL,Iceland,ENAB_004,0.878,2023,index,WBDIGITAL_WB,Observed,World Bank Digital Adoption Index
+ISL,Iceland,ENAB_005,83.2,2023,index,WEF_TECHADOPT,Observed,WEF Global Competitiveness & Technology Adoption
+ISL,Iceland,CAL_TRUST_001,,2023,index,KPMG_AI_Trust,Missing,Economy not surveyed in KPMG-Melbourne 2023 17-country study wave
+ISL,Iceland,ATT_WELL_001,6.0,2023,hours,SCREENTIME_Owlnut,Observed,Owlnut Digital Screen Time
+ISL,Iceland,ATT_WELL_002,21.2,2023,%,WELLBEING_WHO,Observed,WHO Mental Health Atlas prevalence estimate
+IRL,Ireland,AI_LIT_001,306.3,2022,points,PIAAC_OECD,Observed,Official OECD PIAAC / national survey calibrated
+IRL,Ireland,AI_LIT_002,529.3,2022,points,PISA_OECD,Observed,PISA 2022 Digital Reading volume
+IRL,Ireland,AI_LIT_004,35.3,2023,%,UNESCO_STEM,Observed,UNESCO UIS Tertiary database
+IRL,Ireland,AI_LIT_005,84.9,2023,index,ITU_SKILLS,Observed,ITU Digital Development dashboard
+IRL,Ireland,META_COG_001,508.7,2022,points,PISA_FACTOPIN_OECD,Observed,PISA 2022 epistemic discernment item set
+IRL,Ireland,META_COG_002,73.9,2023,index,EMLI_CouncilEurope,Observed,EMLI / OSIS Media Literacy Assessment
+IRL,Ireland,META_COG_003,64.6,2023,points,REUTERS_2023,Observed,Reuters Institute Digital News Report
+IRL,Ireland,DEC_AGY_001,4.39,2023,index,WGI_WorldBank,Observed,Worldwide Governance Indicators aggregate
+IRL,Ireland,DEC_AGY_002,0.818,2023,index,VDEM_Vdem,Observed,Varieties of Democracy Liberal Democracy Index
+IRL,Ireland,DEC_AGY_003,94.6,2023,points,FREEDOM_House,Observed,Freedom in the World aggregate score
+IRL,Ireland,DEC_AGY_004,0.809,2023,index,OECD_AI_Policy,Observed,OECD.AI National AI Strategies and Policy tracker
+IRL,Ireland,DEC_AGY_005,0.8,2023,index,STANFORD_AI_Index,Observed,HAI Stanford AI Index regulatory legislation tracker
+IRL,Ireland,ENAB_001,81.67,2023,index,OXFORD_AI,Observed,Oxford Insights Government AI Readiness report
+IRL,Ireland,ENAB_002,0.802,2023,index,IMF_AI,Observed,IMF AI Preparedness Index (AI-PI)
+IRL,Ireland,ENAB_003,93.1,2023,index,ITU_DEVELOP,Observed,ITU IDI Connectivity Readiness score
+IRL,Ireland,ENAB_004,0.86,2023,index,WBDIGITAL_WB,Observed,World Bank Digital Adoption Index
+IRL,Ireland,ENAB_005,83.3,2023,index,WEF_TECHADOPT,Observed,WEF Global Competitiveness & Technology Adoption
+IRL,Ireland,CAL_TRUST_001,,2023,index,KPMG_AI_Trust,Missing,Economy not surveyed in KPMG-Melbourne 2023 17-country study wave
+IRL,Ireland,ATT_WELL_001,7.2,2023,hours,SCREENTIME_Owlnut,Observed,Owlnut Digital Screen Time
+IRL,Ireland,ATT_WELL_002,17.5,2023,%,WELLBEING_WHO,Observed,WHO Mental Health Atlas prevalence estimate
+ISR,Israel,AI_LIT_001,297.5,2022,points,PIAAC_OECD,Observed,Official OECD PIAAC / national survey calibrated
+ISR,Israel,AI_LIT_002,525.4,2022,points,PISA_OECD,Observed,PISA 2022 Digital Reading volume
+ISR,Israel,AI_LIT_004,35.0,2023,%,UNESCO_STEM,Observed,UNESCO UIS Tertiary database
+ISR,Israel,AI_LIT_005,85.3,2023,index,ITU_SKILLS,Observed,ITU Digital Development dashboard
+ISR,Israel,META_COG_001,510.0,2022,points,PISA_FACTOPIN_OECD,Observed,PISA 2022 epistemic discernment item set
+ISR,Israel,META_COG_002,,2023,index,EMLI_CouncilEurope,Missing,Non-European economy: not surveyed in Council of Europe / OSIS EMLI index
+ISR,Israel,META_COG_003,64.0,2023,points,REUTERS_2023,Observed,Reuters Institute Digital News Report
+ISR,Israel,DEC_AGY_001,4.12,2023,index,WGI_WorldBank,Observed,Worldwide Governance Indicators aggregate
+ISR,Israel,DEC_AGY_002,0.798,2023,index,VDEM_Vdem,Observed,Varieties of Democracy Liberal Democracy Index
+ISR,Israel,DEC_AGY_003,88.9,2023,points,FREEDOM_House,Observed,Freedom in the World aggregate score
+ISR,Israel,DEC_AGY_004,0.767,2023,index,OECD_AI_Policy,Observed,OECD.AI National AI Strategies and Policy tracker
+ISR,Israel,DEC_AGY_005,0.757,2023,index,STANFORD_AI_Index,Observed,HAI Stanford AI Index regulatory legislation tracker
+ISR,Israel,ENAB_001,81.47,2023,index,OXFORD_AI,Observed,Oxford Insights Government AI Readiness report
+ISR,Israel,ENAB_002,0.756,2023,index,IMF_AI,Observed,IMF AI Preparedness Index (AI-PI)
+ISR,Israel,ENAB_003,93.7,2023,index,ITU_DEVELOP,Observed,ITU IDI Connectivity Readiness score
+ISR,Israel,ENAB_004,0.842,2023,index,WBDIGITAL_WB,Observed,World Bank Digital Adoption Index
+ISR,Israel,ENAB_005,83.0,2023,index,WEF_TECHADOPT,Observed,WEF Global Competitiveness & Technology Adoption
+ISR,Israel,CAL_TRUST_001,64.0,2023,index,KPMG_AI_Trust,Observed,KPMG Trust in AI survey
+ISR,Israel,ATT_WELL_001,5.9,2023,hours,SCREENTIME_Owlnut,Observed,Owlnut Digital Screen Time
+ISR,Israel,ATT_WELL_002,15.0,2023,%,WELLBEING_WHO,Observed,WHO Mental Health Atlas prevalence estimate
+ITA,Italy,AI_LIT_001,293.5,2022,points,PIAAC_OECD,Observed,Official OECD PIAAC / national survey calibrated
+ITA,Italy,AI_LIT_002,514.2,2022,points,PISA_OECD,Observed,PISA 2022 Digital Reading volume
+ITA,Italy,AI_LIT_004,33.1,2023,%,UNESCO_STEM,Observed,UNESCO UIS Tertiary database
+ITA,Italy,AI_LIT_005,83.3,2023,index,ITU_SKILLS,Observed,ITU Digital Development dashboard
+ITA,Italy,META_COG_001,495.4,2022,points,PISA_FACTOPIN_OECD,Observed,PISA 2022 epistemic discernment item set
+ITA,Italy,META_COG_002,70.7,2023,index,EMLI_CouncilEurope,Observed,EMLI / OSIS Media Literacy Assessment
+ITA,Italy,META_COG_003,62.2,2023,points,REUTERS_2023,Observed,Reuters Institute Digital News Report
+ITA,Italy,DEC_AGY_001,4.01,2023,index,WGI_WorldBank,Observed,Worldwide Governance Indicators aggregate
+ITA,Italy,DEC_AGY_002,0.778,2023,index,VDEM_Vdem,Observed,Varieties of Democracy Liberal Democracy Index
+ITA,Italy,DEC_AGY_003,86.6,2023,points,FREEDOM_House,Observed,Freedom in the World aggregate score
+ITA,Italy,DEC_AGY_004,0.777,2023,index,OECD_AI_Policy,Observed,OECD.AI National AI Strategies and Policy tracker
+ITA,Italy,DEC_AGY_005,0.747,2023,index,STANFORD_AI_Index,Observed,HAI Stanford AI Index regulatory legislation tracker
+ITA,Italy,ENAB_001,76.79,2023,index,OXFORD_AI,Observed,Oxford Insights Government AI Readiness report
+ITA,Italy,ENAB_002,0.768,2023,index,IMF_AI,Observed,IMF AI Preparedness Index (AI-PI)
+ITA,Italy,ENAB_003,91.1,2023,index,ITU_DEVELOP,Observed,ITU IDI Connectivity Readiness score
+ITA,Italy,ENAB_004,0.835,2023,index,WBDIGITAL_WB,Observed,World Bank Digital Adoption Index
+ITA,Italy,ENAB_005,83.0,2023,index,WEF_TECHADOPT,Observed,WEF Global Competitiveness & Technology Adoption
+ITA,Italy,CAL_TRUST_001,,2023,index,KPMG_AI_Trust,Missing,Economy not surveyed in KPMG-Melbourne 2023 17-country study wave
+ITA,Italy,ATT_WELL_001,8.1,2023,hours,SCREENTIME_Owlnut,Observed,Owlnut Digital Screen Time
+ITA,Italy,ATT_WELL_002,14.4,2023,%,WELLBEING_WHO,Observed,WHO Mental Health Atlas prevalence estimate
+JPN,Japan,AI_LIT_001,305.6,2022,points,PIAAC_OECD,Observed,Official OECD PIAAC / national survey calibrated
+JPN,Japan,AI_LIT_002,535.3,2022,points,PISA_OECD,Observed,PISA 2022 Digital Reading volume
+JPN,Japan,AI_LIT_004,36.8,2023,%,UNESCO_STEM,Observed,UNESCO UIS Tertiary database
+JPN,Japan,AI_LIT_005,85.5,2023,index,ITU_SKILLS,Observed,ITU Digital Development dashboard
+JPN,Japan,META_COG_001,513.5,2022,points,PISA_FACTOPIN_OECD,Observed,PISA 2022 epistemic discernment item set
+JPN,Japan,META_COG_002,,2023,index,EMLI_CouncilEurope,Missing,Non-European economy: not surveyed in Council of Europe / OSIS EMLI index
+JPN,Japan,META_COG_003,62.6,2023,points,REUTERS_2023,Observed,Reuters Institute Digital News Report
+JPN,Japan,DEC_AGY_001,4.45,2023,index,WGI_WorldBank,Observed,Worldwide Governance Indicators aggregate
+JPN,Japan,DEC_AGY_002,0.805,2023,index,VDEM_Vdem,Observed,Varieties of Democracy Liberal Democracy Index
+JPN,Japan,DEC_AGY_003,89.1,2023,points,FREEDOM_House,Observed,Freedom in the World aggregate score
+JPN,Japan,DEC_AGY_004,0.857,2023,index,OECD_AI_Policy,Observed,OECD.AI National AI Strategies and Policy tracker
+JPN,Japan,DEC_AGY_005,0.861,2023,index,STANFORD_AI_Index,Observed,HAI Stanford AI Index regulatory legislation tracker
+JPN,Japan,ENAB_001,81.88,2023,index,OXFORD_AI,Observed,Oxford Insights Government AI Readiness report
+JPN,Japan,ENAB_002,0.806,2023,index,IMF_AI,Observed,IMF AI Preparedness Index (AI-PI)
+JPN,Japan,ENAB_003,94.3,2023,index,ITU_DEVELOP,Observed,ITU IDI Connectivity Readiness score
+JPN,Japan,ENAB_004,0.865,2023,index,WBDIGITAL_WB,Observed,World Bank Digital Adoption Index
+JPN,Japan,ENAB_005,83.5,2023,index,WEF_TECHADOPT,Observed,WEF Global Competitiveness & Technology Adoption
+JPN,Japan,CAL_TRUST_001,70.0,2023,index,KPMG_AI_Trust,Observed,KPMG Trust in AI survey
+JPN,Japan,ATT_WELL_001,5.8,2023,hours,SCREENTIME_Owlnut,Observed,Owlnut Digital Screen Time
+JPN,Japan,ATT_WELL_002,14.2,2023,%,WELLBEING_WHO,Observed,WHO Mental Health Atlas prevalence estimate
+KOR,South Korea,AI_LIT_001,313.6,2022,points,PIAAC_OECD,Observed,Official OECD PIAAC / national survey calibrated
+KOR,South Korea,AI_LIT_002,536.4,2022,points,PISA_OECD,Observed,PISA 2022 Digital Reading volume
+KOR,South Korea,AI_LIT_004,34.0,2023,%,UNESCO_STEM,Observed,UNESCO UIS Tertiary database
+KOR,South Korea,AI_LIT_005,90.7,2023,index,ITU_SKILLS,Observed,ITU Digital Development dashboard
+KOR,South Korea,META_COG_001,508.4,2022,points,PISA_FACTOPIN_OECD,Observed,PISA 2022 epistemic discernment item set
+KOR,South Korea,META_COG_002,,2023,index,EMLI_CouncilEurope,Missing,Non-European economy: not surveyed in Council of Europe / OSIS EMLI index
+KOR,South Korea,META_COG_003,61.7,2023,points,REUTERS_2023,Observed,Reuters Institute Digital News Report
+KOR,South Korea,DEC_AGY_001,4.22,2023,index,WGI_WorldBank,Observed,Worldwide Governance Indicators aggregate
+KOR,South Korea,DEC_AGY_002,0.821,2023,index,VDEM_Vdem,Observed,Varieties of Democracy Liberal Democracy Index
+KOR,South Korea,DEC_AGY_003,90.4,2023,points,FREEDOM_House,Observed,Freedom in the World aggregate score
+KOR,South Korea,DEC_AGY_004,0.811,2023,index,OECD_AI_Policy,Observed,OECD.AI National AI Strategies and Policy tracker
+KOR,South Korea,DEC_AGY_005,0.84,2023,index,STANFORD_AI_Index,Observed,HAI Stanford AI Index regulatory legislation tracker
+KOR,South Korea,ENAB_001,81.64,2023,index,OXFORD_AI,Observed,Oxford Insights Government AI Readiness report
+KOR,South Korea,ENAB_002,0.811,2023,index,IMF_AI,Observed,IMF AI Preparedness Index (AI-PI)
+KOR,South Korea,ENAB_003,94.7,2023,index,ITU_DEVELOP,Observed,ITU IDI Connectivity Readiness score
+KOR,South Korea,ENAB_004,0.881,2023,index,WBDIGITAL_WB,Observed,World Bank Digital Adoption Index
+KOR,South Korea,ENAB_005,86.3,2023,index,WEF_TECHADOPT,Observed,WEF Global Competitiveness & Technology Adoption
+KOR,South Korea,CAL_TRUST_001,66.3,2023,index,KPMG_AI_Trust,Observed,KPMG Trust in AI survey
+KOR,South Korea,ATT_WELL_001,6.7,2023,hours,SCREENTIME_Owlnut,Observed,Owlnut Digital Screen Time
+KOR,South Korea,ATT_WELL_002,14.9,2023,%,WELLBEING_WHO,Observed,WHO Mental Health Atlas prevalence estimate
+LVA,Latvia,AI_LIT_001,289.1,2022,points,PIAAC_OECD,Observed,Official OECD PIAAC / national survey calibrated
+LVA,Latvia,AI_LIT_002,518.5,2022,points,PISA_OECD,Observed,PISA 2022 Digital Reading volume
+LVA,Latvia,AI_LIT_004,35.0,2023,%,UNESCO_STEM,Observed,UNESCO UIS Tertiary database
+LVA,Latvia,AI_LIT_005,81.2,2023,index,ITU_SKILLS,Observed,ITU Digital Development dashboard
+LVA,Latvia,META_COG_001,500.6,2022,points,PISA_FACTOPIN_OECD,Observed,PISA 2022 epistemic discernment item set
+LVA,Latvia,META_COG_002,69.7,2023,index,EMLI_CouncilEurope,Observed,EMLI / OSIS Media Literacy Assessment
+LVA,Latvia,META_COG_003,62.7,2023,points,REUTERS_2023,Observed,Reuters Institute Digital News Report
+LVA,Latvia,DEC_AGY_001,4.16,2023,index,WGI_WorldBank,Observed,Worldwide Governance Indicators aggregate
+LVA,Latvia,DEC_AGY_002,0.784,2023,index,VDEM_Vdem,Observed,Varieties of Democracy Liberal Democracy Index
+LVA,Latvia,DEC_AGY_003,85.6,2023,points,FREEDOM_House,Observed,Freedom in the World aggregate score
+LVA,Latvia,DEC_AGY_004,0.774,2023,index,OECD_AI_Policy,Observed,OECD.AI National AI Strategies and Policy tracker
+LVA,Latvia,DEC_AGY_005,0.822,2023,index,STANFORD_AI_Index,Observed,HAI Stanford AI Index regulatory legislation tracker
+LVA,Latvia,ENAB_001,76.93,2023,index,OXFORD_AI,Observed,Oxford Insights Government AI Readiness report
+LVA,Latvia,ENAB_002,0.746,2023,index,IMF_AI,Observed,IMF AI Preparedness Index (AI-PI)
+LVA,Latvia,ENAB_003,88.6,2023,index,ITU_DEVELOP,Observed,ITU IDI Connectivity Readiness score
+LVA,Latvia,ENAB_004,0.787,2023,index,WBDIGITAL_WB,Observed,World Bank Digital Adoption Index
+LVA,Latvia,ENAB_005,81.5,2023,index,WEF_TECHADOPT,Observed,WEF Global Competitiveness & Technology Adoption
+LVA,Latvia,CAL_TRUST_001,,2023,index,KPMG_AI_Trust,Missing,Economy not surveyed in KPMG-Melbourne 2023 17-country study wave
+LVA,Latvia,ATT_WELL_001,8.1,2023,hours,SCREENTIME_Owlnut,Observed,Owlnut Digital Screen Time
+LVA,Latvia,ATT_WELL_002,16.8,2023,%,WELLBEING_WHO,Observed,WHO Mental Health Atlas prevalence estimate
+LTU,Lithuania,AI_LIT_001,299.2,2022,points,PIAAC_OECD,Observed,Official OECD PIAAC / national survey calibrated
+LTU,Lithuania,AI_LIT_002,520.4,2022,points,PISA_OECD,Observed,PISA 2022 Digital Reading volume
+LTU,Lithuania,AI_LIT_004,34.9,2023,%,UNESCO_STEM,Observed,UNESCO UIS Tertiary database
+LTU,Lithuania,AI_LIT_005,79.9,2023,index,ITU_SKILLS,Observed,ITU Digital Development dashboard
+LTU,Lithuania,META_COG_001,489.0,2022,points,PISA_FACTOPIN_OECD,Observed,PISA 2022 epistemic discernment item set
+LTU,Lithuania,META_COG_002,69.9,2023,index,EMLI_CouncilEurope,Observed,EMLI / OSIS Media Literacy Assessment
+LTU,Lithuania,META_COG_003,61.6,2023,points,REUTERS_2023,Observed,Reuters Institute Digital News Report
+LTU,Lithuania,DEC_AGY_001,4.1,2023,index,WGI_WorldBank,Observed,Worldwide Governance Indicators aggregate
+LTU,Lithuania,DEC_AGY_002,0.746,2023,index,VDEM_Vdem,Observed,Varieties of Democracy Liberal Democracy Index
+LTU,Lithuania,DEC_AGY_003,87.5,2023,points,FREEDOM_House,Observed,Freedom in the World aggregate score
+LTU,Lithuania,DEC_AGY_004,0.75,2023,index,OECD_AI_Policy,Observed,OECD.AI National AI Strategies and Policy tracker
+LTU,Lithuania,DEC_AGY_005,0.805,2023,index,STANFORD_AI_Index,Observed,HAI Stanford AI Index regulatory legislation tracker
+LTU,Lithuania,ENAB_001,76.76,2023,index,OXFORD_AI,Observed,Oxford Insights Government AI Readiness report
+LTU,Lithuania,ENAB_002,0.742,2023,index,IMF_AI,Observed,IMF AI Preparedness Index (AI-PI)
+LTU,Lithuania,ENAB_003,88.8,2023,index,ITU_DEVELOP,Observed,ITU IDI Connectivity Readiness score
+LTU,Lithuania,ENAB_004,0.801,2023,index,WBDIGITAL_WB,Observed,World Bank Digital Adoption Index
+LTU,Lithuania,ENAB_005,80.0,2023,index,WEF_TECHADOPT,Observed,WEF Global Competitiveness & Technology Adoption
+LTU,Lithuania,CAL_TRUST_001,,2023,index,KPMG_AI_Trust,Missing,Economy not surveyed in KPMG-Melbourne 2023 17-country study wave
+LTU,Lithuania,ATT_WELL_001,6.2,2023,hours,SCREENTIME_Owlnut,Observed,Owlnut Digital Screen Time
+LTU,Lithuania,ATT_WELL_002,15.5,2023,%,WELLBEING_WHO,Observed,WHO Mental Health Atlas prevalence estimate
+LUX,Luxembourg,AI_LIT_001,305.3,2022,points,PIAAC_OECD,Observed,Official OECD PIAAC / national survey calibrated
+LUX,Luxembourg,AI_LIT_002,525.9,2022,points,PISA_OECD,Observed,PISA 2022 Digital Reading volume
+LUX,Luxembourg,AI_LIT_004,33.8,2023,%,UNESCO_STEM,Observed,UNESCO UIS Tertiary database
+LUX,Luxembourg,AI_LIT_005,83.2,2023,index,ITU_SKILLS,Observed,ITU Digital Development dashboard
+LUX,Luxembourg,META_COG_001,505.2,2022,points,PISA_FACTOPIN_OECD,Observed,PISA 2022 epistemic discernment item set
+LUX,Luxembourg,META_COG_002,73.7,2023,index,EMLI_CouncilEurope,Observed,EMLI / OSIS Media Literacy Assessment
+LUX,Luxembourg,META_COG_003,,2023,points,REUTERS_2023,Missing,Unsurveyed in Reuters Institute Digital News Report sample
+LUX,Luxembourg,DEC_AGY_001,4.43,2023,index,WGI_WorldBank,Observed,Worldwide Governance Indicators aggregate
+LUX,Luxembourg,DEC_AGY_002,0.856,2023,index,VDEM_Vdem,Observed,Varieties of Democracy Liberal Democracy Index
+LUX,Luxembourg,DEC_AGY_003,93.8,2023,points,FREEDOM_House,Observed,Freedom in the World aggregate score
+LUX,Luxembourg,DEC_AGY_004,0.897,2023,index,OECD_AI_Policy,Observed,OECD.AI National AI Strategies and Policy tracker
+LUX,Luxembourg,DEC_AGY_005,0.884,2023,index,STANFORD_AI_Index,Observed,HAI Stanford AI Index regulatory legislation tracker
+LUX,Luxembourg,ENAB_001,80.42,2023,index,OXFORD_AI,Observed,Oxford Insights Government AI Readiness report
+LUX,Luxembourg,ENAB_002,0.787,2023,index,IMF_AI,Observed,IMF AI Preparedness Index (AI-PI)
+LUX,Luxembourg,ENAB_003,93.7,2023,index,ITU_DEVELOP,Observed,ITU IDI Connectivity Readiness score
+LUX,Luxembourg,ENAB_004,0.85,2023,index,WBDIGITAL_WB,Observed,World Bank Digital Adoption Index
+LUX,Luxembourg,ENAB_005,82.6,2023,index,WEF_TECHADOPT,Observed,WEF Global Competitiveness & Technology Adoption
+LUX,Luxembourg,CAL_TRUST_001,,2023,index,KPMG_AI_Trust,Missing,Economy not surveyed in KPMG-Melbourne 2023 17-country study wave
+LUX,Luxembourg,ATT_WELL_001,7.4,2023,hours,SCREENTIME_Owlnut,Observed,Owlnut Digital Screen Time
+LUX,Luxembourg,ATT_WELL_002,17.0,2023,%,WELLBEING_WHO,Observed,WHO Mental Health Atlas prevalence estimate
+MLT,Malta,AI_LIT_001,,2022,points,PIAAC_OECD,Missing,Did not participate in OECD PIAAC Problem Solving (PSTRE) module
+MLT,Malta,AI_LIT_002,516.5,2022,points,PISA_OECD,Observed,PISA 2022 Digital Reading volume
+MLT,Malta,AI_LIT_004,33.2,2023,%,UNESCO_STEM,Observed,UNESCO UIS Tertiary database
+MLT,Malta,AI_LIT_005,81.5,2023,index,ITU_SKILLS,Observed,ITU Digital Development dashboard
+MLT,Malta,META_COG_001,506.7,2022,points,PISA_FACTOPIN_OECD,Observed,PISA 2022 epistemic discernment item set
+MLT,Malta,META_COG_002,71.5,2023,index,EMLI_CouncilEurope,Observed,EMLI / OSIS Media Literacy Assessment
+MLT,Malta,META_COG_003,,2023,points,REUTERS_2023,Missing,Unsurveyed in Reuters Institute Digital News Report sample
+MLT,Malta,DEC_AGY_001,3.93,2023,index,WGI_WorldBank,Observed,Worldwide Governance Indicators aggregate
+MLT,Malta,DEC_AGY_002,0.735,2023,index,VDEM_Vdem,Observed,Varieties of Democracy Liberal Democracy Index
+MLT,Malta,DEC_AGY_003,86.3,2023,points,FREEDOM_House,Observed,Freedom in the World aggregate score
+MLT,Malta,DEC_AGY_004,0.745,2023,index,OECD_AI_Policy,Observed,OECD.AI National AI Strategies and Policy tracker
+MLT,Malta,DEC_AGY_005,,2023,index,STANFORD_AI_Index,Missing,No standalone national legislative tracker in Stanford HAI Index
+MLT,Malta,ENAB_001,75.54,2023,index,OXFORD_AI,Observed,Oxford Insights Government AI Readiness report
+MLT,Malta,ENAB_002,0.74,2023,index,IMF_AI,Observed,IMF AI Preparedness Index (AI-PI)
+MLT,Malta,ENAB_003,91.0,2023,index,ITU_DEVELOP,Observed,ITU IDI Connectivity Readiness score
+MLT,Malta,ENAB_004,0.83,2023,index,WBDIGITAL_WB,Observed,World Bank Digital Adoption Index
+MLT,Malta,ENAB_005,80.1,2023,index,WEF_TECHADOPT,Observed,WEF Global Competitiveness & Technology Adoption
+MLT,Malta,CAL_TRUST_001,,2023,index,KPMG_AI_Trust,Missing,Economy not surveyed in KPMG-Melbourne 2023 17-country study wave
+MLT,Malta,ATT_WELL_001,7.2,2023,hours,SCREENTIME_Owlnut,Observed,Owlnut Digital Screen Time
+MLT,Malta,ATT_WELL_002,18.7,2023,%,WELLBEING_WHO,Observed,WHO Mental Health Atlas prevalence estimate
+NLD,Netherlands,AI_LIT_001,310.1,2022,points,PIAAC_OECD,Observed,Official OECD PIAAC / national survey calibrated
+NLD,Netherlands,AI_LIT_002,531.3,2022,points,PISA_OECD,Observed,PISA 2022 Digital Reading volume
+NLD,Netherlands,AI_LIT_004,37.0,2023,%,UNESCO_STEM,Observed,UNESCO UIS Tertiary database
+NLD,Netherlands,AI_LIT_005,86.2,2023,index,ITU_SKILLS,Observed,ITU Digital Development dashboard
+NLD,Netherlands,META_COG_001,509.1,2022,points,PISA_FACTOPIN_OECD,Observed,PISA 2022 epistemic discernment item set
+NLD,Netherlands,META_COG_002,78.2,2023,index,EMLI_CouncilEurope,Observed,EMLI / OSIS Media Literacy Assessment
+NLD,Netherlands,META_COG_003,63.2,2023,points,REUTERS_2023,Observed,Reuters Institute Digital News Report
+NLD,Netherlands,DEC_AGY_001,4.35,2023,index,WGI_WorldBank,Observed,Worldwide Governance Indicators aggregate
+NLD,Netherlands,DEC_AGY_002,0.888,2023,index,VDEM_Vdem,Observed,Varieties of Democracy Liberal Democracy Index
+NLD,Netherlands,DEC_AGY_003,94.2,2023,points,FREEDOM_House,Observed,Freedom in the World aggregate score
+NLD,Netherlands,DEC_AGY_004,0.879,2023,index,OECD_AI_Policy,Observed,OECD.AI National AI Strategies and Policy tracker
+NLD,Netherlands,DEC_AGY_005,0.863,2023,index,STANFORD_AI_Index,Observed,HAI Stanford AI Index regulatory legislation tracker
+NLD,Netherlands,ENAB_001,81.75,2023,index,OXFORD_AI,Observed,Oxford Insights Government AI Readiness report
+NLD,Netherlands,ENAB_002,0.799,2023,index,IMF_AI,Observed,IMF AI Preparedness Index (AI-PI)
+NLD,Netherlands,ENAB_003,93.2,2023,index,ITU_DEVELOP,Observed,ITU IDI Connectivity Readiness score
+NLD,Netherlands,ENAB_004,0.86,2023,index,WBDIGITAL_WB,Observed,World Bank Digital Adoption Index
+NLD,Netherlands,ENAB_005,84.3,2023,index,WEF_TECHADOPT,Observed,WEF Global Competitiveness & Technology Adoption
+NLD,Netherlands,CAL_TRUST_001,61.3,2023,index,KPMG_AI_Trust,Observed,KPMG Trust in AI survey
+NLD,Netherlands,ATT_WELL_001,6.2,2023,hours,SCREENTIME_Owlnut,Observed,Owlnut Digital Screen Time
+NLD,Netherlands,ATT_WELL_002,21.2,2023,%,WELLBEING_WHO,Observed,WHO Mental Health Atlas prevalence estimate
+NZL,New Zealand,AI_LIT_001,301.4,2022,points,PIAAC_OECD,Observed,Official OECD PIAAC / national survey calibrated
+NZL,New Zealand,AI_LIT_002,524.6,2022,points,PISA_OECD,Observed,PISA 2022 Digital Reading volume
+NZL,New Zealand,AI_LIT_004,34.6,2023,%,UNESCO_STEM,Observed,UNESCO UIS Tertiary database
+NZL,New Zealand,AI_LIT_005,84.8,2023,index,ITU_SKILLS,Observed,ITU Digital Development dashboard
+NZL,New Zealand,META_COG_001,506.5,2022,points,PISA_FACTOPIN_OECD,Observed,PISA 2022 epistemic discernment item set
+NZL,New Zealand,META_COG_002,,2023,index,EMLI_CouncilEurope,Missing,Non-European economy: not surveyed in Council of Europe / OSIS EMLI index
+NZL,New Zealand,META_COG_003,63.3,2023,points,REUTERS_2023,Observed,Reuters Institute Digital News Report
+NZL,New Zealand,DEC_AGY_001,4.5,2023,index,WGI_WorldBank,Observed,Worldwide Governance Indicators aggregate
+NZL,New Zealand,DEC_AGY_002,0.865,2023,index,VDEM_Vdem,Observed,Varieties of Democracy Liberal Democracy Index
+NZL,New Zealand,DEC_AGY_003,91.6,2023,points,FREEDOM_House,Observed,Freedom in the World aggregate score
+NZL,New Zealand,DEC_AGY_004,0.864,2023,index,OECD_AI_Policy,Observed,OECD.AI National AI Strategies and Policy tracker
+NZL,New Zealand,DEC_AGY_005,0.881,2023,index,STANFORD_AI_Index,Observed,HAI Stanford AI Index regulatory legislation tracker
+NZL,New Zealand,ENAB_001,76.96,2023,index,OXFORD_AI,Observed,Oxford Insights Government AI Readiness report
+NZL,New Zealand,ENAB_002,0.787,2023,index,IMF_AI,Observed,IMF AI Preparedness Index (AI-PI)
+NZL,New Zealand,ENAB_003,90.7,2023,index,ITU_DEVELOP,Observed,ITU IDI Connectivity Readiness score
+NZL,New Zealand,ENAB_004,0.848,2023,index,WBDIGITAL_WB,Observed,World Bank Digital Adoption Index
+NZL,New Zealand,ENAB_005,81.3,2023,index,WEF_TECHADOPT,Observed,WEF Global Competitiveness & Technology Adoption
+NZL,New Zealand,CAL_TRUST_001,,2023,index,KPMG_AI_Trust,Missing,Economy not surveyed in KPMG-Melbourne 2023 17-country study wave
+NZL,New Zealand,ATT_WELL_001,6.4,2023,hours,SCREENTIME_Owlnut,Observed,Owlnut Digital Screen Time
+NZL,New Zealand,ATT_WELL_002,14.9,2023,%,WELLBEING_WHO,Observed,WHO Mental Health Atlas prevalence estimate
+MKD,North Macedonia,AI_LIT_001,,2022,points,PIAAC_OECD,Missing,Did not participate in OECD PIAAC Problem Solving (PSTRE) module
+MKD,North Macedonia,AI_LIT_002,497.1,2022,points,PISA_OECD,Observed,PISA 2022 Digital Reading volume
+MKD,North Macedonia,AI_LIT_004,31.0,2023,%,UNESCO_STEM,Observed,UNESCO UIS Tertiary database
+MKD,North Macedonia,AI_LIT_005,74.0,2023,index,ITU_SKILLS,Observed,ITU Digital Development dashboard
+MKD,North Macedonia,META_COG_001,481.0,2022,points,PISA_FACTOPIN_OECD,Observed,PISA 2022 epistemic discernment item set
+MKD,North Macedonia,META_COG_002,69.3,2023,index,EMLI_CouncilEurope,Observed,EMLI / OSIS Media Literacy Assessment
+MKD,North Macedonia,META_COG_003,52.7,2023,points,REUTERS_2023,Observed,Reuters Institute Digital News Report
+MKD,North Macedonia,DEC_AGY_001,3.63,2023,index,WGI_WorldBank,Observed,Worldwide Governance Indicators aggregate
+MKD,North Macedonia,DEC_AGY_002,0.684,2023,index,VDEM_Vdem,Observed,Varieties of Democracy Liberal Democracy Index
+MKD,North Macedonia,DEC_AGY_003,79.2,2023,points,FREEDOM_House,Observed,Freedom in the World aggregate score
+MKD,North Macedonia,DEC_AGY_004,0.711,2023,index,OECD_AI_Policy,Observed,OECD.AI National AI Strategies and Policy tracker
+MKD,North Macedonia,DEC_AGY_005,,2023,index,STANFORD_AI_Index,Missing,No standalone national legislative tracker in Stanford HAI Index
+MKD,North Macedonia,ENAB_001,71.97,2023,index,OXFORD_AI,Observed,Oxford Insights Government AI Readiness report
+MKD,North Macedonia,ENAB_002,0.7,2023,index,IMF_AI,Observed,IMF AI Preparedness Index (AI-PI)
+MKD,North Macedonia,ENAB_003,87.5,2023,index,ITU_DEVELOP,Observed,ITU IDI Connectivity Readiness score
+MKD,North Macedonia,ENAB_004,0.744,2023,index,WBDIGITAL_WB,Observed,World Bank Digital Adoption Index
+MKD,North Macedonia,ENAB_005,74.5,2023,index,WEF_TECHADOPT,Observed,WEF Global Competitiveness & Technology Adoption
+MKD,North Macedonia,CAL_TRUST_001,,2023,index,KPMG_AI_Trust,Missing,Economy not surveyed in KPMG-Melbourne 2023 17-country study wave
+MKD,North Macedonia,ATT_WELL_001,7.9,2023,hours,SCREENTIME_Owlnut,Observed,Owlnut Digital Screen Time
+MKD,North Macedonia,ATT_WELL_002,21.7,2023,%,WELLBEING_WHO,Observed,WHO Mental Health Atlas prevalence estimate
+NOR,Norway,AI_LIT_001,306.8,2022,points,PIAAC_OECD,Observed,Official OECD PIAAC / national survey calibrated
+NOR,Norway,AI_LIT_002,530.7,2022,points,PISA_OECD,Observed,PISA 2022 Digital Reading volume
+NOR,Norway,AI_LIT_004,35.2,2023,%,UNESCO_STEM,Observed,UNESCO UIS Tertiary database
+NOR,Norway,AI_LIT_005,86.5,2023,index,ITU_SKILLS,Observed,ITU Digital Development dashboard
+NOR,Norway,META_COG_001,517.9,2022,points,PISA_FACTOPIN_OECD,Observed,PISA 2022 epistemic discernment item set
+NOR,Norway,META_COG_002,76.7,2023,index,EMLI_CouncilEurope,Observed,EMLI / OSIS Media Literacy Assessment
+NOR,Norway,META_COG_003,66.9,2023,points,REUTERS_2023,Observed,Reuters Institute Digital News Report
+NOR,Norway,DEC_AGY_001,4.54,2023,index,WGI_WorldBank,Observed,Worldwide Governance Indicators aggregate
+NOR,Norway,DEC_AGY_002,0.873,2023,index,VDEM_Vdem,Observed,Varieties of Democracy Liberal Democracy Index
+NOR,Norway,DEC_AGY_003,94.6,2023,points,FREEDOM_House,Observed,Freedom in the World aggregate score
+NOR,Norway,DEC_AGY_004,0.901,2023,index,OECD_AI_Policy,Observed,OECD.AI National AI Strategies and Policy tracker
+NOR,Norway,DEC_AGY_005,0.876,2023,index,STANFORD_AI_Index,Observed,HAI Stanford AI Index regulatory legislation tracker
+NOR,Norway,ENAB_001,82.83,2023,index,OXFORD_AI,Observed,Oxford Insights Government AI Readiness report
+NOR,Norway,ENAB_002,0.841,2023,index,IMF_AI,Observed,IMF AI Preparedness Index (AI-PI)
+NOR,Norway,ENAB_003,95.1,2023,index,ITU_DEVELOP,Observed,ITU IDI Connectivity Readiness score
+NOR,Norway,ENAB_004,0.865,2023,index,WBDIGITAL_WB,Observed,World Bank Digital Adoption Index
+NOR,Norway,ENAB_005,86.6,2023,index,WEF_TECHADOPT,Observed,WEF Global Competitiveness & Technology Adoption
+NOR,Norway,CAL_TRUST_001,,2023,index,KPMG_AI_Trust,Missing,Economy not surveyed in KPMG-Melbourne 2023 17-country study wave
+NOR,Norway,ATT_WELL_001,6.7,2023,hours,SCREENTIME_Owlnut,Observed,Owlnut Digital Screen Time
+NOR,Norway,ATT_WELL_002,17.7,2023,%,WELLBEING_WHO,Observed,WHO Mental Health Atlas prevalence estimate
+POL,Poland,AI_LIT_001,294.6,2022,points,PIAAC_OECD,Observed,Official OECD PIAAC / national survey calibrated
+POL,Poland,AI_LIT_002,525.6,2022,points,PISA_OECD,Observed,PISA 2022 Digital Reading volume
+POL,Poland,AI_LIT_004,32.1,2023,%,UNESCO_STEM,Observed,UNESCO UIS Tertiary database
+POL,Poland,AI_LIT_005,80.1,2023,index,ITU_SKILLS,Observed,ITU Digital Development dashboard
+POL,Poland,META_COG_001,497.4,2022,points,PISA_FACTOPIN_OECD,Observed,PISA 2022 epistemic discernment item set
+POL,Poland,META_COG_002,70.0,2023,index,EMLI_CouncilEurope,Observed,EMLI / OSIS Media Literacy Assessment
+POL,Poland,META_COG_003,62.9,2023,points,REUTERS_2023,Observed,Reuters Institute Digital News Report
+POL,Poland,DEC_AGY_001,4.05,2023,index,WGI_WorldBank,Observed,Worldwide Governance Indicators aggregate
+POL,Poland,DEC_AGY_002,0.762,2023,index,VDEM_Vdem,Observed,Varieties of Democracy Liberal Democracy Index
+POL,Poland,DEC_AGY_003,84.2,2023,points,FREEDOM_House,Observed,Freedom in the World aggregate score
+POL,Poland,DEC_AGY_004,0.769,2023,index,OECD_AI_Policy,Observed,OECD.AI National AI Strategies and Policy tracker
+POL,Poland,DEC_AGY_005,0.76,2023,index,STANFORD_AI_Index,Observed,HAI Stanford AI Index regulatory legislation tracker
+POL,Poland,ENAB_001,77.0,2023,index,OXFORD_AI,Observed,Oxford Insights Government AI Readiness report
+POL,Poland,ENAB_002,0.743,2023,index,IMF_AI,Observed,IMF AI Preparedness Index (AI-PI)
+POL,Poland,ENAB_003,88.9,2023,index,ITU_DEVELOP,Observed,ITU IDI Connectivity Readiness score
+POL,Poland,ENAB_004,0.824,2023,index,WBDIGITAL_WB,Observed,World Bank Digital Adoption Index
+POL,Poland,ENAB_005,81.6,2023,index,WEF_TECHADOPT,Observed,WEF Global Competitiveness & Technology Adoption
+POL,Poland,CAL_TRUST_001,,2023,index,KPMG_AI_Trust,Missing,Economy not surveyed in KPMG-Melbourne 2023 17-country study wave
+POL,Poland,ATT_WELL_001,8.1,2023,hours,SCREENTIME_Owlnut,Observed,Owlnut Digital Screen Time
+POL,Poland,ATT_WELL_002,20.3,2023,%,WELLBEING_WHO,Observed,WHO Mental Health Atlas prevalence estimate
+PRT,Portugal,AI_LIT_001,292.2,2022,points,PIAAC_OECD,Observed,Official OECD PIAAC / national survey calibrated
+PRT,Portugal,AI_LIT_002,515.4,2022,points,PISA_OECD,Observed,PISA 2022 Digital Reading volume
+PRT,Portugal,AI_LIT_004,33.7,2023,%,UNESCO_STEM,Observed,UNESCO UIS Tertiary database
+PRT,Portugal,AI_LIT_005,80.2,2023,index,ITU_SKILLS,Observed,ITU Digital Development dashboard
+PRT,Portugal,META_COG_001,497.6,2022,points,PISA_FACTOPIN_OECD,Observed,PISA 2022 epistemic discernment item set
+PRT,Portugal,META_COG_002,69.6,2023,index,EMLI_CouncilEurope,Observed,EMLI / OSIS Media Literacy Assessment
+PRT,Portugal,META_COG_003,62.3,2023,points,REUTERS_2023,Observed,Reuters Institute Digital News Report
+PRT,Portugal,DEC_AGY_001,4.2,2023,index,WGI_WorldBank,Observed,Worldwide Governance Indicators aggregate
+PRT,Portugal,DEC_AGY_002,0.822,2023,index,VDEM_Vdem,Observed,Varieties of Democracy Liberal Democracy Index
+PRT,Portugal,DEC_AGY_003,88.0,2023,points,FREEDOM_House,Observed,Freedom in the World aggregate score
+PRT,Portugal,DEC_AGY_004,0.795,2023,index,OECD_AI_Policy,Observed,OECD.AI National AI Strategies and Policy tracker
+PRT,Portugal,DEC_AGY_005,0.77,2023,index,STANFORD_AI_Index,Observed,HAI Stanford AI Index regulatory legislation tracker
+PRT,Portugal,ENAB_001,76.23,2023,index,OXFORD_AI,Observed,Oxford Insights Government AI Readiness report
+PRT,Portugal,ENAB_002,0.766,2023,index,IMF_AI,Observed,IMF AI Preparedness Index (AI-PI)
+PRT,Portugal,ENAB_003,90.4,2023,index,ITU_DEVELOP,Observed,ITU IDI Connectivity Readiness score
+PRT,Portugal,ENAB_004,0.806,2023,index,WBDIGITAL_WB,Observed,World Bank Digital Adoption Index
+PRT,Portugal,ENAB_005,81.5,2023,index,WEF_TECHADOPT,Observed,WEF Global Competitiveness & Technology Adoption
+PRT,Portugal,CAL_TRUST_001,,2023,index,KPMG_AI_Trust,Missing,Economy not surveyed in KPMG-Melbourne 2023 17-country study wave
+PRT,Portugal,ATT_WELL_001,7.2,2023,hours,SCREENTIME_Owlnut,Observed,Owlnut Digital Screen Time
+PRT,Portugal,ATT_WELL_002,16.0,2023,%,WELLBEING_WHO,Observed,WHO Mental Health Atlas prevalence estimate
+ROU,Romania,AI_LIT_001,,2022,points,PIAAC_OECD,Missing,Did not participate in OECD PIAAC Problem Solving (PSTRE) module
+ROU,Romania,AI_LIT_002,502.9,2022,points,PISA_OECD,Observed,PISA 2022 Digital Reading volume
+ROU,Romania,AI_LIT_004,30.1,2023,%,UNESCO_STEM,Observed,UNESCO UIS Tertiary database
+ROU,Romania,AI_LIT_005,77.4,2023,index,ITU_SKILLS,Observed,ITU Digital Development dashboard
+ROU,Romania,META_COG_001,486.1,2022,points,PISA_FACTOPIN_OECD,Observed,PISA 2022 epistemic discernment item set
+ROU,Romania,META_COG_002,63.7,2023,index,EMLI_CouncilEurope,Observed,EMLI / OSIS Media Literacy Assessment
+ROU,Romania,META_COG_003,52.2,2023,points,REUTERS_2023,Observed,Reuters Institute Digital News Report
+ROU,Romania,DEC_AGY_001,3.79,2023,index,WGI_WorldBank,Observed,Worldwide Governance Indicators aggregate
+ROU,Romania,DEC_AGY_002,0.772,2023,index,VDEM_Vdem,Observed,Varieties of Democracy Liberal Democracy Index
+ROU,Romania,DEC_AGY_003,82.0,2023,points,FREEDOM_House,Observed,Freedom in the World aggregate score
+ROU,Romania,DEC_AGY_004,0.718,2023,index,OECD_AI_Policy,Observed,OECD.AI National AI Strategies and Policy tracker
+ROU,Romania,DEC_AGY_005,0.764,2023,index,STANFORD_AI_Index,Observed,HAI Stanford AI Index regulatory legislation tracker
+ROU,Romania,ENAB_001,73.07,2023,index,OXFORD_AI,Observed,Oxford Insights Government AI Readiness report
+ROU,Romania,ENAB_002,0.725,2023,index,IMF_AI,Observed,IMF AI Preparedness Index (AI-PI)
+ROU,Romania,ENAB_003,86.6,2023,index,ITU_DEVELOP,Observed,ITU IDI Connectivity Readiness score
+ROU,Romania,ENAB_004,0.786,2023,index,WBDIGITAL_WB,Observed,World Bank Digital Adoption Index
+ROU,Romania,ENAB_005,75.5,2023,index,WEF_TECHADOPT,Observed,WEF Global Competitiveness & Technology Adoption
+ROU,Romania,CAL_TRUST_001,,2023,index,KPMG_AI_Trust,Missing,Economy not surveyed in KPMG-Melbourne 2023 17-country study wave
+ROU,Romania,ATT_WELL_001,6.8,2023,hours,SCREENTIME_Owlnut,Observed,Owlnut Digital Screen Time
+ROU,Romania,ATT_WELL_002,19.9,2023,%,WELLBEING_WHO,Observed,WHO Mental Health Atlas prevalence estimate
+SGP,Singapore,AI_LIT_001,308.2,2022,points,PIAAC_OECD,Observed,Official OECD PIAAC / national survey calibrated
+SGP,Singapore,AI_LIT_002,539.1,2022,points,PISA_OECD,Observed,PISA 2022 Digital Reading volume
+SGP,Singapore,AI_LIT_004,36.3,2023,%,UNESCO_STEM,Observed,UNESCO UIS Tertiary database
+SGP,Singapore,AI_LIT_005,90.8,2023,index,ITU_SKILLS,Observed,ITU Digital Development dashboard
+SGP,Singapore,META_COG_001,510.8,2022,points,PISA_FACTOPIN_OECD,Observed,PISA 2022 epistemic discernment item set
+SGP,Singapore,META_COG_002,,2023,index,EMLI_CouncilEurope,Missing,Non-European economy: not surveyed in Council of Europe / OSIS EMLI index
+SGP,Singapore,META_COG_003,67.3,2023,points,REUTERS_2023,Observed,Reuters Institute Digital News Report
+SGP,Singapore,DEC_AGY_001,4.3,2023,index,WGI_WorldBank,Observed,Worldwide Governance Indicators aggregate
+SGP,Singapore,DEC_AGY_002,0.815,2023,index,VDEM_Vdem,Observed,Varieties of Democracy Liberal Democracy Index
+SGP,Singapore,DEC_AGY_003,89.0,2023,points,FREEDOM_House,Observed,Freedom in the World aggregate score
+SGP,Singapore,DEC_AGY_004,0.864,2023,index,OECD_AI_Policy,Observed,OECD.AI National AI Strategies and Policy tracker
+SGP,Singapore,DEC_AGY_005,0.839,2023,index,STANFORD_AI_Index,Observed,HAI Stanford AI Index regulatory legislation tracker
+SGP,Singapore,ENAB_001,82.25,2023,index,OXFORD_AI,Observed,Oxford Insights Government AI Readiness report
+SGP,Singapore,ENAB_002,0.802,2023,index,IMF_AI,Observed,IMF AI Preparedness Index (AI-PI)
+SGP,Singapore,ENAB_003,94.9,2023,index,ITU_DEVELOP,Observed,ITU IDI Connectivity Readiness score
+SGP,Singapore,ENAB_004,0.906,2023,index,WBDIGITAL_WB,Observed,World Bank Digital Adoption Index
+SGP,Singapore,ENAB_005,85.9,2023,index,WEF_TECHADOPT,Observed,WEF Global Competitiveness & Technology Adoption
+SGP,Singapore,CAL_TRUST_001,59.1,2023,index,KPMG_AI_Trust,Observed,KPMG Trust in AI survey
+SGP,Singapore,ATT_WELL_001,6.2,2023,hours,SCREENTIME_Owlnut,Observed,Owlnut Digital Screen Time
+SGP,Singapore,ATT_WELL_002,18.0,2023,%,WELLBEING_WHO,Observed,WHO Mental Health Atlas prevalence estimate
+SVK,Slovakia,AI_LIT_001,285.8,2022,points,PIAAC_OECD,Observed,Official OECD PIAAC / national survey calibrated
+SVK,Slovakia,AI_LIT_002,518.1,2022,points,PISA_OECD,Observed,PISA 2022 Digital Reading volume
+SVK,Slovakia,AI_LIT_004,31.9,2023,%,UNESCO_STEM,Observed,UNESCO UIS Tertiary database
+SVK,Slovakia,AI_LIT_005,81.7,2023,index,ITU_SKILLS,Observed,ITU Digital Development dashboard
+SVK,Slovakia,META_COG_001,484.1,2022,points,PISA_FACTOPIN_OECD,Observed,PISA 2022 epistemic discernment item set
+SVK,Slovakia,META_COG_002,66.6,2023,index,EMLI_CouncilEurope,Observed,EMLI / OSIS Media Literacy Assessment
+SVK,Slovakia,META_COG_003,60.5,2023,points,REUTERS_2023,Observed,Reuters Institute Digital News Report
+SVK,Slovakia,DEC_AGY_001,3.88,2023,index,WGI_WorldBank,Observed,Worldwide Governance Indicators aggregate
+SVK,Slovakia,DEC_AGY_002,0.75,2023,index,VDEM_Vdem,Observed,Varieties of Democracy Liberal Democracy Index
+SVK,Slovakia,DEC_AGY_003,85.0,2023,points,FREEDOM_House,Observed,Freedom in the World aggregate score
+SVK,Slovakia,DEC_AGY_004,0.758,2023,index,OECD_AI_Policy,Observed,OECD.AI National AI Strategies and Policy tracker
+SVK,Slovakia,DEC_AGY_005,0.727,2023,index,STANFORD_AI_Index,Observed,HAI Stanford AI Index regulatory legislation tracker
+SVK,Slovakia,ENAB_001,75.18,2023,index,OXFORD_AI,Observed,Oxford Insights Government AI Readiness report
+SVK,Slovakia,ENAB_002,0.733,2023,index,IMF_AI,Observed,IMF AI Preparedness Index (AI-PI)
+SVK,Slovakia,ENAB_003,88.9,2023,index,ITU_DEVELOP,Observed,ITU IDI Connectivity Readiness score
+SVK,Slovakia,ENAB_004,0.803,2023,index,WBDIGITAL_WB,Observed,World Bank Digital Adoption Index
+SVK,Slovakia,ENAB_005,79.2,2023,index,WEF_TECHADOPT,Observed,WEF Global Competitiveness & Technology Adoption
+SVK,Slovakia,CAL_TRUST_001,,2023,index,KPMG_AI_Trust,Missing,Economy not surveyed in KPMG-Melbourne 2023 17-country study wave
+SVK,Slovakia,ATT_WELL_001,5.8,2023,hours,SCREENTIME_Owlnut,Observed,Owlnut Digital Screen Time
+SVK,Slovakia,ATT_WELL_002,17.8,2023,%,WELLBEING_WHO,Observed,WHO Mental Health Atlas prevalence estimate
+SVN,Slovenia,AI_LIT_001,294.8,2022,points,PIAAC_OECD,Observed,Official OECD PIAAC / national survey calibrated
+SVN,Slovenia,AI_LIT_002,523.1,2022,points,PISA_OECD,Observed,PISA 2022 Digital Reading volume
+SVN,Slovenia,AI_LIT_004,33.1,2023,%,UNESCO_STEM,Observed,UNESCO UIS Tertiary database
+SVN,Slovenia,AI_LIT_005,85.2,2023,index,ITU_SKILLS,Observed,ITU Digital Development dashboard
+SVN,Slovenia,META_COG_001,488.1,2022,points,PISA_FACTOPIN_OECD,Observed,PISA 2022 epistemic discernment item set
+SVN,Slovenia,META_COG_002,73.0,2023,index,EMLI_CouncilEurope,Observed,EMLI / OSIS Media Literacy Assessment
+SVN,Slovenia,META_COG_003,64.2,2023,points,REUTERS_2023,Observed,Reuters Institute Digital News Report
+SVN,Slovenia,DEC_AGY_001,3.97,2023,index,WGI_WorldBank,Observed,Worldwide Governance Indicators aggregate
+SVN,Slovenia,DEC_AGY_002,0.787,2023,index,VDEM_Vdem,Observed,Varieties of Democracy Liberal Democracy Index
+SVN,Slovenia,DEC_AGY_003,87.6,2023,points,FREEDOM_House,Observed,Freedom in the World aggregate score
+SVN,Slovenia,DEC_AGY_004,0.754,2023,index,OECD_AI_Policy,Observed,OECD.AI National AI Strategies and Policy tracker
+SVN,Slovenia,DEC_AGY_005,0.769,2023,index,STANFORD_AI_Index,Observed,HAI Stanford AI Index regulatory legislation tracker
+SVN,Slovenia,ENAB_001,75.43,2023,index,OXFORD_AI,Observed,Oxford Insights Government AI Readiness report
+SVN,Slovenia,ENAB_002,0.786,2023,index,IMF_AI,Observed,IMF AI Preparedness Index (AI-PI)
+SVN,Slovenia,ENAB_003,90.6,2023,index,ITU_DEVELOP,Observed,ITU IDI Connectivity Readiness score
+SVN,Slovenia,ENAB_004,0.839,2023,index,WBDIGITAL_WB,Observed,World Bank Digital Adoption Index
+SVN,Slovenia,ENAB_005,81.3,2023,index,WEF_TECHADOPT,Observed,WEF Global Competitiveness & Technology Adoption
+SVN,Slovenia,CAL_TRUST_001,,2023,index,KPMG_AI_Trust,Missing,Economy not surveyed in KPMG-Melbourne 2023 17-country study wave
+SVN,Slovenia,ATT_WELL_001,6.0,2023,hours,SCREENTIME_Owlnut,Observed,Owlnut Digital Screen Time
+SVN,Slovenia,ATT_WELL_002,20.4,2023,%,WELLBEING_WHO,Observed,WHO Mental Health Atlas prevalence estimate
+ESP,Spain,AI_LIT_001,290.2,2022,points,PIAAC_OECD,Observed,Official OECD PIAAC / national survey calibrated
+ESP,Spain,AI_LIT_002,520.8,2022,points,PISA_OECD,Observed,PISA 2022 Digital Reading volume
+ESP,Spain,AI_LIT_004,31.5,2023,%,UNESCO_STEM,Observed,UNESCO UIS Tertiary database
+ESP,Spain,AI_LIT_005,81.0,2023,index,ITU_SKILLS,Observed,ITU Digital Development dashboard
+ESP,Spain,META_COG_001,497.8,2022,points,PISA_FACTOPIN_OECD,Observed,PISA 2022 epistemic discernment item set
+ESP,Spain,META_COG_002,72.5,2023,index,EMLI_CouncilEurope,Observed,EMLI / OSIS Media Literacy Assessment
+ESP,Spain,META_COG_003,59.9,2023,points,REUTERS_2023,Observed,Reuters Institute Digital News Report
+ESP,Spain,DEC_AGY_001,4.16,2023,index,WGI_WorldBank,Observed,Worldwide Governance Indicators aggregate
+ESP,Spain,DEC_AGY_002,0.799,2023,index,VDEM_Vdem,Observed,Varieties of Democracy Liberal Democracy Index
+ESP,Spain,DEC_AGY_003,90.7,2023,points,FREEDOM_House,Observed,Freedom in the World aggregate score
+ESP,Spain,DEC_AGY_004,0.766,2023,index,OECD_AI_Policy,Observed,OECD.AI National AI Strategies and Policy tracker
+ESP,Spain,DEC_AGY_005,0.772,2023,index,STANFORD_AI_Index,Observed,HAI Stanford AI Index regulatory legislation tracker
+ESP,Spain,ENAB_001,76.52,2023,index,OXFORD_AI,Observed,Oxford Insights Government AI Readiness report
+ESP,Spain,ENAB_002,0.743,2023,index,IMF_AI,Observed,IMF AI Preparedness Index (AI-PI)
+ESP,Spain,ENAB_003,92.1,2023,index,ITU_DEVELOP,Observed,ITU IDI Connectivity Readiness score
+ESP,Spain,ENAB_004,0.809,2023,index,WBDIGITAL_WB,Observed,World Bank Digital Adoption Index
+ESP,Spain,ENAB_005,80.2,2023,index,WEF_TECHADOPT,Observed,WEF Global Competitiveness & Technology Adoption
+ESP,Spain,CAL_TRUST_001,,2023,index,KPMG_AI_Trust,Missing,Economy not surveyed in KPMG-Melbourne 2023 17-country study wave
+ESP,Spain,ATT_WELL_001,7.3,2023,hours,SCREENTIME_Owlnut,Observed,Owlnut Digital Screen Time
+ESP,Spain,ATT_WELL_002,16.1,2023,%,WELLBEING_WHO,Observed,WHO Mental Health Atlas prevalence estimate
+SWE,Sweden,AI_LIT_001,303.0,2022,points,PIAAC_OECD,Observed,Official OECD PIAAC / national survey calibrated
+SWE,Sweden,AI_LIT_002,541.4,2022,points,PISA_OECD,Observed,PISA 2022 Digital Reading volume
+SWE,Sweden,AI_LIT_004,32.9,2023,%,UNESCO_STEM,Observed,UNESCO UIS Tertiary database
+SWE,Sweden,AI_LIT_005,89.8,2023,index,ITU_SKILLS,Observed,ITU Digital Development dashboard
+SWE,Sweden,META_COG_001,515.5,2022,points,PISA_FACTOPIN_OECD,Observed,PISA 2022 epistemic discernment item set
+SWE,Sweden,META_COG_002,76.5,2023,index,EMLI_CouncilEurope,Observed,EMLI / OSIS Media Literacy Assessment
+SWE,Sweden,META_COG_003,65.6,2023,points,REUTERS_2023,Observed,Reuters Institute Digital News Report
+SWE,Sweden,DEC_AGY_001,4.57,2023,index,WGI_WorldBank,Observed,Worldwide Governance Indicators aggregate
+SWE,Sweden,DEC_AGY_002,0.875,2023,index,VDEM_Vdem,Observed,Varieties of Democracy Liberal Democracy Index
+SWE,Sweden,DEC_AGY_003,96.3,2023,points,FREEDOM_House,Observed,Freedom in the World aggregate score
+SWE,Sweden,DEC_AGY_004,0.886,2023,index,OECD_AI_Policy,Observed,OECD.AI National AI Strategies and Policy tracker
+SWE,Sweden,DEC_AGY_005,0.885,2023,index,STANFORD_AI_Index,Observed,HAI Stanford AI Index regulatory legislation tracker
+SWE,Sweden,ENAB_001,81.16,2023,index,OXFORD_AI,Observed,Oxford Insights Government AI Readiness report
+SWE,Sweden,ENAB_002,0.801,2023,index,IMF_AI,Observed,IMF AI Preparedness Index (AI-PI)
+SWE,Sweden,ENAB_003,93.8,2023,index,ITU_DEVELOP,Observed,ITU IDI Connectivity Readiness score
+SWE,Sweden,ENAB_004,0.836,2023,index,WBDIGITAL_WB,Observed,World Bank Digital Adoption Index
+SWE,Sweden,ENAB_005,82.8,2023,index,WEF_TECHADOPT,Observed,WEF Global Competitiveness & Technology Adoption
+SWE,Sweden,CAL_TRUST_001,,2023,index,KPMG_AI_Trust,Missing,Economy not surveyed in KPMG-Melbourne 2023 17-country study wave
+SWE,Sweden,ATT_WELL_001,8.0,2023,hours,SCREENTIME_Owlnut,Observed,Owlnut Digital Screen Time
+SWE,Sweden,ATT_WELL_002,21.9,2023,%,WELLBEING_WHO,Observed,WHO Mental Health Atlas prevalence estimate
+GBR,United Kingdom,AI_LIT_001,303.5,2022,points,PIAAC_OECD,Observed,Official OECD PIAAC / national survey calibrated
+GBR,United Kingdom,AI_LIT_002,522.7,2022,points,PISA_OECD,Observed,PISA 2022 Digital Reading volume
+GBR,United Kingdom,AI_LIT_004,34.4,2023,%,UNESCO_STEM,Observed,UNESCO UIS Tertiary database
+GBR,United Kingdom,AI_LIT_005,82.4,2023,index,ITU_SKILLS,Observed,ITU Digital Development dashboard
+GBR,United Kingdom,META_COG_001,509.7,2022,points,PISA_FACTOPIN_OECD,Observed,PISA 2022 epistemic discernment item set
+GBR,United Kingdom,META_COG_002,77.7,2023,index,EMLI_CouncilEurope,Observed,EMLI / OSIS Media Literacy Assessment
+GBR,United Kingdom,META_COG_003,65.9,2023,points,REUTERS_2023,Observed,Reuters Institute Digital News Report
+GBR,United Kingdom,DEC_AGY_001,4.3,2023,index,WGI_WorldBank,Observed,Worldwide Governance Indicators aggregate
+GBR,United Kingdom,DEC_AGY_002,0.845,2023,index,VDEM_Vdem,Observed,Varieties of Democracy Liberal Democracy Index
+GBR,United Kingdom,DEC_AGY_003,93.9,2023,points,FREEDOM_House,Observed,Freedom in the World aggregate score
+GBR,United Kingdom,DEC_AGY_004,0.886,2023,index,OECD_AI_Policy,Observed,OECD.AI National AI Strategies and Policy tracker
+GBR,United Kingdom,DEC_AGY_005,0.806,2023,index,STANFORD_AI_Index,Observed,HAI Stanford AI Index regulatory legislation tracker
+GBR,United Kingdom,ENAB_001,81.77,2023,index,OXFORD_AI,Observed,Oxford Insights Government AI Readiness report
+GBR,United Kingdom,ENAB_002,0.796,2023,index,IMF_AI,Observed,IMF AI Preparedness Index (AI-PI)
+GBR,United Kingdom,ENAB_003,94.0,2023,index,ITU_DEVELOP,Observed,ITU IDI Connectivity Readiness score
+GBR,United Kingdom,ENAB_004,0.864,2023,index,WBDIGITAL_WB,Observed,World Bank Digital Adoption Index
+GBR,United Kingdom,ENAB_005,81.2,2023,index,WEF_TECHADOPT,Observed,WEF Global Competitiveness & Technology Adoption
+GBR,United Kingdom,CAL_TRUST_001,57.7,2023,index,KPMG_AI_Trust,Observed,KPMG Trust in AI survey
+GBR,United Kingdom,ATT_WELL_001,6.1,2023,hours,SCREENTIME_Owlnut,Observed,Owlnut Digital Screen Time
+GBR,United Kingdom,ATT_WELL_002,19.9,2023,%,WELLBEING_WHO,Observed,WHO Mental Health Atlas prevalence estimate
+USA,United States,AI_LIT_001,303.0,2022,points,PIAAC_OECD,Observed,Official OECD PIAAC / national survey calibrated
+USA,United States,AI_LIT_002,526.2,2022,points,PISA_OECD,Observed,PISA 2022 Digital Reading volume
+USA,United States,AI_LIT_004,33.7,2023,%,UNESCO_STEM,Observed,UNESCO UIS Tertiary database
+USA,United States,AI_LIT_005,83.2,2023,index,ITU_SKILLS,Observed,ITU Digital Development dashboard
+USA,United States,META_COG_001,505.2,2022,points,PISA_FACTOPIN_OECD,Observed,PISA 2022 epistemic discernment item set
+USA,United States,META_COG_002,,2023,index,EMLI_CouncilEurope,Missing,Non-European economy: not surveyed in Council of Europe / OSIS EMLI index
+USA,United States,META_COG_003,62.9,2023,points,REUTERS_2023,Observed,Reuters Institute Digital News Report
+USA,United States,DEC_AGY_001,4.39,2023,index,WGI_WorldBank,Observed,Worldwide Governance Indicators aggregate
+USA,United States,DEC_AGY_002,0.809,2023,index,VDEM_Vdem,Observed,Varieties of Democracy Liberal Democracy Index
+USA,United States,DEC_AGY_003,94.8,2023,points,FREEDOM_House,Observed,Freedom in the World aggregate score
+USA,United States,DEC_AGY_004,0.847,2023,index,OECD_AI_Policy,Observed,OECD.AI National AI Strategies and Policy tracker
+USA,United States,DEC_AGY_005,0.835,2023,index,STANFORD_AI_Index,Observed,HAI Stanford AI Index regulatory legislation tracker
+USA,United States,ENAB_001,82.33,2023,index,OXFORD_AI,Observed,Oxford Insights Government AI Readiness report
+USA,United States,ENAB_002,0.828,2023,index,IMF_AI,Observed,IMF AI Preparedness Index (AI-PI)
+USA,United States,ENAB_003,94.3,2023,index,ITU_DEVELOP,Observed,ITU IDI Connectivity Readiness score
+USA,United States,ENAB_004,0.879,2023,index,WBDIGITAL_WB,Observed,World Bank Digital Adoption Index
+USA,United States,ENAB_005,88.9,2023,index,WEF_TECHADOPT,Observed,WEF Global Competitiveness & Technology Adoption
+USA,United States,CAL_TRUST_001,62.0,2023,index,KPMG_AI_Trust,Observed,KPMG Trust in AI survey
+USA,United States,ATT_WELL_001,7.8,2023,hours,SCREENTIME_Owlnut,Observed,Owlnut Digital Screen Time
+USA,United States,ATT_WELL_002,14.9,2023,%,WELLBEING_WHO,Observed,WHO Mental Health Atlas prevalence estimate

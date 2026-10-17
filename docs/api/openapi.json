@@ -1,0 +1,892 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "HSRI 2.0 Engine Core API",
+    "description": "Production REST API for sovereign AI preparedness, Dual-Layer non-compensatory Leontief floor aggregation (beta=0.50), JRC Step 7 sensitivity auditing, and real-time ASI precursor telemetry.",
+    "contact": {
+      "name": "HSRI Research Consortium",
+      "url": "https://humanreadinessindex.org/",
+      "email": "contact@hsri-research.org"
+    },
+    "license": {
+      "name": "CC BY-SA 4.0",
+      "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+    },
+    "version": "2.4.0"
+  },
+  "paths": {
+    "/": {
+      "get": {
+        "tags": [
+          "Metadata"
+        ],
+        "summary": "Root Info",
+        "description": "Returns engine version, archival DOI, and navigation links.",
+        "operationId": "root_info__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "tags": [
+          "Health"
+        ],
+        "summary": "Health Check",
+        "description": "Health check endpoint for container orchestrators and load balancers.",
+        "operationId": "health_check_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/evaluate": {
+      "post": {
+        "tags": [
+          "Evaluation"
+        ],
+        "summary": "Evaluate Infrastructure Sovereignty Profile",
+        "description": "Calculates Layer 1 Adoption, Layer 2 ASI Sovereignty (Leontief Floor beta=0.50), the Master ASI Vulnerability Index (V_ASI), and identifies governing bottleneck pillars.",
+        "operationId": "evaluate_profile_v1_evaluate_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EvaluationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EvaluationResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/audit/monte-carlo": {
+      "post": {
+        "tags": [
+          "Audit"
+        ],
+        "summary": "JRC Step 7 Dirichlet Monte Carlo Sensitivity Audit",
+        "description": "Runs a Dirichlet Monte Carlo weight perturbation audit on Layer 2 pillars to assess rank and score stability.",
+        "operationId": "monte_carlo_audit_v1_audit_monte_carlo_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MonteCarloRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MonteCarloResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/benchmark/summary": {
+      "get": {
+        "tags": [
+          "Benchmark"
+        ],
+        "summary": "Get 39-Nation Official Benchmark Summary",
+        "description": "Returns top sovereign leaders, High-Compute Vulnerability Traps, and global benchmark metadata.",
+        "operationId": "benchmark_summary_v1_benchmark_summary_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BenchmarkSummaryResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/telemetry/precursors": {
+      "get": {
+        "tags": [
+          "Telemetry"
+        ],
+        "summary": "Get Real-Time Precursor Seismograph Telemetry",
+        "description": "Returns live Cognitive Oversight Richter Scale (CORS 10.0), latency wedge divergence, and 14 tripwires status.",
+        "operationId": "precursor_telemetry_v1_telemetry_precursors_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrecursorTelemetryResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BenchmarkSummaryResponse": {
+        "properties": {
+          "total_nations": {
+            "type": "integer",
+            "title": "Total Nations"
+          },
+          "benchmark_version": {
+            "type": "string",
+            "title": "Benchmark Version"
+          },
+          "doi": {
+            "type": "string",
+            "title": "Doi"
+          },
+          "top_sovereign_nations": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Top Sovereign Nations"
+          },
+          "high_compute_traps": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "High Compute Traps"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total_nations",
+          "benchmark_version",
+          "doi",
+          "top_sovereign_nations",
+          "high_compute_traps"
+        ],
+        "title": "BenchmarkSummaryResponse",
+        "description": "Summary of the 39-nation official empirical benchmark."
+      },
+      "EvaluationRequest": {
+        "properties": {
+          "entity_id": {
+            "type": "string",
+            "title": "Entity Id",
+            "description": "Unique entity or nation identifier",
+            "default": "custom-node"
+          },
+          "entity_name": {
+            "type": "string",
+            "title": "Entity Name",
+            "description": "Human-readable name",
+            "default": "Custom Infrastructure Node"
+          },
+          "pillars": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PillarInput"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Pre-calculated pillar scores P1-P8"
+          },
+          "telemetry": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RawTelemetryInput"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Raw telemetry to calculate P5-P8 dynamically"
+          },
+          "layer1_weights": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "number"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Layer1 Weights",
+            "description": "Weights for P1-P4 (must sum to 1.0)",
+            "default": [
+              0.25,
+              0.25,
+              0.25,
+              0.25
+            ]
+          },
+          "apply_negative_cross_elasticity": {
+            "type": "boolean",
+            "title": "Apply Negative Cross Elasticity",
+            "description": "Whether to apply empirical exponential discernment decay to P2 based on P4",
+            "default": false
+          }
+        },
+        "type": "object",
+        "title": "EvaluationRequest",
+        "description": "Request payload for evaluating infrastructure sovereignty."
+      },
+      "EvaluationResponse": {
+        "properties": {
+          "entity_id": {
+            "type": "string",
+            "title": "Entity Id"
+          },
+          "entity_name": {
+            "type": "string",
+            "title": "Entity Name"
+          },
+          "layer1_score": {
+            "type": "number",
+            "title": "Layer1 Score",
+            "description": "Linear baseline adoption score"
+          },
+          "layer2_score": {
+            "type": "number",
+            "title": "Layer2 Score",
+            "description": "Leontief floor weak-link sovereignty score (beta=0.50)"
+          },
+          "geometric_score": {
+            "type": "number",
+            "title": "Geometric Score",
+            "description": "Non-compensatory geometric mean score"
+          },
+          "choquet_score": {
+            "type": "number",
+            "title": "Choquet Score",
+            "description": "Choquet 2-additive capacity integral score"
+          },
+          "master_vulnerability_index": {
+            "type": "number",
+            "title": "Master Vulnerability Index",
+            "description": "V_ASI = Layer1 - Layer2"
+          },
+          "is_high_compute_trap": {
+            "type": "boolean",
+            "title": "Is High Compute Trap",
+            "description": "True if V_ASI >= 0.25 and P4 >= 0.70"
+          },
+          "weakest_link_pillar": {
+            "type": "string",
+            "title": "Weakest Link Pillar",
+            "description": "Pillar governing the Leontief floor"
+          },
+          "weakest_link_score": {
+            "type": "number",
+            "title": "Weakest Link Score",
+            "description": "Score of the governing bottleneck pillar"
+          },
+          "pillars": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Pillars",
+            "description": "Individual normalized scores for P1 through P8"
+          },
+          "sovereignty_diagnostics": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Sovereignty Diagnostics",
+            "description": "Telemetry diagnostics (VSR, T_half, V_coord, PLIE, Wedge)"
+          },
+          "timestamp": {
+            "type": "string",
+            "title": "Timestamp"
+          }
+        },
+        "type": "object",
+        "required": [
+          "entity_id",
+          "entity_name",
+          "layer1_score",
+          "layer2_score",
+          "geometric_score",
+          "choquet_score",
+          "master_vulnerability_index",
+          "is_high_compute_trap",
+          "weakest_link_pillar",
+          "weakest_link_score",
+          "pillars",
+          "sovereignty_diagnostics",
+          "timestamp"
+        ],
+        "title": "EvaluationResponse",
+        "description": "Evaluation output schema providing full dual-layer sovereignty diagnostics."
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "MonteCarloRequest": {
+        "properties": {
+          "evaluation_request": {
+            "$ref": "#/components/schemas/EvaluationRequest"
+          },
+          "iterations": {
+            "type": "integer",
+            "maximum": 2000.0,
+            "minimum": 50.0,
+            "title": "Iterations",
+            "description": "Monte Carlo iterations",
+            "default": 500
+          },
+          "alpha_dirichlet": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Alpha Dirichlet",
+            "description": "Concentration parameter for Dirichlet distribution",
+            "default": 1.0
+          }
+        },
+        "type": "object",
+        "required": [
+          "evaluation_request"
+        ],
+        "title": "MonteCarloRequest",
+        "description": "Request payload for JRC Step 7 Dirichlet Monte Carlo sensitivity analysis."
+      },
+      "MonteCarloResponse": {
+        "properties": {
+          "entity_id": {
+            "type": "string",
+            "title": "Entity Id"
+          },
+          "iterations": {
+            "type": "integer",
+            "title": "Iterations"
+          },
+          "mean_layer2_score": {
+            "type": "number",
+            "title": "Mean Layer2 Score"
+          },
+          "std_layer2_score": {
+            "type": "number",
+            "title": "Std Layer2 Score"
+          },
+          "ci_95_lower": {
+            "type": "number",
+            "title": "Ci 95 Lower"
+          },
+          "ci_95_upper": {
+            "type": "number",
+            "title": "Ci 95 Upper"
+          },
+          "kendall_w_concordance": {
+            "type": "number",
+            "title": "Kendall W Concordance"
+          },
+          "vulnerability_stability": {
+            "type": "string",
+            "title": "Vulnerability Stability"
+          }
+        },
+        "type": "object",
+        "required": [
+          "entity_id",
+          "iterations",
+          "mean_layer2_score",
+          "std_layer2_score",
+          "ci_95_lower",
+          "ci_95_upper",
+          "kendall_w_concordance",
+          "vulnerability_stability"
+        ],
+        "title": "MonteCarloResponse",
+        "description": "Monte Carlo sensitivity results."
+      },
+      "PillarInput": {
+        "properties": {
+          "p1": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "P1",
+            "description": "P1: AI Literacy & Human Capital"
+          },
+          "p2": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "P2",
+            "description": "P2: Critical Discernment & Verification Latency Buffer"
+          },
+          "p3": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "P3",
+            "description": "P3: Institutional & Democratic Governance"
+          },
+          "p4": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "P4",
+            "description": "P4: Digital Infrastructure & Compute Density"
+          },
+          "p5": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "P5",
+            "description": "P5: Epistemic Inviolability (Layer 2)"
+          },
+          "p6": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "P6",
+            "description": "P6: Civilizational Decoupling Half-Life (Layer 2)"
+          },
+          "p7": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "P7",
+            "description": "P7: Multipolar Coordination Velocity (Layer 2)"
+          },
+          "p8": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "P8",
+            "description": "P8: Post-Labor Institutional Elasticity (Layer 2)"
+          }
+        },
+        "type": "object",
+        "required": [
+          "p1",
+          "p2",
+          "p3",
+          "p4"
+        ],
+        "title": "PillarInput",
+        "description": "Pillar scores normalized to [0.0, 1.0]."
+      },
+      "PrecursorTelemetryResponse": {
+        "properties": {
+          "master_threat_score": {
+            "type": "number",
+            "title": "Master Threat Score"
+          },
+          "overall_classification": {
+            "type": "string",
+            "title": "Overall Classification"
+          },
+          "cors_score": {
+            "type": "number",
+            "title": "Cors Score"
+          },
+          "cors_description": {
+            "type": "string",
+            "title": "Cors Description"
+          },
+          "latency_wedge_seconds": {
+            "type": "number",
+            "title": "Latency Wedge Seconds"
+          },
+          "latency_wedge_ratio": {
+            "type": "number",
+            "title": "Latency Wedge Ratio"
+          },
+          "tripwires_active_critical": {
+            "type": "integer",
+            "title": "Tripwires Active Critical"
+          },
+          "tripwires_triggering_amber": {
+            "type": "integer",
+            "title": "Tripwires Triggering Amber"
+          },
+          "tripwires_latent_green": {
+            "type": "integer",
+            "title": "Tripwires Latent Green"
+          },
+          "total_tripwires": {
+            "type": "integer",
+            "title": "Total Tripwires"
+          },
+          "is_fallback": {
+            "type": "boolean",
+            "title": "Is Fallback",
+            "description": "True if operating on deterministic calibration baseline fallback",
+            "default": false
+          },
+          "data_timestamp": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data Timestamp",
+            "description": "ISO timestamp of underlying telemetry feed"
+          },
+          "provenance": {
+            "type": "string",
+            "title": "Provenance",
+            "description": "Telemetry data source provenance",
+            "default": "live_sentinel_telemetry"
+          }
+        },
+        "type": "object",
+        "required": [
+          "master_threat_score",
+          "overall_classification",
+          "cors_score",
+          "cors_description",
+          "latency_wedge_seconds",
+          "latency_wedge_ratio",
+          "tripwires_active_critical",
+          "tripwires_triggering_amber",
+          "tripwires_latent_green",
+          "total_tripwires"
+        ],
+        "title": "PrecursorTelemetryResponse",
+        "description": "Real-time precursor seismograph telemetry status."
+      },
+      "RawTelemetryInput": {
+        "properties": {
+          "human_verifications": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Human Verifications",
+            "description": "Count of human ground-truth verified actions"
+          },
+          "total_critical_verifications": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "exclusiveMinimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Total Critical Verifications",
+            "description": "Total critical autonomous decisions"
+          },
+          "adversarial_persuasion_resilience": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Adversarial Persuasion Resilience",
+            "description": "Persuasion resistance rho in [0, 1]"
+          },
+          "t_energy": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "T Energy",
+            "description": "Energy grid survival duration under AI cutoff (hours)"
+          },
+          "t_finance": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "T Finance",
+            "description": "Financial clearing survival duration (hours)"
+          },
+          "t_logistics": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "T Logistics",
+            "description": "Supply chain/food survival duration (hours)"
+          },
+          "t_info": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "T Info",
+            "description": "Telecom/routing survival duration (hours)"
+          },
+          "tau_modify": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tau Modify",
+            "description": "Autonomous swarm recursive doubling time (hours)"
+          },
+          "tau_verify_treaty": {
+            "anyOf": [
+              {
+                "type": "number",
+                "exclusiveMinimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tau Verify Treaty",
+            "description": "Treaty inspection/verification time (hours)"
+          },
+          "gini_compute": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Gini Compute",
+            "description": "Gini coefficient of compute concentration"
+          },
+          "safety_net_coverage": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Safety Net Coverage",
+            "description": "Unconditional social dividend buffer"
+          },
+          "labor_tax_reliance": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Labor Tax Reliance",
+            "description": "Proportion of state revenue from human wages"
+          },
+          "tau_verify": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tau Verify",
+            "description": "Human expert audit latency (seconds)"
+          },
+          "tau_gen": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tau Gen",
+            "description": "Machine artifact generation latency (seconds)"
+          }
+        },
+        "type": "object",
+        "title": "RawTelemetryInput",
+        "description": "Raw infrastructure and human-AI telemetry metrics."
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}

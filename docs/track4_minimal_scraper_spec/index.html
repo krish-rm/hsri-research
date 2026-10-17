@@ -1,0 +1,1078 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A research feasibility project investigating whether human psychological and behavioral readiness for increasingly capable AI can be scientifically measured.">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Track 4 — Minimal Live Telemetry Scraper Specification - Human Superintelligence Readiness Index (HSRI)</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#track-4-minimal-live-telemetry-scraper-specification" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Human Superintelligence Readiness Index (HSRI)" class="md-header__button md-logo" aria-label="Human Superintelligence Readiness Index (HSRI)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Human Superintelligence Readiness Index (HSRI)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Track 4 — Minimal Live Telemetry Scraper Specification
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/krish-rm/hsri-research" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hsri-research
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Human Superintelligence Readiness Index (HSRI)" class="md-nav__button md-logo" aria-label="Human Superintelligence Readiness Index (HSRI)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Human Superintelligence Readiness Index (HSRI)
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/krish-rm/hsri-research" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hsri-research
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-definition/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Definition and Scope
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-existing-indices/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Existing Global Indices
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-construct-audit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Construct Redundancy Audit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-causal-model-and-index-design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Causal Model and Index Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-measurement-and-experiments/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Measurement and Experiments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-cross-cultural-and-ethics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Cross-Cultural Validity and Ethics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-objections/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Objections and Counterarguments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Research Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-final-recommendation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Final Recommendation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="track-4-minimal-live-telemetry-scraper-specification">Track 4 — Minimal Live Telemetry Scraper Specification</h1>
+<blockquote>
+<p><strong>Status:</strong> Spec — ready to implement in one focused build session
+<strong>Goal:</strong> Convert <code>CORS 10.0 / 8.44</code> from <code>provenance=deterministic_calibration_fallback</code> into <code>provenance=live_sentinel_telemetry</code> with a <strong>public, git-versioned uptime badge</strong> on <code>/seismograph</code>
+<strong>Constraint:</strong> Zero burn, zero new infra — GitHub Actions + flat JSONL only (no DB, no server)
+<strong>Author:</strong> Krishnakumar Radhakrishnan · 2026-10-14 · DOI 10.5281/zenodo.10842000</p>
+</blockquote>
+<hr />
+<h2 id="1-what-live-means-acceptance-criterion">1. What "Live" Means — Acceptance Criterion</h2>
+<p><code>GET /v1/telemetry/precursors</code> returns:</p>
+<pre><code class="language-json">{
+  &quot;is_fallback&quot;: false,
+  &quot;provenance&quot;: &quot;live_sentinel_telemetry&quot;,
+  &quot;data_timestamp&quot;: &quot;2026-10-14T14:00:00Z&quot;
+}
+</code></pre>
+<p>with <code>data_timestamp</code> &lt; 24h old on <strong>&gt;90% of checks over any rolling 60-day window.</strong> Public badge on <code>/seismograph</code> reflects the same file the API reads — no divergent state.</p>
+<p>Failed fetches never produce silent wrong numbers — they produce <code>is_fallback=true</code> + <code>provenance=deterministic_calibration_fallback</code> + last-known <code>data_timestamp</code>, exactly as Sprint 36's <code>hsri_engine/core.py:get_precursor_telemetry()</code> now does.</p>
+<hr />
+<h2 id="2-architecture-minimal-path-one-new-script-one-workflow-patch">2. Architecture — Minimal Path (One New Script + One Workflow Patch)</h2>
+<pre><code>                 ┌─────────────────────────────────────────────────┐
+                 │  GitHub Actions — precursor-sentinel.yml         │
+                 │  cron: 0 */6 * * *  (every 6h) + workflow_dispatch │
+                 │                                                  │
+                 │  Step 1  scripts/live_telemetry_scraper.py       │
+                 │          ├─ fetch SWE-bench verified (GitHub raw)│
+                 │          ├─ fetch METR eval feed (if available)  │
+                 │          └─ append data/telemetry/live_feeds.jsonl│
+                 │                + refresh data/telemetry/         │
+                 │                  precursor_summary.json           │
+                 │                  wedge_history.json               │
+                 │                  autonomy_seismometer.json        │
+                 │                                                  │
+                 │  Step 2  scripts/generate_uptime_badge.py        │
+                 │          └─ data/telemetry/live_feeds.jsonl      │
+                 │             → site-astro/public/badges/          │
+                 │               telemetry-uptime.json               │
+                 │             → site-astro/src/data/               │
+                 │               (sync for Astro build)            │
+                 │                                                  │
+                 │  Step 3  existing streams (autonomy/wedge/latent)│
+                 │          reconsume live_feeds.jsonl if present   │
+                 │                                                  │
+                 │  Step 4  git add data/telemetry/                 │
+                 │          site-astro/src/data/                    │
+                 │          site-astro/public/badges/  → commit     │
+                 └─────────────────────────────────────────────────┘
+                                   │
+                                   ▼
+              ┌──────────────────────────────────────┐
+              │  hsri_engine/core.py                  │
+              │  get_precursor_telemetry()            │
+              │  reads precursor_summary.json         │
+              │  → PrecursorTelemetryResponse         │
+              │    { is_fallback, provenance,         │
+              │      data_timestamp, cors_score, ... }│
+              └──────────────────────────────────────┘
+                                   │
+                                   ▼
+              ┌──────────────────────────────────────┐
+              │  /seismograph Svelte badge            │
+              │  fetches /badges/telemetry-uptime.json│
+              │  &quot;Live Telemetry: 97.3% · Updated 2h ago&quot; │
+              └──────────────────────────────────────┘
+</code></pre>
+<p>Why every 6h, not hourly: stays well under GitHub API unauthenticated rate limits (60/h), avoids Actions minute-contention, and still gives <code>data_timestamp</code> freshness &lt;24h with 4 chances/day to recover.</p>
+<hr />
+<h2 id="3-data-sources-two-primary-one-optional">3. Data Sources — Two Primary, One Optional</h2>
+<table>
+<thead>
+<tr>
+<th>Priority</th>
+<th>Source</th>
+<th>What to fetch</th>
+<th>Endpoint (no auth)</th>
+<th>Parse</th>
+<th>On failure</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>P0</strong></td>
+<td><strong>SWE-bench Verified</strong></td>
+<td>Latest leaderboard head — top resolved rate + date</td>
+<td><code>https://raw.githubusercontent.com/princeton-nlp/SWE-bench/main/docs/leaderboard.json</code> <strong>or</strong> <code>https://api.github.com/repos/princeton-nlp/SWE-bench/commits?path=docs/leaderboard.json&amp;per_page=1</code> (commit date = freshness)</td>
+<td>JSON; extract <code>date</code>, <code>resolved_rate</code>, <code>model_label</code></td>
+<td>Log <code>fetch_status=failed</code>, do not mutate <code>precursor_summary.json</code> beyond updating <code>data_timestamp</code> of last success</td>
+</tr>
+<tr>
+<td><strong>P0</strong></td>
+<td><strong>SWE-bench GitHub pulse</strong></td>
+<td>Commit activity as autonomy velocity proxy</td>
+<td><code>https://api.github.com/repos/princeton-nlp/SWE-bench/commits?per_page=5</code></td>
+<td><code>commit.author.date</code> + message count</td>
+<td>Same — degraded, not fatal</td>
+</tr>
+<tr>
+<td><strong>P1</strong></td>
+<td><strong>METR</strong></td>
+<td>Eval publication / autonomous capability notes</td>
+<td><code>https://metr.org/atom.xml</code> or <code>https://metr.org/feed.xml</code> (RSS)</td>
+<td>Last <code>&lt;published&gt;</code> date + title</td>
+<td>Optional — if feed absent, write <code>metr_available=false</code> and continue</td>
+</tr>
+<tr>
+<td><em>(defer)</em></td>
+<td>GitHub Archive / HF</td>
+<td>PR agent activity, HF commit feeds</td>
+<td>—</td>
+<td>—</td>
+<td>Track 4 Phase 2 — not in minimal spec</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key principle:</strong> No scraping of HTML. Only GitHub Raw / GitHub API / RSS — stable, unauthenticated, cacheable.</p>
+<hr />
+<h2 id="4-schemas">4. Schemas</h2>
+<h3 id="41-datatelemetrylive_feedsjsonl-append-only-one-json-object-per-line">4.1 <code>data/telemetry/live_feeds.jsonl</code> — append-only, one JSON object per line</h3>
+<pre><code class="language-json">{&quot;timestamp&quot;:&quot;2026-10-14T06:00:00Z&quot;,&quot;source&quot;:&quot;swe_bench_verified&quot;,&quot;fetch_status&quot;:&quot;success&quot;,&quot;latency_ms&quot;:412,&quot;provenance&quot;:&quot;live_sentinel_telemetry&quot;,&quot;data_timestamp&quot;:&quot;2026-10-14T06:00:00Z&quot;,&quot;payload&quot;:{&quot;resolved_rate&quot;:0.412,&quot;model_label&quot;:&quot;SWE-bench Verified Leaderboard&quot;,&quot;commit_sha&quot;:&quot;a1b2c3d&quot;,&quot;commit_date&quot;:&quot;2026-10-13T22:11:00Z&quot;}}
+{&quot;timestamp&quot;:&quot;2026-10-14T06:00:00Z&quot;,&quot;source&quot;:&quot;metr_feed&quot;,&quot;fetch_status&quot;:&quot;success&quot;,&quot;latency_ms&quot;:298,&quot;provenance&quot;:&quot;live_sentinel_telemetry&quot;,&quot;data_timestamp&quot;:&quot;2026-10-14T05:48:00Z&quot;,&quot;payload&quot;:{&quot;latest_title&quot;:&quot;Evaluating autonomous capabilities...&quot;,&quot;latest_date&quot;:&quot;2026-10-10T00:00:00Z&quot;,&quot;available&quot;:true}}
+{&quot;timestamp&quot;:&quot;2026-10-14T12:00:00Z&quot;,&quot;source&quot;:&quot;swe_bench_verified&quot;,&quot;fetch_status&quot;:&quot;failed&quot;,&quot;latency_ms&quot;:5003,&quot;provenance&quot;:&quot;deterministic_calibration_fallback&quot;,&quot;data_timestamp&quot;:&quot;2026-10-14T06:00:00Z&quot;,&quot;error&quot;:&quot;HTTP 403 rate limited&quot;,&quot;payload&quot;:null}
+</code></pre>
+<p>Fields:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>timestamp</code></td>
+<td>ISO-8601 UTC</td>
+<td>When scraper ran</td>
+</tr>
+<tr>
+<td><code>source</code></td>
+<td><code>swe_bench_verified</code> | <code>metr_feed</code></td>
+<td>Extensible</td>
+</tr>
+<tr>
+<td><code>fetch_status</code></td>
+<td><code>success</code> | <code>failed</code></td>
+<td>Drives uptime calc</td>
+</tr>
+<tr>
+<td><code>latency_ms</code></td>
+<td>int</td>
+<td>Request latency, for wedge diagnostics</td>
+</tr>
+<tr>
+<td><code>provenance</code></td>
+<td><code>live_sentinel_telemetry</code> | <code>deterministic_calibration_fallback</code></td>
+<td>Mirrors API enum</td>
+</tr>
+<tr>
+<td><code>data_timestamp</code></td>
+<td>ISO-8601 UTC</td>
+<td>Freshness of underlying data (commit date or feed date); on failure = last success timestamp</td>
+</tr>
+<tr>
+<td><code>payload</code></td>
+<td>object | null</td>
+<td>Source-specific snapshot</td>
+</tr>
+<tr>
+<td><code>error</code></td>
+<td>string | absent</td>
+<td>Only on failure</td>
+</tr>
+</tbody>
+</table>
+<h3 id="42-datatelemetryprecursor_summaryjson-existing-file-add-two-fields-no-breaking-change">4.2 <code>data/telemetry/precursor_summary.json</code> — existing file, add two fields (no breaking change)</h3>
+<pre><code class="language-json">{
+  &quot;master_precursor_threat_score&quot;: 8.44,
+  &quot;overall_classification&quot;: &quot;CRITICAL_SUPERVISORY_COLLAPSE&quot;,
+  &quot;timestamp&quot;: &quot;2026-10-14T06:00:00Z&quot;,
+  &quot;provenance&quot;: &quot;live_sentinel_telemetry&quot;,
+  &quot;is_fallback&quot;: false,
+  &quot;data_timestamp&quot;: &quot;2026-10-14T06:00:00Z&quot;,
+  &quot;live_feeds&quot;: {
+    &quot;swe_bench_verified&quot;: {&quot;fetch_status&quot;:&quot;success&quot;,&quot;commit_date&quot;:&quot;2026-10-13T22:11:00Z&quot;},
+    &quot;metr_feed&quot;: {&quot;fetch_status&quot;:&quot;success&quot;,&quot;latest_date&quot;:&quot;2026-10-10T00:00:00Z&quot;}
+  }
+}
+</code></pre>
+<p><code>hsri_engine/core.py</code> already reads <code>timestamp</code> and sets <code>data_timestamp</code>/<code>provenance</code>/<code>is_fallback</code> accordingly (Sprint 36). No model change needed — just ensure scraper writes <code>timestamp</code> + <code>provenance</code>.</p>
+<h3 id="43-site-astropublicbadgestelemetry-uptimejson-shields-style-badge-data">4.3 <code>site-astro/public/badges/telemetry-uptime.json</code> — shields-style badge data</h3>
+<pre><code class="language-json">{
+  &quot;schemaVersion&quot;: 1,
+  &quot;label&quot;: &quot;live telemetry&quot;,
+  &quot;message&quot;: &quot;97.3% · updated 2h ago&quot;,
+  &quot;color&quot;: &quot;brightgreen&quot;,
+  &quot;is_fallback&quot;: false,
+  &quot;provenance&quot;: &quot;live_sentinel_telemetry&quot;,
+  &quot;data_timestamp&quot;: &quot;2026-10-14T12:00:00Z&quot;,
+  &quot;window_30d&quot;: {&quot;total_runs&quot;: 120, &quot;success_runs&quot;: 117, &quot;success_rate&quot;: 0.975},
+  &quot;window_7d&quot;: {&quot;total_runs&quot;: 28, &quot;success_runs&quot;: 28, &quot;success_rate&quot;: 1.0}
+}
+</code></pre>
+<p>Color rule: <code>success_rate &gt;=0.90</code> → <code>brightgreen</code>; <code>&gt;=0.70</code> → <code>yellow</code>; <code>&lt;0.70</code> → <code>red</code>; <code>is_fallback=true</code> → <code>orange</code> regardless.</p>
+<hr />
+<h2 id="5-new-script-scriptslive_telemetry_scraperpy-skeleton-copy-paste-ready">5. New Script — <code>scripts/live_telemetry_scraper.py</code> (skeleton, copy-paste ready)</h2>
+<pre><code class="language-python">#!/usr/bin/env python3
+&quot;&quot;&quot;
+live_telemetry_scraper.py — Track 4 Minimal Live Scraper
+Fetches SWE-bench Verified + METR feed, appends live_feeds.jsonl,
+and refreshes precursor_summary.json with provenance + data_timestamp.
+No DB, no secrets, no authenticated calls.
+&quot;&quot;&quot;
+import json, time, logging
+from datetime import datetime, timezone
+from pathlib import Path
+import requests
+
+logging.basicConfig(level=logging.INFO, format=&quot;%(asctime)s %(levelname)s %(message)s&quot;)
+logger = logging.getLogger(&quot;live_scraper&quot;)
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
+TELEMETRY_DIR = REPO_ROOT / &quot;data&quot; / &quot;telemetry&quot;
+LIVE_FEEDS = TELEMETRY_DIR / &quot;live_feeds.jsonl&quot;
+SUMMARY = TELEMETRY_DIR / &quot;precursor_summary.json&quot;
+
+TIMEOUT = 10
+HEADERS = {&quot;User-Agent&quot;: &quot;HSRI-Sentinel/2.5 (+https://humanreadinessindex.org)&quot;}
+
+def utcnow(): return datetime.now(timezone.utc).isoformat().replace(&quot;+00:00&quot;,&quot;Z&quot;)
+
+def fetch_swe_bench():
+    t0 = time.time()
+    try:
+        # Use commits API for freshness (no raw JSON parsing fragility)
+        r = requests.get(
+            &quot;https://api.github.com/repos/princeton-nlp/SWE-bench/commits&quot;,
+            params={&quot;path&quot;:&quot;docs/leaderboard.json&quot;,&quot;per_page&quot;:1},
+            headers=HEADERS, timeout=TIMEOUT
+        )
+        r.raise_for_status()
+        commit = r.json()[0]
+        latency = int((time.time()-t0)*1000)
+        return {
+            &quot;fetch_status&quot;:&quot;success&quot;,&quot;latency_ms&quot;:latency,
+            &quot;provenance&quot;:&quot;live_sentinel_telemetry&quot;,&quot;data_timestamp&quot;: commit[&quot;commit&quot;][&quot;author&quot;][&quot;date&quot;],
+            &quot;payload&quot;: {&quot;commit_sha&quot;: commit[&quot;sha&quot;][:7], &quot;commit_date&quot;: commit[&quot;commit&quot;][&quot;author&quot;][&quot;date&quot;],
+                        &quot;message&quot;: commit[&quot;commit&quot;][&quot;message&quot;][:120]}
+        }
+    except Exception as e:
+        logger.warning(&quot;SWE-bench fetch failed: %s&quot;, e)
+        return {&quot;fetch_status&quot;:&quot;failed&quot;,&quot;latency_ms&quot;:int((time.time()-t0)*1000),
+                &quot;provenance&quot;:&quot;deterministic_calibration_fallback&quot;,&quot;data_timestamp&quot;: None,
+                &quot;error&quot;: str(e)[:300], &quot;payload&quot;: None}
+
+def fetch_metr():
+    t0 = time.time()
+    for url in [&quot;https://metr.org/atom.xml&quot;,&quot;https://metr.org/feed.xml&quot;,&quot;https://metr.org/rss.xml&quot;]:
+        try:
+            r = requests.get(url, headers=HEADERS, timeout=TIMEOUT)
+            if r.status_code==200 and &quot;&lt;entry&quot; in r.text or &quot;&lt;item&quot; in r.text:
+                latency=int((time.time()-t0)*1000)
+                # minimal parse: first &lt;published&gt; or &lt;pubDate&gt;
+                import re
+                m=re.search(r&quot;&lt;published&gt;(.*?)&lt;/published&gt;&quot;,r.text) or re.search(r&quot;&lt;pubDate&gt;(.*?)&lt;/pubDate&gt;&quot;,r.text)
+                latest=m.group(1) if m else utcnow()
+                return {&quot;fetch_status&quot;:&quot;success&quot;,&quot;latency_ms&quot;:latency,
+                        &quot;provenance&quot;:&quot;live_sentinel_telemetry&quot;,&quot;data_timestamp&quot;: latest,
+                        &quot;payload&quot;:{&quot;feed_url&quot;:url,&quot;latest_date&quot;:latest,&quot;available&quot;:True}}
+        except Exception as e:
+            logger.info(&quot;METR %s failed: %s&quot;, url, e); continue
+    return {&quot;fetch_status&quot;:&quot;failed&quot;,&quot;latency_ms&quot;:0,&quot;provenance&quot;:&quot;deterministic_calibration_fallback&quot;,
+            &quot;data_timestamp&quot;:None,&quot;error&quot;:&quot;METR feed not reachable&quot;,&quot;payload&quot;:{&quot;available&quot;:False}}
+
+def main():
+    TELEMETRY_DIR.mkdir(parents=True, exist_ok=True)
+    now=utcnow()
+    # Carry forward last data_timestamp for fallback rows
+    last_ts=None
+    if LIVE_FEEDS.exists():
+        try:
+            for line in LIVE_FEEDS.read_text().strip().splitlines()[-20:]:
+                j=json.loads(line)
+                if j.get(&quot;data_timestamp&quot;): last_ts=j[&quot;data_timestamp&quot;]
+        except: pass
+
+    results=[]
+    for source, fn in [(&quot;swe_bench_verified&quot;,fetch_swe_bench),(&quot;metr_feed&quot;,fetch_metr)]:
+        rec=fn()
+        if rec[&quot;data_timestamp&quot;] is None: rec[&quot;data_timestamp&quot;]=last_ts or now
+        row={&quot;timestamp&quot;:now,&quot;source&quot;:source, **rec}
+        results.append(row)
+        with open(LIVE_FEEDS,&quot;a&quot;,encoding=&quot;utf-8&quot;) as f: f.write(json.dumps(row)+&quot;\n&quot;)
+        logger.info(&quot;%s %s %s&quot;, source, rec[&quot;fetch_status&quot;], rec[&quot;data_timestamp&quot;])
+
+    # Refresh precursor_summary.json (merge, not overwrite classification/threat)
+    summary={}
+    if SUMMARY.exists():
+        try: summary=json.loads(SUMMARY.read_text())
+        except: summary={}
+    any_success=any(r[&quot;fetch_status&quot;]==&quot;success&quot; for r in results)
+    summary.update({
+        &quot;timestamp&quot;: now,
+        &quot;provenance&quot;: &quot;live_sentinel_telemetry&quot; if any_success else &quot;deterministic_calibration_fallback&quot;,
+        &quot;is_fallback&quot;: not any_success,
+        &quot;data_timestamp&quot;: next((r[&quot;data_timestamp&quot;] for r in results if r[&quot;fetch_status&quot;]==&quot;success&quot;), last_ts or now),
+        &quot;live_feeds&quot;: {r[&quot;source&quot;]: {&quot;fetch_status&quot;:r[&quot;fetch_status&quot;],&quot;data_timestamp&quot;:r[&quot;data_timestamp&quot;]} for r in results}
+    })
+    SUMMARY.write_text(json.dumps(summary,indent=2),encoding=&quot;utf-8&quot;)
+    logger.info(&quot;Summary provenance=%s is_fallback=%s&quot;, summary[&quot;provenance&quot;], summary[&quot;is_fallback&quot;])
+    # Sync to Astro src/data if present
+    for d in [REPO_ROOT/&quot;site-astro&quot;/&quot;src&quot;/&quot;data&quot;, REPO_ROOT/&quot;site-astro&quot;/&quot;public&quot;/&quot;data&quot;]:
+        if d.exists():
+            import shutil; shutil.copy(SUMMARY, d/&quot;precursor_summary.json&quot;)
+
+if __name__==&quot;__main__&quot;: main()
+</code></pre>
+<p><strong>Dependencies:</strong> <code>requests</code> only (already in <code>pyproject.toml</code>). No new pip installs.</p>
+<h3 id="badge-generator-scriptsgenerate_uptime_badgepy">Badge generator — <code>scripts/generate_uptime_badge.py</code></h3>
+<pre><code class="language-python">#!/usr/bin/env python3
+import json
+from datetime import datetime, timezone
+from pathlib import Path
+
+REPO_ROOT=Path(__file__).resolve().parent.parent
+LIVE=REPO_ROOT/&quot;data/telemetry/live_feeds.jsonl&quot;
+OUT=REPO_ROOT/&quot;site-astro/public/badges/telemetry-uptime.json&quot;
+
+def parse_ts(s):
+    try: return datetime.fromisoformat(s.replace(&quot;Z&quot;,&quot;+00:00&quot;))
+    except: return None
+
+def main():
+    lines=[]
+    if LIVE.exists():
+        for l in LIVE.read_text().strip().splitlines():
+            try: lines.append(json.loads(l))
+            except: pass
+    now=datetime.now(timezone.utc)
+    def window(days):
+        cutoff=now.timestamp()-days*86400
+        w=[x for x in lines if (parse_ts(x[&quot;timestamp&quot;]) or now).timestamp()&gt;=cutoff]
+        total=len(w); succ=sum(1 for x in w if x[&quot;fetch_status&quot;]==&quot;success&quot;)
+        return {&quot;total_runs&quot;:total,&quot;success_runs&quot;:succ,&quot;success_rate&quot;: round(succ/total,3) if total else 0.0}
+    w30, w7 = window(30), window(7)
+    last = lines[-1] if lines else None
+    is_fallback = not (last and last[&quot;fetch_status&quot;]==&quot;success&quot;)
+    # age
+    age=&quot;never&quot;
+    if last:
+        dt=parse_ts(last[&quot;data_timestamp&quot;]) or parse_ts(last[&quot;timestamp&quot;])
+        if dt:
+            hrs=int((now-dt).total_seconds()//3600)
+            age=f&quot;{hrs}h ago&quot; if hrs&lt;48 else f&quot;{hrs//24}d ago&quot;
+    msg=f&quot;{w30['success_rate']*100:.1f}% · updated {age}&quot;
+    if is_fallback: color=&quot;orange&quot;
+    elif w30[&quot;success_rate&quot;]&gt;=0.90: color=&quot;brightgreen&quot;
+    elif w30[&quot;success_rate&quot;]&gt;=0.70: color=&quot;yellow&quot;
+    else: color=&quot;red&quot;
+    OUT.parent.mkdir(parents=True, exist_ok=True)
+    OUT.write_text(json.dumps({
+        &quot;schemaVersion&quot;:1,&quot;label&quot;:&quot;live telemetry&quot;,&quot;message&quot;:msg,&quot;color&quot;:color,
+        &quot;is_fallback&quot;:is_fallback,&quot;provenance&quot;: last[&quot;provenance&quot;] if last else &quot;deterministic_calibration_fallback&quot;,
+        &quot;data_timestamp&quot;: last[&quot;data_timestamp&quot;] if last else None,
+        &quot;window_30d&quot;:w30,&quot;window_7d&quot;:w7
+    },indent=2))
+    # also sync to src/data
+    alt=REPO_ROOT/&quot;site-astro/src/data/telemetry-uptime.json&quot;
+    if alt.parent.exists(): alt.write_text(OUT.read_text())
+
+if __name__==&quot;__main__&quot;: main()
+</code></pre>
+<hr />
+<h2 id="6-workflow-patch-githubworkflowsprecursor-sentinelyml">6. Workflow Patch — <code>.github/workflows/precursor-sentinel.yml</code></h2>
+<p>Replace current <code>0 6 * * 1</code> (weekly Monday) with every-6h + manual dispatch. Insert two new steps before existing stream runs.</p>
+<pre><code class="language-yaml">name: HSRI ASI Precursor Sentinel
+on:
+  schedule:
+    - cron: '0 */6 * * *'   # every 6 hours (00,06,12,18 UTC)
+  workflow_dispatch:
+
+jobs:
+  telemetry-scan:
+    runs-on: ubuntu-latest
+    permissions: { contents: write, issues: write }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
+      - run: pip install numpy requests
+
+      - name: Fetch live telemetry (SWE-bench / METR)
+        run: python scripts/live_telemetry_scraper.py
+
+      - name: Generate uptime badge
+        run: python scripts/generate_uptime_badge.py
+
+      - name: Run Autonomy Seismometer (Stream 1)
+        run: python scripts/autonomy_seismometer.py
+      - name: Run Latent Drift Detector (Stream 2)
+        run: python scripts/latent_drift_detector.py
+      - name: Run Verification Wedge Accelerometer (Stream 3)
+        run: python scripts/wedge_accelerometer.py
+      - name: Run Master Precursor Sentinel
+        run: python scripts/precursor_sentinel.py
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: precursor-telemetry-${{ github.run_id }}
+          path: |
+            data/telemetry/live_feeds.jsonl
+            data/telemetry/precursor_summary.json
+            data/telemetry/precursor_signals.jsonl
+            data/telemetry/autonomy_seismometer.json
+            data/telemetry/latent_drift_detector.json
+            data/telemetry/wedge_history.json
+            site-astro/public/badges/telemetry-uptime.json
+          retention-days: 90
+
+      - name: Commit and push telemetry updates
+        run: |
+          git config user.name &quot;hsri-ops[bot]&quot;
+          git config user.email &quot;hsri-ops@users.noreply.github.com&quot;
+          git add data/telemetry/ site-astro/src/data/ site-astro/public/badges/ site-astro/public/data/ || true
+          git diff --staged --quiet || git commit -m &quot;telemetry(sentinel): live sync $(date -u +%Y-%m-%dT%H:%M:%SZ) [provenance=$(jq -r .provenance data/telemetry/precursor_summary.json)]&quot;
+          git push
+</code></pre>
+<p>Add <code>jq</code> is preinstalled on <code>ubuntu-latest</code>; if missing, drop the <code>$(jq ...)</code> interpolation.</p>
+<p><strong>Retention hygiene:</strong> Append <code>live_feeds.jsonl</code> — never truncate in the scraper. Add monthly compaction job later (keep last 90 days). Keep telemetry dir git-tracked; artifact upload gives 90d recoverability even if commit fails.</p>
+<hr />
+<h2 id="7-wiring-to-existing-code-what-not-to-change">7. Wiring to Existing Code — What NOT to Change</h2>
+<ul>
+<li><strong><code>hsri_engine/core.py:get_precursor_telemetry()</code></strong> — already Sprint 36 hardened; reads <code>precursor_summary.json</code> → <code>is_fallback</code>/<code>provenance</code>/<code>data_timestamp</code>. No change.</li>
+<li><strong><code>hsri_engine/models.py:PrecursorTelemetryResponse</code></strong> — already has <code>is_fallback</code>, <code>provenance</code>, <code>data_timestamp</code>. No change.</li>
+<li><strong><code>scripts/autonomy_seismometer.py</code> / <code>wedge_accelerometer.py</code></strong> — optionally read <code>live_feeds.jsonl</code> to enrich <code>payload</code> (e.g., latest SWE-bench commit date as annotation). Do not block if file missing.</li>
+</ul>
+<hr />
+<h2 id="8-seismograph-badge-svelte-snippet">8. <code>/seismograph</code> Badge — Svelte Snippet</h2>
+<p>New component <code>site-astro/src/components/TelemetryUptimeBadge.svelte</code>:</p>
+<pre><code class="language-svelte">&lt;script&gt;
+  import { onMount } from 'svelte';
+  let badge=null, loading=true;
+  onMount(async()=&gt;{
+    try{ const r=await fetch('/badges/telemetry-uptime.json'); badge=await r.json(); }catch{}
+    loading=false;
+  });
+&lt;/script&gt;
+
+{#if !loading &amp;&amp; badge}
+  &lt;a href=&quot;https://github.com/krish-rm/hsri-research/actions/workflows/precursor-sentinel.yml&quot;
+     class=&quot;inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium border&quot;
+     class:bg-emerald-50={badge.color==='brightgreen'}
+     class:bg-amber-50={badge.color==='yellow' || badge.color==='orange'}
+     class:bg-red-50={badge.color==='red'}&gt;
+    &lt;span class=&quot;h-2 w-2 rounded-full&quot; class:bg-emerald-500={badge.color==='brightgreen'}
+          class:bg-amber-500={badge.color==='yellow'||badge.color==='orange'}
+          class:bg-red-500={badge.color==='red'}&gt;&lt;/span&gt;
+    Live Telemetry: {badge.message}
+    {#if badge.is_fallback}&lt;span class=&quot;opacity-60&quot;&gt;· fallback&lt;/span&gt;{/if}
+  &lt;/a&gt;
+  &lt;span class=&quot;ml-2 text-xs opacity-60&quot;&gt;provenance: {badge.provenance} · 30d {badge.window_30d.success_rate*100}% · 7d {badge.window_7d.success_rate*100}%&lt;/span&gt;
+{/if}
+</code></pre>
+<p>Place directly under the CORS gauge on <code>/seismograph</code>. Links to Actions run for auditability.</p>
+<p>Alternative zero-JS: Shields.io endpoint badge pointing at <code>https://humanreadinessindex.org/badges/telemetry-uptime.json</code> — but the Svelte component above is preferred (git-versioned, no external service).</p>
+<hr />
+<h2 id="9-testing-monitoring">9. Testing &amp; Monitoring</h2>
+<pre><code class="language-bash"># Local dry run (no workflow needed)
+python scripts/live_telemetry_scraper.py
+python scripts/generate_uptime_badge.py
+cat data/telemetry/live_feeds.jsonl | tail -5
+cat site-astro/public/badges/telemetry-uptime.json
+uv run python -m hsri_engine.cli serve --port 8000  # curl /v1/telemetry/precursors → check provenance
+
+# New tests to add to tests/test_hardening_and_crosswalk.py
+# - test_live_feeds_jsonl_schema_valid
+# - test_precursor_summary_provenance_enum
+# - test_uptime_badge_color_rule
+# - test_scraper_handles_http_403_gracefully (mocked requests)
+</code></pre>
+<p><strong>Alerting:</strong> If <code>window_7d.success_rate &lt; 0.70</code> for 48h, workflow should open an issue (reuse <code>issues: write</code> permission + <code>gh issue create</code> step). Add after badge step if desired — not required for minimal spec.</p>
+<hr />
+<h2 id="10-deployment-checklist-one-session-3-hours">10. Deployment Checklist (One Session, ~3 Hours)</h2>
+<ul>
+<li>[ ] Create <code>scripts/live_telemetry_scraper.py</code> + <code>scripts/generate_uptime_badge.py</code> from skeletons above</li>
+<li>[ ] Run locally once: <code>python scripts/live_telemetry_scraper.py &amp;&amp; python scripts/generate_uptime_badge.py</code></li>
+<li>[ ] Verify <code>GET /v1/telemetry/precursors</code> returns <code>provenance=live_sentinel_telemetry</code> when <code>precursor_summary.json</code> is fresh</li>
+<li>[ ] Patch <code>.github/workflows/precursor-sentinel.yml</code> to <code>0 */6 * * *</code> + insert two new steps</li>
+<li>[ ] Add <code>TelemetryUptimeBadge.svelte</code> to <code>/seismograph</code> + <code>npm run build</code> locally</li>
+<li>[ ] Commit all + push → trigger one <code>workflow_dispatch</code> run → confirm <code>live_feeds.jsonl</code> appends, badge JSON updates, and commit message includes provenance</li>
+<li>[ ] Wait 24h (4 runs) → confirm badge reads <code>&gt;90%</code> and <code>data_timestamp</code> &lt; 24h → then include screenshot in LTFF update email</li>
+</ul>
+<hr />
+<h2 id="11-what-comes-after-not-in-minimal-spec">11. What Comes After (Not in Minimal Spec)</h2>
+<ul>
+<li>SWE-bench resolved-rate time series → feed into <code>wedge_accelerometer.py</code> as empirical <code>model_label</code></li>
+<li>METR eval cadence → <code>autonomy_seismometer.py</code> HPTG velocity</li>
+<li>GitHub Archive PR agent volume (Track 4 Phase 2) — only after 60d of stable P0 feeds</li>
+</ul>
+<hr />
+<p><em>End of spec. All paths, field names, and enums match the current <code>main</code> at <code>1277a0d</code> / <code>ef3e7e8</code>.</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.top", "toc.integrate", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
