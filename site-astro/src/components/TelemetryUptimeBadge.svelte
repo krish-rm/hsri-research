@@ -70,7 +70,7 @@
     <span class="badge-meta">
       · {badge.provenance} · 30d {(badge.window_30d.success_rate * 100).toFixed(1)}% · 7d {(badge.window_7d.success_rate * 100).toFixed(1)}%
     </span>
-    <a class="badge-link" href="https://github.com/krish-rm/hsri-research/actions/workflows/precursor-sentinel.yml" target="_blank" rel="noopener">→ logs</a>
+    <span class="badge-link">✓ Active Sentinel</span>
   </div>
 {:else if error}
   <div class="uptime-badge" style="background:rgba(100,116,139,0.08); border-color:rgba(100,116,139,0.2)">

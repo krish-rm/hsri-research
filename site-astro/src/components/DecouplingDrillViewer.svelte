@@ -240,10 +240,10 @@
       <a href="https://doi.org/10.5281/zenodo.10842000" target="_blank" rel="noopener noreferrer">10.5281/zenodo.10842000</a>
     </div>
     <div class="footer-links">
-      <a href="https://github.com/krish-rm/hsri-research/blob/main/research/tabletop/decoupling_drill_protocol.md" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+      <a href="/monograph/#chapter-3" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
         View Exercise Protocol (.md)
       </a>
-      <a href="https://github.com/krish-rm/hsri-research/blob/main/research/tabletop/when_the_cloud_goes_silent.md" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+      <a href="/monograph/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
         Read Whitepaper (.md)
       </a>
     </div>

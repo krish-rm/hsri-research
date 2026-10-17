@@ -129,7 +129,7 @@ try {
         verdict,
         rawContent: raw,
         htmlContent: parseMarkdownToHtml(raw),
-        githubUrl: `https://github.com/krish-rm/hsri-research/blob/main/research/evidence/${file}`,
+        githubUrl: null,
       });
     }
   }
@@ -179,9 +179,7 @@ try {
             <div class="empty-icon">🔬</div>
             <h3>No weekly digests published yet</h3>
             <p>The first weekly digest will appear after the literature sentinel runs on Monday. Subscribe via GitHub Watch to be notified.</p>
-            <a href="https://github.com/krish-rm/hsri-research" target="_blank" rel="noopener noreferrer" class="btn-github">
-              Watch on GitHub &rarr;
-            </a>
+            <a href={`${base}/monograph/`} class="btn-primary">Read Monograph &rarr;</a>
           </div>
         ) : (
           <div class="cards-list">
