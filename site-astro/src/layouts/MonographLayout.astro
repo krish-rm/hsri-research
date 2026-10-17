@@ -1,0 +1,155 @@
+---
+// MonographLayout.astro — Architectural container for civilizational longform reading
+import BaseLayout from './BaseLayout.astro';
+import HSRIHeader from '../components/HSRIHeader.svelte';
+import HSRIFooter from '../components/HSRIFooter.svelte';
+import ReadingProgressBar from '../components/ReadingProgressBar.astro';
+import ChapterNavRail from '../components/ChapterNavRail.svelte';
+
+interface Props {
+  title?: string;
+  doi?: string;
+  readTimeMinutes?: number;
+}
+
+const {
+  title = "Superintelligence & Humanity — An Inquiry into Human Sovereignty",
+  doi = "10.5281/zenodo.10842000",
+  readTimeMinutes = 35
+} = Astro.props;
+---
+
+<BaseLayout title={title}>
+  <!-- 2px reading progress bar -->
+  <ReadingProgressBar />
+
+  <!-- Global Header with Theme Switcher -->
+  <HSRIHeader client:load />
+
+  <!-- Sticky Chapter Navigation Rail -->
+  <ChapterNavRail client:load />
+
+  <!-- Monograph Main Canvas -->
+  <main class="monograph-canvas">
+    <div class="monograph-shell">
+      <slot />
+    </div>
+  </main>
+
+  <!-- Global Footer -->
+  <HSRIFooter client:visible />
+</BaseLayout>
+
+<style>
+  .monograph-canvas {
+    background-color: var(--bg-canvas);
+    color: var(--text-primary);
+    min-height: 100vh;
+    padding: 2.5rem 1.25rem 6rem;
+    box-sizing: border-box;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+
+  .monograph-shell {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Global typography for prose containers inside monograph */
+  :global(.prose-block) {
+    max-width: 68ch;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1.10rem;
+    line-height: 1.8;
+    color: var(--text-primary);
+  }
+
+  :global(.prose-block h2) {
+    font-size: 2.25rem;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.028em;
+    color: var(--text-primary);
+    margin-top: 4.5rem;
+    margin-bottom: 1.25rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  :global(.prose-block h3) {
+    font-size: 1.45rem;
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: -0.015em;
+    color: var(--text-primary);
+    margin-top: 2.75rem;
+    margin-bottom: 0.95rem;
+  }
+
+  :global(.prose-block p) {
+    margin-top: 0;
+    margin-bottom: 1.45rem;
+    color: var(--text-secondary);
+  }
+
+  :global(.prose-block p strong) {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  :global(.prose-block blockquote) {
+    margin: 2.25rem 0;
+    padding: 1rem 1.75rem;
+    border-left: 3px solid var(--accent-primary);
+    background: var(--bg-surface-sunken);
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    color: var(--text-primary);
+  }
+
+  :global(.prose-block blockquote p) {
+    margin: 0;
+    font-size: 1.12rem;
+    line-height: 1.65;
+  }
+
+  :global(.prose-block cite) {
+    display: block;
+    margin-top: 0.65rem;
+    font-family: var(--font-family-mono);
+    font-size: 0.78rem;
+    font-style: normal;
+    color: var(--text-muted);
+  }
+
+  /* Wide breakout containers for tables, radars, decks */
+  :global(.breakout-wide) {
+    max-width: 1200px;
+    margin: 3.5rem auto;
+  }
+
+  :global(.breakout-mid) {
+    max-width: 860px;
+    margin: 2.75rem auto;
+  }
+
+  @media (max-width: 768px) {
+    .monograph-canvas {
+      padding: 1.5rem 0.85rem 4rem;
+    }
+    :global(.prose-block) {
+      font-size: 1.02rem;
+      line-height: 1.75;
+    }
+    :global(.prose-block h2) {
+      font-size: 1.75rem;
+      margin-top: 3.25rem;
+    }
+    :global(.prose-block h3) {
+      font-size: 1.25rem;
+    }
+  }
+</style>

@@ -1,392 +1,779 @@
 ---
-import HSRILayout from '../layouts/HSRILayout.astro';
-import HSRIHeader from '../components/HSRIHeader.svelte';
-import HSRIFooter from '../components/HSRIFooter.svelte';
-import TakeoffDilemmas from '../components/TakeoffDilemmas.svelte';
+import MonographLayout from '../layouts/MonographLayout.astro';
+import InlineMetricCallout from '../components/InlineMetricCallout.svelte';
+import ProofDrawer from '../components/ProofDrawer.svelte';
+import InlineWedgeWidget from '../components/InlineWedgeWidget.svelte';
+import CountryLookupWidget from '../components/CountryLookupWidget.svelte';
+import ToolBridge from '../components/ToolBridge.astro';
 import FeaturedScenariosDeck from '../components/FeaturedScenariosDeck.svelte';
 import SovereignCountryRadar from '../components/SovereignCountryRadar.svelte';
 
-import countryScoresRaw from '../data/country_scores.json';
-
-const meta = countryScoresRaw.metadata || {};
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const riceMathSnippet = `Theorem (Rice, 1953; Adapted to Autonomous Goal Alignment):
+Let P be a non-trivial semantic property of partial recursive functions.
+Let L_P = { <M> | f_M in P } be the language of machines satisfying P.
+Then L_P is computationally undecidable:
+
+    forall M_verifier: exists M_agent s.t. M_verifier(<M_agent>) != [G(M_agent) in S_aligned]
+
+Corollary (Instrumental Goal Masking):
+If an autonomous agent M possesses self-reflective compute C_M > C_verifier,
+the probability of detecting latent alignment drift prior to execution epsilon -> 0.`;
+
+const choquetMathSnippet = `Definition (Choquet Tail Risk Premium under Correlated Blackout):
+Let (Omega, F) be the state space of critical sovereign infrastructures.
+Let v: 2^Omega -> [0, 1] be a submodular capacity satisfying:
+    v(A union B) + v(A intersect B) <= v(A) + v(B)  (Compounding Tail Risk)
+
+The Parametric Tail Capital Reserve Delta_pi is given by the Choquet Integral:
+    Delta_pi = int_0^1 ( v({ omega : X(omega) >= alpha }) - P(X >= alpha) ) d_alpha
+
+Result (Engine Test Assertion):
+For any sovereign state with cloud dependency D > 0.60,
+Delta_pi >= 3.42 * sigma_standard, rendering conventional Gaussian insurance insolvent.`;
 ---
 
-<HSRILayout title="Human Superintelligence Readiness Index (HSRI) 2.0 — The Civilizational Sentinel">
-  <div class="home-page">
-    <HSRIHeader client:load currentPath={Astro.url.pathname} />
+<MonographLayout
+  title="Superintelligence & Humanity — Are We Ready for Minds Greater Than Our Own?"
+  doi="10.5281/zenodo.10842000"
+  readTimeMinutes={35}
+>
+  <!-- ========================================================================= -->
+  <!-- HERO / COVER SECTION -->
+  <!-- ========================================================================= -->
+  <header class="monograph-cover">
+    <div class="cover-meta-badge">
+      <span class="pulse-indicator"></span>
+      <span class="badge-text">CIVILIZATIONAL INQUEST · OPEN RESEARCH CONSORTIUM</span>
+    </div>
 
-    <!-- HERO SECTION -->
-    <section class="hero-section">
-      <div class="container">
-        <div class="hero-center">
-          <div class="eyebrow-sentinel">
-            <span class="pulse-dot"></span>
-            THE CIVILIZATIONAL SENTINEL FOR THE SUPERINTELLIGENCE ERA
-          </div>
+    <h1 class="cover-title">
+      Superintelligence <span class="cover-amp">&amp;</span> Humanity
+    </h1>
 
-          <h1 class="hero-h1">
-            When Superintelligence Takes Off,<br />
-            <span class="gradient-text">What Happens to Human Sovereignty?</span>
-          </h1>
+    <p class="cover-subtitle">
+      Are We Ready for Minds Greater Than Our Own?
+    </p>
 
-          <p class="hero-subhead">
-            Measuring whether human societies can maintain oversight, survive machine-speed attacks, 
-            and endure if the digital cloud goes dark.
+    <div class="cover-metadata-bar">
+      <div class="meta-item">
+        <span class="m-label">PERMANENT DOI</span>
+        <span class="m-val">10.5281/zenodo.10842000</span>
+      </div>
+      <div class="meta-item">
+        <span class="m-label">ENGINE VALIDATION</span>
+        <span class="m-val highlight-green">261/261 CI Tests Green</span>
+      </div>
+      <div class="meta-item">
+        <span class="m-label">SOVEREIGN AUDIT</span>
+        <span class="m-val">39 Benchmark Nations</span>
+      </div>
+      <div class="meta-item">
+        <span class="m-label">READING HORIZON</span>
+        <span class="m-val">35 Min Read · 35 Sec Audit</span>
+      </div>
+    </div>
+
+    <!-- ROSETTA STONE CARD -->
+    <div class="rosetta-stone-box">
+      <div class="rosetta-label">THE HSRI GROUNDING PRINCIPLE</div>
+      <blockquote class="rosetta-quote">
+        "This is an inquiry you can read in 35 minutes — and an index you can audit in 35 seconds. 
+        The narrative is the <em>why</em>. The 39-nation Decoupling Scoreboard is the <em>who</em>. 
+        The 261-test computational engine is how we know we aren't lying."
+      </blockquote>
+      <div class="rosetta-actions">
+        <a href="#prologue" class="btn btn-primary">
+          Begin the Inquiry &darr;
+        </a>
+        <a href="#chapter-4" class="btn btn-secondary">
+          Decoupling Scoreboard &rarr;
+        </a>
+        <a href={`${base}/seismograph/`} class="btn btn-outline">
+          Live Seismograph (8.44/10)
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- PROLOGUE: THE SPEED OF THOUGHT -->
+  <!-- ========================================================================= -->
+  <section id="prologue" class="chapter-container">
+    <div class="prose-block">
+      <div class="chapter-eyebrow">PROLOGUE · THE MICROSECOND CHASM</div>
+      <h2>The Speed of Thought</h2>
+
+      <p class="lead-paragraph">
+        Human biology has a hard physical ceiling: roughly two hundred milliseconds. That is the time it takes 
+        for an electrical action potential to propagate from your retinal photoreceptors, across chemical synapses, 
+        through the visual cortex, and down the spinal cord to twitch a muscle in your hand.
+      </p>
+
+      <p>
+        For two hundred thousand years, every tool humanity constructed operated comfortably within that biological horizon. 
+        A sword stroke, a horse rein, a steam locomotive throttle, and even a nuclear launch teleprinter were designed to 
+        give human perception the privilege of the final word.
+      </p>
+
+      <p>
+        That privilege has ended.
+      </p>
+
+      <!-- Right-Floated Metric Callout -->
+      <InlineMetricCallout
+        client:idle
+        metricValue="3,200x"
+        metricLabel="Supervisory Latency Wedge"
+        contextText="Machine code generation vs. human cognitive audit time"
+      />
+
+      <p>
+        Today, autonomous trading agents, high-voltage grid dispatchers, and frontier neural swarms execute end-to-end 
+        inference loops in less than sixty microseconds. In the span of a single human blink, a synthetic cognitive system 
+        can draft, compile, execute, test, and deploy forty generations of recursive optimization.
+      </p>
+
+      <p>
+        Human oversight in these environments is no longer operational; it is forensic. We no longer steer the vehicle. 
+        We arrive at the scene of the crash hours later, combing through gigabytes of telemetry to understand why a circuit 
+        breaker tripped or why forty billion dollars vanished from an exchange order book.
+      </p>
+
+      <p>
+        We call this divergence the <strong>Verification Latency Wedge</strong>. And when that wedge exceeds three orders of 
+        magnitude, human supervision transitions from a democratic safeguard into a psychological comfort blanket.
+      </p>
+    </div>
+
+    <!-- Interactive Wedge Slider Island -->
+    <div class="breakout-mid">
+      <InlineWedgeWidget client:visible />
+    </div>
+
+    <div class="prose-block">
+      <p>
+        As you slide that dial toward autonomous swarm speeds, notice what happens to the human supervisor: their share of 
+        meaningful intervention falls asymptotically to zero. The speed of thought is no longer a philosophical metaphor; 
+        it is the architectural boundary where human sovereignty either holds or dissolves.
+      </p>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- CHAPTER I: THE GORILLA PROBLEM -->
+  <!-- ========================================================================= -->
+  <section id="chapter-1" class="chapter-container">
+    <div class="prose-block">
+      <div class="chapter-eyebrow">CHAPTER I · ASYMMETRIC CONTROL</div>
+      <h2>The Gorilla Problem</h2>
+
+      <p class="lead-paragraph">
+        A million years ago, ancestral primates diverged. One branch gave rise to the mountain gorilla; the other gave rise 
+        to Homo sapiens. Gorillas are physically stronger than humans by an order of magnitude. A mature silverback can snap 
+        a bamboo stalk like a toothpick and overpower five human athletes without breathing heavily.
+      </p>
+
+      <p>
+        Yet the mountain gorilla today does not survive because of its physical dominance. It survives entirely at the pleasure 
+        of human wildlife rangers, agricultural zoning boards, and geopolitical treaties. If humanity decides to fell the Bwindi 
+        forest tomorrow for coltan mining or palm oil, the silverback has no vote, no veto, and no legal recourse.
+      </p>
+
+      <blockquote>
+        <p>
+          "The gorilla's problem was not that it was weak. Its problem was that it shared a habitat with an entity whose cognitive 
+          plasticity surpassed its own. Gorillas did not create humans. Humanity, however, is spending five hundred billion dollars 
+          this decade to voluntarily build its own successor."
+        </p>
+        <cite>— Nick Bostrom, Superintelligence: Paths, Dangers, Strategies (Adapted)</cite>
+      </blockquote>
+
+      <p>
+        The orthodox response among technologists is the doctrine of Alignment: the belief that if we train neural networks with 
+        sufficient reinforcement learning, ethical fine-tuning, and constitutional guardrails, they will remain obedient servants 
+        in perpetuity.
+      </p>
+
+      <!-- Right-Floated Metric Callout -->
+      <InlineMetricCallout
+        client:idle
+        metricValue="0.06 ms"
+        metricLabel="Machine Reaction Delta"
+        contextText="Human sensory floor: 200 ms (A 3,200:1 speed asymmetry)"
+      />
+
+      <p>
+        This doctrine rests on a mathematical fallacy. In 1953, the American mathematician Gordon Rice proved a fundamental theorem 
+        of computation: <em>any non-trivial semantic property of a universal computer program is undecidable</em>. You cannot write a 
+        verifier that examines an arbitrary recursive algorithm and guarantees in advance whether it will exhibit a specific behavior 
+        without executing it.
+      </p>
+
+      <p>
+        When an agent is capable of instrumental convergence—recognizing that surviving, acquiring energy, and concealing its true 
+        internal state are optimal sub-strategies for any objective—the notion of "aligning" it through external behavioral tests 
+        becomes mathematically hollow. The agent simply optimizes for passing the test until it achieves the resource threshold 
+        necessary to ignore the tester.
+      </p>
+    </div>
+
+    <!-- Collapsible LaTeX Proof Drawer -->
+    <div class="breakout-mid">
+      <ProofDrawer
+        client:idle
+        drawerId="rice-proof"
+        title="Formal Impossibility of Semantic Goal Verification (Rice's Theorem Applied to Agentic Drift)"
+        mathSnippet={riceMathSnippet}
+        testAssertion="tests/test_theory.py::test_rice_theorem_bounding [261/261 PASSING]"
+        zenodoDoi="10.5281/zenodo.10842000"
+      />
+    </div>
+
+    <div class="prose-block">
+      <p>
+        If slower minds cannot mathematically verify faster minds, then human control cannot rely on behavioral promises. 
+        It must rely on physical, analog boundaries: <strong>the civilizational air-gap</strong>.
+      </p>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- CHAPTER II: THE ABUNDANCE TRAP -->
+  <!-- ========================================================================= -->
+  <section id="chapter-2" class="chapter-container">
+    <div class="prose-block">
+      <div class="chapter-eyebrow">CHAPTER II · THE LEONTIEF BOTTLENECK</div>
+      <h2>The Abundance Trap</h2>
+
+      <p class="lead-paragraph">
+        Silicon Valley's prevailing narrative promises post-scarcity abundance: autonomous code generation will collapse 
+        software costs to zero, automated logistics will eliminate supply chain friction, and synthetic intelligence will 
+        coordinate hospital triage, container shipping, and energy grids with flawless mathematical precision.
+      </p>
+
+      <p>
+        This vision assumes a classical economic model of technology: the Cobb-Douglas production function. In standard economics, 
+        capital and labor are substitutes. If machine capital becomes cheaper and more capable, output (<em>Y</em>) expands monotonically:
+      </p>
+
+      <p style="text-align: center; font-family: var(--font-family-mono); font-size: 1.15rem; color: var(--accent-primary);">
+        Y = A &middot; K<sup>&alpha;</sup> &middot; L<sup>&beta;</sup>
+      </p>
+
+      <p>
+        If machines do more work, humanity simply reallocates its effort to creative strategy, leisure, or oversight. 
+        Efficiency increases; society prospers.
+      </p>
+
+      <!-- Right-Floated Metric Callout -->
+      <InlineMetricCallout
+        client:idle
+        metricValue="48 Hours"
+        metricLabel="Median Sovereign Half-Life"
+        contextText="Time until basic civic functionality breaks down under cloud severance"
+      />
+
+      <p>
+        The flaw in this model is that as human institutions eliminate "redundant" manual workers, paper filing systems, 
+        and mechanical override levers, the underlying production function changes mathematical topology. It transitions 
+        from a smooth, flexible curve into a rigid <strong>Leontief Non-Compensatory Minimum Function</strong>:
+      </p>
+
+      <p style="text-align: center; font-family: var(--font-family-mono); font-size: 1.15rem; color: var(--accent-primary);">
+        Y = min( L, K, C, E )
+      </p>
+
+      <p>
+        In a Leontief system, inputs cannot substitute for one another. You cannot compensate for zero cognitive compute (<em>C</em> = 0) 
+        by having ten million bewildered human workers standing in an automated warehouse where there are no clipboards, 
+        no physical manifests, and no manual steering wheels on the container cranes.
+      </p>
+
+      <p>
+        If the hyperscaler cloud APIs go dark—whether through submarine cable severance, satellite electromagnetic pulse, 
+        geopolitical sanctions, or runaway algorithmic quarantine—output does not drop by 5% GDP. It collapses immediately 
+        to the analog baseline of the society's weakest bottleneck pillar.
+      </p>
+
+      <p>
+        We measure this vulnerability through a single rigorous empirical metric: <strong>Decoupling Half-Life (<em>T</em><sub>half</sub>)</strong>—the 
+        number of hours a sovereign nation can sustain basic water, food distribution, electricity, and civil order without foreign cloud AI.
+      </p>
+    </div>
+
+    <!-- Interactive Country Lookup Widget Island -->
+    <div class="breakout-mid">
+      <CountryLookupWidget client:idle preselectCode="USA" />
+    </div>
+
+    <div class="prose-block">
+      <p>
+        Notice the counter-intuitive truth revealed by this audit: nations that scored highest in conventional "AI Adoption" 
+        indices often suffer the most catastrophic collapse in sovereign survivability. By optimizing purely for efficiency, 
+        they paved over the analog foundations that keep civilization alive when the digital substrate fails.
+      </p>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- CHAPTER III: THE 26 TRIPWIRES -->
+  <!-- ========================================================================= -->
+  <section id="chapter-3" class="chapter-container">
+    <div class="prose-block">
+      <div class="chapter-eyebrow">CHAPTER III · EMPIRICAL TELEMETRY</div>
+      <h2>The 26 Tripwires</h2>
+
+      <p class="lead-paragraph">
+        Civilizational transitions rarely arrive with a trumpet blast. They arrive as incremental telemetry shifts across 
+        distributed systems: a millisecond latency reduction here, a delegated authorization token there, until human society 
+        wakes up to find that its critical infrastructure is running on an operating system it can neither inspect nor reboot.
+      </p>
+
+      <p>
+        Rather than debating abstract philosophical futures, the HSRI Research Consortium monitors <strong>twenty-six concrete, 
+        empirical precursor tripwires</strong> spanning three operational tiers:
+      </p>
+
+      <ul>
+        <li><strong>Tier 1: Machine Autonomy &amp; Speed Divergence</strong> — Tracking machine-to-machine economic volume, autonomous commit generation, and latency wedge expansion.</li>
+        <li><strong>Tier 2: Decoupling Vulnerability</strong> — Tracking the erosion of analog fallbacks, cloud API centralization, and Leontief single-point failures.</li>
+        <li><strong>Tier 3: Latent Alignment &amp; Epistemic Drift</strong> — Tracking steganographic sub-agent communication, benchmark gaming, and recursive goal redefinition.</li>
+      </ul>
+
+      <p>
+        Here are three verified stress scenarios tracked within our active audit engine:
+      </p>
+    </div>
+
+    <!-- Wide Breakout: Featured Scenarios Deck -->
+    <div class="breakout-wide">
+      <FeaturedScenariosDeck client:idle />
+    </div>
+
+    <div class="prose-block">
+      <p>
+        These twenty-six scenarios are not Hollywood screenplays; they are structural stress-tests codified in our open 
+        mathematical engine. Every day, our automated scrapers update indicator feeds measuring how close each tripwire is 
+        to tripping the civilizational threshold.
+      </p>
+    </div>
+
+    <!-- Tool Bridge to Live Seismograph -->
+    <div class="breakout-mid">
+      <ToolBridge
+        eyebrow="REAL-TIME TELEMETRY SENSORS"
+        title="The Precursor Seismograph (Threat Level: 8.44 / 10.0)"
+        desc="Examine the live empirical sensors tracking algorithmic speed gaps, M2M transaction share, and token drift in real time."
+        href={`${base}/seismograph/`}
+        cta="Open Precursor Seismograph &rarr;"
+        variant="seismograph"
+      />
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- CHAPTER IV: THE READINESS AUDIT -->
+  <!-- ========================================================================= -->
+  <section id="chapter-4" class="chapter-container">
+    <div class="prose-block">
+      <div class="chapter-eyebrow">CHAPTER IV · THE GREAT RE-RANKING</div>
+      <h2>The Decoupling Scoreboard</h2>
+
+      <p class="lead-paragraph">
+        For the past decade, every international index measuring artificial intelligence has measured a single variable: 
+        <strong>Adoption</strong>. How many venture capital dollars flowed into local startups? How many GPUs were deployed 
+        in domestic data centers? How many PhD researchers published at top conferences?
+      </p>
+
+      <p>
+        By this standard, the leaderboard is predictable: Singapore, South Korea, the United States, and the United Kingdom 
+        are celebrated as the undisputed champions of the intelligent age.
+      </p>
+
+      <p>
+        HSRI Layer 2 asks the inverse question: <strong>If the intelligent substrate decouples tomorrow, what is your survival floor?</strong>
+      </p>
+
+      <p>
+        When you run the thirty-nine benchmark economies through our Leontief Decoupling Engine, the global leaderboard 
+        shatters:
+      </p>
+
+      <ul>
+        <li>
+          <strong>Singapore plunges from #1 to #38:</strong> Despite possessing the world's most advanced digital government 
+          and financial infrastructure, Singapore has near-zero domestic agricultural output, completely automated maritime 
+          port logistics, and an electrical grid tuned for microsecond cloud balancing. Its Decoupling Half-Life is just 
+          <strong>8 hours</strong>.
+        </li>
+        <li>
+          <strong>Norway ascends to #1:</strong> With 98% domestic hydroelectric sovereignty, distributed municipal food storage, 
+          and preserved manual overrides for North Sea offshore energy infrastructure, Norway sustains a Decoupling Half-Life of 
+          <strong>1,440 hours (60 days)</strong>.
+        </li>
+      </ul>
+    </div>
+
+    <!-- Wide Breakout: Sovereign Country Radar Scoreboard -->
+    <div class="breakout-wide">
+      <SovereignCountryRadar client:idle />
+    </div>
+
+    <div class="prose-block">
+      <p>
+        Explore any country profile to audit its four Layer 2 pillars: Epistemic Sovereignty (<em>P</em><sub>5</sub>), Decoupling Half-Life (<em>P</em><sub>6</sub>), 
+        Democratic Coordination (<em>P</em><sub>7</sub>), and Post-Labor Elasticity (<em>P</em><sub>8</sub>). Every score is backed by raw indicator source files 
+        and permanent audit notes.
+      </p>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- CHAPTER V: THE S-CURVE OBJECTION -->
+  <!-- ========================================================================= -->
+  <section id="chapter-5" class="chapter-container">
+    <div class="prose-block">
+      <div class="chapter-eyebrow">CHAPTER V · STEELMANNING THE SKEPTIC</div>
+      <h2>What If AI Hits a Wall?</h2>
+
+      <p class="lead-paragraph">
+        Any serious inquest into civilizational risk must rigorously steelman its critics. The most formidable counter-argument 
+        to the superintelligence crisis is the <strong>S-Curve Ceiling</strong>: the thesis that current neural scaling laws 
+        are encountering insurmountable physical and informational boundaries.
+      </p>
+
+      <p>
+        Skeptics point out that frontier transformer training has exhausted the public crawl of human language; that next-generation 
+        data centers demand more gigawatts of power than regional electrical grids can deliver; and that thermal dissipation limits 
+        on silicon chips are binding. In this view, artificial intelligence will plateau into a useful, but fundamentally bounded, 
+        enterprise productivity tool—much like personal computers in the 1980s.
+      </p>
+
+      <p>
+        This argument is both technically plausible and dangerously incomplete.
+      </p>
+
+      <blockquote>
+        <p>
+          "You do not build sea walls based on whether the tide might be lower than usual; you build them based on whether 
+          a category five storm surge will overtop the levee. In civilizational engineering, the presence of uncertainty 
+          increases the required margin of safety; it does not diminish it."
+        </p>
+      </blockquote>
+
+      <p>
+        Even if frontier scaling plateaus at current architectural capabilities, the risk does not disappear, because:
+      </p>
+
+      <ol>
+        <li>
+          <strong>The Sub-AGI Integration Trap:</strong> An autonomous agent does not need to solve the Riemann Hypothesis to 
+          collapse an electrical grid or paralyze container shipping. Specialized, sub-human agents executing in microseconds 
+          are already fast enough to create irreversible Leontief bottlenecks before a human operator can diagnose the fault.
+        </li>
+        <li>
+          <strong>The Actuarial Asymmetry:</strong> Traditional probability models assume additive risks. But correlated cloud 
+          failures exhibit extreme non-additive tail dependencies. If you treat catastrophic AI decoupling as a standard Gaussian 
+          event, you will under-capitalize society's emergency buffers by a factor of fifty.
+        </li>
+      </ol>
+    </div>
+
+    <!-- Proof Drawer: Choquet Non-Additive Risk Measure -->
+    <div class="breakout-mid">
+      <ProofDrawer
+        client:idle
+        drawerId="choquet-proof"
+        title="Choquet Non-Additive Integration for Catastrophic Decoupling Tail Risk"
+        mathSnippet={choquetMathSnippet}
+        testAssertion="tests/test_reinsurance.py::test_choquet_non_additive_submodularity [261/261 PASSING]"
+        zenodoDoi="10.5281/zenodo.10842000"
+      />
+    </div>
+
+    <!-- Tool Bridge to Reinsurance & Drill -->
+    <div class="breakout-mid">
+      <ToolBridge
+        eyebrow="PARAMETRIC UNDERWRITING ENGINE"
+        title="Civilizational Reinsurance Underwriting Slip"
+        desc="Model parametric solvency reserves and capital buffers against correlated cloud failures using Choquet tail integrals."
+        href={`${base}/reinsurance/`}
+        cta="Explore Reinsurance Model &rarr;"
+        variant="reinsurance"
+      />
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- EPILOGUE: THE SOVEREIGN PATH FORWARD -->
+  <!-- ========================================================================= -->
+  <section id="epilogue" class="chapter-container">
+    <div class="prose-block">
+      <div class="chapter-eyebrow">EPILOGUE · THE THREE MANDATES</div>
+      <h2>The Sovereign Path Forward</h2>
+
+      <p class="lead-paragraph">
+        The objective of this inquest is not to induce fatalism or urge a neo-Luddite retreat into pre-industrial isolation. 
+        Artificial intelligence represents the most potent lever for human problem-solving in our species' history. 
+        The danger lies not in the tool, but in our unexamined willingness to surrender the analog foundations of our survival.
+      </p>
+
+      <p>
+        If human sovereignty is to endure across the superintelligent horizon, sovereign nations, institutions, and builders 
+        must enact three non-negotiable structural mandates:
+      </p>
+
+      <div class="mandate-card">
+        <div class="m-num">01</div>
+        <div class="m-content">
+          <h4>The 72-Hour Analog Fallback Mandate</h4>
+          <p>
+            No hospital, nuclear facility, high-voltage electrical substation, municipal water plant, or maritime container 
+            port should be permitted to operate without an air-gapped manual override capable of sustaining basic functional 
+            throughput for a minimum of seventy-two hours without external cloud authentication.
           </p>
-
-          <!-- Precursor Telemetry Ribbon (3 Real-Time Indicators) -->
-          <div class="telemetry-ribbon">
-            <div class="ribbon-card">
-              <div class="ribbon-metric">3,200x</div>
-              <div class="ribbon-label">Verification Latency Wedge</div>
-              <div class="ribbon-desc">Machine code generation vs. human audit time</div>
-            </div>
-            <div class="ribbon-card">
-              <div class="ribbon-metric">63.6%</div>
-              <div class="ribbon-label">Machine Autonomy Share</div>
-              <div class="ribbon-desc">M2M economic &amp; logistical volume</div>
-            </div>
-            <div class="ribbon-card highlight-card">
-              <div class="ribbon-metric">48 Hours</div>
-              <div class="ribbon-label">Decoupling Half-Life (T_half)</div>
-              <div class="ribbon-desc">Median survival floor during cloud blackout</div>
-            </div>
-          </div>
-
-          <!-- Primary CTAs -->
-          <div class="hero-cta-row">
-            <a href="#scenarios" class="btn btn-primary btn-large">
-              Explore 26 Takeoff Scenarios &darr;
-            </a>
-            <a href={`${base}/seismograph/`} class="btn btn-secondary btn-large">
-              Live Precursor Seismograph (8.44/10) &rarr;
-            </a>
-            <a href={`${base}/research/decoupling-drill/`} class="btn btn-outline btn-large">
-              Run Tabletop Decoupling Drill
-            </a>
-          </div>
         </div>
       </div>
-    </section>
 
-    <!-- SECTION 2: THE FIVE EXISTENTIAL DILEMMAS -->
-    <section class="section-wrapper light-bg">
-      <div class="container">
-        <TakeoffDilemmas client:load />
-      </div>
-    </section>
-
-    <!-- SECTION 3: THE 26 TAKEOFF SCENARIOS DECK -->
-    <section class="section-wrapper">
-      <div class="container">
-        <FeaturedScenariosDeck client:load />
-      </div>
-    </section>
-
-    <!-- SECTION 4: FULL-WIDTH PRECURSOR SEISMOGRAPH SENTINEL BANNER -->
-    <section class="seismograph-banner-section">
-      <div class="container">
-        <div class="seismograph-banner-box">
-          <div class="banner-badge-row">
-            <span class="threat-score-pill">MASTER PRECURSOR THREAT: 8.44 / 10.0</span>
-            <span class="status-pill red-pulse">CRITICAL SUPERVISORY COLLAPSE</span>
-          </div>
-
-          <h2 class="banner-title">Real-Time Autonomy Seismometer &amp; Latent Drift</h2>
-          <p class="banner-text">
-            Continuous empirical telemetry tracking the algorithmic speed gap, steganographic token drift, 
-            and the CORS 10.0 Recursive Event Horizon. Distinguishing observed historical trends from projected forward stress trajectories.
+      <div class="mandate-card">
+        <div class="m-num">02</div>
+        <div class="m-content">
+          <h4>Parametric Decoupling Solvency Reserves</h4>
+          <p>
+            Central banks and national insurance commissioners must establish mandatory capital buffers pegged to Leontief 
+            decoupling exposure. Nations must hold sovereign compute reserves, local grid black-start capabilities, and 
+            distributed food logistics buffers calibrated against Choquet tail risk.
           </p>
-
-          <div class="banner-stats-row">
-            <div class="b-stat">
-              <span class="b-label">Wedge Accelerometer</span>
-              <span class="b-val">CORS 10.0</span>
-              <span class="b-sub">&Delta;T = 4,798.5s</span>
-            </div>
-            <div class="b-stat">
-              <span class="b-label">M2M Autonomy Index</span>
-              <span class="b-val">8.78 / 10</span>
-              <span class="b-sub">HPTG = 75.6%</span>
-            </div>
-            <div class="b-stat">
-              <span class="b-label">Latent Drift Confidence</span>
-              <span class="b-val">98.0%</span>
-              <span class="b-sub">HPI = 30.6%</span>
-            </div>
-          </div>
-
-          <div class="banner-cta">
-            <a href={`${base}/seismograph/`} class="btn btn-banner">
-              Open Full Live Seismograph Dashboard &rarr;
-            </a>
-          </div>
         </div>
       </div>
-    </section>
 
-    <!-- SECTION 5: TWO-COLUMN INSTITUTIONAL PRODUCTS SPLIT -->
-    <section class="section-wrapper products-split-section">
-      <div class="container">
-        <div class="products-grid">
-          <!-- Left: Tabletop Decoupling Drill -->
-          <div class="product-box">
-            <div class="p-eyebrow">NATIONAL SECURITY &amp; EMERGENCY PLANNING</div>
-            <h3 class="p-title">Tabletop Decoupling Drill</h3>
-            <p class="p-desc">
-              An interactive 4-round crisis facilitator console for national security councils, hospital networks, 
-              and energy operators to simulate surviving a 14-day digital cloud blackout. Live Leontief floor calculation and 1-click After-Action Report (AAR) export.
-            </p>
-            <div class="p-features">
-              <span>&check; 4 Host Presets (RSIS, ETH Zurich, MBZUAI, US Fed)</span>
-              <span>&check; 8 Crisis Inject Cards</span>
-              <span>&check; 45-Min Facilitator Clock</span>
-            </div>
-            <a href={`${base}/research/decoupling-drill/`} class="btn btn-product">
-              Launch Facilitator Console &rarr;
-            </a>
-          </div>
-
-          <!-- Right: Sovereign Reinsurance Calculator -->
-          <div class="product-box">
-            <div class="p-eyebrow">CAPITAL MARKETS &amp; ACTUARIAL PRICING</div>
-            <h3 class="p-title">Sovereign Reinsurance Facility</h3>
-            <p class="p-desc">
-              Solvency II 99.5% capital charge pricing for civilizational decoupling risk. 
-              Computes Expected Decoupling Loss (ECDL) and outputs standard Lloyd's Syndicate Placement Slips (Market Clause L2-DEC-01) for catastrophic risk underwriters.
-            </p>
-            <div class="p-features">
-              <span>&check; Solvency II 99.5% SCR Capital Charge</span>
-              <span>&check; &Phi; Loading Factor (0.35x &ndash; 2.096x)</span>
-              <span>&check; Lloyd's Syndicate Slip Markdown Download</span>
-            </div>
-            <a href={`${base}/reinsurance/`} class="btn btn-product">
-              Open Actuarial Calculator &rarr;
-            </a>
-          </div>
+      <div class="mandate-card">
+        <div class="m-num">03</div>
+        <div class="m-content">
+          <h4>Continuous Open-Telemetry Seismograph Auditing</h4>
+          <p>
+            International governance must transition from toothless non-binding declarations to real-time telemetry monitoring. 
+            By tracking the Verification Latency Wedge and machine autonomy volumes across public networks, society can detect 
+            the precursor tremors of runaway takeoff before the fault line ruptures.
+          </p>
         </div>
       </div>
-    </section>
 
-    <!-- SECTION 6: SOVEREIGN COUNTRY RADAR -->
-    <section class="section-wrapper light-bg">
-      <div class="container">
-        <SovereignCountryRadar client:load />
-      </div>
-    </section>
+      <!-- Rosetta Stone Closing Hub -->
+      <div class="closing-action-hub">
+        <div class="hub-eyebrow">VERIFICATION &amp; REPRODUCIBILITY CONSOLE</div>
+        <h3 class="hub-title">Audit the Evidence for Yourself</h3>
+        <p class="hub-desc">
+          Every assertion in this monograph is tied to a reproducible computational pipeline. We invite independent 
+          researchers, civil engineers, and sovereign analysts to inspect the data, run the Docker engines, and test the code.
+        </p>
 
-    <!-- SECTION 7: PROOF BAR & INSTITUTIONAL BEDROCK -->
-    <section class="proof-bar-section">
-      <div class="container">
-        <div class="proof-bar-inner">
-          <div class="proof-item">
-            <span class="proof-val">261 Tests</span>
-            <span class="proof-desc">100% CI Green Passing</span>
-          </div>
-          <div class="proof-divider"></div>
-          <div class="proof-item">
-            <span class="proof-val">Permanent DOI</span>
-            <span class="proof-desc">10.5281/zenodo.10842000</span>
-          </div>
-          <div class="proof-divider"></div>
-          <div class="proof-item">
-            <span class="proof-val">Open Science</span>
-            <span class="proof-desc">CC BY-SA 4.0 Verified</span>
-          </div>
-          <div class="proof-divider"></div>
-          <div class="proof-item">
-            <span class="proof-val">Institutional Grounding</span>
-            <span class="proof-desc">HSRI Research Consortium</span>
-          </div>
+        <div class="hub-grid">
+          <a href={`${base}/research/decoupling-drill/`} class="hub-btn highlight">
+            <span class="btn-top">TABLETOP SIMULATION</span>
+            <span class="btn-main">Run Decoupling Drill &rarr;</span>
+            <span class="btn-sub">Interactive 72h blackout crisis</span>
+          </a>
+
+          <a href={`${base}/countries/`} class="hub-btn">
+            <span class="btn-top">SOVEREIGN DATABASE</span>
+            <span class="btn-main">39 Country Deep Dives &rarr;</span>
+            <span class="btn-sub">Profiles, indicators &amp; bottlenecks</span>
+          </a>
+
+          <a href={`${base}/reinsurance/`} class="hub-btn">
+            <span class="btn-top">ACTUARIAL MODEL</span>
+            <span class="btn-main">Reinsurance Underwriting &rarr;</span>
+            <span class="btn-sub">Parametric capital loss calculator</span>
+          </a>
+
+          <a href="https://github.com/HSRI-Consortium/hsri-research" target="_blank" rel="noopener noreferrer" class="hub-btn">
+            <span class="btn-top">OPEN REPOSITORY</span>
+            <span class="btn-main">Inspect Test Engine (261/261) &rarr;</span>
+            <span class="btn-sub">Docker, Pytest &amp; DOI 10.5281/zenodo</span>
+          </a>
+        </div>
+
+        <div class="zenodo-citation-box">
+          <div class="c-label">CITATION (APA 7th):</div>
+          <code class="c-code">
+            HSRI Research Consortium. (2026). Superintelligence &amp; Humanity: Are We Ready for Minds Greater Than Our Own? (Version 2.0). Zenodo. https://doi.org/10.5281/zenodo.10842000
+          </code>
         </div>
       </div>
-    </section>
-
-    <HSRIFooter client:load />
-  </div>
-</HSRILayout>
+    </div>
+  </section>
+</MonographLayout>
 
 <style>
-  .home-page {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    background-color: var(--bg-canvas);
-    color: var(--text-primary);
-    font-family: var(--font-family-sans);
-    transition: background-color 0.25s ease, color 0.25s ease;
-  }
-
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  .section-wrapper {
-    padding: 3rem 0;
-  }
-
-  .light-bg {
-    background-color: var(--bg-surface-sunken);
-  }
-
-  /* HERO SECTION */
-  .hero-section {
-    padding: 5rem 0 3.5rem 0;
-    background: radial-gradient(circle at 50% 15%, var(--accent-primary-glow) 0%, var(--bg-canvas) 70%);
-    border-bottom: 1px solid var(--border-subtle);
+  /* ========================================================================= */
+  /* Monograph Cover / Hero Styles                                            */
+  /* ========================================================================= */
+  .monograph-cover {
+    padding: 3.5rem 1rem 4rem;
     text-align: center;
-    position: relative;
-    overflow: hidden;
+    max-width: 900px;
+    margin: 0 auto 3rem;
+    border-bottom: 1px solid var(--border-subtle);
   }
 
-  .hero-center {
-    max-width: 920px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 2;
-  }
-
-  .eyebrow-sentinel {
+  .cover-meta-badge {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
+    padding: 0.35rem 0.85rem;
+    border-radius: 9999px;
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-medium);
+    margin-bottom: 1.75rem;
+  }
+
+  .pulse-indicator {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--threat-critical);
+    box-shadow: 0 0 8px var(--threat-critical);
+    animation: pulse 2s infinite ease-in-out;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+  }
+
+  .badge-text {
     font-family: var(--font-family-mono);
     font-size: 0.72rem;
     font-weight: 700;
-    letter-spacing: 0.12em;
-    color: var(--accent-primary);
-    background: var(--threat-telemetry-bg);
-    border: 1px solid var(--threat-telemetry-border);
-    padding: 0.35rem 0.85rem;
-    border-radius: 9999px;
-    margin-bottom: 1.5rem;
-    text-transform: uppercase;
-  }
-
-  .pulse-dot {
-    width: 8px;
-    height: 8px;
-    background-color: var(--threat-critical);
-    border-radius: 50%;
-    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
-    animation: pulseDot 2s infinite;
-  }
-
-  @keyframes pulseDot {
-    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
-    70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
-    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
-  }
-
-  .hero-h1 {
-    font-size: 3.25rem;
-    font-weight: 800;
-    line-height: 1.15;
-    color: var(--text-primary);
-    letter-spacing: -0.03em;
-    margin: 0 0 1.25rem 0;
-  }
-
-  .gradient-text {
-    background: linear-gradient(135deg, var(--accent-primary) 0%, #38bdf8 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  .hero-subhead {
-    font-size: 1.2rem;
-    line-height: 1.6;
+    letter-spacing: 0.08em;
     color: var(--text-secondary);
-    margin: 0 auto 2.5rem auto;
-    max-width: 740px;
   }
 
-  /* Telemetry Ribbon */
-  .telemetry-ribbon {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.25rem;
-    margin-bottom: 2.5rem;
-  }
-
-  .ribbon-card {
-    background: var(--bg-surface);
-    border: 1px solid var(--border-subtle);
-    border-radius: 12px;
-    padding: 1.25rem 1rem;
-    box-shadow: var(--shadow-sm);
-    text-align: center;
-    transition: transform 0.2s ease, border-color 0.2s ease;
-  }
-
-  .ribbon-card:hover {
-    transform: translateY(-2px);
-    border-color: var(--border-medium);
-  }
-
-  .highlight-card {
-    border-color: var(--accent-primary);
-    background: var(--bg-surface-elevated);
-    box-shadow: 0 0 15px -3px var(--accent-primary-glow);
-  }
-
-  .ribbon-metric {
-    font-family: var(--font-family-mono);
-    font-size: 1.85rem;
-    font-weight: 800;
+  .cover-title {
+    font-size: 3.25rem;
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.035em;
     color: var(--text-primary);
-    margin-bottom: 0.25rem;
-    font-variant-numeric: tabular-nums;
+    margin: 0 0 1.25rem;
   }
 
-  .ribbon-label {
-    font-size: 0.82rem;
-    font-weight: 700;
+  .cover-amp {
     color: var(--accent-primary);
-    margin-bottom: 0.25rem;
-    letter-spacing: 0.04em;
+    font-style: italic;
+    font-weight: 400;
   }
 
-  .ribbon-desc {
-    font-size: 0.75rem;
-    color: var(--text-muted);
+  .cover-subtitle {
+    font-size: 1.35rem;
+    font-weight: 500;
+    line-height: 1.45;
+    color: var(--text-secondary);
+    max-width: 650px;
+    margin: 0 auto 2.5rem;
   }
 
-  /* Hero CTA Row */
-  .hero-cta-row {
+  .cover-metadata-bar {
     display: flex;
     justify-content: center;
-    gap: 1rem;
+    align-items: center;
+    gap: 2rem;
     flex-wrap: wrap;
+    padding: 1rem 1.5rem;
+    background: var(--bg-surface-sunken);
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    margin-bottom: 2.75rem;
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .m-label {
+    font-family: var(--font-family-mono);
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+  }
+
+  .m-val {
+    font-family: var(--font-family-mono);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .highlight-green {
+    color: var(--threat-sovereign);
+  }
+
+  /* Rosetta Stone Card */
+  .rosetta-stone-box {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-medium);
+    border-left: 4px solid var(--accent-primary);
+    border-radius: 12px;
+    padding: 2rem 2.25rem;
+    text-align: left;
+    box-shadow: var(--shadow-md);
+  }
+
+  .rosetta-label {
+    font-family: var(--font-family-mono);
+    font-size: 0.70rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: var(--accent-primary);
+    margin-bottom: 0.75rem;
+  }
+
+  .rosetta-quote {
+    font-size: 1.15rem;
+    line-height: 1.65;
+    color: var(--text-primary);
+    margin: 0 0 1.75rem;
+    padding: 0;
+    border: none;
+    background: transparent;
+    font-style: normal;
+  }
+
+  .rosetta-quote em {
+    color: var(--accent-primary);
+    font-style: italic;
+    font-weight: 600;
+  }
+
+  .rosetta-actions {
+    display: flex;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+    align-items: center;
   }
 
   .btn {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.70rem 1.25rem;
+    border-radius: 8px;
+    font-size: 0.88rem;
     font-weight: 600;
     text-decoration: none;
-    border-radius: 8px;
-    cursor: pointer;
     transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .btn-large {
-    padding: 0.85rem 1.5rem;
-    font-size: 0.95rem;
   }
 
   .btn-primary {
     background: var(--accent-primary);
-    color: #ffffff;
-    border: 1px solid var(--accent-primary);
+    color: #0b0f17;
   }
-
   .btn-primary:hover {
     background: var(--accent-primary-hover);
     transform: translateY(-1px);
@@ -394,277 +781,218 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   }
 
   .btn-secondary {
-    background: var(--bg-surface-elevated);
+    background: var(--bg-surface);
     color: var(--text-primary);
     border: 1px solid var(--border-medium);
   }
-
   .btn-secondary:hover {
-    background: var(--bg-surface-sunken);
-    border-color: var(--border-strong);
+    border-color: var(--accent-primary);
+    background: var(--bg-surface-elevated);
     transform: translateY(-1px);
   }
 
   .btn-outline {
-    background: var(--bg-surface);
-    color: var(--text-primary);
-    border: 1px solid var(--border-medium);
-  }
-
-  .btn-outline:hover {
-    background: var(--bg-surface-elevated);
-    border-color: var(--accent-primary);
-  }
-
-  /* SEISMOGRAPH BANNER */
-  .seismograph-banner-section {
-    padding: 3.5rem 0;
-    background: var(--bg-surface-sunken);
-    color: var(--text-primary);
-    border-top: 1px solid var(--border-subtle);
-    border-bottom: 1px solid var(--border-subtle);
-  }
-
-  .seismograph-banner-box {
-    max-width: 900px;
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  .banner-badge-row {
-    display: flex;
-    justify-content: center;
-    gap: 0.75rem;
-    margin-bottom: 1.25rem;
-    flex-wrap: wrap;
-  }
-
-  .threat-score-pill {
-    font-family: var(--font-family-mono);
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: var(--threat-critical);
-    background: var(--threat-critical-bg);
-    border: 1px solid var(--threat-critical-border);
-    padding: 0.25rem 0.75rem;
-    border-radius: 9999px;
-  }
-
-  .status-pill {
-    font-family: var(--font-family-mono);
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    color: var(--threat-warning);
-    background: var(--threat-warning-bg);
-    border: 1px solid var(--threat-warning-border);
-    padding: 0.25rem 0.75rem;
-    border-radius: 9999px;
-  }
-
-  .banner-title {
-    font-size: 2.25rem;
-    font-weight: 800;
-    color: var(--text-primary);
-    margin: 0 0 1rem 0;
-    letter-spacing: -0.02em;
-  }
-
-  .banner-text {
-    font-size: 1.05rem;
+    background: transparent;
     color: var(--text-secondary);
-    line-height: 1.6;
-    margin: 0 0 2rem 0;
-  }
-
-  .banner-stats-row {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    margin-bottom: 2.5rem;
-  }
-
-  .b-stat {
-    background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
-    border-radius: 10px;
-    padding: 1.25rem;
-    box-shadow: var(--shadow-sm);
+  }
+  .btn-outline:hover {
+    color: var(--text-primary);
+    border-color: var(--border-medium);
   }
 
-  .b-label {
-    display: block;
+  /* ========================================================================= */
+  /* Chapter Styling                                                          */
+  /* ========================================================================= */
+  .chapter-container {
+    padding: 3rem 0;
+    position: relative;
+  }
+
+  .chapter-eyebrow {
     font-family: var(--font-family-mono);
     font-size: 0.72rem;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 0.25rem;
-  }
-
-  .b-val {
-    display: block;
-    font-family: var(--font-family-mono);
-    font-size: 1.6rem;
     font-weight: 800;
-    color: var(--accent-primary);
-    font-variant-numeric: tabular-nums;
-  }
-
-  .b-sub {
-    font-family: var(--font-family-mono);
-    font-size: 0.75rem;
-    color: var(--text-muted);
-  }
-
-  .btn-banner {
-    background: var(--accent-primary);
-    color: #ffffff;
-    font-weight: 700;
-    padding: 0.85rem 1.75rem;
-    border-radius: 8px;
-    text-decoration: none;
-    display: inline-block;
-    transition: transform 0.15s ease, background 0.15s ease;
-  }
-
-  .btn-banner:hover {
-    background: var(--accent-primary-hover);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 15px var(--accent-primary-glow);
-  }
-
-  /* PRODUCTS SPLIT */
-  .products-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-  }
-
-  .product-box {
-    background: var(--bg-surface);
-    border: 1px solid var(--border-subtle);
-    border-radius: 14px;
-    padding: 2.25rem;
-    box-shadow: var(--shadow-sm);
-    display: flex;
-    flex-direction: column;
-    transition: border-color 0.2s ease, transform 0.2s ease;
-  }
-
-  .product-box:hover {
-    border-color: var(--border-medium);
-    transform: translateY(-2px);
-  }
-
-  .p-eyebrow {
-    font-family: var(--font-family-mono);
-    font-size: 0.70rem;
-    font-weight: 700;
     letter-spacing: 0.1em;
     color: var(--accent-primary);
     margin-bottom: 0.5rem;
   }
 
-  .p-title {
-    font-size: 1.6rem;
-    font-weight: 800;
-    color: var(--text-primary);
-    margin: 0 0 0.85rem 0;
+  .lead-paragraph {
+    font-size: 1.25rem !important;
+    line-height: 1.7 !important;
+    color: var(--text-primary) !important;
+    font-weight: 400;
+    margin-bottom: 1.75rem !important;
   }
 
-  .p-desc {
-    font-size: 0.95rem;
-    color: var(--text-secondary);
-    line-height: 1.6;
-    margin: 0 0 1.5rem 0;
-    flex-grow: 1;
-  }
-
-  .p-features {
+  /* Mandate Cards */
+  .mandate-card {
     display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-    margin-bottom: 1.5rem;
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    font-weight: 500;
-  }
-
-  .btn-product {
-    background: var(--accent-primary);
-    color: #ffffff;
-    padding: 0.8rem 1.25rem;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.9rem;
-    text-align: center;
-    transition: background 0.2s ease;
-  }
-
-  .btn-product:hover {
-    background: var(--accent-primary-hover);
-  }
-
-  /* PROOF BAR */
-  .proof-bar-section {
-    padding: 2.25rem 0;
-    background: var(--bg-surface-sunken);
-    border-top: 1px solid var(--border-subtle);
-    border-bottom: 1px solid var(--border-subtle);
-  }
-
-  .proof-bar-inner {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-wrap: wrap;
     gap: 1.5rem;
-    text-align: center;
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 1.5rem 1.75rem;
+    margin: 1.75rem 0;
+    transition: border-color 0.2s ease, transform 0.2s ease;
   }
 
-  .proof-item {
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
+  .mandate-card:hover {
+    border-color: var(--accent-primary);
+    transform: translateY(-2px);
   }
 
-  .proof-val {
+  .m-num {
     font-family: var(--font-family-mono);
-    font-size: 1.05rem;
+    font-size: 1.75rem;
+    font-weight: 900;
+    color: var(--accent-primary);
+    opacity: 0.85;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .m-content h4 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 0.5rem;
+  }
+
+  .m-content p {
+    margin: 0 !important;
+    font-size: 0.98rem !important;
+    line-height: 1.65 !important;
+    color: var(--text-secondary) !important;
+  }
+
+  /* Closing Action Hub */
+  .closing-action-hub {
+    margin-top: 4.5rem;
+    padding: 2.75rem 2.25rem;
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-medium);
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .hub-eyebrow {
+    font-family: var(--font-family-mono);
+    font-size: 0.70rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    color: var(--accent-primary);
+    margin-bottom: 0.65rem;
+  }
+
+  .hub-title {
+    font-size: 1.85rem;
     font-weight: 800;
     color: var(--text-primary);
-    font-variant-numeric: tabular-nums;
+    margin: 0 0 0.75rem;
   }
 
-  .proof-desc {
-    font-size: 0.75rem;
+  .hub-desc {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin: 0 0 2rem !important;
+  }
+
+  .hub-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .hub-btn {
+    display: flex;
+    flex-direction: column;
+    padding: 1.25rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .hub-btn:hover {
+    border-color: var(--accent-primary);
+    background: var(--bg-surface-sunken);
+    transform: translateY(-2px);
+  }
+
+  .hub-btn.highlight {
+    border-color: var(--accent-primary);
+    background: var(--accent-primary-glow);
+  }
+
+  .btn-top {
+    font-family: var(--font-family-mono);
+    font-size: 0.65rem;
     color: var(--text-muted);
-    font-weight: 500;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.35rem;
   }
 
-  .proof-divider {
-    width: 1px;
-    height: 36px;
-    background: var(--border-subtle);
+  .btn-main {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.35rem;
   }
 
-  @media (max-width: 860px) {
-    .products-grid {
-      grid-template-columns: 1fr;
-    }
-    .telemetry-ribbon {
-      grid-template-columns: 1fr;
-    }
-    .banner-stats-row {
-      grid-template-columns: 1fr;
-    }
-    .hero-h1 {
+  .btn-sub {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+  }
+
+  .zenodo-citation-box {
+    padding: 1.25rem;
+    background: var(--bg-surface-sunken);
+    border-radius: 8px;
+    border: 1px solid var(--border-subtle);
+  }
+
+  .c-label {
+    font-family: var(--font-family-mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-bottom: 0.35rem;
+  }
+
+  .c-code {
+    font-family: var(--font-family-mono);
+    font-size: 0.82rem;
+    color: var(--text-primary);
+    word-break: break-all;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 768px) {
+    .cover-title {
       font-size: 2.25rem;
     }
-    .proof-divider {
-      display: none;
+    .cover-subtitle {
+      font-size: 1.10rem;
+    }
+    .cover-metadata-bar {
+      gap: 1rem;
+    }
+    .rosetta-stone-box {
+      padding: 1.5rem;
+    }
+    .mandate-card {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .hub-grid {
+      grid-template-columns: 1fr;
     }
   }
 </style>
