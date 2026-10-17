@@ -3,6 +3,7 @@
   import countryData from '../data/country_scores.json';
 
   export let preselectCode: string = 'USA';
+  export let showHeader: boolean = true;
 
   const countries = countryData.countries || [];
   let selectedCode = preselectCode;
@@ -11,14 +12,17 @@
 </script>
 
 <div class="country-lookup-card">
-  <div class="lookup-header">
-    <div class="eyebrow-chip">SOVEREIGN VULNERABILITY AUDIT</div>
-    <h4 class="lookup-title">How Long Does Your Nation Endure Without the Cloud?</h4>
-    <p class="lookup-desc">
-      Search any benchmark nation to inspect its Leontief Decoupling Half-Life (T_half) and sovereign rank drop:
-    </p>
+  {#if showHeader}
+    <div class="lookup-header">
+      <div class="eyebrow-chip">SOVEREIGN VULNERABILITY AUDIT</div>
+      <h4 class="lookup-title">How Long Does Your Nation Endure Without the Cloud?</h4>
+      <p class="lookup-desc">
+        Search any benchmark nation to inspect its Leontief Decoupling Half-Life (T_half) and sovereign rank drop:
+      </p>
+    </div>
+  {/if}
 
-    <div class="search-row">
+  <div class="search-row" style={!showHeader ? 'margin-top: 0;' : ''}>
       <label for="country-selector" class="sr-only">Select Nation</label>
       <select id="country-selector" bind:value={selectedCode} class="country-select">
         {#each countries as c}
@@ -26,7 +30,6 @@
         {/each}
       </select>
     </div>
-  </div>
 
   {#if selectedCountry}
     <div class="result-cockpit">

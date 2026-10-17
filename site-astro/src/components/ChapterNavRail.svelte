@@ -81,8 +81,8 @@
 <style>
   .chapter-nav-rail {
     position: sticky;
-    top: 0;
-    z-index: 999;
+    top: 58px;
+    z-index: 990;
     background: var(--bg-glass);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
