@@ -4,7 +4,7 @@
 > **Version**: 2.5.0  
 > **Author**: Krishnakumar Radhakrishnan  
 > **Institutional Target**: Lloyd's of London, Munich Re, Swiss Re, SCOR, Hannover Re  
-> **Permanent DOI**: [10.5281/zenodo.10842000](https://doi.org/10.5281/zenodo.10842000)  
+> **Permanent DOI**: [10.5281/zenodo.23441742](https://doi.org/10.5281/zenodo.23441742)  
 > **Status**: Solvency II / NAIC RBC Actuarial Model Draft  
 
 > [!IMPORTANT]

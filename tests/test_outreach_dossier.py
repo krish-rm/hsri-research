@@ -32,7 +32,7 @@ def test_long_form_article_content():
     content = article_path.read_text(encoding="utf-8")
     
     assert "The Verification Illusion" in content
-    assert "10.5281/zenodo.10842000" in content
+    assert "10.5281/zenodo.23441742" in content
     assert "Leontief Minimum Floor" in content or "Leontief" in content
     assert "Cognitive Oversight Richter Scale" in content or "CORS" in content
     assert "humanreadinessindex.org" in content
@@ -54,7 +54,7 @@ def test_multilateral_policy_briefs():
         content = (OUTREACH_DIR / fname).read_text(encoding="utf-8")
         assert inst_term in content, f"{fname} missing reference to {inst_term}"
         assert metric_term in content, f"{fname} missing reference to {metric_term}"
-        assert "10.5281/zenodo.10842000" in content, f"{fname} missing Zenodo DOI"
+        assert "10.5281/zenodo.23441742" in content, f"{fname} missing Zenodo DOI"
 
 
 def test_press_release_and_viral_thread():
@@ -63,7 +63,7 @@ def test_press_release_and_viral_thread():
     assert "FOR IMMEDIATE RELEASE" in pr_content
     assert "contact@hsri-research.org" in pr_content
     assert "High-Compute Vulnerability Trap" in pr_content
-    assert "10.5281/zenodo.10842000" in pr_content
+    assert "10.5281/zenodo.23441742" in pr_content
 
     thread_content = (OUTREACH_DIR / "viral_x_thread_breakdown.md").read_text(encoding="utf-8")
     assert "Tweet 1/10" in thread_content

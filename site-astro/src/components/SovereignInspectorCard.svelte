@@ -170,7 +170,7 @@
     <a class="cta" href={`${base}/countries/${(selected.id || '').toLowerCase()}/`}>
       View Full Sovereign Dossier &amp; SWOT Breakdown →
     </a>
-    <div class="prov">HSRI Research Consortium · DOI 10.5281/zenodo.10842000 · CC BY-SA 4.0</div>
+    <div class="prov">HSRI Research Consortium · DOI 10.5281/zenodo.23441742 · CC BY-SA 4.0</div>
   </aside>
 {/if}
 

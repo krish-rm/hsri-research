@@ -30,7 +30,7 @@ def test_root_endpoint():
     data = response.json()
     assert data["engine"] == "HSRI 2.0 Engine Core"
     assert data["version"] == "2.4.0"
-    assert data["doi"] == "10.5281/zenodo.10842000"
+    assert data["doi"] == "10.5281/zenodo.23441742"
     assert data["status"] == "operational"
     assert "/docs" in data["docs_swagger"]
 
@@ -189,7 +189,7 @@ def test_benchmark_summary_endpoint():
     assert response.status_code == 200
     data = response.json()
     assert data["total_nations"] >= 39
-    assert data["doi"] == "10.5281/zenodo.10842000"
+    assert data["doi"] == "10.5281/zenodo.23441742"
     assert "top_sovereign_nations" in data
 
 
@@ -295,7 +295,7 @@ def test_reinsurance_pricing_math_and_archetypes():
     assert "LLOYD'S SYNDICATE PLACEMENT SLIP" in slip_md
     assert "Solvency II" in slip_md
     assert "Krishnakumar Radhakrishnan" in slip_md
-    assert "10.5281/zenodo.10842000" in slip_md
+    assert "10.5281/zenodo.23441742" in slip_md
 
 
 def test_cli_reinsurance_slip_subcommand(monkeypatch, capsys):
@@ -310,7 +310,7 @@ def test_cli_reinsurance_slip_subcommand(monkeypatch, capsys):
     assert "LLOYD'S SYNDICATE PLACEMENT SLIP" in captured.out
     assert "Small Open Tech Hub" in captured.out
     assert "Solvency II" in captured.out
-    assert "10.5281/zenodo.10842000" in captured.out
+    assert "10.5281/zenodo.23441742" in captured.out
 
     # 2. Test JSON output
     monkeypatch.setattr(sys, "argv", ["hsri-engine", "reinsurance", "slip", "--archetype", "C", "--tiv", "20.0", "--json"])

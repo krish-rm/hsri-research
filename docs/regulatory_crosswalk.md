@@ -4,7 +4,7 @@
 > **Document Class**: Regulatory Harmonization & Standards Crosswalk  
 > **Version**: 2.5.0  
 > **Author & Lead Principal Investigator**: Krishnakumar Radhakrishnan  
-> **Permanent DOI**: [10.5281/zenodo.10842000](https://doi.org/10.5281/zenodo.10842000)  
+> **Permanent DOI**: [10.5281/zenodo.23441742](https://doi.org/10.5281/zenodo.23441742)  
 > **Target Frameworks**: EU AI Act, NIST AI RMF 1.0, ISO/IEC 42001, EU NIS 2, CISA CPGs, EU Solvency II Directive  
 
 ---

@@ -5,7 +5,7 @@
 > **Subject**: Critical Flaw in Frontier Model Red-Teaming: The Empirical Verification Latency Wedge ($\Delta T_{\text{wedge}}$)  
 > **Date**: October 2026  
 > **Classification**: Public Sovereign Briefing / Open Science Policy Submission  
-> **Permanent DOI**: [`10.5281/zenodo.10842000`](https://doi.org/10.5281/zenodo.10842000)  
+> **Permanent DOI**: [`10.5281/zenodo.23441742`](https://doi.org/10.5281/zenodo.23441742)  
 > **Live Seismograph**: [https://humanreadinessindex.org/seismograph/](https://humanreadinessindex.org/seismograph/)  
 
 ---

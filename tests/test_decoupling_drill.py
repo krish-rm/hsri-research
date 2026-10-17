@@ -79,7 +79,7 @@ def test_tabletop_protocol_document():
 
     assert "Operation Silent Cloud" in content
     assert "Krishnakumar Radhakrishnan" in content
-    assert "10.5281/zenodo.10842000" in content
+    assert "10.5281/zenodo.23441742" in content
     assert "Leontief" in content
     assert "INJ-01" in content
     assert "INJ-08" in content
@@ -93,7 +93,7 @@ def test_whitepaper_document():
 
     assert "When the Cloud Goes Silent" in content
     assert "Krishnakumar Radhakrishnan" in content
-    assert "10.5281/zenodo.10842000" in content
+    assert "10.5281/zenodo.23441742" in content
     assert "Archetype A" in content
     assert "Archetype B" in content
     assert "Archetype C" in content
@@ -125,7 +125,7 @@ def test_institutional_pilot_brief():
     assert "ETH Zurich" in text
     assert "MBZUAI" in text
     assert "HSRI Research Consortium" in text
-    assert "10.5281/zenodo.10842000" in text
+    assert "10.5281/zenodo.23441742" in text
     assert "Chatham House Rule" in text
     assert "HSRI Case Study 01" in text
     assert "MEMORANDUM OF UNDERSTANDING" in text
@@ -167,7 +167,7 @@ def test_decoupling_facilitator_console_component():
     # Check Markdown AAR export
     assert "exportReport" in text
     assert "HSRI Research Consortium" in text
-    assert "10.5281/zenodo.10842000" in text
+    assert "10.5281/zenodo.23441742" in text
     assert "Chatham House Rule" in text
     assert "HSRI_After_Action_Report" in text
     

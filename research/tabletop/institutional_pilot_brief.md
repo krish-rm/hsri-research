@@ -6,7 +6,7 @@
 > **Lead Principal Investigator**: Krishnakumar Radhakrishnan, HSRI Research Consortium  
 > **Email**: `krishnakumar.rmenon@gmail.com`  
 > **Institutional Portal**: [https://humanreadinessindex.org/research/decoupling-drill/](https://humanreadinessindex.org/research/decoupling-drill/)  
-> **Permanent Open Science DOI**: [`10.5281/zenodo.10842000`](https://doi.org/10.5281/zenodo.10842000)  
+> **Permanent Open Science DOI**: [`10.5281/zenodo.23441742`](https://doi.org/10.5281/zenodo.23441742)  
 > **Target Institutional Hosts**: RSIS Singapore (NTS Centre), ETH Zurich Center for Security Studies (CSS), MBZUAI (AI Governance)  
 > **License**: Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)  
 
@@ -94,7 +94,7 @@ The exercise is powered by HSRI's discrete-time multi-sector simulation engine (
 ## 5. Host Benefits, Outputs & Funding Structure
 
 ### Tangible Deliverables
-1. **Co-Authored Publication — HSRI Case Study 01**: A landmark peer-reviewed research report titled *"Measuring Civilizational Decoupling Half-Life ($T_{\text{half}}$): Sovereign AI Stress-Test Findings from [Host Nation]"*, deposited under DOI `10.5281/zenodo.10842000` with joint institutional attribution.
+1. **Co-Authored Publication — HSRI Case Study 01**: A landmark peer-reviewed research report titled *"Measuring Civilizational Decoupling Half-Life ($T_{\text{half}}$): Sovereign AI Stress-Test Findings from [Host Nation]"*, deposited under DOI `10.5281/zenodo.23441742` with joint institutional attribution.
 2. **Confidential Cabinet Briefing**: A classified or executive-only After-Action Report detailing exact sector-by-sector failure points, bottleneck latencies, and actionable mitigations for the host nation's national security cabinet.
 3. **Calibrated National Benchmark**: Empirical calibration of the host nation's Pillar 6 ($T_{\text{half}}$) metric on the live global Seismograph portal ([https://humanreadinessindex.org/seismograph/](https://humanreadinessindex.org/seismograph/)).
 
@@ -142,7 +142,7 @@ Date: __________________________________      Date: ____________________________
 
 ### Pitch Email #1: RSIS Singapore (NTS Centre)
 
-**Subject**: HSRI Decoupling Half-Life: Joint Tabletop Exercise Proposal for Singapore's Sovereign AI Resilience (DOI: 10.5281/zenodo.10842000)
+**Subject**: HSRI Decoupling Half-Life: Joint Tabletop Exercise Proposal for Singapore's Sovereign AI Resilience (DOI: 10.5281/zenodo.23441742)
 
 ```text
 Dear Prof. [Name] / Executive Leadership,
@@ -157,7 +157,7 @@ We invite RSIS (Centre for Non-Traditional Security Studies) to co-host a 4-hour
 
 Host financial commitment is zero (all compute and facilitator logistics are covered by our research grant allocation). RSIS will receive co-authorship on HSRI Case Study 01 and an executive after-action report for national security planners.
 
-The full exercise protocol, simulation engine, and live telemetry seismograph are accessible at https://humanreadinessindex.org/research/decoupling-drill/ (DOI: 10.5281/zenodo.10842000).
+The full exercise protocol, simulation engine, and live telemetry seismograph are accessible at https://humanreadinessindex.org/research/decoupling-drill/ (DOI: 10.5281/zenodo.23441742).
 
 I would welcome a brief 15-minute video call to share our scenario injects and discuss alignment with RSIS’s security research agenda.
 
@@ -177,7 +177,7 @@ Dear Dr. [Name] / CSS Risk & Resilience Team,
 
 I am writing from the Human Superintelligence Readiness Institute (HSRI Research Consortium).
 
-Our open-source research infrastructure (DOI: 10.5281/zenodo.10842000) recently formalized the Civilizational Decoupling Half-Life (T_half), measuring how long modern sovereign subsystems (power, finance, food logistics, telecommunications) can sustain critical functionality when external cloud AI systems are severed.
+Our open-source research infrastructure (DOI: 10.5281/zenodo.23441742) recently formalized the Civilizational Decoupling Half-Life (T_half), measuring how long modern sovereign subsystems (power, finance, food logistics, telecommunications) can sustain critical functionality when external cloud AI systems are severed.
 
 In our comparative benchmark across 39 nations, Switzerland exemplifies "Archetype C (Decentralized Sovereign Federation)", exhibiting resilience exceeding 336 hours (>14 days) due to alpine hydro microgrids, decentralized food stocks, and canton-level emergency governance.
 

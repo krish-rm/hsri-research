@@ -14,13 +14,13 @@
 *Lead Principal Investigator & Maintainer*  
 HSRI Research Consortium — https://humanreadinessindex.org/  
 Email: krishnakumar.rmenon@gmail.com  
-*Academic Citation Form:* Radhakrishnan, Krishnakumar (2026). *The Sovereign Human Agency Imperative: An Empirical Benchmark, Psychometric Foundation, and Transition Evidence Map for National Preparedness in the Era of Advanced AI*. HSRI-WP-2026-02 v1.1.0. DOI: [10.5281/zenodo.10842000](https://doi.org/10.5281/zenodo.10842000).  
+*Academic Citation Form:* Radhakrishnan, Krishnakumar (2026). *The Sovereign Human Agency Imperative: An Empirical Benchmark, Psychometric Foundation, and Transition Evidence Map for National Preparedness in the Era of Advanced AI*. HSRI-WP-2026-02 v1.1.0. DOI: [10.5281/zenodo.23441742](https://doi.org/10.5281/zenodo.23441742).  
 
 *Cross-Model Deliberative Advisory Panel (Not Co-Authors):* Frontier Multi-Agent Deliberative Ensemble (Anthropic Claude 3.5 Sonnet, OpenAI GPT-4o, Google Gemini 1.5 Pro, xAI Grok-2, DeepSeek-V2.5, Alibaba Qwen-2.5-72B, Zhipu GLM-4) — consulted exclusively for automated adversarial auditing and consistency cross-checking under IRB-2026-HSRI-001.
 
 *Institutional & Statutory Disclosures:*  
 1. **Funding:** No external funding was received for this research at the time of deposit; grant review is pending with the Long-Term Future Fund (LTFF) and Open Philanthropy. This research was supported exclusively by open public datasets (World Bank WGI, V-Dem, OECD PISA/PIAAC, UNESCO, ITU, IMF, Oxford Insights).  
-2. **Data & Code Availability:** All 780 harmonized observations across 39 nations, normalized indicator matrices, simulation parameters, and the standalone Python engine SDK (hsri_engine/) are open-source under CC BY-SA 4.0 / Apache-2.0 at https://github.com/krish-rm/hsri-research and permanently archived under DOI [10.5281/zenodo.10842000](https://doi.org/10.5281/zenodo.10842000).  
+2. **Data & Code Availability:** All 780 harmonized observations across 39 nations, normalized indicator matrices, simulation parameters, and the standalone Python engine SDK (hsri_engine/) are open-source under CC BY-SA 4.0 / Apache-2.0 at https://github.com/krish-rm/hsri-research and permanently archived under DOI [10.5281/zenodo.23441742](https://doi.org/10.5281/zenodo.23441742).  
 3. **Actuarial & Regulatory Disclaimer:** Illustrative research benchmark. Solvency II (Directive 2009/138/EC Articles 101/105) and NAIC Risk-Based Capital (RBC) Solvency Capital Requirement (SCR) calculations referenced in supplementary risk engineering require independent engagement and certification by a qualified cedent actuary.  
 
 ---

@@ -5,7 +5,7 @@
 > **Author & Lead Principal Investigator**: Krishnakumar Radhakrishnan  
 > **Institutional Target**: Reinsurance Syndicates (Lloyd's, Munich Re, Swiss Re), Sovereign Wealth Funds (GIC, Temasek, PIF), National Security Cabinets  
 > **Delivery Architecture**: API Telemetry / Air-Gapped Enterprise Docker Enclave  
-> **Permanent DOI**: [10.5281/zenodo.10842000](https://doi.org/10.5281/zenodo.10842000)  
+> **Permanent DOI**: [10.5281/zenodo.23441742](https://doi.org/10.5281/zenodo.23441742)  
 
 > [!IMPORTANT]
 > **Regulatory Actuarial Disclaimer**: The models, Expected Civilizational Decoupling Loss (ECDL) curves, and capital reserve estimations presented herein are published solely as illustrative empirical research and sovereign risk decision support. They do not constitute formal, statutory Solvency Capital Requirement (SCR) filings under EU Solvency II (Directive 2009/138/EC) or NAIC Risk-Based Capital (RBC) regulations without independent treaty calibration and formal sign-off by a qualified, accredited cedent actuary.
@@ -78,4 +78,4 @@ For institutional licensing, treaty underwriting calibrations, or air-gapped sov
 **Initiative**: Human Superintelligence Readiness Index (HSRI 2.0)  
 **Portal**: [https://humanreadinessindex.org/reinsurance/](https://humanreadinessindex.org/reinsurance/)  
 **Inquiries**: `licensing@humanreadinessindex.org`  
-**Academic & Research Inquiries**: [https://doi.org/10.5281/zenodo.10842000](https://doi.org/10.5281/zenodo.10842000)
+**Academic & Research Inquiries**: [https://doi.org/10.5281/zenodo.23441742](https://doi.org/10.5281/zenodo.23441742)

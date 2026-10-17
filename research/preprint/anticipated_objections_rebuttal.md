@@ -4,7 +4,7 @@
 > **Document Class**: Peer-Review Defense & Methodological Rebuttal Appendix  
 > **Author & Lead Principal Investigator**: Krishnakumar Radhakrishnan  
 > **Target Audiences**: Academic Journal Reviewers (*Nature Machine Intelligence*, *JAIR*), Grant Evaluation Panels (LTFF, Open Philanthropy), National Security Advisors  
-> **Permanent DOI**: [10.5281/zenodo.10842000](https://doi.org/10.5281/zenodo.10842000)  
+> **Permanent DOI**: [10.5281/zenodo.23441742](https://doi.org/10.5281/zenodo.23441742)  
 
 ---
 

@@ -5,7 +5,7 @@
 > **Subject**: Addressing the Flaws of Linear Composite Benchmarks in Global AI Governance  
 > **Date**: October 2026  
 > **Classification**: Public Sovereign Briefing / Open Science Policy Submission  
-> **Permanent DOI**: [`10.5281/zenodo.10842000`](https://doi.org/10.5281/zenodo.10842000)  
+> **Permanent DOI**: [`10.5281/zenodo.23441742`](https://doi.org/10.5281/zenodo.23441742)  
 > **Full Benchmark**: [https://humanreadinessindex.org/](https://humanreadinessindex.org/)  
 
 ---
@@ -37,4 +37,4 @@ The HSRI 2.0 aggregation methodology has undergone rigorous European Commission 
 
 1. **Adopt Non-Compensatory Benchmarking:** Replace purely linear scoring in future OECD and UN AI readiness frameworks with Leontief flooring or geometric mean formulations to highlight critical institutional bottlenecks.
 2. **Include Post-Labor Institutional Elasticity (P8):** Multilateral agencies must track the fiscal capacity of member states to decouple tax revenue from human labor without sovereign debt default.
-3. **Establish Sovereign Open-Science Repositories:** Support global open science initiatives with permanent DOI preservation (such as HSRI under Zenodo `10.5281/zenodo.10842000`) to guarantee independent verification outside corporate monopolies.
+3. **Establish Sovereign Open-Science Repositories:** Support global open science initiatives with permanent DOI preservation (such as HSRI under Zenodo `10.5281/zenodo.23441742`) to guarantee independent verification outside corporate monopolies.

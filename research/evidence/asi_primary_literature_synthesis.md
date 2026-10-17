@@ -1,7 +1,7 @@
 # Primary Literature Research: Foundational Theories of Superintelligence, Asymmetric Risk & Civilizational Resilience
 > **Prepared for:** HSRI 2.0 Architectural & Scenario Foundation  
 > **Lead Researcher:** Krishnakumar Radhakrishnan (HSRI Research Consortium)  
-> **Permanent DOI:** [10.5281/zenodo.10842000](https://doi.org/10.5281/zenodo.10842000)  
+> **Permanent DOI:** [10.5281/zenodo.23441742](https://doi.org/10.5281/zenodo.23441742)  
 > **Date:** October 2026 • **Status:** Authoritative Comprehensive Research Monograph  
 
 ---
@@ -494,4 +494,4 @@ Every primary research insight identified above maps directly into an operationa
 33. **Yudkowsky, E.** (2013). *Intelligence Explosion Microeconomics*. Machine Intelligence Research Institute Technical Report 2013-1.
 
 ---
-*Monograph Authored for HSRI Research Consortium • Permanent Citation DOI: [10.5281/zenodo.10842000](https://doi.org/10.5281/zenodo.10842000) • Open Science CC BY-SA 4.0*
+*Monograph Authored for HSRI Research Consortium • Permanent Citation DOI: [10.5281/zenodo.23441742](https://doi.org/10.5281/zenodo.23441742) • Open Science CC BY-SA 4.0*

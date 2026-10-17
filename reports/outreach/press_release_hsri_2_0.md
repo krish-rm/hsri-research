@@ -3,7 +3,7 @@
 ### Media Contact:
 **HSRI Research Consortium Communications**  
 Email: `contact@hsri-research.org` | Web: [https://humanreadinessindex.org/](https://humanreadinessindex.org/)  
-Permanent DOI: [`10.5281/zenodo.10842000`](https://doi.org/10.5281/zenodo.10842000)  
+Permanent DOI: [`10.5281/zenodo.23441742`](https://doi.org/10.5281/zenodo.23441742)  
 Live Telemetry Portal: [https://humanreadinessindex.org/seismograph/](https://humanreadinessindex.org/seismograph/)  
 
 ---
@@ -42,7 +42,7 @@ Alongside the national rankings, HSRI has deployed the world's first public, rea
 *"Governments around the world have fallen into the trap of measuring the horsepower of the AI engine while failing to notice that the steering wheel has disconnected from the axle,"* said Krishnakumar Radhakrishnan, Lead Researcher of the HSRI Consortium. *"A society that runs its financial grids, defense telemetry, and legal decisions on autonomous algorithms that no single human has the cognitive bandwidth to verify is not advanced &mdash; it is epistemically naked. HSRI 2.0 provides the mathematical tools and real-time radar for nations to build sovereign cognitive fortresses before the recursive horizon closes."*
 
 ### Open Science Availability
-In accordance with open science principles, all datasets, econometric calculation scripts, psychometric batteries, and the production portal source code are citable under permanent DOI: **`10.5281/zenodo.10842000`** and publicly accessible at [https://humanreadinessindex.org/](https://humanreadinessindex.org/).
+In accordance with open science principles, all datasets, econometric calculation scripts, psychometric batteries, and the production portal source code are citable under permanent DOI: **`10.5281/zenodo.23441742`** and publicly accessible at [https://humanreadinessindex.org/](https://humanreadinessindex.org/).
 
 ### About HSRI Research
 The Human Superintelligence Readiness Index (HSRI) is an independent, non-dilutive open science research consortium investigating whether human cognitive, institutional, and civilizational sovereignty in the era of artificial superintelligence can be scientifically measured, monitored, and defended.

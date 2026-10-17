@@ -74,7 +74,7 @@ def root_info():
         "engine": "HSRI 2.0 Engine Core",
         "version": "2.4.0",
         "architecture": "Dual-Layer Sovereignty Engine (Leontief Floor beta=0.50)",
-        "doi": "10.5281/zenodo.10842000",
+        "doi": "10.5281/zenodo.23441742",
         "portal_url": "https://humanreadinessindex.org/",
         "documentation_url": "https://humanreadinessindex.org/methodology/",
         "docs_swagger": "/docs",

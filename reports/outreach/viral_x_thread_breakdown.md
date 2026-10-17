@@ -3,7 +3,7 @@
 > **Hook**: Why America's GPU boom is building a glass fortress.  
 > **Target Accounts for Tagging**: @sama @ylecun @tegmark @ESYudkowsky @natfriedman @pmarca @paulg @DanHendrycks @leopoldasch @karpathy @AISafetyInst  
 > **Interactive Radar**: `humanreadinessindex.org/seismograph/`  
-> **Archival DOI**: `10.5281/zenodo.10842000`  
+> **Archival DOI**: `10.5281/zenodo.23441742`  
 
 ---
 
@@ -117,7 +117,7 @@ Select any nation and simulate a 72-hour zero-notice synthetic network blackout.
 ---
 
 ### Tweet 10/10 (Open Science & Call to Action)
-HSRI 2.0 is 100% open-science, fully reproducible, and citable under permanent DOI: 10.5281/zenodo.10842000.
+HSRI 2.0 is 100% open-science, fully reproducible, and citable under permanent DOI: 10.5281/zenodo.23441742.
 
 185/185 unit tests green. 780 national observations. Zero corporate sponsors.
 

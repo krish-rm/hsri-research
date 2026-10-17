@@ -37,7 +37,7 @@
           </svg>
           <div>
             <h3 class="footer-title">Human Superintelligence Readiness Index</h3>
-            <p class="footer-tagline">Open Research Consortium &middot; Permanent DOI: 10.5281/zenodo.10842000</p>
+            <p class="footer-tagline">Open Research Consortium &middot; Permanent DOI: 10.5281/zenodo.23441742</p>
           </div>
         </div>
         <p class="footer-description">
@@ -101,7 +101,7 @@
     <!-- Bottom section -->
     <div class="footer-bottom">
       <div class="footer-links">
-        <a href="https://doi.org/10.5281/zenodo.10842000" class="footer-link" target="_blank" rel="noopener noreferrer">Permanent DOI (Zenodo)</a>
+        <a href="https://doi.org/10.5281/zenodo.23441742" class="footer-link" target="_blank" rel="noopener noreferrer">Permanent DOI (Zenodo)</a>
         <a href={`${base}/methodology/#limitations`} class="footer-link">Actuarial Disclaimer</a>
         <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="footer-link" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0 License</a>
       </div>

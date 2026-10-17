@@ -3,7 +3,7 @@
 > **Host Partner**: RSIS Singapore (NTS Centre)  
 > **Archetype**: Archetype A: Hyper-Connected City-State  
 > **Facilitator**: Krishnakumar Radhakrishnan, Lead PI (HSRI Research Consortium)  
-> **Protocol DOI**: [10.5281/zenodo.10842000](https://doi.org/10.5281/zenodo.10842000)  
+> **Protocol DOI**: [10.5281/zenodo.23441742](https://doi.org/10.5281/zenodo.23441742)  
 > **Session Timestamp**: 2026-10-16 13:34:20Z  
 > **Governance Rule**: Strict Chatham House Rule (Non-Attribution)  
 
@@ -62,4 +62,4 @@ RSIS Singapore Cohort Simulation: The participant cabinet recognized the existen
 3. **Decoupling Plateau vs Collapse**: With active analog air-gap equilibria enacted, societies arrest exponential collapse into a survivable analog plateau at 35–65% capacity.
 
 ---
-*Human Superintelligence Readiness Index (HSRI 2.0) · Verified Research Infrastructure · CC BY-SA 4.0 · DOI: [10.5281/zenodo.10842000](https://doi.org/10.5281/zenodo.10842000)*
+*Human Superintelligence Readiness Index (HSRI 2.0) · Verified Research Infrastructure · CC BY-SA 4.0 · DOI: [10.5281/zenodo.23441742](https://doi.org/10.5281/zenodo.23441742)*

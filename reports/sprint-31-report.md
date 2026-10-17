@@ -5,7 +5,7 @@
 > **Branch**: `main`  
 > **Status**: Verified & Passing (`185/185` tests passing green, `50/50` Astro pages cleanly built)  
 > **Live Benchmark**: `https://humanreadinessindex.org/`  
-> **Permanent DOI**: `10.5281/zenodo.10842000`  
+> **Permanent DOI**: `10.5281/zenodo.23441742`  
 > **Grant Proposal Dossier**: [`reports/grant-proposals/ltff_grant_hsri_2_0.md`](./grant-proposals/ltff_grant_hsri_2_0.md)  
 
 ---
@@ -15,7 +15,7 @@
 **Sprint 31** executes the crucial transition from empirical and interactive web portal engineering (Phase 1 & 2: Sprints 26–30) to institutional anchoring and non-dilutive financial fueling. This sprint fulfills two pivotal strategic goals:
 
 1. **Non-Dilutive Funding Runway ($120,000 USD / 12 Months):** Formulated and authored a comprehensive, mathematically grounded grant proposal targeting the **Long-Term Future Fund (LTFF)** and the **Open Philanthropy AI Governance & Safety Track**. The proposal establishes HSRI 2.0 as the world's first real-time empirical seismograph quantifying the civilizational verification gap and autonomous capability divergence.
-2. **Open Science DOI Formalization (Zenodo & CFF v2.0.0):** Upgraded the entire archival metadata suite (`CITATION.cff`, `zenodo.json`, and `research/zenodo-metadata.json`) to HSRI 2.0 specifications under permanent DOI `10.5281/zenodo.10842000`. Synchronized all public documentation, badges, and footer links across the web portal and repository.
+2. **Open Science DOI Formalization (Zenodo & CFF v2.0.0):** Upgraded the entire archival metadata suite (`CITATION.cff`, `zenodo.json`, and `research/zenodo-metadata.json`) to HSRI 2.0 specifications under permanent DOI `10.5281/zenodo.23441742`. Synchronized all public documentation, badges, and footer links across the web portal and repository.
 
 ---
 
@@ -39,7 +39,7 @@
 ### B. Archival Open Science Metadata Synchronization
 - **`CITATION.cff` (v2.0.0)**:
   - Formally updated version to `2.0.0` and title to *"Human Superintelligence Readiness Index (HSRI 2.0): The Sovereignty Sentinel & ASI Precursor Seismograph"*.
-  - Registered DOI: `10.5281/zenodo.10842000`.
+  - Registered DOI: `10.5281/zenodo.23441742`.
   - Added keywords: `asi-precursors`, `epistemic-sovereignty`, `verification-wedge`, `civilizational-air-gap`, `autonomous-drift`.
   - Updated [`tests/test_citation_cff.py`](../tests/test_citation_cff.py) to validate `2.0` schema conformity.
 - **`zenodo.json` (Root Deposit v2.0.0)**:
@@ -49,7 +49,7 @@
 
 ### C. Public Documentation & Web Portal Integration
 - **`README.md`**:
-  - Replaced legacy v1.1.0 badges with v2.0.0 Sovereign Sentinel, 185 Passed tests badge, and Zenodo DOI badge (`[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10842000.svg)](https://doi.org/10.5281/zenodo.10842000)`).
+  - Replaced legacy v1.1.0 badges with v2.0.0 Sovereign Sentinel, 185 Passed tests badge, and Zenodo DOI badge (`[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23441742.svg)](https://doi.org/10.5281/zenodo.23441742)`).
   - Formulated the Dual-Layer Architecture and Leontief Minimum Floor in the Operational Definition.
   - Cataloged Precursor Seismograph, 3 Precursor Streams, Sentinel Tripwires, and Grant Proposal in Key Research Components.
 - **`site-astro/src/components/HSRIFooter.svelte`**:

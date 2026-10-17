@@ -121,5 +121,5 @@ In contrast, HSRI operates on the **SARATHI Self-Improving AI Co-Founder Archite
 - **Public GitHub Repository**: [https://github.com/krish-rm/hsri-research](https://github.com/krish-rm/hsri-research)  
 - **Live Production Platform**: [https://humanreadinessindex.org/](https://humanreadinessindex.org/)  
 - **Live Seismograph Dashboard**: [https://humanreadinessindex.org/seismograph/](https://humanreadinessindex.org/seismograph/)  
-- **Permanent Open Science DOI**: `10.5281/zenodo.10842000`  
+- **Permanent Open Science DOI**: `10.5281/zenodo.23441742`  
 - **Working Paper v2.0**: [`research/preprint/manifesto_v2.0_the_verification_illusion.md`](https://github.com/krish-rm/hsri-research/blob/main/research/preprint/manifesto_v2.0_the_verification_illusion.md)

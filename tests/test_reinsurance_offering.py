@@ -87,7 +87,7 @@ def test_framework_and_offering_documents():
     assert "$75,000" in off_text
     assert "$120,000" in off_text
     assert "$250,000" in off_text
-    assert "10.5281/zenodo.10842000" in fw_text
+    assert "10.5281/zenodo.23441742" in fw_text
 
 def test_annual_report_2027_integrity():
     report_path = os.path.join(REPO_ROOT, "reports", "annual_report_2027.md")
@@ -102,7 +102,7 @@ def test_annual_report_2027_integrity():
     assert "CORS 10.0" in rep_text
     assert "Leontief Minimum Floor" in rep_text
     assert "High-Compute Vulnerability Trap" in rep_text
-    assert "10.5281/zenodo.10842000" in rep_text
+    assert "10.5281/zenodo.23441742" in rep_text
 
 
 def test_reinsurance_calculator_syndicate_slip_export():
@@ -117,7 +117,7 @@ def test_reinsurance_calculator_syndicate_slip_export():
     assert "LLOYD'S SYNDICATE PLACEMENT SLIP" in text
     assert "Solvency II" in text
     assert "HSRI Research Consortium" in text
-    assert "10.5281/zenodo.10842000" in text
+    assert "10.5281/zenodo.23441742" in text
     assert "HSRI Risk Loading Factor" in text
     assert "syndicate-action-bar" in text
     assert "export-slip-btn" in text

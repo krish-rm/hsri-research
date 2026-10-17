@@ -3,7 +3,7 @@
 > **Author**: Krishnakumar Radhakrishnan (Lead Researcher, HSRI Research Consortium)  
 > **Platform**: Substack / LinkedIn / Long-Form Policy Review  
 > **Date**: October 2026  
-> **Archival DOI**: [`10.5281/zenodo.10842000`](https://doi.org/10.5281/zenodo.10842000)  
+> **Archival DOI**: [`10.5281/zenodo.23441742`](https://doi.org/10.5281/zenodo.23441742)  
 > **Interactive Singularity Radar**: [https://humanreadinessindex.org/seismograph/](https://humanreadinessindex.org/seismograph/)  
 
 ---
@@ -146,4 +146,4 @@ It is time to stop measuring the engine and start inspecting the bridge.
 *Explore the full benchmark, download the empirical datasets, and run the Civilizational Air-Gap simulator at [https://humanreadinessindex.org/](https://humanreadinessindex.org/).*
 
 ---
-*Open Science Reference: HSRI Research Consortium. (2026). Human Superintelligence Readiness Index (HSRI 2.0). Zenodo. DOI: [10.5281/zenodo.10842000](https://doi.org/10.5281/zenodo.10842000).*
+*Open Science Reference: HSRI Research Consortium. (2026). Human Superintelligence Readiness Index (HSRI 2.0). Zenodo. DOI: [10.5281/zenodo.23441742](https://doi.org/10.5281/zenodo.23441742).*

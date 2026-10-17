@@ -6,7 +6,7 @@
 > **Status**: Verified & Passing (`190/190` tests passing green, `50/50` Astro pages cleanly built in 6.48s)  
 > **Live Benchmark**: `https://humanreadinessindex.org/`  
 > **Interactive Seismograph**: `https://humanreadinessindex.org/seismograph/`  
-> **Permanent DOI**: `10.5281/zenodo.10842000`  
+> **Permanent DOI**: `10.5281/zenodo.23441742`  
 > **Outreach Dossier Directory**: [`reports/outreach/`](./outreach/)  
 
 ---

@@ -5,7 +5,7 @@ A public, citable, version-controlled research repository and static documentati
 
 [![Status: v2.0.0 Sovereign Sentinel](https://img.shields.io/badge/Status-v2.0.0%20Release-blue.svg)](https://github.com/krish-rm/hsri-research)
 [![Tests: 261 Passed](https://img.shields.io/badge/Tests-261%20Passed-brightgreen.svg)](tests/)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10842000.svg)](https://doi.org/10.5281/zenodo.10842000)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23441742.svg)](https://doi.org/10.5281/zenodo.23441742)
 [![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
 
 ---
@@ -149,7 +149,7 @@ All 261 unit and integration tests execute in ~15 seconds across 31 test suites.
 
 The research data, software, and methodological frameworks are permanently preserved and citable via Zenodo:
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10842000.svg)](https://doi.org/10.5281/zenodo.10842000)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23441742.svg)](https://doi.org/10.5281/zenodo.23441742)
 
 If you cite this repository or research report in academic, policy, or technical work, please use:
 
@@ -161,9 +161,9 @@ If you cite this repository or research report in academic, policy, or technical
   version      = {v2.0.0},
   publisher    = {Zenodo / GitHub},
   howpublished = {\url{https://github.com/krish-rm/hsri-research}},
-  doi          = {10.5281/zenodo.10842000}
+  doi          = {10.5281/zenodo.23441742}
 }
 ```
 
 Text format:
-> HSRI Research Consortium. (2026). *The Human Superintelligence Readiness Index (HSRI 2.0): The Sovereignty Sentinel & ASI Precursor Seismograph* (Version 2.0.0) [Dataset and Software]. Zenodo. https://doi.org/10.5281/zenodo.10842000.
+> HSRI Research Consortium. (2026). *The Human Superintelligence Readiness Index (HSRI 2.0): The Sovereignty Sentinel & ASI Precursor Seismograph* (Version 2.0.0) [Dataset and Software]. Zenodo. https://doi.org/10.5281/zenodo.23441742.

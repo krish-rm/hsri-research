@@ -358,7 +358,7 @@
               </div>
               <div class="drawer-row">
                 <span class="d-k">DOI Provenance:</span>
-                <span class="d-v">HSRI Working Paper §4 · DOI 10.5281/zenodo.10842000</span>
+                <span class="d-v">HSRI Working Paper §4 · DOI 10.5281/zenodo.23441742</span>
               </div>
             </div>
           {/if}

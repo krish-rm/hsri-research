@@ -65,7 +65,7 @@ def test_e2e_root_metadata_endpoint():
 
     assert data["engine"] == "HSRI 2.0 Engine Core"
     assert data["status"] == "operational"
-    assert data["doi"] == "10.5281/zenodo.10842000"
+    assert data["doi"] == "10.5281/zenodo.23441742"
     assert "https://humanreadinessindex.org/" in data["portal_url"]
     assert "openapi_json" in data
 

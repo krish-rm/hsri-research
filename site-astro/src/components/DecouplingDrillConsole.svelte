@@ -161,7 +161,7 @@
 > **Host Partner**: ${currentHost.name}
 > **Archetype**: ${currentHost.archetypeName}
 > **Facilitator**: Lead PI (HSRI Research Consortium)
-> **Protocol DOI**: 10.5281/zenodo.10842000
+> **Protocol DOI**: 10.5281/zenodo.23441742
 > **Session Timestamp**: ${timestamp}
 > **Governance Rule**: Strict Chatham House Rule (Non-Attribution)
 

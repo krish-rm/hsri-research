@@ -19,7 +19,7 @@
     "coverageNote": "Preview release: 39 benchmark nations (OECD/high-income sample). Primary microdata unverified.",
     "hsri_version": "2.0-dual-layer",
     "generated_at": "2026-10-16T16:42:14.636409+00:00",
-    "doi": "10.5281/zenodo.10842000",
+    "doi": "10.5281/zenodo.23441742",
     "license": "CC BY-SA 4.0 Open Science",
     "schema": "HSRI 2.0 Canonical Dual-Layer Schema (Layer 1 Adoption Baseline + Layer 2 ASI Sovereignty & Decoupling Half-Life)",
     "provenanceNote": "Harmonized Dual-Layer model incorporating Leontief non-compensatory floor (beta=0.50), negative cross-elasticity (dP2/dP4 < 0), and Dirichlet B=1000 uncertainty bounds.",

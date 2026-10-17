@@ -264,7 +264,7 @@ def get_benchmark_summary() -> BenchmarkSummaryResponse:
     return BenchmarkSummaryResponse(
         total_nations=len(leaderboard) if leaderboard else 39,
         benchmark_version="v2.0.0-SovereignSentinel",
-        doi="10.5281/zenodo.10842000",
+        doi="10.5281/zenodo.23441742",
         top_sovereign_nations=top_sovereign[:5] if top_sovereign else [],
         high_compute_traps=traps if traps else [],
     )

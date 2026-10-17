@@ -6,7 +6,7 @@ version: "2.0.0"
 date-released: "2026-10-13"
 url: "https://humanreadinessindex.org/"
 repository-code: "https://github.com/krish-rm/hsri-research"
-doi: "10.5281/zenodo.10842000"
+doi: "10.5281/zenodo.23441742"
 license: CC-BY-SA-4.0
 abstract: >
   HSRI 2.0: The Sovereignty Sentinel & ASI Precursor Seismograph.

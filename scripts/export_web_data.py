@@ -8,7 +8,7 @@ web portal data files. Emits schema v2.0 to:
   2. site-astro/public/data/country_scores.json (runtime static fetch fallback)
 
 Author: HSRI Research Consortium (Krishnakumar Radhakrishnan)
-Permanent DOI: 10.5281/zenodo.10842000
+Permanent DOI: 10.5281/zenodo.23441742
 License: CC BY-SA 4.0
 """
 
@@ -135,7 +135,7 @@ def harmonize():
         "hsri_version": "2.0-dual-layer",
         "methodologyVersion": "v2.0-sovereign-sentinel",
         "generated_at": datetime.now(timezone.utc).isoformat(),
-        "doi": "10.5281/zenodo.10842000",
+        "doi": "10.5281/zenodo.23441742",
         "license": "CC BY-SA 4.0 Open Science",
         "schema": "HSRI 2.0 Canonical Dual-Layer Schema (Layer 1 Adoption Baseline + Layer 2 ASI Sovereignty & Decoupling Half-Life)",
         "provenanceNote": "Harmonized Dual-Layer model incorporating Leontief non-compensatory floor (beta=0.50), negative cross-elasticity (dP2/dP4 < 0), and Dirichlet B=1000 uncertainty bounds.",

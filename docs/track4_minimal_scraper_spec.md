@@ -3,7 +3,7 @@
 > **Status:** Spec — ready to implement in one focused build session
 > **Goal:** Convert `CORS 10.0 / 8.44` from `provenance=deterministic_calibration_fallback` into `provenance=live_sentinel_telemetry` with a **public, git-versioned uptime badge** on `/seismograph`
 > **Constraint:** Zero burn, zero new infra — GitHub Actions + flat JSONL only (no DB, no server)
-> **Author:** Krishnakumar Radhakrishnan · 2026-10-14 · DOI 10.5281/zenodo.10842000
+> **Author:** Krishnakumar Radhakrishnan · 2026-10-14 · DOI 10.5281/zenodo.23441742
 
 ---
 

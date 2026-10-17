@@ -5,7 +5,7 @@
 > **Subject**: Scientific Audit of EU AI Act Article 14: Administrative Fiction Under Exponential Latency Divergence  
 > **Date**: October 2026  
 > **Classification**: Public Sovereign Briefing / Open Science Policy Submission  
-> **Permanent DOI**: [`10.5281/zenodo.10842000`](https://doi.org/10.5281/zenodo.10842000)  
+> **Permanent DOI**: [`10.5281/zenodo.23441742`](https://doi.org/10.5281/zenodo.23441742)  
 > **Methodological Portal**: [https://humanreadinessindex.org/methodology/](https://humanreadinessindex.org/methodology/)  
 
 ---

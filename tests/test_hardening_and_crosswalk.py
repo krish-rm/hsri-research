@@ -27,7 +27,7 @@ def test_regulatory_crosswalk_document_integrity():
     assert "ISO/IEC 42001" in text
     assert "EU NIS 2 Directive" in text
     assert "Solvency II" in text
-    assert "10.5281/zenodo.10842000" in text
+    assert "10.5281/zenodo.23441742" in text
 
 def test_anticipated_objections_rebuttal_integrity():
     reb_path = REPO_ROOT / "research" / "preprint" / "anticipated_objections_rebuttal.md"
@@ -42,7 +42,7 @@ def test_anticipated_objections_rebuttal_integrity():
     assert "EXP-07-SYN" in text
     assert "86 Unrated Nations Register" in text
     assert "Singapore" in text
-    assert "10.5281/zenodo.10842000" in text
+    assert "10.5281/zenodo.23441742" in text
 
 def test_telemetry_provenance_and_schema():
     telem = core.get_precursor_telemetry()

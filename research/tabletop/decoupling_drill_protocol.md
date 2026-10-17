@@ -4,7 +4,7 @@
 > **Version**: `1.0.0-Empirical`  
 > **Lead Author**: Krishnakumar Radhakrishnan (Lead Researcher, HSRI Research Consortium)  
 > **Target Audience**: National Security Cabinets, Critical Infrastructure Councils, Central Banks, Civil Defense Agencies  
-> **Permanent DOI**: [`10.5281/zenodo.10842000`](https://doi.org/10.5281/zenodo.10842000)  
+> **Permanent DOI**: [`10.5281/zenodo.23441742`](https://doi.org/10.5281/zenodo.23441742)  
 > **Interactive Simulation Portal**: [https://humanreadinessindex.org/research/decoupling-drill/](https://humanreadinessindex.org/research/decoupling-drill/)  
 
 ---
@@ -126,4 +126,4 @@ To elevate national resilience from Archetype A/B to Archetype C, cabinets must 
 3. **Emergency Physical Ledger Protocols:** Retail banking regulations must require physical branch vault cash reserves sufficient for 14 days of local staple consumption.
 
 ---
-*Open Science Archival Reference: HSRI Research Consortium. (2026). Operation Silent Cloud Decoupling Drill. Zenodo. DOI: [10.5281/zenodo.10842000](https://doi.org/10.5281/zenodo.10842000).*
+*Open Science Archival Reference: HSRI Research Consortium. (2026). Operation Silent Cloud Decoupling Drill. Zenodo. DOI: [10.5281/zenodo.23441742](https://doi.org/10.5281/zenodo.23441742).*

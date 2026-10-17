@@ -24,7 +24,7 @@
       { name: 'Data & Coverage', href: '/data/', desc: 'Indicators & downloads' },
       { name: 'Research Log', href: '/research-updates/', desc: 'Updates & preprints' },
       { name: 'Scenario Atlas', href: '/scenarios/', desc: '26 takeoff simulations' },
-      { name: 'DOI 10.5281/zenodo.10842000', href: 'https://doi.org/10.5281/zenodo.10842000', desc: 'Permanent record — CC BY-SA 4.0', external: true },
+      { name: 'DOI 10.5281/zenodo.23441742', href: 'https://doi.org/10.5281/zenodo.23441742', desc: 'Permanent record — CC BY-SA 4.0', external: true },
     ],
   };
 

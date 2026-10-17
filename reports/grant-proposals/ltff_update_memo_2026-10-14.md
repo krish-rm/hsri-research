@@ -4,7 +4,7 @@
 > **PI:** Krishnakumar Radhakrishnan, HSRI Research Consortium · krishnakumar.rmenon@gmail.com
 > **Repository:** https://github.com/krish-rm/hsri-research (commit `1277a0d` → `ef3e7e8`)
 > **Live Portal / Seismograph:** https://humanreadinessindex.org · https://humanreadinessindex.org/seismograph/
-> **Archive:** Zenodo DOI 10.5281/zenodo.10842000 · **arXiv:** HSRI-WP-2026-02 v1.1.0 (deposit week of 2026-10-20, `cs.CY` + `cs.AI`)
+> **Archive:** Zenodo DOI 10.5281/zenodo.23441742 · **arXiv:** HSRI-WP-2026-02 v1.1.0 (deposit week of 2026-10-20, `cs.CY` + `cs.AI`)
 
 ---
 

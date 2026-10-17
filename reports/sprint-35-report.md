@@ -9,7 +9,7 @@
 > **Flagship Annual Report**: [`reports/annual_report_2027.md`](annual_report_2027.md)  
 > **Actuarial Framework**: [`research/reinsurance/actuarial_underwriting_framework.md`](../research/reinsurance/actuarial_underwriting_framework.md)  
 > **Commercial Prospectus**: [`research/reinsurance/sovereign_reinsurance_offering.md`](../research/reinsurance/sovereign_reinsurance_offering.md)  
-> **Permanent DOI**: [10.5281/zenodo.10842000](https://doi.org/10.5281/zenodo.10842000)  
+> **Permanent DOI**: [10.5281/zenodo.23441742](https://doi.org/10.5281/zenodo.23441742)  
 > **Principal Investigator**: Krishnakumar Radhakrishnan  
 
 ---
@@ -86,7 +86,7 @@ Across this 10-sprint cycle, the repository has transitioned from an academic pr
 | **28** | **Wedge Accelerometer (Stream 3)** | Done | 168 passing | CORS 10.0 scale, $\Delta T_{\text{wedge}}$ velocity |
 | **29** | **Autonomy & Latent Drift (Streams 1–2)** | Done | 178 passing | Automated Sentinel cron, threat score 8.44/10 |
 | **30** | **Precursor Seismograph Portal** | Done | 185 passing | Live interactive Seismograph dashboard (`/seismograph/`) |
-| **31** | **Zenodo DOI & LTFF Grant** | Done | 185 passing | Permanent DOI `10.5281/zenodo.10842000`, $120k grant |
+| **31** | **Zenodo DOI & LTFF Grant** | Done | 185 passing | Permanent DOI `10.5281/zenodo.23441742`, $120k grant |
 | **32** | **Provocative PR & Policy Memos** | Done | 190 passing | Multilateral policy briefs (UK/US AISI, EU, OECD) |
 | **33** | **Engine API Productization** | Done | 201 passing | Standalone FastAPI microservice, Docker, OpenAPI |
 | **34** | **Decoupling Tabletop Drill** | Done | 206 passing | 336h multi-sector simulation, drill viewer (`/research/decoupling-drill/`) |

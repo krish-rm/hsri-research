@@ -1,7 +1,7 @@
 # HSRI 2.0 Engine Core & REST API: Developer Guide
 
 > **Version**: `v2.4.0-EngineCore`  
-> **Archival DOI**: [`10.5281/zenodo.10842000`](https://doi.org/10.5281/zenodo.10842000)  
+> **Archival DOI**: [`10.5281/zenodo.23441742`](https://doi.org/10.5281/zenodo.23441742)  
 > **OpenAPI Schema**: [`docs/api/openapi.json`](./openapi.json)  
 > **Live Portal**: [https://humanreadinessindex.org/](https://humanreadinessindex.org/)  
 

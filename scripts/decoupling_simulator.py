@@ -172,7 +172,7 @@ def simulate_decoupling_drill():
             "simulation_window_days": 14,
             "scenario": "Sudden, zero-notice global recursive containment quarantine (complete cloud/API severance)",
             "methodology": "Leontief Floor Non-Compensatory Weakest-Link Dynamic Aggregation",
-            "doi": "10.5281/zenodo.10842000",
+            "doi": "10.5281/zenodo.23441742",
             "generated_at": "2026-10-13T23:25:00+00:00",
         },
         "archetypes": {},

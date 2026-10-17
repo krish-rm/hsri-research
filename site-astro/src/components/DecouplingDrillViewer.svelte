@@ -237,7 +237,7 @@
   <div class="drill-footer">
     <div class="footer-note">
       <strong>Citation & Permanent DOI:</strong> HSRI Research Consortium. (2026). Operation Silent Cloud Decoupling Drill. Zenodo. 
-      <a href="https://doi.org/10.5281/zenodo.10842000" target="_blank" rel="noopener noreferrer">10.5281/zenodo.10842000</a>
+      <a href="https://doi.org/10.5281/zenodo.23441742" target="_blank" rel="noopener noreferrer">10.5281/zenodo.23441742</a>
     </div>
     <div class="footer-links">
       <a href="/monograph/#chapter-3" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">

@@ -3,7 +3,7 @@
 > **Release Campaign**: HSRI 2.0 &mdash; The Sovereignty Sentinel & Precursor Seismograph  
 > **Embargo**: Immediate / Open Science Release  
 > **Live Portal**: [https://humanreadinessindex.org/seismograph/](https://humanreadinessindex.org/seismograph/)  
-> **Permanent DOI**: [`10.5281/zenodo.10842000`](https://doi.org/10.5281/zenodo.10842000)  
+> **Permanent DOI**: [`10.5281/zenodo.23441742`](https://doi.org/10.5281/zenodo.23441742)  
 
 ---
 
@@ -28,7 +28,7 @@ Dear Madhumita / John,
 
 While Wall Street and governments focus on GPU capital expenditure, an independent 39-nation empirical benchmark published today reveals a stark counter-truth: the world's most AI-dense economies are building fragile "glass fortresses."
 
-The **Human Superintelligence Readiness Index (HSRI 2.0)**, citable under permanent DOI `10.5281/zenodo.10842000`, applies non-compensatory Leontief minimum floor aggregation ($eta = 0.50$) across 780 national data points. The results flip conventional rankings upside down:
+The **Human Superintelligence Readiness Index (HSRI 2.0)**, citable under permanent DOI `10.5281/zenodo.23441742`, applies non-compensatory Leontief minimum floor aggregation ($eta = 0.50$) across 780 national data points. The results flip conventional rankings upside down:
 * **Singapore** drops from **#4 to #38** globally (Rank drop: -34).
 * The **United States** drops from **#15 to #36** (Rank drop: -21).
 * **Hong Kong** drops from **#20 to #39** (Rank drop: -19).
