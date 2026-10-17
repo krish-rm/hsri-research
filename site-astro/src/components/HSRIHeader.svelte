@@ -300,8 +300,8 @@
 <style>
   /* ── Header shell ── */
   .hsri-header{
-    background-color: var(--bg-glass, rgba(15, 23, 42, 0.85));
-    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    background-color: var(--bg-surface-elevated, #0f172a);
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--border-subtle, rgba(226, 232, 240, 0.15));
     position: sticky; top: 0; z-index: 1000;
     box-shadow: var(--shadow-sm); width: 100%;

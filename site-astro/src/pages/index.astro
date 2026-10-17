@@ -112,32 +112,65 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
           </p>
         </div>
 
-        <div class="dilemma-triad">
-          <div class="dilemma-card">
-            <div class="d-icon">⚡</div>
-            <h3>Grid &amp; Energy Locks</h3>
-            <p>
-              Power distribution across modern electrical grids requires microsecond phase balancing. 
-              If the algorithmic controllers are disconnected, sub-stations trip and blackout within seconds.
-            </p>
+        <div class="locks-stack">
+          <div class="lock-row">
+            <div class="lock-lead">
+              <span class="lock-icon" aria-hidden="true">⚡</span>
+              <div class="lock-heading">
+                <span class="lock-sub">SYSTEMIC LOCK 01</span>
+                <h3>Grid &amp; Energy Locks</h3>
+              </div>
+            </div>
+            <div class="lock-body">
+              <p>
+                Power distribution across modern electrical grids requires continuous microsecond phase balancing. 
+                If algorithmic controllers are severed, automated sub-stations trip to prevent turbine damage—blacking out entire national grids within seconds.
+              </p>
+            </div>
+            <div class="lock-impact">
+              <span class="impact-badge critical">FAILURE IN &lt; 2 SECONDS</span>
+              <span class="impact-note">Zero manual dispatcher fallback</span>
+            </div>
           </div>
 
-          <div class="dilemma-card">
-            <div class="d-icon">🚢</div>
-            <h3>Autonomous Logistics</h3>
-            <p>
-              Container cranes, cargo sorting, and long-haul train routing run on cloud optimization. 
-              No humans remain on the docks who know how to hand-sort 50,000 containers without computer manifests.
-            </p>
+          <div class="lock-row">
+            <div class="lock-lead">
+              <span class="lock-icon" aria-hidden="true">🚢</span>
+              <div class="lock-heading">
+                <span class="lock-sub">SYSTEMIC LOCK 02</span>
+                <h3>Autonomous Logistics</h3>
+              </div>
+            </div>
+            <div class="lock-body">
+              <p>
+                Container cranes, automated cargo sorting, and long-haul rail routing run on cloud optimization. 
+                No workforce remains on modern docks capable of manually sorting 50,000 maritime containers without real-time database manifests.
+              </p>
+            </div>
+            <div class="lock-impact">
+              <span class="impact-badge warning">SUPPLY HALT: 12–24 HOURS</span>
+              <span class="impact-note">Port throughput collapses &gt; 90%</span>
+            </div>
           </div>
 
-          <div class="dilemma-card">
-            <div class="d-icon">🏥</div>
-            <h3>Hospital &amp; Civic Data</h3>
-            <p>
-              Prescription verification, bed allocation, and diagnostic triage are deeply intertwined with cloud APIs. 
-              Severing access immediately degrades healthcare throughput by up to 80%.
-            </p>
+          <div class="lock-row">
+            <div class="lock-lead">
+              <span class="lock-icon" aria-hidden="true">🏥</span>
+              <div class="lock-heading">
+                <span class="lock-sub">SYSTEMIC LOCK 03</span>
+                <h3>Hospital &amp; Civic Data</h3>
+              </div>
+            </div>
+            <div class="lock-body">
+              <p>
+                Prescription verification, automated pharmaceutical dispensing, ICU bed allocation, and diagnostic triage are deeply intertwined with cloud APIs. 
+                Severing access immediately degrades clinical throughput, creating cascading emergency room paralysis.
+              </p>
+            </div>
+            <div class="lock-impact">
+              <span class="impact-badge severe">CAPACITY LOSS: UP TO 80%</span>
+              <span class="impact-note">Emergency triage paralyzes</span>
+            </div>
           </div>
         </div>
       </div>
@@ -159,7 +192,10 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         <!-- Timeline of Blackout -->
         <div class="cliff-timeline">
           <div class="timeline-step">
-            <div class="step-hour">HOUR 0 – 6</div>
+            <div class="timeline-step-header">
+              <span class="timeline-phase">PHASE 01</span>
+              <div class="step-hour">HOUR 0 – 6</div>
+            </div>
             <div class="step-content">
               <h4>Digital Severance</h4>
               <p>Foreign cloud APIs disconnect. Automated financial clearing freezes; container port crane scheduling halts.</p>
@@ -167,7 +203,10 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
           </div>
 
           <div class="timeline-step">
-            <div class="step-hour">HOUR 12 – 24</div>
+            <div class="timeline-step-header">
+              <span class="timeline-phase">PHASE 02</span>
+              <div class="step-hour">HOUR 12 – 24</div>
+            </div>
             <div class="step-content">
               <h4>Supply Chain Paralysis</h4>
               <p>Just-in-time grocery distribution fails. Supermarket shelves empty as automated restocking dispatches cease.</p>
@@ -175,7 +214,10 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
           </div>
 
           <div class="timeline-step highlight-step">
-            <div class="step-hour">HOUR 48+</div>
+            <div class="timeline-step-header">
+              <span class="timeline-phase critical">PHASE 03 · THE CLIFF</span>
+              <div class="step-hour highlight-hour">HOUR 48+</div>
+            </div>
             <div class="step-content">
               <h4>The Civilizational Cliff</h4>
               <p>Municipal water treatment backup fuels exhaust; regional grid coordination desynchronizes without cloud telemetries.</p>
@@ -224,32 +266,65 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
           </p>
         </div>
 
-        <div class="safeguards-grid">
-          <div class="safeguard-card">
-            <div class="s-badge">MANDATE 01</div>
-            <h3>The 72-Hour Analog Override</h3>
-            <p>
-              Every critical facility—hospitals, water utilities, electrical substations, and ports—must legally maintain an 
-              air-gapped manual control system capable of operating for 72 hours without internet or cloud authentication.
-            </p>
+        <div class="safeguards-stack">
+          <div class="safeguard-row">
+            <div class="safeguard-lead">
+              <span class="mandate-num">01</span>
+              <div class="safeguard-heading">
+                <span class="mandate-pill">SOVEREIGN MANDATE 01</span>
+                <h3>The 72-Hour Analog Override</h3>
+              </div>
+            </div>
+            <div class="safeguard-body">
+              <p>
+                Every critical facility—hospitals, water utilities, electrical substations, and ports—must legally maintain an 
+                air-gapped manual control system capable of operating for 72 hours without internet or cloud authentication.
+              </p>
+            </div>
+            <div class="safeguard-target">
+              <span class="target-badge">DEFENSE GOAL</span>
+              <span class="target-val">72h Air-Gapped Autarky</span>
+            </div>
           </div>
 
-          <div class="safeguard-card">
-            <div class="s-badge">MANDATE 02</div>
-            <h3>Sovereign Reserves &amp; Microgrids</h3>
-            <p>
-              Governments must mandate local buffer inventories for food, medicines, and domestic municipal power grids, 
-              protecting societies against systemic single-point cloud failures.
-            </p>
+          <div class="safeguard-row">
+            <div class="safeguard-lead">
+              <span class="mandate-num">02</span>
+              <div class="safeguard-heading">
+                <span class="mandate-pill">SOVEREIGN MANDATE 02</span>
+                <h3>Sovereign Reserves &amp; Microgrids</h3>
+              </div>
+            </div>
+            <div class="safeguard-body">
+              <p>
+                Governments must mandate local buffer inventories for food, critical medicines, and domestic municipal microgrids, 
+                protecting societies against catastrophic single-point cloud dependencies.
+              </p>
+            </div>
+            <div class="safeguard-target">
+              <span class="target-badge">DEFENSE GOAL</span>
+              <span class="target-val">Physical Buffer Inventories</span>
+            </div>
           </div>
 
-          <div class="safeguard-card">
-            <div class="s-badge">MANDATE 03</div>
-            <h3>Continuous Open Telemetry</h3>
-            <p>
-              Moving beyond non-binding political summits toward empirical sensing. Tracking machine-to-machine autonomy 
-              expansion in real-time to detect dangerous acceleration before it triggers civilizational shock.
-            </p>
+          <div class="safeguard-row">
+            <div class="safeguard-lead">
+              <span class="mandate-num">03</span>
+              <div class="safeguard-heading">
+                <span class="mandate-pill">SOVEREIGN MANDATE 03</span>
+                <h3>Continuous Open Telemetry</h3>
+              </div>
+            </div>
+            <div class="safeguard-body">
+              <p>
+                Moving beyond non-binding political summits toward empirical sensing. Tracking machine-to-machine autonomy 
+                expansion in real-time to detect dangerous acceleration before it triggers civilizational shock.
+              </p>
+            </div>
+            <div class="safeguard-target">
+              <span class="target-badge">DEFENSE GOAL</span>
+              <span class="target-val">Live Empirical Sensing</span>
+            </div>
           </div>
         </div>
       </div>
@@ -315,7 +390,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   }
 
   .content-container {
-    max-width: 1040px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 1.5rem;
     box-sizing: border-box;
@@ -581,91 +656,190 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   }
 
   /* ========================================================================= */
-  /* Dilemma Triad Cards                                                      */
+  /* Executive Horizontal Locks Stack (Section 02)                              */
   /* ========================================================================= */
-  .dilemma-triad {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
+  .locks-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
   }
 
-  .dilemma-card {
-    background: var(--bg-surface);
-    border: 1px solid var(--border-subtle);
-    border-radius: 12px;
-    padding: 2rem;
-    transition: all 0.2s ease;
-  }
-
-  .dilemma-card:hover {
-    border-color: var(--border-medium);
+  .lock-row {
     background: var(--bg-surface-elevated);
-    transform: translateY(-2px);
+    border: 1px solid var(--border-subtle);
+    border-radius: 14px;
+    padding: 1.75rem 2rem;
+    display: grid;
+    grid-template-columns: 290px 1fr 220px;
+    align-items: center;
+    gap: 2rem;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, box-shadow 0.2s ease;
   }
 
-  .d-icon {
-    font-size: 2rem;
-    margin-bottom: 1rem;
+  .lock-row:hover {
+    transform: translateX(4px);
+    border-color: var(--border-medium);
+    box-shadow: var(--shadow-md);
   }
 
-  .dilemma-card h3 {
-    font-size: 1.25rem;
+  .lock-lead {
+    display: flex;
+    align-items: center;
+    gap: 1.15rem;
+  }
+
+  .lock-icon {
+    font-size: 2.2rem;
+    flex-shrink: 0;
+  }
+
+  .lock-heading {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .lock-sub {
+    font-family: var(--font-family-mono);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+  }
+
+  .lock-heading h3 {
+    font-size: 1.18rem;
     font-weight: 700;
     color: var(--text-primary);
-    margin: 0 0 0.75rem;
+    margin: 0;
+    line-height: 1.3;
   }
 
-  .dilemma-card p {
-    font-size: 0.95rem;
+  .lock-body p {
+    font-size: 0.98rem;
     line-height: 1.65;
     color: var(--text-secondary);
     margin: 0;
   }
 
+  .lock-impact {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+  }
+
+  .impact-badge {
+    font-family: var(--font-family-mono);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    padding: 0.35rem 0.75rem;
+    border-radius: 6px;
+    display: inline-block;
+    white-space: nowrap;
+  }
+
+  .impact-badge.critical {
+    background: var(--threat-critical-bg, rgba(239, 68, 68, 0.15));
+    color: var(--threat-critical, #ef4444);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+  }
+
+  .impact-badge.warning {
+    background: var(--threat-elevated-bg, rgba(245, 158, 11, 0.15));
+    color: var(--threat-elevated, #f59e0b);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+  }
+
+  .impact-badge.severe {
+    background: rgba(168, 85, 247, 0.15);
+    color: #c084fc;
+    border: 1px solid rgba(168, 85, 247, 0.3);
+  }
+
+  .impact-note {
+    font-size: 0.76rem;
+    color: var(--text-muted);
+    line-height: 1.3;
+  }
+
   /* ========================================================================= */
-  /* Timeline (The Cliff)                                                     */
+  /* Timeline (The Cliff - Section 03)                                         */
   /* ========================================================================= */
   .cliff-timeline {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
   }
 
   .timeline-step {
     background: var(--bg-surface-elevated);
     border: 1px solid var(--border-subtle);
-    border-radius: 12px;
-    padding: 2rem;
+    border-radius: 14px;
+    padding: 2rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
     position: relative;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+
+  .timeline-step:hover {
+    transform: translateY(-2px);
+    border-color: var(--border-medium);
+  }
+
+  .timeline-step-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .timeline-phase {
+    font-family: var(--font-family-mono);
+    font-size: 0.70rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+  }
+
+  .timeline-phase.critical {
+    color: var(--threat-critical, #ef4444);
   }
 
   .highlight-step {
-    border-color: var(--threat-critical);
-    box-shadow: 0 0 20px -8px var(--threat-critical);
+    border-color: var(--threat-critical, #ef4444);
+    box-shadow: 0 0 25px -8px var(--threat-critical, rgba(239, 68, 68, 0.4));
   }
 
   .step-hour {
     font-family: var(--font-family-mono);
-    font-size: 0.80rem;
+    font-size: 0.85rem;
     font-weight: 800;
     color: var(--accent-primary);
-    margin-bottom: 0.85rem;
   }
 
-  .highlight-step .step-hour {
-    color: var(--threat-critical);
+  .step-hour.highlight-hour {
+    color: var(--threat-critical, #ef4444);
   }
 
   .step-content h4 {
-    font-size: 1.20rem;
+    font-size: 1.25rem;
     font-weight: 700;
     color: var(--text-primary);
     margin: 0 0 0.65rem;
+    line-height: 1.3;
   }
 
   .step-content p {
     font-size: 0.95rem;
-    line-height: 1.6;
+    line-height: 1.65;
     color: var(--text-secondary);
     margin: 0;
   }
@@ -674,7 +848,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   /* Sovereign Lookup Wrapper                                                 */
   /* ========================================================================= */
   .lookup-wrapper {
-    max-width: 860px;
+    max-width: 920px;
     margin: 0 auto 2.5rem;
   }
 
@@ -683,48 +857,102 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   }
 
   /* ========================================================================= */
-  /* Safeguards Grid                                                          */
+  /* Executive Safeguards Stack (Section 05)                                   */
   /* ========================================================================= */
-  .safeguards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-    gap: 1.5rem;
+  .safeguards-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
   }
 
-  .safeguard-card {
+  .safeguard-row {
     background: var(--bg-surface-elevated);
     border: 1px solid var(--border-subtle);
-    border-radius: 12px;
-    padding: 2.25rem 2rem;
-    transition: all 0.2s ease;
+    border-radius: 14px;
+    padding: 1.75rem 2rem;
+    display: grid;
+    grid-template-columns: 310px 1fr 200px;
+    align-items: center;
+    gap: 2rem;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, box-shadow 0.2s ease;
   }
 
-  .safeguard-card:hover {
+  .safeguard-row:hover {
+    transform: translateX(4px);
     border-color: var(--threat-sovereign);
-    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
   }
 
-  .s-badge {
+  .safeguard-lead {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .mandate-num {
     font-family: var(--font-family-mono);
-    font-size: 0.70rem;
+    font-size: 1.75rem;
+    font-weight: 900;
+    color: var(--threat-sovereign, #10b981);
+    opacity: 0.85;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .safeguard-heading {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .mandate-pill {
+    font-family: var(--font-family-mono);
+    font-size: 0.68rem;
     font-weight: 800;
     letter-spacing: 0.08em;
-    color: var(--threat-sovereign);
-    margin-bottom: 0.75rem;
+    color: var(--threat-sovereign, #10b981);
   }
 
-  .safeguard-card h3 {
-    font-size: 1.20rem;
+  .safeguard-heading h3 {
+    font-size: 1.18rem;
     font-weight: 700;
     color: var(--text-primary);
-    margin: 0 0 0.75rem;
+    margin: 0;
+    line-height: 1.3;
   }
 
-  .safeguard-card p {
-    font-size: 0.95rem;
+  .safeguard-body p {
+    font-size: 0.98rem;
     line-height: 1.65;
     color: var(--text-secondary);
     margin: 0;
+  }
+
+  .safeguard-target {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+
+  .target-badge {
+    font-family: var(--font-family-mono);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+  }
+
+  .target-val {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--threat-sovereign, #10b981);
+    background: var(--threat-sovereign-bg, rgba(16, 185, 129, 0.12));
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    padding: 0.3rem 0.65rem;
+    border-radius: 6px;
+    white-space: nowrap;
   }
 
   /* ========================================================================= */
@@ -783,6 +1011,51 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     font-size: 0.78rem;
     font-weight: 700;
     color: var(--accent-primary);
+  }
+
+  @media (max-width: 1024px) {
+    .lock-row {
+      grid-template-columns: 240px 1fr 180px;
+      gap: 1.25rem;
+      padding: 1.5rem;
+    }
+    .safeguard-row {
+      grid-template-columns: 260px 1fr 170px;
+      gap: 1.25rem;
+      padding: 1.5rem;
+    }
+  }
+
+  @media (max-width: 860px) {
+    .lock-row {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      padding: 1.5rem;
+    }
+    .lock-impact {
+      flex-direction: row;
+      align-items: center;
+      gap: 0.75rem;
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 0.75rem;
+      width: 100%;
+    }
+    .cliff-timeline {
+      grid-template-columns: 1fr;
+    }
+    .safeguard-row {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      padding: 1.5rem;
+    }
+    .safeguard-target {
+      flex-direction: row;
+      align-items: center;
+      gap: 0.75rem;
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 0.75rem;
+      width: 100%;
+    }
   }
 
   @media (max-width: 768px) {
