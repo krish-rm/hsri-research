@@ -1,116 +1,201 @@
----
+﻿---
 import HSRILayout from '../layouts/HSRILayout.astro';
 import HSRIHeader from '../components/HSRIHeader.svelte';
-import CountryList from '../components/CountryList.svelte';
-import WeightCalculator from '../components/WeightCalculator.svelte';
 import HSRIFooter from '../components/HSRIFooter.svelte';
+import SovereignObservatory from '../components/SovereignObservatory.svelte';
+import CountryList from '../components/CountryList.svelte';
+import scoresData from '../data/country_scores.json';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const meta = (scoresData as any).metadata ?? {};
 ---
 
-<HSRILayout title="Country Profiles & Rankings - HSRI Benchmark">
+<HSRILayout title="Country Index — 39-Nation Sovereign Decoupling Observatory | HSRI">
   <div class="countries-page">
     <HSRIHeader client:load currentPath={Astro.url.pathname} />
 
     <div class="page-header">
       <div class="container">
-        <h1>Country Readiness Profiles & Rankings</h1>
-        <p class="subtitle">Empirical assessments, non-compensatory pillar evaluations, and sensitivity simulation across 39 benchmark nations</p>
+        <div class="eyebrow">39-NATION SOVEREIGN DECOUPLING OBSERVATORY</div>
+        <h1>Country Index</h1>
+        <p class="subtitle">
+          Interactive planetary mapping of sovereign resilience under zero-notice cloud severance. Select any nation on the globe to inspect its Decoupling Half-Life and weakest-link floor.
+        </p>
+        <div class="head-meta">
+          <span>HSRI Research Consortium</span>
+          <span>·</span>
+          <a href="https://doi.org/10.5281/zenodo.10842000" target="_blank" rel="noopener noreferrer">DOI 10.5281/zenodo.10842000</a>
+          <span>·</span>
+          <span>{meta.methodologyVersion ?? 'v2.0-dual-layer'} · {scoresData.countries.length} benchmark nations</span>
+        </div>
       </div>
     </div>
 
-    <div class="countries-content container">
-      <!-- Interactive Weight Calculator -->
-      <section class="calc-section">
-        <WeightCalculator client:load />
+    <div class="container observatory" id="observatory">
+      <!-- Dual-View Switcher -->
+      <div class="view-switcher" role="tablist" aria-label="View toggle">
+        <button type="button" class="switch-btn active" data-view="globe" role="tab" aria-selected="true">
+          🌐 3D Interactive Globe
+        </button>
+        <button type="button" class="switch-btn" data-view="matrix" role="tab" aria-selected="false">
+          📊 Sovereign Scoreboard Matrix
+        </button>
+      </div>
+
+      <!-- GLOBE OBSERVATORY VIEW (default) -->
+      <section class="view view-globe active" data-view="globe" role="tabpanel">
+        <SovereignObservatory client:visible countries={scoresData.countries} />
       </section>
 
-      <!-- Country Profiles Explorer -->
-      <section class="countries-section">
-        <div class="section-title-bar">
-          <h2>All 39 Benchmark Country Profiles</h2>
-          <p class="section-desc">Select any country to view full pillar breakdowns, exposure gaps, crossing projections, and strategic policy recommendations.</p>
-          <div class="scope-disclosure-card">
-            <p><strong>Sample Scope &amp; Composition:</strong> The current preview benchmark evaluates 39 nations, heavily weighted toward high-income and OECD economies. This reflects a coverage limitation of current international empirical data sources, not a judgment about other nations' readiness. In our coverage assessment of 145 countries, 59 possess partial or contextual data, while 86 evaluated countries currently lack sufficient multi-pillar data and remain unrated. <a href={`${base}/coverage/`} style="color: #1e40af; font-weight: 600; text-decoration: underline;">See coverage details &rarr;</a></p>
-          </div>
-        </div>
-        <CountryList client:load />
+      <!-- MATRIX VIEW (dense comparative scoreboard) -->
+      <section class="view view-matrix" data-view="matrix" role="tabpanel" hidden>
+        <CountryList client:idle />
       </section>
     </div>
 
     <HSRIFooter />
   </div>
 
+  <script>
+    // Dual-view toggle (vanilla, zero framework cost, preserves SSR)
+    const btns = document.querySelectorAll<HTMLButtonElement>('.switch-btn');
+    const views = document.querySelectorAll<HTMLElement>('.view');
+    btns.forEach(b =>
+      b.addEventListener('click', () => {
+        const v = b.dataset.view;
+        btns.forEach(x => {
+          const isActive = x.dataset.view === v;
+          x.classList.toggle('active', isActive);
+          x.setAttribute('aria-selected', String(isActive));
+        });
+        views.forEach(s => {
+          const active = s.dataset.view === v;
+          s.classList.toggle('active', active);
+          if (active) {
+            s.removeAttribute('hidden');
+          } else {
+            s.setAttribute('hidden', '');
+          }
+        });
+        document.getElementById('observatory')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      })
+    );
+  </script>
+
   <style>
     .countries-page {
       min-height: 100vh;
-      background-color: var(--surface-color);
+      background: var(--bg-canvas);
+      color: var(--text-primary);
     }
-
     .page-header {
       text-align: center;
-      padding: var(--spacing-2xl) var(--spacing-lg);
-      background: linear-gradient(135deg, var(--primary-color) 0%, #1e40af 100%);
-      color: white;
-      margin-bottom: var(--spacing-2xl);
+      padding: 2.2rem 1.25rem 1.6rem;
+      background: radial-gradient(900px 400px at 50% 0%, var(--accent-primary-glow), transparent 60%),
+        linear-gradient(135deg, var(--bg-surface) 0%, var(--bg-surface-sunken) 100%);
+      border-bottom: 1px solid var(--border-subtle);
     }
-
-    .page-header h1 {
-      font-size: var(--font-size-3xl);
-      margin-bottom: var(--spacing-sm);
-    }
-
-    .subtitle {
-      font-size: var(--font-size-lg);
-      opacity: 0.9;
-    }
-
-    .countries-content {
-      padding: 0 var(--spacing-lg) var(--spacing-2xl) var(--spacing-lg);
-      max-width: 1350px;
-      margin: 0 auto;
-    }
-
-    .calc-section {
-      margin-bottom: 3rem;
-    }
-
-    .section-title-bar {
-      margin-bottom: 1.5rem;
-    }
-
-    .section-title-bar h2 {
-      font-size: 1.75rem;
+    .eyebrow {
+      display: inline-block;
+      font-family: var(--font-family-mono);
+      font-size: 0.7rem;
       font-weight: 800;
-      color: #0f172a;
-      margin-bottom: 0.35rem;
+      letter-spacing: 0.08em;
+      color: var(--accent-primary);
+      background: var(--threat-telemetry-bg);
+      border: 1px solid var(--threat-telemetry-border);
+      padding: 4px 12px;
+      border-radius: 9999px;
+      margin-bottom: 12px;
     }
-
-    .section-desc {
-      color: #64748b;
-      font-size: 0.95rem;
-      margin-bottom: 0.75rem;
+    .page-header h1 {
+      font-size: clamp(1.9rem, 3.2vw, 2.6rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+      margin: 0 0 10px 0;
     }
-
-    .scope-disclosure-card {
-      background-color: #f8fafc;
-      border-left: 3px solid #3b82f6;
-      border-radius: 0.375rem;
-      padding: 0.75rem 1rem;
-      margin-top: 0.75rem;
+    .subtitle {
+      max-width: 720px;
+      margin: 0 auto 12px auto;
+      color: var(--text-secondary);
+      font-size: 1rem;
+      line-height: 1.55;
     }
-
-    .scope-disclosure-card p {
-      margin: 0;
-      font-size: 0.875rem;
-      color: #475569;
-      line-height: 1.5;
+    .head-meta {
+      font-family: var(--font-family-mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
     }
-
+    .head-meta a {
+      color: var(--accent-primary);
+      text-decoration: none;
+    }
+    .head-meta a:hover {
+      text-decoration: underline;
+    }
     .container {
-      max-width: 1300px;
+      max-width: 1320px;
       margin: 0 auto;
       padding: 0 1rem;
+    }
+    .observatory {
+      padding: 18px 0 40px 0;
+    }
+    .view-switcher {
+      display: flex;
+      gap: 6px;
+      justify-content: flex-end;
+      margin-bottom: 16px;
+      background: var(--bg-surface-sunken);
+      border: 1px solid var(--border-subtle);
+      padding: 4px;
+      border-radius: 12px;
+      width: fit-content;
+      margin-left: auto;
+    }
+    .switch-btn {
+      padding: 8px 16px;
+      border-radius: 9px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-muted);
+      font-weight: 700;
+      font-size: 0.86rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .switch-btn.active {
+      background: var(--bg-surface-elevated);
+      color: var(--text-primary);
+      border-color: var(--border-subtle);
+      box-shadow: var(--shadow-sm);
+    }
+    .view {
+      display: none;
+    }
+    .view.active {
+      display: block;
+    }
+    @media (max-width: 980px) {
+      .view-switcher {
+        width: 100%;
+        box-sizing: border-box;
+      }
+      .switch-btn {
+        flex: 1;
+        text-align: center;
+      }
+    }
+    @media (max-width: 768px) {
+      .head-meta {
+        font-size: 0.68rem;
+      }
     }
   </style>
 </HSRILayout>
