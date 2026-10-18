@@ -263,36 +263,40 @@ try {
 
   .page-header {
     text-align: center;
-    padding: 3.5rem 1.5rem 2.5rem;
-    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
-    color: white;
+    padding: clamp(2.5rem, 5vw, 4rem) 1.5rem clamp(2rem, 4vw, 2.75rem);
+    background: radial-gradient(900px 400px at 50% 0%, var(--accent-primary-glow), transparent 65%),
+                linear-gradient(135deg, var(--bg-surface) 0%, var(--bg-surface-sunken) 100%);
+    border-bottom: 1px solid var(--border-subtle);
     margin-bottom: 2rem;
   }
 
   .hero-badge {
-    display: inline-block;
-    padding: 0.25rem 0.75rem;
-    background: rgba(99, 102, 241, 0.2);
-    border: 1px solid rgba(165, 180, 252, 0.3);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0.25rem 0.85rem;
+    background: var(--accent-primary-glow);
+    border: 1px solid var(--border-medium);
     border-radius: 9999px;
     font-size: 0.75rem;
-    font-weight: 600;
-    color: #c7d2fe;
+    font-weight: 700;
+    color: var(--accent-primary);
     text-transform: uppercase;
     letter-spacing: 0.05em;
     margin-bottom: 0.75rem;
   }
 
   .page-header h1 {
-    font-size: 2.25rem;
+    font-size: clamp(2rem, 4vw, 2.75rem);
     font-weight: 800;
     margin-bottom: 0.75rem;
     letter-spacing: -0.025em;
+    color: var(--text-primary) !important;
   }
 
   .subtitle {
-    font-size: 1.1rem;
-    color: #cbd5e1;
+    font-size: clamp(1rem, 1.6vw, 1.15rem);
+    color: var(--text-secondary) !important;
     max-width: 46rem;
     margin: 0 auto;
     line-height: 1.6;

@@ -22,7 +22,7 @@
     children: [
       { name: 'Methodology', href: '/methodology/', desc: 'Leontief engine & formal proofs' },
       { name: 'Data & Coverage', href: '/data/', desc: 'Indicators & downloads' },
-      { name: 'Research Log', href: '/research-updates/', desc: 'Updates & preprints' },
+      { name: 'Research Logs', href: '/research-updates/', desc: 'Updates & preprints' },
       { name: 'Scenario Atlas', href: '/scenarios/', desc: '26 takeoff simulations' },
       { name: 'DOI 10.5281/zenodo.23441742', href: 'https://doi.org/10.5281/zenodo.23441742', desc: 'Permanent record — CC BY-SA 4.0', external: true },
     ],
@@ -179,6 +179,7 @@
                   <a
                     href={withBase(child.href)}
                     class="utility-link"
+                    class:active={isActive(child.href)}
                     role="menuitem"
                     target={child.external ? '_blank' : undefined}
                     rel={child.external ? 'noopener noreferrer' : undefined}
@@ -272,7 +273,7 @@
             <ul class="mobile-sub-list">
               {#each utilityGroup.children ?? [] as child}
                 <li>
-                  <a href={withBase(child.href)} class="mobile-sub-link" target={child.external ? '_blank' : undefined} rel={child.external ? 'noopener noreferrer' : undefined} on:click={closeMenu}>
+                  <a href={withBase(child.href)} class="mobile-sub-link" class:active={isActive(child.href)} target={child.external ? '_blank' : undefined} rel={child.external ? 'noopener noreferrer' : undefined} on:click={closeMenu}>
                     <span>{child.name}</span><span class="sub-desc">{child.desc}</span>
                   </a>
                 </li>
@@ -367,32 +368,53 @@
 
   /* Utility dropdown */
   .utility-menu{
-    position: absolute; top: calc(100% + 10px); right: 0; min-width: 300px;
+    position: absolute; top: calc(100% + 10px); right: 0; min-width: 320px;
     background: var(--bg-surface-elevated, #ffffff);
-    border: 1px solid var(--border-subtle, #e2e8f0);
+    border: 1.5px solid var(--border-medium, #d4caa8);
     border-radius: 12px;
-    box-shadow: var(--shadow-lg, 0 10px 25px -5px rgba(0,0,0,0.2));
-    padding: 6px;
-    display: flex; flex-direction: column; gap: 2px;
+    box-shadow: var(--shadow-lg, 0 12px 28px rgba(45,35,20,0.12));
+    padding: 8px;
+    display: flex; flex-direction: column; gap: 3px;
     z-index: 1001;
   }
   .utility-link{
-    display: flex; flex-direction: column; gap: 1px;
-    padding: 9px 12px; border-radius: 8px; text-decoration: none;
-    transition: background 0.15s ease;
+    display: flex; flex-direction: column; gap: 2px;
+    padding: 10px 14px; border-radius: 8px; text-decoration: none;
+    transition: all 0.15s ease;
+    border: 1px solid transparent;
   }
-  .utility-link:hover{ background: var(--bg-surface-sunken, #f8fafc); }
+  .utility-link:hover{
+    background: var(--accent-primary-glow);
+    border-color: var(--border-subtle);
+  }
+  .utility-link.active{
+    background: var(--accent-primary-glow);
+    border-left: 3.5px solid var(--accent-primary);
+  }
   .utility-name {
     font-family: var(--font-family-display, 'Boldonse', sans-serif);
-    font-size: 0.90rem;
-    font-weight: 600;
-    letter-spacing: 0.02em;
+    font-size: 0.96rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
     color: var(--text-primary);
     display: inline-flex;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
   }
-  .utility-desc{ font-size: 0.73rem; color: var(--text-muted, #64748b); font-weight: 400; }
+  .utility-link:hover .utility-name,
+  .utility-link.active .utility-name {
+    color: var(--accent-primary);
+  }
+  .utility-desc{
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    line-height: 1.35;
+  }
+  .utility-link:hover .utility-desc,
+  .utility-link.active .utility-desc {
+    color: var(--text-primary);
+  }
   .ext{ font-size: 0.7rem; opacity: 0.7; }
 
   /* Theme Toggle: Tactile Icon-only Button (Zero Text) */
@@ -490,10 +512,12 @@
     }
     .mobile-accordion-trigger:hover{ background: var(--bg-surface); color: var(--accent-primary); }
     .mobile-sub-list{ list-style: none; margin: 6px 0 8px 12px; padding: 0; display: flex; flex-direction: column; gap: 0.25rem; border-left: 2px solid var(--border-subtle); padding-left: 12px; }
-    .mobile-sub-link{ display: flex; flex-direction: column; gap: 2px; padding: 8px 10px; border-radius: 8px; text-decoration: none; color: var(--text-primary); }
-    .mobile-sub-link:hover{ background: var(--bg-surface); }
-    .mobile-sub-link span:first-child{ font-size: 0.92rem; font-weight: 600; }
-    .sub-desc{ font-size: 0.75rem; color: var(--text-muted); }
+    .mobile-sub-link{ display: flex; flex-direction: column; gap: 3px; padding: 10px 12px; border-radius: 8px; text-decoration: none; color: var(--text-primary); transition: all 0.15s ease; }
+    .mobile-sub-link:hover{ background: var(--accent-primary-glow); }
+    .mobile-sub-link.active{ background: var(--accent-primary-glow); border-left: 3.5px solid var(--accent-primary); }
+    .mobile-sub-link span:first-child{ font-family: var(--font-family-display, 'Boldonse', sans-serif); font-size: 0.96rem; font-weight: 700; color: var(--text-primary); }
+    .mobile-sub-link:hover span:first-child, .mobile-sub-link.active span:first-child{ color: var(--accent-primary); }
+    .sub-desc{ font-size: 0.78rem; color: var(--text-secondary); font-weight: 500; }
 
   }
 </style>
