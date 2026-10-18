@@ -10,16 +10,18 @@ interface Props {
   title?: string;
   doi?: string;
   readTimeMinutes?: number;
+  description?: string;
 }
 
 const {
   title = "Superintelligence & Humanity — An Inquiry into Human Sovereignty",
   doi = "10.5281/zenodo.23441742",
-  readTimeMinutes = 35
+  readTimeMinutes = 35,
+  description = "A comprehensive scientific treatise on civilizational sovereignty, the verification illusion, and human readiness for artificial superintelligence."
 } = Astro.props;
 ---
 
-<BaseLayout title={title}>
+<BaseLayout title={title} description={description}>
   <!-- 2px reading progress bar -->
   <ReadingProgressBar />
 
