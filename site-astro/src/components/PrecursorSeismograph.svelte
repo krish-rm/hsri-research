@@ -726,13 +726,13 @@
 
   /* AUDIT DEFICIT HERO */
   .audit-deficit-hero {
-    background: radial-gradient(800px 300px at 10% 0%, rgba(239, 68, 68, 0.12), transparent 70%),
-                linear-gradient(135deg, #090d16 0%, #0f172a 100%);
-    border: 1px solid rgba(239, 68, 68, 0.3);
+    background: radial-gradient(800px 300px at 10% 0%, var(--threat-critical-bg), transparent 70%),
+                var(--bg-surface);
+    border: 1px solid var(--threat-critical-border);
     border-radius: 16px;
     padding: 20px 24px;
     margin-bottom: 20px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    box-shadow: var(--shadow-md);
   }
 
   .deficit-top-row {

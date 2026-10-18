@@ -62,16 +62,16 @@ const ogPageUrl = canonicalUrl.startsWith("http") ? canonicalUrl : `${siteOrigin
     <meta name="twitter:image" content={ogImageUrl}>
     <meta name="twitter:image:alt" content="HSRI 2.0 — Sovereign Sentinel & ASI Precursor Seismograph">
 
-    <!-- Theme Initialization (Zero-FOUT) -->
+    <!-- Theme Initialization (Zero-FOUT: Defaults to Vintage Cream Paper) -->
     <script is:inline>
       (function () {
         try {
           const savedTheme = localStorage.getItem('hsri-theme');
-          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-          const theme = savedTheme || (prefersDark ? 'dark' : 'dark');
+          // Default to cream/light unless explicitly set to dark
+          const theme = savedTheme === 'dark' ? 'dark' : 'light';
           document.documentElement.setAttribute('data-theme', theme);
         } catch (e) {
-          document.documentElement.setAttribute('data-theme', 'dark');
+          document.documentElement.setAttribute('data-theme', 'light');
         }
       })();
     </script>

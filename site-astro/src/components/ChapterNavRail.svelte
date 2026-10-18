@@ -450,7 +450,7 @@
 
   .sheet-progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, var(--accent-primary) 0%, #38bdf8 100%);
+    background: linear-gradient(90deg, var(--accent-primary) 0%, var(--accent-gradient-end, #38bdf8) 100%);
     transition: width 0.2s ease;
   }
 

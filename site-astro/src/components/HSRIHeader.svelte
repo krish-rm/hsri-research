@@ -40,7 +40,7 @@
   let isUtilityOpen = false;
   let isUtilityMobileOpen = false;
   let isScrolled = false;
-  let currentTheme: 'dark' | 'light' = 'dark';
+  let currentTheme: 'dark' | 'light' = 'light';
 
   let utilityTriggerEl: HTMLButtonElement | null = null;
   let utilityMenuEl: HTMLDivElement | null = null;
@@ -58,8 +58,8 @@
   function initTheme() {
     if (typeof window === 'undefined') return;
     const saved = localStorage.getItem('hsri-theme') as 'dark' | 'light' | null;
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    currentTheme = saved ?? (prefersDark ? 'dark' : 'dark');
+    // Default to cream paper (light) unless user explicitly saved dark
+    currentTheme = saved === 'dark' ? 'dark' : 'light';
     document.documentElement.setAttribute('data-theme', currentTheme);
   }
   function toggleTheme() {
@@ -124,7 +124,7 @@
         <svg class="logo" width="38" height="38" viewBox="0 0 40 40" fill="none" aria-hidden="true">
           <circle cx="20" cy="20" r="19" stroke="var(--primary-color)" stroke-width="2"/>
           <path d="M20 5 L15 15 L5 20 L15 25 L20 35 L25 25 L35 20 L25 15 Z" fill="var(--primary-color)" opacity="0.8"/>
-          <circle cx="20" cy="20" r="8" fill="white"/>
+          <circle cx="20" cy="20" r="8" fill="var(--bg-canvas, #fbf7ee)"/>
         </svg>
         <div class="brand-text">
           <h1 class="site-title">HSRI</h1>
@@ -200,25 +200,20 @@
         <span class="nav-divider" aria-hidden="true"></span>
 
         <button type="button" class="theme-toggle-btn" on:click={toggleTheme}
-          aria-label={`Switch to ${currentTheme === 'dark' ? 'light' : 'dark'} mode`}>
+          aria-label={currentTheme === 'dark' ? 'Switch to Cream Paper' : 'Switch to Dark Mode'}
+          title={currentTheme === 'dark' ? 'Switch to Cream Paper' : 'Switch to Dark Mode'}>
           {#if currentTheme === 'dark'}
+            <!-- Light bulb icon (switch to cream) -->
             <svg class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <circle cx="12" cy="12" r="5"/>
-              <line x1="12" y1="1" x2="12" y2="3"/>
-              <line x1="12" y1="21" x2="12" y2="23"/>
-              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-              <line x1="1" y1="12" x2="3" y2="12"/>
-              <line x1="21" y1="12" x2="23" y2="12"/>
-              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+              <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1.3.5 2.6 1.5 3.5.8.8 1.3 1.5 1.5 2.5"/>
+              <path d="M9 18h6"/>
+              <path d="M10 22h4"/>
             </svg>
-            <span class="theme-label">LIGHT</span>
           {:else}
+            <!-- Crescent moon icon (switch to dark) -->
             <svg class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
             </svg>
-            <span class="theme-label">DARK</span>
           {/if}
         </button>
 
@@ -287,9 +282,20 @@
         </li>
 
         <li class="mobile-nav-item mobile-theme-item">
-          <button type="button" class="mobile-theme-btn" on:click={toggleTheme}>
-            <span>Theme: <strong>{currentTheme.toUpperCase()}</strong></span>
-            <span class="theme-pill-action">{currentTheme === 'dark' ? 'Switch to Light' : 'Switch to Dark'}</span>
+          <button type="button" class="mobile-theme-btn" on:click={toggleTheme}
+            aria-label={currentTheme === 'dark' ? 'Switch to Cream Paper' : 'Switch to Dark Mode'}
+            title={currentTheme === 'dark' ? 'Switch to Cream Paper' : 'Switch to Dark Mode'}>
+            {#if currentTheme === 'dark'}
+              <svg class="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1.3.5 2.6 1.5 3.5.8.8 1.3 1.5 1.5 2.5"/>
+                <path d="M9 18h6"/>
+                <path d="M10 22h4"/>
+              </svg>
+            {:else}
+              <svg class="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+              </svg>
+            {/if}
           </button>
         </li>
       </ul>
@@ -405,15 +411,19 @@
   .utility-desc{ font-size: 0.73rem; color: var(--text-muted, #64748b); font-weight: 400; }
   .ext{ font-size: 0.7rem; opacity: 0.7; }
 
-  /* Theme */
+  /* Theme Toggle: Tactile Icon-only Button (Zero Text) */
   .theme-toggle-btn{
-    display: inline-flex; align-items: center; gap: 0.45rem; margin-left: 0.25rem; padding: 0.35rem 0.65rem; border-radius: 6px;
-    background-color: var(--bg-surface-elevated); border: 1px solid var(--border-medium); color: var(--text-secondary);
-    font-family: var(--font-family-mono, monospace); font-size: 0.70rem; font-weight: 700; letter-spacing: 0.08em; cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1); flex-shrink: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 36px; height: 36px; padding: 0; margin-left: 0.35rem; border-radius: 8px;
+    background-color: var(--bg-surface-elevated); border: 1px solid var(--border-medium); color: var(--text-primary);
+    cursor: pointer; transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1); flex-shrink: 0;
   }
-  .theme-toggle-btn:hover{ color: var(--text-primary); border-color: var(--accent-primary); box-shadow: 0 0 10px -2px var(--accent-primary-glow); }
-  .theme-icon{ width: 14px; height: 14px; }
+  .theme-toggle-btn:hover{
+    color: var(--accent-primary); border-color: var(--accent-primary);
+    box-shadow: 0 0 12px -2px var(--accent-primary-glow); transform: translateY(-1px);
+  }
+  .theme-icon{ width: 18px; height: 18px; transition: transform 0.25s ease; }
+  .theme-toggle-btn:hover .theme-icon{ transform: rotate(15deg); }
 
   /* Hamburger — hidden on desktop */
   .mobile-menu-button{ display: none; background: none; border: none; padding: var(--spacing-sm); cursor: pointer; color: var(--text-primary); margin-left: auto; }
@@ -454,7 +464,7 @@
     .nav-list{ display: none; }
     .nav-divider{ display: none; }
     .theme-toggle-btn{ padding: 0.35rem 0.5rem; }
-    .theme-toggle-btn .theme-label{ display: none; }
+    
     .mobile-menu-button{
       display: inline-flex !important; align-items: center; justify-content: center; width: 40px; height: 40px; padding: 0;
       border-radius: 8px; border: 1px solid var(--border-medium); background-color: var(--bg-surface-elevated); color: var(--text-primary);
@@ -500,12 +510,13 @@
     .mobile-sub-link:hover{ background: var(--bg-surface); }
     .mobile-sub-link span:first-child{ font-size: 0.92rem; font-weight: 600; }
     .sub-desc{ font-size: 0.75rem; color: var(--text-muted); }
-    .mobile-theme-item{ margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid var(--border-subtle); }
+    .mobile-theme-item{ display: flex; justify-content: center; margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid var(--border-subtle); }
     .mobile-theme-btn{
-      display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 0.75rem 1rem;
-      background: var(--bg-surface-elevated); border: 1px solid var(--border-medium); border-radius: 8px;
-      font-family: var(--font-family-mono, monospace); font-size: 0.85rem; cursor: pointer; color: var(--text-primary);
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 44px; height: 44px; padding: 0; border-radius: 8px;
+      background: var(--bg-surface-elevated); border: 1px solid var(--border-medium); color: var(--text-primary);
+      cursor: pointer; transition: all 0.2s ease;
     }
-    .theme-pill-action{ font-size: 0.75rem; padding: 0.2rem 0.6rem; background: var(--accent-primary); color: #fff; border-radius: 9999px; }
+    .mobile-theme-btn:hover{ color: var(--accent-primary); border-color: var(--accent-primary); }
   }
 </style>

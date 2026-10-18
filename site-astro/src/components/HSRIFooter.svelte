@@ -33,7 +33,7 @@
           <svg class="logo" width="36" height="36" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="20" cy="20" r="19" stroke="var(--primary-color)" stroke-width="2"/>
             <path d="M20 5 L15 15 L5 20 L15 25 L20 35 L25 25 L35 20 L25 15 Z" fill="var(--primary-color)" opacity="0.8"/>
-            <circle cx="20" cy="20" r="8" fill="white"/>
+            <circle cx="20" cy="20" r="8" fill="var(--bg-canvas, #fbf7ee)"/>
           </svg>
           <div>
             <h3 class="footer-title">Human Superintelligence Readiness Index</h3>

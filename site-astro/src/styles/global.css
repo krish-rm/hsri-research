@@ -2,50 +2,53 @@
    HSRI INSTITUTIONAL DESIGN SYSTEM (PALANTIR / STRIPE PRESS / OWID BENCHMARK)
    ========================================================================== */
 
-/* 1. LIGHT THEME (High-Credibility Policy Journal / Whitepaper) */
+/* 1. VINTAGE CREAM / ARCHIVAL PAPER THEME (Aged Parchment / Letterpress Monograph) */
 :root,
-[data-theme="light"] {
-  /* Canvas & Surfaces */
-  --bg-canvas: #f8fafc;
-  --bg-surface: #ffffff;
-  --bg-surface-elevated: #ffffff;
-  --bg-surface-sunken: #f1f5f9;
-  --bg-glass: rgba(255, 255, 255, 0.88);
-  --bg-overlay: rgba(15, 23, 42, 0.6);
+[data-theme="light"],
+[data-theme="paper"] {
+  /* Canvas & Surfaces - Warm Vintage Cream & Pressed Ivory Parchment */
+  --bg-canvas: #fbf7ee;          /* Archival heavy rag paper / warm unbleached cotton cream */
+  --bg-surface: #fdfbf7;         /* Crisp warm ivory pressed sheet / card surface */
+  --bg-surface-elevated: #ffffff;/* Elevated bright vellum card */
+  --bg-surface-sunken: #f1ebd9;  /* Aged parchment tone, deckle edge / gutter well */
+  --bg-glass: rgba(251, 247, 238, 0.92); /* Translucent cream frosted glass */
+  --bg-overlay: rgba(36, 28, 20, 0.65);  /* Deep warm umber scrim */
 
-  /* Borders & Dividers */
-  --border-subtle: #e2e8f0;
-  --border-medium: #cbd5e1;
-  --border-strong: #94a3b8;
-  --border-glow: rgba(37, 99, 235, 0.18);
+  /* Borders & Bookbinding Dividers */
+  --border-subtle: #e6dfce;      /* Soft deckle edge line */
+  --border-medium: #d4caa8;      /* Letterpress rule */
+  --border-strong: #a49782;      /* Archival binding rule */
+  --border-glow: rgba(148, 52, 25, 0.15); /* Warm terracotta / sealing wax halo */
 
-  /* Typography */
-  --text-primary: #0f172a;       /* Slate 900 */
-  --text-secondary: #334155;     /* Slate 700 */
-  --text-muted: #64748b;         /* Slate 500 */
-  --text-inverted: #f8fafc;
+  /* Typography (Archival Letterpress Carbon & Sepia Ink) */
+  --text-primary: #1e1915;       /* Deep warm letterpress carbon ink */
+  --text-secondary: #4a4034;     /* Rich sepia charcoal */
+  --text-muted: #786d5e;         /* Aged editorial stamp ink */
+  --text-inverted: #fdfbf7;      /* Warm ivory on dark seals */
 
-  /* Institutional Accents */
-  --accent-primary: #1d4ed8;     /* Royal Cobalt */
-  --accent-primary-hover: #1e40af;
-  --accent-primary-glow: rgba(29, 78, 216, 0.12);
+  /* Seafoam Green Brand & Institutional Accents */
+  --accent-primary: #1b6756;     /* Deep Seafoam Jade — rich, high-contrast & elegant on cream */
+  --accent-primary-hover: #144f42;
+  --accent-primary-glow: rgba(27, 103, 86, 0.18);
+  --accent-gradient-end: #32997f;/* Vibrant Seafoam Green */
+  --btn-primary-text: #ffffff;   /* Crisp white on seafoam button */
 
-  /* Sentinel Status Accents */
-  --threat-critical: #dc2626;    /* CORS 10.0 / Breakout Red */
-  --threat-critical-bg: #fef2f2;
-  --threat-critical-border: #fecaca;
+  /* Sentinel Status Accents (Mineral Pigments) */
+  --threat-critical: #991b1b;    /* Archival Carmine / Wax Seal Red */
+  --threat-critical-bg: #fdf1f1;
+  --threat-critical-border: #f8c8c8;
 
-  --threat-warning: #d97706;     /* Brittle Trap / High Compute Amber */
-  --threat-warning-bg: #fffbeb;
-  --threat-warning-border: #fde68a;
+  --threat-warning: #b45309;     /* Aged Amber / Burnt Honey */
+  --threat-warning-bg: #fdf7ec;
+  --threat-warning-border: #f9deb3;
 
-  --threat-sovereign: #059669;   /* Leontief Resilient Nordic Emerald */
-  --threat-sovereign-bg: #ecfdf5;
-  --threat-sovereign-border: #a7f3d0;
+  --threat-sovereign: #1b6756;   /* Seafoam Jade Sovereign */
+  --threat-sovereign-bg: #e8f5f1;
+  --threat-sovereign-border: #b4e3d7;
 
-  --threat-telemetry: #0284c7;   /* Speed / M2M Autonomy Cyan */
-  --threat-telemetry-bg: #f0f9ff;
-  --threat-telemetry-border: #bae6fd;
+  --threat-telemetry: #1d4e89;   /* Archival Indigo / Maritime Blue */
+  --threat-telemetry-bg: #eef5fb;
+  --threat-telemetry-border: #c3dcf2;
 
   /* Legacy Backward-Compatibility Aliases */
   --primary-color: var(--accent-primary);
@@ -58,10 +61,10 @@
   --warning-color: var(--threat-warning);
   --success-color: var(--threat-sovereign);
 
-  /* Elevation Shadows */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+  /* Elevation Shadows (Soft Warm Paper Cast) */
+  --shadow-sm: 0 1px 3px 0 rgba(45, 35, 25, 0.05);
+  --shadow-md: 0 4px 8px -1px rgba(45, 35, 25, 0.07), 0 2px 4px -2px rgba(45, 35, 25, 0.04);
+  --shadow-lg: 0 12px 20px -3px rgba(45, 35, 25, 0.09), 0 4px 6px -4px rgba(45, 35, 25, 0.04);
 }
 
 /* 2. DARK THEME (Obsidian Sentinel / Geopolitical Defense Radar) */
@@ -86,10 +89,12 @@
   --text-muted: #64748b;         /* Muted Radar Gray */
   --text-inverted: #0f172a;
 
-  /* Institutional Accents */
-  --accent-primary: #38bdf8;     /* Electric Sky Cyan */
-  --accent-primary-hover: #7dd3fc;
-  --accent-primary-glow: rgba(56, 189, 248, 0.2);
+  /* Luminous Seafoam Institutional Accents */
+  --accent-primary: #2dd4bf;     /* Luminous Seafoam Mint */
+  --accent-primary-hover: #5eead4;
+  --accent-primary-glow: rgba(45, 212, 191, 0.22);
+  --accent-gradient-end: #34d399;/* Mint Emerald */
+  --btn-primary-text: #061d17;   /* Deep pine text on luminous seafoam button */
 
   /* Sentinel Status Accents */
   --threat-critical: #f87171;    /* Phosphor Crimson */

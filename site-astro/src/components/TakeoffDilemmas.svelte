@@ -137,8 +137,8 @@
     font-weight: 700;
     letter-spacing: 0.12em;
     color: var(--accent-primary);
-    background: var(--threat-telemetry-bg);
-    border: 1px solid var(--threat-telemetry-border);
+    background: var(--threat-sovereign-bg);
+    border: 1px solid var(--threat-sovereign-border);
     padding: 0.25rem 0.75rem;
     border-radius: 9999px;
     margin-bottom: 0.75rem;

@@ -54,12 +54,13 @@
     ctx.save();
     ctx.scale(dpr, dpr);
 
-    // Background well
-    ctx.fillStyle = '#060911';
+    // Background well (Dynamic: Aged mechanical roll paper in light/cream mode vs obsidian well in dark mode)
+    const isPaperTheme = typeof document !== 'undefined' && (document.documentElement.getAttribute('data-theme') === 'light' || document.documentElement.getAttribute('data-theme') === 'paper');
+    ctx.fillStyle = isPaperTheme ? '#f0ebd9' : '#060911';
     ctx.fillRect(0, 0, width, height);
 
     // Grid lines (drum roll lines)
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.04)';
+    ctx.strokeStyle = isPaperTheme ? 'rgba(70, 50, 30, 0.08)' : 'rgba(255, 255, 255, 0.04)';
     ctx.lineWidth = 1;
     const gridStep = 40;
     const gridOffset = (offset * 0.8) % gridStep;
@@ -73,7 +74,7 @@
     const rowHeight = height / 3;
 
     // Baseline dividers
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+    ctx.strokeStyle = isPaperTheme ? 'rgba(70, 50, 30, 0.15)' : 'rgba(255, 255, 255, 0.08)';
     ctx.beginPath();
     ctx.moveTo(0, rowHeight);
     ctx.lineTo(width, rowHeight);
