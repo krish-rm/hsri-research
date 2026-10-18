@@ -1,6 +1,6 @@
 ﻿<script lang="ts">
   import { onMount } from 'svelte';
-  import { geoOrthographic, geoPath, geoDistance, type GeoProjection } from 'd3-geo';
+  import { geoOrthographic, geoPath, geoDistance, geoGraticule, type GeoProjection } from 'd3-geo';
   import { drag } from 'd3-drag';
   import { select } from 'd3-selection';
   import * as topojson from 'topojson-client';
@@ -77,7 +77,9 @@
   let hoverId: string | null = $state(null);
   let world: any = $state(null); // GeoJSON FeatureCollection
 
-  // Projection
+  // Projection & Graticule
+  const graticule = geoGraticule();
+
   let projection: GeoProjection = $derived.by(() => {
     const p = geoOrthographic()
       .rotate(rotation)
@@ -139,39 +141,45 @@
     ctx.save();
     ctx.scale(dpr, dpr);
 
-    // Ocean sphere
+    // Outer background matching card
     ctx.beginPath();
     const path: any = geoPath(projection, ctx);
-    // Outer glow / background
-    ctx.fillStyle = isDark ? '#0b1220' : '#eef3fb';
+    ctx.fillStyle = isDark ? '#080d17' : '#f7f2e5';
     ctx.fillRect(0, 0, width, height);
 
-    // Sphere fill
+    // Ocean Sphere Fill (Dark, high-contrast maritime depth)
     ctx.beginPath();
     // @ts-ignore
     path({ type: 'Sphere' });
-    ctx.fillStyle = isDark ? '#0f1e38' : '#dbeafe';
+    ctx.fillStyle = isDark ? '#0b1626' : '#142531';
     ctx.fill();
 
-    // Atmospheric rim
-    ctx.strokeStyle = isDark ? 'rgba(56,189,248,0.18)' : 'rgba(37,99,235,0.12)';
-    ctx.lineWidth = 1.2;
+    // Graticule (10-degree meridians and parallels)
+    ctx.beginPath();
+    // @ts-ignore
+    path(graticule());
+    ctx.strokeStyle = isDark ? 'rgba(45, 212, 191, 0.12)' : 'rgba(78, 175, 155, 0.20)';
+    ctx.lineWidth = 0.55;
     ctx.stroke();
 
-    // Graticule subtle
-    ctx.strokeStyle = isDark ? 'rgba(51,65,85,0.35)' : 'rgba(148,163,184,0.35)';
-    ctx.lineWidth = 0.5;
-
-    // Land
+    // Landmasses (Dark, defined continents with high contrast)
     if (world) {
       ctx.beginPath();
       path(world as any);
-      ctx.fillStyle = isDark ? '#1e293b' : '#e2e8f0';
+      ctx.fillStyle = isDark ? '#16283d' : '#223c4a';
       ctx.fill();
-      ctx.strokeStyle = isDark ? '#334155' : '#cbd5e1';
-      ctx.lineWidth = 0.6;
+      ctx.strokeStyle = isDark ? '#2e4868' : '#3d6375';
+      ctx.lineWidth = 0.75;
       ctx.stroke();
     }
+
+    // Atmospheric rim (Luminous seafoam atmospheric boundary)
+    ctx.beginPath();
+    // @ts-ignore
+    path({ type: 'Sphere' });
+    ctx.strokeStyle = isDark ? 'rgba(45, 212, 191, 0.45)' : 'rgba(35, 160, 135, 0.55)';
+    ctx.lineWidth = 1.8;
+    ctx.stroke();
 
     // Nodes — 39 sovereign points
     for (const c of countries) {
@@ -210,7 +218,7 @@
       ctx.shadowBlur = 0;
 
       // stroke
-      ctx.strokeStyle = isDark ? 'rgba(255,255,255,0.9)' : 'rgba(15,23,42,0.85)';
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.95)';
       ctx.lineWidth = isSelected ? 1.6 : 1;
       ctx.stroke();
 
@@ -219,10 +227,37 @@
         ctx.beginPath();
         ctx.arc(p[0], p[1], r + 5, 0, Math.PI * 2);
         ctx.strokeStyle = col;
-        ctx.lineWidth = 1.2;
+        ctx.lineWidth = 1.4;
         ctx.setLineDash([3, 3]);
         ctx.stroke();
         ctx.setLineDash([]);
+      }
+
+      // Hover / Selection label tag
+      if (isHover || isSelected) {
+        ctx.save();
+        ctx.font = '600 11px Inter, sans-serif';
+        const label = `${c.name} (${c.code.toUpperCase()})`;
+        const tw = ctx.measureText(label).width;
+        const lx = p[0];
+        const ly = p[1] - r - 10;
+        ctx.fillStyle = 'rgba(15, 23, 42, 0.90)';
+        const padX = 7;
+        const boxH = 20;
+        const boxW = tw + padX * 2;
+        const boxX = lx - boxW / 2;
+        const boxY = ly - boxH;
+        ctx.beginPath();
+        ctx.roundRect ? ctx.roundRect(boxX, boxY, boxW, boxH, 5) : ctx.rect(boxX, boxY, boxW, boxH);
+        ctx.fill();
+        ctx.strokeStyle = col;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+        ctx.fillStyle = '#ffffff';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(label, lx, boxY + boxH / 2);
+        ctx.restore();
       }
     }
     ctx.restore();
