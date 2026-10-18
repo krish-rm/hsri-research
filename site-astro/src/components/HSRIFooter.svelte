@@ -143,8 +143,10 @@
 
   .footer-title {
     margin: 0;
-    font-size: var(--font-size-base, 1rem);
+    font-family: var(--font-family-display, 'Boldonse', sans-serif);
+    font-size: 1.15rem;
     font-weight: 700;
+    letter-spacing: 0.03em;
     color: var(--primary-color, #1e293b);
     line-height: 1.3;
   }
@@ -170,10 +172,11 @@
 
   .nav-section h4 {
     margin: 0 0 var(--spacing-md, 0.875rem);
-    font-size: 0.8125rem;
+    font-family: var(--font-family-display, 'Boldonse', sans-serif);
+    font-size: 0.90rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.06em;
     color: var(--text-primary, #0f172a);
   }
 
@@ -190,7 +193,9 @@
   .nav-link {
     color: var(--text-secondary, #64748b);
     text-decoration: none;
-    font-size: 0.8125rem;
+    font-family: var(--font-family-display, 'Boldonse', sans-serif);
+    font-size: 0.88rem;
+    letter-spacing: 0.02em;
     transition: color 0.15s ease;
   }
 
@@ -206,10 +211,11 @@
 
   .contact-title {
     margin: 0;
-    font-size: 0.8125rem;
+    font-family: var(--font-family-display, 'Boldonse', sans-serif);
+    font-size: 0.90rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.06em;
     color: var(--text-primary, #0f172a);
   }
 
