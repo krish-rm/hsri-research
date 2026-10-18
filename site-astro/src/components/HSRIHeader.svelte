@@ -281,23 +281,7 @@
           {/if}
         </li>
 
-        <li class="mobile-nav-item mobile-theme-item">
-          <button type="button" class="mobile-theme-btn" on:click={toggleTheme}
-            aria-label={currentTheme === 'dark' ? 'Switch to Cream Paper' : 'Switch to Dark Mode'}
-            title={currentTheme === 'dark' ? 'Switch to Cream Paper' : 'Switch to Dark Mode'}>
-            {#if currentTheme === 'dark'}
-              <svg class="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1.3.5 2.6 1.5 3.5.8.8 1.3 1.5 1.5 2.5"/>
-                <path d="M9 18h6"/>
-                <path d="M10 22h4"/>
-              </svg>
-            {:else}
-              <svg class="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-              </svg>
-            {/if}
-          </button>
-        </li>
+
       </ul>
     </div>
   {/if}
@@ -510,13 +494,6 @@
     .mobile-sub-link:hover{ background: var(--bg-surface); }
     .mobile-sub-link span:first-child{ font-size: 0.92rem; font-weight: 600; }
     .sub-desc{ font-size: 0.75rem; color: var(--text-muted); }
-    .mobile-theme-item{ display: flex; justify-content: center; margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid var(--border-subtle); }
-    .mobile-theme-btn{
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 44px; height: 44px; padding: 0; border-radius: 8px;
-      background: var(--bg-surface-elevated); border: 1px solid var(--border-medium); color: var(--text-primary);
-      cursor: pointer; transition: all 0.2s ease;
-    }
-    .mobile-theme-btn:hover{ color: var(--accent-primary); border-color: var(--accent-primary); }
+
   }
 </style>
