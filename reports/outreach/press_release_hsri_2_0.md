@@ -2,9 +2,9 @@
 
 ### Media Contact:
 **HSRI Research Consortium Communications**  
-Email: `contact@hsri-research.org` | Web: [https://humanreadinessindex.org/](https://humanreadinessindex.org/)  
+Email: `contact@hsri-research.org` | Web: [https://humanityreadiness.org/](https://humanityreadiness.org/)  
 Permanent DOI: [`10.5281/zenodo.23441742`](https://doi.org/10.5281/zenodo.23441742)  
-Live Telemetry Portal: [https://humanreadinessindex.org/seismograph/](https://humanreadinessindex.org/seismograph/)  
+Live Telemetry Portal: [https://humanityreadiness.org/seismograph/](https://humanityreadiness.org/seismograph/)  
 
 ---
 
@@ -12,7 +12,7 @@ Live Telemetry Portal: [https://humanreadinessindex.org/seismograph/](https://hu
 
 **New 39-nation empirical benchmark reveals the United States, Singapore, and Hong Kong suffer catastrophic drops when audited for cognitive sovereignty rather than raw GPU adoption.**
 
-**LONDON / WASHINGTON / GENEVA &mdash; October 14, 2026** &mdash; The Human Superintelligence Readiness Index (HSRI) Research Consortium today announced the official release of **HSRI 2.0: The Sovereignty Sentinel & ASI Precursor Seismograph**, a comprehensive open-science evaluation framework and real-time telemetry dashboard measuring whether human societies can maintain sovereign control as artificial intelligence approaches superintelligent capabilities.
+**LONDON / WASHINGTON / GENEVA &mdash; October 14, 2026** &mdash; The Humanity Superintelligence Readiness Index (HSRI) Research Consortium today announced the official release of **HSRI 2.0: The Sovereignty Sentinel & ASI Precursor Seismograph**, a comprehensive open-science evaluation framework and real-time telemetry dashboard measuring whether human societies can maintain sovereign control as artificial intelligence approaches superintelligent capabilities.
 
 Synthesizing 780 harmonized national observations across 39 benchmark nations and real-time execution telemetry from seven frontier model families, the study challenges the consensus belief that compute density and AI adoption equal national preparedness.
 
@@ -32,7 +32,7 @@ According to the study's live seismograph:
 * Across 20,000 empirical oversight trials ($N=500$), human defect leakage reached **$18.06\%$**, proving that regulatory mandates for "Human-in-the-Loop" (such as EU AI Act Article 14) have degenerated into an administrative fiction of unreviewed rubber-stamping.
 
 ### Real-Time Precursor Seismograph
-Alongside the national rankings, HSRI has deployed the world's first public, real-time **ASI Precursor Seismograph** at `https://humanreadinessindex.org/seismograph/`. The dashboard monitors:
+Alongside the national rankings, HSRI has deployed the world's first public, real-time **ASI Precursor Seismograph** at `https://humanityreadiness.org/seismograph/`. The dashboard monitors:
 1. **The Autonomy Seismometer**: Tracking the Human Paper Trail Gap ($75.6\%$) and machine-to-machine financial execution ($63.6\%$).
 2. **The Latent Drift Detector**: Tracking steganographic token compression and multi-agent language drift.
 3. **The 14 Observable Singularity Tripwires**: Currently reporting a composite threat level of **8.44 / 10.0 (`CRITICAL_SUPERVISORY_COLLAPSE`)**.
@@ -42,9 +42,9 @@ Alongside the national rankings, HSRI has deployed the world's first public, rea
 *"Governments around the world have fallen into the trap of measuring the horsepower of the AI engine while failing to notice that the steering wheel has disconnected from the axle,"* said Krishnakumar Radhakrishnan, Lead Researcher of the HSRI Consortium. *"A society that runs its financial grids, defense telemetry, and legal decisions on autonomous algorithms that no single human has the cognitive bandwidth to verify is not advanced &mdash; it is epistemically naked. HSRI 2.0 provides the mathematical tools and real-time radar for nations to build sovereign cognitive fortresses before the recursive horizon closes."*
 
 ### Open Science Availability
-In accordance with open science principles, all datasets, econometric calculation scripts, psychometric batteries, and the production portal source code are citable under permanent DOI: **`10.5281/zenodo.23441742`** and publicly accessible at [https://humanreadinessindex.org/](https://humanreadinessindex.org/).
+In accordance with open science principles, all datasets, econometric calculation scripts, psychometric batteries, and the production portal source code are citable under permanent DOI: **`10.5281/zenodo.23441742`** and publicly accessible at [https://humanityreadiness.org/](https://humanityreadiness.org/).
 
 ### About HSRI Research
-The Human Superintelligence Readiness Index (HSRI) is an independent, non-dilutive open science research consortium investigating whether human cognitive, institutional, and civilizational sovereignty in the era of artificial superintelligence can be scientifically measured, monitored, and defended.
+The Humanity Superintelligence Readiness Index (HSRI) is an independent, non-dilutive open science research consortium investigating whether human cognitive, institutional, and civilizational sovereignty in the era of artificial superintelligence can be scientifically measured, monitored, and defended.
 
 ### ###

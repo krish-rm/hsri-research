@@ -191,7 +191,7 @@ ${facilitatorNotes || 'No custom facilitator observations recorded during this r
 
 ---
 
-*Human Superintelligence Readiness Index (HSRI 2.0) &bull; Verified Research Infrastructure &bull; CC BY-SA 4.0*
+*Humanity Superintelligence Readiness Index (HSRI 2.0) &bull; Verified Research Infrastructure &bull; CC BY-SA 4.0*
 `;
 
     const blob = new Blob([markdown], { type: 'text/markdown;charset=utf-8' });

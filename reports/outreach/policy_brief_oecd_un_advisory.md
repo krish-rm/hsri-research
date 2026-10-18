@@ -1,12 +1,12 @@
 # Executive Briefing: The Global Sovereignty Divide & Dual-Layer Non-Compensatory Benchmarking
 
 > **To**: OECD AI Policy Observatory (AIGO) & Secretariat, United Nations High-Level Advisory Body on Artificial Intelligence  
-> **From**: Krishnakumar Radhakrishnan, Lead Researcher, Human Superintelligence Readiness Index (HSRI) Consortium  
+> **From**: Krishnakumar Radhakrishnan, Lead Researcher, Humanity Superintelligence Readiness Index (HSRI) Consortium  
 > **Subject**: Addressing the Flaws of Linear Composite Benchmarks in Global AI Governance  
 > **Date**: October 2026  
 > **Classification**: Public Sovereign Briefing / Open Science Policy Submission  
 > **Permanent DOI**: [`10.5281/zenodo.23441742`](https://doi.org/10.5281/zenodo.23441742)  
-> **Full Benchmark**: [https://humanreadinessindex.org/](https://humanreadinessindex.org/)  
+> **Full Benchmark**: [https://humanityreadiness.org/](https://humanityreadiness.org/)  
 
 ---
 

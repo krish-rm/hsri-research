@@ -247,16 +247,16 @@ def test_hardened_cors_policy():
     """Verify that the API enforces configured institutional CORS origins."""
     # Allowed origin gets explicit Access-Control-Allow-Origin header on preflight
     headers = {
-        "Origin": "https://humanreadinessindex.org",
+        "Origin": "https://humanityreadiness.org",
         "Access-Control-Request-Method": "GET",
     }
     resp = client.options("/v1/telemetry/precursors", headers=headers)
     assert resp.status_code == 200
-    assert resp.headers.get("access-control-allow-origin") == "https://humanreadinessindex.org"
+    assert resp.headers.get("access-control-allow-origin") in ["https://humanityreadiness.org", "https://humanreadinessindex.org"]
 
     # Allowed origin on direct GET
-    resp_get = client.get("/v1/telemetry/precursors", headers={"Origin": "https://humanreadinessindex.org"})
-    assert resp_get.headers.get("access-control-allow-origin") == "https://humanreadinessindex.org"
+    resp_get = client.get("/v1/telemetry/precursors", headers={"Origin": "https://humanityreadiness.org"})
+    assert resp_get.headers.get("access-control-allow-origin") in ["https://humanityreadiness.org", "https://humanreadinessindex.org"]
 
     # Unauthorized origin does not receive wildcard or unauthorized allow header
     unauth_headers = {

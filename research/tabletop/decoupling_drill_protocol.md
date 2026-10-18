@@ -5,7 +5,7 @@
 > **Lead Author**: Krishnakumar Radhakrishnan (Lead Researcher, HSRI Research Consortium)  
 > **Target Audience**: National Security Cabinets, Critical Infrastructure Councils, Central Banks, Civil Defense Agencies  
 > **Permanent DOI**: [`10.5281/zenodo.23441742`](https://doi.org/10.5281/zenodo.23441742)  
-> **Interactive Simulation Portal**: [https://humanreadinessindex.org/research/decoupling-drill/](https://humanreadinessindex.org/research/decoupling-drill/)  
+> **Interactive Simulation Portal**: [https://humanityreadiness.org/research/decoupling-drill/](https://humanityreadiness.org/research/decoupling-drill/)  
 
 ---
 

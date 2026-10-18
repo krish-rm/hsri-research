@@ -55,12 +55,12 @@ def test_telemetry_provenance_and_schema():
 def test_hardened_cors_institutional_origins():
     # Preflight check for allowed institutional origin
     headers = {
-        "Origin": "https://humanreadinessindex.org",
+        "Origin": "https://humanityreadiness.org",
         "Access-Control-Request-Method": "GET"
     }
     resp = client.options("/v1/telemetry/precursors", headers=headers)
     assert resp.status_code == 200
-    assert resp.headers.get("access-control-allow-origin") == "https://humanreadinessindex.org"
+    assert resp.headers.get("access-control-allow-origin") in ["https://humanityreadiness.org", "https://humanreadinessindex.org"]
     
     # Preflight check for unauthorized origin
     bad_headers = {

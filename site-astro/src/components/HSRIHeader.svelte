@@ -128,7 +128,7 @@
         </svg>
         <div class="brand-text">
           <h1 class="site-title">HSRI</h1>
-          <p class="site-tagline">Human Superintelligence Readiness Index</p>
+          <p class="site-tagline">Humanity Superintelligence Readiness Index</p>
         </div>
       </a>
 

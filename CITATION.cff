@@ -1,10 +1,10 @@
 cff-version: 1.2.0
 message: "If you use HSRI data or methodology, please cite as below."
 type: dataset
-title: "Human Superintelligence Readiness Index (HSRI) 2.0: The Sovereignty Sentinel & ASI Precursor Seismograph"
+title: "Humanity Superintelligence Readiness Index (HSRI) 2.0: The Sovereignty Sentinel & ASI Precursor Seismograph"
 version: "2.0.0"
 date-released: "2026-10-13"
-url: "https://humanreadinessindex.org/"
+url: "https://humanityreadiness.org/"
 repository-code: "https://github.com/krish-rm/hsri-research"
 doi: "10.5281/zenodo.23441742"
 license: CC-BY-SA-4.0

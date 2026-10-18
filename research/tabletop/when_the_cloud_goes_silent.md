@@ -1,11 +1,11 @@
 # When the Cloud Goes Silent: Simulating Civilizational Decoupling Half-Life Under Sudden AI Cutoff
 
 > **Author**: Krishnakumar Radhakrishnan (Lead Researcher, HSRI Research Consortium)  
-> **Affiliation**: Human Superintelligence Readiness Index (HSRI) Research Consortium  
+> **Affiliation**: Humanity Superintelligence Readiness Index (HSRI) Research Consortium  
 > **Publication Type**: Empirical Whitepaper & Tabletop Simulation Study  
 > **Date**: October 2026  
 > **Permanent DOI**: [`10.5281/zenodo.23441742`](https://doi.org/10.5281/zenodo.23441742)  
-> **Interactive Simulation Portal**: [https://humanreadinessindex.org/research/decoupling-drill/](https://humanreadinessindex.org/research/decoupling-drill/)  
+> **Interactive Simulation Portal**: [https://humanityreadiness.org/research/decoupling-drill/](https://humanityreadiness.org/research/decoupling-drill/)  
 
 ---
 
@@ -113,4 +113,4 @@ Civilizational resilience is not measured by the speed at which you fly when the
 As we approach the threshold of Artificial Superintelligence, nations that fail to maintain sovereign decoupling capacity are building castles of glass upon foundations of sand.
 
 ---
-*Citation: Radhakrishnan, K. (2026). When the Cloud Goes Silent: Simulating Civilizational Decoupling Half-Life Under Sudden AI Cutoff. Human Superintelligence Readiness Index (HSRI 2.0). Zenodo. DOI: 10.5281/zenodo.23441742.*
+*Citation: Radhakrishnan, K. (2026). When the Cloud Goes Silent: Simulating Civilizational Decoupling Half-Life Under Sudden AI Cutoff. Humanity Superintelligence Readiness Index (HSRI 2.0). Zenodo. DOI: 10.5281/zenodo.23441742.*

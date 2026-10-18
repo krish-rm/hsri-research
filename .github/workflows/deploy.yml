@@ -44,7 +44,7 @@ jobs:
       - name: Ensure .nojekyll exists
         run: |
           touch site-astro/dist/.nojekyll
-          echo "humanreadinessindex.org" > site-astro/dist/CNAME
+          echo "humanityreadiness.org" > site-astro/dist/CNAME
 
       - name: Deploy to GitHub Pages (gh-pages branch)
         uses: peaceiris/actions-gh-pages@v4
@@ -60,7 +60,7 @@ jobs:
           python - <<'EOF'
           import urllib.request, sys, re, time
 
-          base_url = "https://humanreadinessindex.org/"
+          base_url = "https://humanityreadiness.org/"
           max_attempts = 8
 
           for attempt in range(max_attempts):
@@ -77,7 +77,7 @@ jobs:
                   monograph_ok = bool(re.search(r'href="[^"]*/monograph/', html))
 
                   checks = {
-                      "homepage_title_present": "Human Superintelligence Readiness Index" in html,
+                      "homepage_title_present": ("Humanity Superintelligence Readiness Index" in html or "Human Superintelligence Readiness Index" in html),
                       "monograph_link_present": monograph_ok,
                       "footer_methodology_present": footer_ok,
                       "coverage_link_present": coverage_ok,

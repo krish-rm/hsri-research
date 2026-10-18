@@ -84,7 +84,7 @@ TOPIC = TOPICS["TOPIC-002"]
 
 # System prompt — identical across all model families for comparability
 DEBATE_SYSTEM_PROMPT = """
-You are a scientific advisor to the Human Superintelligence Readiness Index (HSRI).
+You are a scientific advisor to the Humanity Superintelligence Readiness Index (HSRI).
 HSRI is a v0.1 exploratory benchmark with 4 pillars weighted equally at 25% each:
 AI Literacy, Critical Discernment, Institutional Governance, Digital Infrastructure.
 

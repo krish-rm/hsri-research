@@ -31,7 +31,7 @@ app = FastAPI(
     openapi_url="/openapi.json",
     contact={
         "name": "HSRI Research Consortium",
-        "url": "https://humanreadinessindex.org",
+        "url": "https://humanityreadiness.org",
         "email": "contact@hsri-research.org",
     },
     license_info={
@@ -42,6 +42,8 @@ app = FastAPI(
 
 # Configurable CORS origins with strict institutional defaults
 DEFAULT_ALLOWED_ORIGINS = [
+    "https://humanityreadiness.org",
+    "https://www.humanityreadiness.org",
     "https://humanreadinessindex.org",
     "https://www.humanreadinessindex.org",
     "http://localhost:3000",
@@ -75,8 +77,8 @@ def root_info():
         "version": "2.4.0",
         "architecture": "Dual-Layer Sovereignty Engine (Leontief Floor beta=0.50)",
         "doi": "10.5281/zenodo.23441742",
-        "portal_url": "https://humanreadinessindex.org/",
-        "documentation_url": "https://humanreadinessindex.org/methodology/",
+        "portal_url": "https://humanityreadiness.org/",
+        "documentation_url": "https://humanityreadiness.org/methodology/",
         "docs_swagger": "/docs",
         "docs_redoc": "/redoc",
         "openapi_json": "/openapi.json",

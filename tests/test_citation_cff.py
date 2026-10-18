@@ -29,9 +29,9 @@ def test_citation_cff_valid_schema():
 
     # Verify content
     assert data["cff-version"] == "1.2.0"
-    assert "Human Superintelligence Readiness Index" in data["title"]
+    assert any(n in data["title"] for n in ["Humanity Superintelligence Readiness Index", "Human Superintelligence Readiness Index"])
     assert any(v in data["version"] for v in ["0.2", "0.3", "1.0", "1.1", "2.0"])
-    assert data["url"] in ["https://krish-rm.github.io/hsri-research/", "https://humanreadinessindex.org/"]
+    assert data["url"] in ["https://krish-rm.github.io/hsri-research/", "https://humanreadinessindex.org/", "https://humanityreadiness.org/"]
     assert data["license"] == "CC-BY-SA-4.0"
     assert isinstance(data["authors"], list) and len(data["authors"]) >= 1
     assert "name" in data["authors"][0] or "family-names" in data["authors"][0]

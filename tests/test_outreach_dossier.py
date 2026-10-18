@@ -35,7 +35,7 @@ def test_long_form_article_content():
     assert "10.5281/zenodo.23441742" in content
     assert "Leontief Minimum Floor" in content or "Leontief" in content
     assert "Cognitive Oversight Richter Scale" in content or "CORS" in content
-    assert "humanreadinessindex.org" in content
+    assert any(d in content for d in ["humanityreadiness.org", "humanreadinessindex.org"])
     assert "Singapore" in content
     assert "Norway" in content
     assert "United States" in content

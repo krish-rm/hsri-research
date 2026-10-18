@@ -5,14 +5,14 @@
 **Date:** October 2026  
 **License:** Creative Commons Attribution-ShareAlike 4.0 International (CC-BY-SA-4.0)  
 **Permanent Repository:** https://github.com/krish-rm/hsri-research  
-**Web Portal:** https://humanreadinessindex.org/  
+**Web Portal:** https://humanityreadiness.org/  
 
 ---
 
 ## Authors & Collaborative Consortium
 **Krishnakumar Radhakrishnan**  
 *Lead Principal Investigator & Maintainer*  
-HSRI Research Consortium — https://humanreadinessindex.org/  
+HSRI Research Consortium — https://humanityreadiness.org/  
 Email: krishnakumar.rmenon@gmail.com  
 *Academic Citation Form:* Radhakrishnan, Krishnakumar (2026). *The Sovereign Human Agency Imperative: An Empirical Benchmark, Psychometric Foundation, and Transition Evidence Map for National Preparedness in the Era of Advanced AI*. HSRI-WP-2026-02 v1.1.0. DOI: [10.5281/zenodo.23441742](https://doi.org/10.5281/zenodo.23441742).  
 
@@ -26,7 +26,7 @@ Email: krishnakumar.rmenon@gmail.com
 ---
 
 ## Abstract
-As frontier artificial intelligence systems approach and surpass expert human performance across scientific, legal, financial, and administrative domains, existing policy frameworks remain fundamentally asymmetric: evaluating model capability through standardized technical benchmarks (SWE-bench, GPQA, FrontierMath) while remaining blind to societal, institutional, and cognitive readiness. We introduce the **Human Superintelligence Readiness Index (HSRI)**, a multi-tiered empirical benchmark, psychometric architecture, and transition evidence map quantifying national preparedness for advanced AI transitions. 
+As frontier artificial intelligence systems approach and surpass expert human performance across scientific, legal, financial, and administrative domains, existing policy frameworks remain fundamentally asymmetric: evaluating model capability through standardized technical benchmarks (SWE-bench, GPQA, FrontierMath) while remaining blind to societal, institutional, and cognitive readiness. We introduce the **Humanity Superintelligence Readiness Index (HSRI)**, a multi-tiered empirical benchmark, psychometric architecture, and transition evidence map quantifying national preparedness for advanced AI transitions. 
 
 This master working paper synthesizes the complete findings of HSRI Phases 0 through 11:
 1. **Macro Cross-National Composite Benchmark:** Harmonization of 780 empirical observations across 39 nations structured into four equal-weighted pillars (AI Literacy, Critical Discernment, Institutional Governance, Digital Infrastructure), governed by conservative structural missingness preservation rather than naive imputation.
@@ -55,7 +55,7 @@ When highly capable, autonomous generative systems are integrated into societies
 - **The Verification Latency Wedge:** Because generating a complex synthetically fluent output takes seconds while verifying its correctness mathematically or empirically takes minutes or hours, the human overseer faces an exponential backlog, inevitably collapsing oversight into rubber-stamping (Bansal et al., 2021).
 
 ### 1.2 Foundational Research Question
-To resolve this epistemic gap, the Human Superintelligence Readiness Index investigates:
+To resolve this epistemic gap, the Humanity Superintelligence Readiness Index investigates:
 > *As artificial intelligence advances from human-level domain competence toward radically superior capability, speed, autonomy, and multi-agent coordination, what structural safeguards preserve human agency, and what observable empirical indicators benchmark national readiness?*
 
 ---

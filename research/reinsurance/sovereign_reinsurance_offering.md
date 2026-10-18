@@ -20,7 +20,7 @@ As planetary critical infrastructure becomes structurally intertwined with front
 2. **The High-Compute Vulnerability Trap**: Economies that appear highest on traditional digital maturity indices (e.g. Singapore, Hong Kong, UAE, United States) are actually the most acutely vulnerable to catastrophic systemic collapse due to near-zero manual analog resilience ($T_{\text{half}} \le 28\text{h}$).
 3. **The Regulatory Solvency Mandate**: Solvency II and NAIC regulations require actuarial justification for systemic cyber and infrastructure capacity reserves.
 
-The **Human Superintelligence Readiness Index (HSRI 2.0)** provides the world's only empirical, continuous, dual-layer actuarial telemetry engine designed specifically to price, underwrite, and hedge systemic AI decoupling catastrophes.
+The **Humanity Superintelligence Readiness Index (HSRI 2.0)** provides the world's only empirical, continuous, dual-layer actuarial telemetry engine designed specifically to price, underwrite, and hedge systemic AI decoupling catastrophes.
 
 ---
 
@@ -75,7 +75,7 @@ All subscriptions are structured as annual enterprise telemetry and data license
 For institutional licensing, treaty underwriting calibrations, or air-gapped sovereign deployment:
 
 **Principal Investigator**: Krishnakumar Radhakrishnan  
-**Initiative**: Human Superintelligence Readiness Index (HSRI 2.0)  
-**Portal**: [https://humanreadinessindex.org/reinsurance/](https://humanreadinessindex.org/reinsurance/)  
-**Inquiries**: `licensing@humanreadinessindex.org`  
+**Initiative**: Humanity Superintelligence Readiness Index (HSRI 2.0)  
+**Portal**: [https://humanityreadiness.org/reinsurance/](https://humanityreadiness.org/reinsurance/)  
+**Inquiries**: `licensing@humanityreadiness.org`  
 **Academic & Research Inquiries**: [https://doi.org/10.5281/zenodo.23441742](https://doi.org/10.5281/zenodo.23441742)

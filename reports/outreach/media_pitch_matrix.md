@@ -2,7 +2,7 @@
 
 > **Release Campaign**: HSRI 2.0 &mdash; The Sovereignty Sentinel & Precursor Seismograph  
 > **Embargo**: Immediate / Open Science Release  
-> **Live Portal**: [https://humanreadinessindex.org/seismograph/](https://humanreadinessindex.org/seismograph/)  
+> **Live Portal**: [https://humanityreadiness.org/seismograph/](https://humanityreadiness.org/seismograph/)  
 > **Permanent DOI**: [`10.5281/zenodo.23441742`](https://doi.org/10.5281/zenodo.23441742)  
 
 ---
@@ -28,14 +28,14 @@ Dear Madhumita / John,
 
 While Wall Street and governments focus on GPU capital expenditure, an independent 39-nation empirical benchmark published today reveals a stark counter-truth: the world's most AI-dense economies are building fragile "glass fortresses."
 
-The **Human Superintelligence Readiness Index (HSRI 2.0)**, citable under permanent DOI `10.5281/zenodo.23441742`, applies non-compensatory Leontief minimum floor aggregation ($eta = 0.50$) across 780 national data points. The results flip conventional rankings upside down:
+The **Humanity Superintelligence Readiness Index (HSRI 2.0)**, citable under permanent DOI `10.5281/zenodo.23441742`, applies non-compensatory Leontief minimum floor aggregation ($eta = 0.50$) across 780 national data points. The results flip conventional rankings upside down:
 * **Singapore** drops from **#4 to #38** globally (Rank drop: -34).
 * The **United States** drops from **#15 to #36** (Rank drop: -21).
 * **Hong Kong** drops from **#20 to #39** (Rank drop: -19).
 
 In contrast, decentralized, institutional economies like **Norway (#1)**, **Finland (#2)**, **Germany (+9)**, and **Austria (+12)** lead the world in sovereign decoupling resilience.
 
-The full benchmark and interactive Civilizational Air-Gap simulator are live at `https://humanreadinessindex.org/seismograph/`. I would be delighted to walk you through the macroeconomic dataset or connect you with lead researcher Krishnakumar Radhakrishnan.
+The full benchmark and interactive Civilizational Air-Gap simulator are live at `https://humanityreadiness.org/seismograph/`. I would be delighted to walk you through the macroeconomic dataset or connect you with lead researcher Krishnakumar Radhakrishnan.
 
 Best regards,  
 HSRI Communications
@@ -53,7 +53,7 @@ Our team has measured the **Verification Latency Wedge**: the gap between machin
 
 In our trials across 20,000 operator oversight interactions ($N=500$), defect leakage reached **18.06%** as human review collapsed into 42-second rubber-stamping.
 
-The research paper and real-time precursor seismograph are live at `https://humanreadinessindex.org/`. Let me know if you would like an exclusive look at the underlying experimental stimulus batteries or code telemetry.
+The research paper and real-time precursor seismograph are live at `https://humanityreadiness.org/`. Let me know if you would like an exclusive look at the underlying experimental stimulus batteries or code telemetry.
 
 Best regards,  
 HSRI Communications

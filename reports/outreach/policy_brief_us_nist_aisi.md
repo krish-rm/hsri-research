@@ -1,12 +1,12 @@
 # Executive Briefing: Civilizational Decoupling Half-Life ($T_{\text{half}}$) of Critical U.S. Digital Infrastructure
 
 > **To**: Director, U.S. Artificial Intelligence Safety Institute (US AISI) / NIST & Office of Science and Technology Policy (OSTP)  
-> **From**: Krishnakumar Radhakrishnan, Lead Researcher, Human Superintelligence Readiness Index (HSRI) Consortium  
+> **From**: Krishnakumar Radhakrishnan, Lead Researcher, Humanity Superintelligence Readiness Index (HSRI) Consortium  
 > **Subject**: National Security Vulnerability: The High-Compute Fragility Trap & Decoupling Half-Life ($T_{\text{half}}$)  
 > **Date**: October 2026  
 > **Classification**: Public Sovereign Briefing / Open Science Policy Submission  
 > **Permanent DOI**: [`10.5281/zenodo.23441742`](https://doi.org/10.5281/zenodo.23441742)  
-> **Interactive Radar**: [https://humanreadinessindex.org/seismograph/](https://humanreadinessindex.org/seismograph/)  
+> **Interactive Radar**: [https://humanityreadiness.org/seismograph/](https://humanityreadiness.org/seismograph/)  
 
 ---
 
@@ -49,5 +49,5 @@ The United States is currently building a **Glass Fortress**: immense external o
 ## 3. Recommended Actions for US AISI & National Security Leadership
 
 1. **Establish Sovereign $T_{\text{half}} \ge 72\text{h}$ Standards:** Mandate that all tier-1 financial institutions (DTCC, Fedwire participants), defense contractors, and power grid operators maintain validated, offline, local-weight fallback systems capable of autonomous operation for 72 hours without cloud connectivity.
-2. **Stress-Test Zero-Notice Synthetic Contagion:** Implement regular national tabletop exercises simulating instant blackouts of frontier commercial model APIs. (See HSRI Civilizational Air-Gap Simulator at `humanreadinessindex.org/seismograph/`).
+2. **Stress-Test Zero-Notice Synthetic Contagion:** Implement regular national tabletop exercises simulating instant blackouts of frontier commercial model APIs. (See HSRI Civilizational Air-Gap Simulator at `humanityreadiness.org/seismograph/`).
 3. **Mitigate White-Collar Fiscal Fragility:** Model the macroeconomic exposure of federal and municipal revenues to rapid white-collar wage compression under autonomous SWE/analyst agent proliferation.

@@ -3,7 +3,7 @@
 > **Version**: `v2.4.0-EngineCore`  
 > **Archival DOI**: [`10.5281/zenodo.23441742`](https://doi.org/10.5281/zenodo.23441742)  
 > **OpenAPI Schema**: [`docs/api/openapi.json`](./openapi.json)  
-> **Live Portal**: [https://humanreadinessindex.org/](https://humanreadinessindex.org/)  
+> **Live Portal**: [https://humanityreadiness.org/](https://humanityreadiness.org/)  
 
 ---
 

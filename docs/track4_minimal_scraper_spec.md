@@ -177,7 +177,7 @@ LIVE_FEEDS = TELEMETRY_DIR / "live_feeds.jsonl"
 SUMMARY = TELEMETRY_DIR / "precursor_summary.json"
 
 TIMEOUT = 10
-HEADERS = {"User-Agent": "HSRI-Sentinel/2.5 (+https://humanreadinessindex.org)"}
+HEADERS = {"User-Agent": "HSRI-Sentinel/2.5 (+https://humanityreadiness.org)"}
 
 def utcnow(): return datetime.now(timezone.utc).isoformat().replace("+00:00","Z")
 
@@ -433,7 +433,7 @@ New component `site-astro/src/components/TelemetryUptimeBadge.svelte`:
 
 Place directly under the CORS gauge on `/seismograph`. Links to Actions run for auditability.
 
-Alternative zero-JS: Shields.io endpoint badge pointing at `https://humanreadinessindex.org/badges/telemetry-uptime.json` — but the Svelte component above is preferred (git-versioned, no external service).
+Alternative zero-JS: Shields.io endpoint badge pointing at `https://humanityreadiness.org/badges/telemetry-uptime.json` — but the Svelte component above is preferred (git-versioned, no external service).
 
 ---
 

@@ -1,8 +1,8 @@
 # HSRI 2.0 — The Sovereignty Sentinel: Master Execution Roadmap (Sprints 26–35)
 
-> **Program**: Human Superintelligence Readiness Index (HSRI)  
+> **Program**: Humanity Superintelligence Readiness Index (HSRI)  
 > **Evolution**: From "Capable AI Governance Benchmark" to "ASI Precursor Seismograph & Civilizational Sovereignty Sentinel"  
-> **Platform Asset**: [humanreadinessindex.org](https://humanreadinessindex.org)  
+> **Platform Asset**: [humanityreadiness.org](https://humanityreadiness.org)  
 > **Operating Model**: Lean Solopreneur (Zero burn, maximum leverage, high-impact external artifacts)  
 > **Date**: 2026-10-12  
 
@@ -14,7 +14,7 @@
 ┌──────────────────────────────────────────────────────────────────────────────────┐
 │                             HSRI 1.0 (Completed: Sprints 1–25)                   │
 │  "Capable AI Governance" • 39 OECD/High-Income Nations • P1–P4 Adoption Benchmark│
-│  135/135 Green Tests • JRC Econometric Audit • Live on humanreadinessindex.org  │
+│  135/135 Green Tests • JRC Econometric Audit • Live on humanityreadiness.org  │
 └────────────────────────────────────────┬─────────────────────────────────────────┘
                                          │
                                          ▼ PIVOT TO HSRI 2.0
@@ -126,7 +126,7 @@
 ---
 
 ### Sprint 30: Production Web Portal Upgrade — The "ASI Precursor Seismograph" Tab
-* **Objective:** Deploy the world's first interactive public Singularity Radar on [`humanreadinessindex.org`](https://humanreadinessindex.org).
+* **Objective:** Deploy the world's first interactive public Singularity Radar on [`humanityreadiness.org`](https://humanityreadiness.org).
 * **Frontend Upgrades (`site-astro`):**
   1. **New Route: `/seismograph/` (`site-astro/src/pages/seismograph.astro`):**
      * **The Cognitive Oversight Richter Scale (CORS) Live Gauge:** Displays current acceleration $a_{\text{wedge}}$ and active CORS rating.
@@ -163,7 +163,7 @@
 * **Tasks:**
   1. **Long-Form Publication (LinkedIn / Substack / X):**
      * Article Title: *"The Verification Illusion: Why America's GPU Boom is Building a Glass Fortress."*
-     * Embed live interactive widgets from `humanreadinessindex.org/seismograph/`.
+     * Embed live interactive widgets from `humanityreadiness.org/seismograph/`.
      * Tag high-impact thinkers: Leopold Aschenbrenner, Zvi Mowshowitz, Max Tegmark, Dan Hendrycks, Paul Christiano, and tech policy journalists (Financial Times, Wired, Politico Tech, MIT Technology Review).
   2. **Multilateral Policy Transmission:**
      * Transmit tailored executive briefs to:
@@ -185,7 +185,7 @@
      * Package the dual-layer aggregation and sensitivity engine into a clean, pip-installable Python package and lightweight REST API (`FastAPI` backend).
      * Capability: Allows external analysts (think tanks, national intelligence units, risk consultancies) to input private, classified, or proprietary infrastructure readiness scores and receive instantaneous JRC-compliant Leontief bottleneck audits and vulnerability ratings.
   2. **Developer Documentation:**
-     * Interactive OpenAPI / Swagger docs hosted at `api.humanreadinessindex.org`.
+     * Interactive OpenAPI / Swagger docs hosted at `api.humanityreadiness.org`.
 * **Deliverables:**
   * `hsri-engine` Dockerized and verified; test suite passing green.
 
@@ -205,7 +205,7 @@
   3. **Publish Whitepaper:**
      * *"When the Cloud Goes Silent: Simulating Civilizational Decoupling Half-Life Under Sudden AI Cutoff."*
 * **Deliverables:**
-  * Published report on `humanreadinessindex.org/research/decoupling-drill/`.
+  * Published report on `humanityreadiness.org/research/decoupling-drill/`.
 
 ---
 

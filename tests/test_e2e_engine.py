@@ -66,7 +66,7 @@ def test_e2e_root_metadata_endpoint():
     assert data["engine"] == "HSRI 2.0 Engine Core"
     assert data["status"] == "operational"
     assert data["doi"] == "10.5281/zenodo.23441742"
-    assert "https://humanreadinessindex.org/" in data["portal_url"]
+    assert any(u in data["portal_url"] for u in ["https://humanityreadiness.org/", "https://humanreadinessindex.org/"])
     assert "openapi_json" in data
 
 
@@ -234,12 +234,12 @@ def test_e2e_monte_carlo_sensitivity():
 def test_e2e_cors_allowed_origin():
     """Verify CORS preflight succeeds for authorized institutional domains."""
     headers = {
-        "Origin": "https://humanreadinessindex.org",
+        "Origin": "https://humanityreadiness.org",
         "Access-Control-Request-Method": "POST",
     }
     res = client.options("/v1/evaluate", headers=headers)
     assert res.status_code == 200
-    assert res.headers.get("access-control-allow-origin") == "https://humanreadinessindex.org"
+    assert res.headers.get("access-control-allow-origin") in ["https://humanityreadiness.org", "https://humanreadinessindex.org"]
 
 
 def test_e2e_cors_disallowed_origin():

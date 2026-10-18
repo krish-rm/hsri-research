@@ -1,12 +1,12 @@
 # Executive Briefing: The Cognitive Oversight Richter Scale (CORS) & Autonomous Verification Collapse
 
 > **To**: Leadership & Technical Research Directorate, UK AI Safety Institute (AISI) / DSIT  
-> **From**: Krishnakumar Radhakrishnan, Lead Researcher, Human Superintelligence Readiness Index (HSRI) Consortium  
+> **From**: Krishnakumar Radhakrishnan, Lead Researcher, Humanity Superintelligence Readiness Index (HSRI) Consortium  
 > **Subject**: Critical Flaw in Frontier Model Red-Teaming: The Empirical Verification Latency Wedge ($\Delta T_{\text{wedge}}$)  
 > **Date**: October 2026  
 > **Classification**: Public Sovereign Briefing / Open Science Policy Submission  
 > **Permanent DOI**: [`10.5281/zenodo.23441742`](https://doi.org/10.5281/zenodo.23441742)  
-> **Live Seismograph**: [https://humanreadinessindex.org/seismograph/](https://humanreadinessindex.org/seismograph/)  
+> **Live Seismograph**: [https://humanityreadiness.org/seismograph/](https://humanityreadiness.org/seismograph/)  
 
 ---
 
@@ -41,4 +41,4 @@ At this threshold, post-deployment human supervision collapses into an unverifie
 
 1. **Mandate Dynamic Latency-Wedge Evaluations:** Transition UK AISI safety evaluations from static capability thresholds (e.g. CBRN uplift, cyber capabilities) to dynamic *Verification Latency Ratios*. Models whose execution velocity exceeds certified human verification bandwidth by $>100\text{x}$ must be classified as *Level 4 Autonomy Hazards*.
 2. **Cognitive Forcing Functions in High-Stakes Deployments:** Legally require critical national infrastructure (CNI) deploying agentic workflows to implement automated latency buffers, preventing autonomous execution until formal multi-agent verification proofs are mathematically validated.
-3. **Adopt HSRI CORS 10.0 Telemetry:** Integrate the real-time CORS live gauge from `https://humanreadinessindex.org/seismograph/` into the UK AISI National AI Risk Assessment framework.
+3. **Adopt HSRI CORS 10.0 Telemetry:** Integrate the real-time CORS live gauge from `https://humanityreadiness.org/seismograph/` into the UK AISI National AI Risk Assessment framework.

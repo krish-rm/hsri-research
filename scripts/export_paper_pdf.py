@@ -191,7 +191,7 @@ li {{
 <body>
 {body}
 <div class="footer-notice">
-  Human Superintelligence Readiness Index (HSRI) 2.0 &bull; Permanent DOI: 10.5281/zenodo.23441742 &bull; License: CC BY-SA 4.0
+  Humanity Superintelligence Readiness Index (HSRI) 2.0 &bull; Permanent DOI: 10.5281/zenodo.23441742 &bull; License: CC BY-SA 4.0
 </div>
 </body>
 </html>

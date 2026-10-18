@@ -28,7 +28,7 @@ LIVE_FEEDS = TELEMETRY_DIR / "live_feeds.jsonl"
 SUMMARY = TELEMETRY_DIR / "precursor_summary.json"
 
 TIMEOUT = 10
-HEADERS = {"User-Agent": "HSRI-Sentinel/2.5 (+https://humanreadinessindex.org)"}
+HEADERS = {"User-Agent": "HSRI-Sentinel/2.5 (+https://humanityreadiness.org)"}
 
 
 def utcnow() -> str:

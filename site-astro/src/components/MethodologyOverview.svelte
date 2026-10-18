@@ -69,7 +69,7 @@
     {#if activeSection === 'overview'}
       <div class="overview-section">
         <h2>Methodological Framework</h2>
-        <p>The Human Superintelligence Readiness Index (HSRI) provides an empirical, cross-national benchmark measuring national preparedness for the deployment and impact of frontier artificial general intelligence and superintelligence. Grounded in quantitative social science and macroeconomic exposure modeling, HSRI assesses both institutional absorbers and societal buffers.</p>
+        <p>The Humanity Superintelligence Readiness Index (HSRI) provides an empirical, cross-national benchmark measuring national preparedness for the deployment and impact of frontier artificial general intelligence and superintelligence. Grounded in quantitative social science and macroeconomic exposure modeling, HSRI assesses both institutional absorbers and societal buffers.</p>
 
         <div class="principles-grid">
           <div class="principle-card">

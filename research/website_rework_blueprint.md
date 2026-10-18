@@ -9,7 +9,7 @@
 ## 1. Core Positioning & Communication Objective
 
 ### The Problem With the Previous Website
-The previous version of `humanreadinessindex.org` was frozen in early prototype statistics (`v0.1-preview`). It presented raw composite indices, Pearson correlations, and statistical normalizations that felt like a bureaucratic United Nations or OECD portal. An ordinary citizen, policy advisor, or risk officer landing on the site could not immediately understand what the project does or why it matters.
+The previous version of `humanityreadiness.org` was frozen in early prototype statistics (`v0.1-preview`). It presented raw composite indices, Pearson correlations, and statistical normalizations that felt like a bureaucratic United Nations or OECD portal. An ordinary citizen, policy advisor, or risk officer landing on the site could not immediately understand what the project does or why it matters.
 
 ### The New Human-Centered Mandate
 The reworked website inverts the presentation:

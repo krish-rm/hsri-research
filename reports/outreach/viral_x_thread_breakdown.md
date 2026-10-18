@@ -2,7 +2,7 @@
 
 > **Hook**: Why America's GPU boom is building a glass fortress.  
 > **Target Accounts for Tagging**: @sama @ylecun @tegmark @ESYudkowsky @natfriedman @pmarca @paulg @DanHendrycks @leopoldasch @karpathy @AISafetyInst  
-> **Interactive Radar**: `humanreadinessindex.org/seismograph/`  
+> **Interactive Radar**: `humanityreadiness.org/seismograph/`  
 > **Archival DOI**: `10.5281/zenodo.23441742`  
 
 ---
@@ -112,7 +112,7 @@ We built an interactive **Civilizational Air-Gap Decoupling Simulator** on the l
 
 Select any nation and simulate a 72-hour zero-notice synthetic network blackout. See who survives and who collapses:
 
-👉 https://humanreadinessindex.org/seismograph/
+👉 https://humanityreadiness.org/seismograph/
 
 ---
 
@@ -122,6 +122,6 @@ HSRI 2.0 is 100% open-science, fully reproducible, and citable under permanent D
 185/185 unit tests green. 780 national observations. Zero corporate sponsors.
 
 Read the Manifesto: "The Verification Illusion"
-Explore the Seismograph: https://humanreadinessindex.org/
+Explore the Seismograph: https://humanityreadiness.org/
 
 RT if you agree we must audit sovereignty, not just FLOPs. 🛡️⚡

@@ -1,7 +1,7 @@
 {
   "name": "site-astro",
   "version": "1.0.0",
-  "description": "Human Superintelligence Readiness Index - Interactive Website",
+  "description": "Humanity Superintelligence Readiness Index - Interactive Website",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",

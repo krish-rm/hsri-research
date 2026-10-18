@@ -7,6 +7,6 @@ export default defineConfig({
   build: {
     format: 'directory',
   },
-  site: 'https://humanreadinessindex.org',
+  site: 'https://humanityreadiness.org',
   base: '/',
 });

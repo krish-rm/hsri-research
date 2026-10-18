@@ -20,7 +20,7 @@
   // Curated channels (zero github links)
   const socialLinks = [
     { name: 'X / Twitter', href: 'https://twitter.com/hsri_research', icon: 'twitter' },
-    { name: 'Research Inquiries', href: 'mailto:contact@humanreadinessindex.org', icon: 'email' },
+    { name: 'Research Inquiries', href: 'mailto:contact@humanityreadiness.org', icon: 'email' },
   ];
 </script>
 
@@ -36,7 +36,7 @@
             <circle cx="20" cy="20" r="8" fill="var(--bg-canvas, #fbf7ee)"/>
           </svg>
           <div>
-            <h3 class="footer-title">Human Superintelligence Readiness Index</h3>
+            <h3 class="footer-title">Humanity Superintelligence Readiness Index</h3>
             <p class="footer-tagline">Open Research Consortium &middot; Permanent DOI: 10.5281/zenodo.23441742</p>
           </div>
         </div>
@@ -74,8 +74,8 @@
         <p class="contact-description">
           For institutional briefings, data validation, or academic collaboration:
         </p>
-        <a href="mailto:contact@humanreadinessindex.org" class="contact-link">
-          contact@humanreadinessindex.org
+        <a href="mailto:contact@humanityreadiness.org" class="contact-link">
+          contact@humanityreadiness.org
         </a>
 
         <!-- Social links -->

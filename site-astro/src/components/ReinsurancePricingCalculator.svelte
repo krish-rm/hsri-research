@@ -259,7 +259,7 @@ ${reinsuranceData.underwriting_guidelines.map((g, idx) => `#### Condition ${idx 
             {/each}
           </ul>
 
-          <a href="mailto:licensing@humanreadinessindex.org?subject=HSRI%20{encodeURIComponent(tier.name)}%20Inquiry" class="tier-cta" class:primary={tierKey === 'tier_2_reinsurance_underwriting'}>
+          <a href="mailto:licensing@humanityreadiness.org?subject=HSRI%20{encodeURIComponent(tier.name)}%20Inquiry" class="tier-cta" class:primary={tierKey === 'tier_2_reinsurance_underwriting'}>
             Request License Dossier
           </a>
         </div>

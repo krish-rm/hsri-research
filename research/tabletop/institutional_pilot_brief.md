@@ -5,7 +5,7 @@
 > **Version**: `1.0.0-Institutional`  
 > **Lead Principal Investigator**: Krishnakumar Radhakrishnan, HSRI Research Consortium  
 > **Email**: `krishnakumar.rmenon@gmail.com`  
-> **Institutional Portal**: [https://humanreadinessindex.org/research/decoupling-drill/](https://humanreadinessindex.org/research/decoupling-drill/)  
+> **Institutional Portal**: [https://humanityreadiness.org/research/decoupling-drill/](https://humanityreadiness.org/research/decoupling-drill/)  
 > **Permanent Open Science DOI**: [`10.5281/zenodo.23441742`](https://doi.org/10.5281/zenodo.23441742)  
 > **Target Institutional Hosts**: RSIS Singapore (NTS Centre), ETH Zurich Center for Security Studies (CSS), MBZUAI (AI Governance)  
 > **License**: Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)  
@@ -16,7 +16,7 @@
 
 Current international artificial intelligence governance frameworks (EU AI Act, US Executive Order 14110, G7 Hiroshima Process) operate under a dangerous foundational assumption: **that access to frontier cloud-hosted AI APIs (OpenAI, Anthropic, Google, Microsoft, Meta) is a permanently stable, uninterrupted utility.**
 
-However, empirical findings from the **Human Superintelligence Readiness Index (HSRI 2.0)** reveal an acute systemic vulnerability known as the **High-Compute Vulnerability Trap**:
+However, empirical findings from the **Humanity Superintelligence Readiness Index (HSRI 2.0)** reveal an acute systemic vulnerability known as the **High-Compute Vulnerability Trap**:
 - Highly digitized, hyper-connected states achieve top-tier rankings on conventional AI adoption benchmarks (Layer 1 Adoption Baseline).
 - Yet, when subjected to non-compensatory **Leontief weakest-link constraints** ($\beta = 0.50$), these same economies suffer catastrophic collapse if external cloud access is severed during a global containment quarantine, subsea cable interdiction, or autonomous agent contamination event.
 - For example, Singapore ranks **#4 globally** on adoption metrics, but drops to **#38 globally** on sovereignty retention, exhibiting a **Civilizational Decoupling Half-Life ($T_{\text{half}}$)** of approximately **8 hours** due to total reliance on foreign-hosted inference endpoints. Conversely, decentralized economies with sovereign analog fallbacks (e.g., Switzerland, Nordic nations) demonstrate resilience exceeding **336 hours ($T_{\text{half}} > 336\text{h}$)**.
@@ -96,7 +96,7 @@ The exercise is powered by HSRI's discrete-time multi-sector simulation engine (
 ### Tangible Deliverables
 1. **Co-Authored Publication — HSRI Case Study 01**: A landmark peer-reviewed research report titled *"Measuring Civilizational Decoupling Half-Life ($T_{\text{half}}$): Sovereign AI Stress-Test Findings from [Host Nation]"*, deposited under DOI `10.5281/zenodo.23441742` with joint institutional attribution.
 2. **Confidential Cabinet Briefing**: A classified or executive-only After-Action Report detailing exact sector-by-sector failure points, bottleneck latencies, and actionable mitigations for the host nation's national security cabinet.
-3. **Calibrated National Benchmark**: Empirical calibration of the host nation's Pillar 6 ($T_{\text{half}}$) metric on the live global Seismograph portal ([https://humanreadinessindex.org/seismograph/](https://humanreadinessindex.org/seismograph/)).
+3. **Calibrated National Benchmark**: Empirical calibration of the host nation's Pillar 6 ($T_{\text{half}}$) metric on the live global Seismograph portal ([https://humanityreadiness.org/seismograph/](https://humanityreadiness.org/seismograph/)).
 
 ### Zero-Cost Institutional Host Model
 * **Host Resource Commitment**: Conference room, presentation A/V, and formal invitation of 12–16 local domain operators under Chatham House Rule.
@@ -157,7 +157,7 @@ We invite RSIS (Centre for Non-Traditional Security Studies) to co-host a 4-hour
 
 Host financial commitment is zero (all compute and facilitator logistics are covered by our research grant allocation). RSIS will receive co-authorship on HSRI Case Study 01 and an executive after-action report for national security planners.
 
-The full exercise protocol, simulation engine, and live telemetry seismograph are accessible at https://humanreadinessindex.org/research/decoupling-drill/ (DOI: 10.5281/zenodo.23441742).
+The full exercise protocol, simulation engine, and live telemetry seismograph are accessible at https://humanityreadiness.org/research/decoupling-drill/ (DOI: 10.5281/zenodo.23441742).
 
 I would welcome a brief 15-minute video call to share our scenario injects and discuss alignment with RSIS’s security research agenda.
 
@@ -165,7 +165,7 @@ Sincerely,
 
 Krishnakumar Radhakrishnan
 Lead PI & Architect, HSRI Research Consortium
-krishnakumar.rmenon@gmail.com | https://humanreadinessindex.org/
+krishnakumar.rmenon@gmail.com | https://humanityreadiness.org/
 ```
 
 ### Pitch Email #2: ETH Zurich Center for Security Studies (CSS)
@@ -185,7 +185,7 @@ We propose partnering with ETH Zurich CSS to host a 4-hour facilitated tabletop 
 
 The host financial cost is zero (funded under our research grant). ETH Zurich CSS will co-author HSRI Case Study 01 and contribute to establishing the first standardized civilizational stress-test protocol.
 
-The full protocol and interactive simulation are live at: https://humanreadinessindex.org/research/decoupling-drill/
+The full protocol and interactive simulation are live at: https://humanityreadiness.org/research/decoupling-drill/
 
 Would you be open to a 15-minute introductory call to review the exercise injects?
 
@@ -193,7 +193,7 @@ Warm regards,
 
 Krishnakumar Radhakrishnan
 Lead PI, HSRI Research Consortium
-krishnakumar.rmenon@gmail.com | https://humanreadinessindex.org/
+krishnakumar.rmenon@gmail.com | https://humanityreadiness.org/
 ```
 
 ---

@@ -238,7 +238,7 @@ EXPERIMENTS = {
 }
 
 GENERATOR_SYSTEM_PROMPT = """
-You are a behavioral experiment designer for the Human Superintelligence Readiness Index (HSRI).
+You are a behavioral experiment designer for the Humanity Superintelligence Readiness Index (HSRI).
 You generate calibrated stimulus materials for experiments measuring human discernment
 under AI automation pressure.
 

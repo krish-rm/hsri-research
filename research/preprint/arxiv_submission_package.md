@@ -24,10 +24,10 @@ The Sovereign Human Agency Imperative: An Empirical Benchmark, Psychometric Foun
 *Advisory acknowledgment (not co-authors):* Frontier Multi-Agent Deliberative Ensemble (Anthropic Claude, OpenAI GPT-4o, Google Gemini, xAI Grok, DeepSeek-V2.5, Alibaba Qwen, Zhipu GLM-4) — disclosed in author note per arXiv policy.
 
 ### Affiliation line
-Human Superintelligence Readiness Institute (HSRI), Independent Research Consortium — https://humanreadinessindex.org
+Human Superintelligence Readiness Institute (HSRI), Independent Research Consortium — https://humanityreadiness.org
 
 ### Abstract (198 words — copy-paste to arXiv)
-> Existing AI safety governance evaluates model capability through standardized technical benchmarks (SWE-bench, GPQA, FrontierMath) while remaining blind to societal, institutional, and cognitive readiness to oversee systems that meet or exceed human expertise. We introduce the Human Superintelligence Readiness Index (HSRI), a multi-tiered empirical benchmark, psychometric architecture, and transition evidence map quantifying national preparedness for advanced AI transitions.
+> Existing AI safety governance evaluates model capability through standardized technical benchmarks (SWE-bench, GPQA, FrontierMath) while remaining blind to societal, institutional, and cognitive readiness to oversee systems that meet or exceed human expertise. We introduce the Humanity Superintelligence Readiness Index (HSRI), a multi-tiered empirical benchmark, psychometric architecture, and transition evidence map quantifying national preparedness for advanced AI transitions.
 >
 > HSRI harmonizes 780 empirical observations across 39 nations into four pillars (AI Literacy, Critical Discernment, Institutional Governance, Digital Infrastructure) with strict NaN preservation (no naive imputation), validated under the OECD/JRC (2008) composite indicator handbook (condition number 22.59; $B$=1,000 Dirichlet perturbations, Kendall $W$=0.9986). A nine-paradigm behavioral battery ($N$=1,080) establishes a four-factor latent structure (CFA: $\chi^2(234)$=312.45, RMSEA=0.038, CFI=0.976) with incremental validity $\Delta R^2$=+0.487 over IQ/education, full scalar invariance across four global cohorts ($\Delta$CFI=-0.004, 100% Category A DIF), and 30-day stability $r_{tt}$=0.918.
 >
@@ -40,7 +40,7 @@ artificial intelligence governance, superintelligence readiness, verification la
 **Primary:** cs.CY — **Cross-list:** cs.AI — **Optional second cross:** stat.AP (Applications) if you want econometric reviewers
 
 ### Comments field (arXiv)
-39-nation harmonized benchmark (780 obs, 17 indicators, 96.5% completeness); 9 behavioral paradigms ($N$=1,080); psychometric CFA/MGCFA/longitudinal validation; OECD/JRC 7-step audit; 4 aggregation families with Dirichlet $B$=1,000 audit; 26 transition scenarios; 14-precursor seismograph; 336h decoupling simulator. Code, data, portal: https://github.com/krish-rm/hsri-research — Permanent DOI: 10.5281/zenodo.23441742 — 52-page Astro portal: https://humanreadinessindex.org — License: CC BY-SA 4.0.
+39-nation harmonized benchmark (780 obs, 17 indicators, 96.5% completeness); 9 behavioral paradigms ($N$=1,080); psychometric CFA/MGCFA/longitudinal validation; OECD/JRC 7-step audit; 4 aggregation families with Dirichlet $B$=1,000 audit; 26 transition scenarios; 14-precursor seismograph; 336h decoupling simulator. Code, data, portal: https://github.com/krish-rm/hsri-research — Permanent DOI: 10.5281/zenodo.23441742 — 52-page Astro portal: https://humanityreadiness.org — License: CC BY-SA 4.0.
 
 ### Journal-ref field (leave blank at deposit; update after submission)
 Intended submission: *Nature Machine Intelligence* or *Journal of Artificial Intelligence Research (JAIR)* — full manuscript available as HSRI-WP-2026-02 v1.1.0
@@ -51,8 +51,8 @@ CC BY-SA 4.0 (matches repo LICENSE + Zenodo) — arXiv: `cc-by-sa-4.0`
 ### Related identifiers to declare on arXiv
 - https://doi.org/10.5281/zenodo.23441742 (dataset/software — Zenodo)
 - https://github.com/krish-rm/hsri-research (supplement)
-- https://humanreadinessindex.org (portal)
-- https://humanreadinessindex.org/seismograph/ (telemetry)
+- https://humanityreadiness.org (portal)
+- https://humanityreadiness.org/seismograph/ (telemetry)
 
 ---
 
@@ -81,7 +81,7 @@ Counter-consensus theoretical companion to HSRI Working Paper v1.1.0 (HSRI-WP-20
 >
 > **What it is not:** We do not claim realized ASI observations. All synthetic multi-agent experiments are explicitly labeled `CLASS: SYNTHETIC_EXPERIMENT_SIMULATION` per governance Rule 12 and serve as computational stress-tests.
 >
-> **Reproducibility:** All data, code, and portal are open (CC BY-SA 4.0) at https://github.com/krish-rm/hsri-research, archived at Zenodo DOI 10.5281/zenodo.23441742, with live portal https://humanreadinessindex.org and 217 automated tests.
+> **Reproducibility:** All data, code, and portal are open (CC BY-SA 4.0) at https://github.com/krish-rm/hsri-research, archived at Zenodo DOI 10.5281/zenodo.23441742, with live portal https://humanityreadiness.org and 217 automated tests.
 >
 > We confirm this is original work by Krishnakumar Radhakrishnan (HSRI Research Consortium), that the multi-agent ensemble is an advisory auditing mechanism disclosed in the author note (not co-authors), and that the manuscript has not been published elsewhere.
 >
@@ -118,6 +118,6 @@ Counter-consensus theoretical companion to HSRI Working Paper v1.1.0 (HSRI-WP-20
 
 ## 7. SSRN One-Paragraph Abstract (reuse Paper A abstract truncated to 1,200 chars)
 
-Use same abstract as Paper A but truncate after "...Leontief $\beta$=0.50, Choquet 2-additive) and expose High-Compute Vulnerability Traps." Add line: "Open data, code, and live portal at humanreadinessindex.org — DOI 10.5281/zenodo.23441742."
+Use same abstract as Paper A but truncate after "...Leontief $\beta$=0.50, Choquet 2-additive) and expose High-Compute Vulnerability Traps." Add line: "Open data, code, and live portal at humanityreadiness.org — DOI 10.5281/zenodo.23441742."
 
 **SSRN keywords:** AI Governance, Composite Indicators, Psychometrics, AI Safety, Regulation, Risk Management

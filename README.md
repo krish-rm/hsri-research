@@ -1,4 +1,4 @@
-# Human Superintelligence Readiness Index (HSRI) 2.0
+# Humanity Superintelligence Readiness Index (HSRI) 2.0
 ### The Sovereignty Sentinel & ASI Precursor Seismograph
 
 A public, citable, version-controlled research repository and static documentation website investigating whether human psychological, cognitive, and civilizational sovereignty in the era of Artificial Superintelligence can be scientifically measured, monitored, and defended.
@@ -12,7 +12,7 @@ A public, citable, version-controlled research repository and static documentati
 
 ## Operational Definition & The Dual-Layer Architecture
 
-The Human Superintelligence Readiness Index (HSRI) establishes a rigorous dual-layer foundation:
+The Humanity Superintelligence Readiness Index (HSRI) establishes a rigorous dual-layer foundation:
 
 > **Layer 1 (Adoption Baseline):** The demonstrated behavioral capacity of individuals, organizations, and nations to maintain calibrated trust, independent discernment, and institutional oversight when interacting with task-specific AI systems whose performance meets or exceeds their own.
 >
@@ -24,16 +24,16 @@ Readiness cannot be compensated by raw economic capital or digital infrastructur
 
 ## Documentation and Live Web Portal
 
-- **Live Web Portal:** [https://humanreadinessindex.org/](https://humanreadinessindex.org/)
-- **The ASI Precursor Seismograph (Real-Time Telemetry & Seismogram):** [https://humanreadinessindex.org/seismograph/](https://humanreadinessindex.org/seismograph/)
-- **3D Sovereign Globe & Country Index:** [https://humanreadinessindex.org/countries/](https://humanreadinessindex.org/countries/)
-- **Monograph ("The Verification Illusion"):** [https://humanreadinessindex.org/monograph/](https://humanreadinessindex.org/monograph/)
+- **Live Web Portal:** [https://humanityreadiness.org/](https://humanityreadiness.org/)
+- **The ASI Precursor Seismograph (Real-Time Telemetry & Seismogram):** [https://humanityreadiness.org/seismograph/](https://humanityreadiness.org/seismograph/)
+- **3D Sovereign Globe & Country Index:** [https://humanityreadiness.org/countries/](https://humanityreadiness.org/countries/)
+- **Monograph ("The Verification Illusion"):** [https://humanityreadiness.org/monograph/](https://humanityreadiness.org/monograph/)
 - **Sovereignty Manifesto v2.0:** [docs/manifesto_v2.0_the_verification_illusion.md](docs/manifesto_v2.0_the_verification_illusion.md)
 - **Master Working Paper (v1.1.0):** [research/preprint/working-paper-v1.1.0.md](research/preprint/working-paper-v1.1.0.md)
 - **Grant Application (LTFF / Open Philanthropy):** [reports/grant-proposals/ltff_grant_hsri_2_0.md](reports/grant-proposals/ltff_grant_hsri_2_0.md)
-- **ASI Transition Evidence Map & Scenarios:** [https://humanreadinessindex.org/scenarios/](https://humanreadinessindex.org/scenarios/)
-- **Civilizational Decoupling Drill (Interactive Simulator):** [https://humanreadinessindex.org/research/decoupling-drill/](https://humanreadinessindex.org/research/decoupling-drill/)
-- **Reinsurance Risk Underwriting Portal:** [https://humanreadinessindex.org/reinsurance/](https://humanreadinessindex.org/reinsurance/)
+- **ASI Transition Evidence Map & Scenarios:** [https://humanityreadiness.org/scenarios/](https://humanityreadiness.org/scenarios/)
+- **Civilizational Decoupling Drill (Interactive Simulator):** [https://humanityreadiness.org/research/decoupling-drill/](https://humanityreadiness.org/research/decoupling-drill/)
+- **Reinsurance Risk Underwriting Portal:** [https://humanityreadiness.org/reinsurance/](https://humanityreadiness.org/reinsurance/)
 - **Flagship Annual Report ("State of Human Sovereignty 2027"):** [reports/annual_report_2027.md](reports/annual_report_2027.md)
 - **Actuarial Underwriting Framework:** [research/reinsurance/actuarial_underwriting_framework.md](research/reinsurance/actuarial_underwriting_framework.md)
 - **Commercial Reinsurance Offering:** [research/reinsurance/sovereign_reinsurance_offering.md](research/reinsurance/sovereign_reinsurance_offering.md)
@@ -41,7 +41,7 @@ Readiness cannot be compensated by raw economic capital or digital infrastructur
 - **Peer-Review Rebuttals & Anticipated Objections:** [research/preprint/anticipated_objections_rebuttal.md](research/preprint/anticipated_objections_rebuttal.md)
 - **Decoupling Protocol Manual & Crisis Injects:** [research/tabletop/decoupling_drill_protocol.md](research/tabletop/decoupling_drill_protocol.md)
 - **Whitepaper ("When the Cloud Goes Silent"):** [research/tabletop/when_the_cloud_goes_silent.md](research/tabletop/when_the_cloud_goes_silent.md)
-- **Behavioral Laboratory & Latency Wedge Simulator:** [https://humanreadinessindex.org/experiments/](https://humanreadinessindex.org/experiments/)
+- **Behavioral Laboratory & Latency Wedge Simulator:** [https://humanityreadiness.org/experiments/](https://humanityreadiness.org/experiments/)
 
 ---
 
@@ -156,7 +156,7 @@ If you cite this repository or research report in academic, policy, or technical
 ```bibtex
 @misc{hsri_research_2026,
   author       = {HSRI Research Consortium},
-  title        = {The Human Superintelligence Readiness Index (HSRI 2.0): The Sovereignty Sentinel & ASI Precursor Seismograph},
+  title        = {The Humanity Superintelligence Readiness Index (HSRI 2.0): The Sovereignty Sentinel & ASI Precursor Seismograph},
   year         = {2026},
   version      = {v2.0.0},
   publisher    = {Zenodo / GitHub},
@@ -166,4 +166,4 @@ If you cite this repository or research report in academic, policy, or technical
 ```
 
 Text format:
-> HSRI Research Consortium. (2026). *The Human Superintelligence Readiness Index (HSRI 2.0): The Sovereignty Sentinel & ASI Precursor Seismograph* (Version 2.0.0) [Dataset and Software]. Zenodo. https://doi.org/10.5281/zenodo.23441742.
+> HSRI Research Consortium. (2026). *The Humanity Superintelligence Readiness Index (HSRI 2.0): The Sovereignty Sentinel & ASI Precursor Seismograph* (Version 2.0.0) [Dataset and Software]. Zenodo. https://doi.org/10.5281/zenodo.23441742.

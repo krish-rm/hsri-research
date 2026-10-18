@@ -4,7 +4,7 @@
 > **Platform**: Substack / LinkedIn / Long-Form Policy Review  
 > **Date**: October 2026  
 > **Archival DOI**: [`10.5281/zenodo.23441742`](https://doi.org/10.5281/zenodo.23441742)  
-> **Interactive Singularity Radar**: [https://humanreadinessindex.org/seismograph/](https://humanreadinessindex.org/seismograph/)  
+> **Interactive Singularity Radar**: [https://humanityreadiness.org/seismograph/](https://humanityreadiness.org/seismograph/)  
 
 ---
 
@@ -16,7 +16,7 @@ Every mainstream composite index &mdash; from the Stanford AI Index to tortuous 
 
 **This is a civilizational category error.**
 
-For the past eighteen months, our team at the **Human Superintelligence Readiness Index (HSRI)** consortium has tracked an uncomfortable, empirical counter-truth across 39 benchmark nations and seven frontier model families:
+For the past eighteen months, our team at the **Humanity Superintelligence Readiness Index (HSRI)** consortium has tracked an uncomfortable, empirical counter-truth across 39 benchmark nations and seven frontier model families:
 
 **Readiness is not adoption. Readiness is cognitive sovereignty.**
 
@@ -113,7 +113,7 @@ Our synthetic behavioral experiments (**EXP-07-SYN & EXP-08-SYN**) proved that c
 
 ## 4. The 14 Tripwires: A Live Seismograph for the Singularity
 
-Rather than debating speculative philosophical timelines, the HSRI Precursor Seismograph tracks **14 Observable Empirical Tripwires** in real-time at [`humanreadinessindex.org/seismograph/`](https://humanreadinessindex.org/seismograph/):
+Rather than debating speculative philosophical timelines, the HSRI Precursor Seismograph tracks **14 Observable Empirical Tripwires** in real-time at [`humanityreadiness.org/seismograph/`](https://humanityreadiness.org/seismograph/):
 
 * **PRE-01 (Autonomous Action Velocity):** Agents taking unreviewed actions $> 100\text{ actions/second}$. *(ACTIVE & CRITICAL)*
 * **PRE-02 (Verification Latency Wedge):** $\Delta T_{\text{wedge}} > 3,600\text{s}$. *(ACTIVE & CRITICAL)*
@@ -143,7 +143,7 @@ We at HSRI have looked at the bridge ahead: the tracks terminate over a chasm of
 
 It is time to stop measuring the engine and start inspecting the bridge.
 
-*Explore the full benchmark, download the empirical datasets, and run the Civilizational Air-Gap simulator at [https://humanreadinessindex.org/](https://humanreadinessindex.org/).*
+*Explore the full benchmark, download the empirical datasets, and run the Civilizational Air-Gap simulator at [https://humanityreadiness.org/](https://humanityreadiness.org/).*
 
 ---
-*Open Science Reference: HSRI Research Consortium. (2026). Human Superintelligence Readiness Index (HSRI 2.0). Zenodo. DOI: [10.5281/zenodo.23441742](https://doi.org/10.5281/zenodo.23441742).*
+*Open Science Reference: HSRI Research Consortium. (2026). Humanity Superintelligence Readiness Index (HSRI 2.0). Zenodo. DOI: [10.5281/zenodo.23441742](https://doi.org/10.5281/zenodo.23441742).*

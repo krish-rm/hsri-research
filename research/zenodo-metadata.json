@@ -3,7 +3,7 @@
   "records": {
     "repository_snapshot": {
       "metadata": {
-        "title": "Human Superintelligence Readiness Index (HSRI) 2.0: The Sovereignty Sentinel & Precursor Seismograph (v2.0.0)",
+        "title": "Humanity Superintelligence Readiness Index (HSRI) 2.0: The Sovereignty Sentinel & Precursor Seismograph (v2.0.0)",
         "upload_type": "software",
         "description": "<p><strong>HSRI 2.0.0: The Sovereignty Sentinel & ASI Precursor Seismograph</strong></p><p>This deposit provides an archival snapshot of the Human Superintelligence Readiness Index (HSRI) repository at milestone v2.0.0. HSRI is an exploratory, non-psychometrically-validated proxy benchmark designed to evaluate national-level cognitive, institutional, and infrastructure preparedness under advancing artificial intelligence. HSRI 2.0 introduces the Dual-Layer Architecture (Layer 1 Adoption Baseline vs. Layer 2 ASI Sovereignty Leontief Floor beta=0.5), the Verification Latency Wedge Accelerometer, the Cognitive Oversight Richter Scale (CORS 1.0-10.0), and three continuous precursor streams (Autonomy Seismometer, Latent Drift Detector, Verification Wedge). The composite framework harmonizes 780 national observations across 39 nations structured into foundational and sovereignty pillars, synthesized with the ASI-Transition Evidence Map Study (26 scenarios, 73 verified sources, 14 precursors).</p><p><strong>Epistemic and Governance Disclaimer (Rule 12):</strong> This release represents an exploratory research prototype. Behavioral experiment batteries (EXP-01 through EXP-09) represent stimulus development only; synthetic-persona pilots test stimulus behavior only and provide no empirical evidence regarding human cognition. Stimuli are cleared for IRB submission. Not validated on human participants. Structural missingness is explicitly preserved without naive imputation (e.g. non-EU EMLI missingness, non-participating PIAAC PSTRE economies), and 86 unrated nations are excluded without score extrapolation.</p>",
         "creators": [
@@ -29,12 +29,12 @@
         ],
         "related_identifiers": [
           {
-            "identifier": "https://humanreadinessindex.org",
+            "identifier": "https://humanityreadiness.org",
             "relation": "isSupplementTo",
             "scheme": "url"
           },
           {
-            "identifier": "https://humanreadinessindex.org/seismograph/",
+            "identifier": "https://humanityreadiness.org/seismograph/",
             "relation": "isSupplementTo",
             "scheme": "url"
           },

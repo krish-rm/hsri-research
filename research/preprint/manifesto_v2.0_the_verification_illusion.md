@@ -5,7 +5,7 @@
 **Author**: Krishnakumar RM & The SARATHI AI Co-Founder Architecture  
 **Affiliation**: Human Superintelligence Readiness Institute (HSRI)  
 **Date**: October 2026  
-**Permanent Benchmark Portal**: [https://humanreadinessindex.org](https://humanreadinessindex.org)  
+**Permanent Benchmark Portal**: [https://humanityreadiness.org](https://humanityreadiness.org)  
 **Classification**: Methodological, Theoretical & Econometric Framework  
 
 ---
@@ -16,7 +16,7 @@ Global artificial intelligence governance currently rests upon a foundational le
 
 In this manifesto, we mathematically and empirically demonstrate that **human oversight does not fail at the arrival of Artificial Superintelligence (ASI); it collapses long before ASI is achieved.** 
 
-Using empirical data from the 39-nation Human Superintelligence Readiness Index (HSRI) and multi-agent synthetic laboratory trials (EXP-07-SYN and EXP-08-SYN), we formalize the **Verification Latency Wedge ($\Delta T_{\text{wedge}}$)**: the rapidly widening, structurally irreconcilable gap between machine generation latency ($\tau_{\text{gen}} \to 0$) and biological verification latency ($\tau_{\text{verify}} \ge \tau_{\text{bio\_min}}$). We prove that as digital infrastructure and synthetic generation speed exceed biological working memory thresholds, a regime of **Negative Cross-Elasticity** emerges:
+Using empirical data from the 39-nation Humanity Superintelligence Readiness Index (HSRI) and multi-agent synthetic laboratory trials (EXP-07-SYN and EXP-08-SYN), we formalize the **Verification Latency Wedge ($\Delta T_{\text{wedge}}$)**: the rapidly widening, structurally irreconcilable gap between machine generation latency ($\tau_{\text{gen}} \to 0$) and biological verification latency ($\tau_{\text{verify}} \ge \tau_{\text{bio\_min}}$). We prove that as digital infrastructure and synthetic generation speed exceed biological working memory thresholds, a regime of **Negative Cross-Elasticity** emerges:
 $$\frac{\partial P_2}{\partial P_4} < 0 \quad \text{for } P_4 > P_4^*$$
 wherein marginal additions to synthetic compute infrastructure ($P_4$) actively degrade human critical discernment ($P_2$) through exponential vigilance decay, semantic fatigue, and automation bias.
 
@@ -344,7 +344,7 @@ HSRI 2.0 does not merely publish annual static reports. It deploys the **ASI Pre
 ```
 
 ### The 14 Observable ASI Precursors Tripwire Matrix
-Embedded within `https://humanreadinessindex.org/seismograph/`, HSRI monitors 14 empirical precursor tripwires across three escalation phases:
+Embedded within `https://humanityreadiness.org/seismograph/`, HSRI monitors 14 empirical precursor tripwires across three escalation phases:
 
 1. **Pre-Transition Phase (Precursors 1–5):**
    - *TP-01:* Sub-second automated smart contract micro-billing dominance ($>50\%$ non-human API transactions).
@@ -421,6 +421,6 @@ This preprint constitutes the official theoretical foundation of **HSRI 2.0 (The
   pages={1--38},
   year={2026},
   publisher={HSRI Research},
-  url={https://humanreadinessindex.org/research/preprint/manifesto_v2.0_the_verification_illusion.md}
+  url={https://humanityreadiness.org/research/preprint/manifesto_v2.0_the_verification_illusion.md}
 }
 ```
