@@ -147,7 +147,7 @@ Date: __________________________________      Date: ____________________________
 ```text
 Dear Prof. [Name] / Executive Leadership,
 
-I am writing from the Human Superintelligence Readiness Institute (HSRI Research Consortium). 
+I am writing from the Humanity Superintelligence Readiness Institute (HSRI Research Consortium). 
 
 Our research recently published the first mathematical decoupling simulator quantifying national resilience if access to centralized, foreign cloud AI endpoints is abruptly severed (e.g., during emergency quarantine or major subsea communications interdiction).
 
@@ -175,7 +175,7 @@ krishnakumar.rmenon@gmail.com | https://humanityreadiness.org/
 ```text
 Dear Dr. [Name] / CSS Risk & Resilience Team,
 
-I am writing from the Human Superintelligence Readiness Institute (HSRI Research Consortium).
+I am writing from the Humanity Superintelligence Readiness Institute (HSRI Research Consortium).
 
 Our open-source research infrastructure (DOI: 10.5281/zenodo.23441742) recently formalized the Civilizational Decoupling Half-Life (T_half), measuring how long modern sovereign subsystems (power, finance, food logistics, telecommunications) can sustain critical functionality when external cloud AI systems are severed.
 

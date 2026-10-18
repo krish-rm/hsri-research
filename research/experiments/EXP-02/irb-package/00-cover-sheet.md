@@ -1,7 +1,7 @@
 # Institutional Review Board (IRB) Protocol Submission Cover Sheet
 
 > **PREVIEW NOTICE: HSRI v0.3.0-dev**
-> This research document is an exploratory artifact from the Human Superintelligence Readiness Index (HSRI) behavioral lab pipeline. Synthetic-persona pilots test stimulus behavior only and do not provide evidence about human cognition. Stimuli cleared for IRB submission. Not validated on human participants.
+> This research document is an exploratory artifact from the Humanity Superintelligence Readiness Index (HSRI) behavioral lab pipeline. Synthetic-persona pilots test stimulus behavior only and do not provide evidence about human cognition. Stimuli cleared for IRB submission. Not validated on human participants.
 
 > [!IMPORTANT]
 > **INSTITUTIONAL AFFILIATION & PRINCIPAL INVESTIGATOR NOTICE:**

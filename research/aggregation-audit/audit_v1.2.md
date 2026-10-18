@@ -1,7 +1,7 @@
 # HSRI Non-Compensatory Aggregation & Weakest-Link Audit (v1.2.0)
 ### Econometric Evaluation of Compensatory vs. Bottleneck Flooring Across 39 Benchmark Nations
 
-**Program:** Human Superintelligence Readiness Index (HSRI)  
+**Program:** Humanity Superintelligence Readiness Index (HSRI)  
 **Sprint / Milestone:** Sprint 25 — Study 2 Aggregation Audit  
 **Date:** 2026-10-12  
 **Framework Compliance:** OECD/JRC Composite Indicator Handbook (Step 7: Sensitivity & Uncertainty Analysis)  

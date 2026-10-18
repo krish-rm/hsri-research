@@ -10,7 +10,7 @@
 
 ## 1. Executive Summary & Architectural Intent
 
-Prior roadmap phases (Phases 0–10) established and validated the static empirical and psychometric integrity of the Human Superintelligence Readiness Index:
+Prior roadmap phases (Phases 0–10) established and validated the static empirical and psychometric integrity of the Humanity Superintelligence Readiness Index:
 - **Individual Micro Psychometrics (Phases 5–8):** 9 calibrated behavioral paradigms, 4-factor CFA, cross-cultural scalar invariance, and 30-day longitudinal stability ($r_{tt} = 0.918$).
 - **Multi-Agent Deliberative Governance (Phase 9):** 7-provider ensemble consensus ($\kappa = 0.666, HHI = 0.1429$).
 - **Ecological Validity & National Econometric Audit (Phase 10):** In-situ operator oversight validation ($Acc_{\text{situ}} = 0.8308$) and OECD/JRC 7-step composite indicator audit (Monte Carlo rank stability $\bar{\rho}_{\text{MC}} = 0.9986$).

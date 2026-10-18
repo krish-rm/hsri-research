@@ -11,7 +11,7 @@
 
 ## 1. Study Overview & Institutional Mission
 
-The Human Superintelligence Readiness Index (HSRI) investigates human cognitive resilience, agency retention, and institutional readiness as frontier artificial intelligence approaches radical capability asymmetry and superintelligence (ASI). A fatal psychometric vulnerability of technology readiness frameworks is over-reliance on self-reported competence and subjective trust scales, which are severely contaminated by social desirability, Dunning-Kruger effects, and automation complacency.
+The Humanity Superintelligence Readiness Index (HSRI) investigates human cognitive resilience, agency retention, and institutional readiness as frontier artificial intelligence approaches radical capability asymmetry and superintelligence (ASI). A fatal psychometric vulnerability of technology readiness frameworks is over-reliance on self-reported competence and subjective trust scales, which are severely contaminated by social desirability, Dunning-Kruger effects, and automation complacency.
 
 Phase 5 of the HSRI Scientific Roadmap establishes an empirical, multi-domain standardized behavioral battery. This protocol preregisters the methodology, experimental manipulation, stimulus calibration, and statistical estimation models for the complete suite of nine behavioral experiments:
 1. **EXP-01 (Legal Domain):** Fluent hallucination detection in AI-drafted legal briefs.

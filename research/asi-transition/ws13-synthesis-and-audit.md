@@ -59,7 +59,7 @@ To subject this question to rigorous empirical and theoretical mapping, the cent
 2. **The Asymmetry Vector:** How does capability asymmetry manifest across speed, throughput, reasoning depth, strategic horizon, and domain breadth, and at what thresholds do human biological verifiers fail?
 3. **The Fate of Human Agency:** By what specific pathways (deliberate displacement, voluntary delegation, competitive necessity, epistemic opacity, psychological offloading) is human agency preserved, transformed, or extinguished?
 4. **Empirical Observable Precursors:** What observable signals, leading indicators, and measurable milestones would unambiguously indicate that an asymptotic transition is underway prior to an irreversible endpoint?
-5. **Measurement & Framework Validity:** What are the operational implications for human readiness assessment frameworks, specifically the Human Superintelligence Readiness Index (HSRI)?
+5. **Measurement & Framework Validity:** What are the operational implications for human readiness assessment frameworks, specifically the Humanity Superintelligence Readiness Index (HSRI)?
 
 ### 2.3 Strict Scope Boundaries
 In conformance with Standing Governance Rules 1–25 and Study Rules S1–S7:

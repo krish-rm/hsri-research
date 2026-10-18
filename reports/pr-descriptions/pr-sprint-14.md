@@ -9,7 +9,7 @@
 
 ## Summary of Changes
 
-This pull request completes all Sprint 14 deliverables for the Human Superintelligence Readiness Index (HSRI), translating the newly ratified ASI-Transition Evidence Map Study (`study-asi`, Gate P6) and the 39-country macro readiness index into formal, publication-ready, and citable institutional assets.
+This pull request completes all Sprint 14 deliverables for the Humanity Superintelligence Readiness Index (HSRI), translating the newly ratified ASI-Transition Evidence Map Study (`study-asi`, Gate P6) and the 39-country macro readiness index into formal, publication-ready, and citable institutional assets.
 
 ### 1. Publication of Working Paper v1.0.0
 - **Upgraded preprint scaffold:** [`research/preprint/working-paper-v1.0.md`](file:///research/preprint/working-paper-v1.0.md)

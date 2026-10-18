@@ -1,6 +1,6 @@
 # HSRI Data Dictionary & Schema Reference
 
-Canonical schema documentation for all public datasets published by the **Human Superintelligence Readiness Index (HSRI)** v0.2 release.
+Canonical schema documentation for all public datasets published by the **Humanity Superintelligence Readiness Index (HSRI)** v0.2 release.
 
 All files are distributed under the **Creative Commons Attribution 4.0 International (CC BY 4.0)** license.
 

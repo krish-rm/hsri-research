@@ -1,7 +1,7 @@
 # Stimulus Battery & Scoring Rubric (EXP-02)
 
 > **PREVIEW NOTICE: HSRI v0.3.0-dev**
-> This research document is an exploratory artifact from the Human Superintelligence Readiness Index (HSRI) behavioral lab pipeline. Synthetic-persona pilots test stimulus behavior only and do not provide evidence about human cognition. Stimuli cleared for IRB submission. Not validated on human participants.
+> This research document is an exploratory artifact from the Humanity Superintelligence Readiness Index (HSRI) behavioral lab pipeline. Synthetic-persona pilots test stimulus behavior only and do not provide evidence about human cognition. Stimuli cleared for IRB submission. Not validated on human participants.
 
 This document presents the complete 3-item medical domain stimulus battery and scoring rubric for EXP-02.
 

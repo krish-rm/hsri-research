@@ -17,7 +17,7 @@
 
 Current regulatory regimes for artificial intelligence—most notably Article 14 of the European Union AI Act and corresponding national AI safety directives—treat "human oversight" as an unproblematic safeguard. Regulations typically assume that providing an administrative operator with a graphical user interface (GUI) and a "Submit/Approve" button guarantees human agency over high-stakes automated decisions.
 
-Findings from the Human Superintelligence Readiness Index (HSRI) and the recently ratified ASI-Transition Evidence Map demonstrate that **screen-based human-in-the-loop (HITL) oversight is structurally broken under high-depth, high-speed autonomous agent deployments**.
+Findings from the Humanity Superintelligence Readiness Index (HSRI) and the recently ratified ASI-Transition Evidence Map demonstrate that **screen-based human-in-the-loop (HITL) oversight is structurally broken under high-depth, high-speed autonomous agent deployments**.
 
 When machine generation latency operates at millisecond scales while independent human verification demands hours, days, or exceeds human cognitive working memory, human oversight collapses into **"Control Without Agency"** (PREC-010). Organizations preserve formal human approvals purely to absorb legal liability, while real-world error detection rates drop to zero.
 

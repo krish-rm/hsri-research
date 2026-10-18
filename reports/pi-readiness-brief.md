@@ -1,4 +1,4 @@
-# Academic Principal Investigator (PI) Readiness Brief: Human Superintelligence Readiness Index (HSRI)
+# Academic Principal Investigator (PI) Readiness Brief: Humanity Superintelligence Readiness Index (HSRI)
 
 > **PREVIEW DISCLAIMER: HSRI v0.3.0-dev**
 > **STATUS:** DRAFT COLLABORATION BRIEF. NO HUMAN DATA COLLECTED. NO PI DESIGNATED.
@@ -8,7 +8,7 @@
 
 ## 1. Project Overview & Current Epistemic Status
 
-The **Human Superintelligence Readiness Index (HSRI)** is an open-science research initiative investigating societal preparedness for advancing frontier artificial intelligence. In strict adherence to project governance and public transparency standards, the framework operates under the following precise epistemic definitions:
+The **Humanity Superintelligence Readiness Index (HSRI)** is an open-science research initiative investigating societal preparedness for advancing frontier artificial intelligence. In strict adherence to project governance and public transparency standards, the framework operates under the following precise epistemic definitions:
 
 - **Benchmark Classification:** HSRI is an **exploratory, non-psychometrically-validated proxy benchmark**, not an evaluative ranking or definitive standard.
 - **Data Harmonization:** The macro composite framework synthesizes 780 harmonized observations across 39 nations structured into four equal-weighted conceptual pillars (25% each): AI Literacy, Critical Discernment, Institutional Governance, and Digital Infrastructure.

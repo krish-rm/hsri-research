@@ -10,7 +10,7 @@
 
 ## 1. Executive Summary
 
-This dossier anticipates and systematically answers the five primary theoretical, econometric, and political objections that academic peer-review panels, industry lobbyists, and grant evaluation officers will raise against the **Human Superintelligence Readiness Index (HSRI 2.0)**.
+This dossier anticipates and systematically answers the five primary theoretical, econometric, and political objections that academic peer-review panels, industry lobbyists, and grant evaluation officers will raise against the **Humanity Superintelligence Readiness Index (HSRI 2.0)**.
 
 ---
 

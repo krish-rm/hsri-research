@@ -24,7 +24,7 @@ The Sovereign Human Agency Imperative: An Empirical Benchmark, Psychometric Foun
 *Advisory acknowledgment (not co-authors):* Frontier Multi-Agent Deliberative Ensemble (Anthropic Claude, OpenAI GPT-4o, Google Gemini, xAI Grok, DeepSeek-V2.5, Alibaba Qwen, Zhipu GLM-4) — disclosed in author note per arXiv policy.
 
 ### Affiliation line
-Human Superintelligence Readiness Institute (HSRI), Independent Research Consortium — https://humanityreadiness.org
+Humanity Superintelligence Readiness Institute (HSRI), Independent Research Consortium — https://humanityreadiness.org
 
 ### Abstract (198 words — copy-paste to arXiv)
 > Existing AI safety governance evaluates model capability through standardized technical benchmarks (SWE-bench, GPQA, FrontierMath) while remaining blind to societal, institutional, and cognitive readiness to oversee systems that meet or exceed human expertise. We introduce the Humanity Superintelligence Readiness Index (HSRI), a multi-tiered empirical benchmark, psychometric architecture, and transition evidence map quantifying national preparedness for advanced AI transitions.

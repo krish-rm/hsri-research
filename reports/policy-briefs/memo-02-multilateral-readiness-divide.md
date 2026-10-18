@@ -17,7 +17,7 @@
 
 International deliberations on AI governance predominantly emphasize universal ethical principles, AI safety summits, and voluntary corporate codes of conduct. While these initiatives are constructive, they frequently proceed on an unexamined assumption: that all sovereign nations possess comparable structural capacities to withstand and govern the societal absorption of frontier artificial intelligence.
 
-The empirical findings of the **Human Superintelligence Readiness Index (HSRI, v1.0.0)**, evaluating 780 harmonized observations across 39 nations, disprove this assumption.
+The empirical findings of the **Humanity Superintelligence Readiness Index (HSRI, v1.0.0)**, evaluating 780 harmonized observations across 39 nations, disprove this assumption.
 
 The data reveals an acute **Macro Readiness-Exposure Divide**:
 - **20 Economies are "Prepared":** Concentrated in Northern and Western Europe and advanced Asian economies (e.g., Finland $-0.531$, Norway $-0.501$, Denmark $-0.498$, Singapore $-0.448$, Netherlands $-0.400$), where composite societal readiness substantially exceeds technological exposure.

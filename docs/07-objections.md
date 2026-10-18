@@ -6,7 +6,7 @@ A credible research feasibility assessment must address the strongest objections
 
 ## 7.1 Eleven Core Objections Addressed Fairly
 
-The table below presents the eleven primary objections to the Human Superintelligence Readiness Index, stating each in its strongest form alongside an unvarnished assessment:
+The table below presents the eleven primary objections to the Humanity Superintelligence Readiness Index, stating each in its strongest form alongside an unvarnished assessment:
 
 | # | Objection | Fair, Steel-Manned Statement of the Objection | Rigorous Assessment & Project Disposition |
 |---|---|---|---|

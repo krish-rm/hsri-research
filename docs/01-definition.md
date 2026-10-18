@@ -22,7 +22,7 @@ Candidate D avoids the definitional trap of predicting hypothetical technologica
 
 ## 1.2 Recommended Operational Definition
 
-> **Human Superintelligence Readiness (HSRI Operational Definition):**  
+> **Humanity Superintelligence Readiness (HSRI Operational Definition):**  
 > *The demonstrated behavioral capacity of an individual, organization, or society to maintain calibrated trust, independent judgment, and value-directed goal-setting when interacting with AI systems whose task-specific performance meets or exceeds their own &mdash; measured behaviorally wherever possible, not merely self-reported.*
 {: .evidence-theoretical }
 

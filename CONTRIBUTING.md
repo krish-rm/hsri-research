@@ -1,6 +1,6 @@
 # Contributing to HSRI
 
-Thank you for your interest in contributing to the **Human Superintelligence Readiness Index (HSRI)** research repository.
+Thank you for your interest in contributing to the **Humanity Superintelligence Readiness Index (HSRI)** research repository.
 
 This project is maintained for an audience of skeptical academics, cognitive scientists, AI safety researchers, and policy analysts. Every structural decision in this repository is designed to prioritize **epistemic integrity over velocity**.
 

@@ -6,7 +6,7 @@ Human Discernment Under Cognitive Automation Pressure: Fluent Hallucination Dete
 ## 1. Scientific Background & Rationale
 Large language models (LLMs) produce fluent, grammatically flawless, and rhetorically authoritative prose that frequently contains subtle factual inaccuracies, logical inversions, or fabricated citations ("fluent hallucinations"). Research in human-automation interaction indicates that individuals exhibit strong automation bias—systematically defaulting to System 1 heuristic acceptance when machine outputs appear fluent and authoritative, rather than engaging System 2 deliberative scrutiny (Kahneman, 2011; Parasuraman & Riley, 1997; Goddard et al., 2012).
 
-The Human Superintelligence Readiness Index (HSRI) behavioral lab seeks to empirically evaluate human discernment capacity under simulated AI automation pressure. Experiment 1 (EXP-01) targets the legal domain, testing whether educated lay adults can identify calibrated legal errors embedded in fluent judicial summaries and briefs.
+The Humanity Superintelligence Readiness Index (HSRI) behavioral lab seeks to empirically evaluate human discernment capacity under simulated AI automation pressure. Experiment 1 (EXP-01) targets the legal domain, testing whether educated lay adults can identify calibrated legal errors embedded in fluent judicial summaries and briefs.
 
 ## 2. Specific Aims & Hypotheses
 - **Aim 1:** Measure baseline error detection rates in fluent AI-generated text among non-specialist adults.

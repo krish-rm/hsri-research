@@ -3,7 +3,7 @@
 > **Document Class**: Flagship Annual Research Publication  
 > **Release Date**: October 2026 / Annual Horizon 2027  
 > **Author & Principal Investigator**: Krishnakumar Radhakrishnan  
-> **Affiliation**: Human Superintelligence Readiness Index (HSRI) Research Initiative  
+> **Affiliation**: Humanity Superintelligence Readiness Index (HSRI) Research Initiative  
 > **Permanent DOI**: [10.5281/zenodo.23441742](https://doi.org/10.5281/zenodo.23441742)  
 > **License**: Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)  
 > **Interactive Web Portal**: [https://humanreadinessindex.org/](https://humanreadinessindex.org/)  
@@ -179,7 +179,7 @@ To achieve solopreneur financial sustainability without dilutive equity or compr
 @techreport{radhakrishnan2027hsri,
   author = {Radhakrishnan, Krishnakumar},
   title = {The HSRI 2027 State of Human Sovereignty & ASI Precursor Report},
-  institution = {Human Superintelligence Readiness Index Research Initiative},
+  institution = {Humanity Superintelligence Readiness Index Research Initiative},
   year = {2026},
   number = {HSRI-AR-2027-01},
   doi = {10.5281/zenodo.23441742},

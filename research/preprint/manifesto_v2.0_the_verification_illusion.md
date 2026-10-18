@@ -3,7 +3,7 @@
 
 **HSRI Working Paper / Master Manifesto v2.0**  
 **Author**: Krishnakumar RM & The SARATHI AI Co-Founder Architecture  
-**Affiliation**: Human Superintelligence Readiness Institute (HSRI)  
+**Affiliation**: Humanity Superintelligence Readiness Institute (HSRI)  
 **Date**: October 2026  
 **Permanent Benchmark Portal**: [https://humanityreadiness.org](https://humanityreadiness.org)  
 **Classification**: Methodological, Theoretical & Econometric Framework  
@@ -415,7 +415,7 @@ This preprint constitutes the official theoretical foundation of **HSRI 2.0 (The
 @article{krishnakumar2026verificationillusion,
   title={The Verification Illusion: Why Human Oversight Fails Before Superintelligence Arrives},
   author={Krishnakumar, R. M. and SARATHI AI Research Architecture},
-  journal={Human Superintelligence Readiness Institute Working Papers},
+  journal={Humanity Superintelligence Readiness Institute Working Papers},
   volume={2},
   number={1},
   pages={1--38},

@@ -1,7 +1,7 @@
 # HSRI Repository Understanding Memo
 
 ## Executive Summary
-This memo synthesizes the key aspects of the Human Superintelligence Readiness Index (HSRI) research repository to inform the development of a public benchmark-style interactive website. The memo covers the operational definition, capability framework, conceptual architecture, evidence standards, and tensions between the repository's current position and the task requirements.
+This memo synthesizes the key aspects of the Humanity Superintelligence Readiness Index (HSRI) research repository to inform the development of a public benchmark-style interactive website. The memo covers the operational definition, capability framework, conceptual architecture, evidence standards, and tensions between the repository's current position and the task requirements.
 
 ---
 

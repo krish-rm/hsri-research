@@ -1,6 +1,6 @@
 # HSRI-Agents: Evidence-Review and Adversarial Debate Pipeline
 
-`hsri_agents` is an automated evidence-review subsystem for the Human Superintelligence Readiness Index (HSRI). It adapts multi-agent debate architectures to scientific literature auditing, construct validation, and empirical integrity verification.
+`hsri_agents` is an automated evidence-review subsystem for the Humanity Superintelligence Readiness Index (HSRI). It adapts multi-agent debate architectures to scientific literature auditing, construct validation, and empirical integrity verification.
 
 Unlike trading or game-playing agents, an evidence-review system has no daily objective market feedback signal. Therefore, **HSRI-Agents is built to run rarely and rigorously, not daily and cheaply.**
 

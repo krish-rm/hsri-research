@@ -38,7 +38,7 @@
 
 ### B. Archival Open Science Metadata Synchronization
 - **`CITATION.cff` (v2.0.0)**:
-  - Formally updated version to `2.0.0` and title to *"Human Superintelligence Readiness Index (HSRI 2.0): The Sovereignty Sentinel & ASI Precursor Seismograph"*.
+  - Formally updated version to `2.0.0` and title to *"Humanity Superintelligence Readiness Index (HSRI 2.0): The Sovereignty Sentinel & ASI Precursor Seismograph"*.
   - Registered DOI: `10.5281/zenodo.23441742`.
   - Added keywords: `asi-precursors`, `epistemic-sovereignty`, `verification-wedge`, `civilizational-air-gap`, `autonomous-drift`.
   - Updated [`tests/test_citation_cff.py`](../tests/test_citation_cff.py) to validate `2.0` schema conformity.

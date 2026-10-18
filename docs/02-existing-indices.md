@@ -1,6 +1,6 @@
 # 2. Existing Global Indices: Comparative Methodology and Lessons
 
-Composite international indices offer vital methodological precedents and structural warnings for designing the Human Superintelligence Readiness Index (HSRI). International index construction has evolved through three distinct historical paradigms, with HSRI positioned provisionally within an unproven fourth.
+Composite international indices offer vital methodological precedents and structural warnings for designing the Humanity Superintelligence Readiness Index (HSRI). International index construction has evolved through three distinct historical paradigms, with HSRI positioned provisionally within an unproven fourth.
 
 ---
 

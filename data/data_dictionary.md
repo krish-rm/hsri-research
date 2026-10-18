@@ -217,7 +217,7 @@ rank = position in sorted order / total observations
 ### Citation Format
 When using HSRI-Proxy data:
 ```
-HSRI-Proxy v0.1 (2026). Human Superintelligence Readiness Index - Public Benchmark Website. 
+HSRI-Proxy v0.1 (2026). Humanity Superintelligence Readiness Index - Public Benchmark Website. 
 Retrieved from [dataset URL] 
 Indicator: [indicator_name], Source: [source_publisher], Year: [year]
 ```

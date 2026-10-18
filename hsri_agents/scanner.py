@@ -22,7 +22,7 @@ from hsri_agents.llm import LLMClient
 
 logger = logging.getLogger("hsri_agents.scanner")
 
-SCANNER_SYSTEM_PROMPT = """You are the Literature Scanner for the Human Superintelligence Readiness Index (HSRI).
+SCANNER_SYSTEM_PROMPT = """You are the Literature Scanner for the Humanity Superintelligence Readiness Index (HSRI).
 Your sole function is to assess whether an incoming paper's abstract plausibly bears on:
 (a) A specific row's evidence rating in the HSRI master evidence table (e.g., automation bias, calibrated trust, cognitive offloading, metacognitive calibration, AI literacy).
 (b) One of the 11 core objections (e.g., construct redundancy, value clarity as philosophy, responsibility laundering, cultural invariance).

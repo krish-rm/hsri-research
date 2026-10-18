@@ -1,4 +1,4 @@
-# Human Superintelligence Readiness Index (HSRI)
+# Humanity Superintelligence Readiness Index (HSRI)
 
 <div class="hsri-status-banner">
 <strong>Project Status:</strong> Early Research Feasibility Draft &mdash; Not Peer Reviewed.<br>
@@ -7,9 +7,9 @@
 
 ## Executive Summary
 
-The **Human Superintelligence Readiness Index (HSRI)** is a research feasibility inquiry assessing whether human psychological, cognitive, and behavioral readiness for increasingly capable artificial intelligence can be scientifically measured and indexed.
+The **Humanity Superintelligence Readiness Index (HSRI)** is a research feasibility inquiry assessing whether human psychological, cognitive, and behavioral readiness for increasingly capable artificial intelligence can be scientifically measured and indexed.
 
-**Core Empirical Finding:** Human Superintelligence Readiness (HSR) is **not** a new psychological faculty. Every candidate sub-component—attentional control, metacognition, decision agency, value clarity, AI literacy, and calibrated trust—already possesses an established, validated literature base. The genuine, narrow research gap is whether these substrates, measured *jointly and specifically under interaction with an AI system whose task performance meets or exceeds the person's own*, predict outcomes that separate instruments do not already explain. That is a testable empirical hypothesis, not yet an established construct.
+**Core Empirical Finding:** Humanity Superintelligence Readiness (HSR) is **not** a new psychological faculty. Every candidate sub-component—attentional control, metacognition, decision agency, value clarity, AI literacy, and calibrated trust—already possesses an established, validated literature base. The genuine, narrow research gap is whether these substrates, measured *jointly and specifically under interaction with an AI system whose task performance meets or exceeds the person's own*, predict outcomes that separate instruments do not already explain. That is a testable empirical hypothesis, not yet an established construct.
 {: .evidence-strong }
 
 **Headline Recommendation:** **DEVELOP AS A RESEARCH CONSTRUCT FIRST.** Not "develop now" (no validation data exists, and public indexing risks are unmanaged), and not "concept not sufficiently distinct" (a defensible, narrow integration gap exists once the construct is restricted to AI-interaction behavior).
@@ -22,7 +22,7 @@ The **Human Superintelligence Readiness Index (HSRI)** is a research feasibility
 
 ---
 
-## Why Human Superintelligence Readiness Matters
+## Why Humanity Superintelligence Readiness Matters
 
 For decades, international technology-readiness frameworks (such as network infrastructure indices, digital economy benchmarks, and government AI-readiness indices) have measured compute, bandwidth, and capital adoption, implicitly assuming that human agency remains sovereign and technology acts as a passive amplifier of human intent. As AI systems advance toward general-purpose reasoning, drafting, planning, and autonomous execution, that sovereignty assumption weakens in four specific, testable failure modes:
 

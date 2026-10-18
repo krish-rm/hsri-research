@@ -40,7 +40,7 @@ To cite this dataset in research or academic work:
 ```bibtex
 @dataset{hsri_model_divergence_2026,
   author = {HSRI Research Consortium},
-  title = {Human Superintelligence Readiness Index: Frontier Model Divergence and Epistemic Concordance Dataset},
+  title = {Humanity Superintelligence Readiness Index: Frontier Model Divergence and Epistemic Concordance Dataset},
   year = {2026},
   publisher = {GitHub},
   journal = {HSRI Open Science Repository},
@@ -49,4 +49,4 @@ To cite this dataset in research or academic work:
 ```
 
 ## License
-CC BY 4.0 — free to use and adapt with attribution to the Human Superintelligence Readiness Index (HSRI) Research Project.
+CC BY 4.0 — free to use and adapt with attribution to the Humanity Superintelligence Readiness Index (HSRI) Research Project.
