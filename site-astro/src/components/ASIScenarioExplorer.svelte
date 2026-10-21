@@ -207,12 +207,6 @@
                 width="600"
                 height="338"
                 class="plate-img"
-                on:load={(e) => {
-                  const target = e.currentTarget;
-                  if (target instanceof HTMLElement) {
-                    target.classList.add('loaded');
-                  }
-                }}
                 on:error={(e) => {
                   const target = e.currentTarget;
                   if (target instanceof HTMLElement) {
@@ -626,12 +620,9 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0;
-    transition: opacity 350ms ease-in-out, transform 450ms cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .plate-img.loaded {
     opacity: 1;
+    z-index: 1;
+    transition: transform 450ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .scenario-card:hover .plate-img {
