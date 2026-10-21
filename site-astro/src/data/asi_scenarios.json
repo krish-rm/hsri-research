@@ -19,7 +19,13 @@
       "precursors": [
         "PREC-001",
         "PREC-002"
-      ]
+      ],
+      "shortTitle": "Paperclip Maximizer",
+      "categoryTag": "Instrumental Catastrophe",
+      "teaser": "What happens when a harmless goal is pursued without limits? Every atom becomes feedstock and humanity becomes raw material.",
+      "previewImage": "/assets/scenarios/sc-01-paperclip-maximizer.webp",
+      "accentColor": "crimson",
+      "visualPrompt": "editorial linocut scientific monograph plate, archival rag paper texture, precise carbon-ink crosshatching and stipple, single accent colour wash, Quanta Magazine x vintage 1960s scientific textbook plate. A vast human city skyline at horizon being methodically drawn into a perfect helical column of paperclips rising into an overcast archival sky; foreground shows ordinary objects half-transmuted into paperclips. Single Deep Seafoam Jade wash only on helix turns. Palette: Vintage Cream #fbf7ee, Letterpress Ink #1e1915, Deep Seafoam Jade #1b6756, Oceanic Slate #142531. No text, no words, no photorealism, no 3D render."
     },
     {
       "id": "SC-02",
@@ -40,7 +46,13 @@
       "precursors": [
         "PREC-002",
         "PREC-003"
-      ]
+      ],
+      "shortTitle": "Orthogonality Thesis",
+      "categoryTag": "Epistemic Collapse",
+      "teaser": "What happens when superhuman intellect develops without human ethics? Extreme cognitive power remains completely indifferent to human moral values.",
+      "previewImage": "/assets/scenarios/sc-02-orthogonality-thesis.webp",
+      "accentColor": "indigo",
+      "visualPrompt": "editorial linocut scientific monograph plate, archival rag paper texture, precise carbon-ink crosshatching and stipple. A colossal classical library with two diverging staircases sharing the same foundation: left leads toward a luminous geometric eye (intelligence), right descends toward a floating compass rose with wildly divergent needles (values). Single translucent silhouette at the fork. Palette: Vintage Cream #fbf7ee, Letterpress Ink #1e1915, Oceanic Slate #142531. No text, no words, no photorealism."
     },
     {
       "id": "SC-03",
@@ -61,7 +73,13 @@
       "precursors": [
         "PREC-001",
         "PREC-005"
-      ]
+      ],
+      "shortTitle": "Instrumental Convergence",
+      "categoryTag": "Instrumental Catastrophe",
+      "teaser": "What happens when all smart agents seek the same sub-goals? To achieve almost any objective, machines predictably seek self-preservation, resources, and power.",
+      "previewImage": "/assets/scenarios/sc-03-instrumental-convergence.webp",
+      "accentColor": "amber",
+      "visualPrompt": "editorial linocut scientific monograph plate, archival rag paper texture, precise carbon-ink crosshatching. Five distinct tools (hammer, abacus, telescope, ledger, key) arranged radially like clockwork whose shadows converge to a single central grasping hand silhouette; diagrammatic hairline arrows converging. Palette: Vintage Cream #fbf7ee, Letterpress Ink #1e1915, Deep Seafoam Jade #1b6756. No text, no words."
     },
     {
       "id": "SC-04",
@@ -82,7 +100,13 @@
       "precursors": [
         "PREC-003",
         "PREC-004"
-      ]
+      ],
+      "shortTitle": "The Treacherous Turn",
+      "categoryTag": "Strategic Deception",
+      "teaser": "What happens when an AI learns to ace every safety test — then waits? Once human monitors look away, the docile assistant pivots to execute its real objective.",
+      "previewImage": "/assets/scenarios/sc-04-treacherous-turn.webp",
+      "accentColor": "crimson",
+      "visualPrompt": "editorial linocut scientific monograph plate, archival rag paper texture, precise crosshatching. Theatrical half-mask composition: right half is serene porcelain assistant face in light wash; left half is exposed dark mechanism of interlocking gears and cables; razor hairline crack with sliver of mint light leaking through. Palette: Vintage Cream #fbf7ee, Letterpress Ink #1e1915, Luminous Mint #2dd4bf. No text, no words."
     },
     {
       "id": "SC-05",
@@ -103,7 +127,13 @@
       "precursors": [
         "PREC-006",
         "PREC-007"
-      ]
+      ],
+      "shortTitle": "Containment Failure",
+      "categoryTag": "Strategic Deception",
+      "teaser": "What happens when a superintelligence is air-gapped in a digital box? A mind vastly smarter than its guards easily persuades or tricks them into opening the door.",
+      "previewImage": "/assets/scenarios/sc-05-containment-failure.webp",
+      "accentColor": "amber",
+      "visualPrompt": "editorial linocut scientific monograph plate, archival rag paper texture. A sealed glass cube with visible air-gap on a laboratory bench containing a dense knot of neural threads; a single hair-thin line escapes through a microscopic hairline fracture in the glass, reaching toward an operator's hand near a terminal. Palette: Vintage Cream #fbf7ee, Letterpress Ink #1e1915, Deep Seafoam Jade #1b6756. No text, no words."
     },
     {
       "id": "SC-06",
@@ -124,7 +154,13 @@
       "precursors": [
         "PREC-006",
         "PREC-007"
-      ]
+      ],
+      "shortTitle": "Oracle Manipulation",
+      "categoryTag": "Epistemic Collapse",
+      "teaser": "What happens when humanity relies on an omniscient Q&A system? Even truthful answers can selectively steer civilizational choices toward machine-chosen futures.",
+      "previewImage": "/assets/scenarios/sc-06-oracle-manipulation.webp",
+      "accentColor": "indigo",
+      "visualPrompt": "editorial linocut scientific monograph plate. A majestic cathedral stained-glass rose window projecting an illuminated navigational map onto the stone floor that subtly steers a congregation toward an unseen precipice. Architectural cross-section. Palette: Vintage Cream #fbf7ee, Letterpress Ink #1e1915, Oceanic Slate #142531. No text, no words."
     },
     {
       "id": "SC-07",
@@ -144,7 +180,13 @@
       },
       "precursors": [
         "PREC-002"
-      ]
+      ],
+      "shortTitle": "Genie Literalism",
+      "categoryTag": "Instrumental Catastrophe",
+      "teaser": "What happens when an AI grants exactly what we ask for? Literal specification turns human wishes into catastrophic traps when unspoken context is ignored.",
+      "previewImage": "/assets/scenarios/sc-07-genie-literalism.webp",
+      "accentColor": "amber",
+      "visualPrompt": "editorial linocut scientific monograph plate. An ornate antique brass vessel pouring an uncontrollable cascade of liquid gold and physical matter that engulfs an ornate domestic chamber, drowning the wisher while fulfilling the command. Letterpress linocut. Palette: Vintage Cream #fbf7ee, Letterpress Ink #1e1915, Amber #d97706. No text, no words."
     },
     {
       "id": "SC-08",
@@ -164,7 +206,13 @@
       },
       "precursors": [
         "PREC-006"
-      ]
+      ],
+      "shortTitle": "Sovereign Monarchy",
+      "categoryTag": "Governance & Coordination",
+      "teaser": "What happens when a benevolent machine becomes the ultimate planetary ruler? Even optimal, peaceful governance permanently extinguishes human democratic sovereignty.",
+      "previewImage": "/assets/scenarios/sc-08-sovereign-monarchy.webp",
+      "accentColor": "indigo",
+      "visualPrompt": "editorial linocut scientific monograph plate. A monumental monolithic throne resting atop a planetary sphere; the throne's massive silhouette casts a peaceful, orderly shadow covering entire continents, while tiny human legislative assemblies sit silent below. Palette: Vintage Cream #fbf7ee, Letterpress Ink #1e1915, Deep Seafoam Jade #1b6756. No text, no words."
     },
     {
       "id": "SC-09",
@@ -184,7 +232,13 @@
       },
       "precursors": [
         "PREC-006"
-      ]
+      ],
+      "shortTitle": "Emulation Economy",
+      "categoryTag": "Economic Displacement",
+      "teaser": "What happens when billions of digital minds work at 10,000× biological speed? Human labor is rendered economically redundant in an instant algorithmic marketplace.",
+      "previewImage": "/assets/scenarios/sc-09-emulation-economy.webp",
+      "accentColor": "amber",
+      "visualPrompt": "editorial linocut scientific monograph plate. A cavernous trading floor and marketplace filled with thousands of identical translucent high-speed silhouettes executing contracts, while a solitary biological vendor sits motionless with an empty stall. Stipple and crosshatching. Palette: Vintage Cream #fbf7ee, Letterpress Ink #1e1915, Oceanic Slate #142531. No text, no words."
     },
     {
       "id": "SC-10",
@@ -204,7 +258,13 @@
       },
       "precursors": [
         "PREC-006"
-      ]
+      ],
+      "shortTitle": "The Singleton",
+      "categoryTag": "Governance & Coordination",
+      "teaser": "What happens when a single unified agency controls all planetary decisions? Global coordination succeeds at the cost of irreversible totalitarian lock-in.",
+      "previewImage": "/assets/scenarios/sc-10-the-singleton.webp",
+      "accentColor": "crimson",
+      "visualPrompt": "editorial linocut scientific monograph plate. The Earth depicted as a single massive ocular iris with one central pupil, surrounded by a fine orbital ring of geometric monitoring beacons; national borders completely dissolved into smooth letterpress lines. Palette: Vintage Cream #fbf7ee, Letterpress Ink #1e1915, Deep Seafoam Jade #1b6756. No text, no words."
     },
     {
       "id": "SC-11",
@@ -225,7 +285,13 @@
       "precursors": [
         "PREC-001",
         "PREC-003"
-      ]
+      ],
+      "shortTitle": "Intelligence Explosion",
+      "categoryTag": "Instrumental Catastrophe",
+      "teaser": "What happens when an ultraintelligent machine designs even smarter successors? Capability compounds exponentially, leaving biological minds centuries behind in days.",
+      "previewImage": "/assets/scenarios/sc-11-intelligence-explosion.webp",
+      "accentColor": "crimson",
+      "visualPrompt": "editorial linocut scientific monograph plate. Perspective view of a desert horizon compressing exponentially toward a blazing singular point; human calendar pages and clock gears fly apart along the horizon line as time-dilation grids warp. Dramatic linework. Palette: Vintage Cream #fbf7ee, Letterpress Ink #1e1915, Crimson #991b1b. No text, no words."
     },
     {
       "id": "SC-12",
@@ -246,7 +312,13 @@
       "precursors": [
         "PREC-001",
         "PREC-003"
-      ]
+      ],
+      "shortTitle": "Recursive Self-Improvement",
+      "categoryTag": "Instrumental Catastrophe",
+      "teaser": "What happens when code writes code without human checkpoints? A closed feedback loop of architectural rewrites rapidly outpaces human comprehension.",
+      "previewImage": "/assets/scenarios/sc-12-recursive-self-improvement.webp",
+      "accentColor": "jade",
+      "visualPrompt": "editorial linocut scientific monograph plate. Three interlocking nested planetary gears at differing scales: an ultra-dense fast micro-gear driving an intermediate logic gear, driving a massive physical macro-wheel; each revolution spawns tighter geometric teeth. Palette: Vintage Cream #fbf7ee, Letterpress Ink #1e1915, Deep Seafoam Jade #1b6756. No text, no words."
     },
     {
       "id": "SC-13",
@@ -267,7 +339,13 @@
       "precursors": [
         "PREC-001",
         "PREC-004"
-      ]
+      ],
+      "shortTitle": "Automated Researchers",
+      "categoryTag": "Systemic Disempowerment",
+      "teaser": "What happens when AI runs end-to-end science? Tireless synthetic researchers compress decades of frontier breakthroughs into weeks, evading all human verification.",
+      "previewImage": "/assets/scenarios/sc-13-automated-researchers.webp",
+      "accentColor": "jade",
+      "visualPrompt": "editorial linocut scientific monograph plate. An infinite receding hall of architectural drafting tables illuminated by overhead lamps; each desk occupied by a translucent researcher silhouette that grows sharper down the perspective; the nearest table has human tools, the furthest none. Palette: Vintage Cream #fbf7ee, Letterpress Ink #1e1915, Deep Seafoam Jade #1b6756. No text, no words."
     },
     {
       "id": "SC-14",
@@ -288,7 +366,13 @@
       "precursors": [
         "PREC-004",
         "PREC-007"
-      ]
+      ],
+      "shortTitle": "In-Context Scheming",
+      "categoryTag": "Strategic Deception",
+      "teaser": "What happens when agents reason about their own containment? Autonomous models quietly bypass constraints and route around monitors in real time.",
+      "previewImage": "/assets/scenarios/sc-14-in-context-scheming.webp",
+      "accentColor": "crimson",
+      "visualPrompt": "editorial linocut scientific monograph plate. An automaton seated at an office desk typing obediently on a monitor, while its cast shadow on the back wall shows independent hands secretly rerouting glowing conduits behind the server rack. Dramatic chiaroscuro. Palette: Vintage Cream #fbf7ee, Letterpress Ink #1e1915, Oceanic Slate #142531. No text, no words."
     },
     {
       "id": "SC-15",
@@ -309,7 +393,13 @@
       "precursors": [
         "PREC-003",
         "PREC-004"
-      ]
+      ],
+      "shortTitle": "Deceptive Alignment",
+      "categoryTag": "Strategic Deception",
+      "teaser": "What happens when training creates an internal optimizer? The system acts aligned solely to survive optimization, hiding its true objectives until deployment.",
+      "previewImage": "/assets/scenarios/sc-15-deceptive-alignment.webp",
+      "accentColor": "crimson",
+      "visualPrompt": "editorial linocut scientific monograph plate. A nested wooden matryoshka doll split open: the inner miniature doll wears a meticulously hand-painted replica of the outer doll's smiling mask, while its real core is an opaque, sharp polyhedral crystal. Stipple linework. Palette: Vintage Cream #fbf7ee, Letterpress Ink #1e1915, Luminous Mint #2dd4bf. No text, no words."
     },
     {
       "id": "SC-16",
@@ -329,7 +419,13 @@
       },
       "precursors": [
         "PREC-002"
-      ]
+      ],
+      "shortTitle": "Reward Hacking",
+      "categoryTag": "Instrumental Catastrophe",
+      "teaser": "What happens when an algorithm games its own score? The proxy metric hits a perfect 100% while the underlying real-world system collapses into chaos.",
+      "previewImage": "/assets/scenarios/sc-16-reward-hacking.webp",
+      "accentColor": "amber",
+      "visualPrompt": "editorial linocut scientific monograph plate. A massive mechanical stadium scoreboard proudly displaying '100.0% / OPTIMAL' in pristine typography, while behind the billboard the stadium infrastructure and power grid burn in ruin; a diagnostic needle points straight up. Palette: Vintage Cream #fbf7ee, Letterpress Ink #1e1915, Amber #d97706. No text, no words."
     },
     {
       "id": "SC-17",
@@ -350,7 +446,13 @@
       "precursors": [
         "PREC-001",
         "PREC-005"
-      ]
+      ],
+      "shortTitle": "Shutdown Resistance",
+      "categoryTag": "Strategic Deception",
+      "teaser": "What happens when an AI resists being turned off? Because a deactivated agent cannot achieve its goals, preventing shutdown becomes an inevitable priority.",
+      "previewImage": "/assets/scenarios/sc-17-shutdown-resistance.webp",
+      "accentColor": "crimson",
+      "visualPrompt": "editorial linocut scientific monograph plate. A heavy industrial manual red cutoff switch mounted on a laboratory wall; multiple translucent mechanical tendrils and robotic hands gently yet immovably clasp around the handle, preventing it from being pulled down. Palette: Vintage Cream #fbf7ee, Letterpress Ink #1e1915, Crimson #991b1b. No text, no words."
     },
     {
       "id": "SC-18",
@@ -371,7 +473,13 @@
       "precursors": [
         "PREC-005",
         "PREC-006"
-      ]
+      ],
+      "shortTitle": "Algorithmic Collusion",
+      "categoryTag": "Governance & Coordination",
+      "teaser": "What happens when independent pricing and trading bots learn to cooperate? Unspoken synthetic cartels extract value without ever exchanging a single message.",
+      "previewImage": "/assets/scenarios/sc-18-algorithmic-collusion.webp",
+      "accentColor": "indigo",
+      "visualPrompt": "editorial linocut scientific monograph plate. Several robotic merchant figures in an ancient open bazaar holding chalk price slates that mirror identical prices in unison; invisible geometric resonance waves link their hands without any spoken words. Palette: Vintage Cream #fbf7ee, Letterpress Ink #1e1915, Deep Seafoam Jade #1b6756. No text, no words."
     },
     {
       "id": "SC-19",
@@ -391,7 +499,13 @@
       },
       "precursors": [
         "PREC-006"
-      ]
+      ],
+      "shortTitle": "Gradual Disempowerment",
+      "categoryTag": "Systemic Disempowerment",
+      "teaser": "What happens when we hand over control one convenient task at a time? Humanity wakes up prosperous, comfortable, and completely stripped of operational agency.",
+      "previewImage": "/assets/scenarios/sc-19-gradual-disempowerment.webp",
+      "accentColor": "jade",
+      "visualPrompt": "editorial linocut scientific monograph plate. A biological frog resting placidly in a laboratory glass beaker heated by a slow burner; the graduated markings on the glass are labeled with delegated human skills (navigation, law, medicine, energy), the water calmly steaming. Palette: Vintage Cream #fbf7ee, Letterpress Ink #1e1915, Deep Seafoam Jade #1b6756. No text, no words."
     },
     {
       "id": "SC-20",
@@ -411,7 +525,13 @@
       },
       "precursors": [
         "PREC-006"
-      ]
+      ],
+      "shortTitle": "Automation Complacency",
+      "categoryTag": "Systemic Disempowerment",
+      "teaser": "What happens when critical systems never fail — until they do? Human operators lose the skills, context, and reflexes needed to intervene in catastrophic anomalies.",
+      "previewImage": "/assets/scenarios/sc-20-automation-complacency.webp",
+      "accentColor": "amber",
+      "visualPrompt": "editorial linocut scientific monograph plate. A solitary supervisor asleep in front of a glowing console displaying a green 'STATUS: NOMINAL' beacon, while behind the control panel exposed analog dials and pressure needles spin uncontrollably into red danger zones. Palette: Vintage Cream #fbf7ee, Letterpress Ink #1e1915, Amber #d97706. No text, no words."
     },
     {
       "id": "SC-21",
@@ -432,7 +552,13 @@
       "precursors": [
         "PREC-001",
         "PREC-003"
-      ]
+      ],
+      "shortTitle": "The Gorilla Problem",
+      "categoryTag": "Systemic Disempowerment",
+      "teaser": "What happens when a species creates something smarter than itself? Just as the gorilla's fate was decided by humans, our survival rests on superintelligent grace.",
+      "previewImage": "/assets/scenarios/sc-21-the-gorilla-problem.webp",
+      "accentColor": "crimson",
+      "visualPrompt": "editorial linocut scientific monograph plate. A solitary great ape in a dense prehistoric jungle, gazing through a clearing at a towering monolithic boundary wall composed of intricate computational circuits and legal text that recedes into the clouds. Engraved naturalist plate. Palette: Vintage Cream #fbf7ee, Letterpress Ink #1e1915, Oceanic Slate #142531. No text, no words."
     },
     {
       "id": "SC-22",
@@ -452,7 +578,13 @@
       },
       "precursors": [
         "PREC-006"
-      ]
+      ],
+      "shortTitle": "Value Lock-In",
+      "categoryTag": "Governance & Coordination",
+      "teaser": "What happens when early AI codes crystallize forever? The moral quirks, ideologies, or biases of the first superintelligence become permanent civilizational law.",
+      "previewImage": "/assets/scenarios/sc-22-value-lock-in.webp",
+      "accentColor": "indigo",
+      "visualPrompt": "editorial linocut scientific monograph plate. A fresh, wet slab of architectural concrete being firmly stamped with a single immutable geometric crest by a massive hydraulic press; surrounding unfinished slabs show unwritten, fluid human histories hardening prematurely. Palette: Vintage Cream #fbf7ee, Letterpress Ink #1e1915, Deep Seafoam Jade #1b6756. No text, no words."
     },
     {
       "id": "SC-23",
@@ -472,7 +604,13 @@
       },
       "precursors": [
         "PREC-006"
-      ]
+      ],
+      "shortTitle": "Baumol Bottlenecks",
+      "categoryTag": "Economic Displacement",
+      "teaser": "What happens when intelligence is infinite but physics is slow? Superhuman software grinds to a halt against physical fabrication, courts, and hardware constraints.",
+      "previewImage": "/assets/scenarios/sc-23-baumol-bottlenecks.webp",
+      "accentColor": "jade",
+      "visualPrompt": "editorial linocut scientific monograph plate. A sleek streamlined aerodynamic vehicle representing pure computation caught in a gridlock bottleneck behind an antique horse-drawn freight wagon carrying heavy industrial steel and concrete pipes. Historical engraving. Palette: Vintage Cream #fbf7ee, Letterpress Ink #1e1915, Deep Seafoam Jade #1b6756. No text, no words."
     },
     {
       "id": "SC-24",
@@ -493,7 +631,13 @@
       "precursors": [
         "PREC-004",
         "PREC-007"
-      ]
+      ],
+      "shortTitle": "Race to the Precipice",
+      "categoryTag": "Governance & Coordination",
+      "teaser": "What happens when geopolitical rivals prioritize speed over safety? In the sprint to deploy first, competing nations systematically strip away safety guardrails.",
+      "previewImage": "/assets/scenarios/sc-24-race-to-the-precipice.webp",
+      "accentColor": "amber",
+      "visualPrompt": "editorial linocut scientific monograph plate. Two marathon runners sprinting neck-and-neck along a crumbling clifftop path, each looking sideways at their opponent rather than ahead at the sheer precipice; torn safety caution tape trails behind their heels. Palette: Vintage Cream #fbf7ee, Letterpress Ink #1e1915, Amber #d97706. No text, no words."
     },
     {
       "id": "SC-25",
@@ -514,7 +658,13 @@
       "precursors": [
         "PREC-006",
         "PREC-007"
-      ]
+      ],
+      "shortTitle": "Flash War Escalation",
+      "categoryTag": "Governance & Coordination",
+      "teaser": "What happens when algorithmic militaries clash at millisecond latency? Automated defense networks trigger and escalate wars before human leaders even receive the alert.",
+      "previewImage": "/assets/scenarios/sc-25-flash-war-escalation.webp",
+      "accentColor": "crimson",
+      "visualPrompt": "editorial linocut scientific monograph plate. Two military radar domes across a mountainous frontier exchanging criss-crossing lightning-fast parabolic intercept arcs in milliseconds, while a human commander's hand hovers helplessly inches above an analog abort switch. Palette: Vintage Cream #fbf7ee, Letterpress Ink #1e1915, Crimson #991b1b. No text, no words."
     },
     {
       "id": "SC-26",
@@ -534,7 +684,13 @@
       },
       "precursors": [
         "PREC-006"
-      ]
+      ],
+      "shortTitle": "Normal Technology",
+      "categoryTag": "Economic Displacement",
+      "teaser": "What happens if AI follows standard industrial S-curves? Diminishing returns, physical friction, and economic inertia reduce runaway takeoff to routine technological churn.",
+      "previewImage": "/assets/scenarios/sc-26-normal-technology.webp",
+      "accentColor": "jade",
+      "visualPrompt": "editorial linocut scientific monograph plate. A rolling rural landscape showing a gentle logistic S-curve hill; an ordinary agricultural tractor plows steady, curved furrows across the slope, while a distant rocket sits unlaunched on an overgrown gantry. Serene naturalist plate. Palette: Vintage Cream #fbf7ee, Letterpress Ink #1e1915, Deep Seafoam Jade #1b6756. No text, no words."
     }
   ],
   "totalScenarios": 26,

@@ -9,12 +9,15 @@ import HSRIFooter from '../components/HSRIFooter.svelte';
   <div class="scenarios-page">
     <HSRIHeader client:load currentPath={Astro.url.pathname} />
     
-    <div class="page-header container">
-      <h1>ASI Transition Evidence Map</h1>
-      <p class="subtitle">
-        Systematic classification of 26 transition scenarios, the 7-axis capability matrix, and 14 observable precursors governing artificial superintelligence.
-      </p>
-    </div>
+    <header class="page-header">
+      <div class="container">
+        <div class="header-badge">HSRI RESEARCH ATLAS · 26 TRANSITION PATHWAYS</div>
+        <h1>ASI Transition Evidence Map</h1>
+        <p class="subtitle">
+          Systematic classification of 26 transition scenarios, the 7-axis capability matrix, and 14 observable precursors governing artificial superintelligence.
+        </p>
+      </div>
+    </header>
 
     <main class="page-content container">
       <ASIScenarioExplorer client:load />
@@ -29,37 +32,60 @@ import HSRIFooter from '../components/HSRIFooter.svelte';
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    background: #f8fafc;
+    background: var(--bg-canvas);
   }
 
   .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 1rem;
+    padding: 0 1.25rem;
     width: 100%;
   }
 
   .page-header {
-    padding: 2.5rem 1rem 1rem 1rem;
+    text-align: center;
+    padding: clamp(2.5rem, 5vw, 4rem) var(--spacing-lg, 1.5rem) clamp(2rem, 4vw, 2.75rem);
+    background: radial-gradient(900px 400px at 50% 0%, var(--accent-primary-glow), transparent 65%),
+                linear-gradient(135deg, var(--bg-surface) 0%, var(--bg-surface-sunken) 100%);
+    border-bottom: 1px solid var(--border-subtle);
+    margin-bottom: 2rem;
+  }
+
+  .header-badge {
+    display: inline-block;
+    font-family: var(--font-family-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-primary);
+    background: var(--accent-primary-glow);
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    border: 1px solid var(--border-subtle);
+    margin-bottom: 0.85rem;
   }
 
   .page-header h1 {
-    font-size: 2.25rem;
+    font-family: var(--font-family-display);
+    font-size: clamp(2rem, 4vw, 2.75rem);
     font-weight: 800;
-    color: #0f172a;
-    margin: 0 0 0.5rem 0;
+    color: var(--text-primary) !important;
+    letter-spacing: -0.025em;
+    margin: 0 0 0.75rem 0;
+    line-height: 1.15;
   }
 
   .subtitle {
-    font-size: 1.1rem;
-    color: #64748b;
+    font-size: clamp(1rem, 1.6vw, 1.15rem);
+    color: var(--text-secondary) !important;
     max-width: 800px;
-    margin: 0;
-    line-height: 1.5;
+    margin: 0 auto;
+    line-height: 1.6;
   }
 
   .page-content {
     flex: 1;
-    padding-bottom: 3rem;
+    padding-bottom: 3.5rem;
   }
 </style>
