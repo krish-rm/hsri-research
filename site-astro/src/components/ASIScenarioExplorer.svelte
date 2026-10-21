@@ -221,23 +221,20 @@
                 }}
               />
             {/if}
+          </div>
 
-            <div class="plate-scrim"></div>
-
-            <!-- Overlaid Badges -->
-            <div class="plate-badges">
+          <!-- Card Content Body -->
+          <div class="card-body">
+            <!-- Scenario Metadata (Cleanly placed below the image, zero overlay on artwork) -->
+            <div class="card-meta-bar">
               <span class="badge-id-pill">
-                {sc.id} · {sc.categoryTag ?? 'SCENARIO'}
+                {sc.id} • {sc.categoryTag ?? 'SCENARIO'}
               </span>
               <span class="badge-severity" data-tone={getSeverityTone(sc.severity)}>
                 <span class="severity-dot"></span>
                 {sc.severity ? sc.severity.split('/')[0].split('(')[0].trim() : 'Unrated'}
               </span>
             </div>
-          </div>
-
-          <!-- Card Content Body -->
-          <div class="card-body">
             <h3 class="scenario-title">{cardTitle(sc)}</h3>
             <p class="scenario-teaser">{cardTeaser(sc)}</p>
           </div>
@@ -641,24 +638,14 @@
     transform: scale(1.045);
   }
 
-  .plate-scrim {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(14, 21, 30, 0.55) 0%, transparent 60%);
-    pointer-events: none;
-  }
-
-  .plate-badges {
-    position: absolute;
-    top: 0.7rem;
-    left: 0.7rem;
-    right: 0.7rem;
+  /* Card Metadata Header (outside and below plate) */
+  .card-meta-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 0.5rem;
-    pointer-events: none;
-    z-index: 2;
+    margin-bottom: 0.15rem;
+    flex-wrap: wrap;
   }
 
   .badge-id-pill {
@@ -667,21 +654,18 @@
     font-weight: 700;
     letter-spacing: 0.05em;
     text-transform: uppercase;
-    background: var(--bg-glass, rgba(251, 247, 238, 0.92));
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background: var(--bg-surface-elevated, #ffffff);
     color: var(--text-primary);
-    padding: 0.22rem 0.55rem;
+    padding: 0.2rem 0.55rem;
     border-radius: 9999px;
     border: 1px solid var(--border-subtle);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
   }
 
   .badge-severity {
     font-family: var(--font-family-mono);
     font-size: 0.68rem;
     font-weight: 700;
-    padding: 0.22rem 0.55rem;
+    padding: 0.2rem 0.55rem;
     border-radius: 9999px;
     background: var(--bg-surface-elevated, #ffffff);
     border: 1px solid var(--border-subtle);
@@ -689,7 +673,6 @@
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
   }
 
   .severity-dot {
