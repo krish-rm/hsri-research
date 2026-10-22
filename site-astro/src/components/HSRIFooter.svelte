@@ -6,7 +6,7 @@
     'Inquiry & Research': [
       { name: 'Civilizational Monograph', href: `${base}/monograph/` },
       { name: 'ASI Precursor Seismograph', href: `${base}/seismograph/` },
-      { name: '39-Nation Scoreboard', href: `${base}/dashboard/` },
+      { name: 'Takeoff Scenarios Atlas', href: `${base}/scenarios/` },
       { name: 'Country Profiles', href: `${base}/countries/` },
     ],
     'Open Science & Methodology': [

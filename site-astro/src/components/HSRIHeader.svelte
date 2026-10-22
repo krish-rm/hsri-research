@@ -14,6 +14,7 @@
     { name: 'Monograph', href: '/monograph/', badge: 'ESSAY' },
     { name: 'Country Index', href: '/countries/' },
     { name: 'Seismograph', href: '/seismograph/', live: true },
+    { name: 'Scenario Atlas', href: '/scenarios/' },
   ];
 
   // Secondary dropdown — progressive disclosure for Persona C
@@ -23,7 +24,6 @@
       { name: 'Methodology', href: '/methodology/', desc: 'Leontief engine & formal proofs' },
       { name: 'Data & Coverage', href: '/data/', desc: 'Indicators & downloads' },
       { name: 'Research Logs', href: '/research-updates/', desc: 'Updates & preprints' },
-      { name: 'Scenario Atlas', href: '/scenarios/', desc: '26 takeoff simulations' },
       { name: 'DOI 10.5281/zenodo.23441742', href: 'https://doi.org/10.5281/zenodo.23441742', desc: 'Permanent record — CC BY-SA 4.0', external: true },
     ],
   };
