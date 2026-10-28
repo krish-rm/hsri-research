@@ -7,8 +7,8 @@
   "provenance": "live_sentinel_telemetry",
   "data_timestamp": "Thu, 22 Oct 2026 00:00:00 -0700",
   "window_30d": {
-    "total_runs": 109,
-    "success_runs": 107,
+    "total_runs": 111,
+    "success_runs": 109,
     "success_rate": 0.982
   },
   "window_7d": {
