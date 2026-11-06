@@ -7,13 +7,13 @@
   "provenance": "live_sentinel_telemetry",
   "data_timestamp": "Thu, 05 Nov 2026 00:00:00 -0800",
   "window_30d": {
-    "total_runs": 167,
-    "success_runs": 165,
+    "total_runs": 169,
+    "success_runs": 167,
     "success_rate": 0.988
   },
   "window_7d": {
-    "total_runs": 44,
-    "success_runs": 44,
+    "total_runs": 42,
+    "success_runs": 42,
     "success_rate": 1.0
   }
 }
