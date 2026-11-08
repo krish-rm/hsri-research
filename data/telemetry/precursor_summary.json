@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-11-08T03:40:13.171033+00:00",
+  "timestamp": "2026-11-08T12:31:26.169713+00:00",
   "master_precursor_threat_score": 8.44,
   "overall_classification": "CRITICAL_SUPERVISORY_COLLAPSE",
   "advisory_summary": "Autonomous execution velocity severely outstripping human verification capacity.",
