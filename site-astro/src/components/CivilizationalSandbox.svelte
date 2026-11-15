@@ -588,10 +588,12 @@ DOI: 10.5281/zenodo.23441742
                 <g class="tier-group tier-3">
                   <!-- Air-Gapped Redoubt Outer Shield (For Norway, Switzerland, Finland: T_half >= 1000h) -->
                   {#if selectedCountry.t_half_h >= 1000}
-                    <rect x="32" y="332" width="396" height="126" rx="10" fill="none" stroke="#1b6756" stroke-width="2.5" stroke-dasharray="6,4" />
-                    <text x="390" y="328" text-anchor="end" font-family="var(--font-family-mono)" font-size="9" font-weight="800" fill="#1b6756">
-                      🛡️ AIR-GAPPED REDOUBT SHIELD ACTIVE (60 DAYS AUTARKY)
-                    </text>
+                    <g class="redoubt-shield-group">
+                      <rect x="32" y="332" width="396" height="126" rx="10" fill="none" stroke="#1b6756" stroke-width="2.5" stroke-dasharray="6,4" />
+                      <text x="390" y="328" text-anchor="end" font-family="var(--font-family-mono)" font-size="9" font-weight="800" fill="#1b6756">
+                        🛡️ AIR-GAPPED REDOUBT SHIELD ACTIVE (60 DAYS AUTARKY)
+                      </text>
+                    </g>
                   {/if}
 
                   <rect x="40" y="340" width="380" height="110" rx="6" fill="#f4efe4" stroke="#1e1915" stroke-width="2" />
@@ -606,13 +608,13 @@ DOI: 10.5281/zenodo.23441742
 
                   <g class="tier-3-metrics">
                     <text x="56" y="415" font-family="var(--font-family-mono)" font-size="10" fill="#1e1915">
-                      Dedicated Clean Power: <strong>{selectedCountry.gw_clean} GW</strong>
+                      Dedicated Clean Power: <tspan font-weight="700">{selectedCountry.gw_clean} GW</tspan>
                     </text>
                     <text x="240" y="415" font-family="var(--font-family-mono)" font-size="10" fill="#1e1915">
-                      Silicon Independence: <strong>{(selectedCountry.sfp * 100).toFixed(0)}%</strong>
+                      Silicon Independence: <tspan font-weight="700">{(selectedCountry.sfp * 100).toFixed(0)}%</tspan>
                     </text>
                     <text x="56" y="435" font-family="var(--font-family-mono)" font-size="10" fill="#1e1915">
-                      Decoupling Half-Life: <strong>{selectedCountry.t_half_h} Hours</strong>
+                      Decoupling Half-Life: <tspan font-weight="700">{selectedCountry.t_half_h} Hours</tspan>
                     </text>
                   </g>
                 </g>
