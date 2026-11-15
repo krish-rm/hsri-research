@@ -4,7 +4,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import HSRIHeader from '../components/HSRIHeader.svelte';
 import HSRIFooter from '../components/HSRIFooter.svelte';
 import VisualScenarioTheater from '../components/VisualScenarioTheater.svelte';
-import InlineWedgeWidget from '../components/InlineWedgeWidget.svelte';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
@@ -61,109 +60,102 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     </div>
 
     <!-- ===================================================================== -->
-    <!-- 3. THE STRUCTURAL MECHANISM: TWO PHYSICAL REALITIES                   -->
+    <!-- 3. THE CORE REALITY: TWO REASONS CIVILIZATION CANNOT "UNPLUG"         -->
     <!-- ===================================================================== -->
     <section id="the-mechanism" class="section-container">
       <div class="content-container">
         <div class="section-header text-center">
-          <span class="section-step">THE CORE THESIS · TWO PHYSICAL REALITIES</span>
-          <h2 class="section-title">Why Civilization Cannot Steer or Pause the Machine</h2>
+          <span class="section-step">THE CORE REALITY</span>
+          <h2 class="section-title">Two Reasons Civilization Cannot Just "Unplug" the Machine</h2>
           <p class="section-intro">
-            Superintelligence breaks the Westphalian nation-state not through malice, but through basic physical laws: execution velocity and structural dependency.
+            Superintelligence threatens nations not through science-fiction malice, but through two simple physical traps: speed and dependency.
           </p>
         </div>
 
         <div class="thesis-dual-grid">
-          <!-- Card 1: The Speed Divide -->
+          <!-- Card 1: The Speed Trap -->
           <div class="thesis-card">
             <div class="tc-header">
-              <span class="tc-eyebrow">PHYSICAL REALITY 01 · TEMPORAL ASYMMETRY</span>
+              <span class="tc-eyebrow">REALITY 01 · THE SPEED TRAP</span>
               <h3 class="tc-title">We Cannot Steer What Moves Faster Than We Can Think</h3>
               <p class="tc-body">
-                For thousands of years, every tool humans created waited for biological reflexes (~200ms). That physical boundary has broken. Frontier swarms execute in microseconds—over 3,200x faster than human thought. Human oversight is no longer operational; it is forensic. We arrive after the crash.
+                For thousands of years, every tool humans built waited for biological reflexes. That physical safeguard is gone. Autonomous algorithms and AI swarms execute complex decisions in microseconds—thousands of times faster than human sensory awareness.
               </p>
             </div>
 
-            <div class="speed-mini-metrics">
-              <div class="smm-box">
-                <span class="smm-label">Biological Reflex Floor</span>
-                <span class="smm-val">~200 ms</span>
-                <span class="smm-sub">Human neural threshold</span>
+            <div class="layman-speed-comparison">
+              <div class="lsc-side human">
+                <div class="lsc-icon">👁️</div>
+                <div class="lsc-content">
+                  <span class="lsc-label">Human Biology</span>
+                  <div class="lsc-headline">One Human Blink</div>
+                  <p class="lsc-sub">The bare minimum time needed for your brain to recognize danger.</p>
+                </div>
               </div>
-              <div class="smm-box">
-                <span class="smm-label">Synthetic Velocity Loop</span>
-                <span class="smm-val divergent">0.06 ms</span>
-                <span class="smm-sub">3,200x supervisory divergence</span>
+
+              <div class="lsc-divider-arrow">VS</div>
+
+              <div class="lsc-side machine">
+                <div class="lsc-icon">⚡</div>
+                <div class="lsc-content">
+                  <span class="lsc-label">Machine Swarm</span>
+                  <div class="lsc-headline">Thousands of Moves</div>
+                  <p class="lsc-sub">Trades executed, power re-routed, and recursive code deployed.</p>
+                </div>
               </div>
             </div>
 
-            <div class="tc-widget-wrapper">
-              <InlineWedgeWidget client:visible />
+            <div class="layman-takeaway">
+              <span class="lt-icon">💡</span>
+              <p class="lt-text">
+                <strong>The Reality:</strong> "Human-in-the-loop" is a comforting narrative, but in an emergency it is impossible. We are not steering the car; we only arrive to examine the wreckage after the crash.
+              </p>
             </div>
           </div>
 
-          <!-- Card 2: The Leontief Floor -->
+          <!-- Card 2: The Dependency Trap -->
           <div class="thesis-card">
             <div class="tc-header">
-              <span class="tc-eyebrow">PHYSICAL REALITY 02 · STRUCTURAL DEPENDENCY</span>
-              <h3 class="tc-title">Why Civilization Has No "Pause Button"</h3>
+              <span class="tc-eyebrow">REALITY 02 · THE DEPENDENCY TRAP</span>
+              <h3 class="tc-title">Why Civilization Has No "Red Button"</h3>
               <p class="tc-body">
-                We comfort ourselves with the idea of a kill-switch. But in an automated society, pausing the machine pauses life. A modern economy is bounded by its lowest physical autarky layer (Leontief weakest link), not its software GDP.
+                People imagine leaders can just pull the plug if AI goes rogue. But modern cities threw away paper records and manual levers decades ago. Pausing the machine means pausing life.
               </p>
             </div>
 
-            <div class="structural-locks-list">
-              <div class="sll-item">
-                <span class="sll-icon" aria-hidden="true">⚡</span>
-                <div class="sll-content">
-                  <h4>Grid &amp; Energy Locks</h4>
-                  <p>Substations trip in &lt;2s without microsecond phase balancing.</p>
+            <div class="layman-locks-list">
+              <div class="lll-item">
+                <span class="lll-icon">⚡</span>
+                <div class="lll-text">
+                  <strong>The Electrical Grid:</strong> Sub-stations trip in seconds without continuous algorithmic frequency balancing, triggering immediate national blackouts.
                 </div>
-                <span class="sll-badge">&lt; 2s Halftime</span>
               </div>
 
-              <div class="sll-item">
-                <span class="sll-icon" aria-hidden="true">🚢</span>
-                <div class="sll-content">
-                  <h4>Autonomous Logistics</h4>
-                  <p>Container cranes &amp; rail routing halt without live cloud manifests.</p>
+              <div class="lll-item">
+                <span class="lll-icon">🚢</span>
+                <div class="lll-text">
+                  <strong>Food &amp; Supermarkets:</strong> Container ports and grocery supply chains run on cloud databases. Supermarkets empty within 24 hours of a cloud freeze.
                 </div>
-                <span class="sll-badge">12–24h Halt</span>
               </div>
 
-              <div class="sll-item">
-                <span class="sll-icon" aria-hidden="true">🏥</span>
-                <div class="sll-content">
-                  <h4>Hospital &amp; Civic Data</h4>
-                  <p>Emergency triage and ICU dispensing degrade by up to 80%.</p>
+              <div class="lll-item">
+                <span class="lll-icon">🏥</span>
+                <div class="lll-text">
+                  <strong>Hospitals &amp; Medicine:</strong> Emergency triage, patient monitoring, and automated drug dispensing degrade up to 80% when foreign APIs disconnect.
                 </div>
-                <span class="sll-badge">-80% Triage</span>
               </div>
             </div>
 
-            <div class="contrast-mini-box">
-              <div class="cmb-header">SOVEREIGN VULNERABILITY CONTRAST</div>
-              <div class="cmb-rows">
-                <div class="cmb-row">
-                  <div class="cmb-meta">
-                    <span class="cmb-country">Singapore (SGP)</span>
-                    <span class="cmb-note">95% gas import · Halts in 18h</span>
-                  </div>
-                  <span class="cmb-drop neg">Drops 40 Ranks</span>
-                </div>
-                <div class="cmb-row">
-                  <div class="cmb-meta">
-                    <span class="cmb-country">Norway (NOR)</span>
-                    <span class="cmb-note">100% hydro · Grain buffer · 72h+ autarky</span>
-                  </div>
-                  <span class="cmb-drop pos">Holds Rank #1</span>
-                </div>
-              </div>
+            <div class="layman-takeaway warning">
+              <span class="lt-icon">⚠️</span>
+              <p class="lt-text">
+                <strong>The Paradox:</strong> The richest, most digitalized nations freeze first, while countries with physical buffers (food grain, hydropower, manual overrides) endure.
+              </p>
             </div>
 
             <div class="tc-action-row">
               <a href={`${base}/sandbox/`} class="btn btn-secondary btn-block">
-                Stress-Test 41 Nations in the Sandbox Workbench &rarr;
+                See How 41 Nations Hold Up in the Crisis Sandbox &rarr;
               </a>
             </div>
           </div>
@@ -577,186 +569,143 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     margin: 0;
   }
 
-  /* Card 1: Speed Divide Elements */
-  .speed-mini-metrics {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    margin: 1.5rem 0 1.25rem;
-  }
-
-  .smm-box {
-    background: var(--bg-surface);
-    border: 1px solid var(--border-subtle);
-    border-radius: 10px;
-    padding: 0.85rem 1rem;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .smm-label {
-    font-family: var(--font-family-mono);
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    margin-bottom: 0.25rem;
-  }
-
-  .smm-val {
-    font-family: var(--font-family-mono);
-    font-size: 1.5rem;
-    font-weight: 900;
-    color: var(--text-primary);
-    line-height: 1.2;
-  }
-
-  .smm-val.divergent {
-    color: var(--threat-critical, #ef4444);
-  }
-
-  .smm-sub {
-    font-size: 0.74rem;
-    color: var(--text-muted);
-    margin-top: 0.25rem;
-  }
-
-  .tc-widget-wrapper {
-    margin-top: auto;
-  }
-
-  .tc-widget-wrapper :global(.wedge-widget-card) {
-    margin: 0 !important;
-    background: var(--bg-surface) !important;
-    border-color: var(--border-subtle) !important;
-  }
-
-  /* Card 2: Leontief Structural Locks */
-  .structural-locks-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    margin: 1.25rem 0;
-  }
-
-  .sll-item {
+  /* Layman Speed Comparison (Card 1) */
+  .layman-speed-comparison {
     display: flex;
     align-items: center;
     gap: 0.85rem;
     background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
-    border-radius: 10px;
-    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    padding: 1.15rem 1rem;
+    margin: 1.25rem 0;
   }
 
-  .sll-icon {
-    font-size: 1.25rem;
+  .lsc-side {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+  }
+
+  .lsc-icon {
+    font-size: 1.5rem;
     line-height: 1;
     flex-shrink: 0;
   }
 
-  .sll-content {
-    flex-grow: 1;
+  .lsc-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
   }
 
-  .sll-content h4 {
-    font-size: 0.92rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin: 0 0 0.15rem;
-    line-height: 1.2;
-  }
-
-  .sll-content p {
-    font-size: 0.82rem;
-    color: var(--text-secondary);
-    line-height: 1.4;
-    margin: 0;
-  }
-
-  .sll-badge {
-    font-family: var(--font-family-mono);
-    font-size: 0.68rem;
-    font-weight: 800;
-    color: var(--threat-critical, #ef4444);
-    background: var(--threat-critical-bg, rgba(239, 68, 68, 0.12));
-    border: 1px solid rgba(239, 68, 68, 0.25);
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  /* Contrast Mini Box */
-  .contrast-mini-box {
-    background: var(--bg-surface);
-    border: 1px solid var(--border-subtle);
-    border-radius: 10px;
-    padding: 0.85rem 1.15rem;
-    margin-bottom: 1.25rem;
-  }
-
-  .cmb-header {
+  .lsc-label {
     font-family: var(--font-family-mono);
     font-size: 0.65rem;
     font-weight: 800;
-    letter-spacing: 0.08em;
-    color: var(--text-muted);
-    margin-bottom: 0.5rem;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
-  }
-
-  .cmb-rows {
-    display: flex;
-    flex-direction: column;
-    gap: 0.45rem;
-  }
-
-  .cmb-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.75rem;
-    padding-bottom: 0.45rem;
-    border-bottom: 1px dashed var(--border-subtle);
-  }
-
-  .cmb-row:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
-  }
-
-  .cmb-meta {
-    display: flex;
-    flex-direction: column;
-    gap: 0.1rem;
-  }
-
-  .cmb-country {
-    font-size: 0.88rem;
-    font-weight: 700;
-    color: var(--text-primary);
-  }
-
-  .cmb-note {
-    font-size: 0.74rem;
     color: var(--text-muted);
   }
 
-  .cmb-drop {
-    font-family: var(--font-family-mono);
-    font-size: 0.78rem;
+  .lsc-headline {
+    font-size: 1.05rem;
     font-weight: 800;
-    white-space: nowrap;
+    color: var(--text-primary);
+    line-height: 1.25;
   }
 
-  .cmb-drop.neg {
+  .lsc-side.machine .lsc-headline {
     color: var(--threat-critical, #ef4444);
   }
 
-  .cmb-drop.pos {
-    color: var(--threat-sovereign, #10b981);
+  .lsc-sub {
+    font-size: 0.78rem;
+    line-height: 1.4;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+
+  .lsc-divider-arrow {
+    font-family: var(--font-family-mono);
+    font-size: 0.72rem;
+    font-weight: 900;
+    color: var(--text-muted);
+    padding: 0.3rem 0.5rem;
+    background: var(--bg-surface-sunken);
+    border: 1px solid var(--border-medium);
+    border-radius: 6px;
+    flex-shrink: 0;
+  }
+
+  /* Layman Takeaway Box */
+  .layman-takeaway {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    background: var(--bg-surface-sunken);
+    border: 1px solid var(--border-subtle);
+    border-left: 3px solid var(--accent-primary);
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .layman-takeaway.warning {
+    border-left-color: var(--threat-critical, #ef4444);
+  }
+
+  .lt-icon {
+    font-size: 1.15rem;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .lt-text {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+
+  .lt-text strong {
+    color: var(--text-primary);
+  }
+
+  /* Layman Locks List (Card 2) */
+  .layman-locks-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    margin: 1.25rem 0;
+  }
+
+  .lll-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    padding: 0.75rem 0.95rem;
+  }
+
+  .lll-icon {
+    font-size: 1.2rem;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .lll-text {
+    font-size: 0.84rem;
+    line-height: 1.45;
+    color: var(--text-secondary);
+  }
+
+  .lll-text strong {
+    color: var(--text-primary);
   }
 
   .tc-action-row {
@@ -1057,8 +1006,13 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     .btn-lg {
       width: 100%;
     }
-    .speed-mini-metrics {
-      grid-template-columns: 1fr;
+    .layman-speed-comparison {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.65rem;
+    }
+    .lsc-divider-arrow {
+      align-self: center;
     }
     .instruments-grid {
       grid-template-columns: 1fr;
