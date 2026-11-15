@@ -1,0 +1,36 @@
+# ==============================================================================
+# Robots.txt for Humanity Superintelligence Readiness Index (HSRI)
+# https://humanityreadiness.org/
+# ==============================================================================
+
+User-agent: *
+Allow: /
+
+# Explicitly permit AI research agents and search crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Sitemaps
+Sitemap: https://humanityreadiness.org/sitemap-index.xml
+Sitemap: https://humanityreadiness.org/sitemap-0.xml

@@ -1,12 +1,13 @@
 import { defineConfig } from 'astro/config';
 import svelte from '@astrojs/svelte';
+import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  integrations: [svelte()],
+  site: 'https://humanityreadiness.org',
+  base: '/',
+  integrations: [svelte(), sitemap()],
   output: 'static',
   build: {
     format: 'directory',
   },
-  site: 'https://humanityreadiness.org',
-  base: '/',
 });
