@@ -19,8 +19,19 @@
   let searchQuery = '';
   let selectedArchetypeFilter = 'ALL';
 
-  // Interactive 72-Hour Transition Timeline State
-  let simulationHour = 0;
+  // Symmetric Log-Scrubber Steps: Reconciles Hour 1 with Hour 1,440 on one continuous axis
+  const LOG_TIMELINE_STEPS = [
+    { value: 1, label: '1h', fullLabel: '1 Hour', sub: 'Immediate API token revocation' },
+    { value: 4, label: '4h', fullLabel: '4 Hours', sub: 'Singapore civilizational floor reached' },
+    { value: 12, label: '12h', fullLabel: '12 Hours', sub: 'Port crane scheduling & hospital triage desync' },
+    { value: 72, label: '3d', fullLabel: '3 Days (72h)', sub: '72h analog autarky limit (US fiscal stress)' },
+    { value: 336, label: '2w', fullLabel: '2 Weeks (336h)', sub: 'Regional supply chain inventories exhaust' },
+    { value: 1440, label: '2mo', fullLabel: '2 Months (1,440h)', sub: 'Norway & Finland air-gapped hydro autarky' }
+  ];
+
+  let timelineStepIndex = 1; // Default to 4 Hours so Singapore's cliff is immediately visible
+  $: simulationHour = LOG_TIMELINE_STEPS[timelineStepIndex].value;
+
   let isPlaying = false;
   let simulationInterval: any = null;
 
@@ -33,16 +44,16 @@
   }
 
   function playSimulation() {
-    if (simulationHour >= 72) simulationHour = 0;
+    if (timelineStepIndex >= LOG_TIMELINE_STEPS.length - 1) timelineStepIndex = 0;
     isPlaying = true;
     clearInterval(simulationInterval);
     simulationInterval = setInterval(() => {
-      if (simulationHour < 72) {
-        simulationHour += 2;
+      if (timelineStepIndex < LOG_TIMELINE_STEPS.length - 1) {
+        timelineStepIndex += 1;
       } else {
         pauseSimulation();
       }
-    }, 120);
+    }, 1200);
   }
 
   function pauseSimulation() {
@@ -52,35 +63,29 @@
 
   function resetSimulationHour() {
     pauseSimulation();
-    simulationHour = 0;
+    timelineStepIndex = 0;
   }
 
   onDestroy(() => {
     clearInterval(simulationInterval);
   });
 
-  // Precomputed Rank Mappings (Adoption L1 vs Sovereign Decoupling T_half)
-  $: adoptionRanks = (() => {
-    const sorted = [...sandboxPayload.countries].sort((a, b) => b.h_layer1 - a.h_layer1);
-    const map: Record<string, number> = {};
-    sorted.forEach((c, idx) => map[c.iso] = idx + 1);
-    return map;
-  })();
-
-  $: sovereignRanks = (() => {
-    const sorted = [...displayCountries].sort((a, b) => b.t_half_h - a.t_half_h);
-    const map: Record<string, number> = {};
-    sorted.forEach((c, idx) => map[c.iso] = idx + 1);
-    return map;
-  })();
+  // Ghost comparison state for instant visual contrast
+  let previousCountryIso: string | null = null;
+  function selectPresetCountry(iso: string) {
+    if (iso !== selectedCountryIso) {
+      previousCountryIso = selectedCountryIso;
+      selectedCountryIso = iso;
+    }
+  }
 
   const PRESET_COUNTRIES = [
-    { iso: 'SGP', name: 'Singapore', note: 'Top Adoption (-40 Ranks)' },
-    { iso: 'USA', name: 'United States', note: 'Hyperscale (-37 Ranks)' },
-    { iso: 'NOR', name: 'Norway', note: 'Air-Gapped (#1 Resilient)' },
-    { iso: 'CHE', name: 'Switzerland', note: 'Analog Redoubt (#3)' },
-    { iso: 'DEU', name: 'Germany', note: 'Industrial Core (#8)' },
-    { iso: 'KOR', name: 'South Korea', note: 'Semiconductors (-32 Ranks)' }
+    { iso: 'SGP', name: 'Singapore', note: 'Drops 34 Ranks (#4 ➔ #38)' },
+    { iso: 'USA', name: 'United States', note: 'Drops 21 Ranks (#15 ➔ #36)' },
+    { iso: 'NOR', name: 'Norway', note: 'Air-Gapped Sovereign (#1)' },
+    { iso: 'CHE', name: 'Switzerland', note: 'Analog Redoubt (+7 Ranks)' },
+    { iso: 'DEU', name: 'Germany', note: 'Industrial Core (+9 Ranks)' },
+    { iso: 'KOR', name: 'South Korea', note: 'Semiconductor Hub' }
   ];
 
   const SHOCK_PRECEDENTS: Record<string, { id: string; name: string; author: string }> = {
@@ -92,7 +97,7 @@
 
   const SHOCK_PLAIN_NAMES: Record<string, { title: string; subtitle: string; icon: string }> = {
     'INJ-01': { title: 'The Cloud Gets Switched Off', subtitle: 'US/Foreign cloud APIs severed overnight (Model Embargo)', icon: '🔌' },
-    'INJ-02': { title: 'A Year of White-Collar Job Loss at Once', subtitle: '60% cognitive labor automated; income tax collapses', icon: '💸' },
+    'INJ-02': { title: 'A Year of White-Collar Layoffs at Once', subtitle: '60% cognitive labor automated; income tax collapses', icon: '💸' },
     'INJ-03': { title: 'An Autonomous Machine Cartel Secedes', subtitle: 'Algorithmic entities buy power plants and exit state law', icon: '🤖' },
     'INJ-04': { title: 'A Conflict Resolves in Milliseconds', subtitle: 'Defense speed outstrips human eyes; AI pulls trigger', icon: '⚡' }
   };
@@ -116,6 +121,36 @@
       return 'Strong domestic sovereign compute ownership, but exposed to systemic fiscal transition shocks as labor markets automate.';
     } else {
       return 'Moderate digital adoption with limited domestic frontier model autonomy. Survives on regional secondary supply chains.';
+    }
+  }
+
+  function getFigureCaption(hour: number, c: any): string {
+    if (hour <= 1) {
+      return `Foreign cloud API conduits severed. ${c.name}'s domestic systems running on immediate local cached state.`;
+    } else if (hour <= 4) {
+      if (c.t_half_h <= 4) {
+        return `Civilizational ceiling breached. ${c.name} has exhausted local buffers; automated container scheduling, SWIFT clearing, and hospital triage halt.`;
+      } else {
+        return `Domestic analog and secondary reserves holding steady. Systemic operations continue without foreign cloud dependence.`;
+      }
+    } else if (hour <= 12) {
+      if (c.t_half_h <= 12) {
+        return `Institutional failure. Critical infrastructure desynchronizes due to near-zero domestic analog redundancy.`;
+      } else {
+        return `Secondary supply chain logistics remain stable under domestic administrative control.`;
+      }
+    } else if (hour <= 72) {
+      if (c.t_half_h <= 72) {
+        return `72-Hour civil defense threshold breached. Backup diesel generators exhaust; municipal grids desynchronize without algorithmic telemetry.`;
+      } else {
+        return `Air-gapped redoubts and sovereign energy baseload buffering successfully against prolonged cloud quarantine.`;
+      }
+    } else {
+      if (c.t_half_h >= 1000) {
+        return `Exceptional sovereign resilience. 100% clean hydro baseload and decentralized analog protocols maintain civilizational continuity for 60+ days.`;
+      } else {
+        return `Complete systemic institutional collapse under extended multi-week digital embargo.`;
+      }
     }
   }
 
@@ -234,11 +269,12 @@
 
   $: selectedCountry = displayCountries.find(c => c.iso === selectedCountryIso) || displayCountries[0];
 
-  $: currentAdoptionRank = adoptionRanks[selectedCountry.iso] || 1;
-  $: currentSovereignRank = sovereignRanks[selectedCountry.iso] || 1;
-  $: currentRankDrop = currentSovereignRank - currentAdoptionRank;
+  $: currentAdoptionRank = selectedCountry.rank_layer1 ?? 4;
+  $: currentSovereignRank = selectedCountry.rank_layer2 ?? 38;
+  $: currentRankDrop = selectedCountry.rank_delta ?? -34;
   $: isCeilingBreached = simulationHour >= selectedCountry.t_half_h;
   $: transitionEvent = getTransitionEvent(simulationHour, selectedCountry);
+  $: figureCaption = getFigureCaption(simulationHour, selectedCountry);
   $: activePrecedent = activeInjectId ? SHOCK_PRECEDENTS[activeInjectId] : null;
 
   $: archetypeCounts = displayCountries.reduce((acc: Record<string, number>, curr) => {
@@ -389,200 +425,386 @@ DOI: 10.5281/zenodo.23441742
         </p>
       </div>
 
-      <!-- 3. The Interactive Stress Deck -->
+      <!-- 3. The Interactive Stress Deck (Split-Screen Linocut Cockpit) -->
       <div class="stress-deck-card">
-        <!-- Step 1: Country Picker -->
-        <div class="deck-step">
-          <div class="step-label-row">
-            <span class="step-num">STEP 1</span>
-            <span class="step-title">Select Nation to Stress-Test:</span>
+        <!-- Top Differentiator & Header -->
+        <div class="deck-masthead">
+          <div class="hero-badge-live">
+            <span class="pulse-indicator"></span>
+            FIGURE 1 · NATION-STATE NERVOUS SYSTEM STRESS MODEL
           </div>
-
-          <!-- Preset Country Chips -->
-          <div class="preset-chips-row">
-            {#each PRESET_COUNTRIES as p}
-              <button 
-                class="preset-chip" 
-                class:active={selectedCountryIso === p.iso}
-                on:click={() => { selectedCountryIso = p.iso; resetSimulationHour(); }}
-              >
-                <span class="chip-name">{p.name}</span>
-                <span class="chip-note">{p.note}</span>
-              </button>
-            {/each}
-          </div>
-
-          <!-- Full Selector Dropdown -->
-          <div class="full-country-select-row">
-            <label for="country-dropdown" class="select-label">Or choose from all 41 benchmark economies:</label>
-            <select 
-              id="country-dropdown"
-              bind:value={selectedCountryIso} 
-              class="country-dropdown-input"
-              on:change={() => resetSimulationHour()}
-            >
-              {#each sandboxPayload.countries as c}
-                <option value={c.iso}>{c.name} ({c.iso})</option>
-              {/each}
-            </select>
-          </div>
+          <h2 class="cockpit-title">What Happens to a Country When Foreign AI Is Switched Off?</h2>
+          <p class="cockpit-sub">
+            The linocut model below illustrates the physical and digital nervous system of <strong>{selectedCountry.name}</strong>. Drag the logarithmic time scrubber from Hour 1 to 2 Months to observe how its weakest link fractures.
+          </p>
         </div>
 
-        <!-- Step 2: Shockwave Inject Picker -->
-        <div class="deck-step">
-          <div class="step-label-row">
-            <span class="step-num">STEP 2</span>
-            <span class="step-title">Choose Civilizational Shockwave:</span>
-          </div>
-
-          <div class="shock-buttons-grid">
-            {#each Object.entries(SHOCK_PLAIN_NAMES) as [injId, info]}
-              <button 
-                class="shock-select-btn" 
-                class:active-shock={activeInjectId === injId}
-                on:click={() => { activeInjectId = injId; resetSimulationHour(); }}
+        <!-- The 2-Column Cockpit Grid -->
+        <div class="cockpit-grid">
+          <!-- LEFT COLUMN: PINNED LINOCUT SVG FIGURE -->
+          <div class="figure-column">
+            <div class="figure-frame" class:fractured={isCeilingBreached}>
+              <!-- Embedded SVG Machine -->
+              <svg 
+                class="nervous-system-svg" 
+                viewBox="0 0 460 520" 
+                role="img" 
+                aria-label={`Sovereign stress model for ${selectedCountry.name} at Hour ${simulationHour}`}
               >
-                <div class="ss-btn-top">
-                  <span class="ss-btn-icon">{info.icon}</span>
-                  <span class="ss-btn-title">{info.title}</span>
-                </div>
-                <div class="ss-btn-sub">{info.subtitle}</div>
-              </button>
-            {/each}
-          </div>
-        </div>
+                <!-- Linocut Crosshatch Patterns in Cream/Carbon/Jade/Crimson -->
+                <defs>
+                  <!-- Dense Jade Crosshatch (100% Operational) -->
+                  <pattern id="linocut-dense-jade" width="8" height="8" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+                    <line x1="0" y1="0" x2="0" y2="8" stroke="#1b6756" stroke-width="2.4" />
+                    <line x1="0" y1="0" x2="8" y2="0" stroke="#1b6756" stroke-width="1.2" opacity="0.6" />
+                  </pattern>
 
-        <!-- Step 3: Interactive 72-Hour Animated Simulation Stage -->
-        <div class="simulation-stage-box" class:fractured={isCeilingBreached}>
-          <!-- Top Simulation Controls Bar -->
-          <div class="stage-controls-bar">
-            <div class="playback-controls">
-              <button class="sim-play-btn" on:click={toggleSimulation}>
-                {#if isPlaying}
-                  ⏸ Pause Simulation
-                {:else}
-                  ▶ Run 72-Hour Stress Test
+                  <!-- Sparse Crimson Crosshatch (Degraded / Severed) -->
+                  <pattern id="linocut-sparse-crimson" width="14" height="14" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+                    <line x1="0" y1="0" x2="0" y2="14" stroke="#b91c1c" stroke-width="1.4" stroke-dasharray="3,3" />
+                  </pattern>
+
+                  <!-- Neutral Cream Base Hatch -->
+                  <pattern id="linocut-paper-hatch" width="16" height="16" patternTransform="rotate(-45 0 0)" patternUnits="userSpaceOnUse">
+                    <line x1="0" y1="0" x2="0" y2="16" stroke="rgba(30,25,21,0.08)" stroke-width="1" />
+                  </pattern>
+                </defs>
+
+                <!-- Canvas Background -->
+                <rect x="0" y="0" width="460" height="520" fill="var(--bg-canvas, #fbf7ee)" rx="8" />
+                <rect x="12" y="12" width="436" height="496" fill="none" stroke="var(--border-medium, #d8d0c2)" stroke-width="1.5" rx="6" />
+
+                <!-- Ghost Outline of Previous Selection (Contrast Memory) -->
+                {#if previousCountryIso && previousCountryIso !== selectedCountryIso}
+                  <g class="ghost-group" opacity="0.4">
+                    <rect x="36" y="176" width="388" height="118" rx="8" fill="none" stroke="#1e1915" stroke-dasharray="3,4" stroke-width="1.2" />
+                    <text x="415" y="170" text-anchor="end" font-family="var(--font-family-mono)" font-size="9" fill="#71717a">
+                      [PREVIOUS: {previousCountryIso}]
+                    </text>
+                  </g>
                 {/if}
-              </button>
-              <button class="sim-reset-btn" on:click={resetSimulationHour} title="Reset to Hour 0">
-                ↺ Reset
-              </button>
-            </div>
 
-            <div class="timecode-display">
-              <span class="tc-label">SIMULATED TIMELINE:</span>
-              <span class="tc-value" class:tc-danger={isCeilingBreached}>
-                T + {simulationHour} HOURS
-              </span>
+                <!-- TIER 1: FRONTIER CLOUD SPIRE -->
+                <g class="tier-group tier-1">
+                  <rect x="40" y="28" width="380" height="64" rx="6" fill="#f4efe4" stroke="#1e1915" stroke-width="2" />
+                  <rect x="40" y="28" width="380" height="64" rx="6" fill="url(#linocut-paper-hatch)" />
+                  <text x="56" y="52" font-family="var(--font-family-display)" font-size="14" font-weight="800" fill="#1e1915">
+                    I. FRONTIER CLOUD SPIRE
+                  </text>
+                  <text x="56" y="70" font-family="var(--font-family-mono)" font-size="10" fill="#52525b">
+                    Foreign Model Weights · 10GW US Hyperscale Clusters
+                  </text>
+                  {#if activeInjectId === 'INJ-01'}
+                    <rect x="290" y="42" width="118" height="20" rx="3" fill="#fee2e2" stroke="#b91c1c" stroke-width="1" />
+                    <text x="349" y="56" text-anchor="middle" font-family="var(--font-family-mono)" font-size="9" font-weight="800" fill="#b91c1c">
+                      API EMBARGO
+                    </text>
+                  {:else}
+                    <rect x="290" y="42" width="118" height="20" rx="3" fill="#dcfce7" stroke="#1b6756" stroke-width="1" />
+                    <text x="349" y="56" text-anchor="middle" font-family="var(--font-family-mono)" font-size="9" font-weight="800" fill="#1b6756">
+                      CLOUD SYNC
+                    </text>
+                  {/if}
+                </g>
+
+                <!-- UMBILICAL CONDUIT (Foreign Spire -> Civic Nervous System) -->
+                <g class="conduit-group">
+                  {#if activeInjectId === 'INJ-01' && simulationHour >= 1}
+                    <!-- Mechanically Severed Conduit (Clean gap with crosshatch ticks, zero sci-fi sparks) -->
+                    <!-- Top stub -->
+                    <line x1="230" y1="92" x2="230" y2="124" stroke="#b91c1c" stroke-width="3" />
+                    <line x1="223" y1="124" x2="237" y2="124" stroke="#b91c1c" stroke-width="2.5" />
+                    <line x1="221" y1="128" x2="239" y2="128" stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="2,2" />
+
+                    <!-- Gap -->
+                    <rect x="150" y="130" width="160" height="22" rx="4" fill="#fee2e2" stroke="#b91c1c" stroke-width="1" />
+                    <text x="230" y="145" text-anchor="middle" font-family="var(--font-family-mono)" font-size="9.5" font-weight="800" fill="#b91c1c">
+                      SEVERED AT T+0h
+                    </text>
+
+                    <!-- Bottom stub -->
+                    <line x1="221" y1="156" x2="239" y2="156" stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="2,2" />
+                    <line x1="223" y1="160" x2="237" y2="160" stroke="#b91c1c" stroke-width="2.5" />
+                    <line x1="230" y1="160" x2="230" y2="180" stroke="#b91c1c" stroke-width="3" />
+                  {:else}
+                    <!-- Connected Conduit -->
+                    <line x1="230" y1="92" x2="230" y2="180" stroke="#1b6756" stroke-width="3.5" stroke-dasharray="8,4" />
+                    <rect x="160" y="128" width="140" height="20" rx="3" fill="#dcfce7" stroke="#1b6756" stroke-width="1" />
+                    <text x="230" y="142" text-anchor="middle" font-family="var(--font-family-mono)" font-size="9" font-weight="800" fill="#1b6756">
+                      INTACT CONDUIT
+                    </text>
+                  {/if}
+                </g>
+
+                <!-- TIER 2: CIVIC NERVOUS SYSTEM -->
+                <g class="tier-group tier-2">
+                  {#if isCeilingBreached}
+                    <!-- Fractured / Degraded (Sparse Crimson Linocut Crosshatch) -->
+                    <rect x="40" y="180" width="380" height="120" rx="6" fill="#fff5f5" stroke="#b91c1c" stroke-width="2.5" />
+                    <rect x="40" y="180" width="380" height="120" rx="6" fill="url(#linocut-sparse-crimson)" />
+                  {:else}
+                    <!-- Functioning (Dense Jade Linocut Crosshatch) -->
+                    <rect x="40" y="180" width="380" height="120" rx="6" fill="#f0fdf4" stroke="#1b6756" stroke-width="2" />
+                    <rect x="40" y="180" width="380" height="120" rx="6" fill="url(#linocut-dense-jade)" />
+                  {/if}
+
+                  <!-- Content Plate -->
+                  <rect x="52" y="192" width="356" height="96" rx="4" fill="var(--bg-canvas, #fbf7ee)" stroke="var(--border-medium, #d8d0c2)" stroke-width="1" />
+                  
+                  <text x="68" y="215" font-family="var(--font-family-display)" font-size="14" font-weight="800" fill="#1e1915">
+                    II. CIVIC NERVOUS SYSTEM
+                  </text>
+                  <text x="68" y="233" font-family="var(--font-family-mono)" font-size="10" fill="#52525b">
+                    Container Ports · SWIFT Financial Clearing · Hospital Triage
+                  </text>
+
+                  <!-- Direct Data Badge on Node -->
+                  {#if isCeilingBreached}
+                    <rect x="68" y="248" width="200" height="24" rx="4" fill="#fee2e2" stroke="#b91c1c" stroke-width="1" />
+                    <text x="168" y="264" text-anchor="middle" font-family="var(--font-family-mono)" font-size="10" font-weight="800" fill="#b91c1c">
+                      CAPACITY: 8% (SYSTEMIC FAILURE)
+                    </text>
+                    <text x="282" y="264" font-family="var(--font-family-mono)" font-size="9" fill="#b91c1c">
+                      holds &le; {selectedCountry.t_half_h}h
+                    </text>
+                  {:else}
+                    <rect x="68" y="248" width="190" height="24" rx="4" fill="#dcfce7" stroke="#1b6756" stroke-width="1" />
+                    <text x="163" y="264" text-anchor="middle" font-family="var(--font-family-mono)" font-size="10" font-weight="800" fill="#1b6756">
+                      CAPACITY: 100% OPERATIONAL
+                    </text>
+                    <text x="272" y="264" font-family="var(--font-family-mono)" font-size="9" fill="#1b6756">
+                      buffer: {selectedCountry.t_half_h}h
+                    </text>
+                  {/if}
+                </g>
+
+                <!-- DUAL SECONDARY CONDUITS (Tier 2 -> Tier 3) -->
+                <g class="secondary-conduits">
+                  <line x1="120" y1="300" x2="120" y2="340" stroke="#1e1915" stroke-width="2" />
+                  <line x1="340" y1="300" x2="340" y2="340" stroke="#1e1915" stroke-width="2" />
+                </g>
+
+                <!-- TIER 3: PHYSICAL BASELOAD & ANALOG REDOUBT -->
+                <g class="tier-group tier-3">
+                  <!-- Air-Gapped Redoubt Outer Shield (For Norway, Switzerland, Finland: T_half >= 1000h) -->
+                  {#if selectedCountry.t_half_h >= 1000}
+                    <rect x="32" y="332" width="396" height="126" rx="10" fill="none" stroke="#1b6756" stroke-width="2.5" stroke-dasharray="6,4" />
+                    <text x="390" y="328" text-anchor="end" font-family="var(--font-family-mono)" font-size="9" font-weight="800" fill="#1b6756">
+                      🛡️ AIR-GAPPED REDOUBT SHIELD ACTIVE (60 DAYS AUTARKY)
+                    </text>
+                  {/if}
+
+                  <rect x="40" y="340" width="380" height="110" rx="6" fill="#f4efe4" stroke="#1e1915" stroke-width="2" />
+                  <rect x="40" y="340" width="380" height="110" rx="6" fill="url(#linocut-paper-hatch)" />
+
+                  <text x="56" y="366" font-family="var(--font-family-display)" font-size="14" font-weight="800" fill="#1e1915">
+                    III. PHYSICAL BASELOAD & ANALOG RESERVES
+                  </text>
+                  <text x="56" y="384" font-family="var(--font-family-mono)" font-size="10" fill="#52525b">
+                    Hydro/Nuclear Baseload · Manual Water Pumping · Food Silos
+                  </text>
+
+                  <g class="tier-3-metrics">
+                    <text x="56" y="415" font-family="var(--font-family-mono)" font-size="10" fill="#1e1915">
+                      Dedicated Clean Power: <strong>{selectedCountry.gw_clean} GW</strong>
+                    </text>
+                    <text x="240" y="415" font-family="var(--font-family-mono)" font-size="10" fill="#1e1915">
+                      Silicon Independence: <strong>{(selectedCountry.sfp * 100).toFixed(0)}%</strong>
+                    </text>
+                    <text x="56" y="435" font-family="var(--font-family-mono)" font-size="10" fill="#1e1915">
+                      Decoupling Half-Life: <strong>{selectedCountry.t_half_h} Hours</strong>
+                    </text>
+                  </g>
+                </g>
+
+                <!-- Subtle Linocut Border Tick Marks -->
+                <line x1="20" y1="260" x2="30" y2="260" stroke="#1e1915" stroke-width="1" />
+                <line x1="430" y1="260" x2="440" y2="260" stroke="#1e1915" stroke-width="1" />
+              </svg>
+
+              <!-- Scientific Figure Caption Block -->
+              <div class="figure-caption-box">
+                <p class="caption-title">
+                  <strong>Figure 1. {selectedCountry.name}, T+{simulationHour}h.</strong> {figureCaption}
+                </p>
+                <p class="caption-footnote">
+                  Stylized sovereign stress test, not a forecast. Formal Leontief proofs: <a href="https://doi.org/10.5281/zenodo.23441742" target="_blank" rel="noopener">DOI 10.5281/zenodo.23441742</a>
+                </p>
+              </div>
             </div>
           </div>
 
-          <!-- Scrubber Slider -->
-          <div class="scrubber-container">
-            <input 
-              type="range" 
-              min="0" 
-              max="72" 
-              step="1" 
-              bind:value={simulationHour} 
-              class="scrubber-slider" 
-              aria-label="Simulation hour scrubber"
-            />
-            <div class="scrubber-ticks">
-              <span>0h (Baseline)</span>
-              <span>12h (Severance)</span>
-              <span>24h (Logistics)</span>
-              <span>48h (Grids)</span>
-              <span>72h+ (Floor)</span>
-            </div>
-          </div>
+          <!-- RIGHT COLUMN: INTERACTIVE CONTROLS & INK-TO-LEDGER -->
+          <div class="controls-column">
+            <!-- Step 1: Country Picker Chips -->
+            <div class="deck-step">
+              <div class="step-label-row">
+                <span class="step-num">STEP 1</span>
+                <span class="step-title">Select Nation to Stress-Test:</span>
+              </div>
+              <div class="preset-chips-row">
+                {#each PRESET_COUNTRIES as p}
+                  <button 
+                    class="preset-chip" 
+                    class:active={selectedCountryIso === p.iso}
+                    on:click={() => selectPresetCountry(p.iso)}
+                  >
+                    <span class="chip-name">{p.name}</span>
+                    <span class="chip-note">{p.note}</span>
+                  </button>
+                {/each}
+              </div>
 
-          <!-- Dynamic Status Banner -->
-          {#if isCeilingBreached}
-            <div class="fracture-alert-banner">
-              <span class="alert-icon">⚠️</span>
-              <div class="alert-body">
-                <strong>CIVILIZATIONAL CEILING BREACHED AT HOUR {selectedCountry.t_half_h}</strong>
-                <p>Domestic analog autarky exhausted. Essential institutional coordination and basic civic services have broken down.</p>
+              <!-- Full 39-Nation Dropdown -->
+              <div class="full-country-select-row">
+                <label for="country-dropdown" class="select-label">Or choose from all 39 benchmark economies:</label>
+                <select 
+                  id="country-dropdown"
+                  bind:value={selectedCountryIso} 
+                  class="country-dropdown-input"
+                  on:change={() => selectPresetCountry(selectedCountryIso)}
+                >
+                  {#each sandboxPayload.countries as c}
+                    <option value={c.iso}>{c.name} ({c.iso})</option>
+                  {/each}
+                </select>
               </div>
             </div>
-          {:else}
-            <div class="absorbing-status-banner">
-              <span class="status-dot-pulse"></span>
-              <div class="status-body">
-                <strong>SOVEREIGN BUFFERS ACTIVE & ABSORBING SHOCK</strong>
-                <p>{selectedCountry.name} maintains {selectedCountry.t_half_h - simulationHour} hours of domestic autarky buffer before civilizational failure.</p>
+
+            <!-- Step 2: Shockwave Selector -->
+            <div class="deck-step">
+              <div class="step-label-row">
+                <span class="step-num">STEP 2</span>
+                <span class="step-title">Choose Civilizational Shockwave:</span>
+              </div>
+              <div class="shock-buttons-grid">
+                {#each Object.entries(SHOCK_PLAIN_NAMES) as [injId, info]}
+                  <button 
+                    class="shock-select-btn" 
+                    class:active-shock={activeInjectId === injId}
+                    on:click={() => activeInjectId = injId}
+                  >
+                    <div class="ss-btn-top">
+                      <span class="ss-btn-icon">{info.icon}</span>
+                      <span class="ss-btn-title">{info.title}</span>
+                    </div>
+                    <div class="ss-btn-sub">{info.subtitle}</div>
+                  </button>
+                {/each}
               </div>
             </div>
-          {/if}
 
-          <!-- 4-Card Comparative Impact Matrix -->
-          <div class="impact-cards-grid">
-            <div class="impact-card">
-              <div class="ic-meta">CONVENTIONAL ADOPTION</div>
-              <div class="ic-value">#{currentAdoptionRank}</div>
-              <div class="ic-desc">Standard AI usage rank (IMF/Oxford style)</div>
+            <!-- Step 3: Symmetric Log-Timeline Scrubber -->
+            <div class="deck-step scrubber-step">
+              <div class="step-label-row space-between">
+                <div>
+                  <span class="step-num">STEP 3</span>
+                  <span class="step-title">Logarithmic Timeline Scrubber:</span>
+                </div>
+                <div class="playback-controls">
+                  <button class="sim-play-btn" on:click={toggleSimulation}>
+                    {#if isPlaying}⏸ Pause{:else}▶ Run Stress Test{/if}
+                  </button>
+                  <button class="sim-reset-btn" on:click={resetSimulationHour} title="Reset to 1 Hour">
+                    ↺ Reset
+                  </button>
+                </div>
+              </div>
+
+              <!-- Symmetric Log Steps Buttons -->
+              <div class="log-ticks-row">
+                {#each LOG_TIMELINE_STEPS as s, idx}
+                  <button 
+                    class="log-tick-btn" 
+                    class:active-tick={timelineStepIndex === idx}
+                    on:click={() => { pauseSimulation(); timelineStepIndex = idx; }}
+                  >
+                    <span class="tick-label">{s.label}</span>
+                  </button>
+                {/each}
+              </div>
+
+              <!-- Native Accessible Range Input -->
+              <div class="scrubber-slider-wrapper">
+                <input 
+                  type="range" 
+                  min="0" 
+                  max="5" 
+                  step="1" 
+                  bind:value={timelineStepIndex} 
+                  class="scrubber-slider" 
+                  aria-label="Logarithmic timeline scrubber from 1 hour to 2 months"
+                />
+                <div class="scrubber-sub-note">
+                  <span>T + {LOG_TIMELINE_STEPS[timelineStepIndex].fullLabel} ({LOG_TIMELINE_STEPS[timelineStepIndex].sub})</span>
+                </div>
+              </div>
             </div>
 
-            <div class="impact-card">
-              <div class="ic-meta">SOVEREIGN RESILIENCE</div>
-              <div class="ic-value highlight-rank">#{currentSovereignRank}</div>
-              <div class="ic-desc">Physical survivability when disconnected</div>
-            </div>
+            <!-- Step 4: The Grounded Results Ledger (Ink-to-Ledger) -->
+            <div class="grounded-ledger-card">
+              <div class="ledger-header">
+                <span class="ledger-tag">SOVEREIGN VULNERABILITY LEDGER</span>
+                <span class="arch-pill" style="border-color: {getArchetypeColor(selectedCountry.archetype)}; color: {getArchetypeColor(selectedCountry.archetype)};">
+                  {selectedCountry.archetype.replace(/_/g, ' ')}
+                </span>
+              </div>
 
-            <div class="impact-card">
-              <div class="ic-meta">NET RANK DISPLACEMENT</div>
-              {#if currentRankDrop > 0}
-                <div class="ic-value drop-value">▼ -{currentRankDrop} Ranks</div>
-                <div class="ic-desc warning-text">High-Adoption Vulnerability Trap</div>
-              {:else if currentRankDrop < 0}
-                <div class="ic-value surge-value">▲ +{Math.abs(currentRankDrop)} Ranks</div>
-                <div class="ic-desc success-text">Sovereign Outperformer</div>
-              {:else}
-                <div class="ic-value">■ Stable</div>
-                <div class="ic-desc">Rank preserved under shock</div>
+              <!-- 4-Card Grounded Matrix (Exact Ground-Truth Values) -->
+              <div class="impact-cards-grid">
+                <div class="impact-card">
+                  <div class="ic-meta">ON PAPER (ADOPTION)</div>
+                  <div class="ic-value">#{currentAdoptionRank} <span class="field-total">/ 39</span></div>
+                  <div class="ic-desc">Conventional AI usage rank (IMF/Oxford style)</div>
+                </div>
+
+                <div class="impact-card">
+                  <div class="ic-meta">UNDER STRESS (SOVEREIGNTY)</div>
+                  <div class="ic-value highlight-rank">#{currentSovereignRank} <span class="field-total">/ 39</span></div>
+                  <div class="ic-desc">Physical survivability when disconnected</div>
+                </div>
+
+                <div class="impact-card">
+                  <div class="ic-meta">NET DISPLACEMENT</div>
+                  {#if currentRankDrop < 0}
+                    <div class="ic-value drop-value">▼ {currentRankDrop} Ranks</div>
+                    <div class="ic-desc warning-text">High-Compute Vulnerability Trap</div>
+                  {:else if currentRankDrop > 0}
+                    <div class="ic-value surge-value">▲ +{currentRankDrop} Ranks</div>
+                    <div class="ic-desc success-text">Sovereign Outperformer</div>
+                  {:else}
+                    <div class="ic-value">■ Stable</div>
+                    <div class="ic-desc">Baseline preserved</div>
+                  {/if}
+                </div>
+
+                <div class="impact-card">
+                  <div class="ic-meta">DECOUPLING HALF-LIFE</div>
+                  <div class="ic-value" class:text-danger={selectedCountry.t_half_h < 48}>
+                    {selectedCountry.t_half_h} Hours
+                  </div>
+                  <div class="ic-desc">Time until basic civil systems halt</div>
+                </div>
+              </div>
+
+              <!-- Weakest Link Diagnosis -->
+              <div class="weakest-link-box">
+                <span class="wl-label">THE WEAKEST-LINK BOTTLENECK:</span>
+                <p class="wl-text">
+                  {getWeakestLinkDiagnosis(selectedCountry)}
+                </p>
+              </div>
+
+              <!-- Canonical Literature Precedent Bridge -->
+              {#if activePrecedent}
+                <div class="literature-bridge-row">
+                  <span class="lit-label">CANONICAL LITERATURE PRECEDENT:</span>
+                  <a href={`/scenarios/#${activePrecedent.id}`} class="lit-link">
+                    📖 {activePrecedent.id}: {activePrecedent.name} ({activePrecedent.author}) &rarr;
+                  </a>
+                </div>
               {/if}
             </div>
-
-            <div class="impact-card">
-              <div class="ic-meta">DECOUPLING HALF-LIFE</div>
-              <div class="ic-value" class:text-danger={selectedCountry.t_half_h < 48}>
-                {selectedCountry.t_half_h} Hours
-              </div>
-              <div class="ic-desc">Time until societal systems desynchronize</div>
-            </div>
-          </div>
-
-          <!-- Archetype & Live Telemetry Breakdown -->
-          <div class="transition-narrative-card">
-            <div class="archetype-badge-row">
-              <span class="arch-pill" style="border-color: {getArchetypeColor(selectedCountry.archetype)}; color: {getArchetypeColor(selectedCountry.archetype)};">
-                POST-WESTPHALIAN ARCHETYPE: {selectedCountry.archetype.replace(/_/g, ' ')}
-              </span>
-              <span class="live-event-badge {transitionEvent.level}">
-                {transitionEvent.stage}
-              </span>
-            </div>
-
-            <p class="live-event-desc">
-              {transitionEvent.desc}
-            </p>
-
-            <div class="weakest-link-box">
-              <span class="wl-label">THE WEAKEST-LINK DIAGNOSIS:</span>
-              <p class="wl-text">
-                {getWeakestLinkDiagnosis(selectedCountry)}
-              </p>
-            </div>
-
-            {#if activePrecedent}
-              <div class="literature-bridge-row">
-                <span class="lit-label">LITERATURE PRECEDENT:</span>
-                <a href={`/scenarios/#${activePrecedent.id}`} class="lit-link">
-                  📖 {activePrecedent.id}: {activePrecedent.name} ({activePrecedent.author}) &rarr;
-                </a>
-              </div>
-            {/if}
           </div>
         </div>
       </div>
@@ -1623,44 +1845,136 @@ DOI: 10.5281/zenodo.23441742
   }
 
   /* =========================================================================
-     72-HOUR ANIMATED SIMULATION STAGE
+     SPLIT-SCREEN LINOCUT COCKPIT & LOG-TIMELINE CONTROLS
      ========================================================================= */
-  .simulation-stage-box {
-    background: var(--bg-surface-sunken);
-    border: 2px solid var(--border-medium);
-    border-radius: 14px;
-    padding: 1.75rem;
+  .deck-masthead {
+    margin-bottom: 2rem;
+    text-align: left;
+  }
+
+  .cockpit-title {
+    font-family: var(--font-family-display);
+    font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+    font-weight: 800;
+    margin: 0.65rem 0 0.5rem;
+    color: var(--text-primary);
+    line-height: 1.25;
+  }
+
+  .cockpit-sub {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    margin: 0;
+    max-width: 820px;
+  }
+
+  .cockpit-grid {
+    display: grid;
+    grid-template-columns: 460px 1fr;
+    gap: 2.25rem;
+    align-items: start;
+  }
+
+  @media (max-width: 1024px) {
+    .cockpit-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+
+  /* Left Column: Pinned Linocut SVG Figure */
+  .figure-column {
+    position: sticky;
+    top: 2rem;
+  }
+
+  @media (max-width: 1024px) {
+    .figure-column {
+      position: static;
+    }
+  }
+
+  .figure-frame {
+    background: var(--bg-canvas, #fbf7ee);
+    border: 1.5px solid var(--border-medium, #d8d0c2);
+    border-radius: 12px;
+    padding: 1.15rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
     transition: all 0.3s ease;
   }
 
-  .simulation-stage-box.fractured {
+  .figure-frame.fractured {
     border-color: var(--threat-critical, #b91c1c);
-    box-shadow: 0 0 25px rgba(185, 28, 28, 0.15);
+    box-shadow: 0 6px 28px rgba(185, 28, 28, 0.12);
   }
 
-  .stage-controls-bar {
+  .nervous-system-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+    background: var(--bg-canvas, #fbf7ee);
+  }
+
+  .figure-caption-box {
+    margin-top: 1rem;
+    padding: 0.85rem 1rem;
+    background: rgba(30, 25, 21, 0.03);
+    border-left: 3px solid var(--border-medium, #d8d0c2);
+    border-radius: 0 6px 6px 0;
+  }
+
+  .caption-title {
+    font-size: 0.85rem;
+    line-height: 1.45;
+    color: var(--text-primary);
+    margin: 0 0 0.35rem;
+  }
+
+  .caption-footnote {
+    font-family: var(--font-family-mono);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  .caption-footnote a {
+    color: var(--accent-primary);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  /* Right Column: Controls & Grounded Ledger */
+  .controls-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  .scrubber-step .space-between {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
     flex-wrap: wrap;
-    gap: 1rem;
-    margin-bottom: 1.25rem;
+    gap: 0.75rem;
   }
 
   .playback-controls {
     display: flex;
     align-items: center;
-    gap: 0.65rem;
+    gap: 0.5rem;
   }
 
   .sim-play-btn {
-    padding: 0.55rem 1.15rem;
+    padding: 0.45rem 0.95rem;
     border-radius: 6px;
     border: none;
     background: var(--accent-primary);
     color: #ffffff;
     font-weight: 700;
-    font-size: 0.9rem;
+    font-size: 0.84rem;
     cursor: pointer;
     transition: all 0.2s ease;
     box-shadow: 0 2px 8px rgba(27, 103, 86, 0.25);
@@ -1672,12 +1986,12 @@ DOI: 10.5281/zenodo.23441742
   }
 
   .sim-reset-btn {
-    padding: 0.55rem 0.85rem;
+    padding: 0.45rem 0.75rem;
     border-radius: 6px;
     border: 1px solid var(--border-medium);
     background: var(--bg-surface);
     color: var(--text-secondary);
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     cursor: pointer;
   }
 
@@ -1686,32 +2000,51 @@ DOI: 10.5281/zenodo.23441742
     color: var(--text-primary);
   }
 
-  .timecode-display {
+  /* Log-Timeline Scrubber */
+  .log-ticks-row {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.4rem;
+    margin-bottom: 0.75rem;
+  }
+
+  @media (max-width: 640px) {
+    .log-ticks-row {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.35rem;
+    }
+  }
+
+  .log-tick-btn {
+    padding: 0.55rem 0.35rem;
+    border-radius: 6px;
+    border: 1.5px solid var(--border-subtle);
+    background: var(--bg-surface-elevated);
+    cursor: pointer;
     font-family: var(--font-family-mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-align: center;
+    transition: all 0.2s ease;
+  }
+
+  .log-tick-btn:hover {
+    border-color: var(--accent-primary);
+    color: var(--text-primary);
+  }
+
+  .log-tick-btn.active-tick {
+    background: var(--accent-primary);
+    color: #ffffff;
+    border-color: var(--accent-primary);
+    box-shadow: 0 2px 8px rgba(27, 103, 86, 0.25);
+  }
+
+  .scrubber-slider-wrapper {
     display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .tc-label {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    letter-spacing: 0.05em;
-  }
-
-  .tc-value {
-    font-size: 1.1rem;
-    font-weight: 800;
-    color: var(--accent-primary);
-  }
-
-  .tc-value.tc-danger {
-    color: var(--threat-critical, #b91c1c);
-  }
-
-  /* Scrubber Slider */
-  .scrubber-container {
-    margin-bottom: 1.5rem;
+    flex-direction: column;
+    gap: 0.45rem;
   }
 
   .scrubber-slider {
@@ -1722,76 +2055,49 @@ DOI: 10.5281/zenodo.23441742
     cursor: pointer;
   }
 
-  .scrubber-ticks {
+  .scrubber-sub-note {
+    font-family: var(--font-family-mono);
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--accent-primary);
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  /* Grounded Ledger Card */
+  .grounded-ledger-card {
+    background: var(--bg-surface-elevated);
+    border: 1.5px solid var(--border-medium);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+  }
+
+  .ledger-header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+  }
+
+  .ledger-tag {
     font-family: var(--font-family-mono);
-    font-size: 0.72rem;
-    color: var(--text-muted);
-    margin-top: 0.35rem;
-  }
-
-  /* Status Banners */
-  .fracture-alert-banner {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.85rem;
-    background: rgba(185, 28, 28, 0.1);
-    border-left: 4px solid var(--threat-critical, #b91c1c);
-    padding: 0.95rem 1.25rem;
-    border-radius: 8px;
-    margin-bottom: 1.5rem;
-  }
-
-  .fracture-alert-banner .alert-icon {
-    font-size: 1.35rem;
-  }
-
-  .fracture-alert-banner .alert-body strong {
-    font-family: var(--font-family-mono);
-    color: var(--threat-critical, #b91c1c);
-    font-size: 0.95rem;
-    letter-spacing: 0.05em;
-  }
-
-  .fracture-alert-banner .alert-body p {
-    margin: 0.25rem 0 0;
-    font-size: 0.88rem;
-    color: var(--text-secondary);
-  }
-
-  .absorbing-status-banner {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.85rem;
-    background: rgba(27, 103, 86, 0.08);
-    border-left: 4px solid var(--accent-primary);
-    padding: 0.95rem 1.25rem;
-    border-radius: 8px;
-    margin-bottom: 1.5rem;
-  }
-
-  .status-dot-pulse {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: var(--accent-primary);
-    box-shadow: 0 0 8px var(--accent-primary);
-    margin-top: 5px;
-    animation: pulseGlow 1.8s infinite;
-  }
-
-  .absorbing-status-banner .status-body strong {
-    font-family: var(--font-family-mono);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
     color: var(--accent-primary);
-    font-size: 0.95rem;
-    letter-spacing: 0.05em;
   }
 
-  .absorbing-status-banner .status-body p {
-    margin: 0.25rem 0 0;
-    font-size: 0.88rem;
-    color: var(--text-secondary);
+  .field-total {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-muted);
+  }
+
+  .text-danger {
+    color: var(--threat-critical, #b91c1c) !important;
   }
 
   /* 4-Card Comparative Impact Matrix */
