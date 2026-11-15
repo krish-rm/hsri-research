@@ -3,6 +3,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HSRIHeader from '../components/HSRIHeader.svelte';
 import HSRIFooter from '../components/HSRIFooter.svelte';
+import VisualScenarioTheater from '../components/VisualScenarioTheater.svelte';
 import InlineWedgeWidget from '../components/InlineWedgeWidget.svelte';
 import CountryLookupWidget from '../components/CountryLookupWidget.svelte';
 
@@ -40,18 +41,25 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         </div>
 
         <div class="hero-button-row">
-          <a href={`${base}/sandbox/`} class="btn btn-primary btn-lg">
-            Run Country Stress-Test (Sandbox) &rarr;
+          <a href="#visual-theater" class="btn btn-primary btn-lg">
+            Watch Scenario Storyboard &darr;
           </a>
-          <a href={`${base}/countries/`} class="btn btn-secondary btn-lg">
+          <a href={`${base}/sandbox/`} class="btn btn-secondary btn-lg">
+            Launch Sandbox Workbench &rarr;
+          </a>
+          <a href={`${base}/countries/`} class="btn btn-ghost btn-lg">
             View 41-Nation Index
-          </a>
-          <a href="#the-gap" class="btn btn-ghost btn-lg">
-            Why We Are Fragile &darr;
           </a>
         </div>
       </div>
     </section>
+
+    <!-- ===================================================================== -->
+    <!-- 2. THE VISUAL SCENARIO THEATER (STORY BEFORE NUMBERS)                 -->
+    <!-- ===================================================================== -->
+    <div id="visual-theater">
+      <VisualScenarioTheater client:visible />
+    </div>
 
     <!-- ===================================================================== -->
     <!-- 2. THE MICROSECOND DIVIDE (The Speed Gap) -->
