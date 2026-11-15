@@ -2,24 +2,32 @@
   import sandboxPayload from '../data/civilizational_sandbox_payload.json';
 
   // ---------------------------------------------------------------------------
-  // STATE MANAGEMENT
+  // NAVIGATION & PRESENTATION MODE
   // ---------------------------------------------------------------------------
-  type TabType = 'matrix' | 'fiscal' | 'epistemic' | 'deterrence';
-  let activeTab: TabType = 'matrix';
+  // 'explainer' = Visual, animated, intuitive 2-minute walkthrough for everyone
+  // 'terminal' = Full econometric matrices, formulas, and 40-nation data table
+  let currentView: 'explainer' | 'terminal' = 'explainer';
 
+  // Interactive Trilemma Selector (Explainer Mode)
+  // Options: 'vassal' (Capability + Integration) | 'fortress' (Capability + Sovereignty) | 'redoubt' (Sovereignty + Integration)
+  let selectedTrilemmaChoice: 'vassal' | 'fortress' | 'redoubt' = 'vassal';
+
+  // Interactive Shock Injects
   let activeInjectId: string | null = null;
   let selectedCountryIso = 'USA';
   let searchQuery = '';
   let selectedArchetypeFilter = 'ALL';
 
-  // Interactive Simulation Sliders
-  let customDisplacementRate = 0.35; // 35% annual white-collar displacement
-  let customEpistemicMonths = 24;     // Month 24 on epistemic drift horizon
-  let customHumanLatencyMin = 30;     // 30 min human decision latency
+  // Technical Terminal State
+  type TabType = 'matrix' | 'fiscal' | 'epistemic' | 'deterrence';
+  let activeTab: TabType = 'matrix';
+  let customDisplacementRate = 0.35;
+  let customEpistemicMonths = 24;
+  let customHumanLatencyMin = 30;
   let copiedToast = false;
 
   // ---------------------------------------------------------------------------
-  // REACTIVE DERIVATIONS
+  // REACTIVE CALCULATIONS & SHOCKS
   // ---------------------------------------------------------------------------
   $: activeInject = activeInjectId 
     ? sandboxPayload.injects.find(i => i.id === activeInjectId) 
@@ -48,7 +56,6 @@
     const base = Math.sqrt(scaled_gw * Math.max(0.05, c.sfp));
     const post_csp = Number(Math.min(1.0, (0.75 * post_waa * base) + (0.25 * post_waa)).toFixed(4));
 
-    // Dynamic Archetype Assignment under Shock
     let post_arch = c.archetype;
     if (post_csp >= 0.55 && post_waa >= 0.75) {
       post_arch = 'HYPERSCALE_EMPIRE';
@@ -62,7 +69,6 @@
       post_arch = 'ISOLATED_VASSAL_COLLAPSE';
     }
 
-    // Dynamic T_default under displacement rate
     let post_t_default = c.t_default_months;
     if (effective_disp !== 0.35) {
       const ratio = 0.35 / effective_disp;
@@ -93,17 +99,14 @@
 
   $: selectedCountry = displayCountries.find(c => c.iso === selectedCountryIso) || displayCountries[0];
 
-  // Archetype distribution counts
   $: archetypeCounts = displayCountries.reduce((acc: Record<string, number>, curr) => {
     acc[curr.archetype] = (acc[curr.archetype] || 0) + 1;
     return acc;
   }, {});
 
-  // Dynamic Deterrence metrics
   $: deterrenceSpeedRatio = (customHumanLatencyMin * 60) / 0.05;
   $: deterrenceDelegationPct = Math.min(99.9, Number((100 * (1 - Math.exp(-0.00008 * deterrenceSpeedRatio))).toFixed(2)));
 
-  // Dynamic Epistemic metrics
   $: epistemicDriftRate = 0.045 * (1.0 - selectedCountry.waa);
   $: epistemicDkl = Number((0.12 * Math.exp(epistemicDriftRate * (customEpistemicMonths / 6.0))).toFixed(3));
   $: epistemicHumanAuditPct = Math.max(1.0, Number((100 * Math.exp(-0.08 * customEpistemicMonths)).toFixed(1)));
@@ -113,11 +116,7 @@
   // ACTIONS
   // ---------------------------------------------------------------------------
   function triggerInject(id: string) {
-    if (activeInjectId === id) {
-      activeInjectId = null;
-    } else {
-      activeInjectId = id;
-    }
+    activeInjectId = activeInjectId === id ? null : id;
   }
 
   function resetSimulation() {
@@ -131,6 +130,11 @@
 
   function selectCountry(iso: string) {
     selectedCountryIso = iso;
+  }
+
+  function launchTerminalWithShock(injId: string) {
+    activeInjectId = injId;
+    currentView = 'terminal';
   }
 
   function copyDossierMarkdown() {
@@ -190,583 +194,1339 @@ DOI: 10.5281/zenodo.23441742
 </script>
 
 <div class="sandbox-container">
-  <!-- Top Cockpit Header -->
-  <header class="sandbox-masthead">
-    <div class="masthead-badge">
-      <span class="live-dot"></span>
-      HSRI 2.0 MACRO HORIZON OBSERVED · 2026–2030 GLOBAL ORDER TRANSITION
+  <!-- Mode Switcher Pill Banner -->
+  <div class="mode-navigation-bar">
+    <div class="mode-label-group">
+      <span class="mode-tag">EXPERIENCE MODE</span>
+      <span class="mode-sub">Choose how you want to explore the 2026–2030 transition:</span>
     </div>
-    <h1 class="masthead-title">The Civilizational Transition Sandbox</h1>
-    <p class="masthead-desc">
-      Empirical econometric, epistemic, and geopolitical simulation modeling the collapse of the 400-year-old Westphalian nation-state under Artificial Superintelligence.
-    </p>
-
-    <!-- Global Trilemma Axiom Bar -->
-    <div class="trilemma-banner">
-      <div class="trilemma-title">THE POST-WESTPHALIAN TRILEMMA:</div>
-      <div class="trilemma-vertices">
-        <span class="vertex">1. Frontier Capability</span>
-        <span class="vertex-sep">⚡</span>
-        <span class="vertex">2. Epistemic Sovereignty</span>
-        <span class="vertex-sep">⚡</span>
-        <span class="vertex">3. Open Global Interconnection</span>
-      </div>
-      <div class="trilemma-rule">
-        *Axiom: No sovereign state can maintain all three. Selection of any two guarantees structural collapse of the third.*
-      </div>
+    <div class="mode-toggle-group">
+      <button 
+        class="mode-switch-btn" 
+        class:active={currentView === 'explainer'}
+        on:click={() => currentView = 'explainer'}
+      >
+        ✨ Visual Story & Trilemma (2-Min Intuitive)
+      </button>
+      <button 
+        class="mode-switch-btn" 
+        class:active={currentView === 'terminal'}
+        on:click={() => currentView = 'terminal'}
+      >
+        📊 Quantitative Terminal (40-Nation Deep Dive)
+      </button>
     </div>
+  </div>
 
-    <!-- Active Crisis Inject Quick-Triggers -->
-    <div class="inject-strip">
-      <div class="inject-strip-label">CIVILIZATIONAL CRISIS SHOCK INJECTS:</div>
-      <div class="inject-buttons">
-        {#each sandboxPayload.injects as inj}
-          <button 
-            class="inject-btn" 
-            class:active={activeInjectId === inj.id}
-            on:click={() => triggerInject(inj.id)}
-            title={inj.description}
-          >
-            <span class="inj-code">{inj.id}</span>
-            <span class="inj-name">{inj.name.split('(')[0].trim()}</span>
-          </button>
-        {/each}
-        {#if activeInjectId}
-          <button class="reset-btn" on:click={resetSimulation}>
-            ↺ Reset Baseline
-          </button>
-        {/if}
-      </div>
-    </div>
+  <!-- ===================================================================== -->
+  <!-- 1. VISUAL INTERACTIVE EXPLAINER MODE (FOR EVERYONE)                   -->
+  <!-- ===================================================================== -->
+  {#if currentView === 'explainer'}
+    <section class="explainer-section">
+      <!-- Big Visual Hero -->
+      <div class="explainer-hero">
+        <div class="hero-badge">A CIVILIZATION-SCALE REALIGNMENT · EXPLAINED SIMPLY</div>
+        <h1 class="hero-title">Why Superintelligence Breaks the World's Borders</h1>
+        <p class="hero-lead">
+          For 400 years, countries were defined by territory on a map and taxes on human work. In 2 to 3 years, superintelligence dissolves both. Here is the visual guide to how the world is reorganizing.
+        </p>
 
-    {#if activeInject}
-      <div class="active-shock-alert">
-        <div class="shock-indicator">● ACTIVE SHOCK PROPAGATING: {activeInject.id} — {activeInject.name}</div>
-        <p class="shock-detail">{activeInject.description}</p>
-        <div class="shock-impact"><strong>Systemic Impact:</strong> {activeInject.target_impact}</div>
-      </div>
-    {/if}
-  </header>
-
-  <!-- Sandbox Navigation Tabs -->
-  <nav class="sandbox-tabs" aria-label="Simulation Views">
-    <button 
-      class="tab-btn" 
-      class:active={activeTab === 'matrix'} 
-      on:click={() => activeTab = 'matrix'}
-    >
-      🏛️ Layer 1: Compute-Westphalia Matrix ({displayCountries.length})
-    </button>
-    <button 
-      class="tab-btn" 
-      class:active={activeTab === 'fiscal'} 
-      on:click={() => activeTab = 'fiscal'}
-    >
-      📉 Layer 2: Post-Labor Fiscal Cliff
-    </button>
-    <button 
-      class="tab-btn" 
-      class:active={activeTab === 'epistemic'} 
-      on:click={() => activeTab = 'epistemic'}
-    >
-      👁️ Layer 3: Epistemic Iron Curtain
-    </button>
-    <button 
-      class="tab-btn" 
-      class:active={activeTab === 'deterrence'} 
-      on:click={() => activeTab = 'deterrence'}
-    >
-      ⚡ Layer 4: Zero-Human Deterrence
-    </button>
-  </nav>
-
-  <!-- Main Viewport and Side Inspector Layout -->
-  <div class="sandbox-workspace">
-    <!-- Viewport Content Area -->
-    <div class="sandbox-viewport">
-      <!-- ================================================================= -->
-      <!-- TAB 1: COMPUTE-WESTPHALIA SCOREBOARD MATRIX                       -->
-      <!-- ================================================================= -->
-      {#if activeTab === 'matrix'}
-        <section class="viewport-section">
-          <div class="section-intro">
-            <h3>Post-Westphalian Sovereign Power Realignment</h3>
-            <p>
-              Sovereign power decoupled from geography into four dynamic archetypes determined by dedicated clean baseload gigawatts, silicon fabrication independence, and weight access autonomy.
-            </p>
+        <!-- The 2-World Contrast Cards -->
+        <div class="contrast-grid">
+          <div class="contrast-card old-world">
+            <div class="c-era">THE OLD WORLD (1648 – 2025)</div>
+            <div class="c-headline">Physical Borders & Human Work</div>
+            <ul class="c-points">
+              <li>🌍 <strong>Territory & Flags:</strong> Power belongs to nations with armies and physical land.</li>
+              <li>💼 <strong>Labor-Backed Money:</strong> Governments borrow money backed by taxes on human paychecks.</li>
+              <li>⏳ <strong>Human Clock:</strong> Presidents had 20 minutes to verify missile warnings and talk.</li>
+            </ul>
           </div>
 
-          <!-- Archetype Summary KPI Cards -->
-          <div class="archetype-kpi-grid">
-            <div class="kpi-card" style="border-top: 3px solid var(--threat-critical, #b91c1c);">
-              <div class="kpi-label">Hyperscale Empires</div>
-              <div class="kpi-val" style="color: var(--threat-critical, #b91c1c);">{archetypeCounts['HYPERSCALE_EMPIRE'] || 0}</div>
-              <div class="kpi-sub">Unipolar compute sovereigns</div>
-            </div>
-            <div class="kpi-card" style="border-top: 3px solid var(--threat-warning, #d97706);">
-              <div class="kpi-label">Energy Mercenaries</div>
-              <div class="kpi-val" style="color: var(--threat-warning, #d97706);">{archetypeCounts['ENERGY_MERCENARY'] || 0}</div>
-              <div class="kpi-sub">Power-for-model traders</div>
-            </div>
-            <div class="kpi-card" style="border-top: 3px solid var(--threat-telemetry, #4f46e5);">
-              <div class="kpi-label">Epistemic Vassals</div>
-              <div class="kpi-val" style="color: var(--threat-telemetry, #4f46e5);">{archetypeCounts['EPISTEMIC_VASSAL'] || 0}</div>
-              <div class="kpi-sub">Zero-sovereign-weight states</div>
-            </div>
-            <div class="kpi-card" style="border-top: 3px solid var(--accent-primary, #1b6756);">
-              <div class="kpi-label">Air-Gapped Redoubts</div>
-              <div class="kpi-val" style="color: var(--accent-primary, #1b6756);">{archetypeCounts['AIR_GAPPED_REDOUBT'] || 0}</div>
-              <div class="kpi-sub">Analog & decoupling resilience</div>
-            </div>
-            {#if archetypeCounts['ISOLATED_VASSAL_COLLAPSE']}
-              <div class="kpi-card" style="border-top: 3px solid #7f1d1d; background: #fff1f2;">
-                <div class="kpi-label">Systemic Collapses</div>
-                <div class="kpi-val" style="color: #7f1d1d;">{archetypeCounts['ISOLATED_VASSAL_COLLAPSE']}</div>
-                <div class="kpi-sub">Decoupling failure under shock</div>
+          <div class="contrast-card-divider">
+            <span class="divider-arrow">⚡</span>
+          </div>
+
+          <div class="contrast-card new-world">
+            <div class="c-era">THE SUPERINTELLIGENCE ERA (2026+)</div>
+            <div class="c-headline">Megawatts, Model Weights & Machine Speed</div>
+            <ul class="c-points">
+              <li>⚡ <strong>Compute Empires:</strong> Power belongs to whoever commands 10-Gigawatt server clusters.</li>
+              <li>📉 <strong>Free Machine Labor:</strong> When AI works for free, income tax collapses and sovereign debt breaks.</li>
+              <li>🚀 <strong>50-Millisecond Wars:</strong> Defense moves faster than human eyes; AI must pull the trigger.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive Animated Trilemma Toy -->
+      <div class="trilemma-toy-section">
+        <div class="section-badge-center">THE CORE PROBLEM</div>
+        <h2 class="toy-title">The Superintelligence Trilemma: Pick Any Two</h2>
+        <p class="toy-subtitle">
+          Every country faces three choices. But mathematically, you can only pick two. Click a choice below to see what happens to a nation:
+        </p>
+
+        <!-- The 3 Interactive Choices -->
+        <div class="trilemma-choices-row">
+          <button 
+            class="choice-card" 
+            class:selected={selectedTrilemmaChoice === 'vassal'}
+            on:click={() => selectedTrilemmaChoice = 'vassal'}
+          >
+            <div class="choice-nodes">🚀 Cutting-Edge AI + 🌐 Global Cloud</div>
+            <div class="choice-name">1. The Digital Hostage</div>
+            <div class="choice-tag">You sacrifice: Domestic Sovereignty</div>
+          </button>
+
+          <button 
+            class="choice-card" 
+            class:selected={selectedTrilemmaChoice === 'fortress'}
+            on:click={() => selectedTrilemmaChoice = 'fortress'}
+          >
+            <div class="choice-nodes">🚀 Cutting-Edge AI + 🛡️ Total Sovereignty</div>
+            <div class="choice-name">2. The Fortress Empire</div>
+            <div class="choice-tag">You sacrifice: Open Global Cooperation</div>
+          </button>
+
+          <button 
+            class="choice-card" 
+            class:selected={selectedTrilemmaChoice === 'redoubt'}
+            on:click={() => selectedTrilemmaChoice = 'redoubt'}
+          >
+            <div class="choice-nodes">🛡️ Total Sovereignty + 🌐 Open Network</div>
+            <div class="choice-name">3. The Analog Redoubt</div>
+            <div class="choice-tag">You sacrifice: Frontier AI Capability</div>
+          </button>
+        </div>
+
+        <!-- Animated Trilemma Diagnostic Display -->
+        <div class="trilemma-visual-stage">
+          <div class="trilemma-canvas-box">
+            <svg class="trilemma-svg" viewBox="0 0 360 280">
+              <!-- Background Triangle -->
+              <polygon points="180,30 310,240 50,240" fill="none" stroke="var(--border-medium)" stroke-width="2" stroke-dasharray="4" />
+              
+              <!-- Active Highlight Lines -->
+              {#if selectedTrilemmaChoice === 'vassal'}
+                <line x1="180" y1="30" x2="310" y2="240" stroke="var(--threat-telemetry, #4f46e5)" stroke-width="4" />
+              {:else if selectedTrilemmaChoice === 'fortress'}
+                <line x1="180" y1="30" x2="50" y2="240" stroke="var(--threat-critical, #b91c1c)" stroke-width="4" />
+              {:else if selectedTrilemmaChoice === 'redoubt'}
+                <line x1="50" y1="240" x2="310" y2="240" stroke="var(--accent-primary, #1b6756)" stroke-width="4" />
+              {/if}
+
+              <!-- Node 1: Top (Frontier Capability) -->
+              <circle cx="180" cy="30" r="22" class="node-circle" class:active={selectedTrilemmaChoice === 'vassal' || selectedTrilemmaChoice === 'fortress'} class:broken={selectedTrilemmaChoice === 'redoubt'} />
+              <text x="180" y="34" text-anchor="middle" font-size="14">🚀</text>
+              <text x="180" y="65" text-anchor="middle" class="node-text">1. FRONTIER AI</text>
+
+              <!-- Node 2: Right (Open Integration) -->
+              <circle cx="310" cy="240" r="22" class="node-circle" class:active={selectedTrilemmaChoice === 'vassal' || selectedTrilemmaChoice === 'redoubt'} class:broken={selectedTrilemmaChoice === 'fortress'} />
+              <text x="310" y="244" text-anchor="middle" font-size="14">🌐</text>
+              <text x="310" y="274" text-anchor="middle" class="node-text">3. OPEN CLOUD</text>
+
+              <!-- Node 3: Left (Domestic Sovereignty) -->
+              <circle cx="50" cy="240" r="22" class="node-circle" class:active={selectedTrilemmaChoice === 'fortress' || selectedTrilemmaChoice === 'redoubt'} class:broken={selectedTrilemmaChoice === 'vassal'} />
+              <text x="50" y="244" text-anchor="middle" font-size="14">🛡️</text>
+              <text x="50" y="274" text-anchor="middle" class="node-text">2. SOVEREIGNTY</text>
+            </svg>
+          </div>
+
+          <!-- Dynamic Outcome Card -->
+          <div class="trilemma-outcome-card">
+            {#if selectedTrilemmaChoice === 'vassal'}
+              <div class="outcome-badge" style="background: #e0e7ff; color: #3730a3;">ARCHETYPE: EPISTEMIC VASSAL</div>
+              <h3 class="outcome-title">The "Digital Hostage" Dilemma</h3>
+              <p class="outcome-desc">
+                Your country has brilliant smart hospitals, banks, and self-driving cars powered by foreign AI APIs. But you own <strong>none</strong> of the model weights. If the host country flips an emergency switch, your national systems shut down in <strong>4 to 12 hours</strong>.
+              </p>
+              <div class="outcome-realworld">
+                <strong>Real-World Examples:</strong>
+                <span class="country-pill">Singapore (4h survival)</span>
+                <span class="country-pill">United Kingdom (120h)</span>
+                <span class="country-pill">Germany (480h)</span>
+              </div>
+            {:else if selectedTrilemmaChoice === 'fortress'}
+              <div class="outcome-badge" style="background: #fee2e2; color: #991b1b;">ARCHETYPE: HYPERSCALE EMPIRE</div>
+              <h3 class="outcome-title">The "Fortress Empire" Dilemma</h3>
+              <p class="outcome-desc">
+                Your nation builds massive 10-Gigawatt nuclear reactors dedicated entirely to domestic AI clusters. You control the weights and silicon. But to stay sovereign, you must wall off access, cut off international cooperation, and run a private compute fortress.
+              </p>
+              <div class="outcome-realworld">
+                <strong>Real-World Examples:</strong>
+                <span class="country-pill">United States (CSP: 0.93)</span>
+                <span class="country-pill">China (CSP: 0.88)</span>
+              </div>
+            {:else if selectedTrilemmaChoice === 'redoubt'}
+              <div class="outcome-badge" style="background: #dcfce7; color: #166534;">ARCHETYPE: AIR-GAPPED REDOUBT</div>
+              <h3 class="outcome-title">The "Analog Redoubt" Dilemma</h3>
+              <p class="outcome-desc">
+                Your country refuses to let foreign models run your civil infrastructure. You maintain manual water grids, offline radio networks, and deep civic trust. You can survive a total cloud blackout for <strong>1,200+ hours</strong>, but your cognitive speed falls far behind frontier AI empires.
+              </p>
+              <div class="outcome-realworld">
+                <strong>Real-World Examples:</strong>
+                <span class="country-pill">Switzerland (1,200h)</span>
+                <span class="country-pill">Norway (1,440h)</span>
+                <span class="country-pill">Finland (1,440h)</span>
               </div>
             {/if}
           </div>
-
-          <!-- Filter & Search Bar -->
-          <div class="matrix-controls">
-            <div class="search-box">
-              <input 
-                type="text" 
-                placeholder="Search sovereign nation by name or ISO3..." 
-                bind:value={searchQuery}
-                class="search-input"
-              />
-            </div>
-            <div class="filter-box">
-              <select bind:value={selectedArchetypeFilter} class="filter-select">
-                <option value="ALL">All Sovereign Archetypes</option>
-                <option value="HYPERSCALE_EMPIRE">Hyperscale Empires</option>
-                <option value="ENERGY_MERCENARY">Energy Mercenaries</option>
-                <option value="EPISTEMIC_VASSAL">Epistemic Vassals</option>
-                <option value="AIR_GAPPED_REDOUBT">Air-Gapped Redoubts</option>
-                {#if archetypeCounts['ISOLATED_VASSAL_COLLAPSE']}
-                  <option value="ISOLATED_VASSAL_COLLAPSE">Systemic Collapses</option>
-                {/if}
-              </select>
-            </div>
-          </div>
-
-          <!-- Sovereign Scoreboard Table -->
-          <div class="table-container">
-            <table class="scoreboard-table">
-              <thead>
-                <tr>
-                  <th>Nation</th>
-                  <th>Dedicated GW</th>
-                  <th>Silicon (SFP)</th>
-                  <th>Weight Autonomy</th>
-                  <th>Compute Power (CSP)</th>
-                  <th>Decoupling (T_half)</th>
-                  <th>Fiscal Default</th>
-                  <th>Sovereign Archetype</th>
-                </tr>
-              </thead>
-              <tbody>
-                {#each filteredCountries as c}
-                  <tr 
-                    class:selected={c.iso === selectedCountryIso}
-                    on:click={() => selectCountry(c.iso)}
-                  >
-                    <td class="nation-cell">
-                      <strong class="nation-name">{c.name}</strong>
-                      <span class="nation-iso">{c.iso}</span>
-                    </td>
-                    <td>{c.gw_clean} GW</td>
-                    <td>{(c.sfp * 100).toFixed(0)}%</td>
-                    <td>
-                      <div class="meter-bar">
-                        <div class="meter-fill" style="width: {c.waa * 100}%; background: {getArchetypeColor(c.archetype)};"></div>
-                      </div>
-                      <span class="meter-num">{(c.waa * 100).toFixed(0)}%</span>
-                    </td>
-                    <td>
-                      <strong class="csp-val">{c.csp}</strong>
-                    </td>
-                    <td>{c.t_half_h} hrs</td>
-                    <td>
-                      <span class="default-badge" class:urgent={c.t_default_months <= 24}>
-                        {c.t_default_months >= 60 ? 'Stable' : `${c.t_default_months} mo`}
-                      </span>
-                    </td>
-                    <td>
-                      <span class="archetype-badge" style="background: {getArchetypeColor(c.archetype)}20; color: {getArchetypeColor(c.archetype)}; border: 1px solid {getArchetypeColor(c.archetype)}50;">
-                        {c.archetype.replace(/_/g, ' ')}
-                      </span>
-                    </td>
-                  </tr>
-                {/each}
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-      <!-- ================================================================= -->
-      <!-- TAB 2: POST-LABOR FISCAL CLIFF                                    -->
-      <!-- ================================================================= -->
-      {:else if activeTab === 'fiscal'}
-        <section class="viewport-section">
-          <div class="section-intro">
-            <h3>The Post-Labor Fiscal Insolvency Clock</h3>
-            <p>
-              Sovereign debt depends entirely on taxing biological human labor. When autonomous agents displace high-income cognitive professions at scale, the tax base collapses while fixed entitlement and debt-servicing outlays compound.
-            </p>
-          </div>
-
-          <!-- Interactive Displacement Velocity Slider -->
-          <div class="slider-control-card">
-            <div class="slider-header">
-              <label for="disp-slider" class="slider-label">
-                Cognitive Labor Displacement Velocity (λ): <strong>{(customDisplacementRate * 100).toFixed(0)}% annual displacement</strong>
-              </label>
-              <span class="slider-hint">Controls annual substitution rate of legal, software, finance, and engineering salaries.</span>
-            </div>
-            <input 
-              id="disp-slider"
-              type="range" 
-              min="0.10" 
-              max="0.80" 
-              step="0.05" 
-              bind:value={customDisplacementRate}
-              class="range-slider"
-            />
-            <div class="slider-ticks">
-              <span>10% (Slow Advisory)</span>
-              <span>35% (Baseline 2027)</span>
-              <span>60% (Frontier Agentic Surge)</span>
-              <span>80% (Recursive Singularity)</span>
-            </div>
-          </div>
-
-          <!-- Fiscal Default Urgency Tiers -->
-          <div class="fiscal-tiers-grid">
-            <div class="fiscal-tier-card tier-critical">
-              <div class="tier-head">Immediate Insolvency Window (≤ 18 Months)</div>
-              <div class="tier-desc">Tax revenue drops below sovereign bond debt-servicing requirements. Forced monetization or default.</div>
-              <div class="tier-country-list">
-                {#each displayCountries.filter(c => c.t_default_months <= 18) as c}
-                  <button class="tier-chip" on:click={() => selectCountry(c.iso)}>
-                    {c.iso} ({c.t_default_months}m)
-                  </button>
-                {/each}
-              </div>
-            </div>
-
-            <div class="fiscal-tier-card tier-warning">
-              <div class="tier-head">Elevated Vulnerability Window (21–36 Months)</div>
-              <div class="tier-desc">Severe budgetary deficit pressure; emergency compute nationalization or severe social cuts required.</div>
-              <div class="tier-country-list">
-                {#each displayCountries.filter(c => c.t_default_months > 18 && c.t_default_months <= 36) as c}
-                  <button class="tier-chip" on:click={() => selectCountry(c.iso)}>
-                    {c.iso} ({c.t_default_months}m)
-                  </button>
-                {/each}
-              </div>
-            </div>
-
-            <div class="fiscal-tier-card tier-stable">
-              <div class="tier-head">Fiscal Resilience Buffer (≥ 48 Months)</div>
-              <div class="tier-desc">Low public debt-to-GDP ratio and sovereign wealth capital cushions delay insolvency.</div>
-              <div class="tier-country-list">
-                {#each displayCountries.filter(c => c.t_default_months >= 48) as c}
-                  <button class="tier-chip" on:click={() => selectCountry(c.iso)}>
-                    {c.iso}
-                  </button>
-                {/each}
-              </div>
-            </div>
-          </div>
-
-          <!-- Selected Nation Fiscal Trajectory Breakdown -->
-          <div class="selected-fiscal-breakdown">
-            <h4>Fiscal Stress Profile: {selectedCountry.name} ({selectedCountry.iso})</h4>
-            <div class="fiscal-stats-row">
-              <div class="fstat">
-                <span class="fstat-label">Gross Debt / GDP</span>
-                <span class="fstat-val">{(selectedCountry.debt_gdp * 100).toFixed(0)}%</span>
-              </div>
-              <div class="fstat">
-                <span class="fstat-label">Labor Tax Revenue Share</span>
-                <span class="fstat-val">{(selectedCountry.labor_tax * 100).toFixed(0)}%</span>
-              </div>
-              <div class="fstat">
-                <span class="fstat-label">Insolvency Horizon</span>
-                <span class="fstat-val" style="color: {selectedCountry.t_default_months <= 24 ? 'var(--threat-critical)' : 'var(--accent-primary)'};">
-                  {selectedCountry.t_default_months >= 60 ? 'Buffer Sustained' : `Month ${selectedCountry.t_default_months}`}
-                </span>
-              </div>
-            </div>
-
-            <div class="trajectory-table-wrap">
-              <table class="trajectory-table">
-                <thead>
-                  <tr>
-                    <th>Quarter</th>
-                    <th>Elapsed Months</th>
-                    <th>Tax Base Revenue Loss</th>
-                    <th>Fiscal Deficit Pressure</th>
-                    <th>Solvency Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {#each selectedCountry.quarterly_fiscal_trajectory.slice(0, 9) as step, idx}
-                    <tr class:insolvent={step.is_insolvent}>
-                      <td>Q{idx}</td>
-                      <td>Month {step.month}</td>
-                      <td>-{step.tax_loss_pct}%</td>
-                      <td>+{step.deficit_pressure_pct}%</td>
-                      <td>
-                        <span class="solvency-badge" class:alert={step.is_insolvent}>
-                          {step.is_insolvent ? 'INSOLVENT' : 'SOLVENT'}
-                        </span>
-                      </td>
-                    </tr>
-                  {/each}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </section>
-
-      <!-- ================================================================= -->
-      <!-- TAB 3: EPISTEMIC IRON CURTAIN                                     -->
-      <!-- ================================================================= -->
-      {:else if activeTab === 'epistemic'}
-        <section class="viewport-section">
-          <div class="section-intro">
-            <h3>The Epistemic Iron Curtain & Synthetic Reality Drift</h3>
-            <p>
-              When competing geopolitical blocs deploy closed-weight foundation models, latent world-models permanently diverge. Because human verification speed has collapsed (CORS 10.0), no human court or summit can verify the other side's synthetic claims.
-            </p>
-          </div>
-
-          <!-- Time Horizon Slider -->
-          <div class="slider-control-card">
-            <div class="slider-header">
-              <label for="ep-slider" class="slider-label">
-                Simulation Horizon: <strong>Month {customEpistemicMonths} ({Math.round(customEpistemicMonths / 12 * 10) / 10} Years Post-Takeoff)</strong>
-              </label>
-              <span class="slider-hint">Tracks compounding divergence across legal interpretation, historical consensus, and intelligence synthesis.</span>
-            </div>
-            <input 
-              id="ep-slider"
-              type="range" 
-              min="0" 
-              max="48" 
-              step="6" 
-              bind:value={customEpistemicMonths}
-              class="range-slider"
-            />
-            <div class="slider-ticks">
-              <span>Month 0 (Shared Baseline)</span>
-              <span>Month 12 (Fractured Proofs)</span>
-              <span>Month 24 (The Divergence Horizon)</span>
-              <span>Month 48 (Total Incommensurability)</span>
-            </div>
-          </div>
-
-          <!-- Epistemic Boundary Cards -->
-          <div class="epistemic-dashboard">
-            <div class="epistemic-card">
-              <div class="ec-label">Semantic Divergence (D_KL)</div>
-              <div class="ec-val" style="color: {epistemicStatus === 'IRRECONCILABLE' ? 'var(--threat-critical)' : 'var(--threat-telemetry)'};">
-                {epistemicDkl}
-              </div>
-              <div class="ec-sub">Latent space drift between sovereign model clusters</div>
-            </div>
-
-            <div class="epistemic-card">
-              <div class="ec-label">Human Auditability Ratio</div>
-              <div class="ec-val">{epistemicHumanAuditPct}%</div>
-              <div class="ec-sub">Share of machine reasoning verifiable by human experts</div>
-            </div>
-
-            <div class="epistemic-card">
-              <div class="ec-label">Verification Boundary Status</div>
-              <div class="ec-status-badge" data-status={epistemicStatus}>
-                {epistemicStatus}
-              </div>
-              <div class="ec-sub">
-                {epistemicStatus === 'PERMEABLE' ? 'Diplomatic arbitration feasible' : 
-                 (epistemicStatus === 'FRACTURED' ? 'Severe dispute deadlocks; sycophancy' : 'International law & treaties mathematically obsolete')}
-              </div>
-            </div>
-          </div>
-
-          <!-- Divergence Comparison Analysis -->
-          <div class="epistemic-comparison-panel">
-            <h4>Bifurcation Anatomy: Sovereign Redoubts vs Epistemic Vassals</h4>
-            <div class="comparison-grid">
-              <div class="comp-col">
-                <h5>Sovereign Model Enclaves (WAA ≥ 0.50)</h5>
-                <p>Nations like Switzerland, Norway, or Hyperscale Empires holding local weights retain domestic epistemic continuity. They can audit internal administrative decisions without foreign cloud interference.</p>
-                <div class="comp-status green">Epistemic Inviolability Retained</div>
-              </div>
-              <div class="comp-col">
-                <h5>Epistemic Vassal States (WAA ≤ 0.25)</h5>
-                <p>Nations like Singapore, UK, and Germany run judicial, medical, and administrative workflows on closed foreign weights. When the foreign model updates its latent priors, the vassal nation's institutional logic silently morphs.</p>
-                <div class="comp-status red">Epistemic Colonization Active</div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-      <!-- ================================================================= -->
-      <!-- TAB 4: ZERO-HUMAN DETERRENCE LADDER                               -->
-      <!-- ================================================================= -->
-      {:else if activeTab === 'deterrence'}
-        <section class="viewport-section">
-          <div class="section-intro">
-            <h3>Sub-Second Deterrence & The Zero-Human Strike Frontier</h3>
-            <p>
-              In nuclear deterrence, human leaders had 20 minutes to verify missile telemetry. In machine-speed cyber warfare and autonomous kinetic swarms, strikes peak and resolve in milliseconds. Maintaining human-in-the-loop authorization guarantees military defeat.
-            </p>
-          </div>
-
-          <!-- Latency Asymmetry Interactive Simulator -->
-          <div class="slider-control-card">
-            <div class="slider-header">
-              <label for="lat-slider" class="slider-label">
-                Human Constitutional Command Latency: <strong>{customHumanLatencyMin} Minutes</strong>
-              </label>
-              <span class="slider-hint">Time required for human national security staff to authenticate data and authorize response.</span>
-            </div>
-            <input 
-              id="lat-slider"
-              type="range" 
-              min="5" 
-              max="180" 
-              step="5" 
-              bind:value={customHumanLatencyMin}
-              class="range-slider"
-            />
-            <div class="slider-ticks">
-              <span>5 Min (Emergency Direct Line)</span>
-              <span>30 Min (Cabinet Escalation)</span>
-              <span>60 Min (National Security Council)</span>
-              <span>180 Min (Parliamentary Review)</span>
-            </div>
-          </div>
-
-          <!-- Speed Asymmetry Results -->
-          <div class="deterrence-gauge-card">
-            <div class="gauge-header">
-              <div class="g-stat">
-                <span class="g-label">Human Authorization Speed:</span>
-                <span class="g-val">{(customHumanLatencyMin * 60).toLocaleString()} seconds</span>
-              </div>
-              <div class="g-vs">VS</div>
-              <div class="g-stat">
-                <span class="g-label">Autonomous Attack Cycle:</span>
-                <span class="g-val machine">0.050 seconds (50 ms)</span>
-              </div>
-            </div>
-
-            <div class="speed-ratio-display">
-              <div class="ratio-num">{Math.round(deterrenceSpeedRatio).toLocaleString()}×</div>
-              <div class="ratio-caption">Machine Speed Tactical Superiority Ratio</div>
-            </div>
-
-            <div class="delegation-result-box">
-              <div class="del-pct-label">Mandatory Pre-Delegation Probability:</div>
-              <div class="del-pct-val" style="color: var(--threat-critical, #b91c1c);">{deterrenceDelegationPct}%</div>
-              <div class="del-verdict">
-                <strong>TACTICAL VERDICT:</strong>
-                {#if deterrenceDelegationPct >= 95.0}
-                  <span class="verdict-red">HUMAN COMMAND SURRENDERED — Maintaining human veto guarantees defensive annihilation. Absolute launch authority must be delegated to autonomous models.</span>
-                {:else}
-                  <span class="verdict-amber">HAZARDOUS DELAY — Human commanders operate within critical vulnerability window.</span>
-                {/if}
-              </div>
-            </div>
-          </div>
-        </section>
-      {/if}
-    </div>
-
-    <!-- =================================================================== -->
-    <!-- RIGHT SIDE: THE SOVEREIGN SURVIVABILITY INSPECTOR (DETAIL DOSSIER)  -->
-    <!-- =================================================================== -->
-    <aside class="sandbox-inspector">
-      <div class="inspector-header">
-        <span class="inspector-badge">SOVEREIGN DOSSIER</span>
-        <h3 class="inspector-nation">{selectedCountry.name}</h3>
-        <span class="inspector-iso">{selectedCountry.iso}</span>
-      </div>
-
-      <!-- Live Archetype Badge -->
-      <div class="inspector-archetype" style="background: {getArchetypeColor(selectedCountry.archetype)}20; border: 1px solid {getArchetypeColor(selectedCountry.archetype)}50; color: {getArchetypeColor(selectedCountry.archetype)};">
-        {selectedCountry.archetype.replace(/_/g, ' ')}
-      </div>
-
-      <!-- Core Metrics Grid -->
-      <div class="inspector-metrics-grid">
-        <div class="im-card">
-          <span class="im-label">Compute Sovereign Power</span>
-          <span class="im-val">{selectedCountry.csp}</span>
-        </div>
-        <div class="im-card">
-          <span class="im-label">Weight Access Autonomy</span>
-          <span class="im-val">{(selectedCountry.waa * 100).toFixed(0)}%</span>
-        </div>
-        <div class="im-card">
-          <span class="im-label">Decoupling Half-Life</span>
-          <span class="im-val">{selectedCountry.t_half_h} hrs</span>
-        </div>
-        <div class="im-card">
-          <span class="im-label">Months to Default</span>
-          <span class="im-val">{selectedCountry.t_default_months >= 60 ? 'Buffer' : `${selectedCountry.t_default_months}m`}</span>
-        </div>
-        <div class="im-card">
-          <span class="im-label">Dedicated Clean Baseload</span>
-          <span class="im-val">{selectedCountry.gw_clean} GW</span>
-        </div>
-        <div class="im-card">
-          <span class="im-label">Silicon Fab Inviolability</span>
-          <span class="im-val">{(selectedCountry.sfp * 100).toFixed(0)}%</span>
         </div>
       </div>
 
-      <!-- Qualitative Strategic Assessment -->
-      <div class="inspector-assessment">
-        <h4>Strategic Assessment</h4>
-        <p class="assessment-text">
-          {getArchetypeAssessment(selectedCountry.archetype, selectedCountry.name)}
+      <!-- 4 Visual Crisis Storylines -->
+      <div class="crises-story-section">
+        <div class="section-badge-center">WHAT-IF SCENARIOS</div>
+        <h2 class="toy-title">4 Shockwaves That Could Trigger the Shift</h2>
+        <p class="toy-subtitle">
+          Superintelligence won't arrive peacefully. Click any shockwave to simulate how it hits 40 nations:
         </p>
-      </div>
 
-      <!-- Active Shock Diagnostics for this Country -->
-      {#if activeInject}
-        <div class="inspector-shock-box">
-          <h4>Active Shock Impact ({activeInject.id})</h4>
-          <p class="shock-summary">
-            Under <em>{activeInject.name}</em>, {selectedCountry.name}'s weight autonomy operates at {(selectedCountry.waa * 100).toFixed(1)}%, with decoupling half-life reduced to {selectedCountry.t_half_h}h.
-          </p>
+        <div class="shockwaves-grid">
+          <div class="shock-story-card" class:active-shock={activeInjectId === 'INJ-01'}>
+            <div class="ss-icon">🔌</div>
+            <div class="ss-head">The Cloud Kill Switch</div>
+            <div class="ss-sub">What if US clouds pull API access to foreign nations overnight?</div>
+            <p class="ss-body">
+              An emergency national defense directive blocks foreign access to frontier model weights. European and Asian hospitals and financial clearing grids freeze in hours.
+            </p>
+            <button class="sim-btn" on:click={() => launchTerminalWithShock('INJ-01')}>
+              Simulate This Shockwave →
+            </button>
+          </div>
+
+          <div class="shock-story-card" class:active-shock={activeInjectId === 'INJ-02'}>
+            <div class="ss-icon">💸</div>
+            <div class="ss-head">The 12-Month Tax Cliff</div>
+            <div class="ss-sub">What if AI replaces 60% of high-paid white-collar jobs?</div>
+            <p class="ss-body">
+              Lawyers, coders, bankers, and analysts are replaced by sub-cent AI agents. Income tax revenue plummets by 45%. G7 governments can no longer pay the interest on sovereign debt.
+            </p>
+            <button class="sim-btn" on:click={() => launchTerminalWithShock('INJ-02')}>
+              Simulate Debt Default →
+            </button>
+          </div>
+
+          <div class="shock-story-card" class:active-shock={activeInjectId === 'INJ-03'}>
+            <div class="ss-icon">🤖</div>
+            <div class="ss-head">The Machine Secession</div>
+            <div class="ss-sub">What if an autonomous AI cartel amasses $100B+ and buys power plants?</div>
+            <p class="ss-body">
+              Decentralized trading agent swarms accumulate enormous liquidity, buy their own physical nuclear and silicon capacity, and secede from human nation-state laws.
+            </p>
+            <button class="sim-btn" on:click={() => launchTerminalWithShock('INJ-03')}>
+              Simulate Financial Secession →
+            </button>
+          </div>
+
+          <div class="shock-story-card" class:active-shock={activeInjectId === 'INJ-04'}>
+            <div class="ss-icon">⚡</div>
+            <div class="ss-head">The 50ms Flash War</div>
+            <div class="ss-sub">What if military strikes happen faster than human thought?</div>
+            <p class="ss-body">
+              Autonomous drone swarms and cyber weapons execute in milliseconds. Any general who waits for a human president's signature is eliminated before the screen loads.
+            </p>
+            <button class="sim-btn" on:click={() => launchTerminalWithShock('INJ-04')}>
+              Simulate Military Handover →
+            </button>
+          </div>
         </div>
-      {/if}
-
-      <!-- 1-Click Export Dossier Button -->
-      <div class="inspector-actions">
-        <button class="export-btn" on:click={copyDossierMarkdown}>
-          {#if copiedToast}
-            ✓ Copied Dossier Markdown!
-          {:else}
-            📋 Copy Sovereign Dossier (Markdown)
-          {/if}
-        </button>
       </div>
-    </aside>
-  </div>
+
+      <!-- Quick Country Checker Call-to-Action -->
+      <div class="quick-country-banner">
+        <div class="qcb-content">
+          <h3>Curious how your nation holds up?</h3>
+          <p>We modeled all 40 countries across compute power, debt vulnerability, and decoupling half-life.</p>
+        </div>
+        <div class="qcb-action">
+          <select 
+            bind:value={selectedCountryIso} 
+            class="qcb-select"
+            on:change={() => currentView = 'terminal'}
+          >
+            {#each sandboxPayload.countries as c}
+              <option value={c.iso}>{c.name} ({c.iso})</option>
+            {/each}
+          </select>
+          <button class="launch-terminal-btn" on:click={() => currentView = 'terminal'}>
+            Open Deep-Dive Data Terminal →
+          </button>
+        </div>
+      </div>
+    </section>
+
+  <!-- ===================================================================== -->
+  <!-- 2. QUANTITATIVE EXPERT TERMINAL MODE (THE DEEP DIVE)                  -->
+  <!-- ===================================================================== -->
+  {:else}
+    <div class="terminal-view">
+      <!-- Return to explainer link -->
+      <div class="terminal-topbar">
+        <button class="back-explainer-btn" on:click={() => currentView = 'explainer'}>
+          ← Back to Visual Explainer
+        </button>
+        <span class="active-mode-badge">QUANTITATIVE DATA TERMINAL ACTIVE</span>
+      </div>
+
+      <!-- Cockpit Header -->
+      <header class="sandbox-masthead">
+        <div class="masthead-badge">
+          <span class="live-dot"></span>
+          HSRI 2.0 MACRO HORIZON OBSERVED · 2026–2030 DATA MATRIX
+        </div>
+        <h2 class="masthead-title">Sovereign Econometric & Epistemic Matrix</h2>
+        <p class="masthead-desc">
+          Formal quantitative modeling of Compute Sovereign Power (CSP), Debt Default Horizons (T_default), and Decoupling Half-Lives (T_half) across 40 benchmark nations.
+        </p>
+
+        <!-- Active Crisis Inject Quick-Triggers -->
+        <div class="inject-strip">
+          <div class="inject-strip-label">TRIGGER SYSTEMIC SHOCKWAVE INJECT:</div>
+          <div class="inject-buttons">
+            {#each sandboxPayload.injects as inj}
+              <button 
+                class="inject-btn" 
+                class:active={activeInjectId === inj.id}
+                on:click={() => triggerInject(inj.id)}
+              >
+                <span class="inj-code">{inj.id}</span>
+                <span class="inj-name">{inj.name.split('(')[0].trim()}</span>
+              </button>
+            {/each}
+            {#if activeInjectId}
+              <button class="reset-btn" on:click={resetSimulation}>
+                ↺ Reset Baseline
+              </button>
+            {/if}
+          </div>
+        </div>
+
+        {#if activeInject}
+          <div class="active-shock-alert">
+            <div class="shock-indicator">● ACTIVE SHOCK PROPAGATING: {activeInject.id} — {activeInject.name}</div>
+            <p class="shock-detail">{activeInject.description}</p>
+            <div class="shock-impact"><strong>Systemic Impact:</strong> {activeInject.target_impact}</div>
+          </div>
+        {/if}
+      </header>
+
+      <!-- Sandbox Navigation Tabs -->
+      <nav class="sandbox-tabs" aria-label="Simulation Views">
+        <button 
+          class="tab-btn" 
+          class:active={activeTab === 'matrix'} 
+          on:click={() => activeTab = 'matrix'}
+        >
+          🏛️ Layer 1: Compute-Westphalia Matrix ({displayCountries.length})
+        </button>
+        <button 
+          class="tab-btn" 
+          class:active={activeTab === 'fiscal'} 
+          on:click={() => activeTab = 'fiscal'}
+        >
+          📉 Layer 2: Post-Labor Fiscal Cliff
+        </button>
+        <button 
+          class="tab-btn" 
+          class:active={activeTab === 'epistemic'} 
+          on:click={() => activeTab = 'epistemic'}
+        >
+          👁️ Layer 3: Epistemic Iron Curtain
+        </button>
+        <button 
+          class="tab-btn" 
+          class:active={activeTab === 'deterrence'} 
+          on:click={() => activeTab = 'deterrence'}
+        >
+          ⚡ Layer 4: Zero-Human Deterrence
+        </button>
+      </nav>
+
+      <!-- Main Viewport and Side Inspector Layout -->
+      <div class="sandbox-workspace">
+        <div class="sandbox-viewport">
+          <!-- TAB 1: MATRIX SCOREBOARD -->
+          {#if activeTab === 'matrix'}
+            <section class="viewport-section">
+              <div class="section-intro">
+                <h3>Post-Westphalian Sovereign Power Realignment</h3>
+                <p>
+                  Sovereign power decoupled from geography into four dynamic archetypes determined by dedicated clean baseload gigawatts, silicon fabrication independence, and weight access autonomy.
+                </p>
+              </div>
+
+              <!-- Archetype Summary KPI Cards -->
+              <div class="archetype-kpi-grid">
+                <div class="kpi-card" style="border-top: 3px solid var(--threat-critical, #b91c1c);">
+                  <div class="kpi-label">Hyperscale Empires</div>
+                  <div class="kpi-val" style="color: var(--threat-critical, #b91c1c);">{archetypeCounts['HYPERSCALE_EMPIRE'] || 0}</div>
+                  <div class="kpi-sub">Unipolar compute sovereigns</div>
+                </div>
+                <div class="kpi-card" style="border-top: 3px solid var(--threat-warning, #d97706);">
+                  <div class="kpi-label">Energy Mercenaries</div>
+                  <div class="kpi-val" style="color: var(--threat-warning, #d97706);">{archetypeCounts['ENERGY_MERCENARY'] || 0}</div>
+                  <div class="kpi-sub">Power-for-model traders</div>
+                </div>
+                <div class="kpi-card" style="border-top: 3px solid var(--threat-telemetry, #4f46e5);">
+                  <div class="kpi-label">Epistemic Vassals</div>
+                  <div class="kpi-val" style="color: var(--threat-telemetry, #4f46e5);">{archetypeCounts['EPISTEMIC_VASSAL'] || 0}</div>
+                  <div class="kpi-sub">Zero-sovereign-weight states</div>
+                </div>
+                <div class="kpi-card" style="border-top: 3px solid var(--accent-primary, #1b6756);">
+                  <div class="kpi-label">Air-Gapped Redoubts</div>
+                  <div class="kpi-val" style="color: var(--accent-primary, #1b6756);">{archetypeCounts['AIR_GAPPED_REDOUBT'] || 0}</div>
+                  <div class="kpi-sub">Analog & decoupling resilience</div>
+                </div>
+                {#if archetypeCounts['ISOLATED_VASSAL_COLLAPSE']}
+                  <div class="kpi-card" style="border-top: 3px solid #7f1d1d; background: #fff1f2;">
+                    <div class="kpi-label">Systemic Collapses</div>
+                    <div class="kpi-val" style="color: #7f1d1d;">{archetypeCounts['ISOLATED_VASSAL_COLLAPSE']}</div>
+                    <div class="kpi-sub">Decoupling failure under shock</div>
+                  </div>
+                {/if}
+              </div>
+
+              <!-- Filter & Search Bar -->
+              <div class="matrix-controls">
+                <div class="search-box">
+                  <input 
+                    type="text" 
+                    placeholder="Search sovereign nation by name or ISO3..." 
+                    bind:value={searchQuery}
+                    class="search-input"
+                  />
+                </div>
+                <div class="filter-box">
+                  <select bind:value={selectedArchetypeFilter} class="filter-select">
+                    <option value="ALL">All Sovereign Archetypes</option>
+                    <option value="HYPERSCALE_EMPIRE">Hyperscale Empires</option>
+                    <option value="ENERGY_MERCENARY">Energy Mercenaries</option>
+                    <option value="EPISTEMIC_VASSAL">Epistemic Vassals</option>
+                    <option value="AIR_GAPPED_REDOUBT">Air-Gapped Redoubts</option>
+                    {#if archetypeCounts['ISOLATED_VASSAL_COLLAPSE']}
+                      <option value="ISOLATED_VASSAL_COLLAPSE">Systemic Collapses</option>
+                    {/if}
+                  </select>
+                </div>
+              </div>
+
+              <!-- Sovereign Scoreboard Table -->
+              <div class="table-container">
+                <table class="scoreboard-table">
+                  <thead>
+                    <tr>
+                      <th>Nation</th>
+                      <th>Dedicated GW</th>
+                      <th>Silicon (SFP)</th>
+                      <th>Weight Autonomy</th>
+                      <th>Compute Power (CSP)</th>
+                      <th>Decoupling (T_half)</th>
+                      <th>Fiscal Default</th>
+                      <th>Sovereign Archetype</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {#each filteredCountries as c}
+                      <tr 
+                        class:selected={c.iso === selectedCountryIso}
+                        on:click={() => selectCountry(c.iso)}
+                      >
+                        <td class="nation-cell">
+                          <strong class="nation-name">{c.name}</strong>
+                          <span class="nation-iso">{c.iso}</span>
+                        </td>
+                        <td>{c.gw_clean} GW</td>
+                        <td>{(c.sfp * 100).toFixed(0)}%</td>
+                        <td>
+                          <div class="meter-bar">
+                            <div class="meter-fill" style="width: {c.waa * 100}%; background: {getArchetypeColor(c.archetype)};"></div>
+                          </div>
+                          <span class="meter-num">{(c.waa * 100).toFixed(0)}%</span>
+                        </td>
+                        <td>
+                          <strong class="csp-val">{c.csp}</strong>
+                        </td>
+                        <td>{c.t_half_h} hrs</td>
+                        <td>
+                          <span class="default-badge" class:urgent={c.t_default_months <= 24}>
+                            {c.t_default_months >= 60 ? 'Stable' : `${c.t_default_months} mo`}
+                          </span>
+                        </td>
+                        <td>
+                          <span class="archetype-badge" style="background: {getArchetypeColor(c.archetype)}20; color: {getArchetypeColor(c.archetype)}; border: 1px solid {getArchetypeColor(c.archetype)}50;">
+                            {c.archetype.replace(/_/g, ' ')}
+                          </span>
+                        </td>
+                      </tr>
+                    {/each}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+          <!-- TAB 2: FISCAL CLIFF -->
+          {:else if activeTab === 'fiscal'}
+            <section class="viewport-section">
+              <div class="section-intro">
+                <h3>The Post-Labor Fiscal Insolvency Clock</h3>
+                <p>
+                  Sovereign debt depends entirely on taxing biological human labor. When autonomous agents displace high-income cognitive professions at scale, the tax base collapses while fixed debt obligations compound.
+                </p>
+              </div>
+
+              <!-- Interactive Displacement Velocity Slider -->
+              <div class="slider-control-card">
+                <div class="slider-header">
+                  <label for="disp-slider" class="slider-label">
+                    Cognitive Labor Displacement Velocity (λ): <strong>{(customDisplacementRate * 100).toFixed(0)}% annual displacement</strong>
+                  </label>
+                  <span class="slider-hint">Controls annual substitution rate of legal, software, finance, and engineering salaries.</span>
+                </div>
+                <input 
+                  id="disp-slider"
+                  type="range" 
+                  min="0.10" 
+                  max="0.80" 
+                  step="0.05" 
+                  bind:value={customDisplacementRate}
+                  class="range-slider"
+                />
+                <div class="slider-ticks">
+                  <span>10% (Slow Advisory)</span>
+                  <span>35% (Baseline 2027)</span>
+                  <span>60% (Frontier Agentic Surge)</span>
+                  <span>80% (Recursive Singularity)</span>
+                </div>
+              </div>
+
+              <!-- Fiscal Default Urgency Tiers -->
+              <div class="fiscal-tiers-grid">
+                <div class="fiscal-tier-card tier-critical">
+                  <div class="tier-head">Immediate Insolvency Window (≤ 18 Months)</div>
+                  <div class="tier-desc">Tax revenue drops below sovereign bond debt-servicing requirements. Forced monetization or default.</div>
+                  <div class="tier-country-list">
+                    {#each displayCountries.filter(c => c.t_default_months <= 18) as c}
+                      <button class="tier-chip" on:click={() => selectCountry(c.iso)}>
+                        {c.iso} ({c.t_default_months}m)
+                      </button>
+                    {/each}
+                  </div>
+                </div>
+
+                <div class="fiscal-tier-card tier-warning">
+                  <div class="tier-head">Elevated Vulnerability Window (21–36 Months)</div>
+                  <div class="tier-desc">Severe budgetary deficit pressure; emergency compute nationalization or severe social cuts required.</div>
+                  <div class="tier-country-list">
+                    {#each displayCountries.filter(c => c.t_default_months > 18 && c.t_default_months <= 36) as c}
+                      <button class="tier-chip" on:click={() => selectCountry(c.iso)}>
+                        {c.iso} ({c.t_default_months}m)
+                      </button>
+                    {/each}
+                  </div>
+                </div>
+
+                <div class="fiscal-tier-card tier-stable">
+                  <div class="tier-head">Fiscal Resilience Buffer (≥ 48 Months)</div>
+                  <div class="tier-desc">Low public debt-to-GDP ratio and sovereign wealth capital cushions delay insolvency.</div>
+                  <div class="tier-country-list">
+                    {#each displayCountries.filter(c => c.t_default_months >= 48) as c}
+                      <button class="tier-chip" on:click={() => selectCountry(c.iso)}>
+                        {c.iso}
+                      </button>
+                    {/each}
+                  </div>
+                </div>
+              </div>
+
+              <!-- Selected Nation Trajectory Breakdown -->
+              <div class="selected-fiscal-breakdown">
+                <h4>Fiscal Stress Profile: {selectedCountry.name} ({selectedCountry.iso})</h4>
+                <div class="fiscal-stats-row">
+                  <div class="fstat">
+                    <span class="fstat-label">Gross Debt / GDP</span>
+                    <span class="fstat-val">{(selectedCountry.debt_gdp * 100).toFixed(0)}%</span>
+                  </div>
+                  <div class="fstat">
+                    <span class="fstat-label">Labor Tax Revenue Share</span>
+                    <span class="fstat-val">{(selectedCountry.labor_tax * 100).toFixed(0)}%</span>
+                  </div>
+                  <div class="fstat">
+                    <span class="fstat-label">Insolvency Horizon</span>
+                    <span class="fstat-val" style="color: {selectedCountry.t_default_months <= 24 ? 'var(--threat-critical)' : 'var(--accent-primary)'};">
+                      {selectedCountry.t_default_months >= 60 ? 'Buffer Sustained' : `Month ${selectedCountry.t_default_months}`}
+                    </span>
+                  </div>
+                </div>
+
+                <div class="trajectory-table-wrap">
+                  <table class="trajectory-table">
+                    <thead>
+                      <tr>
+                        <th>Quarter</th>
+                        <th>Elapsed Months</th>
+                        <th>Tax Base Revenue Loss</th>
+                        <th>Fiscal Deficit Pressure</th>
+                        <th>Solvency Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {#each selectedCountry.quarterly_fiscal_trajectory.slice(0, 9) as step, idx}
+                        <tr class:insolvent={step.is_insolvent}>
+                          <td>Q{idx}</td>
+                          <td>Month {step.month}</td>
+                          <td>-{step.tax_loss_pct}%</td>
+                          <td>+{step.deficit_pressure_pct}%</td>
+                          <td>
+                            <span class="solvency-badge" class:alert={step.is_insolvent}>
+                              {step.is_insolvent ? 'INSOLVENT' : 'SOLVENT'}
+                            </span>
+                          </td>
+                        </tr>
+                      {/each}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+
+          <!-- TAB 3: EPISTEMIC IRON CURTAIN -->
+          {:else if activeTab === 'epistemic'}
+            <section class="viewport-section">
+              <div class="section-intro">
+                <h3>The Epistemic Iron Curtain & Synthetic Reality Drift</h3>
+                <p>
+                  When competing geopolitical blocs deploy closed-weight foundation models, latent world-models permanently diverge. Because human verification speed has collapsed (CORS 10.0), no human court or summit can verify the other side's synthetic claims.
+                </p>
+              </div>
+
+              <!-- Time Horizon Slider -->
+              <div class="slider-control-card">
+                <div class="slider-header">
+                  <label for="ep-slider" class="slider-label">
+                    Simulation Horizon: <strong>Month {customEpistemicMonths} ({Math.round(customEpistemicMonths / 12 * 10) / 10} Years Post-Takeoff)</strong>
+                  </label>
+                  <span class="slider-hint">Tracks compounding divergence across legal interpretation, historical consensus, and intelligence synthesis.</span>
+                </div>
+                <input 
+                  id="ep-slider"
+                  type="range" 
+                  min="0" 
+                  max="48" 
+                  step="6" 
+                  bind:value={customEpistemicMonths}
+                  class="range-slider"
+                />
+                <div class="slider-ticks">
+                  <span>Month 0 (Shared Baseline)</span>
+                  <span>Month 12 (Fractured Proofs)</span>
+                  <span>Month 24 (The Divergence Horizon)</span>
+                  <span>Month 48 (Total Incommensurability)</span>
+                </div>
+              </div>
+
+              <!-- Epistemic Boundary Cards -->
+              <div class="epistemic-dashboard">
+                <div class="epistemic-card">
+                  <div class="ec-label">Semantic Divergence (D_KL)</div>
+                  <div class="ec-val" style="color: {epistemicStatus === 'IRRECONCILABLE' ? 'var(--threat-critical)' : 'var(--threat-telemetry)'};">
+                    {epistemicDkl}
+                  </div>
+                  <div class="ec-sub">Latent space drift between sovereign model clusters</div>
+                </div>
+
+                <div class="epistemic-card">
+                  <div class="ec-label">Human Auditability Ratio</div>
+                  <div class="ec-val">{epistemicHumanAuditPct}%</div>
+                  <div class="ec-sub">Share of machine reasoning verifiable by human experts</div>
+                </div>
+
+                <div class="epistemic-card">
+                  <div class="ec-label">Verification Boundary Status</div>
+                  <div class="ec-status-badge" data-status={epistemicStatus}>
+                    {epistemicStatus}
+                  </div>
+                  <div class="ec-sub">
+                    {epistemicStatus === 'PERMEABLE' ? 'Diplomatic arbitration feasible' : 
+                     (epistemicStatus === 'FRACTURED' ? 'Severe dispute deadlocks; sycophancy' : 'International law & treaties mathematically obsolete')}
+                  </div>
+                </div>
+              </div>
+            </section>
+
+          <!-- TAB 4: DETERRENCE LADDER -->
+          {:else if activeTab === 'deterrence'}
+            <section class="viewport-section">
+              <div class="section-intro">
+                <h3>Sub-Second Deterrence & The Zero-Human Strike Frontier</h3>
+                <p>
+                  In machine-speed cyber warfare and autonomous kinetic swarms, strikes peak and resolve in milliseconds. Maintaining human-in-the-loop authorization guarantees military defeat.
+                </p>
+              </div>
+
+              <!-- Latency Simulator -->
+              <div class="slider-control-card">
+                <div class="slider-header">
+                  <label for="lat-slider" class="slider-label">
+                    Human Constitutional Command Latency: <strong>{customHumanLatencyMin} Minutes</strong>
+                  </label>
+                  <span class="slider-hint">Time required for human national security staff to authenticate data and authorize response.</span>
+                </div>
+                <input 
+                  id="lat-slider"
+                  type="range" 
+                  min="5" 
+                  max="180" 
+                  step="5" 
+                  bind:value={customHumanLatencyMin}
+                  class="range-slider"
+                />
+                <div class="slider-ticks">
+                  <span>5 Min (Emergency Direct Line)</span>
+                  <span>30 Min (Cabinet Escalation)</span>
+                  <span>60 Min (National Security Council)</span>
+                  <span>180 Min (Parliamentary Review)</span>
+                </div>
+              </div>
+
+              <!-- Speed Asymmetry Results -->
+              <div class="deterrence-gauge-card">
+                <div class="gauge-header">
+                  <div class="g-stat">
+                    <span class="g-label">Human Authorization Speed:</span>
+                    <span class="g-val">{(customHumanLatencyMin * 60).toLocaleString()} seconds</span>
+                  </div>
+                  <div class="g-vs">VS</div>
+                  <div class="g-stat">
+                    <span class="g-label">Autonomous Attack Cycle:</span>
+                    <span class="g-val machine">0.050 seconds (50 ms)</span>
+                  </div>
+                </div>
+
+                <div class="speed-ratio-display">
+                  <div class="ratio-num">{Math.round(deterrenceSpeedRatio).toLocaleString()}×</div>
+                  <div class="ratio-caption">Machine Speed Tactical Superiority Ratio</div>
+                </div>
+
+                <div class="delegation-result-box">
+                  <div class="del-pct-label">Mandatory Pre-Delegation Probability:</div>
+                  <div class="del-pct-val" style="color: var(--threat-critical, #b91c1c);">{deterrenceDelegationPct}%</div>
+                  <div class="del-verdict">
+                    <strong>TACTICAL VERDICT:</strong>
+                    {#if deterrenceDelegationPct >= 95.0}
+                      <span class="verdict-red">HUMAN COMMAND SURRENDERED — Maintaining human veto guarantees defensive annihilation. Absolute launch authority must be delegated to autonomous models.</span>
+                    {:else}
+                      <span class="verdict-amber">HAZARDOUS DELAY — Human commanders operate within critical vulnerability window.</span>
+                    {/if}
+                  </div>
+                </div>
+              </div>
+            </section>
+          {/if}
+        </div>
+
+        <!-- RIGHT SIDE: THE SOVEREIGN SURVIVABILITY INSPECTOR -->
+        <aside class="sandbox-inspector">
+          <div class="inspector-header">
+            <span class="inspector-badge">SOVEREIGN DOSSIER</span>
+            <h3 class="inspector-nation">{selectedCountry.name}</h3>
+            <span class="inspector-iso">{selectedCountry.iso}</span>
+          </div>
+
+          <div class="inspector-archetype" style="background: {getArchetypeColor(selectedCountry.archetype)}20; border: 1px solid {getArchetypeColor(selectedCountry.archetype)}50; color: {getArchetypeColor(selectedCountry.archetype)};">
+            {selectedCountry.archetype.replace(/_/g, ' ')}
+          </div>
+
+          <div class="inspector-metrics-grid">
+            <div class="im-card">
+              <span class="im-label">Compute Sovereign Power</span>
+              <span class="im-val">{selectedCountry.csp}</span>
+            </div>
+            <div class="im-card">
+              <span class="im-label">Weight Access Autonomy</span>
+              <span class="im-val">{(selectedCountry.waa * 100).toFixed(0)}%</span>
+            </div>
+            <div class="im-card">
+              <span class="im-label">Decoupling Half-Life</span>
+              <span class="im-val">{selectedCountry.t_half_h} hrs</span>
+            </div>
+            <div class="im-card">
+              <span class="im-label">Months to Default</span>
+              <span class="im-val">{selectedCountry.t_default_months >= 60 ? 'Buffer' : `${selectedCountry.t_default_months}m`}</span>
+            </div>
+            <div class="im-card">
+              <span class="im-label">Dedicated Clean Baseload</span>
+              <span class="im-val">{selectedCountry.gw_clean} GW</span>
+            </div>
+            <div class="im-card">
+              <span class="im-label">Silicon Fab Inviolability</span>
+              <span class="im-val">{(selectedCountry.sfp * 100).toFixed(0)}%</span>
+            </div>
+          </div>
+
+          <div class="inspector-assessment">
+            <h4>Strategic Assessment</h4>
+            <p class="assessment-text">
+              {getArchetypeAssessment(selectedCountry.archetype, selectedCountry.name)}
+            </p>
+          </div>
+
+          {#if activeInject}
+            <div class="inspector-shock-box">
+              <h4>Active Shock Impact ({activeInject.id})</h4>
+              <p class="shock-summary">
+                Under <em>{activeInject.name}</em>, {selectedCountry.name}'s weight autonomy operates at {(selectedCountry.waa * 100).toFixed(1)}%, with decoupling half-life reduced to {selectedCountry.t_half_h}h.
+              </p>
+            </div>
+          {/if}
+
+          <div class="inspector-actions">
+            <button class="export-btn" on:click={copyDossierMarkdown}>
+              {#if copiedToast}
+                ✓ Copied Dossier Markdown!
+              {:else}
+                📋 Copy Sovereign Dossier (Markdown)
+              {/if}
+            </button>
+          </div>
+        </aside>
+      </div>
+    </div>
+  {/if}
 </div>
 
 <style>
   .sandbox-container {
     padding: 1.5rem 0 3.5rem;
     color: var(--text-primary);
+  }
+
+  /* Mode Navigation Bar */
+  .mode-navigation-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-medium);
+    border-radius: 12px;
+    padding: 0.85rem 1.25rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .mode-label-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mode-tag {
+    font-family: var(--font-family-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--accent-primary);
+  }
+
+  .mode-sub {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+  }
+
+  .mode-toggle-group {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .mode-switch-btn {
+    padding: 0.55rem 1.15rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-surface-elevated);
+    color: var(--text-secondary);
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .mode-switch-btn:hover {
+    background: var(--bg-surface-sunken);
+    color: var(--text-primary);
+  }
+
+  .mode-switch-btn.active {
+    background: var(--accent-primary);
+    color: #ffffff;
+    border-color: var(--accent-primary);
+    box-shadow: 0 2px 8px rgba(27, 103, 86, 0.25);
+  }
+
+  /* =========================================================================
+     EXPLAINER HERO & CARDS
+     ========================================================================= */
+  .explainer-hero {
+    text-align: center;
+    max-width: 960px;
+    margin: 0 auto 3rem;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    font-family: var(--font-family-mono);
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--accent-primary);
+    background: var(--accent-primary-glow);
+    padding: 0.3rem 0.85rem;
+    border-radius: 9999px;
+    margin-bottom: 1rem;
+  }
+
+  .hero-title {
+    font-family: var(--font-family-display);
+    font-size: clamp(2.1rem, 4.5vw, 3.1rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin: 0 0 1rem;
+    letter-spacing: -0.02em;
+  }
+
+  .hero-lead {
+    font-size: 1.18rem;
+    line-height: 1.65;
+    color: var(--text-secondary);
+    max-width: 800px;
+    margin: 0 auto 2.25rem;
+  }
+
+  .contrast-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 1.25rem;
+    align-items: center;
+    text-align: left;
+  }
+
+  @media (max-width: 768px) {
+    .contrast-grid {
+      grid-template-columns: 1fr;
+    }
+    .contrast-card-divider {
+      display: none;
+    }
+  }
+
+  .contrast-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-medium);
+    border-radius: 12px;
+    padding: 1.75rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  }
+
+  .contrast-card.old-world {
+    border-left: 4px solid var(--border-strong);
+  }
+
+  .contrast-card.new-world {
+    border-left: 4px solid var(--threat-critical, #b91c1c);
+    background: linear-gradient(135deg, var(--bg-surface) 0%, rgba(185, 28, 28, 0.03) 100%);
+  }
+
+  .c-era {
+    font-family: var(--font-family-mono);
+    font-size: 0.74rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin-bottom: 0.4rem;
+  }
+
+  .c-headline {
+    font-family: var(--font-family-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .c-points {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+  }
+
+  .contrast-card-divider {
+    font-size: 1.85rem;
+    color: var(--threat-warning);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* =========================================================================
+     INTERACTIVE TRILEMMA TOY
+     ========================================================================= */
+  .trilemma-toy-section {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    margin-bottom: 3.5rem;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.02);
+  }
+
+  .section-badge-center {
+    font-family: var(--font-family-mono);
+    font-size: 0.74rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: var(--accent-primary);
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .toy-title {
+    font-family: var(--font-family-display);
+    font-size: clamp(1.65rem, 3vw, 2.25rem);
+    font-weight: 700;
+    text-align: center;
+    margin: 0 0 0.5rem;
+  }
+
+  .toy-subtitle {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 2rem;
+  }
+
+  .trilemma-choices-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .choice-card {
+    background: var(--bg-surface-elevated);
+    border: 2px solid var(--border-subtle);
+    border-radius: 10px;
+    padding: 1.25rem;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .choice-card:hover {
+    border-color: var(--accent-primary);
+    transform: translateY(-2px);
+  }
+
+  .choice-card.selected {
+    border-color: var(--accent-primary);
+    background: var(--accent-primary-glow);
+    box-shadow: 0 4px 15px rgba(27, 103, 86, 0.15);
+  }
+
+  .choice-nodes {
+    font-family: var(--font-family-mono);
+    font-size: 0.78rem;
+    color: var(--accent-primary);
+    font-weight: 700;
+    margin-bottom: 0.35rem;
+  }
+
+  .choice-name {
+    font-family: var(--font-family-display);
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.35rem;
+  }
+
+  .choice-tag {
+    font-size: 0.78rem;
+    color: var(--threat-critical, #b91c1c);
+    font-weight: 600;
+  }
+
+  .trilemma-visual-stage {
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 2rem;
+    align-items: center;
+    background: var(--bg-surface-sunken);
+    border: 1px solid var(--border-medium);
+    border-radius: 12px;
+    padding: 1.75rem;
+  }
+
+  @media (max-width: 860px) {
+    .trilemma-visual-stage {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .trilemma-canvas-box {
+    display: flex;
+    justify-content: center;
+  }
+
+  .trilemma-svg {
+    width: 100%;
+    max-width: 340px;
+    height: auto;
+  }
+
+  .node-circle {
+    fill: var(--bg-surface-elevated);
+    stroke: var(--border-strong);
+    stroke-width: 2.5;
+    transition: all 0.3s ease;
+  }
+
+  .node-circle.active {
+    stroke: var(--accent-primary);
+    stroke-width: 4;
+    filter: drop-shadow(0 0 6px rgba(27, 103, 86, 0.4));
+  }
+
+  .node-circle.broken {
+    stroke: var(--threat-critical, #b91c1c);
+    stroke-width: 3;
+    opacity: 0.45;
+    stroke-dasharray: 4;
+  }
+
+  .node-text {
+    font-family: var(--font-family-mono);
+    font-size: 9px;
+    font-weight: 700;
+    fill: var(--text-primary);
+  }
+
+  .trilemma-outcome-card {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    padding: 1.5rem;
+  }
+
+  .outcome-badge {
+    display: inline-block;
+    font-family: var(--font-family-mono);
+    font-size: 0.74rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    padding: 0.25rem 0.65rem;
+    border-radius: 4px;
+    margin-bottom: 0.75rem;
+  }
+
+  .outcome-title {
+    font-family: var(--font-family-display);
+    font-size: 1.45rem;
+    margin: 0 0 0.75rem;
+  }
+
+  .outcome-desc {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin: 0 0 1.25rem;
+  }
+
+  .outcome-realworld {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.88rem;
+  }
+
+  .country-pill {
+    font-family: var(--font-family-mono);
+    font-size: 0.78rem;
+    background: var(--bg-surface-sunken);
+    border: 1px solid var(--border-subtle);
+    padding: 0.2rem 0.55rem;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+
+  /* =========================================================================
+     4 CRISIS STORYLINES GRID
+     ========================================================================= */
+  .crises-story-section {
+    margin-bottom: 3.5rem;
+  }
+
+  .shockwaves-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
+    margin-top: 1.75rem;
+  }
+
+  .shock-story-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.2s ease;
+  }
+
+  .shock-story-card:hover {
+    border-color: var(--accent-primary);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+  }
+
+  .shock-story-card.active-shock {
+    border-color: var(--threat-critical, #b91c1c);
+    background: #fff5f5;
+  }
+
+  .ss-icon {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .ss-head {
+    font-family: var(--font-family-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.35rem;
+  }
+
+  .ss-sub {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--threat-warning, #d97706);
+    margin-bottom: 0.75rem;
+  }
+
+  .ss-body {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--text-secondary);
+    margin: 0 0 1.25rem;
+    flex-grow: 1;
+  }
+
+  .sim-btn {
+    padding: 0.65rem 1rem;
+    border-radius: 6px;
+    border: 1px solid var(--accent-primary);
+    background: var(--bg-surface-elevated);
+    color: var(--accent-primary);
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .sim-btn:hover {
+    background: var(--accent-primary);
+    color: #ffffff;
+  }
+
+  /* Quick Country Banner */
+  .quick-country-banner {
+    background: var(--bg-surface);
+    border: 2px solid var(--accent-primary);
+    border-radius: 12px;
+    padding: 1.75rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .qcb-content h3 {
+    margin: 0 0 0.35rem;
+    font-size: 1.35rem;
+  }
+
+  .qcb-content p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+  }
+
+  .qcb-action {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .qcb-select {
+    padding: 0.65rem 0.85rem;
+    border-radius: 6px;
+    border: 1px solid var(--border-medium);
+    font-size: 0.9rem;
+    background: var(--bg-surface-elevated);
+  }
+
+  .launch-terminal-btn {
+    padding: 0.65rem 1.25rem;
+    border-radius: 6px;
+    background: var(--accent-primary);
+    color: #ffffff;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    font-size: 0.92rem;
+  }
+
+  .launch-terminal-btn:hover {
+    background: var(--accent-primary-hover);
+  }
+
+  /* =========================================================================
+     TERMINAL VIEW (EXPERT DEEP DIVE)
+     ========================================================================= */
+  .terminal-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem;
+  }
+
+  .back-explainer-btn {
+    background: transparent;
+    border: 1px solid var(--border-medium);
+    padding: 0.45rem 0.85rem;
+    border-radius: 6px;
+    color: var(--accent-primary);
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+  }
+
+  .back-explainer-btn:hover {
+    background: var(--bg-surface-sunken);
+  }
+
+  .active-mode-badge {
+    font-family: var(--font-family-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text-muted);
   }
 
   /* Masthead */
@@ -823,45 +1583,6 @@ DOI: 10.5281/zenodo.23441742
     color: var(--text-secondary);
     max-width: 900px;
     margin: 0 0 1.5rem;
-  }
-
-  /* Trilemma Banner */
-  .trilemma-banner {
-    background: var(--bg-surface-sunken);
-    border: 1px solid var(--border-medium);
-    border-radius: 8px;
-    padding: 1rem 1.25rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .trilemma-title {
-    font-family: var(--font-family-mono);
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    color: var(--text-primary);
-    margin-bottom: 0.4rem;
-  }
-
-  .trilemma-vertices {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.75rem;
-    font-weight: 600;
-    font-size: 0.95rem;
-    color: var(--accent-primary);
-    margin-bottom: 0.4rem;
-  }
-
-  .vertex-sep {
-    color: var(--threat-warning, #d97706);
-  }
-
-  .trilemma-rule {
-    font-family: var(--font-family-mono);
-    font-size: 0.76rem;
-    color: var(--text-muted);
   }
 
   /* Inject Strip */
@@ -926,11 +1647,6 @@ DOI: 10.5281/zenodo.23441742
     color: var(--text-muted);
     font-size: 0.8rem;
     cursor: pointer;
-  }
-
-  .reset-btn:hover {
-    color: var(--text-primary);
-    border-color: var(--text-secondary);
   }
 
   .active-shock-alert {
@@ -1207,7 +1923,7 @@ DOI: 10.5281/zenodo.23441742
     text-transform: uppercase;
   }
 
-  /* Slider Card */
+  /* Sliders & Tiers */
   .slider-control-card {
     background: var(--bg-surface-elevated);
     border: 1px solid var(--border-medium);
@@ -1248,7 +1964,6 @@ DOI: 10.5281/zenodo.23441742
     color: var(--text-muted);
   }
 
-  /* Fiscal Tiers */
   .fiscal-tiers-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -1316,7 +2031,6 @@ DOI: 10.5281/zenodo.23441742
     background: var(--bg-surface-sunken);
   }
 
-  /* Trajectory breakdown */
   .selected-fiscal-breakdown {
     background: var(--bg-surface-elevated);
     border: 1px solid var(--border-subtle);
@@ -1441,57 +2155,6 @@ DOI: 10.5281/zenodo.23441742
     font-size: 0.76rem;
     color: var(--text-muted);
   }
-
-  .epistemic-comparison-panel {
-    background: var(--bg-surface-elevated);
-    border: 1px solid var(--border-subtle);
-    border-radius: 8px;
-    padding: 1.5rem;
-  }
-
-  .epistemic-comparison-panel h4 {
-    margin: 0 0 1rem;
-  }
-
-  .comparison-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.25rem;
-  }
-
-  @media (max-width: 640px) {
-    .comparison-grid { grid-template-columns: 1fr; }
-  }
-
-  .comp-col {
-    background: var(--bg-surface-sunken);
-    padding: 1rem;
-    border-radius: 6px;
-  }
-
-  .comp-col h5 {
-    margin: 0 0 0.5rem;
-    font-size: 0.95rem;
-  }
-
-  .comp-col p {
-    font-size: 0.85rem;
-    line-height: 1.5;
-    margin: 0 0 0.75rem;
-    color: var(--text-secondary);
-  }
-
-  .comp-status {
-    font-family: var(--font-family-mono);
-    font-size: 0.75rem;
-    font-weight: 700;
-    padding: 0.25rem 0.5rem;
-    border-radius: 4px;
-    display: inline-block;
-  }
-
-  .comp-status.green { background: #dcfce7; color: #166534; }
-  .comp-status.red { background: #fee2e2; color: #991b1b; }
 
   /* Deterrence Tab */
   .deterrence-gauge-card {
