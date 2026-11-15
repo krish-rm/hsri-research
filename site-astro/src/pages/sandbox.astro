@@ -1,0 +1,39 @@
+---
+import HSRILayout from '../layouts/HSRILayout.astro';
+import HSRIHeader from '../components/HSRIHeader.svelte';
+import CivilizationalSandbox from '../components/CivilizationalSandbox.svelte';
+import HSRIFooter from '../components/HSRIFooter.svelte';
+---
+
+<HSRILayout title="The Civilizational Transition Sandbox (Horizon 2026–2030) — HSRI Benchmark">
+  <div class="sandbox-page">
+    <HSRIHeader client:load currentPath={Astro.url.pathname} />
+
+    <main class="page-content container">
+      <CivilizationalSandbox client:load />
+    </main>
+
+    <HSRIFooter client:load />
+  </div>
+</HSRILayout>
+
+<style>
+  .sandbox-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-canvas);
+    color: var(--text-primary);
+  }
+
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1.25rem;
+    width: 100%;
+  }
+
+  .page-content {
+    flex: 1;
+  }
+</style>

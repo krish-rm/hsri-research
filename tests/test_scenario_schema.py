@@ -12,7 +12,8 @@ VALID_CATEGORIES = {
     "Epistemic Collapse",
     "Economic Displacement",
     "Systemic Disempowerment",
-    "Governance & Coordination"
+    "Governance & Coordination",
+    "Global Order Transition"
 }
 
 VALID_ACCENTS = {"crimson", "amber", "indigo", "jade"}
@@ -26,10 +27,10 @@ def test_scenario_files_exist_and_match():
     assert src_data == pub_data, "Source and Public asi_scenarios.json must remain identical."
 
 
-def test_all_26_scenarios_have_required_enrichments():
+def test_all_scenarios_have_required_enrichments():
     src_data = json.loads(SRC_PATH.read_text(encoding="utf-8"))
     scenarios = src_data.get("scenarios", [])
-    assert len(scenarios) == 26, f"Expected 26 scenarios, got {len(scenarios)}"
+    assert len(scenarios) == 31, f"Expected 31 scenarios, got {len(scenarios)}"
 
     for sc in scenarios:
         sc_id = sc.get("id")

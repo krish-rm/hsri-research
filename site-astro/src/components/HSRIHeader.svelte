@@ -15,12 +15,14 @@
     { name: 'Country Index', href: '/countries/' },
     { name: 'Seismograph', href: '/seismograph/', live: true },
     { name: 'Scenario Atlas', href: '/scenarios/' },
+    { name: 'Sandbox', href: '/sandbox/', badge: 'NEW' },
   ];
 
   // Secondary dropdown — progressive disclosure for Persona C
   const utilityGroup: NavGroup = {
     name: 'Science & Data',
     children: [
+      { name: 'Civilizational Sandbox', href: '/sandbox/', desc: 'Post-Westphalian 2026–2030 simulation' },
       { name: 'Methodology', href: '/methodology/', desc: 'Leontief engine & formal proofs' },
       { name: 'Data & Coverage', href: '/data/', desc: 'Indicators & downloads' },
       { name: 'Research Logs', href: '/research-updates/', desc: 'Updates & preprints' },

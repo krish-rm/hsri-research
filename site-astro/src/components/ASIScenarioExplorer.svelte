@@ -89,7 +89,7 @@
       class:active={activeTab === 'scenarios'} 
       on:click={() => activeTab = 'scenarios'}
     >
-      Transition Scenarios (26)
+      Transition Scenarios ({asiData.scenarios.length})
     </button>
     <button 
       class="tab-btn" 
@@ -116,7 +116,7 @@
       </svg>
       <input 
         type="text" 
-        placeholder="Search 26 scenarios by name, mechanism, category, or failure mode..." 
+        placeholder="Search {asiData.scenarios.length} scenarios by name, mechanism, category, or failure mode..." 
         bind:value={searchQuery}
         class="search-input"
         aria-label="Search scenarios"
@@ -130,7 +130,8 @@
       <div class="filter-group">
         <label for="category-select" class="filter-label">Archetype:</label>
         <select id="category-select" bind:value={selectedCategory} class="filter-select">
-          <option value="All">All Archetypes (6)</option>
+          <option value="All">All Archetypes (7)</option>
+          <option value="Global Order Transition">Global Order Transition</option>
           <option value="Instrumental Catastrophe">Instrumental Catastrophe</option>
           <option value="Strategic Deception">Strategic Deception</option>
           <option value="Epistemic Collapse">Epistemic Collapse</option>
@@ -155,7 +156,7 @@
   <!-- Tab 1: Scenarios Grid (Archetype 1: Speculative Field Guide) -->
   {#if activeTab === 'scenarios'}
     <div class="scenarios-count-bar">
-      <span>Showing <strong>{filteredScenarios.length}</strong> of 26 transition pathways</span>
+      <span>Showing <strong>{filteredScenarios.length}</strong> of {asiData.scenarios.length} transition pathways</span>
       {#if searchQuery || selectedCategory !== 'All' || selectedSeverity !== 'All'}
         <button class="reset-filter-link" on:click={() => { searchQuery = ''; selectedCategory = 'All'; selectedSeverity = 'All'; }}>
           Reset filters
