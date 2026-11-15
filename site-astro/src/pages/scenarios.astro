@@ -11,11 +11,16 @@ import HSRIFooter from '../components/HSRIFooter.svelte';
     
     <header class="page-header">
       <div class="container">
-        <div class="header-badge">HSRI RESEARCH ATLAS · 31 TRANSITION PATHWAYS</div>
-        <h1>ASI Transition Evidence Map</h1>
+        <div class="header-badge">THE LITERATURE CANON · 26 CANONICAL PATHWAYS</div>
+        <h1>The Scenario Atlas</h1>
         <p class="subtitle">
-          Systematic classification of 31 transition scenarios across classical alignment theory and emerging post-Westphalian global order shifts, the 7-axis capability matrix, and 14 observable precursors.
+          What 20 years of AI theory (2004–2024) predicted: A citable taxonomic canon of 26 classical superintelligence transition scenarios from Bostrom, Hanson, Yudkowsky, Drexler, and Chalmers.
         </p>
+        <div class="bridge-banner">
+          <span class="bridge-label">LOOKING FOR LIVE SIMULATION?</span>
+          <span class="bridge-text">To model real-world nation-state fractures under 2026–2030 superintelligence shocks, visit</span>
+          <a href="/sandbox/" class="bridge-link">The Civilizational Sandbox &rarr;</a>
+        </div>
       </div>
     </header>
 
@@ -80,8 +85,44 @@ import HSRIFooter from '../components/HSRIFooter.svelte';
     font-size: clamp(1rem, 1.6vw, 1.15rem);
     color: var(--text-secondary) !important;
     max-width: 800px;
-    margin: 0 auto;
+    margin: 0 auto 1.25rem auto;
     line-height: 1.6;
+  }
+
+  .bridge-banner {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    background: var(--bg-surface-sunken);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
+
+  .bridge-label {
+    font-family: var(--font-family-mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: var(--accent-primary);
+    background: var(--accent-primary-glow);
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+  }
+
+  .bridge-link {
+    font-weight: 600;
+    color: var(--accent-primary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .bridge-link:hover {
+    color: var(--accent-primary-hover, #2aa389);
   }
 
   .page-content {

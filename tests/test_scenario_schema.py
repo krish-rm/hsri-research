@@ -30,7 +30,7 @@ def test_scenario_files_exist_and_match():
 def test_all_scenarios_have_required_enrichments():
     src_data = json.loads(SRC_PATH.read_text(encoding="utf-8"))
     scenarios = src_data.get("scenarios", [])
-    assert len(scenarios) == 31, f"Expected 31 scenarios, got {len(scenarios)}"
+    assert len(scenarios) == 26, f"Expected 26 canonical scenarios, got {len(scenarios)}"
 
     for sc in scenarios:
         sc_id = sc.get("id")

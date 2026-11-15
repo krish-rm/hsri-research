@@ -30,19 +30,24 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
         <p class="hero-subhead">
           We are spending hundreds of billions building artificial intelligence faster than our own thoughts. 
-          Yet almost nobody is asking the most urgent question: Can human society endure if we lose control, 
-          or if the digital cloud goes dark?
+          Yet almost nobody is asking the most urgent question: <strong>Can human civilization physically endure if the digital cloud goes dark?</strong>
         </p>
 
+        <!-- Differentiator Callout -->
+        <div class="hero-paradox-callout">
+          <span class="paradox-pill">THE WEAKEST-LINK PARADOX</span>
+          <span class="paradox-text">Under cloud severance, <strong>Singapore drops 40 ranks</strong> and the <strong>US drops 37</strong>, while <strong>Norway holds #1</strong>. We test sovereign survival, not software adoption.</span>
+        </div>
+
         <div class="hero-button-row">
-          <a href="#the-gap" class="btn btn-primary btn-lg">
-            Explore the Awareness Journey &darr;
+          <a href={`${base}/sandbox/`} class="btn btn-primary btn-lg">
+            Run Country Stress-Test (Sandbox) &rarr;
           </a>
-          <a href="#test-country" class="btn btn-secondary btn-lg">
-            Test Your Country's Resilience &rarr;
+          <a href={`${base}/countries/`} class="btn btn-secondary btn-lg">
+            View 41-Nation Index
           </a>
-          <a href={`${base}/monograph/`} class="btn btn-ghost btn-lg">
-            Read Full Monograph (35 min)
+          <a href="#the-gap" class="btn btn-ghost btn-lg">
+            Why We Are Fragile &darr;
           </a>
         </div>
       </div>
@@ -468,7 +473,39 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     line-height: 1.65;
     color: var(--text-secondary);
     max-width: 740px;
-    margin: 0 auto 2.75rem;
+    margin: 0 auto 1.5rem;
+  }
+
+  .hero-paradox-callout {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--bg-surface-sunken);
+    border: 1px solid var(--border-medium);
+    border-radius: 9999px;
+    padding: 0.4rem 1.15rem;
+    margin: 0 auto 2.25rem;
+    max-width: 820px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .paradox-pill {
+    font-family: var(--font-family-mono);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    background: var(--threat-critical, #b91c1c);
+    color: #ffffff;
+    padding: 0.2rem 0.55rem;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+
+  .paradox-text {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
   }
 
   .hero-button-row {

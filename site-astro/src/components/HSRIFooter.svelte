@@ -4,10 +4,11 @@
   // Curated, simplified footer navigation
   const footerNav = {
     'Inquiry & Research': [
-      { name: 'Civilizational Monograph', href: `${base}/monograph/` },
+      { name: 'Civilizational Sandbox', href: `${base}/sandbox/` },
+      { name: 'Country Decoupling Index', href: `${base}/countries/` },
       { name: 'ASI Precursor Seismograph', href: `${base}/seismograph/` },
       { name: 'Takeoff Scenarios Atlas', href: `${base}/scenarios/` },
-      { name: 'Country Profiles', href: `${base}/countries/` },
+      { name: 'Civilizational Monograph', href: `${base}/monograph/` },
     ],
     'Open Science & Methodology': [
       { name: 'Scientific Methodology', href: `${base}/methodology/` },

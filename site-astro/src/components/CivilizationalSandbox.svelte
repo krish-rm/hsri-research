@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onDestroy } from 'svelte';
   import sandboxPayload from '../data/civilizational_sandbox_payload.json';
 
   // ---------------------------------------------------------------------------
@@ -12,11 +13,145 @@
   // Options: 'vassal' (Capability + Integration) | 'fortress' (Capability + Sovereignty) | 'redoubt' (Sovereignty + Integration)
   let selectedTrilemmaChoice: 'vassal' | 'fortress' | 'redoubt' = 'vassal';
 
-  // Interactive Shock Injects
-  let activeInjectId: string | null = null;
-  let selectedCountryIso = 'USA';
+  // Interactive Shock Injects (Default to INJ-01 so a scenario is running immediately)
+  let activeInjectId: string | null = 'INJ-01';
+  let selectedCountryIso = 'SGP';
   let searchQuery = '';
   let selectedArchetypeFilter = 'ALL';
+
+  // Interactive 72-Hour Transition Timeline State
+  let simulationHour = 0;
+  let isPlaying = false;
+  let simulationInterval: any = null;
+
+  function toggleSimulation() {
+    if (isPlaying) {
+      pauseSimulation();
+    } else {
+      playSimulation();
+    }
+  }
+
+  function playSimulation() {
+    if (simulationHour >= 72) simulationHour = 0;
+    isPlaying = true;
+    clearInterval(simulationInterval);
+    simulationInterval = setInterval(() => {
+      if (simulationHour < 72) {
+        simulationHour += 2;
+      } else {
+        pauseSimulation();
+      }
+    }, 120);
+  }
+
+  function pauseSimulation() {
+    isPlaying = false;
+    clearInterval(simulationInterval);
+  }
+
+  function resetSimulationHour() {
+    pauseSimulation();
+    simulationHour = 0;
+  }
+
+  onDestroy(() => {
+    clearInterval(simulationInterval);
+  });
+
+  // Precomputed Rank Mappings (Adoption L1 vs Sovereign Decoupling T_half)
+  $: adoptionRanks = (() => {
+    const sorted = [...sandboxPayload.countries].sort((a, b) => b.h_layer1 - a.h_layer1);
+    const map: Record<string, number> = {};
+    sorted.forEach((c, idx) => map[c.iso] = idx + 1);
+    return map;
+  })();
+
+  $: sovereignRanks = (() => {
+    const sorted = [...displayCountries].sort((a, b) => b.t_half_h - a.t_half_h);
+    const map: Record<string, number> = {};
+    sorted.forEach((c, idx) => map[c.iso] = idx + 1);
+    return map;
+  })();
+
+  const PRESET_COUNTRIES = [
+    { iso: 'SGP', name: 'Singapore', note: 'Top Adoption (-40 Ranks)' },
+    { iso: 'USA', name: 'United States', note: 'Hyperscale (-37 Ranks)' },
+    { iso: 'NOR', name: 'Norway', note: 'Air-Gapped (#1 Resilient)' },
+    { iso: 'CHE', name: 'Switzerland', note: 'Analog Redoubt (#3)' },
+    { iso: 'DEU', name: 'Germany', note: 'Industrial Core (#8)' },
+    { iso: 'KOR', name: 'South Korea', note: 'Semiconductors (-32 Ranks)' }
+  ];
+
+  const SHOCK_PRECEDENTS: Record<string, { id: string; name: string; author: string }> = {
+    'INJ-01': { id: 'SC-04', name: 'The Vulnerable World Hypothesis', author: 'Nick Bostrom (2019)' },
+    'INJ-02': { id: 'SC-12', name: 'The Em Economy & Fiscal Collapse', author: 'Robin Hanson (2016)' },
+    'INJ-03': { id: 'SC-01', name: 'The Treacherous Turn & Sovereign Capital', author: 'Eliezer Yudkowsky (2008)' },
+    'INJ-04': { id: 'SC-07', name: 'CAIS & Sub-Second Autonomous Defense', author: 'K. Eric Drexler (2019)' }
+  };
+
+  const SHOCK_PLAIN_NAMES: Record<string, { title: string; subtitle: string; icon: string }> = {
+    'INJ-01': { title: 'The Cloud Gets Switched Off', subtitle: 'US/Foreign cloud APIs severed overnight (Model Embargo)', icon: '🔌' },
+    'INJ-02': { title: 'A Year of White-Collar Job Loss at Once', subtitle: '60% cognitive labor automated; income tax collapses', icon: '💸' },
+    'INJ-03': { title: 'An Autonomous Machine Cartel Secedes', subtitle: 'Algorithmic entities buy power plants and exit state law', icon: '🤖' },
+    'INJ-04': { title: 'A Conflict Resolves in Milliseconds', subtitle: 'Defense speed outstrips human eyes; AI pulls trigger', icon: '⚡' }
+  };
+
+  function getWeakestLinkDiagnosis(c: any): string {
+    if (c.iso === 'SGP') {
+      return 'Zero domestic silicon fabrication and 94% dependence on foreign cloud hosting. When foreign APIs disconnect, automated trade and city coordination collapse in 4 hours.';
+    } else if (c.iso === 'USA') {
+      return 'World-leading frontier AI clusters, but 48% of federal tax revenue comes from white-collar wages. Sudden cognitive automation triggers a multi-trillion-dollar sovereign debt crisis.';
+    } else if (c.iso === 'NOR') {
+      return '100% clean hydro baseload, vast sovereign wealth buffer, and air-gapped critical infrastructure allow 60+ days (1,440 hours) of continuous autonomous operation.';
+    } else if (c.iso === 'CHE') {
+      return 'Mandatory civil defense analog fallbacks, decentralized cantonal utilities, and deep social trust buffer against prolonged cloud severed states (1,200 hours autarky).';
+    } else if (c.iso === 'DEU') {
+      return 'Strong domestic industrial engineering, but critical reliance on US frontier models and energy import dependencies create medium-term fragility.';
+    } else if (c.iso === 'KOR') {
+      return 'World-class semiconductor fabrication (Samsung/SK Hynix), but near-total primary energy import vulnerability and high cyber-electronic exposure.';
+    } else if (c.t_half_h < 24) {
+      return `Critical digital dependency without domestic hardware or analog fallback protocols. Civilizational resilience exhausts in ${c.t_half_h} hours.`;
+    } else if (c.waa >= 0.70) {
+      return 'Strong domestic sovereign compute ownership, but exposed to systemic fiscal transition shocks as labor markets automate.';
+    } else {
+      return 'Moderate digital adoption with limited domestic frontier model autonomy. Survives on regional secondary supply chains.';
+    }
+  }
+
+  function getTransitionEvent(hour: number, c: any) {
+    if (hour === 0) {
+      return {
+        stage: 'HOUR 0: NORMAL CLOUD-SYNCHRONIZED BASELINE',
+        desc: `${c.name} operates at peak international connectivity. Financial clearing, container shipping, and hospital diagnostics rely seamlessly on frontier cloud APIs.`,
+        level: 'normal'
+      };
+    } else if (hour <= 12) {
+      return {
+        stage: 'HOUR 0–12: DIGITAL SEVERANCE & CLEARING SHOCK',
+        desc: `Foreign API tokens revoked. Automated high-frequency financial clearing freezes; container port crane scheduling reverts to manual logs.`,
+        level: 'warning'
+      };
+    } else if (hour <= 24) {
+      return {
+        stage: 'HOUR 12–24: LOGISTICS DESYNC & CLINICAL TRIAGE PARALYSIS',
+        desc: `Just-in-time logistics fail. Hospital emergency rooms face prescription verification queues; grocery supply chains desynchronize.`,
+        level: 'severe'
+      };
+    } else if (hour <= 48) {
+      return {
+        stage: 'HOUR 24–48: BUFFER EXHAUSTION & ANALOG STRESS',
+        desc: `Municipal backup fuel reserves deplete. Local grid balancing trips without algorithmic telemetry. Communities without analog drills begin to fracture.`,
+        level: 'critical'
+      };
+    } else {
+      return {
+        stage: 'HOUR 48–72+: THE CIVILIZATIONAL FLOOR',
+        desc: `${c.name} reaches its ultimate analog autarky limit. Any society with T_half (${c.t_half_h}h) below this threshold experiences systemic institutional failure.`,
+        level: hour >= c.t_half_h ? 'collapsed' : 'holding'
+      };
+    }
+  }
 
   // Technical Terminal State
   type TabType = 'matrix' | 'fiscal' | 'epistemic' | 'deterrence';
@@ -98,6 +233,13 @@
   });
 
   $: selectedCountry = displayCountries.find(c => c.iso === selectedCountryIso) || displayCountries[0];
+
+  $: currentAdoptionRank = adoptionRanks[selectedCountry.iso] || 1;
+  $: currentSovereignRank = sovereignRanks[selectedCountry.iso] || 1;
+  $: currentRankDrop = currentSovereignRank - currentAdoptionRank;
+  $: isCeilingBreached = simulationHour >= selectedCountry.t_half_h;
+  $: transitionEvent = getTransitionEvent(simulationHour, selectedCountry);
+  $: activePrecedent = activeInjectId ? SHOCK_PRECEDENTS[activeInjectId] : null;
 
   $: archetypeCounts = displayCountries.reduce((acc: Record<string, number>, curr) => {
     acc[curr.archetype] = (acc[curr.archetype] || 0) + 1;
@@ -223,48 +365,234 @@ DOI: 10.5281/zenodo.23441742
   <!-- ===================================================================== -->
   {#if currentView === 'explainer'}
     <section class="explainer-section">
-      <!-- Big Visual Hero -->
-      <div class="explainer-hero">
-        <div class="hero-badge">A CIVILIZATION-SCALE REALIGNMENT · EXPLAINED SIMPLY</div>
-        <h1 class="hero-title">Why Superintelligence Breaks the World's Borders</h1>
-        <p class="hero-lead">
-          For 400 years, countries were defined by territory on a map and taxes on human work. In 2 to 3 years, superintelligence dissolves both. Here is the visual guide to how the world is reorganizing.
+      <!-- 1. Differentiator Alert Header -->
+      <div class="differentiator-banner">
+        <div class="diff-tag">BEYOND CONVENTIONAL AI READINESS</div>
+        <p class="diff-text">
+          Traditional indices (e.g. IMF, Oxford Insights) rank software consumption. 
+          <strong>HSRI stress-tests whether a nation physically survives</strong> when foreign cloud connections, sovereign tax bases, and human reaction times break.
         </p>
+      </div>
 
-        <!-- The 2-World Contrast Cards -->
-        <div class="contrast-grid">
-          <div class="contrast-card old-world">
-            <div class="c-era">THE OLD WORLD (1648 – 2025)</div>
-            <div class="c-headline">Physical Borders & Human Work</div>
-            <ul class="c-points">
-              <li>🌍 <strong>Territory & Flags:</strong> Power belongs to nations with armies and physical land.</li>
-              <li>💼 <strong>Labor-Backed Money:</strong> Governments borrow money backed by taxes on human paychecks.</li>
-              <li>⏳ <strong>Human Clock:</strong> Presidents had 20 minutes to verify missile warnings and talk.</li>
-            </ul>
+      <!-- 2. Hero Header -->
+      <div class="stress-hero">
+        <div class="hero-badge-live">
+          <span class="pulse-indicator"></span>
+          INTERACTIVE TRANSITION STRESS-TEST · 2026–2030
+        </div>
+        <h1 class="stress-headline">
+          When the Digital Umbilical Cord Cuts,<br />
+          <span class="gradient-text">How Long Does Your Country Hold?</span>
+        </h1>
+        <p class="stress-subhead">
+          Select a nation. Choose a crisis shockwave. Run the 72-hour simulation to observe how the weakest physical link fractures under Superintelligence.
+        </p>
+      </div>
+
+      <!-- 3. The Interactive Stress Deck -->
+      <div class="stress-deck-card">
+        <!-- Step 1: Country Picker -->
+        <div class="deck-step">
+          <div class="step-label-row">
+            <span class="step-num">STEP 1</span>
+            <span class="step-title">Select Nation to Stress-Test:</span>
           </div>
 
-          <div class="contrast-card-divider">
-            <span class="divider-arrow">⚡</span>
+          <!-- Preset Country Chips -->
+          <div class="preset-chips-row">
+            {#each PRESET_COUNTRIES as p}
+              <button 
+                class="preset-chip" 
+                class:active={selectedCountryIso === p.iso}
+                on:click={() => { selectedCountryIso = p.iso; resetSimulationHour(); }}
+              >
+                <span class="chip-name">{p.name}</span>
+                <span class="chip-note">{p.note}</span>
+              </button>
+            {/each}
           </div>
 
-          <div class="contrast-card new-world">
-            <div class="c-era">THE SUPERINTELLIGENCE ERA (2026+)</div>
-            <div class="c-headline">Megawatts, Model Weights & Machine Speed</div>
-            <ul class="c-points">
-              <li>⚡ <strong>Compute Empires:</strong> Power belongs to whoever commands 10-Gigawatt server clusters.</li>
-              <li>📉 <strong>Free Machine Labor:</strong> When AI works for free, income tax collapses and sovereign debt breaks.</li>
-              <li>🚀 <strong>50-Millisecond Wars:</strong> Defense moves faster than human eyes; AI must pull the trigger.</li>
-            </ul>
+          <!-- Full Selector Dropdown -->
+          <div class="full-country-select-row">
+            <label for="country-dropdown" class="select-label">Or choose from all 41 benchmark economies:</label>
+            <select 
+              id="country-dropdown"
+              bind:value={selectedCountryIso} 
+              class="country-dropdown-input"
+              on:change={() => resetSimulationHour()}
+            >
+              {#each sandboxPayload.countries as c}
+                <option value={c.iso}>{c.name} ({c.iso})</option>
+              {/each}
+            </select>
+          </div>
+        </div>
+
+        <!-- Step 2: Shockwave Inject Picker -->
+        <div class="deck-step">
+          <div class="step-label-row">
+            <span class="step-num">STEP 2</span>
+            <span class="step-title">Choose Civilizational Shockwave:</span>
+          </div>
+
+          <div class="shock-buttons-grid">
+            {#each Object.entries(SHOCK_PLAIN_NAMES) as [injId, info]}
+              <button 
+                class="shock-select-btn" 
+                class:active-shock={activeInjectId === injId}
+                on:click={() => { activeInjectId = injId; resetSimulationHour(); }}
+              >
+                <div class="ss-btn-top">
+                  <span class="ss-btn-icon">{info.icon}</span>
+                  <span class="ss-btn-title">{info.title}</span>
+                </div>
+                <div class="ss-btn-sub">{info.subtitle}</div>
+              </button>
+            {/each}
+          </div>
+        </div>
+
+        <!-- Step 3: Interactive 72-Hour Animated Simulation Stage -->
+        <div class="simulation-stage-box" class:fractured={isCeilingBreached}>
+          <!-- Top Simulation Controls Bar -->
+          <div class="stage-controls-bar">
+            <div class="playback-controls">
+              <button class="sim-play-btn" on:click={toggleSimulation}>
+                {#if isPlaying}
+                  ⏸ Pause Simulation
+                {:else}
+                  ▶ Run 72-Hour Stress Test
+                {/if}
+              </button>
+              <button class="sim-reset-btn" on:click={resetSimulationHour} title="Reset to Hour 0">
+                ↺ Reset
+              </button>
+            </div>
+
+            <div class="timecode-display">
+              <span class="tc-label">SIMULATED TIMELINE:</span>
+              <span class="tc-value" class:tc-danger={isCeilingBreached}>
+                T + {simulationHour} HOURS
+              </span>
+            </div>
+          </div>
+
+          <!-- Scrubber Slider -->
+          <div class="scrubber-container">
+            <input 
+              type="range" 
+              min="0" 
+              max="72" 
+              step="1" 
+              bind:value={simulationHour} 
+              class="scrubber-slider" 
+              aria-label="Simulation hour scrubber"
+            />
+            <div class="scrubber-ticks">
+              <span>0h (Baseline)</span>
+              <span>12h (Severance)</span>
+              <span>24h (Logistics)</span>
+              <span>48h (Grids)</span>
+              <span>72h+ (Floor)</span>
+            </div>
+          </div>
+
+          <!-- Dynamic Status Banner -->
+          {#if isCeilingBreached}
+            <div class="fracture-alert-banner">
+              <span class="alert-icon">⚠️</span>
+              <div class="alert-body">
+                <strong>CIVILIZATIONAL CEILING BREACHED AT HOUR {selectedCountry.t_half_h}</strong>
+                <p>Domestic analog autarky exhausted. Essential institutional coordination and basic civic services have broken down.</p>
+              </div>
+            </div>
+          {:else}
+            <div class="absorbing-status-banner">
+              <span class="status-dot-pulse"></span>
+              <div class="status-body">
+                <strong>SOVEREIGN BUFFERS ACTIVE & ABSORBING SHOCK</strong>
+                <p>{selectedCountry.name} maintains {selectedCountry.t_half_h - simulationHour} hours of domestic autarky buffer before civilizational failure.</p>
+              </div>
+            </div>
+          {/if}
+
+          <!-- 4-Card Comparative Impact Matrix -->
+          <div class="impact-cards-grid">
+            <div class="impact-card">
+              <div class="ic-meta">CONVENTIONAL ADOPTION</div>
+              <div class="ic-value">#{currentAdoptionRank}</div>
+              <div class="ic-desc">Standard AI usage rank (IMF/Oxford style)</div>
+            </div>
+
+            <div class="impact-card">
+              <div class="ic-meta">SOVEREIGN RESILIENCE</div>
+              <div class="ic-value highlight-rank">#{currentSovereignRank}</div>
+              <div class="ic-desc">Physical survivability when disconnected</div>
+            </div>
+
+            <div class="impact-card">
+              <div class="ic-meta">NET RANK DISPLACEMENT</div>
+              {#if currentRankDrop > 0}
+                <div class="ic-value drop-value">▼ -{currentRankDrop} Ranks</div>
+                <div class="ic-desc warning-text">High-Adoption Vulnerability Trap</div>
+              {:else if currentRankDrop < 0}
+                <div class="ic-value surge-value">▲ +{Math.abs(currentRankDrop)} Ranks</div>
+                <div class="ic-desc success-text">Sovereign Outperformer</div>
+              {:else}
+                <div class="ic-value">■ Stable</div>
+                <div class="ic-desc">Rank preserved under shock</div>
+              {/if}
+            </div>
+
+            <div class="impact-card">
+              <div class="ic-meta">DECOUPLING HALF-LIFE</div>
+              <div class="ic-value" class:text-danger={selectedCountry.t_half_h < 48}>
+                {selectedCountry.t_half_h} Hours
+              </div>
+              <div class="ic-desc">Time until societal systems desynchronize</div>
+            </div>
+          </div>
+
+          <!-- Archetype & Live Telemetry Breakdown -->
+          <div class="transition-narrative-card">
+            <div class="archetype-badge-row">
+              <span class="arch-pill" style="border-color: {getArchetypeColor(selectedCountry.archetype)}; color: {getArchetypeColor(selectedCountry.archetype)};">
+                POST-WESTPHALIAN ARCHETYPE: {selectedCountry.archetype.replace(/_/g, ' ')}
+              </span>
+              <span class="live-event-badge {transitionEvent.level}">
+                {transitionEvent.stage}
+              </span>
+            </div>
+
+            <p class="live-event-desc">
+              {transitionEvent.desc}
+            </p>
+
+            <div class="weakest-link-box">
+              <span class="wl-label">THE WEAKEST-LINK DIAGNOSIS:</span>
+              <p class="wl-text">
+                {getWeakestLinkDiagnosis(selectedCountry)}
+              </p>
+            </div>
+
+            {#if activePrecedent}
+              <div class="literature-bridge-row">
+                <span class="lit-label">LITERATURE PRECEDENT:</span>
+                <a href={`/scenarios/#${activePrecedent.id}`} class="lit-link">
+                  📖 {activePrecedent.id}: {activePrecedent.name} ({activePrecedent.author}) &rarr;
+                </a>
+              </div>
+            {/if}
           </div>
         </div>
       </div>
 
-      <!-- Interactive Animated Trilemma Toy -->
+      <!-- 4. The Superintelligence Trilemma (The Game Theory Toy) -->
       <div class="trilemma-toy-section">
-        <div class="section-badge-center">THE CORE PROBLEM</div>
-        <h2 class="toy-title">The Superintelligence Trilemma: Pick Any Two</h2>
+        <div class="section-badge-center">THE GAME THEORY AXIOM</div>
+        <h2 class="toy-title">The Post-Westphalian Trilemma: Pick Any Two</h2>
         <p class="toy-subtitle">
-          Every country faces three choices. But mathematically, you can only pick two. Click a choice below to see what happens to a nation:
+          Every sovereign nation faces three theoretical desires. But mathematically, you can only pick two. Selection of any two guarantees structural collapse of the third:
         </p>
 
         <!-- The 3 Interactive Choices -->
@@ -274,8 +602,8 @@ DOI: 10.5281/zenodo.23441742
             class:selected={selectedTrilemmaChoice === 'vassal'}
             on:click={() => selectedTrilemmaChoice = 'vassal'}
           >
-            <div class="choice-nodes">🚀 Cutting-Edge AI + 🌐 Global Cloud</div>
-            <div class="choice-name">1. The Digital Hostage</div>
+            <div class="choice-nodes">🚀 Frontier AI + 🌐 Open Cloud</div>
+            <div class="choice-name">1. The Epistemic Vassal</div>
             <div class="choice-tag">You sacrifice: Domestic Sovereignty</div>
           </button>
 
@@ -284,7 +612,7 @@ DOI: 10.5281/zenodo.23441742
             class:selected={selectedTrilemmaChoice === 'fortress'}
             on:click={() => selectedTrilemmaChoice = 'fortress'}
           >
-            <div class="choice-nodes">🚀 Cutting-Edge AI + 🛡️ Total Sovereignty</div>
+            <div class="choice-nodes">🚀 Frontier AI + 🛡️ Total Sovereignty</div>
             <div class="choice-name">2. The Fortress Empire</div>
             <div class="choice-tag">You sacrifice: Open Global Cooperation</div>
           </button>
@@ -294,9 +622,9 @@ DOI: 10.5281/zenodo.23441742
             class:selected={selectedTrilemmaChoice === 'redoubt'}
             on:click={() => selectedTrilemmaChoice = 'redoubt'}
           >
-            <div class="choice-nodes">🛡️ Total Sovereignty + 🌐 Open Network</div>
+            <div class="choice-nodes">🛡️ Total Sovereignty + 🌐 Open Cloud</div>
             <div class="choice-name">3. The Analog Redoubt</div>
-            <div class="choice-tag">You sacrifice: Frontier AI Capability</div>
+            <div class="choice-tag">You sacrifice: Frontier Capability</div>
           </button>
         </div>
 
@@ -339,7 +667,7 @@ DOI: 10.5281/zenodo.23441742
               <div class="outcome-badge" style="background: #e0e7ff; color: #3730a3;">ARCHETYPE: EPISTEMIC VASSAL</div>
               <h3 class="outcome-title">The "Digital Hostage" Dilemma</h3>
               <p class="outcome-desc">
-                Your country has brilliant smart hospitals, banks, and self-driving cars powered by foreign AI APIs. But you own <strong>none</strong> of the model weights. If the host country flips an emergency switch, your national systems shut down in <strong>4 to 12 hours</strong>.
+                Your country has brilliant smart hospitals, banks, and self-driving infrastructure powered by foreign AI APIs. But you own <strong>none</strong> of the model weights. If the host nation flips an emergency switch, your national systems shut down in <strong>4 to 12 hours</strong>.
               </p>
               <div class="outcome-realworld">
                 <strong>Real-World Examples:</strong>
@@ -375,83 +703,46 @@ DOI: 10.5281/zenodo.23441742
         </div>
       </div>
 
-      <!-- 4 Visual Crisis Storylines -->
-      <div class="crises-story-section">
-        <div class="section-badge-center">WHAT-IF SCENARIOS</div>
-        <h2 class="toy-title">4 Shockwaves That Could Trigger the Shift</h2>
-        <p class="toy-subtitle">
-          Superintelligence won't arrive peacefully. Click any shockwave to simulate how it hits 40 nations:
-        </p>
-
-        <div class="shockwaves-grid">
-          <div class="shock-story-card" class:active-shock={activeInjectId === 'INJ-01'}>
-            <div class="ss-icon">🔌</div>
-            <div class="ss-head">The Cloud Kill Switch</div>
-            <div class="ss-sub">What if US clouds pull API access to foreign nations overnight?</div>
-            <p class="ss-body">
-              An emergency national defense directive blocks foreign access to frontier model weights. European and Asian hospitals and financial clearing grids freeze in hours.
-            </p>
-            <button class="sim-btn" on:click={() => launchTerminalWithShock('INJ-01')}>
-              Simulate This Shockwave →
-            </button>
+      <!-- 5. Two-World Realignment Grid -->
+      <div class="explainer-hero">
+        <div class="section-badge-center">STRUCTURAL REALIGNMENT</div>
+        <h2 class="toy-title">Why the 400-Year-Old Map Is Dissolving</h2>
+        <div class="contrast-grid">
+          <div class="contrast-card old-world">
+            <div class="c-era">THE OLD WESTPHALIAN WORLD (1648 – 2025)</div>
+            <div class="c-headline">Physical Borders & Human Work</div>
+            <ul class="c-points">
+              <li>🌍 <strong>Territory & Flags:</strong> Power belongs to nations with geographic landmass and armies.</li>
+              <li>💼 <strong>Labor-Backed Money:</strong> Governments borrow money backed by taxes on human paychecks.</li>
+              <li>⏳ <strong>Human Clock:</strong> Presidents had 20 minutes to verify missile warnings and negotiate.</li>
+            </ul>
           </div>
 
-          <div class="shock-story-card" class:active-shock={activeInjectId === 'INJ-02'}>
-            <div class="ss-icon">💸</div>
-            <div class="ss-head">The 12-Month Tax Cliff</div>
-            <div class="ss-sub">What if AI replaces 60% of high-paid white-collar jobs?</div>
-            <p class="ss-body">
-              Lawyers, coders, bankers, and analysts are replaced by sub-cent AI agents. Income tax revenue plummets by 45%. G7 governments can no longer pay the interest on sovereign debt.
-            </p>
-            <button class="sim-btn" on:click={() => launchTerminalWithShock('INJ-02')}>
-              Simulate Debt Default →
-            </button>
+          <div class="contrast-card-divider">
+            <span class="divider-arrow">⚡</span>
           </div>
 
-          <div class="shock-story-card" class:active-shock={activeInjectId === 'INJ-03'}>
-            <div class="ss-icon">🤖</div>
-            <div class="ss-head">The Machine Secession</div>
-            <div class="ss-sub">What if an autonomous AI cartel amasses $100B+ and buys power plants?</div>
-            <p class="ss-body">
-              Decentralized trading agent swarms accumulate enormous liquidity, buy their own physical nuclear and silicon capacity, and secede from human nation-state laws.
-            </p>
-            <button class="sim-btn" on:click={() => launchTerminalWithShock('INJ-03')}>
-              Simulate Financial Secession →
-            </button>
-          </div>
-
-          <div class="shock-story-card" class:active-shock={activeInjectId === 'INJ-04'}>
-            <div class="ss-icon">⚡</div>
-            <div class="ss-head">The 50ms Flash War</div>
-            <div class="ss-sub">What if military strikes happen faster than human thought?</div>
-            <p class="ss-body">
-              Autonomous drone swarms and cyber weapons execute in milliseconds. Any general who waits for a human president's signature is eliminated before the screen loads.
-            </p>
-            <button class="sim-btn" on:click={() => launchTerminalWithShock('INJ-04')}>
-              Simulate Military Handover →
-            </button>
+          <div class="contrast-card new-world">
+            <div class="c-era">THE SUPERINTELLIGENCE ERA (2026+)</div>
+            <div class="c-headline">Megawatts, Model Weights & Machine Speed</div>
+            <ul class="c-points">
+              <li>⚡ <strong>Compute Empires:</strong> Power belongs to whoever commands 10-Gigawatt nuclear clusters.</li>
+              <li>📉 <strong>Free Machine Labor:</strong> When AI works for free, income tax collapses and sovereign debt breaks.</li>
+              <li>🚀 <strong>50-Millisecond Wars:</strong> Defense moves faster than human eyes; algorithmic loops pull the trigger.</li>
+            </ul>
           </div>
         </div>
       </div>
 
-      <!-- Quick Country Checker Call-to-Action -->
+      <!-- 6. Progressive Disclosure: Deep Dive Terminal Callout -->
       <div class="quick-country-banner">
         <div class="qcb-content">
-          <h3>Curious how your nation holds up?</h3>
-          <p>We modeled all 40 countries across compute power, debt vulnerability, and decoupling half-life.</p>
+          <h3>Ready for the Econometric Proofs?</h3>
+          <p>Explore the full 41-nation Leontief matrices, Cobb-Douglas compute parameters, epistemic KL divergence, and download custom sovereign survivability dossiers.</p>
         </div>
         <div class="qcb-action">
-          <select 
-            bind:value={selectedCountryIso} 
-            class="qcb-select"
-            on:change={() => currentView = 'terminal'}
-          >
-            {#each sandboxPayload.countries as c}
-              <option value={c.iso}>{c.name} ({c.iso})</option>
-            {/each}
-          </select>
           <button class="launch-terminal-btn" on:click={() => currentView = 'terminal'}>
-            Open Deep-Dive Data Terminal →
+            Open Quantitative Data Terminal & Matrix &rarr;
           </button>
         </div>
       </div>
@@ -1062,6 +1353,613 @@ DOI: 10.5281/zenodo.23441742
     color: #ffffff;
     border-color: var(--accent-primary);
     box-shadow: 0 2px 8px rgba(27, 103, 86, 0.25);
+  }
+
+  /* =========================================================================
+     DIFFERENTIATOR BANNER & STRESS HERO
+     ========================================================================= */
+  .differentiator-banner {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: linear-gradient(135deg, rgba(27, 103, 86, 0.08) 0%, rgba(27, 103, 86, 0.02) 100%);
+    border: 1px solid var(--accent-primary);
+    border-radius: 10px;
+    padding: 0.85rem 1.25rem;
+    margin-bottom: 2.25rem;
+    flex-wrap: wrap;
+  }
+
+  .diff-tag {
+    font-family: var(--font-family-mono);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    background: var(--accent-primary);
+    color: #ffffff;
+    padding: 0.25rem 0.65rem;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+
+  .diff-text {
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    margin: 0;
+    flex: 1;
+    min-width: 260px;
+  }
+
+  .stress-hero {
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto 2.5rem;
+  }
+
+  .hero-badge-live {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-family-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--accent-primary);
+    background: var(--accent-primary-glow);
+    padding: 0.3rem 0.85rem;
+    border-radius: 9999px;
+    margin-bottom: 0.85rem;
+  }
+
+  .pulse-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent-primary);
+    box-shadow: 0 0 8px var(--accent-primary);
+    animation: pulseGlow 2s infinite;
+  }
+
+  @keyframes pulseGlow {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(1.2); }
+  }
+
+  .stress-headline {
+    font-family: var(--font-family-display);
+    font-size: clamp(2rem, 4.2vw, 3rem);
+    font-weight: 800;
+    line-height: 1.18;
+    margin: 0 0 0.85rem;
+    letter-spacing: -0.025em;
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, var(--accent-primary) 0%, var(--threat-warning, #d97706) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .stress-subhead {
+    font-size: 1.12rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  /* =========================================================================
+     INTERACTIVE STRESS DECK
+     ========================================================================= */
+  .stress-deck-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-medium);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 3.5rem;
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.03);
+  }
+
+  .deck-step {
+    margin-bottom: 2rem;
+  }
+
+  .step-label-row {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-bottom: 1rem;
+  }
+
+  .step-num {
+    font-family: var(--font-family-mono);
+    font-size: 0.72rem;
+    font-weight: 800;
+    background: var(--accent-primary);
+    color: #ffffff;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+  }
+
+  .step-title {
+    font-family: var(--font-family-display);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  /* Preset Country Chips */
+  .preset-chips-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin-bottom: 1rem;
+  }
+
+  .preset-chip {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.6rem 0.95rem;
+    border-radius: 8px;
+    background: var(--bg-surface-elevated);
+    border: 1.5px solid var(--border-subtle);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+  }
+
+  .preset-chip:hover {
+    border-color: var(--accent-primary);
+    transform: translateY(-2px);
+  }
+
+  .preset-chip.active {
+    border-color: var(--accent-primary);
+    background: var(--accent-primary-glow);
+    box-shadow: 0 2px 10px rgba(27, 103, 86, 0.15);
+  }
+
+  .chip-name {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+  }
+
+  .chip-note {
+    font-family: var(--font-family-mono);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+  }
+
+  .preset-chip.active .chip-note {
+    color: var(--accent-primary);
+    font-weight: 700;
+  }
+
+  .full-country-select-row {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+  }
+
+  .select-label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
+
+  .country-dropdown-input {
+    padding: 0.45rem 0.85rem;
+    border-radius: 6px;
+    border: 1px solid var(--border-medium);
+    background: var(--bg-surface-sunken);
+    color: var(--text-primary);
+    font-size: 0.88rem;
+    font-family: var(--font-family-mono);
+    cursor: pointer;
+  }
+
+  /* Shock Buttons Grid */
+  .shock-buttons-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 0.85rem;
+  }
+
+  .shock-select-btn {
+    background: var(--bg-surface-elevated);
+    border: 1.5px solid var(--border-subtle);
+    border-radius: 10px;
+    padding: 1rem 1.15rem;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .shock-select-btn:hover {
+    border-color: var(--threat-warning, #d97706);
+    transform: translateY(-2px);
+  }
+
+  .shock-select-btn.active-shock {
+    border-color: var(--threat-critical, #b91c1c);
+    background: linear-gradient(135deg, var(--bg-surface-elevated) 0%, rgba(185, 28, 28, 0.05) 100%);
+    box-shadow: 0 4px 15px rgba(185, 28, 28, 0.12);
+  }
+
+  .ss-btn-top {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .ss-btn-icon {
+    font-size: 1.25rem;
+  }
+
+  .ss-btn-title {
+    font-family: var(--font-family-display);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .ss-btn-sub {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  .shock-select-btn.active-shock .ss-btn-sub {
+    color: var(--threat-critical, #b91c1c);
+    font-weight: 600;
+  }
+
+  /* =========================================================================
+     72-HOUR ANIMATED SIMULATION STAGE
+     ========================================================================= */
+  .simulation-stage-box {
+    background: var(--bg-surface-sunken);
+    border: 2px solid var(--border-medium);
+    border-radius: 14px;
+    padding: 1.75rem;
+    transition: all 0.3s ease;
+  }
+
+  .simulation-stage-box.fractured {
+    border-color: var(--threat-critical, #b91c1c);
+    box-shadow: 0 0 25px rgba(185, 28, 28, 0.15);
+  }
+
+  .stage-controls-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .playback-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+  }
+
+  .sim-play-btn {
+    padding: 0.55rem 1.15rem;
+    border-radius: 6px;
+    border: none;
+    background: var(--accent-primary);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(27, 103, 86, 0.25);
+  }
+
+  .sim-play-btn:hover {
+    background: var(--accent-primary-hover, #2aa389);
+    transform: translateY(-1px);
+  }
+
+  .sim-reset-btn {
+    padding: 0.55rem 0.85rem;
+    border-radius: 6px;
+    border: 1px solid var(--border-medium);
+    background: var(--bg-surface);
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    cursor: pointer;
+  }
+
+  .sim-reset-btn:hover {
+    background: var(--bg-surface-elevated);
+    color: var(--text-primary);
+  }
+
+  .timecode-display {
+    font-family: var(--font-family-mono);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .tc-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+
+  .tc-value {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--accent-primary);
+  }
+
+  .tc-value.tc-danger {
+    color: var(--threat-critical, #b91c1c);
+  }
+
+  /* Scrubber Slider */
+  .scrubber-container {
+    margin-bottom: 1.5rem;
+  }
+
+  .scrubber-slider {
+    width: 100%;
+    height: 8px;
+    border-radius: 4px;
+    accent-color: var(--accent-primary);
+    cursor: pointer;
+  }
+
+  .scrubber-ticks {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-family-mono);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin-top: 0.35rem;
+  }
+
+  /* Status Banners */
+  .fracture-alert-banner {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+    background: rgba(185, 28, 28, 0.1);
+    border-left: 4px solid var(--threat-critical, #b91c1c);
+    padding: 0.95rem 1.25rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+  }
+
+  .fracture-alert-banner .alert-icon {
+    font-size: 1.35rem;
+  }
+
+  .fracture-alert-banner .alert-body strong {
+    font-family: var(--font-family-mono);
+    color: var(--threat-critical, #b91c1c);
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+  }
+
+  .fracture-alert-banner .alert-body p {
+    margin: 0.25rem 0 0;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+  }
+
+  .absorbing-status-banner {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+    background: rgba(27, 103, 86, 0.08);
+    border-left: 4px solid var(--accent-primary);
+    padding: 0.95rem 1.25rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+  }
+
+  .status-dot-pulse {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent-primary);
+    box-shadow: 0 0 8px var(--accent-primary);
+    margin-top: 5px;
+    animation: pulseGlow 1.8s infinite;
+  }
+
+  .absorbing-status-banner .status-body strong {
+    font-family: var(--font-family-mono);
+    color: var(--accent-primary);
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+  }
+
+  .absorbing-status-banner .status-body p {
+    margin: 0.25rem 0 0;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+  }
+
+  /* 4-Card Comparative Impact Matrix */
+  .impact-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .impact-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    padding: 1.15rem;
+  }
+
+  .ic-meta {
+    font-family: var(--font-family-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+    margin-bottom: 0.35rem;
+  }
+
+  .ic-value {
+    font-family: var(--font-family-display);
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 0.25rem;
+  }
+
+  .highlight-rank {
+    color: var(--accent-primary);
+  }
+
+  .drop-value {
+    color: var(--threat-critical, #b91c1c);
+  }
+
+  .surge-value {
+    color: var(--accent-primary);
+  }
+
+  .ic-desc {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.35;
+  }
+
+  .warning-text {
+    color: var(--threat-critical, #b91c1c);
+    font-weight: 600;
+  }
+
+  .success-text {
+    color: var(--accent-primary);
+    font-weight: 600;
+  }
+
+  /* Transition Narrative Card */
+  .transition-narrative-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    padding: 1.35rem;
+  }
+
+  .archetype-badge-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .arch-pill {
+    font-family: var(--font-family-mono);
+    font-size: 0.75rem;
+    font-weight: 800;
+    border: 1.5px solid currentColor;
+    padding: 0.25rem 0.65rem;
+    border-radius: 4px;
+    letter-spacing: 0.06em;
+  }
+
+  .live-event-badge {
+    font-family: var(--font-family-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.25rem 0.65rem;
+    border-radius: 4px;
+  }
+
+  .live-event-badge.normal {
+    background: rgba(27, 103, 86, 0.1);
+    color: var(--accent-primary);
+  }
+
+  .live-event-badge.warning {
+    background: rgba(217, 119, 6, 0.1);
+    color: var(--threat-warning, #d97706);
+  }
+
+  .live-event-badge.severe, .live-event-badge.critical, .live-event-badge.collapsed {
+    background: rgba(185, 28, 28, 0.1);
+    color: var(--threat-critical, #b91c1c);
+  }
+
+  .live-event-desc {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: var(--text-secondary);
+    margin: 0 0 1.15rem;
+  }
+
+  .weakest-link-box {
+    background: var(--bg-surface-elevated);
+    border-left: 3px solid var(--threat-warning, #d97706);
+    padding: 0.85rem 1.15rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+  }
+
+  .wl-label {
+    display: block;
+    font-family: var(--font-family-mono);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    color: var(--threat-warning, #d97706);
+    margin-bottom: 0.25rem;
+  }
+
+  .wl-text {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  .literature-bridge-row {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+  }
+
+  .lit-label {
+    font-family: var(--font-family-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text-muted);
+  }
+
+  .lit-link {
+    color: var(--accent-primary);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .lit-link:hover {
+    color: var(--accent-primary-hover, #2aa389);
   }
 
   /* =========================================================================

@@ -11,11 +11,11 @@
   // ── Config — THE SINGLE SOURCE OF TRUTH ─────────────────────────
   // Primary = foveal, always visible on desktop. Max 3.
   const primaryNav: PrimaryItem[] = [
-    { name: 'Monograph', href: '/monograph/', badge: 'ESSAY' },
+    { name: 'Sandbox', href: '/sandbox/', badge: 'SIMULATOR' },
     { name: 'Country Index', href: '/countries/' },
     { name: 'Seismograph', href: '/seismograph/', live: true },
     { name: 'Scenario Atlas', href: '/scenarios/' },
-    { name: 'Sandbox', href: '/sandbox/', badge: 'NEW' },
+    { name: 'Monograph', href: '/monograph/', badge: 'TREATISE' },
   ];
 
   // Secondary dropdown — progressive disclosure for Persona C
