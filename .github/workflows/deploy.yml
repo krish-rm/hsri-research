@@ -122,7 +122,7 @@ jobs:
 
                   failed = [k for k, v in checks.items() if not v]
                   if not failed:
-                      print(f"All smoke tests passed. version={version.group(1)}, pagination_total={pagination.group(1)}")
+                      print("All smoke tests passed successfully.")
                       sys.exit(0)
                   else:
                       print(f"Attempt {attempt+1}/{max_attempts} — failed: {failed}")
