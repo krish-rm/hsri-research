@@ -12,8 +12,8 @@
     "success_rate": 0.98
   },
   "window_7d": {
-    "total_runs": 40,
-    "success_runs": 38,
-    "success_rate": 0.95
+    "total_runs": 42,
+    "success_runs": 40,
+    "success_rate": 0.952
   }
 }
