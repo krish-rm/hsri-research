@@ -6,7 +6,7 @@
   // NAVIGATION & PRESENTATION MODE
   // ---------------------------------------------------------------------------
   // 'explainer' = Visual, animated, intuitive 2-minute walkthrough for everyone
-  // 'terminal' = Full econometric matrices, formulas, and 40-nation data table
+  // 'terminal' = Full econometric matrices, formulas, and 39-nation data table
   let currentView: 'explainer' | 'terminal' = 'explainer';
 
   // Interactive Trilemma Selector (Explainer Mode)
@@ -391,7 +391,7 @@ DOI: 10.5281/zenodo.23441742
         class:active={currentView === 'terminal'}
         on:click={() => currentView = 'terminal'}
       >
-        📊 Quantitative Terminal (40-Nation Deep Dive)
+        📊 Quantitative Terminal (39-Nation Deep Dive)
       </button>
     </div>
   </div>
@@ -962,7 +962,7 @@ DOI: 10.5281/zenodo.23441742
       <div class="quick-country-banner">
         <div class="qcb-content">
           <h3>Ready for the Econometric Proofs?</h3>
-          <p>Explore the full 41-nation Leontief matrices, Cobb-Douglas compute parameters, epistemic KL divergence, and download custom sovereign survivability dossiers.</p>
+          <p>Explore the full 39-nation Leontief matrices, Cobb-Douglas compute parameters, epistemic KL divergence, and download custom sovereign survivability dossiers.</p>
         </div>
         <div class="qcb-action">
           <button class="launch-terminal-btn" on:click={() => currentView = 'terminal'}>

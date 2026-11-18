@@ -347,7 +347,7 @@
       <span class="gradient-headline">Before You Look at the Numbers</span>
     </h2>
     <p class="theater-subhead">
-      Select an existential crisis scenario. Watch the illustrated 3-act transition storyboard to observe the physical domino effects—then test the impact on 41 sovereign nations.
+      Select an existential crisis scenario. Watch the illustrated 3-act transition storyboard to observe the physical domino effects—then test the impact on 39 sovereign nations.
     </p>
     <div class="theater-atlas-invite">
       <span class="tai-note">Exploring 3 core shocks from our empirical taxonomy &middot;</span>
@@ -477,7 +477,7 @@
 
         <!-- Full Select Dropdown -->
         <div class="dropdown-row">
-          <label for="theater-country-select" class="dropdown-label">Or choose from 41 benchmark economies:</label>
+          <label for="theater-country-select" class="dropdown-label">Or choose from 39 benchmark economies:</label>
           <select 
             id="theater-country-select"
             bind:value={selectedCountryIso} 
