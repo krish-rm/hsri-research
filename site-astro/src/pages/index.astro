@@ -227,41 +227,59 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         <!-- Subtle Console Divider -->
         <div class="console-divider">
           <div class="cd-line"></div>
-          <span class="cd-label">THREE PEER-REVIEWED SCIENTIFIC INSTRUMENTS</span>
+          <span class="cd-label">TWO PEER-REVIEWED EMPIRICAL INSTRUMENTS</span>
           <div class="cd-line"></div>
         </div>
 
-        <!-- 2. The 3 Interactive Research Instruments (Sleek Triad Strip) -->
+        <!-- 2. The 2 Live Empirical Instruments (Spatial Benchmark & Temporal Telemetry) -->
         <div class="instruments-grid">
           <a href={`${base}/countries/`} class="instrument-card">
             <div class="ic-top">
-              <span class="ic-tag baseline">BASELINE</span>
+              <span class="ic-tag baseline">SPATIAL BENCHMARK</span>
               <span class="ic-arrow">&rarr;</span>
             </div>
-            <h4 class="ic-title">41-Nation Index</h4>
-            <p class="ic-desc">Empirical audit of Leontief weakest-link floors, energy autarky &amp; survival half-lives.</p>
-            <span class="ic-action">Explore Scoreboard &rarr;</span>
+            <h4 class="ic-title">41-Nation Sovereign Index</h4>
+            <p class="ic-desc">Empirical audit of Leontief weakest-link floors, energy autarky &amp; survival half-lives across 41 benchmark economies.</p>
+            <span class="ic-action">Explore Sovereign Scoreboard &rarr;</span>
           </a>
 
           <a href={`${base}/seismograph/`} class="instrument-card">
             <div class="ic-top">
-              <span class="ic-tag live">LIVE 8.44/10</span>
+              <span class="ic-tag live">LIVE TELEMETRY · 8.44/10</span>
               <span class="ic-arrow">&rarr;</span>
             </div>
-            <h4 class="ic-title">Precursor Seismograph</h4>
-            <p class="ic-desc">Continuous telemetry of latency wedges, autonomous agent velocity &amp; token drift.</p>
-            <span class="ic-action">View Telemetry &rarr;</span>
+            <h4 class="ic-title">ASI Precursor Seismograph</h4>
+            <p class="ic-desc">Continuous real-time tracking of the 3,200x supervisory latency wedge, machine transaction volume &amp; 14 empirical tripwires.</p>
+            <span class="ic-action">View Real-Time Seismograph &rarr;</span>
           </a>
+        </div>
 
-          <a href={`${base}/monograph/`} class="instrument-card">
-            <div class="ic-top">
-              <span class="ic-tag treatise">TREATISE</span>
-              <span class="ic-arrow">&rarr;</span>
+        <!-- 3. Foundational Academic Authority & Monograph Citation -->
+        <div class="monograph-authority-banner">
+          <div class="mab-left">
+            <div class="mab-badge-row">
+              <span class="mab-tag">FOUNDATIONAL TREATISE</span>
+              <span class="mab-doi">PERMANENT DOI: <a href="https://doi.org/10.5281/zenodo.23441742" target="_blank" rel="noopener">10.5281/zenodo.23441742</a></span>
+              <span class="mab-license">OPEN ACCESS · CC BY-SA 4.0</span>
             </div>
-            <h4 class="ic-title">Civilizational Monograph</h4>
-            <p class="ic-desc">35-minute scientific inquest with formal proofs, Rice theorem limits &amp; tail-risk models.</p>
-            <span class="ic-action">Read Treatise &rarr;</span>
-          </a>
+            <h3 class="mab-title">The Civilizational Monograph</h3>
+            <p class="mab-sub">
+              Human Agency, Cognitive Oversight, and Sovereign Decoupling Under Superintelligent Transition
+            </p>
+            <p class="mab-desc">
+              A 35-minute peer-reviewed scientific inquest formalizing Leontief input-output weakest-link floors, Rice’s theorem boundaries on autonomous AI verification, and Solvency II / NAIC RBC tail-risk reinsurance pricing models.
+            </p>
+          </div>
+          <div class="mab-right">
+            <a href={`${base}/monograph/`} class="btn btn-primary btn-mab">
+              Read the 7-Chapter Monograph &rarr;
+            </a>
+            <div class="mab-links">
+              <a href={`${base}/methodology/`}>Inspect Mathematical Proofs &rarr;</a>
+              <span class="sep">&bull;</span>
+              <a href={`${base}/data/`}>Download Open Datasets &rarr;</a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -819,19 +837,19 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     white-space: nowrap;
   }
 
-  /* 3-Column Instruments Strip */
+  /* 2-Column Instruments Strip */
   .instruments-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 1.25rem;
-    margin-bottom: 0;
+    margin-bottom: 2rem;
   }
 
   .instrument-card {
     background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
     border-radius: 12px;
-    padding: 1.25rem 1.15rem;
+    padding: 1.35rem 1.25rem;
     text-decoration: none;
     display: flex;
     flex-direction: column;
@@ -871,10 +889,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     color: var(--threat-critical, #ef4444);
     background: rgba(239, 68, 68, 0.12);
   }
-  .ic-tag.treatise {
-    color: #34d399;
-    background: rgba(52, 211, 153, 0.12);
-  }
 
   .ic-arrow {
     color: var(--text-muted);
@@ -888,27 +902,162 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   }
 
   .ic-title {
-    font-size: 1.05rem;
+    font-size: 1.12rem;
     font-weight: 700;
     color: var(--text-primary);
-    margin: 0 0 0.4rem;
+    margin: 0 0 0.45rem;
     line-height: 1.3;
   }
 
   .ic-desc {
-    font-size: 0.82rem;
+    font-size: 0.84rem;
     line-height: 1.5;
     color: var(--text-secondary);
-    margin: 0 0 1rem;
+    margin: 0 0 1.15rem;
     flex-grow: 1;
   }
 
   .ic-action {
     font-family: var(--font-family-mono);
-    font-size: 0.72rem;
+    font-size: 0.74rem;
     font-weight: 700;
     color: var(--accent-primary);
     display: inline-block;
+  }
+
+  /* Monograph Authority Banner */
+  .monograph-authority-banner {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-medium);
+    border-radius: 14px;
+    padding: 2rem 2.25rem;
+    display: grid;
+    grid-template-columns: 1.45fr 1fr;
+    gap: 2.25rem;
+    align-items: center;
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .monograph-authority-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--accent-primary, #1b6756);
+  }
+
+  .mab-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .mab-badge-row {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.25rem;
+  }
+
+  .mab-tag {
+    font-family: var(--font-family-mono);
+    font-size: 0.62rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    color: #34d399;
+    background: rgba(52, 211, 153, 0.12);
+    text-transform: uppercase;
+  }
+
+  .mab-doi {
+    font-family: var(--font-family-mono);
+    font-size: 0.70rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+  }
+
+  .mab-doi a {
+    color: var(--accent-primary);
+    text-decoration: none;
+  }
+
+  .mab-doi a:hover {
+    text-decoration: underline;
+  }
+
+  .mab-license {
+    font-family: var(--font-family-mono);
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--text-muted);
+  }
+
+  .mab-title {
+    font-family: var(--font-family-display);
+    font-size: 1.42rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin: 0;
+    line-height: 1.25;
+  }
+
+  .mab-sub {
+    font-size: 0.90rem;
+    color: var(--text-secondary);
+    margin: 0;
+    font-style: italic;
+    line-height: 1.4;
+  }
+
+  .mab-desc {
+    font-size: 0.85rem;
+    line-height: 1.55;
+    color: var(--text-secondary);
+    margin: 0.35rem 0 0;
+  }
+
+  .mab-right {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    align-items: flex-start;
+  }
+
+  .btn-mab {
+    width: 100%;
+    text-align: center;
+    padding: 0.85rem 1.25rem;
+    font-size: 0.92rem;
+  }
+
+  .mab-links {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-size: 0.76rem;
+    flex-wrap: wrap;
+    color: var(--text-muted);
+  }
+
+  .mab-links a {
+    color: var(--accent-primary);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .mab-links a:hover {
+    text-decoration: underline;
+  }
+
+  .mab-links .sep {
+    color: var(--border-medium);
   }
 
   @media (max-width: 1024px) {
@@ -923,6 +1072,11 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     .instruments-grid {
       grid-template-columns: 1fr;
       gap: 1rem;
+    }
+    .monograph-authority-banner {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      padding: 1.5rem;
     }
   }
 

@@ -2,6 +2,8 @@
   import { onMount, onDestroy } from 'svelte';
   import sandboxPayload from '../data/civilizational_sandbox_payload.json';
 
+  const base = (import.meta.env.BASE_URL || '').replace(/\/$/, '');
+
   // ---------------------------------------------------------------------------
   // 1. SCENARIO STORYBOARDS & ILLUSTRATIONS (3 ACTS PER SHOCK)
   // ---------------------------------------------------------------------------
@@ -347,6 +349,12 @@
     <p class="theater-subhead">
       Select an existential crisis scenario. Watch the illustrated 3-act transition storyboard to observe the physical domino effects—then test the impact on 41 sovereign nations.
     </p>
+    <div class="theater-atlas-invite">
+      <span class="tai-note">Exploring 3 core shocks from our empirical taxonomy &middot;</span>
+      <a href={`${base}/scenarios/`} class="tai-link">
+        Browse the Complete 26-Pathway Scenario Atlas &rarr;
+      </a>
+    </div>
   </div>
 
   <!-- Scenario Selector Ribbon -->
@@ -364,6 +372,15 @@
         </div>
       </button>
     {/each}
+
+    <!-- 4th Tab: Direct Atlas Bridge -->
+    <a href={`${base}/scenarios/`} class="story-tab-btn atlas-tab-bridge" title="Explore all 26 pathways in the full Scenario Atlas">
+      <span class="st-icon">🗺️</span>
+      <div class="st-text">
+        <span class="st-code atlas-code">ALL 26 PATHWAYS</span>
+        <span class="st-title">Scenario Atlas &rarr;</span>
+      </div>
+    </a>
   </div>
 
   <!-- Main Theater Cockpit Stage -->
@@ -528,7 +545,7 @@
 
         <!-- Action CTA to Full Sandbox -->
         <div class="sandbox-cta-strip">
-          <a href="/sandbox/" class="btn-launch-sandbox">
+          <a href={`${base}/sandbox/`} class="btn-launch-sandbox">
             <span>Explore Full 41-Nation Sandbox Workbench</span>
             <svg class="cta-arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor">
               <path d="M3 8H13M9 4L13 8L9 12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -607,6 +624,35 @@
     margin: 0 auto;
   }
 
+  .theater-atlas-invite {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 0.85rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
+
+  .tai-note {
+    opacity: 0.85;
+  }
+
+  .tai-link {
+    color: var(--accent-primary);
+    font-weight: 700;
+    text-decoration: none;
+    font-family: var(--font-family-mono);
+    font-size: 0.78rem;
+    transition: all 0.2s ease;
+  }
+
+  .tai-link:hover {
+    text-decoration: underline;
+    opacity: 0.9;
+  }
+
   /* Scenario Ribbon */
   .scenario-ribbon {
     display: grid;
@@ -637,6 +683,27 @@
     border-color: var(--threat-warning, #d97706);
     background: var(--bg-surface-elevated);
     box-shadow: 0 4px 15px rgba(217, 119, 6, 0.12);
+  }
+
+  .atlas-tab-bridge {
+    text-decoration: none;
+    border-style: dashed;
+    border-color: var(--border-medium);
+    background: var(--bg-surface-sunken);
+  }
+
+  .atlas-tab-bridge:hover {
+    border-color: var(--accent-primary);
+    border-style: solid;
+    background: var(--bg-surface-elevated);
+  }
+
+  .atlas-tab-bridge .atlas-code {
+    color: var(--text-muted);
+  }
+
+  .atlas-tab-bridge:hover .atlas-code {
+    color: var(--accent-primary);
   }
 
   .st-icon {
