@@ -168,7 +168,7 @@
   // ---------------------------------------------------------------------------
   let selectedStoryIndex = 0;
   let selectedActIndex = 0;
-  let isAutoPlaying = false;
+  let isAutoPlaying = true;
   let autoPlayTimer: any = null;
 
   let selectedCountryIso = 'SGP';
@@ -287,10 +287,16 @@
   function selectStory(idx: number) {
     selectedStoryIndex = idx;
     selectedActIndex = 0;
+    if (isAutoPlaying) {
+      startAutoPlay();
+    }
   }
 
   function selectAct(actIdx: number) {
     selectedActIndex = actIdx;
+    if (isAutoPlaying) {
+      startAutoPlay();
+    }
   }
 
   function toggleAutoPlay() {
@@ -317,6 +323,10 @@
   function stopAutoPlay() {
     clearInterval(autoPlayTimer);
   }
+
+  onMount(() => {
+    startAutoPlay();
+  });
 
   onDestroy(() => {
     stopAutoPlay();
@@ -376,7 +386,12 @@
             {/each}
           </div>
 
-          <button class="autoplay-btn" on:click={toggleAutoPlay} title="Auto-play all 3 acts">
+          <button 
+            class="autoplay-btn" 
+            class:playing={isAutoPlaying} 
+            on:click={toggleAutoPlay} 
+            title={isAutoPlaying ? "Pause auto-play" : "Resume auto-play"}
+          >
             {#if isAutoPlaying}
               ⏸ Pause Story
             {:else}
@@ -748,6 +763,12 @@
     background: var(--accent-primary-glow);
     color: var(--accent-primary);
     border-color: var(--accent-primary);
+  }
+
+  .autoplay-btn.playing {
+    border-color: var(--accent-primary, #38bdf8);
+    color: var(--accent-primary, #38bdf8);
+    background: rgba(56, 189, 248, 0.08);
   }
 
   /* Artwork Viewport */

@@ -227,22 +227,12 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         <!-- Subtle Console Divider -->
         <div class="console-divider">
           <div class="cd-line"></div>
-          <span class="cd-label">FOUR PEER-REVIEWED SCIENTIFIC INSTRUMENTS</span>
+          <span class="cd-label">THREE PEER-REVIEWED SCIENTIFIC INSTRUMENTS</span>
           <div class="cd-line"></div>
         </div>
 
-        <!-- 2. The 4 Interactive Research Instruments (Sleek 4-Column Strip) -->
+        <!-- 2. The 3 Interactive Research Instruments (Sleek Triad Strip) -->
         <div class="instruments-grid">
-          <a href={`${base}/sandbox/`} class="instrument-card">
-            <div class="ic-top">
-              <span class="ic-tag dynamic">SIMULATOR</span>
-              <span class="ic-arrow">&rarr;</span>
-            </div>
-            <h4 class="ic-title">Civilizational Sandbox</h4>
-            <p class="ic-desc">2026–2030 Post-Westphalian crisis simulator across 41 benchmark economies.</p>
-            <span class="ic-action">Launch Workbench &rarr;</span>
-          </a>
-
           <a href={`${base}/countries/`} class="instrument-card">
             <div class="ic-top">
               <span class="ic-tag baseline">BASELINE</span>
@@ -272,16 +262,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
             <p class="ic-desc">35-minute scientific inquest with formal proofs, Rice theorem limits &amp; tail-risk models.</p>
             <span class="ic-action">Read Treatise &rarr;</span>
           </a>
-        </div>
-
-        <!-- Bottom Auxiliary Bar -->
-        <div class="console-sub-bar">
-          <span class="csb-label">Auxiliary Research:</span>
-          <a href={`${base}/scenarios/`}>26-Pathway Scenario Atlas</a>
-          <span class="sep">&bull;</span>
-          <a href={`${base}/research/decoupling-drill/`}>Decoupling Crisis Drill</a>
-          <span class="sep">&bull;</span>
-          <a href={`${base}/data/`}>Open Data &amp; Reproducible Engine (DOI: 10.5281/zenodo.23441742)</a>
         </div>
       </div>
     </section>
@@ -839,12 +819,12 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     white-space: nowrap;
   }
 
-  /* 4-Column Instruments Strip */
+  /* 3-Column Instruments Strip */
   .instruments-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
-    margin-bottom: 2rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 0;
   }
 
   .instrument-card {
@@ -883,10 +863,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     text-transform: uppercase;
   }
 
-  .ic-tag.dynamic {
-    color: var(--accent-primary);
-    background: rgba(56, 189, 248, 0.12);
-  }
   .ic-tag.baseline {
     color: #a78bfa;
     background: rgba(167, 139, 250, 0.12);
@@ -935,42 +911,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     display: inline-block;
   }
 
-  /* Console Sub Bar */
-  .console-sub-bar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.85rem;
-    flex-wrap: wrap;
-    font-size: 0.84rem;
-    color: var(--text-secondary);
-    padding-top: 1.25rem;
-    border-top: 1px solid var(--border-subtle);
-  }
-
-  .csb-label {
-    font-family: var(--font-family-mono);
-    font-size: 0.70rem;
-    font-weight: 700;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
-
-  .console-sub-bar a {
-    color: var(--accent-primary);
-    text-decoration: none;
-    font-weight: 600;
-  }
-
-  .console-sub-bar a:hover {
-    text-decoration: underline;
-  }
-
-  .console-sub-bar .sep {
-    color: var(--border-medium);
-  }
-
   @media (max-width: 1024px) {
     .thesis-dual-grid {
       grid-template-columns: 1fr;
@@ -981,7 +921,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       gap: 1rem;
     }
     .instruments-grid {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: 1fr;
       gap: 1rem;
     }
   }
@@ -1016,14 +956,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     }
     .instruments-grid {
       grid-template-columns: 1fr;
-    }
-    .console-sub-bar {
-      flex-direction: column;
-      gap: 0.4rem;
-      text-align: center;
-    }
-    .console-sub-bar .sep {
-      display: none;
     }
   }
 </style>
