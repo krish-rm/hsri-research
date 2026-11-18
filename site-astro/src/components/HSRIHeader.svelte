@@ -22,7 +22,6 @@
   const utilityGroup: NavGroup = {
     name: 'Science & Data',
     children: [
-      { name: 'Civilizational Sandbox', href: '/sandbox/', desc: 'Post-Westphalian 2026–2030 simulation' },
       { name: 'Methodology', href: '/methodology/', desc: 'Leontief engine & formal proofs' },
       { name: 'Data & Coverage', href: '/data/', desc: 'Indicators & downloads' },
       { name: 'Research Logs', href: '/research-updates/', desc: 'Updates & preprints' },
