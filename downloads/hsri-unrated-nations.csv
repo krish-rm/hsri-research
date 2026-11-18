@@ -1,0 +1,87 @@
+country_iso3,country_name,region,un_subregion,available_pillars,missing_pillars,primary_data_gap,partial_coverage_notes
+AFG,Afghanistan,Asia,Southern Asia,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,WGI governance observed; no OECD/PIAAC or domestic compute data
+AGO,Angola,Africa,Sub-Saharan Africa,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,Basic governance indicators only; no AI literacy or discernment surveys
+ALB,Albania,Europe,Southern Europe,2,AI Literacy; Critical Discernment,missing_cognitive_pillars,WGI governance and ITU digital connectivity observed; missing PIAAC and EMLI
+DZA,Algeria,Africa,Northern Africa,2,AI Literacy; Critical Discernment,missing_cognitive_pillars,Governance and mobile broadband observed; lacking cognitive absorption metrics
+ARM,Armenia,Asia,Western Asia,2,AI Literacy; Critical Discernment,missing_cognitive_pillars,Governance and digital adoption observed; no PIAAC or critical discernment data
+AZE,Azerbaijan,Asia,Western Asia,2,AI Literacy; Critical Discernment,missing_cognitive_pillars,WGI and ITU indicators observed; non-participant in OECD cognitive benchmarks
+BGD,Bangladesh,Asia,Southern Asia,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,Partial governance coverage; no cognitive testing microdata
+BEN,Benin,Africa,Sub-Saharan Africa,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,V-Dem governance observed; lacking digital infrastructure and cognitive microdata
+BFA,Burkina Faso,Africa,Sub-Saharan Africa,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,Baseline governance data only; severe data sparsity across cognitive pillars
+BDI,Burundi,Africa,Sub-Saharan Africa,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,Partial governance indicators; no digital infrastructure or literacy data
+CMR,Cameroon,Africa,Sub-Saharan Africa,2,AI Literacy; Critical Discernment,missing_cognitive_pillars,ITU infrastructure and WGI governance observed; no psychometric survey participation
+CAF,Central African Republic,Africa,Sub-Saharan Africa,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,Conflict-affected data sparsity; minimal governance tracking
+TCD,Chad,Africa,Sub-Saharan Africa,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,Baseline institutional data only; no educational or technological assessments
+COM,Comoros,Africa,Sub-Saharan Africa,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,Small island developing state data gaps; no standardized cognitive assessments
+COG,Congo,Africa,Sub-Saharan Africa,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,Partial institutional coverage; lacking digital and cognitive survey data
+COD,Democratic Republic of Congo,Africa,Sub-Saharan Africa,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,V-Dem/WGI tracking only; zero coverage in cognitive resilience metrics
+DJI,Djibouti,Africa,Sub-Saharan Africa,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,Partial governance; unmeasured in international educational and digital indices
+EGY,Egypt,Africa,Northern Africa,2,AI Literacy; Critical Discernment,missing_cognitive_pillars,"WGI, V-Dem and ITU observed; non-participant in OECD PIAAC/PISA digital reasoning"
+SLV,El Salvador,Americas,Latin America and the Caribbean,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,Governance tracking available; missing cognitive and frontier compute data
+GNQ,Equatorial Guinea,Africa,Sub-Saharan Africa,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,Severe data missingness across statistical agency reporting
+ERI,Eritrea,Africa,Sub-Saharan Africa,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,Closed statistical regime; minimal international reporting
+SWZ,Eswatini,Africa,Sub-Saharan Africa,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,Partial institutional indicators; unmeasured in digital literacy
+ETH,Ethiopia,Africa,Sub-Saharan Africa,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,Governance tracked; severe missingness in technology diffusion and education
+FJI,Fiji,Oceania,Melanesia,2,AI Literacy; Critical Discernment,missing_cognitive_pillars,ITU digital connectivity and WGI governance observed; no cognitive assessments
+GAB,Gabon,Africa,Sub-Saharan Africa,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,WGI observed; unrepresented in cognitive benchmarking
+GEO,Georgia,Asia,Western Asia,2,AI Literacy; Critical Discernment,missing_cognitive_pillars,Governance and infrastructure observed; lacking PIAAC problem solving and EMLI
+GHA,Ghana,Africa,Sub-Saharan Africa,2,AI Literacy; Critical Discernment,missing_cognitive_pillars,Strong governance tracking and ITU data; missing cognitive absorption surveys
+GIN,Guinea,Africa,Sub-Saharan Africa,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,Baseline governance tracking only; no digital readiness telemetry
+GNB,Guinea-Bissau,Africa,Sub-Saharan Africa,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,Sparse institutional reporting; no educational or technology coverage
+GUY,Guyana,Americas,Latin America and the Caribbean,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,Governance tracked; missing standardized digital and cognitive testing
+HTI,Haiti,Americas,Latin America and the Caribbean,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,Acute data deficit from institutional instability
+HND,Honduras,Americas,Latin America and the Caribbean,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,Governance tracked; missing cognitive and technological indicators
+IDN,Indonesia,Asia,South-Eastern Asia,2,AI Literacy; Critical Discernment,missing_cognitive_pillars,Extensive governance and infrastructure data; PIAAC non-participant; unmeasured in EMLI
+IRN,Iran,Asia,Southern Asia,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,Sanctions and reporting gaps limit international survey participation
+IRQ,Iraq,Asia,Western Asia,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,Governance tracking available; no cognitive or high-performance compute data
+CIV,Ivory Coast,Africa,Sub-Saharan Africa,2,AI Literacy; Critical Discernment,missing_cognitive_pillars,WGI and mobile broadband tracked; lacking cognitive resilience metrics
+JOR,Jordan,Asia,Western Asia,2,AI Literacy; Critical Discernment,missing_cognitive_pillars,Governance and infrastructure available; PISA partial but lacks PIAAC PSTRE
+KAZ,Kazakhstan,Asia,Central Asia,2,AI Literacy; Critical Discernment,missing_cognitive_pillars,Good infrastructure and governance; PIAAC participant in Cycle 1 but lacks EMLI/DNR
+KEN,Kenya,Africa,Sub-Saharan Africa,2,AI Literacy; Critical Discernment,missing_cognitive_pillars,Regional digital hub with ITU and WGI data; lacking standardized cognitive absorption surveys
+KWT,Kuwait,Asia,Western Asia,2,AI Literacy; Critical Discernment,missing_cognitive_pillars,High infrastructure and governance data; lacks behavioral AI readiness studies
+KGZ,Kyrgyzstan,Asia,Central Asia,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,WGI tracked; unmeasured in multi-pillar cognitive testing
+LAO,Laos,Asia,South-Eastern Asia,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,Baseline governance only; lacking educational telemetry
+LBN,Lebanon,Asia,Western Asia,2,AI Literacy; Critical Discernment,missing_cognitive_pillars,Infrastructure and governance tracked; economic crisis has disrupted statistical reporting
+LSO,Lesotho,Africa,Sub-Saharan Africa,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,Governance tracked; no digital skills or discernment data
+LBY,Libya,Africa,Northern Africa,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,Conflict and divided administration limit comprehensive empirical coverage
+MAC,Macao SAR,Asia,Eastern Asia,2,Critical Discernment; Institutional Governance,sovereignty_and_sampling_limits,High digital infrastructure and PISA scores; omitted due to non-sovereign UN reporting status
+MDG,Madagascar,Africa,Sub-Saharan Africa,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,Baseline governance tracking only; no digital literacy survey coverage
+MWI,Malawi,Africa,Sub-Saharan Africa,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,Governance observed; lacking technology diffusion and cognitive metrics
+MLI,Mali,Africa,Sub-Saharan Africa,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,Security crisis hampers empirical survey collection
+MRT,Mauritania,Africa,Sub-Saharan Africa,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,Partial institutional indicators; unmeasured in digital readiness
+MUS,Mauritius,Africa,Sub-Saharan Africa,2,AI Literacy; Critical Discernment,missing_cognitive_pillars,Strong governance and telecommunications; lacking PIAAC/EMLI cognitive data
+MDA,Moldova,Europe,Eastern Europe,2,AI Literacy; Critical Discernment,missing_cognitive_pillars,WGI and ITU tracked; non-participant in OECD adult skills assessments
+MNG,Mongolia,Asia,Eastern Asia,2,AI Literacy; Critical Discernment,missing_cognitive_pillars,Governance and connectivity available; missing cognitive resilience benchmarks
+MAR,Morocco,Africa,Northern Africa,2,AI Literacy; Critical Discernment,missing_cognitive_pillars,Extensive infrastructure and governance data; lacks adult cognitive testing
+MOZ,Mozambique,Africa,Sub-Saharan Africa,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,Baseline governance data; no standardized technology assessments
+MMR,Myanmar,Asia,South-Eastern Asia,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,Political crisis has suspended regular statistical reporting
+NAM,Namibia,Africa,Sub-Saharan Africa,2,AI Literacy; Critical Discernment,missing_cognitive_pillars,Solid governance and mobile connectivity; missing adult cognitive surveys
+NPL,Nepal,Asia,Southern Asia,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,Governance indicators available; missing digital literacy and cognitive metrics
+NIC,Nicaragua,Americas,Latin America and the Caribbean,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,Institutional data available; unmeasured in cognitive absorption
+NER,Niger,Africa,Sub-Saharan Africa,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,Low statistical density; unrepresented in digital readiness telemetry
+NGA,Nigeria,Africa,Sub-Saharan Africa,2,AI Literacy; Critical Discernment,missing_cognitive_pillars,Significant tech ecosystem and governance data; lacking standardized cognitive benchmarks
+OMN,Oman,Asia,Western Asia,2,AI Literacy; Critical Discernment,missing_cognitive_pillars,High infrastructure and governance scores; missing empirical cognitive metrics
+PAK,Pakistan,Asia,Southern Asia,2,AI Literacy; Critical Discernment,missing_cognitive_pillars,WGI and ITU tracked; absent from international cognitive and literacy surveys
+PRY,Paraguay,Americas,Latin America and the Caribbean,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,Governance tracked; missing adult skills and discernment tests
+QAT,Qatar,Asia,Western Asia,2,AI Literacy; Critical Discernment,missing_cognitive_pillars,Advanced digital infrastructure and state capacity; lacking behavioral readiness surveys
+RWA,Rwanda,Africa,Sub-Saharan Africa,2,AI Literacy; Critical Discernment,missing_cognitive_pillars,High digital policy and governance tracking; unmeasured in PIAAC/EMLI cognitive data
+SAU,Saudi Arabia,Asia,Western Asia,2,AI Literacy; Critical Discernment,missing_cognitive_pillars,Strong state AI investment and infrastructure; lacking calibrated trust and adult discernment data
+SEN,Senegal,Africa,Sub-Saharan Africa,2,AI Literacy; Critical Discernment,missing_cognitive_pillars,Stable governance and mobile coverage; missing standardized cognitive absorption data
+LKA,Sri Lanka,Asia,Southern Asia,2,AI Literacy; Critical Discernment,missing_cognitive_pillars,Good baseline literacy and governance; missing AI-specific cognitive benchmarks
+SDN,Sudan,Africa,Northern Africa,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,Ongoing conflict has severely degraded statistical reporting
+SSD,South Sudan,Africa,Sub-Saharan Africa,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,Extreme data sparsity across all statistical dimensions
+SYR,Syria,Asia,Western Asia,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,Prolonged conflict prevents national empirical data collection
+TJK,Tajikistan,Asia,Central Asia,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,Governance tracking available; no cognitive or digital assessment data
+TZA,Tanzania,Africa,Sub-Saharan Africa,2,AI Literacy; Critical Discernment,missing_cognitive_pillars,Governance and infrastructure observed; lacks adult cognitive testing
+THA,Thailand,Asia,South-Eastern Asia,2,AI Literacy; Critical Discernment,missing_cognitive_pillars,Strong infrastructure and PISA participation; PIAAC and EMLI missing
+TGO,Togo,Africa,Sub-Saharan Africa,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,Basic institutional tracking; lacking digital and cognitive coverage
+TUN,Tunisia,Africa,Northern Africa,2,AI Literacy; Critical Discernment,missing_cognitive_pillars,Good tertiary STEM and governance data; lacks adult cognitive discernment surveys
+TKM,Turkmenistan,Asia,Central Asia,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,Restricted statistical disclosure; international survey absence
+UGA,Uganda,Africa,Sub-Saharan Africa,2,AI Literacy; Critical Discernment,missing_cognitive_pillars,Governance and mobile infrastructure tracked; missing cognitive resilience data
+ARE,United Arab Emirates,Asia,Western Asia,2,AI Literacy; Critical Discernment,missing_cognitive_pillars,World-leading infrastructure and government AI strategy; missing PIAAC/EMLI microdata
+UZB,Uzbekistan,Asia,Central Asia,2,AI Literacy; Critical Discernment,missing_cognitive_pillars,Expanding digital governance and infrastructure; unmeasured in cognitive absorption
+VEN,Venezuela,Americas,Latin America and the Caribbean,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,Statistical agency reporting gaps and socio-economic crisis
+VNM,Vietnam,Asia,South-Eastern Asia,2,AI Literacy; Critical Discernment,missing_cognitive_pillars,High PISA STEM scores and digital adoption; lacking adult PIAAC and EMLI
+YEM,Yemen,Asia,Western Asia,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,Acute humanitarian crisis precludes standard statistical sampling
+ZMB,Zambia,Africa,Sub-Saharan Africa,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,WGI governance available; absent from digital literacy benchmarks
+ZWE,Zimbabwe,Africa,Sub-Saharan Africa,1,AI Literacy; Critical Discernment; Digital Infrastructure,insufficient_source_coverage,Governance tracked; missing empirical cognitive readiness metrics
