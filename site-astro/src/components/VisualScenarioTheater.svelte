@@ -543,15 +543,15 @@
           </div>
         </div>
 
-        <!-- Action CTA to Full Sandbox -->
+        <!-- Action CTA to Full Simulation Workbench -->
         <div class="sandbox-cta-strip">
           <a href={`${base}/sandbox/`} class="btn-launch-sandbox">
-            <span>Explore Full 41-Nation Sandbox Workbench</span>
+            <span>Open Custom Simulation Workbench</span>
             <svg class="cta-arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor">
               <path d="M3 8H13M9 4L13 8L9 12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </a>
-          <span class="cta-note">Includes 4-layer econometric matrices, customizable parameters, and markdown export.</span>
+          <span class="cta-note">Customize shock parameters, test bespoke decoupling vectors, and export econometric data.</span>
         </div>
       </div>
     </div>
