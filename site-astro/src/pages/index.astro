@@ -218,21 +218,19 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
           <a href={`${base}/countries/`} class="instrument-card">
             <div class="ic-top">
               <span class="ic-tag baseline">SPATIAL BENCHMARK</span>
-              <span class="ic-arrow">&rarr;</span>
             </div>
             <h4 class="ic-title">41-Nation Sovereign Index</h4>
             <p class="ic-desc">Empirical audit of Leontief weakest-link floors, energy autarky &amp; survival half-lives across 41 benchmark economies.</p>
-            <span class="ic-action">Explore Sovereign Scoreboard &rarr;</span>
+            <span class="ic-action-btn">Explore Sovereign Scoreboard &rarr;</span>
           </a>
 
           <a href={`${base}/seismograph/`} class="instrument-card">
             <div class="ic-top">
               <span class="ic-tag live">LIVE TELEMETRY · 8.44/10</span>
-              <span class="ic-arrow">&rarr;</span>
             </div>
             <h4 class="ic-title">ASI Precursor Seismograph</h4>
             <p class="ic-desc">Continuous real-time tracking of the 3,200x supervisory latency wedge, machine transaction volume &amp; 14 empirical tripwires.</p>
-            <span class="ic-action">View Real-Time Seismograph &rarr;</span>
+            <span class="ic-action-btn">View Real-Time Seismograph &rarr;</span>
           </a>
         </div>
 
@@ -860,17 +858,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     background: rgba(239, 68, 68, 0.12);
   }
 
-  .ic-arrow {
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    transition: transform 0.2s ease, color 0.2s ease;
-  }
-
-  .instrument-card:hover .ic-arrow {
-    transform: translateX(3px);
-    color: var(--accent-primary);
-  }
-
   .ic-title {
     font-size: 1.12rem;
     font-weight: 700;
@@ -887,12 +874,31 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     flex-grow: 1;
   }
 
-  .ic-action {
+  .ic-action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1.25rem;
+    border-radius: 8px;
     font-family: var(--font-family-mono);
-    font-size: 0.74rem;
-    font-weight: 700;
-    color: var(--accent-primary);
-    display: inline-block;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    background: var(--threat-sovereign, #1b6756);
+    color: var(--btn-primary-text, #ffffff);
+    border: 1px solid var(--threat-sovereign, #1b6756);
+    box-shadow: 0 2px 10px rgba(27, 103, 86, 0.22);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    width: fit-content;
+    margin-top: auto;
+  }
+
+  .instrument-card:hover .ic-action-btn {
+    background: var(--accent-primary-hover, #2aa389);
+    border-color: var(--accent-primary-hover, #2aa389);
+    box-shadow: 0 4px 16px rgba(27, 103, 86, 0.35);
+    transform: translateX(3px);
   }
 
   /* Monograph Authority Banner */

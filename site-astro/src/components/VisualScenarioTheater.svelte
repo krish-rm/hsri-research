@@ -378,7 +378,7 @@
       <span class="st-icon">🗺️</span>
       <div class="st-text">
         <span class="st-code atlas-code">ALL 26 PATHWAYS</span>
-        <span class="st-title">Scenario Atlas &rarr;</span>
+        <span class="st-title atlas-title">Scenario Atlas &rarr;</span>
       </div>
     </a>
   </div>
@@ -640,7 +640,7 @@
   }
 
   .tai-link {
-    color: var(--accent-primary);
+    color: var(--threat-sovereign, #1b6756);
     font-weight: 700;
     text-decoration: none;
     font-family: var(--font-family-mono);
@@ -685,25 +685,36 @@
     box-shadow: 0 4px 15px rgba(217, 119, 6, 0.12);
   }
 
+  /* Distinct Green Button for Scenario Atlas */
   .atlas-tab-bridge {
     text-decoration: none;
-    border-style: dashed;
-    border-color: var(--border-medium);
-    background: var(--bg-surface-sunken);
+    background: var(--threat-sovereign, #1b6756);
+    border: 1.5px solid var(--threat-sovereign, #1b6756);
+    color: var(--btn-primary-text, #ffffff);
+    box-shadow: 0 2px 10px rgba(27, 103, 86, 0.22);
   }
 
   .atlas-tab-bridge:hover {
-    border-color: var(--accent-primary);
-    border-style: solid;
-    background: var(--bg-surface-elevated);
+    background: var(--accent-primary-hover, #2aa389);
+    border-color: var(--accent-primary-hover, #2aa389);
+    box-shadow: 0 4px 18px rgba(27, 103, 86, 0.38);
+    transform: translateY(-2px);
   }
 
   .atlas-tab-bridge .atlas-code {
-    color: var(--text-muted);
+    color: var(--btn-primary-text, #ffffff);
+    opacity: 0.85;
+    font-weight: 800;
   }
 
-  .atlas-tab-bridge:hover .atlas-code {
-    color: var(--accent-primary);
+  .atlas-tab-bridge .atlas-title {
+    color: var(--btn-primary-text, #ffffff);
+    font-weight: 700;
+  }
+
+  .atlas-tab-bridge:hover .atlas-code,
+  .atlas-tab-bridge:hover .atlas-title {
+    color: var(--btn-primary-text, #ffffff);
   }
 
   .st-icon {
