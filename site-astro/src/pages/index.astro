@@ -37,15 +37,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
           <span class="paradox-pill">THE WEAKEST-LINK PARADOX</span>
           <span class="paradox-text">Under cloud severance, <strong>Singapore drops 40 ranks</strong> and the <strong>US drops 37</strong>, while <strong>Norway holds #1</strong>. We test sovereign survival, not software adoption.</span>
         </div>
-
-        <div class="hero-button-row">
-          <a href="#visual-theater" class="btn btn-primary btn-lg">
-            Watch Scenario Storyboard &darr;
-          </a>
-          <a href={`${base}/countries/`} class="btn btn-secondary btn-lg">
-            Explore 41-Nation Sovereign Index &rarr;
-          </a>
-        </div>
       </div>
     </section>
 
@@ -148,12 +139,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
               <p class="lt-text">
                 <strong>The Paradox:</strong> The richest, most digitalized nations freeze first, while countries with physical buffers (food grain, hydropower, manual overrides) endure.
               </p>
-            </div>
-
-            <div class="tc-action-row">
-              <a href={`${base}/countries/`} class="btn btn-secondary btn-block">
-                Explore All 41 Nations on the Sovereign Index &rarr;
-              </a>
             </div>
           </div>
         </div>
@@ -316,7 +301,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   /* Hero Section                                                             */
   /* ========================================================================= */
   .hero-section {
-    padding: 5.5rem 0 5rem;
+    padding: 5rem 0 3.25rem;
     position: relative;
   }
 
@@ -385,7 +370,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     border: 1px solid var(--border-medium);
     border-radius: 9999px;
     padding: 0.4rem 1.15rem;
-    margin: 0 auto 2.25rem;
+    margin: 0 auto;
     max-width: 820px;
     flex-wrap: wrap;
     justify-content: center;
@@ -407,14 +392,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     font-size: 0.88rem;
     color: var(--text-secondary);
     line-height: 1.4;
-  }
-
-  .hero-button-row {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    flex-wrap: wrap;
   }
 
   .btn {
@@ -701,10 +678,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
   .lll-text strong {
     color: var(--text-primary);
-  }
-
-  .tc-action-row {
-    margin-top: auto;
   }
 
   /* ========================================================================= */
@@ -1089,10 +1062,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     }
     .section-title {
       font-size: 1.85rem;
-    }
-    .hero-button-row {
-      flex-direction: column;
-      width: 100%;
     }
     .btn-lg {
       width: 100%;
