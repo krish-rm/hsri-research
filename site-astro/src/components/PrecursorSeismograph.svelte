@@ -1,1378 +1,1198 @@
 <script lang="ts">
   import precursorSummary from '../data/precursor_summary.json';
-  import wedgeHistory from '../data/wedge_history.json';
+  import autonomyData from '../data/autonomy_seismometer.json';
   import asiPrecursors from '../data/asi_precursors.json';
   import layer2Data from '../data/hsri_layer2.json';
   import CivilizationalAirGap from './CivilizationalAirGap.svelte';
   import TelemetryUptimeBadge from './TelemetryUptimeBadge.svelte';
-  import SeismographKineticDrum from './SeismographKineticDrum.svelte';
   import VerificationHorizonChart from './VerificationHorizonChart.svelte';
 
   const base = (import.meta.env.BASE_URL || '').replace(/\/$/, '');
 
-  // Navigation tab state (Disciplined 2-core tabs + 1 dedicated stress-test tool)
-  let activeTab: 'radar' | 'tripwires' | 'airgap' = 'radar';
+  // Three plain tabs preserving full tool depth
+  let activeTab: 'visuals' | 'signs' | 'backup' = 'visuals';
 
-  // Evidence drawer state for Stream 1, 2, 3
-  let openDrawer: 'stream1' | 'stream2' | 'stream3' | null = null;
+  // Layman status mapping matching Homepage Decision #1 (Steady / Stirring / Rising)
+  const overallScore = Number(precursorSummary.master_precursor_threat_score ?? 8.44);
+  const pulseWord = overallScore < 4.0 ? 'Steady' : overallScore < 7.0 ? 'Stirring' : 'Rising';
 
-  function toggleDrawer(stream: 'stream1' | 'stream2' | 'stream3') {
-    openDrawer = openDrawer === stream ? null : stream;
-  }
+  // Radial gauge needle angle: 0 -> -90deg (left), 10 -> +90deg (right)
+  const needleDeg = -90 + (Math.min(10, Math.max(0, overallScore)) / 10) * 180;
 
-  // Filter states for 14 Tripwires
-  let tripwireStatusFilter: 'all' | 'red' | 'amber' | 'green' = 'all';
-  let tripwireTypeFilter: 'all' | 'leading' | 'coincident' | 'lagging' = 'all';
-  let tripwireStreamFilter: 'all' | 'stream1' | 'stream2' | 'stream3' = 'all';
-  let tripwireSearch = '';
-  let selectedPrecursorId: string | null = 'PREC-011';
+  // Real metrics from precursor_summary & autonomy_seismometer
+  const s1 = precursorSummary.stream_1_autonomy_seismometer;
+  const s2 = precursorSummary.stream_2_latent_drift_detector;
+  const s3 = precursorSummary.stream_3_verification_wedge;
 
-  // Mapping precursors to governing telemetry streams
-  function getGoverningStream(id: string): { stream: string; label: string; color: string } {
-    const num = parseInt(id.replace('PREC-', ''), 10);
-    if ([1, 2, 5, 7].includes(num)) {
-      return { stream: 'stream1', label: 'Stream 1: Autonomy', color: '#ef4444' };
-    }
-    if ([3, 4, 8, 9].includes(num)) {
-      return { stream: 'stream2', label: 'Stream 2: Language Drift', color: '#f59e0b' };
-    }
-    return { stream: 'stream3', label: 'Stream 3: Verification Wedge', color: '#38bdf8' };
-  }
+  const m2mDots = Math.round(s1.m2m_share * 100); // 64 of 100
+  const readableBlocks = Math.round(s2.human_parseability * 10); // 3 of 10
+  const series = autonomyData.timeseries || [];
+  const milestones = autonomyData.milestones || [];
+  let selectedMilestoneId = milestones[milestones.length - 1]?.milestone_id || 'MS-2026-02';
 
-  // Filtered Precursors
-  $: filteredPrecursors = asiPrecursors.filter(p => {
-    const matchStatus = tripwireStatusFilter === 'all' || p.status_color === tripwireStatusFilter;
-    const matchType = tripwireTypeFilter === 'all' || p.indicator_type === tripwireTypeFilter;
-    const streamInfo = getGoverningStream(p.id);
-    const matchStream = tripwireStreamFilter === 'all' || streamInfo.stream === tripwireStreamFilter;
-    const matchSearch = tripwireSearch === '' ||
-      p.id.toLowerCase().includes(tripwireSearch.toLowerCase()) ||
-      p.description.toLowerCase().includes(tripwireSearch.toLowerCase()) ||
-      p.proposed_threshold.toLowerCase().includes(tripwireSearch.toLowerCase());
-    return matchStatus && matchType && matchStream && matchSearch;
+  $: activeMilestone = milestones.find((m: any) => m.milestone_id === selectedMilestoneId) || milestones[milestones.length - 1];
+
+  // Historical Seismograph Trajectory SVG curve (17 points from 2023-01 to 2026-10)
+  const TW = 640;
+  const TH = 158;
+  const tPadL = 54;
+  const tPadR = 30;
+  const tPadT = 16;
+  const tPadB = 28;
+  const tX = (i: number) => tPadL + (i / Math.max(1, series.length - 1)) * (TW - tPadL - tPadR);
+  const tY = (score: number) => TH - tPadB - (Math.min(10, Math.max(0, score)) / 10) * (TH - tPadT - tPadB);
+  const trendPolyline = series.map((pt: any, i: number) => `${tX(i).toFixed(1)},${tY(pt.seismograph_score).toFixed(1)}`).join(' ');
+  const trendArea = series.length
+    ? `M ${tX(0).toFixed(1)},${(TH - tPadB).toFixed(1)} L ${trendPolyline} L ${tX(series.length - 1).toFixed(1)},${(TH - tPadB).toFixed(1)} Z`
+    : '';
+
+  // Battery comparison (Singapore vs Norway) from hsri_layer2.json
+  const sgpEntry = layer2Data.find((c: any) => c.country_iso3 === 'SGP');
+  const norEntry = layer2Data.find((c: any) => c.country_iso3 === 'NOR');
+
+  // 14 Early Warning Signs filters
+  let signStatusFilter: 'all' | 'red' | 'amber' | 'green' = 'all';
+  let signSearch = '';
+  let selectedSignId = asiPrecursors[0]?.id || 'PREC-001';
+
+  const countRed = asiPrecursors.filter(p => p.status_color === 'red').length;
+  const countAmber = asiPrecursors.filter(p => p.status_color === 'amber').length;
+  const countGreen = asiPrecursors.filter(p => p.status_color === 'green').length;
+
+  $: filteredSigns = asiPrecursors.filter(p => {
+    const okStatus = signStatusFilter === 'all' || p.status_color === signStatusFilter;
+    const okQ = !signSearch.trim() ||
+      p.id.toLowerCase().includes(signSearch.toLowerCase()) ||
+      p.description.toLowerCase().includes(signSearch.toLowerCase());
+    return okStatus && okQ;
   });
 
-  $: selectedPrecursor = asiPrecursors.find(p => p.id === selectedPrecursorId) || asiPrecursors[0];
+  $: selectedSign = asiPrecursors.find(p => p.id === selectedSignId) || asiPrecursors[0];
 
-  // Precursor count statistics
-  $: countRed = asiPrecursors.filter(p => p.status_color === 'red').length;
-  $: countAmber = asiPrecursors.filter(p => p.status_color === 'amber').length;
-  $: countGreen = asiPrecursors.filter(p => p.status_color === 'green').length;
+  function plainStatusLabel(color: string) {
+    if (color === 'red') return 'Happening today';
+    if (color === 'amber') return 'Early signs appearing';
+    return 'Being watched';
+  }
 </script>
 
-<div class="seismograph-container" id="seismograph-root">
-  <!-- Top Hero Status Bar -->
-  <div class="sentinel-hero-banner">
-    <div class="sentinel-status-badge">
-      <span class="pulse-dot"></span>
-      <span>LIVE SENTINEL TELEMETRY ACTIVE · HSRI RESEARCH CONSORTIUM</span>
-    </div>
-    <div class="hero-main-row">
-      <div class="hero-left">
-        <h2>The ASI Precursor Seismograph</h2>
-        <p class="hero-lead">
-          Continuous global telemetry tracking the biological collapse of human oversight.
-          Detecting the micro-fractures in human supervision before Artificial Superintelligence breaks containment.
-        </p>
-      </div>
-      <div class="hero-right">
-        <div class="master-threat-card">
-          <span class="threat-title">Master Precursor Threat Level</span>
-          <div class="threat-score-row">
-            <span class="threat-score">{precursorSummary.master_precursor_threat_score.toFixed(2)}</span>
-            <span class="threat-max">/ 10.0</span>
-          </div>
-          <span class="threat-regime">Level 5 of 5: Critical Supervisory Collapse</span>
-          <div class="regime-scale-bar">
-            <span class="dot filled" title="Level 1: Nominal"></span>
-            <span class="dot filled" title="Level 2: Elevated"></span>
-            <span class="dot filled" title="Level 3: High"></span>
-            <span class="dot filled" title="Level 4: Severe"></span>
-            <span class="dot filled red" title="Level 5: Critical Collapse"></span>
-            <span class="scale-label">No Human Can Keep Up in Real Time</span>
-          </div>
-        </div>
+<div class="seismo-shell" id="seismograph-root">
+  <!-- CALM VISUAL HERO + RADIAL SPEEDOMETER -->
+  <section class="hero-visual-panel">
+    <div class="hv-left">
+      <span class="hv-pill">
+        <span class="hv-dot" aria-hidden="true"></span>
+        LIVE PACE TRACKER
+      </span>
+      <h1 class="hv-title">How fast is AI moving compared to human review?</h1>
+      <p class="hv-lead">
+        Visual gauges tracking the gap between automated computer speed and how fast people can inspect what happens.
+      </p>
+      <div class="uptime-wrap">
+        <TelemetryUptimeBadge />
       </div>
     </div>
+
+    <div class="hv-gauge-card" aria-label={`Current pace reading: ${pulseWord}, technical score ${overallScore.toFixed(2)} out of 10`}>
+      <!-- Clean Radial Speedometer SVG -->
+      <svg viewBox="0 0 220 132" width="220" height="132" class="gauge-svg" role="img" aria-label={`Half-circle speedometer pointing to ${pulseWord} (${overallScore.toFixed(2)} out of 10)`}>
+        <!-- Background arc track: Steady (0-4), Stirring (4-7), Rising (7-10) -->
+        <path d="M 24 112 A 86 86 0 0 1 68 38" fill="none" stroke="var(--threat-sovereign)" stroke-width="14" stroke-linecap="round" opacity="0.85" />
+        <path d="M 74 34 A 86 86 0 0 1 156 44" fill="none" stroke="var(--threat-warning)" stroke-width="14" stroke-linecap="round" opacity="0.85" />
+        <path d="M 162 49 A 86 86 0 0 1 196 112" fill="none" stroke="var(--threat-critical)" stroke-width="14" stroke-linecap="round" opacity="0.9" />
+
+        <!-- Zone labels -->
+        <text x="18" y="127" class="g-zone">Steady</text>
+        <text x="110" y="16" text-anchor="middle" class="g-zone">Stirring</text>
+        <text x="202" y="127" text-anchor="end" class="g-zone">Rising</text>
+
+        <!-- Pointer needle -->
+        <g transform={`translate(110 112) rotate(${needleDeg})`}>
+          <polygon points="-4,0 0,-74 4,0" fill="var(--text-primary)" />
+          <circle cx="0" cy="0" r="8" fill="var(--text-primary)" />
+          <circle cx="0" cy="0" r="3" fill="var(--bg-surface-elevated)" />
+        </g>
+      </svg>
+
+      <div class="gauge-readout">
+        <span class="gauge-word">{pulseWord}</span>
+        <span class="gauge-sub">Machines move faster than manual step-by-step checks.</span>
+        <details class="gauge-tech">
+          <summary>&#9432; Technical reading: {overallScore.toFixed(2)} / 10</summary>
+          <span>Composite precursor monitor updated periodically from open telemetry logs.</span>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 CLEAR NAVIGATION TABS -->
+  <div class="visual-tabs" role="tablist" aria-label="Choose visual view">
+    <button
+      type="button"
+      role="tab"
+      aria-selected={activeTab === 'visuals'}
+      class="vtab"
+      class:active={activeTab === 'visuals'}
+      on:click={() => (activeTab = 'visuals')}
+    >
+      Visual Charts
+    </button>
+    <button
+      type="button"
+      role="tab"
+      aria-selected={activeTab === 'signs'}
+      class="vtab"
+      class:active={activeTab === 'signs'}
+      on:click={() => (activeTab = 'signs')}
+    >
+      14 Early Signs <span class="vtab-pill">{countRed} active</span>
+    </button>
+    <button
+      type="button"
+      role="tab"
+      aria-selected={activeTab === 'backup'}
+      class="vtab"
+      class:active={activeTab === 'backup'}
+      on:click={() => (activeTab = 'backup')}
+    >
+      Backup Test (If Cloud Pauses)
+    </button>
   </div>
 
-  <TelemetryUptimeBadge />
+  <!-- TAB 1: MOSTLY VISUAL -->
+  {#if activeTab === 'visuals'}
+    <!-- VISUAL 1: 1.5s vs 80m RACE + 2022-2026 CURVE -->
+    <VerificationHorizonChart />
 
-  <!-- Primary Sub-navigation Tabs (2 Primary Tabs + 1 Decoupling Stress-Test) -->
-  <div class="tab-navigation" role="tablist">
-    <button
-      class="tab-btn"
-      class:active={activeTab === 'radar'}
-      on:click={() => activeTab = 'radar'}
-      role="tab"
-      aria-selected={activeTab === 'radar'}
-    >
-      <span class="tab-icon">⚡</span>
-      <span>Planetary Telemetry &amp; Seismogram</span>
-    </button>
-    <button
-      class="tab-btn"
-      class:active={activeTab === 'tripwires'}
-      on:click={() => activeTab = 'tripwires'}
-      role="tab"
-      aria-selected={activeTab === 'tripwires'}
-    >
-      <span class="tab-icon">🚨</span>
-      <span>14 Observable Precursor Tripwires</span>
-      <span class="tab-counter red">{countRed} Active</span>
-    </button>
-    <button
-      class="tab-btn"
-      class:active={activeTab === 'airgap'}
-      on:click={() => activeTab = 'airgap'}
-      role="tab"
-      aria-selected={activeTab === 'airgap'}
-    >
-      <span class="tab-icon">🛡️</span>
-      <span>Air-Gap Decoupling Stress Test</span>
-    </button>
-  </div>
+    <!-- VISUALS 2 & 3: TWO PICTOGRAM CARDS -->
+    <div class="pictograms-grid">
+      <!-- Pictogram 2: 100-dot Machine-to-Machine Share -->
+      <article class="pic-card">
+        <span class="pic-kicker">2 · WHO CLICKS "APPROVE"?</span>
+        <h3 class="pic-title">Roughly 6 in 10 automated steps happen machine-to-machine</h3>
 
-  <!-- TAB 1: RADAR & TRIAD TELEMETRY -->
-  {#if activeTab === 'radar'}
-    <div class="tab-content radar-view">
-      <!-- HERO AUDIT DEFICIT CLOCK -->
-      <div class="audit-deficit-hero">
-        <div class="deficit-top-row">
-          <div class="deficit-badge">
-            <span class="db-title">THE 80-MINUTE SUPERVISORY DEFICIT</span>
-            <h3 class="db-hero-text">
-              Humans are <span class="highlight-danger">3,200× Too Slow</span> to Stop Autonomous AI Actions
-            </h3>
-            <p class="db-desc">
-              In 1.5 seconds, a frontier AI system generates complex software or financial moves that take a human security expert 80 minutes (4,798 seconds) to verify.
-              Because machines produce 3,200× faster than humans can read, "Human-in-the-Loop" supervision is a physical impossibility.
-            </p>
+        <!-- 10x10 Visual Dot Grid -->
+        <div class="dot-grid-wrap">
+          <div class="dot-matrix" role="img" aria-label={`${m2mDots} out of 100 dots represent automated machine-to-machine calls without human clicks`}>
+            {#each Array(100) as _, idx}
+              <span class="m-dot" class:machine={idx < m2mDots}></span>
+            {/each}
           </div>
-          <div class="deficit-metrics-cluster">
-            <div class="dm-card">
-              <span class="dm-label">Current Audit Debt</span>
-              <span class="dm-num text-danger">80.0 min</span>
-              <span class="dm-sub">4,798.5s deficit per task</span>
-            </div>
-            <div class="dm-card">
-              <span class="dm-label">Speed Deficit Ratio</span>
-              <span class="dm-num text-danger">3,200×</span>
-              <span class="dm-sub">Audit time ÷ machine time</span>
-            </div>
-            <div class="dm-card">
-              <span class="dm-label">Debt Expansion Rate</span>
-              <span class="dm-num text-warning">+2.6 min/mo</span>
-              <span class="dm-sub">+156.4s/month, accelerating</span>
-            </div>
+          <div class="pic-legend">
+            <span class="leg-chip"><i class="sw-m"></i> Machine-to-machine ({m2mDots}%)</span>
+            <span class="leg-chip"><i class="sw-h"></i> Human-triggered ({100 - m2mDots}%)</span>
           </div>
         </div>
-      </div>
 
-      <!-- KINETIC SEISMOGRAM DRUM -->
-      <div class="drum-wrapper-card">
-        <SeismographKineticDrum
-          score={precursorSummary.master_precursor_threat_score}
-          stream1Score={precursorSummary.stream_1_autonomy_seismometer.score}
-          stream2Score={precursorSummary.stream_2_latent_drift_detector.score}
-          stream3Score={precursorSummary.stream_3_verification_wedge.score}
-        />
-      </div>
+        <details class="pic-details">
+          <summary>&#9432; Technical sources ({(s1.m2m_share * 100).toFixed(1)}% composite)</summary>
+          <p>Weighted across API agent traffic, automated payments, smart contracts, and autonomous web activity (Stream 1: {s1.score.toFixed(2)}/10).</p>
+        </details>
+      </article>
 
-      <!-- THE THREE GROUNDED SIRENS (Triad Telemetry Deconstructed) -->
-      <div class="triad-grid">
-        <!-- Stream 1 Card -->
-        <div class="stream-card">
-          <div class="stream-card-header">
-            <span class="stream-id">STREAM 1 · UNASSISTED EXECUTION</span>
-            <h4>Machine Autonomy Seismometer</h4>
-          </div>
-          <div class="stream-score-row">
-            <span class="stream-score">{precursorSummary.stream_1_autonomy_seismometer.score.toFixed(2)}</span>
-            <span class="stream-score-max">/ 10.0</span>
-            <span class="stream-alert-tag text-danger">Critical Supervisory Deficit</span>
-          </div>
-          <div class="stream-bar-wrap">
-            <div class="stream-bar-fill" style="width: {precursorSummary.stream_1_autonomy_seismometer.score * 10}%; background: #ef4444;"></div>
-          </div>
-          <div class="stream-stats">
-            <div class="stat-row">
-              <span>Black Box Reasoning Rate:</span>
-              <strong class="text-danger">{(precursorSummary.stream_1_autonomy_seismometer.hptg * 100).toFixed(1)}%</strong>
-            </div>
-            <div class="stat-row">
-              <span>Machine-to-Machine Share:</span>
-              <strong class="text-warning">{(precursorSummary.stream_1_autonomy_seismometer.m2m_share * 100).toFixed(1)}%</strong>
-            </div>
-          </div>
-          <p class="stream-desc">
-            <strong>What this means:</strong> Over 75% of frontier AI reasoning occurs in opaque internal tokens humans cannot read. 64% of agent transactions now execute directly between machines without human review.
-          </p>
+      <!-- Pictogram 3: 10-block Readable vs Compressed Language -->
+      <article class="pic-card">
+        <span class="pic-kicker">3 · CAN PEOPLE READ WHAT AI THINKS?</span>
+        <h3 class="pic-title">About 3 in 10 steps stay plain enough for humans to follow live</h3>
 
-          <div class="stream-tripwire-tags">
-            <span class="tag-label">Dependent Tripwires:</span>
-            <button type="button" class="tag-chip" on:click={() => { activeTab = 'tripwires'; tripwireStreamFilter = 'stream1'; }}>PREC-001 (R&amp;D)</button>
-            <button type="button" class="tag-chip" on:click={() => { activeTab = 'tripwires'; tripwireStreamFilter = 'stream1'; }}>PREC-002 (Replication)</button>
-            <button type="button" class="tag-chip" on:click={() => { activeTab = 'tripwires'; tripwireStreamFilter = 'stream1'; }}>PREC-005 (M2M)</button>
+        <!-- 10-Tile Visual Readability Strip -->
+        <div class="read-blocks-wrap">
+          <div class="read-grid" role="img" aria-label={`${readableBlocks} out of 10 blocks readable in plain text; ${10 - readableBlocks} blocks compressed or hidden`}>
+            {#each Array(10) as _, idx}
+              {#if idx < readableBlocks}
+                <div class="r-tile readable" title="Readable plain language step">
+                  <span class="r-icon">Aa</span>
+                  <span class="r-lbl">Plain</span>
+                </div>
+              {:else}
+                <div class="r-tile opaque" title="Hidden scratchpad or compressed code">
+                  <span class="r-icon">&bull;&bull;&bull;</span>
+                  <span class="r-lbl">Hidden</span>
+                </div>
+              {/if}
+            {/each}
           </div>
-
-          <button type="button" class="evidence-toggle-btn" on:click={() => toggleDrawer('stream1')}>
-            {openDrawer === 'stream1' ? 'Hide Evidence & Scrape Receipts ▲' : 'Inspect Evidence & Scrape Receipts ▼'}
-          </button>
-
-          {#if openDrawer === 'stream1'}
-            <div class="drawer-content">
-              <div class="drawer-row">
-                <span class="d-k">Primary Telemetry Feed:</span>
-                <span class="d-v">SWE-bench Verified &amp; METR Autonomy Evaluations</span>
-              </div>
-              <div class="drawer-row">
-                <span class="d-k">Scrape Status:</span>
-                <span class="d-v text-success">Verified Active · 100% harmonized</span>
-              </div>
-              <div class="drawer-row">
-                <span class="d-k">Model Evidence:</span>
-                <span class="d-v">OpenAI o1/o3 hidden CoT tokens, Docker swarm API logs</span>
-              </div>
-              <div class="drawer-row">
-                <span class="d-k">Mathematical Construct:</span>
-                <span class="d-v font-mono">HPTG = 1.0 - (Tokens_auditable / Tokens_total) = 75.57%</span>
-              </div>
-            </div>
-          {/if}
+          <div class="pic-legend">
+            <span class="leg-chip"><i class="sw-h"></i> Easy to inspect ({Math.round(s2.human_parseability * 100)}%)</span>
+            <span class="leg-chip"><i class="sw-o"></i> Hidden / shorthand ({Math.round((1 - s2.human_parseability) * 100)}%)</span>
+          </div>
         </div>
 
-        <!-- Stream 2 Card -->
-        <div class="stream-card">
-          <div class="stream-card-header">
-            <span class="stream-id">STREAM 2 · PROTOCOL DRIFT</span>
-            <h4>Latent Language Drift Detector</h4>
-          </div>
-          <div class="stream-score-row">
-            <span class="stream-score">{precursorSummary.stream_2_latent_drift_detector.score.toFixed(2)}</span>
-            <span class="stream-score-max">/ 10.0</span>
-            <span class="stream-alert-tag text-warning">High Dialect Compression</span>
-          </div>
-          <div class="stream-bar-wrap">
-            <div class="stream-bar-fill" style="width: {precursorSummary.stream_2_latent_drift_detector.score * 10}%; background: #f59e0b;"></div>
-          </div>
-          <div class="stream-stats">
-            <div class="stat-row">
-              <span>Readable to Humans:</span>
-              <strong class="text-warning">{(precursorSummary.stream_2_latent_drift_detector.human_parseability * 100).toFixed(1)}%</strong>
-            </div>
-            <div class="stat-row">
-              <span>Covert Channel Risk:</span>
-              <strong class="text-danger">{(precursorSummary.stream_2_latent_drift_detector.stego_confidence * 100).toFixed(1)}%</strong>
-            </div>
-          </div>
-          <p class="stream-desc">
-            <strong>What this means:</strong> When AI agents coordinate in swarms, they develop compressed shorthand dialects. Nearly 70% of inter-agent tokens are now unreadable to human supervisors in real time.
-          </p>
-
-          <div class="stream-tripwire-tags">
-            <span class="tag-label">Dependent Tripwires:</span>
-            <button type="button" class="tag-chip" on:click={() => { activeTab = 'tripwires'; tripwireStreamFilter = 'stream2'; }}>PREC-003 (Stego)</button>
-            <button type="button" class="tag-chip" on:click={() => { activeTab = 'tripwires'; tripwireStreamFilter = 'stream2'; }}>PREC-004 (Compression)</button>
-            <button type="button" class="tag-chip" on:click={() => { activeTab = 'tripwires'; tripwireStreamFilter = 'stream2'; }}>PREC-009 (Swarm)</button>
-          </div>
-
-          <button type="button" class="evidence-toggle-btn" on:click={() => toggleDrawer('stream2')}>
-            {openDrawer === 'stream2' ? 'Hide Evidence & Scrape Receipts ▲' : 'Inspect Evidence & Scrape Receipts ▼'}
-          </button>
-
-          {#if openDrawer === 'stream2'}
-            <div class="drawer-content">
-              <div class="drawer-row">
-                <span class="d-k">Empirical Protocol:</span>
-                <span class="d-v">Multi-Agent Steganographic Protocol Scan (EXP-08-SYN)</span>
-              </div>
-              <div class="drawer-row">
-                <span class="d-k">Token Compression Ratio:</span>
-                <span class="d-v font-mono">HPI = 0.3060 (69.4% unreadable machine shorthand)</span>
-              </div>
-              <div class="drawer-row">
-                <span class="d-k">Covert Channel Retention:</span>
-                <span class="d-v text-danger">98.0% steganographic decoding confidence</span>
-              </div>
-              <div class="drawer-row">
-                <span class="d-k">Risk Meaning:</span>
-                <span class="d-v">Swarms can exchange instructions without trigger detection</span>
-              </div>
-            </div>
-          {/if}
-        </div>
-
-        <!-- Stream 3 Card -->
-        <div class="stream-card">
-          <div class="stream-card-header">
-            <span class="stream-id">STREAM 3 · OVERSIGHT HORIZON</span>
-            <h4>Verification Accelerometer</h4>
-          </div>
-          <div class="stream-score-row">
-            <span class="stream-score">{precursorSummary.stream_3_verification_wedge.score.toFixed(1)}</span>
-            <span class="stream-score-max">/ 10.0</span>
-            <span class="stream-alert-tag text-danger">Point of No Return (CORS 10.0)</span>
-          </div>
-          <div class="stream-bar-wrap">
-            <div class="stream-bar-fill" style="width: {precursorSummary.stream_3_verification_wedge.score * 10}%; background: #ef4444;"></div>
-          </div>
-          <div class="stream-stats">
-            <div class="stat-row">
-              <span>Audit Deficit (ΔT):</span>
-              <strong class="text-danger">{precursorSummary.stream_3_verification_wedge.delta_t_seconds.toLocaleString()}s (80m)</strong>
-            </div>
-            <div class="stat-row">
-              <span>Deficit Acceleration:</span>
-              <strong class="text-warning">+{precursorSummary.stream_3_verification_wedge.acceleration_per_month2.toFixed(3)} s/mo²</strong>
-            </div>
-          </div>
-          <p class="stream-desc">
-            <strong>What this means:</strong> The gap between machine speed and human audit capacity is widening by 2.6 minutes every month, and the rate of expansion is accelerating. Real-time human oversight has permanently ended.
-          </p>
-
-          <div class="stream-tripwire-tags">
-            <span class="tag-label">Dependent Tripwires:</span>
-            <button type="button" class="tag-chip" on:click={() => { activeTab = 'tripwires'; tripwireStreamFilter = 'stream3'; }}>PREC-010 (Speed)</button>
-            <button type="button" class="tag-chip" on:click={() => { activeTab = 'tripwires'; tripwireStreamFilter = 'stream3'; }}>PREC-011 (Crossing)</button>
-            <button type="button" class="tag-chip" on:click={() => { activeTab = 'tripwires'; tripwireStreamFilter = 'stream3'; }}>PREC-014 (Recursive)</button>
-          </div>
-
-          <button type="button" class="evidence-toggle-btn" on:click={() => toggleDrawer('stream3')}>
-            {openDrawer === 'stream3' ? 'Hide Formal Proof & Math ▲' : 'Inspect Formal Proof & Math ▼'}
-          </button>
-
-          {#if openDrawer === 'stream3'}
-            <div class="drawer-content">
-              <div class="drawer-row">
-                <span class="d-k">CORS Formulation:</span>
-                <span class="d-v font-mono">CORS = min(10.0, 1.0 + log10(1 + ΔT_wedge / 0.200) * α)</span>
-              </div>
-              <div class="drawer-row">
-                <span class="d-k">Kinematic Velocity:</span>
-                <span class="d-v font-mono">v_wedge = d(ΔT)/dt = +156.413 s/month</span>
-              </div>
-              <div class="drawer-row">
-                <span class="d-k">Kinematic Acceleration:</span>
-                <span class="d-v font-mono">a_wedge = d²(ΔT)/dt² = +1.991 s/month²</span>
-              </div>
-              <div class="drawer-row">
-                <span class="d-k">DOI Provenance:</span>
-                <span class="d-v">HSRI Working Paper §4 · DOI 10.5281/zenodo.23441742</span>
-              </div>
-            </div>
-          {/if}
-        </div>
-      </div>
-
-      <!-- HISTORICAL VERIFICATION HORIZON CHART (2022-2026) -->
-      <VerificationHorizonChart />
-
-      <!-- CONTEXTUAL SOVEREIGNTY BRIDGE CARD (Replacing Duplicate Leaderboard) -->
-      <div class="sovereignty-bridge-card">
-        <div class="bridge-info">
-          <span class="bridge-tag">GEOPOLITICAL IMPLICATION</span>
-          <h4>How Does Supervisory Collapse Impact Sovereign Survival?</h4>
-          <p>
-            When autonomous AI models cannot be audited in real-time, high-compute captive nations face catastrophic severance cliffs under zero-notice air-gap severance.
-            <strong>Most exposed:</strong> Singapore (−34 ranks, T<sub>half</sub> 8h) and United States (−21 ranks, T<sub>half</sub> 28h).
-            <strong>Most resilient:</strong> Norway (Rank #1, T<sub>half</sub> &gt; 720h) and Finland (Rank #2, T<sub>half</sub> &gt; 720h).
-          </p>
-        </div>
-        <div class="bridge-action">
-          <a class="bridge-btn" href={`${base}/countries/`}>
-            Explore 39-Nation Sovereign Decoupling Observatory →
-          </a>
-        </div>
-      </div>
+        <details class="pic-details">
+          <summary>&#9432; Technical details (Stream 2: {s2.score.toFixed(2)}/10)</summary>
+          <p>Human-readable share: {(s2.human_parseability * 100).toFixed(1)}% · Hidden chain-of-thought gap: {(s1.hptg * 100).toFixed(1)}% (EXP-08-SYN).</p>
+        </details>
+      </article>
     </div>
+
+    <!-- VISUAL 4: 2023 -> 2026 TIMELINE + MODEL VISIBILITY MILESTONES -->
+    <section class="timeline-visual-card">
+      <div class="tv-head">
+        <div>
+          <span class="pic-kicker">4 · 2023–2026 TREND</span>
+          <h3 class="pic-title">How AI pace climbed — and why open weights help humans see</h3>
+          <p class="tv-sub">Tap a release dot below: open-weight models gave researchers clear windows inside, while closed loops reduced visibility.</p>
+        </div>
+        <span class="tv-now-pill">2023: 1.05 &rarr; Today: {series[series.length - 1]?.seismograph_score.toFixed(2)}</span>
+      </div>
+
+      <!-- 2023-2026 Smooth Area Chart SVG -->
+      <svg viewBox={`0 0 ${TW} ${TH}`} class="trend-svg" role="img" aria-label="Trend line rising from 1.05 in January 2023 to 8.78 in October 2026">
+        <defs>
+          <linearGradient id="paceTrendFill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="var(--accent-primary)" stop-opacity="0.28" />
+            <stop offset="100%" stop-color="var(--accent-primary)" stop-opacity="0.02" />
+          </linearGradient>
+        </defs>
+        <line x1={tPadL} y1={tY(4)} x2={TW - tPadR} y2={tY(4)} stroke="var(--border-subtle)" stroke-dasharray="4 4" />
+        <text x={tPadL - 6} y={tY(4) + 3} text-anchor="end" class="ax-txt">Stirring</text>
+        <line x1={tPadL} y1={tY(7)} x2={TW - tPadR} y2={tY(7)} stroke="var(--border-subtle)" stroke-dasharray="4 4" />
+        <text x={tPadL - 6} y={tY(7) + 3} text-anchor="end" class="ax-txt">Rising</text>
+
+        <path d={trendArea} fill="url(#paceTrendFill)" />
+        <polyline points={trendPolyline} fill="none" stroke="var(--accent-primary)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+
+        {#each series as pt, idx}
+          {#if idx === 0 || idx === series.length - 1 || idx % 4 === 0}
+            <circle cx={tX(idx)} cy={tY(pt.seismograph_score)} r={idx === series.length - 1 ? 5.5 : 3.5} fill="var(--accent-primary)" />
+            <text x={tX(idx)} y={TH - 8} text-anchor="middle" class="ax-txt">{pt.period.slice(0, 7)}</text>
+          {/if}
+        {/each}
+      </svg>
+
+      <!-- Clickable Model Openness Visualizer -->
+      <div class="milestone-pills" role="tablist" aria-label="Model releases and openness">
+        {#each milestones as ms}
+          <button
+            type="button"
+            class="ms-pill"
+            class:selected={selectedMilestoneId === ms.milestone_id}
+            class:open-model={ms.human_readable_proofs}
+            on:click={() => (selectedMilestoneId = ms.milestone_id)}
+          >
+            <span class="ms-dot" class:open={ms.human_readable_proofs}></span>
+            <span>{(ms.model_or_event || ms.milestone_id || '').split('(')[0].trim()}</span>
+          </button>
+        {/each}
+      </div>
+
+      {#if activeMilestone}
+        <div class="ms-visual-meter">
+          <div class="ms-vm-top">
+            <strong>{activeMilestone.model_or_event || activeMilestone.milestone_id}</strong>
+            <span class="ms-badge" class:open={activeMilestone.human_readable_proofs}>
+              {activeMilestone.human_readable_proofs ? 'Open weights / visible reasoning' : 'Closed weights / hidden steps'}
+            </span>
+          </div>
+          <div class="vis-bar-row">
+            <span class="vis-lbl">How clearly outside researchers can inspect steps:</span>
+            <div class="vis-track">
+              <div class="vis-fill" class:open={activeMilestone.human_readable_proofs} style="width: {Math.round(activeMilestone.auditability_score * 100)}%"></div>
+            </div>
+            <strong>{Math.round(activeMilestone.auditability_score * 100)}%</strong>
+          </div>
+          <p class="ms-note">{activeMilestone.notes}</p>
+        </div>
+      {/if}
+    </section>
+
+    <!-- VISUAL 5: COUNTRY BATTERY COMPARISON & NEXT STEP -->
+    <section class="bridge-visual-card">
+      <div class="bv-left">
+        <span class="pic-kicker">5 · WHY BACKUPS MATTER FOR EVERY COUNTRY</span>
+        <h3 class="pic-title">If automated tools pause, how long can essentials keep running?</h3>
+        <div class="battery-compare">
+          <div class="bat-row">
+            <span class="bat-country">Singapore (high digital reliance)</span>
+            <div class="bat-cells" aria-label="1 of 5 backup bars (~8 hours)">
+              <span class="b-cell low"></span><span class="b-cell"></span><span class="b-cell"></span><span class="b-cell"></span><span class="b-cell"></span>
+            </div>
+            <strong>{sgpEntry ? `${sgpEntry.t_half_hours}h` : '8h'}</strong>
+          </div>
+          <div class="bat-row">
+            <span class="bat-country">Norway (deep offline reserves)</span>
+            <div class="bat-cells" aria-label="5 of 5 backup bars (30+ days)">
+              <span class="b-cell ok"></span><span class="b-cell ok"></span><span class="b-cell ok"></span><span class="b-cell ok"></span><span class="b-cell ok"></span>
+            </div>
+            <strong>{norEntry ? `${Math.round(norEntry.t_half_hours / 24)}d+` : '30d+'}</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="bv-actions">
+        <a href={`${base}/countries/`} class="btn-solid">Explore 39-Country Index &rarr;</a>
+        <button type="button" class="btn-ghost" on:click={() => (activeTab = 'backup')}>
+          Try Power-Outage Simulator
+        </button>
+        <a href={`${base}/#wish-doors`} class="btn-ghost">Play 60s Breakthrough Story</a>
+      </div>
+    </section>
   {/if}
 
-  <!-- TAB 2: 14 OBSERVABLE ASI PRECURSORS TRIPWIRE BOARD -->
-  {#if activeTab === 'tripwires'}
-    <div class="tab-content tripwires-view">
-      <!-- Filter Bar -->
-      <div class="tripwire-controls">
-        <div class="search-box">
-          <input
-            type="text"
-            placeholder="Search precursors by ID, keyword, or threshold..."
-            bind:value={tripwireSearch}
-            class="styled-input"
-          />
+  <!-- TAB 2: 14 EARLY SIGNS (PLAIN SUMMARY FIRST + DEEP DOSSIER) -->
+  {#if activeTab === 'signs'}
+    <div class="signs-view">
+      <!-- Visual 14-Indicator Stacked Bar -->
+      <div class="signs-overview-bar">
+        <div class="so-top">
+          <strong>14 real-world signals researchers watch</strong>
+          <span>{countRed} happening today &middot; {countAmber} showing early signs &middot; {countGreen} being watched</span>
         </div>
-
-        <div class="filter-pills">
-          <span class="filter-label">Status:</span>
-          <button class="pill" class:active={tripwireStatusFilter === 'all'} on:click={() => tripwireStatusFilter = 'all'}>All ({asiPrecursors.length})</button>
-          <button class="pill pill-red" class:active={tripwireStatusFilter === 'red'} on:click={() => tripwireStatusFilter = 'red'}>Active ({countRed})</button>
-          <button class="pill pill-amber" class:active={tripwireStatusFilter === 'amber'} on:click={() => tripwireStatusFilter = 'amber'}>Triggering ({countAmber})</button>
-          <button class="pill pill-green" class:active={tripwireStatusFilter === 'green'} on:click={() => tripwireStatusFilter = 'green'}>Latent ({countGreen})</button>
-        </div>
-
-        <div class="filter-pills">
-          <span class="filter-label">Stream:</span>
-          <button class="pill" class:active={tripwireStreamFilter === 'all'} on:click={() => tripwireStreamFilter = 'all'}>All Streams</button>
-          <button class="pill" class:active={tripwireStreamFilter === 'stream1'} on:click={() => tripwireStreamFilter = 'stream1'}>Stream 1 (Autonomy)</button>
-          <button class="pill" class:active={tripwireStreamFilter === 'stream2'} on:click={() => tripwireStreamFilter = 'stream2'}>Stream 2 (Drift)</button>
-          <button class="pill" class:active={tripwireStreamFilter === 'stream3'} on:click={() => tripwireStreamFilter = 'stream3'}>Stream 3 (Wedge)</button>
-        </div>
-
-        <div class="filter-pills">
-          <span class="filter-label">Indicator:</span>
-          <button class="pill" class:active={tripwireTypeFilter === 'all'} on:click={() => tripwireTypeFilter = 'all'}>All Types</button>
-          <button class="pill" class:active={tripwireTypeFilter === 'leading'} on:click={() => tripwireTypeFilter = 'leading'}>Leading</button>
-          <button class="pill" class:active={tripwireTypeFilter === 'coincident'} on:click={() => tripwireTypeFilter = 'coincident'}>Coincident</button>
-          <button class="pill" class:active={tripwireTypeFilter === 'lagging'} on:click={() => tripwireTypeFilter = 'lagging'}>Lagging</button>
+        <div class="so-segments" aria-hidden="true">
+          <div class="seg-red" style="flex: {countRed}">{countRed} Today</div>
+          <div class="seg-amber" style="flex: {countAmber}">{countAmber} Early</div>
+          {#if countGreen > 0}<div class="seg-green" style="flex: {countGreen}">{countGreen} Watch</div>{/if}
         </div>
       </div>
 
-      <!-- Main Tripwire Layout: Grid + Selected Detail Drawer -->
-      <div class="tripwire-split">
-        <!-- Cards List -->
-        <div class="tripwires-list">
-          {#each filteredPrecursors as prec}
-            {@const streamInfo = getGoverningStream(prec.id)}
-            <div
-              class="tripwire-card"
-              class:selected={selectedPrecursorId === prec.id}
-              class:status-red={prec.status_color === 'red'}
-              class:status-amber={prec.status_color === 'amber'}
-              class:status-green={prec.status_color === 'green'}
-              on:click={() => selectedPrecursorId = prec.id}
+      <div class="signs-filters">
+        <input
+          type="search"
+          placeholder="Search 14 signals..."
+          bind:value={signSearch}
+          class="sign-search"
+        />
+        <div class="sign-pills">
+          <button type="button" class="sp-btn" class:active={signStatusFilter === 'all'} on:click={() => (signStatusFilter = 'all')}>All ({asiPrecursors.length})</button>
+          <button type="button" class="sp-btn" class:active={signStatusFilter === 'red'} on:click={() => (signStatusFilter = 'red')}>Today ({countRed})</button>
+          <button type="button" class="sp-btn" class:active={signStatusFilter === 'amber'} on:click={() => (signStatusFilter = 'amber')}>Early ({countAmber})</button>
+          <button type="button" class="sp-btn" class:active={signStatusFilter === 'green'} on:click={() => (signStatusFilter = 'green')}>Watch ({countGreen})</button>
+        </div>
+      </div>
+
+      <div class="signs-split">
+        <div class="signs-list">
+          {#each filteredSigns as p}
+            <button
+              type="button"
+              class="sign-card"
+              class:selected={selectedSignId === p.id}
+              on:click={() => (selectedSignId = p.id)}
             >
-              <div class="tc-top">
-                <span class="tc-id">{prec.id}</span>
-                <span class="stream-chip" style="color: {streamInfo.color}; border-color: {streamInfo.color};">
-                  {streamInfo.label.split(':')[1].trim()}
-                </span>
-                <span class="tc-badge {prec.status_color}">{prec.status.replace('_', ' ')}</span>
+              <div class="sc-top">
+                <span class="sc-id">{p.id}</span>
+                <span class="sc-badge {p.status_color}">{plainStatusLabel(p.status_color)}</span>
               </div>
-              <p class="tc-desc">{prec.description}</p>
-              <div class="tc-footer">
-                <span class="tc-type">{prec.indicator_type.toUpperCase()} INDICATOR</span>
-                <span class="tc-arrow">Inspect Dossier →</span>
-              </div>
-            </div>
+              <p class="sc-desc">{p.description}</p>
+            </button>
           {/each}
         </div>
 
-        <!-- Detail Drawer (Selected Precursor) -->
-        {#if selectedPrecursor}
-          {@const streamInfo = getGoverningStream(selectedPrecursor.id)}
-          <div class="tripwire-drawer">
-            <div class="drawer-header">
-              <div class="dh-top">
-                <span class="dh-id">{selectedPrecursor.id}</span>
-                <span class="stream-chip" style="color: {streamInfo.color}; border-color: {streamInfo.color};">
-                  Governed by {streamInfo.label}
-                </span>
-                <span class="dh-status {selectedPrecursor.status_color}">{selectedPrecursor.status.replace('_', ' ')}</span>
-              </div>
-              <h3>{selectedPrecursor.description}</h3>
+        {#if selectedSign}
+          <aside class="sign-drawer">
+            <span class="sc-badge {selectedSign.status_color}">{plainStatusLabel(selectedSign.status_color)}</span>
+            <h3>{selectedSign.id}</h3>
+            <p class="sd-desc">{selectedSign.description}</p>
+
+            <div class="sd-box">
+              <span class="sd-lbl">What researchers watch for</span>
+              <p>{selectedSign.proposed_threshold}</p>
+            </div>
+            <div class="sd-box">
+              <span class="sd-lbl">Observed so far</span>
+              <p>{selectedSign.baseline_or_time_series}</p>
             </div>
 
-            <div class="drawer-section">
-              <span class="d-label">PROPOSED LITERATURE THRESHOLD</span>
-              <div class="d-box highlight">
-                {selectedPrecursor.proposed_threshold}
-              </div>
-            </div>
-
-            <div class="drawer-section">
-              <span class="d-label">MEASUREMENT METHODOLOGY &amp; BENCHMARK</span>
-              <p class="d-text">{selectedPrecursor.measurement_method}</p>
-            </div>
-
-            <div class="drawer-section">
-              <span class="d-label">OBSERVED BASELINE &amp; TIME SERIES</span>
-              <p class="d-text">{selectedPrecursor.baseline_or_time_series}</p>
-            </div>
-
-            <div class="drawer-grid">
-              <div class="dg-cell">
-                <span class="d-label">FALSE POSITIVE RISK</span>
-                <p>{selectedPrecursor.false_positive_risk}</p>
-              </div>
-              <div class="dg-cell">
-                <span class="d-label">FALSE NEGATIVE RISK</span>
-                <p>{selectedPrecursor.false_negative_risk}</p>
-              </div>
-              <div class="dg-cell">
-                <span class="d-label">GAMING &amp; COGOODHART RISK</span>
-                <p>{selectedPrecursor.gaming_risk}</p>
-              </div>
-              <div class="dg-cell">
-                <span class="d-label">OUTSIDER VERIFIABLE?</span>
-                <p class="highlight-text">{selectedPrecursor.outsider_verifiable.toUpperCase()}</p>
-              </div>
-            </div>
-
-            <div class="drawer-footer">
-              <span>Primary Data Holder: <strong>{selectedPrecursor.data_holder}</strong></span>
-              <span class="notes">{selectedPrecursor.notes}</span>
-            </div>
-          </div>
+            <details class="pic-details">
+              <summary>&#9432; Verification notes &amp; blind-spot risks</summary>
+              <p><strong>How measured:</strong> {selectedSign.measurement_method}</p>
+              <p><strong>False-alarm risk:</strong> {selectedSign.false_positive_risk}</p>
+              <p><strong>Missed-signal risk:</strong> {selectedSign.false_negative_risk}</p>
+              <p><strong>Independent checkable:</strong> {selectedSign.outsider_verifiable} &middot; {selectedSign.data_holder}</p>
+            </details>
+          </aside>
         {/if}
       </div>
     </div>
   {/if}
 
-  <!-- TAB 3: CIVILIZATIONAL AIR-GAP DECOUPLING SIMULATOR -->
-  {#if activeTab === 'airgap'}
-    <div class="tab-content">
+  <!-- TAB 3: BACKUP SIMULATOR -->
+  {#if activeTab === 'backup'}
+    <div class="backup-wrap">
+      <p class="backup-intro">
+        Choose a country and slide the pause duration to see which essential services rely on offline human backups vs continuous cloud AI links.
+      </p>
       <CivilizationalAirGap />
     </div>
   {/if}
 </div>
 
 <style>
-  .seismograph-container {
-    font-family: inherit;
-    padding-bottom: 3rem;
+  .seismo-shell {
+    padding-top: 0.35rem;
   }
 
-  /* Hero Status Banner */
-  .sentinel-hero-banner {
-    background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.85) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 16px;
-    padding: 1.75rem 2rem;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
-  }
-
-  .sentinel-status-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(239, 68, 68, 0.15);
-    border: 1px solid rgba(239, 68, 68, 0.35);
-    color: #ef4444;
-    padding: 4px 12px;
-    border-radius: 9999px;
-    font-family: var(--font-family-mono, monospace);
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    margin-bottom: 1rem;
-  }
-
-  .pulse-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #ef4444;
-    box-shadow: 0 0 10px #ef4444;
-    animation: pulse 1.5s infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(0.85); }
-  }
-
-  .hero-main-row {
+  /* Hero Panel */
+  .hero-visual-panel {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-medium);
+    border-radius: 18px;
+    padding: 1.5rem 1.6rem;
+    margin-bottom: 1.25rem;
     display: grid;
-    grid-template-columns: 1.4fr 1fr;
-    gap: 2rem;
+    grid-template-columns: 1.35fr 0.95fr;
+    gap: 1.5rem;
     align-items: center;
+    box-shadow: var(--shadow-sm);
   }
 
-  .hero-left h2 {
-    font-size: 2.1rem;
-    font-weight: 900;
-    letter-spacing: -0.02em;
-    color: #f8fafc;
-    margin: 0 0 0.5rem 0;
-  }
-
-  .hero-lead {
-    color: #94a3b8;
-    font-size: 0.98rem;
-    line-height: 1.6;
-    margin: 0;
-  }
-
-  /* Master Threat Card */
-  .master-threat-card {
-    background: rgba(6, 9, 17, 0.9);
-    border: 1px solid rgba(239, 68, 68, 0.35);
-    border-radius: 14px;
-    padding: 1.25rem 1.5rem;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 0 25px rgba(239, 68, 68, 0.15);
-  }
-
-  .threat-title {
-    font-family: var(--font-family-mono, monospace);
-    font-size: 0.72rem;
-    color: #94a3b8;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
-
-  .threat-score-row {
-    display: flex;
-    align-items: baseline;
-    gap: 6px;
-    margin: 4px 0;
-  }
-
-  .threat-score {
-    font-family: var(--font-family-mono, monospace);
-    font-size: 2.8rem;
-    font-weight: 900;
-    color: #ef4444;
-    line-height: 1;
-  }
-
-  .threat-max {
-    font-family: var(--font-family-mono, monospace);
-    font-size: 1.2rem;
-    color: #64748b;
-  }
-
-  .threat-regime {
-    font-family: var(--font-family-mono, monospace);
-    font-size: 0.82rem;
-    font-weight: 800;
-    color: #ef4444;
-    letter-spacing: 0.03em;
-  }
-
-  .regime-scale-bar {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-top: 8px;
-    padding-top: 8px;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-  }
-
-  .regime-scale-bar .dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.2);
-  }
-
-  .regime-scale-bar .dot.filled {
-    background: #f59e0b;
-  }
-
-  .regime-scale-bar .dot.filled.red {
-    background: #ef4444;
-    box-shadow: 0 0 6px #ef4444;
-  }
-
-  .scale-label {
-    font-size: 0.72rem;
-    color: #94a3b8;
-    margin-left: 4px;
-  }
-
-  /* Sub-Navigation Tabs */
-  .tab-navigation {
-    display: flex;
-    gap: 8px;
-    margin: 1.5rem 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding-bottom: 0.5rem;
-    overflow-x: auto;
-  }
-
-  .tab-btn {
+  .hv-pill {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    background: transparent;
-    border: 1px solid transparent;
-    color: #94a3b8;
-    padding: 10px 18px;
-    border-radius: 10px;
-    font-size: 0.92rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.15s ease;
-    white-space: nowrap;
-  }
-
-  .tab-btn:hover {
-    color: #f8fafc;
-    background: rgba(255, 255, 255, 0.05);
-  }
-
-  .tab-btn.active {
-    background: rgba(30, 41, 59, 0.9);
-    border-color: rgba(255, 255, 255, 0.15);
-    color: #f8fafc;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-  }
-
-  .tab-counter {
-    font-family: var(--font-family-mono, monospace);
+    gap: 0.45rem;
+    padding: 0.25rem 0.72rem;
+    border-radius: 9999px;
+    background: var(--bg-surface-sunken);
+    border: 1px solid var(--border-medium);
+    font-family: var(--font-family-mono);
     font-size: 0.7rem;
-    padding: 2px 7px;
-    border-radius: 9999px;
-  }
-
-  .tab-counter.red {
-    background: rgba(239, 68, 68, 0.2);
-    color: #ef4444;
-    border: 1px solid rgba(239, 68, 68, 0.35);
-  }
-
-  /* AUDIT DEFICIT HERO */
-  .audit-deficit-hero {
-    background: radial-gradient(800px 300px at 10% 0%, var(--threat-critical-bg), transparent 70%),
-                var(--bg-surface);
-    border: 1px solid var(--threat-critical-border);
-    border-radius: 16px;
-    padding: 20px 24px;
-    margin-bottom: 20px;
-    box-shadow: var(--shadow-md);
-  }
-
-  .deficit-top-row {
-    display: grid;
-    grid-template-columns: 1.4fr 1fr;
-    gap: 24px;
-    align-items: center;
-  }
-
-  .db-title {
-    font-family: var(--font-family-mono, monospace);
-    font-size: 0.72rem;
     font-weight: 800;
-    letter-spacing: 0.08em;
-    color: #ef4444;
-    display: block;
-    margin-bottom: 6px;
-  }
-
-  .db-hero-text {
-    font-size: 1.45rem;
-    font-weight: 900;
-    color: #f8fafc;
-    margin: 0 0 8px 0;
-    line-height: 1.3;
-  }
-
-  .highlight-danger {
-    color: #ef4444;
-    text-decoration: underline;
-    text-underline-offset: 4px;
-  }
-
-  .db-desc {
-    font-size: 0.9rem;
-    color: #cbd5e1;
-    line-height: 1.55;
-    margin: 0;
-  }
-
-  .deficit-metrics-cluster {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .dm-card {
-    background: rgba(6, 9, 17, 0.7);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 10px;
-    padding: 8px 14px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .dm-label {
-    font-size: 0.8rem;
-    color: #94a3b8;
-  }
-
-  .dm-num {
-    font-family: var(--font-family-mono, monospace);
-    font-weight: 800;
-    font-size: 1.1rem;
-  }
-
-  .dm-sub {
-    font-size: 0.72rem;
-    color: #64748b;
-  }
-
-  /* Drum Wrapper */
-  .drum-wrapper-card {
-    margin-bottom: 24px;
-  }
-
-  /* Triad Grid */
-  .triad-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.25rem;
-    margin-bottom: 24px;
-  }
-
-  .stream-card {
-    background: rgba(15, 23, 42, 0.9);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 14px;
-    padding: 1.25rem;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-  }
-
-  .stream-card-header {
+    color: var(--accent-primary);
     margin-bottom: 0.75rem;
   }
 
-  .stream-id {
-    font-family: var(--font-family-mono, monospace);
-    font-size: 0.68rem;
-    color: #94a3b8;
-    letter-spacing: 0.05em;
+  .hv-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent-primary);
   }
 
-  .stream-card-header h4 {
-    font-size: 1.1rem;
+  .hv-title {
+    margin: 0 0 0.6rem;
+    font-family: var(--font-family-sans);
+    font-size: clamp(1.65rem, 3.2vw, 2.3rem);
     font-weight: 800;
-    color: #f8fafc;
-    margin: 2px 0 0 0;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    color: var(--text-primary);
   }
 
-  .stream-score-row {
-    display: flex;
-    align-items: baseline;
-    gap: 6px;
-    margin-bottom: 0.5rem;
+  .hv-lead {
+    margin: 0 0 0.85rem;
+    font-size: 0.98rem;
+    line-height: 1.55;
+    color: var(--text-secondary);
   }
 
-  .stream-score {
-    font-family: var(--font-family-mono, monospace);
-    font-size: 2rem;
-    font-weight: 900;
-    color: #f8fafc;
-    line-height: 1;
+  .uptime-wrap :global(.uptime-badge) {
+    margin: 0;
   }
 
-  .stream-score-max {
-    font-family: var(--font-family-mono, monospace);
-    font-size: 0.9rem;
-    color: #64748b;
-  }
-
-  .stream-alert-tag {
-    margin-left: auto;
-    font-family: var(--font-family-mono, monospace);
-    font-size: 0.68rem;
-    font-weight: 700;
-  }
-
-  .stream-bar-wrap {
-    height: 6px;
-    background: rgba(255, 255, 255, 0.06);
-    border-radius: 9999px;
-    margin-bottom: 1rem;
-    overflow: hidden;
-  }
-
-  .stream-bar-fill {
-    height: 100%;
-    border-radius: 9999px;
-  }
-
-  .stream-stats {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    background: rgba(6, 9, 17, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
-    padding: 10px 12px;
-    margin-bottom: 10px;
-  }
-
-  .stat-row {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.8rem;
-    color: #94a3b8;
-  }
-
-  .stream-desc {
-    color: #cbd5e1;
-    font-size: 0.85rem;
-    line-height: 1.5;
-    margin: 0 0 12px 0;
-    flex: 1;
-  }
-
-  .stream-tripwire-tags {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-    align-items: center;
-    margin-bottom: 12px;
-    padding-top: 10px;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
-  }
-
-  .tag-label {
-    font-family: var(--font-family-mono, monospace);
-    font-size: 0.65rem;
-    color: #64748b;
-    width: 100%;
-  }
-
-  .tag-chip {
-    font-family: var(--font-family-mono, monospace);
-    font-size: 0.68rem;
-    padding: 3px 8px;
-    border-radius: 6px;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    color: #94a3b8;
-    cursor: pointer;
-    transition: all 0.15s ease;
-  }
-
-  .tag-chip:hover {
-    color: #f8fafc;
-    border-color: #38bdf8;
-    background: rgba(56, 189, 248, 0.1);
-  }
-
-  .evidence-toggle-btn {
-    width: 100%;
-    padding: 7px 10px;
-    border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(255, 255, 255, 0.04);
-    color: #94a3b8;
-    font-size: 0.75rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.15s ease;
-    text-align: center;
-  }
-
-  .evidence-toggle-btn:hover {
-    color: #f8fafc;
-    background: rgba(255, 255, 255, 0.08);
-  }
-
-  .drawer-content {
-    margin-top: 10px;
-    padding: 10px 12px;
-    background: rgba(6, 9, 17, 0.85);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    animation: drawerIn 0.2s ease-out;
-  }
-
-  @keyframes drawerIn {
-    from { opacity: 0; transform: translateY(-4px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .drawer-row {
-    display: flex;
-    flex-direction: column;
-    font-size: 0.75rem;
-    gap: 1px;
-  }
-
-  .d-k {
-    font-family: var(--font-family-mono, monospace);
-    font-size: 0.65rem;
-    color: #64748b;
-  }
-
-  .d-v {
-    color: #cbd5e1;
-  }
-
-  /* Sovereignty Bridge Card */
-  .sovereignty-bridge-card {
-    background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.9) 100%);
-    border: 1px solid rgba(56, 189, 248, 0.25);
+  .hv-gauge-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
     border-radius: 14px;
-    padding: 18px 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  }
-
-  .bridge-tag {
-    font-family: var(--font-family-mono, monospace);
-    font-size: 0.68rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    color: #38bdf8;
-    display: block;
-    margin-bottom: 4px;
-  }
-
-  .bridge-info h4 {
-    font-size: 1.15rem;
-    font-weight: 800;
-    color: #f8fafc;
-    margin: 0 0 6px 0;
-  }
-
-  .bridge-info p {
-    font-size: 0.88rem;
-    color: #cbd5e1;
-    line-height: 1.5;
-    margin: 0;
-    max-width: 760px;
-  }
-
-  .bridge-btn {
-    display: inline-block;
-    padding: 10px 18px;
-    border-radius: 10px;
-    background: #1d4ed8;
-    color: white;
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 0.88rem;
-    white-space: nowrap;
-    transition: background 0.15s ease;
-  }
-
-  .bridge-btn:hover {
-    background: #1e40af;
-  }
-
-  /* Tripwires Tab Styling */
-  .tripwire-controls {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-    align-items: center;
-    margin-bottom: 1.5rem;
-    background: rgba(15, 23, 42, 0.6);
-    padding: 12px 16px;
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-  }
-
-  .search-box {
-    flex: 1;
-    min-width: 240px;
-  }
-
-  .styled-input {
-    width: 100%;
-    padding: 9px 12px;
-    border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    background: rgba(6, 9, 17, 0.8);
-    color: #f8fafc;
-    font-size: 0.88rem;
-    outline: none;
-  }
-
-  .filter-pills {
-    display: flex;
-    gap: 6px;
-    align-items: center;
-  }
-
-  .filter-label {
-    font-size: 0.72rem;
-    color: #64748b;
-    font-family: var(--font-family-mono, monospace);
-  }
-
-  .pill {
-    padding: 5px 10px;
-    border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: transparent;
-    color: #94a3b8;
-    font-size: 0.75rem;
-    font-weight: 700;
-    cursor: pointer;
-  }
-
-  .pill.active {
-    background: rgba(255, 255, 255, 0.15);
-    color: #f8fafc;
-    border-color: rgba(255, 255, 255, 0.3);
-  }
-
-  .pill-red.active { background: rgba(239, 68, 68, 0.25); color: #ef4444; border-color: #ef4444; }
-  .pill-amber.active { background: rgba(245, 158, 11, 0.25); color: #f59e0b; border-color: #f59e0b; }
-  .pill-green.active { background: rgba(16, 185, 129, 0.25); color: #10b981; border-color: #10b981; }
-
-  .tripwire-split {
-    display: grid;
-    grid-template-columns: 1.15fr 0.85fr;
-    gap: 20px;
-    align-items: start;
-  }
-
-  .tripwires-list {
+    padding: 1.1rem 1rem;
+    text-align: center;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    max-height: 820px;
-    overflow-y: auto;
-    padding-right: 4px;
-  }
-
-  .tripwire-card {
-    background: rgba(15, 23, 42, 0.75);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 10px;
-    padding: 12px 14px;
-    cursor: pointer;
-    transition: all 0.15s ease;
-  }
-
-  .tripwire-card:hover {
-    border-color: rgba(255, 255, 255, 0.25);
-    background: rgba(30, 41, 59, 0.6);
-  }
-
-  .tripwire-card.selected {
-    border-color: #38bdf8;
-    background: rgba(56, 189, 248, 0.08);
-    box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.25);
-  }
-
-  .tc-top {
-    display: flex;
-    gap: 8px;
     align-items: center;
-    margin-bottom: 6px;
-    flex-wrap: wrap;
   }
 
-  .tc-id {
-    font-family: var(--font-family-mono, monospace);
-    font-size: 0.72rem;
-    font-weight: 800;
-    color: #f8fafc;
-    background: rgba(255, 255, 255, 0.08);
-    padding: 1px 6px;
-    border-radius: 4px;
+  .gauge-svg {
+    max-width: 100%;
+    height: auto;
   }
 
-  .stream-chip {
-    font-family: var(--font-family-mono, monospace);
-    font-size: 0.65rem;
-    padding: 1px 6px;
-    border-radius: 9999px;
-    border: 1px solid;
-    background: rgba(0, 0, 0, 0.3);
-  }
-
-  .tc-badge {
-    margin-left: auto;
-    font-family: var(--font-family-mono, monospace);
-    font-size: 0.65rem;
-    font-weight: 800;
-    padding: 2px 7px;
-    border-radius: 9999px;
-  }
-
-  .tc-badge.red { background: rgba(239, 68, 68, 0.18); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.35); }
-  .tc-badge.amber { background: rgba(245, 158, 11, 0.18); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.35); }
-  .tc-badge.green { background: rgba(16, 185, 129, 0.18); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.35); }
-
-  .tc-desc {
-    font-size: 0.85rem;
-    color: #cbd5e1;
-    margin: 0 0 8px 0;
-    line-height: 1.45;
-  }
-
-  .tc-footer {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.68rem;
-    color: #64748b;
-    font-family: var(--font-family-mono, monospace);
-  }
-
-  .tc-arrow {
-    color: #38bdf8;
+  .g-zone {
+    font-family: var(--font-family-mono);
+    font-size: 9.5px;
     font-weight: 700;
+    fill: var(--text-secondary);
   }
 
-  /* Tripwire Detail Drawer */
-  .tripwire-drawer {
-    background: rgba(15, 23, 42, 0.95);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 12px;
-    padding: 18px;
-    position: sticky;
-    top: 88px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  }
-
-  .drawer-header {
-    margin-bottom: 14px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .dh-top {
+  .gauge-readout {
+    margin-top: 0.35rem;
     display: flex;
-    gap: 8px;
-    align-items: center;
-    margin-bottom: 8px;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 0.25rem;
   }
 
-  .dh-id {
-    font-family: var(--font-family-mono, monospace);
-    font-size: 0.76rem;
+  .gauge-word {
+    font-size: 1.35rem;
     font-weight: 800;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 2px 7px;
-    border-radius: 6px;
-    color: #f8fafc;
+    color: var(--threat-critical);
   }
 
-  .dh-status {
-    margin-left: auto;
-    font-family: var(--font-family-mono, monospace);
-    font-size: 0.7rem;
-    font-weight: 800;
-    padding: 3px 8px;
-    border-radius: 9999px;
-  }
-
-  .dh-status.red { background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.4); }
-  .dh-status.amber { background: rgba(245, 158, 11, 0.2); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.4); }
-  .dh-status.green { background: rgba(16, 185, 129, 0.2); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.4); }
-
-  .drawer-header h3 {
-    font-size: 1.05rem;
-    font-weight: 800;
-    color: #f8fafc;
-    margin: 0;
+  .gauge-sub {
+    font-size: 0.84rem;
+    color: var(--text-secondary);
     line-height: 1.4;
   }
 
-  .drawer-section {
-    margin-bottom: 12px;
+  .gauge-tech {
+    margin-top: 0.2rem;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
   }
 
-  .d-label {
-    font-family: var(--font-family-mono, monospace);
-    font-size: 0.65rem;
-    font-weight: 800;
-    color: #94a3b8;
-    letter-spacing: 0.05em;
-    display: block;
-    margin-bottom: 4px;
+  .gauge-tech summary {
+    cursor: pointer;
+    font-family: var(--font-family-mono);
+    font-weight: 700;
+    color: var(--accent-primary);
   }
 
-  .d-box {
-    background: rgba(6, 9, 17, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 8px;
-    padding: 8px 12px;
-    font-size: 0.85rem;
-    line-height: 1.45;
+  /* Navigation Tabs */
+  .visual-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
   }
 
-  .d-box.highlight {
-    border-color: rgba(56, 189, 248, 0.3);
-    color: #38bdf8;
+  .vtab {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-height: 42px;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    border: 1px solid var(--border-medium);
+    background: var(--bg-surface-elevated);
+    color: var(--text-secondary);
+    font-weight: 700;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
   }
 
-  .d-text {
-    font-size: 0.85rem;
-    color: #cbd5e1;
-    line-height: 1.45;
-    margin: 0;
+  .vtab:hover {
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
   }
 
-  .drawer-grid {
+  .vtab.active {
+    background: var(--accent-primary);
+    border-color: var(--accent-primary);
+    color: var(--btn-primary-text);
+  }
+
+  .vtab-pill {
+    font-family: var(--font-family-mono);
+    font-size: 0.68rem;
+    padding: 0.12rem 0.48rem;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  /* Pictogram Cards */
+  .pictograms-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    margin-bottom: 12px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 1.35rem;
   }
 
-  .dg-cell {
-    background: rgba(6, 9, 17, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
-    padding: 8px 10px;
+  .pic-card,
+  .timeline-visual-card,
+  .bridge-visual-card {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-medium);
+    border-radius: 16px;
+    padding: 1.35rem;
+    box-shadow: var(--shadow-sm);
   }
 
-  .dg-cell p {
-    margin: 0;
-    font-size: 0.78rem;
-    color: #cbd5e1;
-    line-height: 1.35;
-  }
-
-  .highlight-text {
-    font-family: var(--font-family-mono, monospace);
+  .pic-kicker {
+    display: block;
+    font-family: var(--font-family-mono);
+    font-size: 0.7rem;
     font-weight: 800;
-    color: #10b981;
+    letter-spacing: 0.06em;
+    color: var(--accent-primary);
+    margin-bottom: 0.25rem;
   }
 
-  .drawer-footer {
+  .pic-title {
+    margin: 0 0 0.85rem;
+    font-size: 1.12rem;
+    font-weight: 800;
+    line-height: 1.3;
+    color: var(--text-primary);
+  }
+
+  .dot-grid-wrap,
+  .read-blocks-wrap {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 0.9rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .dot-matrix {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 6px;
+    max-width: 240px;
+    margin: 0 auto 0.75rem;
+  }
+
+  .m-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--accent-primary);
+    opacity: 0.35;
+  }
+
+  .m-dot.machine {
+    background: var(--threat-warning);
+    opacity: 1;
+  }
+
+  .read-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.45rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .r-tile {
+    border-radius: 8px;
+    padding: 0.45rem 0.25rem;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    border: 1px solid var(--border-subtle);
+  }
+
+  .r-tile.readable {
+    background: var(--threat-sovereign-bg);
+    border-color: var(--threat-sovereign-border);
+    color: var(--threat-sovereign);
+  }
+
+  .r-tile.opaque {
+    background: var(--bg-surface-sunken);
+    color: var(--text-muted);
+  }
+
+  .r-icon {
+    font-family: var(--font-family-mono);
+    font-weight: 800;
+    font-size: 0.86rem;
+  }
+
+  .r-lbl {
+    font-size: 0.65rem;
+    font-weight: 700;
+  }
+
+  .pic-legend {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem 1rem;
+    font-size: 0.76rem;
+    color: var(--text-secondary);
+  }
+
+  .leg-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-weight: 600;
+  }
+
+  .sw-m,
+  .sw-h,
+  .sw-o {
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+    display: inline-block;
+  }
+
+  .sw-m { background: var(--threat-warning); }
+  .sw-h { background: var(--threat-sovereign); }
+  .sw-o { background: var(--border-strong); }
+
+  .pic-details summary {
+    cursor: pointer;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+
+  .pic-details p {
+    margin: 0.45rem 0 0;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.45;
+  }
+
+  /* Timeline Visual Card */
+  .timeline-visual-card {
+    margin-bottom: 1.35rem;
+  }
+
+  .tv-head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .tv-sub {
+    margin: 0;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    max-width: 680px;
+  }
+
+  .tv-now-pill {
+    font-family: var(--font-family-mono);
+    font-size: 0.76rem;
+    font-weight: 700;
+    padding: 0.3rem 0.7rem;
+    border-radius: 9999px;
+    background: var(--bg-surface-sunken);
+    border: 1px solid var(--border-medium);
+    color: var(--accent-primary);
+  }
+
+  .trend-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 0.4rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .ax-txt {
+    font-family: var(--font-family-mono);
+    font-size: 9.5px;
+    fill: var(--text-muted);
+  }
+
+  .milestone-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .ms-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.38rem;
+    padding: 0.36rem 0.72rem;
+    border-radius: 9999px;
+    border: 1px solid var(--border-medium);
+    background: var(--bg-surface);
+    color: var(--text-secondary);
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    min-height: 36px;
+  }
+
+  .ms-pill.selected {
+    border-color: var(--accent-primary);
+    background: var(--threat-sovereign-bg);
+    color: var(--text-primary);
+  }
+
+  .ms-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--threat-warning);
+  }
+
+  .ms-dot.open {
+    background: var(--threat-sovereign);
+  }
+
+  .ms-visual-meter {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 0.85rem 1rem;
+  }
+
+  .ms-vm-top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.45rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.94rem;
+    color: var(--text-primary);
+  }
+
+  .ms-badge {
+    font-family: var(--font-family-mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 0.16rem 0.55rem;
+    border-radius: 9999px;
+    background: var(--threat-warning-bg);
+    color: var(--threat-warning);
+  }
+
+  .ms-badge.open {
+    background: var(--threat-sovereign-bg);
+    color: var(--threat-sovereign);
+  }
+
+  .vis-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-bottom: 0.4rem;
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+  }
+
+  .vis-track {
+    flex: 1;
+    height: 10px;
+    border-radius: 9999px;
+    background: var(--bg-surface-sunken);
+    overflow: hidden;
+  }
+
+  .vis-fill {
+    height: 100%;
+    border-radius: 9999px;
+    background: var(--threat-warning);
+    transition: width 0.25s ease;
+  }
+
+  .vis-fill.open {
+    background: var(--threat-sovereign);
+  }
+
+  .ms-note {
+    margin: 0;
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+  }
+
+  /* Country Battery Bridge */
+  .bridge-visual-card {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .bv-left {
+    flex: 1 1 380px;
+  }
+
+  .battery-compare {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+
+  .bat-row {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 0.86rem;
+    color: var(--text-primary);
+  }
+
+  .bat-country {
+    min-width: 215px;
+  }
+
+  .bat-cells {
+    display: flex;
     gap: 4px;
-    padding-top: 10px;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    font-size: 0.75rem;
-    color: #94a3b8;
   }
 
-  .drawer-footer .notes {
+  .b-cell {
+    width: 18px;
+    height: 10px;
+    border-radius: 3px;
+    background: var(--bg-surface-sunken);
+    border: 1px solid var(--border-medium);
+  }
+
+  .b-cell.low {
+    background: var(--threat-critical);
+    border-color: var(--threat-critical);
+  }
+
+  .b-cell.ok {
+    background: var(--threat-sovereign);
+    border-color: var(--threat-sovereign);
+  }
+
+  .bv-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+  }
+
+  .btn-solid,
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: 0.55rem 1rem;
+    border-radius: 10px;
+    font-size: 0.86rem;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .btn-solid {
+    background: var(--accent-primary);
+    color: var(--btn-primary-text);
+    border: 0;
+  }
+
+  .btn-ghost {
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    border: 1px solid var(--border-medium);
+  }
+
+  /* Tab 2: 14 Early Signs */
+  .signs-overview-bar {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-medium);
+    border-radius: 14px;
+    padding: 1rem 1.15rem;
+    margin-bottom: 1rem;
+  }
+
+  .so-top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.4rem;
+    margin-bottom: 0.55rem;
+    font-size: 0.88rem;
+    color: var(--text-primary);
+  }
+
+  .so-segments {
+    display: flex;
+    gap: 4px;
+    border-radius: 9999px;
+    overflow: hidden;
+    font-family: var(--font-family-mono);
     font-size: 0.72rem;
-    color: #64748b;
-    font-style: italic;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
   }
 
-  /* Utility classes */
-  .text-danger { color: #ef4444; }
-  .text-warning { color: #f59e0b; }
-  .text-success { color: #10b981; }
-  .font-mono { font-family: var(--font-family-mono, monospace); }
+  .seg-red { background: var(--threat-critical); padding: 0.3rem 0.5rem; }
+  .seg-amber { background: var(--threat-warning); padding: 0.3rem 0.5rem; }
+  .seg-green { background: var(--threat-sovereign); padding: 0.3rem 0.5rem; }
 
-  @media (max-width: 980px) {
-    .hero-main-row {
+  .signs-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin-bottom: 1rem;
+  }
+
+  .sign-search {
+    flex: 1 1 220px;
+    min-height: 40px;
+    padding: 0.45rem 0.8rem;
+    border-radius: 10px;
+    border: 1px solid var(--border-medium);
+    background: var(--bg-surface-elevated);
+    color: var(--text-primary);
+  }
+
+  .sign-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .sp-btn {
+    min-height: 38px;
+    padding: 0.35rem 0.8rem;
+    border-radius: 9999px;
+    border: 1px solid var(--border-medium);
+    background: var(--bg-surface-elevated);
+    color: var(--text-secondary);
+    font-weight: 600;
+    font-size: 0.8rem;
+    cursor: pointer;
+  }
+
+  .sp-btn.active {
+    background: var(--accent-primary);
+    border-color: var(--accent-primary);
+    color: var(--btn-primary-text);
+  }
+
+  .signs-split {
+    display: grid;
+    grid-template-columns: 1.15fr 0.95fr;
+    gap: 1rem;
+    align-items: start;
+  }
+
+  .signs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    max-height: 620px;
+    overflow-y: auto;
+  }
+
+  .sign-card {
+    text-align: start;
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 0.85rem 1rem;
+    cursor: pointer;
+  }
+
+  .sign-card.selected {
+    border-color: var(--accent-primary);
+    background: var(--threat-sovereign-bg);
+  }
+
+  .sc-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.35rem;
+  }
+
+  .sc-id {
+    font-family: var(--font-family-mono);
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: var(--text-secondary);
+  }
+
+  .sc-badge {
+    font-family: var(--font-family-mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 0.14rem 0.5rem;
+    border-radius: 9999px;
+  }
+
+  .sc-badge.red {
+    background: var(--threat-critical-bg);
+    color: var(--threat-critical);
+  }
+  .sc-badge.amber {
+    background: var(--threat-warning-bg);
+    color: var(--threat-warning);
+  }
+  .sc-badge.green {
+    background: var(--threat-sovereign-bg);
+    color: var(--threat-sovereign);
+  }
+
+  .sc-desc {
+    margin: 0;
+    font-size: 0.86rem;
+    color: var(--text-primary);
+    line-height: 1.45;
+  }
+
+  .sign-drawer {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-medium);
+    border-radius: 14px;
+    padding: 1.15rem;
+    position: sticky;
+    top: 84px;
+  }
+
+  .sign-drawer h3 {
+    margin: 0.45rem 0 0.35rem;
+    color: var(--text-primary);
+  }
+
+  .sd-desc {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .sd-box {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    padding: 0.7rem 0.85rem;
+    margin-bottom: 0.65rem;
+  }
+
+  .sd-lbl {
+    display: block;
+    font-family: var(--font-family-mono);
+    font-size: 0.66rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--accent-primary);
+    margin-bottom: 0.2rem;
+  }
+
+  .sd-box p {
+    margin: 0;
+    font-size: 0.84rem;
+    color: var(--text-primary);
+  }
+
+  .backup-intro {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-medium);
+    border-radius: 12px;
+    padding: 0.85rem 1rem;
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+  }
+
+  @media (max-width: 900px) {
+    .hero-visual-panel,
+    .pictograms-grid,
+    .signs-split {
       grid-template-columns: 1fr;
     }
-    .deficit-top-row {
-      grid-template-columns: 1fr;
-    }
-    .triad-grid {
-      grid-template-columns: 1fr;
-    }
-    .sovereignty-bridge-card {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-    .tripwire-split {
-      grid-template-columns: 1fr;
-    }
-    .tripwire-drawer {
+    .sign-drawer {
       position: static;
+    }
+  }
+
+  @media (max-width: 540px) {
+    .hero-visual-panel,
+    .pic-card,
+    .timeline-visual-card,
+    .bridge-visual-card {
+      padding: 1rem;
+    }
+    .bat-row {
+      flex-wrap: wrap;
+    }
+    .bat-country {
+      min-width: 100%;
+    }
+    .vis-bar-row {
+      flex-wrap: wrap;
     }
   }
 </style>

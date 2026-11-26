@@ -1,372 +1,550 @@
 ﻿<script lang="ts">
+  import { onDestroy } from 'svelte';
   import wedgeHistoryData from '../data/wedge_history.json';
 
   const trajectory = wedgeHistoryData.benchmark_trajectory || [];
   let selectedGenId = $state('GEN-06');
+  let animating = $state(false);
+  let animTick = $state(0);
+  let timer: ReturnType<typeof setInterval> | null = null;
 
   let activeItem = $derived.by(() => {
     return trajectory.find((t: any) => t.generation_id === selectedGenId) || trajectory[trajectory.length - 1];
   });
+
+  // Visual SVG chart coordinates (2022-2026 log/scaled height for clear visual readability)
+  const W = 640;
+  const H = 195;
+  const padL = 48;
+  const padR = 26;
+  const padT = 20;
+  const padB = 34;
+
+  // Map seconds (1s..4800s) onto visual percentage cleanly via sqrt-compressed scale so 8s vs 4800s both read smoothly
+  function mapY(sec: number) {
+    const maxS = 4800;
+    const norm = Math.sqrt(Math.max(0.5, sec) / maxS);
+    return H - padB - norm * (H - padT - padB);
+  }
+
+  function mapX(idx: number) {
+    const span = Math.max(1, trajectory.length - 1);
+    return padL + (idx / span) * (W - padL - padR);
+  }
+
+  let humanPoints = $derived(
+    trajectory.map((t: any, i: number) => `${mapX(i).toFixed(1)},${mapY(t.tau_verify_seconds).toFixed(1)}`).join(' ')
+  );
+  let machinePoints = $derived(
+    trajectory.map((t: any, i: number) => `${mapX(i).toFixed(1)},${mapY(t.tau_gen_seconds).toFixed(1)}`).join(' ')
+  );
+  let humanArea = $derived.by(() => {
+    if (!trajectory.length) return '';
+    const firstX = mapX(0).toFixed(1);
+    const lastX = mapX(trajectory.length - 1).toFixed(1);
+    const base = (H - padB).toFixed(1);
+    return `M ${firstX},${base} L ${humanPoints} L ${lastX},${base} Z`;
+  });
+
+  function formatDuration(sec: number) {
+    if (sec >= 60) {
+      const m = sec / 60;
+      return `${Number.isInteger(m) ? m : m.toFixed(1)} min`;
+    }
+    return `${sec} sec`;
+  }
+
+  function replayRace() {
+    if (timer) clearInterval(timer);
+    animating = true;
+    animTick = 0;
+    timer = setInterval(() => {
+      animTick += 1;
+      if (animTick >= 40) {
+        if (timer) clearInterval(timer);
+        timer = null;
+        animating = false;
+      }
+    }, 65);
+  }
+
+  onDestroy(() => {
+    if (timer) clearInterval(timer);
+  });
+
+  // Simulated visual race positions
+  let machineProgress = $derived(animating ? Math.min(100, animTick * 35) : 100);
+  let ratioValue = $derived(activeItem ? activeItem.wedge_ratio : 3200);
+  let humanProgress = $derived.by(() => {
+    if (!activeItem) return 100;
+    if (animating) {
+      const targetAtTick = Math.min(100, (animTick * 35) / Math.max(1, Math.min(45, Math.sqrt(ratioValue))));
+      return Math.max(4, targetAtTick);
+    }
+    return Math.max(8, Math.min(100, (activeItem.tau_verify_seconds / 4800) * 100));
+  });
 </script>
 
-<div class="horizon-chart-wrap">
-  <div class="chart-header">
+<section class="speed-visual-card" aria-label="AI speed versus human checking time visual comparison">
+  <div class="sv-head">
     <div>
-      <div class="chart-tag">STREAM 3 HISTORICAL EMPIRICAL RECORD</div>
-      <h3 class="chart-title">The Human Verification Horizon (2022–2026)</h3>
-      <p class="chart-subtitle">
-        Visualizing the physical collapse of real-time human oversight across 6 model generations.
-        Machine execution time flatlines at 1.5s while human audit time rockets to 80 minutes.
-      </p>
+      <span class="sv-kicker">1 · THE SPEED GAP AT A GLANCE</span>
+      <h3 class="sv-title">How fast AI finishes vs. how long a person needs to check</h3>
+      <p class="sv-sub">Tap any year below to compare how quickly software finishes one complex task versus how long an expert needs to verify every step.</p>
     </div>
-    <div class="horizon-badge">
-      <span class="hz-label">Current Divergence Ratio</span>
-      <span class="hz-val text-danger">3,200× Speed Deficit</span>
-    </div>
+    <button type="button" class="replay-btn" onclick={replayRace}>
+      &#9654; {animating ? 'Running 1 task...' : 'Replay 1-task race'}
+    </button>
   </div>
 
-  <!-- Timeline Cards / Generation Scrubbing Strip -->
-  <div class="gen-strip" role="tablist" aria-label="Select model generation">
+  <!-- Year / Generation Visual Pills -->
+  <div class="year-strip" role="tablist" aria-label="Select year and AI generation">
     {#each trajectory as gen}
       {@const isSelected = selectedGenId === gen.generation_id}
       <button
         type="button"
-        class="gen-card"
+        role="tab"
+        aria-selected={isSelected}
+        class="year-pill"
         class:selected={isSelected}
-        onclick={() => selectedGenId = gen.generation_id}
+        onclick={() => { selectedGenId = gen.generation_id; }}
       >
-        <span class="gen-date">{gen.date.slice(0, 7)}</span>
-        <span class="gen-model">{gen.model_label.split('(')[0].trim()}</span>
-        <span class="gen-ratio" class:crisis={gen.wedge_ratio >= 100}>{gen.wedge_ratio}×</span>
-        <span class="gen-regime">{gen.cors_regime.split(' ')[0]}</span>
+        <span class="yp-year">{gen.date.slice(0, 4)}</span>
+        <span class="yp-name">{gen.model_label.split('(')[0].trim()}</span>
       </button>
     {/each}
   </div>
 
-  <!-- Active Generation Deep Breakdown -->
   {#if activeItem}
-    <div class="gen-detail-box">
-      <div class="detail-header">
-        <div class="dh-left">
-          <span class="dh-id">{activeItem.generation_id}</span>
-          <span class="dh-title">{activeItem.model_label}</span>
-          <span class="dh-date">({activeItem.date})</span>
+    <!-- Side-by-Side 2-Lane Visual Race -->
+    <div class="race-box">
+      <div class="race-row">
+        <div class="race-meta">
+          <span class="race-actor ai-tag">AI finishes in</span>
+          <strong class="race-time ai-num">{formatDuration(activeItem.tau_gen_seconds)}</strong>
         </div>
-        <span class="dh-status-pill" class:crisis={activeItem.wedge_ratio >= 100}>
-          {activeItem.cors_regime}
-        </span>
-      </div>
-
-      <div class="comparison-bar-grid">
-        <!-- Machine Bar -->
-        <div class="comp-col">
-          <div class="comp-label">
-            <span>Machine Generation Time</span>
-            <strong class="text-accent">{activeItem.tau_gen_seconds}s</strong>
-          </div>
-          <div class="bar-shell">
-            <div class="bar-core machine" style="width: {Math.max(3, (activeItem.tau_gen_seconds / 15) * 100)}%;"></div>
-          </div>
-          <span class="comp-caption">Autonomous model output</span>
-        </div>
-
-        <!-- Human Bar -->
-        <div class="comp-col">
-          <div class="comp-label">
-            <span>Expert Human Audit Time</span>
-            <strong class="text-danger">
-              {activeItem.tau_verify_seconds >= 60 ? `${(activeItem.tau_verify_seconds / 60).toFixed(1)} min` : `${activeItem.tau_verify_seconds}s`}
-            </strong>
-          </div>
-          <div class="bar-shell">
-            <div class="bar-core human" style="width: {Math.max(4, (activeItem.tau_verify_seconds / 4800) * 100)}%;"></div>
-          </div>
-          <span class="comp-caption">Independent expert security audit</span>
+        <div class="lane-track" aria-hidden="true">
+          <div class="lane-fill ai-fill" style="width: {Math.max(5, Math.min(100, (activeItem.tau_gen_seconds / 15) * (machineProgress / 100) * 18))}%"></div>
+          <span class="lane-note">Practically instant ({activeItem.tau_gen_seconds}s)</span>
         </div>
       </div>
 
-      <div class="detail-stats-strip">
-        <div class="ds-item">
-          <span class="ds-lbl">Verification Deficit (ΔT)</span>
-          <span class="ds-num text-danger">{activeItem.delta_t_wedge_seconds.toLocaleString()}s</span>
-          <span class="ds-sub">≈ {(activeItem.delta_t_wedge_seconds / 60).toFixed(1)} minutes behind</span>
+      <div class="race-row">
+        <div class="race-meta">
+          <span class="race-actor human-tag">Human check takes</span>
+          <strong class="race-time human-num">{formatDuration(activeItem.tau_verify_seconds)}</strong>
         </div>
-        <div class="ds-item">
-          <span class="ds-lbl">Speed Deficit Ratio</span>
-          <span class="ds-num text-danger">{activeItem.wedge_ratio.toLocaleString()}×</span>
-          <span class="ds-sub">Audit time / generation time</span>
+        <div class="lane-track" aria-hidden="true">
+          <div class="lane-fill human-fill" style="width: {humanProgress}%"></div>
         </div>
-        <div class="ds-item">
-          <span class="ds-lbl">CORS Richter Level</span>
-          <span class="ds-num text-warning">{activeItem.cors_level.toFixed(2)} / 10.0</span>
-          <span class="ds-sub">{activeItem.cors_regime}</span>
+      </div>
+
+      <!-- Visual Ratio Callout + Clock Icon -->
+      <div class="ratio-callout">
+        <div class="clock-svg-wrap" aria-hidden="true">
+          <svg viewBox="0 0 64 64" width="54" height="54">
+            <circle cx="32" cy="32" r="28" fill="var(--bg-surface-sunken)" stroke="var(--border-medium)" stroke-width="2" />
+            <!-- Highlighted arc scaling smoothly with verify minutes -->
+            <circle
+              cx="32"
+              cy="32"
+              r="21"
+              fill="none"
+              stroke="var(--threat-critical)"
+              stroke-width="6"
+              stroke-dasharray={`${Math.min(132, Math.max(8, (activeItem.tau_verify_seconds / 4800) * 132))} 132`}
+              transform="rotate(-90 32 32)"
+              stroke-linecap="round"
+            />
+            <line x1="32" y1="32" x2="32" y2="17" stroke="var(--text-primary)" stroke-width="2.5" stroke-linecap="round" />
+            <line x1="32" y1="32" x2="43" y2="32" stroke="var(--accent-primary)" stroke-width="2" stroke-linecap="round" />
+            <circle cx="32" cy="32" r="3" fill="var(--text-primary)" />
+          </svg>
         </div>
-        <div class="ds-item">
-          <span class="ds-lbl">Primary Task Domain</span>
-          <span class="ds-domain">{activeItem.primary_domain}</span>
-          <span class="ds-sub">Hardware: {activeItem.hardware_tier}</span>
+        <div class="callout-copy">
+          <strong class="callout-big">{activeItem.wedge_ratio.toLocaleString()}&times; gap</strong>
+          <span>
+            {#if activeItem.tau_verify_seconds >= 3600}
+              Checking <strong>1</strong> task takes an expert as long as watching a short film ({formatDuration(activeItem.tau_verify_seconds)}), while AI moves on in <strong>{activeItem.tau_gen_seconds}s</strong>.
+            {:else if activeItem.tau_verify_seconds >= 60}
+              Checking <strong>1</strong> task takes <strong>{formatDuration(activeItem.tau_verify_seconds)}</strong> compared to <strong>{activeItem.tau_gen_seconds}s</strong> of computer time.
+            {:else}
+              In {activeItem.date.slice(0, 4)}, a person could still read and verify an answer in seconds (<strong>{formatDuration(activeItem.tau_verify_seconds)}</strong>).
+            {/if}
+          </span>
         </div>
       </div>
     </div>
+
+    <!-- Visual Curve Chart (2022 -> 2026) -->
+    <div class="curve-wrap">
+      <div class="curve-caption-row">
+        <span class="legend-item"><i class="dot-human"></i> Human check time (8 sec &rarr; 80 min)</span>
+        <span class="legend-item"><i class="dot-ai"></i> AI run time (~1.5–12 sec)</span>
+      </div>
+      <svg viewBox={`0 0 ${W} ${H}`} class="horizon-svg" role="img" aria-label="Chart showing human review time growing from 8 seconds in 2022 to 80 minutes in 2026 while AI generation stays near 2 seconds">
+        <defs>
+          <linearGradient id="humanAreaGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="var(--threat-critical)" stop-opacity="0.28" />
+            <stop offset="100%" stop-color="var(--threat-critical)" stop-opacity="0.02" />
+          </linearGradient>
+        </defs>
+
+        <!-- Clean Horizontal Reference Lines -->
+        <line x1={padL} y1={mapY(60)} x2={W - padR} y2={mapY(60)} stroke="var(--border-subtle)" stroke-dasharray="4 4" />
+        <text x={padL - 6} y={mapY(60) + 3} text-anchor="end" class="svg-axis-label">1m</text>
+
+        <line x1={padL} y1={mapY(1200)} x2={W - padR} y2={mapY(1200)} stroke="var(--border-subtle)" stroke-dasharray="4 4" />
+        <text x={padL - 6} y={mapY(1200) + 3} text-anchor="end" class="svg-axis-label">20m</text>
+
+        <line x1={padL} y1={mapY(4800)} x2={W - padR} y2={mapY(4800)} stroke="var(--border-subtle)" stroke-dasharray="4 4" />
+        <text x={padL - 6} y={mapY(4800) + 3} text-anchor="end" class="svg-axis-label">80m</text>
+
+        <path d={humanArea} fill="url(#humanAreaGrad)" />
+        <polyline points={humanPoints} fill="none" stroke="var(--threat-critical)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+        <polyline points={machinePoints} fill="none" stroke="var(--accent-primary)" stroke-width="2.5" stroke-dasharray="5 3" stroke-linecap="round" />
+
+        {#each trajectory as pt, i}
+          {@const cx = mapX(i)}
+          {@const cyH = mapY(pt.tau_verify_seconds)}
+          {@const cyM = mapY(pt.tau_gen_seconds)}
+          {@const active = pt.generation_id === selectedGenId}
+          <g class="chart-pt-group" onclick={() => { selectedGenId = pt.generation_id; }}>
+            <circle cx={cx} cy={cyH} r={active ? 7 : 4.5} fill={active ? 'var(--threat-critical)' : 'var(--bg-surface-elevated)'} stroke="var(--threat-critical)" stroke-width="2.5" />
+            <circle cx={cx} cy={cyM} r={3.5} fill="var(--accent-primary)" />
+            <text x={cx} y={H - 10} text-anchor="middle" class="svg-year-label" class:active-yr={active}>{pt.date.slice(0, 4)}</text>
+            <text x={cx} y={Math.max(14, cyH - 11)} text-anchor="middle" class="svg-val-label" class:active-val={active}>
+              {formatDuration(pt.tau_verify_seconds)}
+            </text>
+          </g>
+        {/each}
+      </svg>
+    </div>
+
+    <details class="tech-drawer">
+      <summary>&#9432; Researcher details &amp; formal measurements ({activeItem.generation_id})</summary>
+      <div class="tech-grid">
+        <div><span>Benchmark Model:</span> <strong>{activeItem.model_label}</strong> ({activeItem.date})</div>
+        <div><span>Audit Deficit (&Delta;T):</span> <strong>{activeItem.delta_t_wedge_seconds.toLocaleString()}s</strong></div>
+        <div><span>Domain:</span> <strong>{activeItem.primary_domain}</strong></div>
+        <div><span>CORS Rating:</span> <strong>{activeItem.cors_level.toFixed(2)} / 10 ({activeItem.cors_regime})</strong></div>
+      </div>
+    </details>
   {/if}
-</div>
+</section>
 
 <style>
-  .horizon-chart-wrap {
-    background: var(--bg-surface, #0f172a);
-    border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.1));
-    border-radius: 14px;
-    padding: 20px;
-    margin-bottom: 24px;
-    box-shadow: var(--shadow-md, 0 4px 6px -1px rgba(0, 0, 0, 0.2));
+  .speed-visual-card {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-medium);
+    border-radius: 16px;
+    padding: 1.35rem 1.45rem;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 1.35rem;
   }
-  .chart-header {
+
+  .sv-head {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: flex-start;
-    gap: 16px;
-    margin-bottom: 18px;
-    flex-wrap: wrap;
+    gap: 0.75rem 1rem;
+    margin-bottom: 1rem;
   }
-  .chart-tag {
-    font-family: var(--font-family-mono, monospace);
-    font-size: 0.68rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    color: var(--accent-primary, #38bdf8);
-    margin-bottom: 4px;
-  }
-  .chart-title {
-    font-size: 1.25rem;
-    font-weight: 800;
-    color: var(--text-primary, #f8fafc);
-    margin: 0 0 6px 0;
-  }
-  .chart-subtitle {
-    font-size: 0.88rem;
-    color: var(--text-secondary, #94a3b8);
-    max-width: 740px;
-    line-height: 1.5;
-    margin: 0;
-  }
-  .horizon-badge {
-    background: rgba(239, 68, 68, 0.12);
-    border: 1px solid rgba(239, 68, 68, 0.3);
-    padding: 8px 14px;
-    border-radius: 10px;
-    text-align: right;
-  }
-  .hz-label {
+
+  .sv-kicker {
     display: block;
-    font-family: var(--font-family-mono, monospace);
-    font-size: 0.65rem;
-    color: var(--text-muted, #94a3b8);
-    text-transform: uppercase;
-  }
-  .hz-val {
-    font-family: var(--font-family-mono, monospace);
+    font-family: var(--font-family-mono);
+    font-size: 0.7rem;
     font-weight: 800;
-    font-size: 1.05rem;
+    letter-spacing: 0.06em;
+    color: var(--accent-primary);
+    margin-bottom: 0.25rem;
   }
-  .gen-strip {
+
+  .sv-title {
+    margin: 0 0 0.28rem;
+    font-size: clamp(1.15rem, 2.2vw, 1.42rem);
+    font-weight: 800;
+    color: var(--text-primary);
+  }
+
+  .sv-sub {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    max-width: 680px;
+    line-height: 1.5;
+  }
+
+  .replay-btn {
+    border: 1px solid var(--border-medium);
+    background: var(--bg-surface-sunken);
+    color: var(--accent-primary);
+    font-weight: 700;
+    font-size: 0.82rem;
+    padding: 0.5rem 0.9rem;
+    border-radius: 9999px;
+    cursor: pointer;
+    min-height: 38px;
+    flex-shrink: 0;
+  }
+
+  .replay-btn:hover {
+    border-color: var(--accent-primary);
+    background: var(--threat-sovereign-bg);
+  }
+
+  .year-strip {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    gap: 8px;
-    margin-bottom: 18px;
+    gap: 0.45rem;
+    margin-bottom: 1rem;
   }
-  .gen-card {
-    background: var(--bg-surface-sunken, #060911);
-    border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.08));
+
+  .year-pill {
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-surface);
     border-radius: 10px;
-    padding: 10px 8px;
-    text-align: left;
+    padding: 0.48rem 0.55rem;
+    text-align: start;
     cursor: pointer;
     display: flex;
     flex-direction: column;
     gap: 2px;
-    transition: all 0.15s ease;
+    min-height: 44px;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
   }
-  .gen-card:hover {
-    border-color: var(--accent-primary, #38bdf8);
-    background: rgba(56, 189, 248, 0.04);
+
+  .year-pill:hover {
+    border-color: var(--accent-primary);
   }
-  .gen-card.selected {
-    border-color: var(--accent-primary, #38bdf8);
-    background: rgba(56, 189, 248, 0.08);
-    box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.25);
+
+  .year-pill.selected {
+    border-color: var(--accent-primary);
+    background: var(--threat-sovereign-bg);
   }
-  .gen-date {
-    font-family: var(--font-family-mono, monospace);
-    font-size: 0.65rem;
-    color: var(--text-muted, #64748b);
+
+  .yp-year {
+    font-family: var(--font-family-mono);
+    font-size: 0.68rem;
+    font-weight: 800;
+    color: var(--accent-primary);
   }
-  .gen-model {
+
+  .yp-name {
+    font-size: 0.78rem;
     font-weight: 700;
-    font-size: 0.8rem;
-    color: var(--text-primary, #f8fafc);
+    color: var(--text-primary);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  .gen-ratio {
-    font-family: var(--font-family-mono, monospace);
-    font-weight: 800;
-    font-size: 0.88rem;
-    color: #38bdf8;
-    margin-top: 2px;
-  }
-  .gen-ratio.crisis {
-    color: #ef4444;
-  }
-  .gen-regime {
-    font-size: 0.65rem;
-    color: var(--text-muted, #94a3b8);
-  }
-  .gen-detail-box {
-    background: var(--bg-surface-elevated, #1e293b);
-    border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.1));
+
+  .race-box {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
     border-radius: 12px;
-    padding: 18px;
+    padding: 1rem;
+    margin-bottom: 1rem;
   }
-  .detail-header {
+
+  .race-row {
+    margin-bottom: 0.85rem;
+  }
+
+  .race-meta {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
-    flex-wrap: wrap;
-    gap: 10px;
+    align-items: baseline;
+    margin-bottom: 0.3rem;
+    font-size: 0.84rem;
   }
-  .dh-left {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
+
+  .race-actor {
+    font-weight: 600;
+    color: var(--text-secondary);
   }
-  .dh-id {
-    font-family: var(--font-family-mono, monospace);
-    font-size: 0.72rem;
-    font-weight: 800;
-    background: rgba(255, 255, 255, 0.08);
-    padding: 2px 7px;
-    border-radius: 6px;
-    color: var(--text-muted, #94a3b8);
+
+  .ai-num {
+    font-family: var(--font-family-mono);
+    color: var(--accent-primary);
+    font-size: 0.96rem;
   }
-  .dh-title {
-    font-weight: 800;
-    font-size: 1.05rem;
-    color: var(--text-primary, #f8fafc);
-  }
-  .dh-date {
-    font-size: 0.82rem;
-    color: var(--text-muted, #64748b);
-  }
-  .dh-status-pill {
-    font-family: var(--font-family-mono, monospace);
-    font-size: 0.72rem;
-    font-weight: 700;
-    padding: 4px 10px;
-    border-radius: 9999px;
-    background: rgba(56, 189, 248, 0.12);
-    color: #38bdf8;
-    border: 1px solid rgba(56, 189, 248, 0.28);
-  }
-  .dh-status-pill.crisis {
-    background: rgba(239, 68, 68, 0.12);
-    color: #ef4444;
-    border-color: rgba(239, 68, 68, 0.3);
-  }
-  .comparison-bar-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    margin-bottom: 18px;
-  }
-  .comp-col {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-  .comp-label {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.82rem;
-    color: var(--text-secondary, #cbd5e1);
-  }
-  .bar-shell {
-    height: 10px;
-    background: var(--bg-surface-sunken, #060911);
-    border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.08));
-    border-radius: 9999px;
-    overflow: hidden;
-  }
-  .bar-core {
-    height: 100%;
-    border-radius: 9999px;
-    transition: width 0.3s ease;
-  }
-  .bar-core.machine {
-    background: #38bdf8;
-  }
-  .bar-core.human {
-    background: #ef4444;
-  }
-  .comp-caption {
-    font-size: 0.72rem;
-    color: var(--text-muted, #64748b);
-  }
-  .detail-stats-strip {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    padding-top: 14px;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-  }
-  .ds-item {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-  .ds-lbl {
-    font-family: var(--font-family-mono, monospace);
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    color: var(--text-muted, #94a3b8);
-  }
-  .ds-num {
-    font-family: var(--font-family-mono, monospace);
-    font-weight: 800;
+
+  .human-num {
+    font-family: var(--font-family-mono);
+    color: var(--threat-critical);
     font-size: 1rem;
   }
-  .ds-domain {
+
+  .lane-track {
+    position: relative;
+    height: 18px;
+    border-radius: 9999px;
+    background: var(--bg-surface-sunken);
+    border: 1px solid var(--border-subtle);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+
+  .lane-fill {
+    height: 100%;
+    border-radius: 9999px;
+    transition: width 0.25s ease;
+  }
+
+  .ai-fill {
+    background: var(--accent-primary);
+  }
+
+  .human-fill {
+    background: var(--threat-critical);
+  }
+
+  .lane-note {
+    margin-inline-start: 0.5rem;
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+  }
+
+  .ratio-callout {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .callout-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    font-size: 0.86rem;
+    color: var(--text-secondary);
+    line-height: 1.45;
+  }
+
+  .callout-big {
+    font-size: 1.08rem;
+    color: var(--text-primary);
+  }
+
+  .curve-wrap {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 0.85rem 0.9rem 0.55rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .curve-caption-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem 1.25rem;
+    font-size: 0.76rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.4rem;
+  }
+
+  .legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-weight: 600;
+  }
+
+  .dot-human,
+  .dot-ai {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .dot-human { background: var(--threat-critical); }
+  .dot-ai { background: var(--accent-primary); }
+
+  .horizon-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    overflow: visible;
+  }
+
+  .svg-axis-label {
+    font-family: var(--font-family-mono);
+    font-size: 10px;
+    fill: var(--text-muted);
+  }
+
+  .svg-year-label {
+    font-family: var(--font-family-mono);
+    font-size: 10.5px;
+    fill: var(--text-secondary);
+  }
+
+  .svg-year-label.active-yr {
+    fill: var(--text-primary);
+    font-weight: 800;
+  }
+
+  .svg-val-label {
+    font-family: var(--font-family-mono);
+    font-size: 10px;
+    font-weight: 700;
+    fill: var(--text-secondary);
+  }
+
+  .svg-val-label.active-val {
+    fill: var(--threat-critical);
+    font-size: 11px;
+  }
+
+  .chart-pt-group {
+    cursor: pointer;
+  }
+
+  .tech-drawer summary {
+    cursor: pointer;
     font-size: 0.78rem;
     font-weight: 600;
-    color: var(--text-primary, #f8fafc);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    color: var(--text-secondary);
   }
-  .ds-sub {
-    font-size: 0.7rem;
-    color: var(--text-muted, #64748b);
-  }
-  .text-danger { color: #ef4444; }
-  .text-warning { color: #f59e0b; }
-  .text-accent { color: #38bdf8; }
 
-  @media (max-width: 900px) {
-    .gen-strip {
+  .tech-grid {
+    margin-top: 0.55rem;
+    padding: 0.7rem 0.85rem;
+    border-radius: 10px;
+    background: var(--bg-surface-sunken);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.4rem 0.9rem;
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+  }
+
+  .tech-grid strong {
+    color: var(--text-primary);
+  }
+
+  @media (max-width: 820px) {
+    .year-strip {
       grid-template-columns: repeat(3, 1fr);
     }
-    .detail-stats-strip {
-      grid-template-columns: 1fr 1fr;
+    .tech-grid {
+      grid-template-columns: 1fr;
     }
   }
-  @media (max-width: 600px) {
-    .comparison-bar-grid {
-      grid-template-columns: 1fr;
+
+  @media (max-width: 540px) {
+    .speed-visual-card {
+      padding: 1rem;
     }
-    .detail-stats-strip {
-      grid-template-columns: 1fr;
+    .year-strip {
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 </style>

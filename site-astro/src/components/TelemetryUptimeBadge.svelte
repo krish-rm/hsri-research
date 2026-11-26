@@ -104,16 +104,17 @@
     border-radius: 50%;
     flex-shrink: 0;
   }
-  .badge-label { color: #e2e8f0; }
-  .badge-msg { color: #f8fafc; font-weight: 700; }
-  .badge-fallback { color: #fb923c; font-weight: 700; }
-  .badge-meta { color: #94a3b8; font-weight: 500; font-size: 0.72rem; }
+  .badge-label { color: var(--text-secondary); }
+  .badge-msg { color: var(--text-primary); font-weight: 700; }
+  .badge-fallback { color: var(--threat-warning); font-weight: 700; }
+  .badge-meta { color: var(--text-secondary); font-weight: 500; font-size: 0.72rem; }
   .badge-link {
-    color: #38bdf8;
+    color: var(--accent-primary);
     text-decoration: none;
     font-size: 0.72rem;
+    font-weight: 700;
     margin-left: 0.15rem;
   }
   .badge-link:hover { text-decoration: underline; }
-  .badge-text { color: #94a3b8; }
+  .badge-text { color: var(--text-secondary); }
 </style>
