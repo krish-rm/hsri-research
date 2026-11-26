@@ -339,7 +339,7 @@ export const en = {
   wishWall: {
     heading: 'What the world is asking for',
     themes: ['Health', 'Learning', 'Climate', 'Dignity', 'Wonder', 'Truth'],
-    emptyHeadline: 'The shared global tapestry opens after the first 20 anonymous contributions.',
+    emptyHeadline: 'The "What the world is asking for" wall opens after the first 20 anonymous contributions.',
     emptyBody:
       'Every choice stays private in your browser by default. Crowd themes only appear once a threshold of at least 20 real people choose to contribute.',
     cta: 'Choose a breakthrough'
@@ -441,6 +441,11 @@ export const en = {
     pledgeDone: 'Habit pledged on this device',
     closingLine: 'Every great breakthrough needs a ready world.',
     realityTitle: 'Reality Meter',
+    realityScales: {
+      imagination: 'Imagination',
+      possibleSoon: 'Possible soon',
+      realToday: 'Real today'
+    },
     realityReviewed: 'Last reviewed',
     realitySource: 'Source',
     shadowTitle: 'Behind this breakthrough (Scenario Atlas)',

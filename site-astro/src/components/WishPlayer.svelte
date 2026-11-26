@@ -13,6 +13,8 @@
   } from '../lib/readinessState';
   import { trackEvent } from '../lib/privacyStorage';
 
+  const SHOW_DRAFT_BADGE = __HSRI_SHOW_DRAFTS__;
+
   type LangCode = 'en' | 'es' | 'ar';
   type LText = { en: string; es: string; ar: string };
 
@@ -21,7 +23,8 @@
     door: string;
     order: number;
     icon: string;
-    status: 'DRAFT' | 'reviewed';
+    status: 'draft' | 'owner_approved';
+    devOnly: boolean;
     title: LText;
     doorTitle: LText;
     honestyLabel: 'Imagination' | 'Possible soon' | 'Real today';
@@ -47,10 +50,9 @@
     };
     closingLine: string;
     realityMeter: {
-      score: number;
-      isConservativeBaseline: boolean;
-      statusLabel: LText;
-      note: LText;
+      scale: 'Imagination' | 'Possible soon' | 'Real today';
+      reason: LText;
+      observedMetric?: { value: string; label: LText; directCapabilityMatch: true } | null;
       source: string;
       sourceUrl: string;
       lastReviewed: string;
@@ -77,6 +79,8 @@
   $: lText = (t: LText) => t[loc] ?? t.en;
   $: chosenOpt = wish.weight.options.find((o) => o.id === selectedWeight) ?? null;
   $: countryRef = $readinessStore.selectedCountry;
+  $: scaleIdx =
+    wish.realityMeter.scale === 'Real today' ? 2 : wish.realityMeter.scale === 'Possible soon' ? 1 : 0;
 
   onMount(async () => {
     startedAt = Date.now();
@@ -158,6 +162,9 @@
         <span class="wp-door">{lText(wish.doorTitle)}</span>
         <span class="wp-honesty">{$dict.player.honestyPrefix} {wish.honestyLabel}</span>
         <span class="wp-dur">{$dict.player.durationBadge}</span>
+        {#if SHOW_DRAFT_BADGE && wish.status === 'draft'}
+          <span class="draft-pill wp-draft-tag">{$dict.player.draftTag}</span>
+        {/if}
       </div>
       <h3 class="wp-title" tabindex="-1" bind:this={playerHeadingEl}>{lText(wish.title)}</h3>
       <p class="wp-honesty-note">{lText(wish.honestyNote)}</p>
@@ -273,7 +280,7 @@
           <strong class="toto-speaker">{$dict.totoBeats.speaker}:</strong> {$dict.totoBeats.wobble}
         </p>
       </div>
-      {#if wish.wobble.draft}
+      {#if SHOW_DRAFT_BADGE && (wish.wobble.draft || wish.status === 'draft')}
         <span class="draft-pill">{$dict.player.draftTag}</span>
       {/if}
       <p class="beat-main-text">{lText(wish.wobble.text)}</p>
@@ -293,7 +300,7 @@
           <strong class="toto-speaker">{$dict.totoBeats.speaker}:</strong> {$dict.totoBeats.weight}
         </p>
       </div>
-      {#if wish.weight.draft}
+      {#if SHOW_DRAFT_BADGE && (wish.weight.draft || wish.status === 'draft')}
         <span class="draft-pill">{$dict.player.draftTag}</span>
       {/if}
       <p class="beat-main-text weight-q">{lText(wish.weight.question)}</p>
@@ -337,18 +344,33 @@
         </button>
       </div>
 
-      <!-- Reality Meter + Cited Source & Last Reviewed Date -->
+      <!-- 3-Step Reality Meter + One-Line Reason, Cited Source & Last Reviewed Date -->
       <div class="reality-grid">
         <div class="reality-card">
           <div class="rc-top">
             <span class="rc-tag">{$dict.player.realityTitle}</span>
             <span class="rc-date">{$dict.player.realityReviewed}: {wish.realityMeter.lastReviewed}</span>
           </div>
-          <div class="rm-bar-track" aria-hidden="true">
-            <div class="rm-bar-fill" style={`width: ${Math.max(4, wish.realityMeter.score)}%`}></div>
-          </div>
-          <p class="rm-status">{lText(wish.realityMeter.statusLabel)}</p>
-          <p class="rm-note">{lText(wish.realityMeter.note)}</p>
+          <ol class="rm-scale-steps" aria-label={$dict.player.realityTitle}>
+            <li class="rm-step" class:active={scaleIdx === 0}>
+              <span class="rm-dot" aria-hidden="true"></span>
+              <span>{$dict.player.realityScales.imagination}</span>
+            </li>
+            <li class="rm-step" class:active={scaleIdx === 1}>
+              <span class="rm-dot" aria-hidden="true"></span>
+              <span>{$dict.player.realityScales.possibleSoon}</span>
+            </li>
+            <li class="rm-step" class:active={scaleIdx === 2}>
+              <span class="rm-dot" aria-hidden="true"></span>
+              <span>{$dict.player.realityScales.realToday}</span>
+            </li>
+          </ol>
+          <p class="rm-note">{lText(wish.realityMeter.reason)}</p>
+          {#if wish.realityMeter.observedMetric?.directCapabilityMatch}
+            <p class="rm-direct-metric">
+              <strong>{wish.realityMeter.observedMetric.value}</strong> — {lText(wish.realityMeter.observedMetric.label)}
+            </p>
+          {/if}
           <p class="rm-source">
             {$dict.player.realitySource}:
             {#if wish.realityMeter.sourceUrl.startsWith('/')}
@@ -842,25 +864,55 @@
     color: var(--text-secondary);
   }
 
-  .rm-bar-track {
-    height: 8px;
-    border-radius: 9999px;
+  .wp-draft-tag {
+    margin-bottom: 0;
+  }
+
+  .rm-scale-steps {
+    list-style: none;
+    margin: 0 0 0.65rem;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.35rem;
+  }
+
+  .rm-step {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.34rem 0.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-subtle);
     background: var(--bg-surface-sunken);
-    overflow: hidden;
-    margin-bottom: 0.45rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-secondary);
   }
 
-  .rm-bar-fill {
-    height: 100%;
+  .rm-step.active {
+    background: var(--threat-sovereign-bg);
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+    font-weight: 800;
+  }
+
+  .rm-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: var(--border-medium);
+  }
+
+  .rm-step.active .rm-dot {
     background: var(--accent-primary);
-    border-radius: 9999px;
   }
 
-  .rm-status {
-    margin: 0 0 0.25rem;
-    font-size: 0.84rem;
-    font-weight: 700;
-    color: var(--text-primary);
+  .rm-direct-metric {
+    margin: 0 0 0.3rem;
+    font-size: 0.78rem;
+    color: var(--accent-primary);
   }
 
   .rm-note,
@@ -961,6 +1013,12 @@
     }
     .fp-opts,
     .reality-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 440px) {
+    .rm-scale-steps {
       grid-template-columns: 1fr;
     }
   }

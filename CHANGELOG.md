@@ -5,14 +5,16 @@ All notable changes to the Humanity Superintelligence Readiness Index (HSRI) res
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased — Phase 2.5 Terminology & Toto Guide Pass] — 2026-11-26
+## [Unreleased — Phase 2.5 Terminology, Toto & Checkpoint 2.5 Review Fixes] — 2026-11-26
 
 ### Changed
-- **Terminology Migration Across `en`, `es`, `ar` (`AGENT PROMPT v2` §2)**: Replaced user-facing `wish`/`wishes`/`wisher`/`Five doors` and `Kalpa`/`Wishgiver` with **`breakthrough`/`breakthroughs`/`participant`/`Five domains`** (*Open Problems*, *Everyday Technologies*, *Transformative Powers*, *Culture & Creativity*, *Public Good*) and fictional guide **`Toto`** (`توتو` in Arabic), updating headline (`"Humanity Readiness: are we ready for what we're asking superintelligence to deliver?"`), closing line (`"Every great breakthrough needs a ready world."`), `/privacy/` labels, country catch panel, and Trail/Shadow exports while preserving internal IDs, filenames (`wishes.json`), and `hr:v1:*` storage keys.
-- **Breakthrough Schema & Build Gate (`wishes.schema.json`, `wishes.json`, `validate_wishes.mjs`)**: Added explicit `status` (`DRAFT` vs `reviewed`), `wonder.totoLine`, updated closing-line assertion, and build-time guard against retired `wish`/`Kalpa`/`Wishgiver` copy.
+- **Status Enum & Build Flag Gating (`wishes.schema.json`, `wishes.json`, `breakthroughCatalog.ts`)**: Replaced mixed status tags strictly with `"draft"` / `"owner_approved"` (all 5 active breakthroughs + 15 dev drafts marked `"draft"`). Gated visual `DRAFT` badges behind `PUBLIC_SHOW_DRAFTS === 'true'` (`npm run build:preview` / `astro dev`, never rendered in production `npm run build`), and gated the 15 newly drafted breakthroughs behind `PUBLIC_SHOW_DEV_BREAKTHROUGHS === 'true'` / `import.meta.env.DEV` so Vite tree-shakes them from production bundles.
+- **3-Step Reality Meter (`WishPlayer.svelte`, `wishes.schema.json`, `DECISIONS.md`)**: Replaced numeric `0–100` bar and removed unsupported `Jarvis` `64` metric with a three-step scale (`Imagination` | `Possible soon` | `Real today`), one-line `reason`, cited `source`, and `lastReviewed` date (`observedMetric` gated strictly on `directCapabilityMatch === true`).
+- **Terminology Migration & Arabic Wall Fix (`en.ts`, `es.ts`, `ar.ts`)**: Replaced user-facing `wish`/`Kalpa` with `breakthrough`/`Toto`, replaced Arabic `"What the world is asking for"` loose phrasing with plain literal **`تُفتح صفحة «ما الذي يطلبه العالم؟» بعد أول 20 مساهمة مجهولة الهوية.`**, and updated titles/scripts/Privacy/Country/Trail copy while preserving internal IDs and `hr:v1:*` keys.
 
 ### Added
-- **Toto Guide Surfaces (`AGENT PROMPT v2` §9)**: Added `TotoIllustration.svelte` (dawn orb + orbital ring SVG in `calm`/`curious`/`apologetic` poses with `prefers-reduced-motion` static fallback), `MeetTotoCard.svelte` below Humanity's Pulse (`client:visible`, `CLS 0`), one-time dismissible Breakthrough Player greeting persisted in `hr:v1:intro_seen` (with `Skip` + `Escape` support and `/privacy/` inspection/deletion), spoken Toto lines/poses across all 4 beats, and static [`/toto/`](/toto/) route linked from the card and footer.
+- **Pre-Production Drafts & Review Docs (`DRAFT`)**: Drafted all 15 remaining breakthroughs (`wishes.draft15.json`, validated at build time), added native AR/ES review sheets (`reports/TRANSLATION_REVIEW_AR_ES.md`), `reports/PHASE_2_5_MERGE_CHECKLIST.md`, Pilot Episode 1 storyboard (`reports/PILOT_EPISODE_1_STORYBOARD.md`), and Phase 3 backend architecture design (`reports/PHASE_3_DESIGN.md`).
+- **Toto Guide Surfaces (`AGENT PROMPT v2` §9)**: Added `TotoIllustration.svelte`, `MeetTotoCard.svelte`, one-time `hr:v1:intro_seen` greeting with `Skip` + `Escape`, beat speech lines/poses, and static `/toto/` route.
 
 ## [Unreleased — Phase 2 Wish Player, Readiness Lights & Live ES/AR i18n] — 2026-11-26
 

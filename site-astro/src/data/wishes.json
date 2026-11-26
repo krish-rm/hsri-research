@@ -4,7 +4,8 @@
     "door": "epic",
     "order": 1,
     "icon": "eye",
-    "status": "reviewed",
+    "status": "draft",
+    "devOnly": false,
     "title": {
       "en": "Sanjeevani: cure anything",
       "es": "Sanjeevani: curarlo todo",
@@ -40,7 +41,7 @@
         "es": "Una ventana al amanecer ilumina camas tranquilas mientras la esfera luminosa de Toto pulsa suavemente en su anillo.",
         "ar": "تشرق نافذة الفجر فوق أسرة المستشفى الهادئة بينما ينبض جرم توتو المضيء بلطف داخل حلقته."
       },
-      "draft": false
+      "draft": true
     },
     "wobble": {
       "text": {
@@ -53,7 +54,7 @@
         "es": "Registros en papel, horarios médicos y tarjetas de pensión se desajustan suavemente en torno al hospital.",
         "ar": "تميل السجلات الورقية وجداول العيادات وبطاقات التقاعد برفق حول العنبر الهادئ."
       },
-      "draft": false
+      "draft": true
     },
     "weight": {
       "question": {
@@ -66,7 +67,7 @@
         "es": "Una balanza tranquila se detiene ante tres preguntas humanas junto a la luz de Toto.",
         "ar": "يتوقف ميزان هادئ أمام ثلاثة تساؤلات بشرية بجانب ضوء توتو."
       },
-      "draft": false,
+      "draft": true,
       "options": [
         {
           "id": "a",
@@ -126,21 +127,15 @@
         "es": "Se abre una tarjeta verde esmeralda con una lista sencilla escrita a mano junto a una linterna cálida.",
         "ar": "تُفتح بطاقة خضراء هادئة تُظهر قائمة مكتوبة بخط اليد بجانب مصباح دافئ."
       },
-      "draft": false
+      "draft": true
     },
     "closingLine": "Every great breakthrough needs a ready world.",
     "realityMeter": {
-      "score": 0,
-      "isConservativeBaseline": true,
-      "statusLabel": {
-        "en": "Conservative baseline: 0 / 100 · Universal cure remains Imagination",
-        "es": "Base conservadora: 0 / 100 · La cura universal sigue siendo Imaginación",
-        "ar": "خط أساس محافظ: 0 / 100 · العلاج الشامل لا يزال من الخيال"
-      },
-      "note": {
-        "en": "Conservative pre-deployment baseline set at 0/100 because universal multi-system cures do not exist today; AI supports narrow protein and candidate screening only.",
-        "es": "Base conservadora en 0/100 porque no existen curas universales multisistémicas; la IA actual apoya solo el cribado molecular específico.",
-        "ar": "خط أساس محافظ عند 0/100 لعدم وجود علاج شامل لكل الأمراض اليوم؛ تقتصر النماذج الحالية على فرز جزيئات محددة."
+      "scale": "Imagination",
+      "reason": {
+        "en": "AI assists target screening for specific diseases today, while universal cures across complex biology remain distant fiction.",
+        "es": "La IA ayuda hoy a cribar moléculas para males concretos; una cura universal para cualquier enfermedad sigue siendo lejana.",
+        "ar": "يساعد الذكاء الاصطناعي في فرز أدوية لأمراض محددة اليوم، بينما يظل العلاج الشامل لكل مرض خيالاً بعيداً."
       },
       "source": "WHO Health Systems Overview & HSRI Scientific Evidence Archive",
       "sourceUrl": "/monograph/",
@@ -152,7 +147,8 @@
     "door": "gadgets",
     "order": 2,
     "icon": "pocket",
-    "status": "reviewed",
+    "status": "draft",
+    "devOnly": false,
     "title": {
       "en": "Jarvis-style life assistant",
       "es": "Asistente estilo Jarvis",
@@ -188,7 +184,7 @@
         "es": "Iconos de billetes, agenda y correo se ordenan en un aro luminoso sereno.",
         "ar": "تنتظم أيقونات التذاكر والتقويم والرسائل بسلاسة داخل حلقة مضيئة هادئة."
       },
-      "draft": false
+      "draft": true
     },
     "wobble": {
       "text": {
@@ -201,7 +197,7 @@
         "es": "La órbita luminosa se detiene un instante; un candado en blanco parpadea suavemente sobre un cuaderno vacío.",
         "ar": "يتوقف المدار المضيء للحظة، ويومض قفل فارغ برفق فوق دفتر ملاحظات أبيض."
       },
-      "draft": false
+      "draft": true
     },
     "weight": {
       "question": {
@@ -214,7 +210,7 @@
         "es": "Dos flechas señalan una brújula personal y un nodo externo mientras sopesas la decisión.",
         "ar": "سهمان يشيران إلى بوصلة شخصية وخادم خارجي بينما تزن الخيارات."
       },
-      "draft": false,
+      "draft": true,
       "options": [
         {
           "id": "a",
@@ -274,24 +270,18 @@
         "es": "Un lápiz traza una línea firme entre una llave y una pequeña libreta de bolsillo.",
         "ar": "يرسم قلم ثابت خطاً واضحاً يصل بين مفتاح ودفتر جيب صغير."
       },
-      "draft": false
+      "draft": true
     },
     "closingLine": "Every great breakthrough needs a ready world.",
     "realityMeter": {
-      "score": 64,
-      "isConservativeBaseline": false,
-      "statusLabel": {
-        "en": "64 / 100 observed M2M automation share (Seismometer Stream 1)",
-        "es": "64 / 100 cuota de automatización observada (Sismógrafo Flujo 1)",
-        "ar": "64 / 100 حصة الأتمتة المرصودة (مقياس الاستقلالية)"
+      "scale": "Possible soon",
+      "reason": {
+        "en": "Software agents already draft, schedule, and trigger payments in narrow tasks, though reliable personal delegation lags behind.",
+        "es": "Ya existen agentes que redactan, agendan y pagan en tareas concretas, pero delegarles todo de forma fiable aún está lejos.",
+        "ar": "تنجز المساعدات الرقمية المجدولة والحجز والدفع في مهام محددة اليوم، لكن الاعتماد الشامل الموثوق لم ينضج بعد."
       },
-      "note": {
-        "en": "Derived directly from HSRI Autonomy Seismometer m2m_composite_share (0.6357, Oct 2026); human verification trail lags behind with a 75.6% paper-trail gap.",
-        "es": "Tomado directamente del Sismógrafo de Autonomía HSRI (0.6357, oct 2026); la verificación humana va detrás con una brecha del 75.6%.",
-        "ar": "مأخوذ مباشرة من مرصد الاستقلالية HSRI (0.6357، أكتوبر 2026) بينما تتأخر مسارات التحقق البشري بنسبة 75.6%."
-      },
-      "source": "HSRI Autonomy Seismometer Stream 1 (autonomy_seismometer.json, 2026-10)",
-      "sourceUrl": "/seismograph/",
+      "source": "HSRI Scenario Atlas (SC-14 & SC-19 Tool-Use Evaluations)",
+      "sourceUrl": "/scenarios/",
       "lastReviewed": "2026-11-26"
     }
   },
@@ -300,7 +290,8 @@
     "door": "mysteries",
     "order": 3,
     "icon": "chalkboard",
-    "status": "reviewed",
+    "status": "draft",
+    "devOnly": false,
     "title": {
       "en": "Prove the Riemann Hypothesis",
       "es": "Demostrar la Hipótesis de Riemann",
@@ -336,7 +327,7 @@
         "es": "Trazos cálidos de tiza dibujan ondas de números primos sobre una pizarra limpia.",
         "ar": "ترسم خطوط طباشير دافئة موجات الأعداد الأولية فوق لوح هادئ."
       },
-      "draft": false
+      "draft": true
     },
     "wobble": {
       "text": {
@@ -349,7 +340,7 @@
         "es": "Las páginas se apilan hacia arriba mientras dos lectores miran con una lupa.",
         "ar": "تتراكم الصفحات دون نهاية بينما ينظر قارئان بعدسة مكبرة."
       },
-      "draft": false
+      "draft": true
     },
     "weight": {
       "question": {
@@ -362,7 +353,7 @@
         "es": "Una lente se posa sobre una ecuación abierta aguardando revisión.",
         "ar": "تتوقف عدسة فوق معادلة مفتوحة بانتظار المراجعة."
       },
-      "draft": false,
+      "draft": true,
       "options": [
         {
           "id": "a",
@@ -422,21 +413,15 @@
         "es": "Un cuaderno abierto brilla junto a un sello de ciencia abierta comprobable.",
         "ar": "يضيء دفتر مفتوح بجانب ختم علمي واضح قابل للتحقق."
       },
-      "draft": false
+      "draft": true
     },
     "closingLine": "Every great breakthrough needs a ready world.",
     "realityMeter": {
-      "score": 0,
-      "isConservativeBaseline": true,
-      "statusLabel": {
-        "en": "Conservative baseline: 0 / 100 · Unsolved since 1859",
-        "es": "Base conservadora: 0 / 100 · Sin resolver desde 1859",
-        "ar": "خط أساس محافظ: 0 / 100 · لم تُحل منذ 1859"
-      },
-      "note": {
-        "en": "Conservative baseline 0/100: zero Millennium Prize proofs have been generated or verified; current formal assistants handle narrow lemmas.",
-        "es": "Base conservadora 0/100: ninguna conjetura del Milenio ha sido resuelta por IA; los asistentes formales cubren lemas concretos.",
-        "ar": "خط أساس محافظ 0/100: لم يثبت الذكاء الاصطناعي أي مسألة ألفية؛ المساعدات البرمجية تختص بخطوات جزئية."
+      "scale": "Imagination",
+      "reason": {
+        "en": "Unsolved since 1859; formal assistants check short proof steps today rather than settling open Millennium conjectures.",
+        "es": "Sin resolver desde 1859; los asistentes formales revisan pasos cortos pero no resuelven problemas del Milenio.",
+        "ar": "لم تُحل منذ 1859؛ تتحقق الأنظمة الحالية من خطوات برهانية قصيرة لا حل مسائل الألفية المفتوحة."
       },
       "source": "Clay Mathematics Institute — Millennium Prize Status",
       "sourceUrl": "https://www.claymath.org/millennium/riemann-hypothesis/",
@@ -448,7 +433,8 @@
     "door": "movie",
     "order": 4,
     "icon": "frame",
-    "status": "DRAFT",
+    "status": "draft",
+    "devOnly": false,
     "title": {
       "en": "Walk into a classic film",
       "es": "Entrar en un clásico del cine",
@@ -484,13 +470,13 @@
         "es": "Un marco dorado de cine se abre suavemente hacia una calle iluminada por faroles.",
         "ar": "ينفتح إطار سينمائي دافئ نحو زقاق مضاء بالفوانيس."
       },
-      "draft": false
+      "draft": true
     },
     "wobble": {
       "text": {
-        "en": "DRAFT: Every conversation flatters you on cue — until real neighbours seem awkward by comparison, and fewer footsteps pass outside your front street.",
-        "es": "BORRADOR: Cada diálogo te da la razón al instante — hasta que las charlas reales parecen incómodas y el café del barrio se vacía.",
-        "ar": "مسودة (DRAFT): كل حوار يوافقك بسلاسة مثالية — إلى أن تبدو لقاءات الجيران الحقيقية بطيئة وتفرغ المقاهي الواقعية."
+        "en": "Every conversation flatters you on cue — until real neighbours seem awkward by comparison, and fewer footsteps pass outside your front street.",
+        "es": "Cada diálogo te da la razón al instante — hasta que las charlas reales parecen incómodas y el café del barrio se vacía.",
+        "ar": "كل حوار يوافقك بسلاسة مثالية — إلى أن تبدو لقاءات الجيران الحقيقية بطيئة وتفرغ المقاهي الواقعية."
       },
       "transcript": {
         "en": "A bright film frame stays vivid inside while two real coffee cups sit untouched on a quiet terrace.",
@@ -501,9 +487,9 @@
     },
     "weight": {
       "question": {
-        "en": "DRAFT: How would we stop this scripted world from replacing the messy real one outside?",
-        "es": "BORRADOR: ¿Cómo evitaríamos que este mundo guionizado sustituya al mundo real de fuera?",
-        "ar": "مسودة (DRAFT): كيف نمنع هذا العالم المصنوع من استبدال العالم الواقعي في الخارج؟"
+        "en": "How would we stop this scripted world from replacing the messy real one outside?",
+        "es": "¿Cómo evitaríamos que este mundo guionizado sustituya al mundo real de fuera?",
+        "ar": "كيف نمنع هذا العالم المصنوع من استبدال العالم الواقعي في الخارج؟"
       },
       "transcript": {
         "en": "An archway divides a cosy storybook glow from an open coastal harbour at morning.",
@@ -574,17 +560,11 @@
     },
     "closingLine": "Every great breakthrough needs a ready world.",
     "realityMeter": {
-      "score": 0,
-      "isConservativeBaseline": true,
-      "statusLabel": {
-        "en": "Conservative baseline: 0 / 100 · Early interactive clips only",
-        "es": "Base conservadora: 0 / 100 · Solo escenas breves hoy",
-        "ar": "خط أساس محافظ: 0 / 100 · مقاطع تفاعلية قصيرة فقط"
-      },
-      "note": {
-        "en": "Conservative baseline 0/100: multi-hour persistent worlds with consistent social memory are unachieved; linked to Atlas human disempowerment scenarios.",
-        "es": "Base conservadora 0/100: no existen mundos interactivos coherentes de larga duración; vinculado al Atlas de Escenarios.",
-        "ar": "خط أساس محافظ 0/100: العوالم المستمرة المتماسكة لساعات غير متحققة بعد؛ مرتبط بمسارات أطلس السيناريوهات."
+      "scale": "Possible soon",
+      "reason": {
+        "en": "Interactive world models render short clips today, while persistent long-form environments with memory remain unachieved.",
+        "es": "Los modelos de mundos interactivos ya generan escenas cortas, pero falta coherencia sostenida durante horas.",
+        "ar": "تولّد نماذج العوالم التفاعلية مقاطع قصيرة اليوم، لكن التماسك الطويل المستمر غير متحقق بعد."
       },
       "source": "HSRI Scenario Atlas (SC-19 & SC-22 Literature Synthesis)",
       "sourceUrl": "/scenarios/",
@@ -596,7 +576,8 @@
     "door": "world",
     "order": 5,
     "icon": "lamp",
-    "status": "DRAFT",
+    "status": "draft",
+    "devOnly": false,
     "title": {
       "en": "Fix my river",
       "es": "Limpiar mi río",
@@ -632,13 +613,13 @@
         "es": "Ondas turquesa brillan suavemente por un río limpio rodeado de árboles.",
         "ar": "تلمع تموجات فيروزية هادئة عبر نهر نظيف تحفه الأشجار."
       },
-      "draft": false
+      "draft": true
     },
     "wobble": {
       "text": {
-        "en": "DRAFT: Toto's sensors expose every hidden runoff pipe upstream — leaving two neighbouring towns arguing over who holds the switch and pays the bill.",
-        "es": "BORRADOR: Los sensores de Toto señalan cada vertido oculto río arriba — y dejan a dos pueblos vecinos discutiendo quién controla la compuerta y asume el coste.",
-        "ar": "مسودة (DRAFT): تكشف مستشعرات توتو كل أنبوب تصريف خفي عند المنبع — فتختلف بلدتان متجاورتان على من يملك قرار الإغلاق ومن يدفع الكلفة."
+        "en": "Toto's sensors expose every hidden runoff pipe upstream — leaving two neighbouring towns arguing over who holds the switch and pays the bill.",
+        "es": "Los sensores de Toto señalan cada vertido oculto río arriba — y dejan a dos pueblos vecinos discutiendo quién controla la compuerta y asume el coste.",
+        "ar": "تكشف مستشعرات توتو كل أنبوب تصريف خفي عند المنبع — فتختلف بلدتان متجاورتان على من يملك قرار الإغلاق ومن يدفع الكلفة."
       },
       "transcript": {
         "en": "Clean beacon dots light up along the river curve while town signposts point in opposite directions.",
@@ -649,9 +630,9 @@
     },
     "weight": {
       "question": {
-        "en": "DRAFT: The data works cleanly. Who gets the power to shut valves when towns disagree?",
-        "es": "BORRADOR: El diagnóstico funciona con precisión. ¿Quién recibe el poder de cerrar válvulas cuando los pueblos no se ponen de acuerdo?",
-        "ar": "مسودة (DRAFT): يعمل الرصد بدقة. لمن نمنح سلطة إغلاق الصمامات حين تختلف المدن؟"
+        "en": "The data works cleanly. Who gets the power to shut valves when towns disagree?",
+        "es": "El diagnóstico funciona con precisión. ¿Quién recibe el poder de cerrar válvulas cuando los pueblos no se ponen de acuerdo?",
+        "ar": "يعمل الرصد بدقة. لمن نمنح سلطة إغلاق الصمامات حين تختلف المدن؟"
       },
       "transcript": {
         "en": "Two town bridges flank a central river gauge showing shared water readings.",
@@ -722,17 +703,11 @@
     },
     "closingLine": "Every great breakthrough needs a ready world.",
     "realityMeter": {
-      "score": 0,
-      "isConservativeBaseline": true,
-      "statusLabel": {
-        "en": "Conservative baseline: 0 / 100 · Automated restoration governance unachieved",
-        "es": "Base conservadora: 0 / 100 · Gobernanza autónoma aún no lograda",
-        "ar": "خط أساس محافظ: 0 / 100 · حوكمة الإصلاح التلقائي غير محققة بعد"
-      },
-      "note": {
-        "en": "Conservative baseline 0/100: sensor alerts exist today, while cross-town environmental enforcement remains a human governance challenge.",
-        "es": "Base conservadora 0/100: existen alertas por sensores, pero la gestión justa sigue siendo humana.",
-        "ar": "خط أساس محافظ 0/100: توجد تنبيهات المستشعرات اليوم، لكن الاتفاق العادل يظل مسؤولية بشرية."
+      "scale": "Possible soon",
+      "reason": {
+        "en": "Sensor monitoring locates runoff today, while physical cleanup and enforcement still require human civic agreements.",
+        "es": "Los sensores ya detectan vertidos, pero limpiar cuencas depende aún de acuerdos cívicos humanos.",
+        "ar": "ترصد المستشعرات مصادر التلوث اليوم، غير أن تنظيف الأنهار يظل رهين اتفاق البلدات وتنفيذ البشر."
       },
       "source": "HSRI Scenario Atlas (SC-08 & SC-16 Governance Review)",
       "sourceUrl": "/scenarios/",

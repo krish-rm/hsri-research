@@ -7,6 +7,8 @@
     "start": "astro dev",
     "validate:wishes": "node scripts/validate_wishes.mjs",
     "build": "node scripts/validate_wishes.mjs && astro build",
+    "build:preview": "node -e \"process.env.PUBLIC_SHOW_DRAFTS='true'; require('child_process').execSync('node scripts/validate_wishes.mjs && astro build', { stdio: 'inherit' })\"",
+    "build:dev": "node -e \"process.env.PUBLIC_SHOW_DRAFTS='true'; process.env.PUBLIC_SHOW_DEV_BREAKTHROUGHS='true'; require('child_process').execSync('node scripts/validate_wishes.mjs && astro build', { stdio: 'inherit' })\"",
     "preview": "astro preview"
   },
   "keywords": [

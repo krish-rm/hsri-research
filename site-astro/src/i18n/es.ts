@@ -332,7 +332,7 @@ export const es: TranslationDict = {
   wishWall: {
     heading: 'Lo que el mundo está pidiendo',
     themes: ['Salud', 'Aprendizaje', 'Clima', 'Dignidad', 'Asombro', 'Verdad'],
-    emptyHeadline: 'Este mosaico global abrirá tras los primeros 20 aportes anónimos compartidos.',
+    emptyHeadline: 'Este espacio de «Lo que el mundo está pidiendo» abrirá tras los primeros 20 aportes anónimos compartidos.',
     emptyBody:
       'Cada elección permanece privada en tu navegador por defecto. Los temas colectivos solo aparecen cuando al menos 20 personas reales deciden compartirlos.',
     cta: 'Elige un avance'
@@ -434,6 +434,11 @@ export const es: TranslationDict = {
     pledgeDone: 'Hábito guardado en este dispositivo',
     closingLine: 'Todo gran avance necesita un mundo preparado.',
     realityTitle: 'Medidor de Realidad',
+    realityScales: {
+      imagination: 'Imaginación',
+      possibleSoon: 'Posible pronto',
+      realToday: 'Real hoy'
+    },
     realityReviewed: 'Última revisión',
     realitySource: 'Fuente',
     shadowTitle: 'Detrás de este avance (Atlas de Escenarios)',
