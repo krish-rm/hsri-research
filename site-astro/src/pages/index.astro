@@ -563,16 +563,46 @@ const countryCatalog = buildCountryWidgetCatalog().filter((c) => starterIsos.has
 
   @media (max-width: 768px) {
     .defer-wall {
-      contain-intrinsic-size: auto 554px;
+      contain-intrinsic-size: auto 440px;
     }
     .defer-wisher {
-      contain-intrinsic-size: auto 552px;
+      contain-intrinsic-size: auto 390px;
     }
   }
 
   @media (max-width: 680px) {
+    .story-block {
+      padding: 1.55rem 0;
+    }
+    .section-head {
+      margin-bottom: 1rem;
+    }
+    .episode-card,
+    .recap-card {
+      padding: 0.95rem;
+    }
+    .wall-invitation-box {
+      padding: 1.1rem 0.95rem;
+    }
     .wisher-dual-grid {
       grid-template-columns: 1fr;
+      gap: 0.65rem;
+      margin-bottom: 0.9rem;
+    }
+    .wisher-card {
+      padding: 0.85rem 0.95rem;
+    }
+    .wisher-title {
+      font-size: 1.05rem;
+      margin-bottom: 0.3rem;
+    }
+    .wisher-body {
+      font-size: 0.88rem;
+      line-height: 1.48;
+      margin-bottom: 0.45rem;
+    }
+    .wisher-closing {
+      font-size: 0.98rem;
     }
   }
 </style>

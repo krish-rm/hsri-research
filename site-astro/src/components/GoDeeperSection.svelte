@@ -20,23 +20,31 @@
     {#if revealed}
       <div class="deeper-grid">
         {#each $dict.deeper.cards as card}
-          <article class="deeper-card">
-            <span class="dc-tag">{card.tag}</span>
-            <h3 class="dc-title">{card.title}</h3>
-            <p class="dc-desc">{card.desc}</p>
-
-            {#if 'extraLinks' in card && card.extraLinks}
+          {#if 'extraLinks' in card && card.extraLinks}
+            <article class="deeper-card">
+              <div class="dc-top-row">
+                <span class="dc-tag">{card.tag}</span>
+              </div>
+              <h3 class="dc-title">{card.title}</h3>
+              <p class="dc-desc">{card.desc}</p>
               <div class="dc-multi-links">
                 {#each card.extraLinks as sub}
-                  <a href={`${base}${sub.href}`} class="dc-link-inline">{sub.label} &rarr;</a>
+                  <a href={`${base}${sub.href}`} class="dc-link-inline">
+                    {sub.label} <span class="arrow-flip" aria-hidden="true">&rarr;</span>
+                  </a>
                 {/each}
               </div>
-            {:else}
-              <a href={`${base}${card.href}`} class="dc-link">
-                Open {card.title} <span class="arrow-flip" aria-hidden="true">&rarr;</span>
-              </a>
-            {/if}
-          </article>
+            </article>
+          {:else}
+            <a href={`${base}${card.href}`} class="deeper-card deeper-card-link">
+              <div class="dc-top-row">
+                <span class="dc-tag">{card.tag}</span>
+                <span class="dc-go-pill arrow-flip" aria-hidden="true">&rarr;</span>
+              </div>
+              <h3 class="dc-title">{card.title}</h3>
+              <p class="dc-desc">{card.desc}</p>
+            </a>
+          {/if}
         {/each}
       </div>
     {:else}
@@ -75,7 +83,7 @@
     background: var(--bg-surface-sunken);
     border-top: 1px solid var(--border-subtle);
     border-bottom: 1px solid var(--border-subtle);
-    min-height: 802px;
+    min-height: 680px;
   }
 
   .story-container {
@@ -125,9 +133,26 @@
     background: var(--bg-surface-elevated);
     border: 1px solid var(--border-medium);
     border-radius: 14px;
-    padding: 1.25rem;
+    padding: 1.15rem 1.2rem;
     display: flex;
     flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
+  }
+
+  .deeper-card-link:hover {
+    border-color: var(--accent-primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .dc-top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.35rem;
   }
 
   .dc-tag {
@@ -136,43 +161,39 @@
     font-weight: 800;
     letter-spacing: 0.06em;
     color: var(--accent-primary);
-    margin-bottom: 0.4rem;
+  }
+
+  .dc-go-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 9999px;
+    background: var(--accent-primary);
+    color: var(--btn-primary-text);
+    font-size: 0.85rem;
+    font-weight: 800;
+    flex-shrink: 0;
   }
 
   .dc-title {
     font-size: 1.08rem;
     font-weight: 700;
-    margin: 0 0 0.45rem;
+    margin: 0 0 0.4rem;
     color: var(--text-primary);
   }
 
   .dc-desc {
-    margin: 0 0 1rem;
+    margin: 0;
     font-size: 0.88rem;
-    line-height: 1.52;
+    line-height: 1.5;
     color: var(--text-secondary);
     flex-grow: 1;
   }
 
-  .dc-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    width: fit-content;
-    padding: 0.5rem 0.95rem;
-    border-radius: 8px;
-    background: var(--accent-primary);
-    color: var(--btn-primary-text);
-    text-decoration: none;
-    font-size: 0.82rem;
-    font-weight: 700;
-  }
-
-  .dc-link:hover {
-    background: var(--accent-primary-hover);
-  }
-
   .dc-multi-links {
+    margin-top: 0.75rem;
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem 0.9rem;
@@ -216,7 +237,7 @@
 
   @media (max-width: 960px) {
     .go-deeper-section {
-      min-height: 1120px;
+      min-height: 680px;
     }
     .deeper-grid {
       grid-template-columns: repeat(2, 1fr);
@@ -225,10 +246,56 @@
 
   @media (max-width: 680px) {
     .go-deeper-section {
-      min-height: 1743px;
+      padding: 1.45rem 0;
+      min-height: 820px;
+    }
+    .section-head {
+      margin-bottom: 0.9rem;
     }
     .deeper-grid {
       grid-template-columns: 1fr;
+      gap: 0.48rem;
+      margin-bottom: 0.85rem;
+    }
+    .deeper-card {
+      padding: 0.7rem 0.85rem;
+      border-radius: 11px;
+    }
+    .dc-top-row {
+      margin-bottom: 0.15rem;
+    }
+    .dc-tag {
+      font-size: 0.63rem;
+    }
+    .dc-go-pill {
+      width: 24px;
+      height: 24px;
+      font-size: 0.76rem;
+    }
+    .dc-title {
+      font-size: 0.96rem;
+      margin-bottom: 0.18rem;
+    }
+    .dc-desc {
+      font-size: 0.8rem;
+      line-height: 1.38;
+    }
+    .dc-multi-links {
+      margin-top: 0.45rem;
+      gap: 0.3rem 0.75rem;
+    }
+    .dc-link-inline {
+      display: inline-flex;
+      align-items: center;
+      min-height: 36px;
+      font-size: 0.79rem;
+    }
+    .release-footer-box {
+      padding: 0.7rem 0.85rem;
+    }
+    .release-note,
+    .release-doi {
+      font-size: 0.76rem;
     }
   }
 </style>
