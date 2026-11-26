@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "validate:wishes": "node scripts/validate_wishes.mjs",
+    "build": "node scripts/validate_wishes.mjs && astro build",
     "preview": "astro preview"
   },
   "keywords": [

@@ -3,6 +3,7 @@
   import type { CountrySummaryItem } from '../lib/countryData';
   import { dict } from '../i18n/store';
   import { trackEvent } from '../lib/privacyStorage';
+  import { completedWishList, setSelectedCountryForReadiness } from '../lib/readinessState';
 
   export let countries: CountrySummaryItem[] = [];
   export let base = '';
@@ -65,6 +66,15 @@
     selectedIso = iso;
     localeDetected = false;
     openTooltip = null;
+    const found = allCountries.find((c) => c.iso === iso);
+    if (found) {
+      setSelectedCountryForReadiness({
+        iso: found.iso,
+        name: found.name,
+        kind: found.kind,
+        checklistCount: found.kind === 'rated' ? found.checklistCount : undefined
+      });
+    }
     trackEvent('country_selected', { iso });
   }
 
@@ -278,7 +288,11 @@
             <div>
               <span class="cl-kicker">{$dict.country.checklistLabel}</span>
               <h4 class="cl-title">
-                To receive fast AI tools safely, {activeCountry.name} currently has <strong>{activeCountry.checklistCount} of 5 things in place</strong>
+                {#if $completedWishList.length > 0}
+                  To receive &ldquo;{$completedWishList[$completedWishList.length - 1].wishTitle}&rdquo;, {activeCountry.name} currently has <strong>{activeCountry.checklistCount} of 5 things in place</strong>
+                {:else}
+                  To receive fast AI tools safely, {activeCountry.name} currently has <strong>{activeCountry.checklistCount} of 5 things in place</strong>
+                {/if}
               </h4>
             </div>
             <button type="button" class="tip-btn" onclick={() => toggleTip('checklist')} aria-expanded={openTooltip === 'checklist'}>

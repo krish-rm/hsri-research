@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { activeLocale, initLocale, setLocale } from '../i18n/store';
+  import { activeLocale, dict, initLocale, setLocale } from '../i18n/store';
+  import type { LocaleKey } from '../i18n/en';
   import { trackEvent } from '../lib/privacyStorage';
 
   const base = (import.meta.env.BASE_URL || '/hsri-research').replace(/\/$/, '');
@@ -29,7 +30,7 @@
     { name: 'Research Inquiries', href: 'mailto:contact@humanityreadiness.org', icon: 'email' },
   ];
 
-  function chooseLocale(loc: 'en' | 'rtl-stub') {
+  function chooseLocale(loc: LocaleKey) {
     setLocale(loc);
     trackEvent('locale_switched', { locale: loc });
     if (typeof window !== 'undefined') {
@@ -118,35 +119,43 @@
 
     <!-- Language & RTL Layout Switcher -->
     <div id="languages" class="footer-languages" aria-label="Language and reading direction">
-      <span class="lang-heading">Languages:</span>
+      <span class="lang-heading">{$dict.footerUi.langHeading}</span>
       <button
         type="button"
         class="lang-btn"
         class:active={$activeLocale === 'en'}
         on:click={() => chooseLocale('en')}
       >
-        English (LTR)
+        English
       </button>
       <button
         type="button"
         class="lang-btn"
-        class:active={$activeLocale === 'rtl-stub'}
-        on:click={() => chooseLocale('rtl-stub')}
-        title="Verify right-to-left layout mirroring for upcoming translations"
+        class:active={$activeLocale === 'es'}
+        on:click={() => chooseLocale('es')}
       >
-        RTL Layout Test (Stub)
+        Español
       </button>
-      {#if $activeLocale === 'rtl-stub'}
-        <span class="rtl-badge" role="status">dir="rtl" active · global translations selected next</span>
+      <button
+        type="button"
+        class="lang-btn"
+        class:active={$activeLocale === 'ar'}
+        on:click={() => chooseLocale('ar')}
+        title="Switch to Arabic (live RTL layout)"
+      >
+        العربية (RTL)
+      </button>
+      {#if $activeLocale === 'ar' || $activeLocale === 'rtl-stub'}
+        <span class="rtl-badge" role="status">{$dict.footerUi.rtlActiveNotice}</span>
       {/if}
     </div>
 
     <!-- Bottom section -->
     <div class="footer-bottom">
       <div class="footer-links">
-        <a href={`${base}/privacy/`} class="footer-link">Privacy</a>
-        <a href="#languages" class="footer-link">Languages</a>
-        <a href={`${base}/#this-week`} class="footer-link">Join Friday's recap</a>
+        <a href={`${base}/privacy/`} class="footer-link">{$dict.footerUi.privacyLink}</a>
+        <a href="#languages" class="footer-link">{$dict.footerUi.languagesLink}</a>
+        <a href={`${base}/#this-week`} class="footer-link">{$dict.footerUi.recapLink}</a>
         <a href="https://doi.org/10.5281/zenodo.23441742" class="footer-link" target="_blank" rel="noopener noreferrer">Permanent DOI (Zenodo)</a>
         <a href={`${base}/methodology/#limitations`} class="footer-link">Actuarial Disclaimer</a>
         <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="footer-link" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0 License</a>

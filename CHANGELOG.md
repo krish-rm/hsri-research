@@ -5,6 +5,17 @@ All notable changes to the Humanity Superintelligence Readiness Index (HSRI) res
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased — Phase 2 Wish Player, Readiness Lights & Live ES/AR i18n] — 2026-11-26
+
+### Added
+- **Schema-Validated Wish Data (`site-astro/src/data/wishes.schema.json`, `wishes.json`, `scripts/validate_wishes.mjs`)**: Build-time schema & integrity gate validating `atlasRefs` against all 26 `SC-xx` IDs in `asi_scenarios.json`, required honesty notes, Reality Meter citations/`lastReviewed`, closing line parity, and Section 12 banned-jargon rules.
+- **Interactive 4-Beat Wish Player (`WishPlayer.svelte`, `WishSceneIllustration.svelte`)**: Playable **Wonder → Wobble → Weight → Way** journey for flagship wishes (*Sanjeevani*, *Jarvis for my life*, *Prove the Riemann Hypothesis*, plus `DRAFT`-marked *Walk into a classic film* and *Fix my river*), animated SVG/CSS scenes with Play/Pause/Replay, transcripts, and `prefers-reduced-motion` static frames.
+- **Five Readiness Lights, Trail Card & Shadow Map (`readinessState.ts`, `TrailAndShadowCard.svelte`)**: Local-first (`hr:v1:*`) 0–3 glow lights (`Clarity`, `Foresight`, `Fairness`, `Wisdom`, `Capability`), explicit-selection country link (`x of 5 things in place`), 3-wish shareable PNG/SVG Trail Card export, and 5-wish Shadow Map.
+- **Spanish & Arabic Live RTL Localization (`es.ts`, `ar.ts`, `store.ts`, `BaseLayout.astro`)**: Full copy and live `dir="rtl"` language switching in `HSRIFooter.svelte`.
+
+### Changed
+- **Phase 1 Layout Weight Trim (forwarded cleanly from `feat/phase-1-story-reframe`)**: Deferred SSR card grids in `FiveDoorsPreview.svelte`, `CountryCatchWidget.svelte`, and extracted `GoDeeperSection.svelte` behind lightweight viewport-matched height shells (`styleLayout` reduced ~33.5%, `totalEls` `616 -> 348`, keeping `a11y: 100` and `CLS: 0`).
+
 ## [Unreleased — Phase 1 Story Reframe] — 2026-11-26
 
 ### Changed

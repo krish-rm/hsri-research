@@ -106,10 +106,13 @@ const ogPageUrl = canonicalUrl.startsWith("http") ? canonicalUrl : `${siteOrigin
           const theme = savedTheme === 'dark' ? 'dark' : 'light';
           document.documentElement.setAttribute('data-theme', theme);
           const savedLocale = localStorage.getItem('hr:v1:locale');
-          document.documentElement.setAttribute('dir', savedLocale === 'rtl-stub' ? 'rtl' : 'ltr');
+          const isRtl = savedLocale === 'ar' || savedLocale === 'rtl-stub';
+          document.documentElement.setAttribute('dir', isRtl ? 'rtl' : 'ltr');
+          document.documentElement.setAttribute('lang', savedLocale === 'es' || savedLocale === 'ar' ? savedLocale : 'en');
         } catch (e) {
           document.documentElement.setAttribute('data-theme', 'light');
           document.documentElement.setAttribute('dir', 'ltr');
+          document.documentElement.setAttribute('lang', 'en');
         }
       })();
     </script>
