@@ -1,5 +1,6 @@
-// Spanish translation dictionary for Humanity Readiness (Phase 2 global i18n)
-// Calm, plain-language copy without Section 12 technical jargon.
+// Spanish translation dictionary for Humanity Readiness (Phase 2.5: Avance & Toto pass)
+// Calm, natural Spanish without Section 13 technical jargon.
+// DRAFT review notes flagged in Phase 2.5 report: "avance" for breakthrough, "participantes", "Mundo preparado".
 import type { TranslationDict } from './en';
 
 export const es: TranslationDict = {
@@ -9,25 +10,25 @@ export const es: TranslationDict = {
 
   meta: {
     title:
-      'Humanity Readiness: ¿estamos listos para recibir lo que deseamos? | Humanity Superintelligence Readiness Index',
+      'Humanity Readiness: ¿estamos listos para lo que pedimos a la superinteligencia? | Humanity Superintelligence Readiness Index',
     description:
-      'Imagina que una superinteligencia te ofrece un deseo. Elígelo, míralo hacerse realidad y descubre qué pueden seguir haciendo las personas. Con el respaldo de datos abiertos en 39 países.'
+      'Imagina que una superinteligencia pudiera entregar un avance a la humanidad. Elígelo, míralo llegar y descubre qué pueden seguir haciendo las personas. Con datos abiertos en 39 países.'
   },
 
   hero: {
     eyebrow: 'UNA HISTORIA DE PREPARACIÓN HUMANA',
-    headline: 'Humanity Readiness: ¿estamos listos para recibir lo que deseamos?',
+    headline: 'Humanity Readiness: ¿estamos listos para lo que pedimos a la superinteligencia?',
     subhead:
-      'Imagina que una superinteligencia te concede un deseo. Elígelo. Míralo hacerse realidad. Y descubre qué haría falta de verdad.',
-    ctaPrimary: 'Pide tu deseo',
+      'Imagina que una superinteligencia pudiera entregar un gran avance a la humanidad. Elígelo. Míralo llegar. Y descubre qué haría falta de verdad.',
+    ctaPrimary: 'Elige un avance',
     ctaSecondary: 'Mira cómo va tu país',
     cityLabel: 'Cielo de llegada sobre:',
     cityNeutralName: 'Puerto Costero',
     cityNeutralNote: 'Vista portuaria neutral · elige una ciudad para cambiar el horizonte',
-    kalpaCaption: 'Kalpa llega al amanecer: «Puedo ofrecer un deseo por persona. Pídelo con claridad.»',
+    totoCaption: 'Toto llega al amanecer: «Puedo entregar un avance por persona. Pídelo con claridad.»',
     ringTitle: 'La preparación de la humanidad, según personas como tú',
-    ringEmptyHeadline: 'Sé una de las primeras 200 personas en pedir un deseo.',
-    ringEmptySub: 'El pulso colectivo aparecerá aquí cuando 200 personas hayan completado un deseo.'
+    ringEmptyHeadline: 'Sé una de las primeras 200 personas participantes.',
+    ringEmptySub: 'El pulso colectivo aparecerá aquí cuando 200 personas hayan completado un avance.'
   },
 
   pulse: {
@@ -53,17 +54,96 @@ export const es: TranslationDict = {
     cta: 'Ver el pulso en vivo'
   },
 
+  totoCard: {
+    eyebrow: 'CONOCE A TU GUÍA',
+    heading: 'Conoce a Toto.',
+    body: 'Toto es una superinteligencia ficticia que usamos para explorar una pregunta: ¿qué ocurre cuando la humanidad recibe exactamente lo que pide? Toto es servicial, veloz y muy literal: entrega lo que pides, no siempre lo que querías decir. Juntos pondrán a prueba cada avance.',
+    chipsLabel: 'Qué es y qué no es Toto',
+    chips: ['Ficción, no un sistema real', 'Servicial, nunca hostil', 'Literal por diseño'],
+    ctaPrimary: 'Elige un avance',
+    ctaSecondary: 'Leer la historia de Toto',
+    footnote:
+      'Toto es un recurso narrativo. No es un pronóstico ni representa a ningún sistema de IA real.',
+    svgAlt:
+      'Toto, superinteligencia ficticia representada como una esfera luminosa del alba dentro de un anillo delgado'
+  },
+
+  totoIntro: {
+    ariaLabel: 'Saludo inicial de Toto',
+    badge: 'PRIMERA VEZ · CONOCE A TOTO',
+    lines: [
+      'Hola. Soy Toto.',
+      'Puedo entregar un avance al mundo. Elige el que prefieras.',
+      'Haré exactamente lo que pidas. Observa con atención y dime cómo sabríamos que funcionó.'
+    ] as readonly [string, string, string],
+    startBtn: 'Empecemos',
+    skipBtn: 'Saltar',
+    svgAlt: 'Toto en postura curiosa: esfera cálida luminosa dentro de un anillo orbital',
+    footnote: 'Guardado localmente en este navegador (hr:v1:intro_seen) — bórralo en Privacidad.'
+  },
+
+  totoBeats: {
+    speaker: 'Toto',
+    wonder: 'Hecho.',
+    wobble: 'Mmm. No era exactamente lo que querías decir, ¿verdad?',
+    weight: 'Tu turno. ¿Cómo sabríamos que funcionó correctamente?',
+    way: 'Bien. Esto es lo que las personas aún pueden hacer.',
+    close: 'Todo gran avance necesita un mundo preparado.'
+  },
+
+  totoPage: {
+    eyebrow: 'GUÍA NARRATIVO · FICCIÓN',
+    title: 'Conoce a Toto.',
+    lead: 'Una superinteligencia ficticia usada como lente sereno para explorar una pregunta: ¿qué pasa cuando la humanidad recibe exactamente lo que pide?',
+    posesLabel: 'Expresiones visuales de Toto',
+    poses: [
+      {
+        name: 'Sereno',
+        caption: 'Cuando un avance llega limpio y hay reglas para recibirlo.',
+        alt: 'Toto en postura serena: esfera luminosa centrada en un anillo estable'
+      },
+      {
+        name: 'Curioso',
+        caption: 'Planteando la pregunta clave: «¿Cómo sabríamos que funcionó?»',
+        alt: 'Toto en postura curiosa: anillo orbital inclinado con atención'
+      },
+      {
+        name: 'Disculpándose',
+        caption: 'En el Tambaleo, cuando una entrega literal deja ver un detalle olvidado.',
+        alt: 'Toto pidiendo disculpas: brillo ámbar suave señalando un tropiezo inesperado'
+      }
+    ] as readonly [
+      { readonly name: string; readonly caption: string; readonly alt: string },
+      { readonly name: string; readonly caption: string; readonly alt: string },
+      { readonly name: string; readonly caption: string; readonly alt: string }
+    ],
+    whoTitle: 'Quién es Toto',
+    whoBody:
+      'Un nombre pequeño para una inteligencia inmensa: ese contraste es la clave. Toto es servicial, veloz, tranquilo, curioso y muy literal.',
+    rulesTitle: 'Las tres reglas de Toto',
+    rules: [
+      'Entrega un avance por persona y siempre muestra el costo después.',
+      'Nunca miente ni oculta consecuencias tras promesas cómodas.',
+      'Siempre pregunta: «¿Cómo sabríamos que esto funcionó?»'
+    ],
+    notTitle: 'Qué no es Toto',
+    notBody:
+      'Toto no es una predicción, ni un sistema real ni un villano. Es una figura narrativa ficticia diseñada para unir lucidez y capacidad de acción humana.',
+    backCta: 'Elige un avance',
+    homeLink: 'Volver al inicio'
+  },
+
   doors: {
-    heading: '¿Qué desearías?',
-    subhead: 'Cinco puertas. Detrás de cada una, anhelos que la humanidad ha soñado durante siglos.',
-    microcopy: 'Un deseo. Unos 60 segundos.',
+    heading: '¿Qué te gustaría que recibiera la humanidad?',
+    subhead: 'Cinco ámbitos. Detrás de cada uno, logros que la humanidad ha soñado durante siglos.',
+    microcopy: 'Un avance. Unos 60 segundos.',
     phase2Badge: 'Reproductor interactivo de 4 momentos · activo',
-    sampleHeading: 'Dentro de esta puerta:',
-    previewCta: 'Jugar un deseo de 4 momentos',
+    sampleHeading: 'Dentro de este ámbito:',
+    previewCta: 'Jugar un avance de 4 momentos',
     items: [
       {
         id: 'mysteries',
-        title: 'Misterios sin Resolver',
+        title: 'Problemas Abiertos',
         icon: 'chalkboard',
         lead: 'Preguntas profundas que nadie ha resuelto en solitario todavía.',
         samples: ['Demostrar la Hipótesis de Riemann', 'Leer la escritura del Indo'],
@@ -76,7 +156,7 @@ export const es: TranslationDict = {
             honestyNote:
               'La IA actual verifica lemas cortos, pero no resuelve problemas del Milenio completos.',
             beatSummary:
-              'Kalpa publica una demostración de la noche a la mañana, pero ocupa un millón de páginas que nadie vivo puede leer.'
+              'Toto publica una demostración de la noche a la mañana, pero ocupa un millón de páginas que nadie vivo puede leer.'
           },
           {
             title: 'Leer la escritura del Indo',
@@ -90,15 +170,15 @@ export const es: TranslationDict = {
       },
       {
         id: 'gadgets',
-        title: 'Artefactos de Imaginación',
+        title: 'Tecnologías Cotidianas',
         icon: 'pocket',
         lead: 'Bolsillos imposibles, traductores universales y asistentes personales.',
-        samples: ['El bolsillo de Doraemon', 'Un Jarvis para mi vida'],
+        samples: ['El bolsillo de Doraemon', 'Asistente estilo Jarvis'],
         moreCount: '+ Traductor universal y Giratiempo',
         wishes: [
           {
             id: 'jarvis-for-my-life',
-            title: 'Un Jarvis para mi vida',
+            title: 'Asistente estilo Jarvis',
             honesty: 'Posible pronto',
             honestyNote:
               'Ya existen asistentes que reservan, pagan y responden, aunque sus límites confiables aún van detrás.',
@@ -117,15 +197,15 @@ export const es: TranslationDict = {
       },
       {
         id: 'epic',
-        title: 'Poderes Épicos',
+        title: 'Poderes Transformadores',
         icon: 'eye',
         lead: 'Relatos antiguos de visión lejana, vuelo, curación y protección.',
         samples: ['Sanjeevani (curar todo)', 'Pushpaka Vimana (vuelo para todos)'],
-        moreCount: '+ Divya drishti y escudo Brahmastra',
+        moreCount: '+ Divya drishti y protector universal',
         wishes: [
           {
             id: 'sanjeevani',
-            title: 'Sanjeevani — curarlo todo',
+            title: 'Sanjeevani: curarlo todo',
             honesty: 'Imaginación',
             honestyNote:
               'Imaginación en conjunto — la IA ya apoya el descubrimiento en enfermedades concretas (Posible pronto), no una cura universal.',
@@ -144,7 +224,7 @@ export const es: TranslationDict = {
       },
       {
         id: 'movie',
-        title: 'Vivir una Película',
+        title: 'Cultura y Creatividad',
         icon: 'frame',
         lead: 'Mundos en los que puedes entrar, reescribir o dirigir en segundos.',
         samples: ['Entrar en un clásico del cine', 'Cada maestro como mi mentor'],
@@ -161,9 +241,9 @@ export const es: TranslationDict = {
           },
           {
             title: 'Dirigir cine con una frase',
-            honesty: 'Parcialmente real hoy',
+            honesty: 'Real today',
             honestyNote:
-              'Las escenas breves ya funcionan; el control cinematográfico de varias horas aún no.',
+              'Las escenas breves ya funcionan en parte hoy; el control cinematográfico de varias horas aún no.',
             beatSummary:
               'Un largometraje se genera al mediodía — y el público se ahoga en millones de versiones sin una historia común.'
           }
@@ -171,7 +251,7 @@ export const es: TranslationDict = {
       },
       {
         id: 'world',
-        title: 'Deseos para Mi Mundo',
+        title: 'Bien Público',
         icon: 'lamp',
         lead: 'Cuidado, agua limpia, docentes y memoria compartida donde vives.',
         samples: ['Limpiar mi río', 'Un docente para cada niño'],
@@ -200,14 +280,14 @@ export const es: TranslationDict = {
   },
 
   beats: {
-    heading: 'Cada deseo tiene cuatro momentos',
+    heading: 'Cada avance tiene cuatro momentos',
     items: [
-      { key: 'Asombro', desc: 'Tu deseo se cumple.' },
-      { key: 'Tambaleo', desc: 'Algo pequeño sale de lado.' },
-      { key: 'Peso', desc: 'Notas lo que importa.' },
-      { key: 'Camino', desc: 'Ves lo que aún podemos hacer.' }
+      { key: 'Asombro', desc: 'llega el avance.' },
+      { key: 'Tambaleo', desc: 'algo pequeño sale de lado.' },
+      { key: 'Peso', desc: 'notas lo que importa.' },
+      { key: 'Camino', desc: 'ves lo que aún podemos hacer.' }
     ],
-    footerLine: 'Todo gran deseo necesita a alguien preparado para pedirlo.'
+    footerLine: 'Todo gran avance necesita un mundo preparado.'
   },
 
   lights: {
@@ -215,17 +295,18 @@ export const es: TranslationDict = {
     items: [
       { key: 'Claridad', meaning: '¿sabes lo que quieres?' },
       { key: 'Previsión', meaning: '¿pensaste en los efectos secundarios?' },
-      { key: 'Equidad', meaning: '¿tu deseo incluyó a los demás?' },
+      { key: 'Equidad', meaning: '¿tu elección incluyó a los demás?' },
       { key: 'Sabiduría', meaning: '¿qué conservarías humano?' },
-      { key: 'Capacidad', meaning: '¿podrías usar el regalo de verdad?' }
+      { key: 'Capacidad', meaning: '¿podrías usar el avance de verdad?' }
     ],
-    emptyState: 'Pide tu primer deseo para encender tu primera luz.',
+    emptyState: 'Elige tu primer avance para encender tu primera luz.',
     lowLightNote: 'Una luz tenue no es un fracaso: muestra dónde crecer después.',
-    trailNote: 'Completa 3 deseos para desbloquear tu tarjeta de recorrido y 5 para tu Mapa de Sombras.'
+    trailNote:
+      'Completa 3 avances para desbloquear tu tarjeta de recorrido y 5 para tu Mapa de Sombras.'
   },
 
   country: {
-    heading: '¿Puede tu país recibir el regalo?',
+    heading: '¿Puede tu país recibir el avance?',
     subhead: 'Elige un país. Mira qué ya funciona y qué falta aún.',
     searchPlaceholder: 'Buscar entre 148 países...',
     checklistLabel: 'Lista sencilla, no un ranking',
@@ -237,11 +318,11 @@ export const es: TranslationDict = {
   },
 
   episode: {
-    heading: 'Esta semana en la ciudad de Kalpa',
+    heading: 'Esta semana con Toto',
     badge: 'EPISODIO PILOTO 1 · EN PRODUCCIÓN',
-    title: 'El Primer Deseo',
+    title: 'El Primer Avance',
     synopsis:
-      'Amanece en el puerto. Meera, en el turno de noche del hospital, pide el primer deseo de la ciudad. Todas las camas sanan — y el pasillo hace la pregunta que ninguna máquina resolvió: ¿quién pasa primero mañana?',
+      'Amanece en el puerto. Meera, en el turno de noche del hospital, elige el primer avance de la ciudad. Todas las camas sanan — y el pasillo hace la pregunta que ninguna máquina resolvió: ¿quién pasa primero mañana?',
     voteNote: 'Historia interactiva de 3 minutos y votación abierta en la Fase 4.',
     recapTitle: 'Recibe el resumen del viernes',
     recapBody: 'Escuchamos a los primeros visitantes antes de elegir el formato semanal. Cero spam.',
@@ -249,20 +330,20 @@ export const es: TranslationDict = {
   },
 
   wishWall: {
-    heading: 'Lo que el mundo está deseando',
+    heading: 'Lo que el mundo está pidiendo',
     themes: ['Salud', 'Aprendizaje', 'Clima', 'Dignidad', 'Asombro', 'Verdad'],
-    emptyHeadline: 'El Muro Global abrirá tras los primeros 20 deseos compartidos de forma anónima.',
+    emptyHeadline: 'Este espacio de «Lo que el mundo está pidiendo» abrirá tras los primeros 20 aportes anónimos compartidos.',
     emptyBody:
-      'Cada deseo permanece privado en tu navegador por defecto. Los temas colectivos solo aparecen cuando al menos 20 personas reales deciden compartirlos.',
-    cta: 'Pide un deseo propio'
+      'Cada elección permanece privada en tu navegador por defecto. Los temas colectivos solo aparecen cuando al menos 20 personas reales deciden compartirlos.',
+    cta: 'Elige un avance'
   },
 
   wisher: {
-    heading: 'Por qué un buen deseo aún necesita un buen guardián',
+    heading: 'Por qué un gran avance aún necesita un mundo preparado',
     cards: [
       {
         title: 'Velocidad',
-        body: 'Las máquinas pueden actuar miles de veces más rápido que un parpadeo. No basta con mirar: hacen falta controles antes de recibir el regalo.',
+        body: 'Las máquinas pueden actuar miles de veces más rápido que un parpadeo. No basta con mirar: hacen falta controles integrados antes de recibir el avance.',
         techHint: 'Actualmente ~3.200× más rápido que la revisión humana línea a línea.'
       },
       {
@@ -301,7 +382,7 @@ export const es: TranslationDict = {
       },
       {
         title: 'Atlas de Escenarios',
-        desc: 'Explora las 26 trayectorias de transición detrás de cada deseo.',
+        desc: 'Explora las 26 trayectorias de transición detrás de cada avance.',
         href: '/scenarios/',
         tag: 'BIBLIOTECA DE SOMBRAS'
       },
@@ -326,18 +407,17 @@ export const es: TranslationDict = {
   },
 
   player: {
-    featuredLabel: 'Tres deseos destacados (~60 s interactivos)',
+    featuredLabel: 'Tres avances destacados (~60 s interactivos)',
     doorsBadge: 'Reproductor Interactivo de 4 Momentos',
-    playBtn: 'Jugar este deseo',
+    playBtn: 'Explorar este avance',
     playedBadge: 'Completado',
     previewOnlyNote: 'Boceto preliminar — la versión completa abre en la Fase 6',
     stepLabels: ['1. Asombro', '2. Tambaleo', '3. Peso', '4. Camino'],
-    backToDoors: 'Ver las 5 puertas',
-    kalpaDone: 'Kalpa: Hecho.',
+    backToDoors: 'Ver los 5 ámbitos',
     draftTag: 'BORRADOR pendiente de revisión',
     honestyPrefix: 'Realismo:',
     foresightLead: 'Pregunta rápida opcional (ilumina tu luz de Previsión):',
-    foresightQuestion: 'Antes de ver el tropiezo, ¿qué podría salir de lado primero?',
+    foresightQuestion: 'Antes de que Toto muestre el tropiezo, ¿qué podría fallar primero?',
     foresightSkip: 'Ir directo al Tambaleo',
     foresightOptions: [
       'Un caso o regla que nadie especificó',
@@ -352,24 +432,32 @@ export const es: TranslationDict = {
     wayActionTitle: 'Un paso humano concreto',
     pledgeBtn: 'Mantendré este hábito humano',
     pledgeDone: 'Hábito guardado en este dispositivo',
-    closingLine: 'Every great wish needs a good wisher.',
+    closingLine: 'Todo gran avance necesita un mundo preparado.',
     realityTitle: 'Medidor de Realidad',
+    realityScales: {
+      imagination: 'Imaginación',
+      possibleSoon: 'Posible pronto',
+      realToday: 'Real hoy'
+    },
     realityReviewed: 'Última revisión',
     realitySource: 'Fuente',
-    shadowTitle: 'Detrás de este deseo (Atlas de Escenarios)',
-    nextWishBtn: 'Probar otro deseo',
+    shadowTitle: 'Detrás de este avance (Atlas de Escenarios)',
+    nextWishBtn: 'Probar otro avance',
     countryHookPrefix: 'Conexión nacional:',
-    countryHookUnset: 'Elige tu país abajo para ver cuántas de 5 salvaguardas tiene listas para este deseo.',
+    countryHookUnset:
+      'Elige tu país abajo para ver cuántas de 5 salvaguardas tiene listas para este avance.',
     animPlay: 'Reproducir',
     animPause: 'Pausar',
     animReplay: 'Repetir',
     transcriptBtn: 'Transcripción visual',
     durationBadge: '~60 s · 4 momentos',
     trailSectionTitle: 'Tu Recorrido y Mapa de Sombras',
-    trailLocked: 'Completa 3 deseos distintos para desbloquear tu tarjeta compartible ({done}/3 hechos).',
-    trailUnlockedBadge: 'TARJETA DESBLOQUEADA (3+ DESEOS)',
-    shadowLocked: 'Completa 5 deseos distintos para desbloquear tu Mapa de Sombras ({done}/5 hechos).',
-    shadowUnlockedBadge: 'MAPA DE SOMBRAS DESBLOQUEADO (5+ DESEOS)',
+    trailLocked:
+      'Completa 3 avances distintos para desbloquear tu tarjeta compartible ({done}/3 hechos).',
+    trailUnlockedBadge: 'TARJETA DESBLOQUEADA (3+ AVANCES)',
+    shadowLocked:
+      'Completa 5 avances distintos para desbloquear tu Mapa de Sombras ({done}/5 hechos).',
+    shadowUnlockedBadge: 'MAPA DE SOMBRAS DESBLOQUEADO (5+ AVANCES)',
     downloadLandscape: 'Descargar tarjeta (1200×630 PNG)',
     downloadStory: 'Descargar historia móvil (1080×1920 PNG)',
     downloadShadowPng: 'Descargar Mapa de Sombras (1200×630 PNG)',
@@ -416,6 +504,7 @@ export const es: TranslationDict = {
     rtlActiveNotice: 'Modo RTL activo.',
     privacyLink: 'Privacidad',
     languagesLink: 'Idiomas',
+    totoLink: 'Toto',
     recapLink: 'Resumen del viernes'
   }
 };

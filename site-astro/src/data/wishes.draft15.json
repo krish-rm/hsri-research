@@ -1,0 +1,2147 @@
+[
+  {
+    "id": "read-indus-script",
+    "door": "mysteries",
+    "order": 6,
+    "icon": "chalkboard",
+    "status": "draft",
+    "devOnly": true,
+    "title": {
+      "en": "Read the Indus script",
+      "es": "Leer la escritura del Indo",
+      "ar": "قراءة كتابة وادي السند"
+    },
+    "doorTitle": {
+      "en": "Open Problems",
+      "es": "Problemas Abiertos",
+      "ar": "مشكلات مفتوحة"
+    },
+    "honestyLabel": "Possible soon",
+    "honestyNote": {
+      "en": "Pattern-matching across short seal fragments is advancing rapidly, though sparse bilingual keys limit certainty.",
+      "es": "El análisis de patrones en sellos breves avanza rápido, aunque faltan textos bilingües de referencia.",
+      "ar": "يتقدم تحليل الأنماط في الأختام القصيرة بسرعة، لكن ندرة النصوص ثنائية اللغة تحدّ من الجزم."
+    },
+    "verbatimFromBrief": false,
+    "shadowTag": "Truth",
+    "atlasRefs": ["SC-06", "SC-20"],
+    "wonder": {
+      "text": {
+        "en": "Five thousand carved seals glow on screen. Recipes, grain ledgers, and family names speak across four millennia.",
+        "es": "Cinco mil sellos tallados cobran voz en pantalla: recetas, cuentas de grano y nombres familiares cruzan cuatro milenios.",
+        "ar": "تضيء خمسة آلاف ختم منحوت على الشاشة: سجلات قمح وأسماء عائلات تنطق عبر أربعة آلاف عام."
+      },
+      "totoLine": {
+        "en": "Toto: Decoded.",
+        "es": "Toto: Descifrado.",
+        "ar": "توتو: تم فك الرموز."
+      },
+      "transcript": {
+        "en": "Ancient carved seal impressions align cleanly beside modern multilingual captions.",
+        "es": "Impresiones de sellos antiguos se alinean junto a subtítulos modernos claros.",
+        "ar": "تصطف طبعات الأختام القديمة بانتظام أمام ترجمات واضحة بلغات متعددة."
+      },
+      "draft": true
+    },
+    "wobble": {
+      "text": {
+        "en": "Toto settles on one confident reading — omitting three quieter alternatives historians would spend fifty years debating without bilingual stone evidence.",
+        "es": "Toto presenta una lectura segura y omite tres hipótesis alternativas que sin una piedra bilingüe nadie puede zanjar.",
+        "ar": "يعرض توتو قراءة واحدة واثقة — متجاوزاً ثلاث فرضيات أخرى يعجز المؤرخون عن حسمها بلا شاهد ثنائي اللغة."
+      },
+      "transcript": {
+        "en": "Three faint alternate translations fade behind one bright headline stamped Certain.",
+        "es": "Tres traducciones alternativas se atenúan tras un único titular brillante.",
+        "ar": "تتوارى ثلاث ترجمات بديلة خافتة خلف عنوان واحد يبدو قاطعاً."
+      },
+      "draft": true
+    },
+    "weight": {
+      "question": {
+        "en": "How would we know a fluent translation of a lost tongue is real history and not plausible fiction?",
+        "es": "¿Cómo sabríamos que la traducción de una lengua perdida es historia real y no verosímil ficción?",
+        "ar": "كيف سنعرف أن ترجمة لغة مفقودة حقيقة تاريخية وليست تخميناً مقنعاً؟"
+      },
+      "transcript": {
+        "en": "A magnifying lens weighs a carved clay seal beside an open book of rival archaeological notes.",
+        "es": "Una lupa compara un sello de arcilla con un cuaderno de notas arqueológicas.",
+        "ar": "تقارن عدسة مكبرة بين ختم طيني ودفتر ملاحظات أثرية متباينة."
+      },
+      "draft": true,
+      "options": [
+        {
+          "id": "a",
+          "text": {
+            "en": "Toto sounds confident even when ground truth is absent.",
+            "es": "Suena convincente incluso sin prueba directa.",
+            "ar": "يبدو واثقاً حتى في غياب الدليل القاطع."
+          },
+          "light": "Foresight",
+          "shadow": "Truth"
+        },
+        {
+          "id": "b",
+          "text": {
+            "en": "Descendant communities deserve a say in living heritage.",
+            "es": "Las comunidades vinculadas merecen voz en su patrimonio.",
+            "ar": "تستحق المجتمعات الحفاظ على حقها في تفسير إرثها."
+          },
+          "light": "Fairness",
+          "shadow": "Power"
+        },
+        {
+          "id": "c",
+          "text": {
+            "en": "Confidence labels must show honest uncertainty bands.",
+            "es": "Toda lectura debe mostrar claramente su margen de duda.",
+            "ar": "يجب إظهار درجات الشك بوضوح أمام كل قراءة."
+          },
+          "light": "Wisdom",
+          "shadow": "Truth"
+        }
+      ]
+    },
+    "way": {
+      "text": {
+        "en": "Ask for the runner-up readings, not just the top answer. Good scholarship preserves open disagreement alongside breakthroughs.",
+        "es": "Pide siempre las lecturas alternativas y no solo la respuesta ganadora.",
+        "ar": "اطلب دائماً القراءات البديلة لا الجواب الأوحد. العلم الأمين يحفظ هامش الاختلاف."
+      },
+      "actionCardTitle": {
+        "en": "Keep alternative explanations visible",
+        "es": "Mantén visibles las hipótesis alternativas",
+        "ar": "أبقِ التفسيرات البديلة مرئية"
+      },
+      "actionCardStep": {
+        "en": "Whenever an AI summary sounds certain on scarce evidence, ask it to list the two strongest counter-hypotheses.",
+        "es": "Cuando un resumen suene definitivo con pocos datos, pídele dos hipótesis contrarias.",
+        "ar": "عندما يبدو أي ملخص واثقاً رغم قلة البيانات، اطلب منه ذكر أقوى تفسيرين بديلين."
+      },
+      "pledgeLabel": {
+        "en": "I'll ask for rival evidence",
+        "es": "Pediré pruebas alternativas",
+        "ar": "سأطلب دائماً الأدلة المغايرة"
+      },
+      "transcript": {
+        "en": "Two open folios rest side by side on a desk so readers compare notes freely.",
+        "es": "Dos cuadernos abiertos reposan lado a lado para comparar notas.",
+        "ar": "يُفتح دفتران جنباً إلى جنب ليقارن القارئ بين الملاحظات."
+      },
+      "draft": true
+    },
+    "closingLine": "Every great breakthrough needs a ready world.",
+    "realityMeter": {
+      "scale": "Possible soon",
+      "reason": {
+        "en": "Statistical clustering finds symbol patterns quickly, while verified semantic decipherment lacks bilingual keys.",
+        "es": "Los modelos agrupan símbolos rápido, pero descifrar su significado carece de clave bilingüe.",
+        "ar": "ترصد النماذج الأنماط الرمزية بسرعة، غير أن الفهم الدلالي اليقيني يفتقر لنصوص ثنائية اللغة."
+      },
+      "source": "UNESCO / Epigraphic Pattern Recognition Literature & HSRI Review",
+      "sourceUrl": "/methodology/",
+      "lastReviewed": "2026-11-26"
+    }
+  },
+  {
+    "id": "explain-dark-matter",
+    "door": "mysteries",
+    "order": 7,
+    "icon": "chalkboard",
+    "status": "draft",
+    "devOnly": true,
+    "title": {
+      "en": "Explain dark matter",
+      "es": "Explicar la materia oscura",
+      "ar": "تفسير المادة المظلمة"
+    },
+    "doorTitle": {
+      "en": "Open Problems",
+      "es": "Problemas Abiertos",
+      "ar": "مشكلات مفتوحة"
+    },
+    "honestyLabel": "Imagination",
+    "honestyNote": {
+      "en": "Imagination: AI speeds telescope data sorting today, not uncovering fundamental new laws of physics alone.",
+      "es": "Imaginación: la IA ordena datos de telescopios hoy, pero no descubre por sí sola nuevas leyes físicas.",
+      "ar": "من الخيال: يسرّع الذكاء الاصطناعي فرز بيانات التلسكوبات اليوم، ولا يكشف قوانين فيزياء كبرى بمفرده."
+    },
+    "verbatimFromBrief": false,
+    "shadowTag": "Truth",
+    "atlasRefs": ["SC-06", "SC-13", "SC-20"],
+    "wonder": {
+      "text": {
+        "en": "Rotating galaxy maps snap into harmony. One clean equation unites astronomical puzzles across a century of observations.",
+        "es": "Los mapas de galaxias encajan con claridad. Una ecuación limpia une un siglo de observaciones cósmicas.",
+        "ar": "تنتظم خرائط دوران المجرات في لحظة واحدة ضمن معادلة دقيقة تفسر قرناً من الأرصاد الكونية."
+      },
+      "totoLine": {
+        "en": "Toto: Unified.",
+        "es": "Toto: Unificado.",
+        "ar": "توتو: تم التوحيد."
+      },
+      "transcript": {
+        "en": "A spiral galaxy slowly aligns along crisp geometric orbits inside a warm observatory dome.",
+        "es": "Una galaxia espiral alinea sus órbitas sobre una pizarra astronómica cálida.",
+        "ar": "تنتظم مجرة حلزونية بهدوء ضمن مدارات هندسية دقيقة في مرصد دافئ."
+      },
+      "draft": true
+    },
+    "wobble": {
+      "text": {
+        "en": "The derivation depends on four hundred simulated particles humans cannot build in a lab for thirty years.",
+        "es": "La deducción exige experimentos que ningún laboratorio humano podrá construir durante tres décadas.",
+        "ar": "يعتمد البرهان على تجارب دقيقة يعجز أي مختبر بشري عن اختبارها خلال ثلاثين عاماً."
+      },
+      "transcript": {
+        "en": "A bright telescope mirror faces an empty laboratory blueprint stamped Pending Experiment.",
+        "es": "Un telescopio apunta hacia un plano de laboratorio aún por construir.",
+        "ar": "مرآة تلسكوب مضيئة تقابل مخطط مختبر فارغ بانتظار التجربة."
+      },
+      "draft": true
+    },
+    "weight": {
+      "question": {
+        "en": "How would we know an untestable cosmic theory is true science rather than mathematical elegance?",
+        "es": "¿Cómo distinguiríamos ciencia verdadera de pura elegancia matemática imposible de probar hoy?",
+        "ar": "كيف نميز بين علم حقيقي ونظرية أنيقة يتعذر فحصها مخبرياً اليوم؟"
+      },
+      "transcript": {
+        "en": "An observatory notebook opens toward two paths: Equation Only and Independent Test.",
+        "es": "Un cuaderno señala dos caminos: solo ecuación o prueba independiente.",
+        "ar": "دفتر رصد يشير لمسارين: معادلة نظرية مقابل اختبار تجريبي مستقل."
+      },
+      "draft": true,
+      "options": [
+        {
+          "id": "a",
+          "text": {
+            "en": "Beauty without empirical testing can still be wrong.",
+            "es": "Una ecuación bella sin prueba puede seguir equivocada.",
+            "ar": "قد تخطئ أجمل المعادلات دون فحص تجريبي."
+          },
+          "light": "Clarity",
+          "shadow": "Truth"
+        },
+        {
+          "id": "b",
+          "text": {
+            "en": "Science stops belonging to humanity if humans cannot follow it.",
+            "es": "La ciencia deja de ser humana si nadie logra seguirla.",
+            "ar": "يفقد العلم طابعه البشري إن عجزنا عن تتبعه."
+          },
+          "light": "Wisdom",
+          "shadow": "Control"
+        },
+        {
+          "id": "c",
+          "text": {
+            "en": "Global labs need open predictions anyone can test.",
+            "es": "Los laboratorios requieren predicciones abiertas para todos.",
+            "ar": "تحتاج المختبرات تنبؤات مفتوحة يمكن للجميع اختبارها."
+          },
+          "light": "Capability",
+          "shadow": "Speed"
+        }
+      ]
+    },
+    "way": {
+      "text": {
+        "en": "Pair theoretical proposals with concrete falsifiable tests that independent telescopes worldwide can run openly.",
+        "es": "Exige siempre predicciones comprobables por observatorios independientes en todo el mundo.",
+        "ar": "اقرن أي نظرية كبرى باختبارات عملية قابلة للدحض عبر مراصد مستقلة حول العالم."
+      },
+      "actionCardTitle": {
+        "en": "Trace claims back to testable evidence",
+        "es": "Rastrea las afirmaciones hasta su prueba",
+        "ar": "تتبّع الادعاءات إلى أدلتها المختبرة"
+      },
+      "actionCardStep": {
+        "en": "Look for what experiment could prove an explanation wrong before treating a headline discovery as settled fact.",
+        "es": "Busca qué experimento podría refutar un hallazgo antes de darlo por definitivo.",
+        "ar": "ابحث دائماً عن التجربة القادرة على تفنيد الادعاء قبل اعتباره حقيقة ثابتة."
+      },
+      "pledgeLabel": {
+        "en": "I'll ask what could prove it wrong",
+        "es": "Preguntaré qué podría refutarlo",
+        "ar": "سأسأل ما الذي قد يثبت العكس"
+      },
+      "transcript": {
+        "en": "A calm prism splits starlight into measurable spectral bars beside a notebook.",
+        "es": "Un prisma divide la luz estelar en líneas espectrales medibles.",
+        "ar": "منشور يوزع ضوء النجوم إلى خطوط طيف واضحة قابلة للقياس."
+      },
+      "draft": true
+    },
+    "closingLine": "Every great breakthrough needs a ready world.",
+    "realityMeter": {
+      "scale": "Imagination",
+      "reason": {
+        "en": "Machine learning classifies sky surveys well today, while physical evidence on dark matter particles remains open.",
+        "es": "Los algoritmos clasifican mapas celestes, pero la naturaleza física de la materia oscura sigue abierta.",
+        "ar": "تصنف الخوارزميات مسوحات السماء بدقة، لكن طبيعة المادة المظلمة لا تزال لغزاً مفتوحاً."
+      },
+      "source": "CERN / Particle Astrophysics Consensus & HSRI Evidence Table",
+      "sourceUrl": "/monograph/",
+      "lastReviewed": "2026-11-26"
+    }
+  },
+  {
+    "id": "settle-p-vs-np",
+    "door": "mysteries",
+    "order": 8,
+    "icon": "chalkboard",
+    "status": "draft",
+    "devOnly": true,
+    "title": {
+      "en": "Settle P vs NP",
+      "es": "Resolver P contra NP",
+      "ar": "حسم مسألة P مقابل NP"
+    },
+    "doorTitle": {
+      "en": "Open Problems",
+      "es": "Problemas Abiertos",
+      "ar": "مشكلات مفتوحة"
+    },
+    "honestyLabel": "Imagination",
+    "honestyNote": {
+      "en": "Imagination: deciding whether checking equals finding transforms cryptography yet has no solver in sight.",
+      "es": "Imaginación: saber si verificar equivale a resolver transformaría la criptografía, sin solución a la vista.",
+      "ar": "من الخيال: الإجابة عن تكافؤ التحقق والحل ستغير التشفير عالمياً، ولا حل قريب اليوم."
+    },
+    "verbatimFromBrief": false,
+    "shadowTag": "Speed",
+    "atlasRefs": ["SC-11", "SC-12", "SC-24"],
+    "wonder": {
+      "text": {
+        "en": "A forty-line constructive answer lands on open repositories: hard logistics, protein folding, and schedules untangle calmly.",
+        "es": "Una demostración breve abre el camino para optimizar logística, proteínas y horarios complejos sin esfuerzo.",
+        "ar": "يظهر برهان مقتضب يذلل أعقد مسائل التوجيه اللوجستي وطي البروتينات في لحظات هادئة."
+      },
+      "totoLine": {
+        "en": "Toto: Solved.",
+        "es": "Toto: Resuelto.",
+        "ar": "توتو: حُلّت المسألة."
+      },
+      "transcript": {
+        "en": "A tangled maze resolves into a single golden line before dusk settles quietly.",
+        "es": "Un laberinto complejo se convierte en una ruta dorada limpia.",
+        "ar": "تتحول متاهة متشابكة إلى مسار ذهبي واحد واضح المعالم."
+      },
+      "draft": true
+    },
+    "wobble": {
+      "text": {
+        "en": "If P equals NP fast, every bank vault, hospital password, and public registry built on hard factoring opens before Monday morning.",
+        "es": "Si la respuesta hace rápido lo difícil, cada clave bancaria y registro médico queda expuesto antes de cambiar de sistema.",
+        "ar": "إذا فُتحت الخوارزميات السريعة فجأة، تغدو كلمات مرور المصارف والمشافي مكشوفة قبل تجهيز بدائلها."
+      },
+      "transcript": {
+        "en": "A neat key slides smoothly through dozens of digital padlocks at once.",
+        "es": "Una llave sencilla abre decenas de candados digitales simultáneamente.",
+        "ar": "مفتاح واحد يفتح عشرات الأقفال الرقمية دفعة واحدة."
+      },
+      "draft": true
+    },
+    "weight": {
+      "question": {
+        "en": "How would we prepare essential public systems before releasing a proof that unlocks every digital seal?",
+        "es": "¿Cómo protegeríamos servicios esenciales antes de publicar algo que abre cada cerradura digital?",
+        "ar": "كيف نحمي الأنظمة الحيوية قبل إعلان برهان يكشف كل الأقفال الرقمية؟"
+      },
+      "transcript": {
+        "en": "A shield stands carefully beside an open mathematical ledger and an offline paper seal.",
+        "es": "Un escudo protege un libro de cuentas y un sello en papel.",
+        "ar": "درع يحمي سجلاً رقمياً بجانب ختم ورقي احتياطي."
+      },
+      "draft": true,
+      "options": [
+        {
+          "id": "a",
+          "text": {
+            "en": "Critical infrastructure would need offline fallback before publication.",
+            "es": "Las redes críticas necesitan respaldos físicos antes de publicarlo.",
+            "ar": "تحتاج البنية الحيوية لبدائل ورقية قبل النشر."
+          },
+          "light": "Foresight",
+          "shadow": "Speed"
+        },
+        {
+          "id": "b",
+          "text": {
+            "en": "Who holds an early discovery matters as much as the proof.",
+            "es": "Importa quién controla un hallazgo temprano antes que nadie.",
+            "ar": "من يملك الاكتشاف أولاً يؤثر في توازن القوى."
+          },
+          "light": "Fairness",
+          "shadow": "Power"
+        },
+        {
+          "id": "c",
+          "text": {
+            "en": "Hospitals and power grids need 72-hour non-digital procedures.",
+            "es": "Hospitales y redes requieren protocolos sin conexión de 72 horas.",
+            "ar": "تحتاج المشافي والكهرباء خطط تشغيل يدوية لـ 72 ساعة."
+          },
+          "light": "Capability",
+          "shadow": "Dependence"
+        }
+      ]
+    },
+    "way": {
+      "text": {
+        "en": "Support coordinated security disclosure and keep offline authentication ready for civic essentials before software keys fail.",
+        "es": "Apoya la divulgación coordinada y mantén acceso de respaldo sin internet en lo esencial.",
+        "ar": "ادعم الإفصاح العلمي المنسق وأبقِ خطط التحقق الورقية جاهزة للخدمات الحيوية."
+      },
+      "actionCardTitle": {
+        "en": "Check your offline backup plan",
+        "es": "Revisa tu respaldo sin internet",
+        "ar": "تفقد خطة النسخ اليدوية"
+      },
+      "actionCardStep": {
+        "en": "Keep printed copies of identification numbers and utility account details stored safely at home.",
+        "es": "Guarda copias impresas de documentos y cuentas clave en un lugar seguro.",
+        "ar": "احتفظ بنسخ ورقية آمنة لأرقام حساباتك ووثائقك الأساسية في المنزل."
+      },
+      "pledgeLabel": {
+        "en": "I'll keep key IDs backed up offline",
+        "es": "Tendré respaldo en papel",
+        "ar": "سأحتفظ بنسخة ورقية للبيانات المهمة"
+      },
+      "transcript": {
+        "en": "An analog ledger folder rests beside a glowing lock upgrading smoothly.",
+        "es": "Una carpeta en papel descansa junto a un candado actualizándose.",
+        "ar": "ملف ورقي آمن بجانب قفل رقمي يتم تحديثه بهدوء."
+      },
+      "draft": true
+    },
+    "closingLine": "Every great breakthrough needs a ready world.",
+    "realityMeter": {
+      "scale": "Imagination",
+      "reason": {
+        "en": "P vs NP remains one of the deepest unsolved mathematical questions since its formal statement in 1971.",
+        "es": "P contra NP sigue siendo uno de los problemas matemáticos más profundos sin resolver desde 1971.",
+        "ar": "تظل P مقابل NP واحدة من أعمق مسائل الرياضيات والعلوم المفتوحة منذ عام 1971."
+      },
+      "source": "Clay Mathematics Institute — Millennium Prize Problems",
+      "sourceUrl": "https://www.claymath.org/millennium/p-vs-np/",
+      "lastReviewed": "2026-11-26"
+    }
+  },
+  {
+    "id": "doraemon-pocket",
+    "door": "gadgets",
+    "order": 9,
+    "icon": "pocket",
+    "status": "draft",
+    "devOnly": true,
+    "title": {
+      "en": "Doraemon's pocket",
+      "es": "El bolsillo de Doraemon",
+      "ar": "جيب دورايمون"
+    },
+    "doorTitle": {
+      "en": "Everyday Technologies",
+      "es": "Tecnologías Cotidianas",
+      "ar": "تقنيات يومية"
+    },
+    "honestyLabel": "Imagination",
+    "honestyNote": {
+      "en": "Imagination: instant physical creation from thin air violates conservation and fabrication constraints.",
+      "es": "Imaginación: fabricar objetos físicos al instante de la nada sigue siendo pura ficción.",
+      "ar": "من الخيال: إخراج أدوات مادية فورية من العدم يظل خيالاً علمياً خالصاً."
+    },
+    "verbatimFromBrief": false,
+    "shadowTag": "Dependence",
+    "atlasRefs": ["SC-07", "SC-19", "SC-23"],
+    "wonder": {
+      "text": {
+        "en": "Reach into your pocket and pull out a warm umbrella in sudden rain, a clean bandage, or a fitting spanner.",
+        "es": "Metes la mano al bolsillo y sacas un paraguas seco bajo la lluvia o la llave exacta que faltaba.",
+        "ar": "تمد يدك إلى جيبك فتخرج مظلة دافئة تحت المطر أو ضمادة معقمة أو مفتاحاً مناسباً تماماً."
+      },
+      "totoLine": {
+        "en": "Toto: Right here.",
+        "es": "Toto: Aquí tienes.",
+        "ar": "توتو: تفضل."
+      },
+      "transcript": {
+        "en": "Simple helpful everyday objects emerge gently from a softly glowing pocket arc.",
+        "es": "Objetos cotidianos útiles surgen con suavidad de un bolsillo luminoso.",
+        "ar": "تخرج أدوات يومية بسيطة بلطف من قوس جيب مضيء."
+      },
+      "draft": true
+    },
+    "wobble": {
+      "text": {
+        "en": "Five summers later, nobody in town fixes a bicycle chain or sews a torn hem. When the pocket hiccups once, no craftsperson knows how to begin.",
+        "es": "Cinco años después ya nadie repara una bici ni cose un botón; si el bolsillo falla un día, nadie sabe arreglar nada.",
+        "ar": "بعد خمس سنوات لا يعود أحد يصلح دراجة أو يخيط ثوباً؛ وحين يتعطل الجيب يوماً، يقف الجميع عاجزين."
+      },
+      "transcript": {
+        "en": "Shuttered corner repair shops sit quiet behind a glowing spare-parts queue.",
+        "es": "Un taller cerrado espera en silencio frente a una cola de objetos instantáneos.",
+        "ar": "متجر إصلاح قديم مغلق بينما تتكدس الأدوات المعطلة في سكون."
+      },
+      "draft": true
+    },
+    "weight": {
+      "question": {
+        "en": "How would we enjoy instant tools without letting everyday human repair skills vanish?",
+        "es": "¿Cómo disfrutaríamos herramientas instantáneas sin perder las habilidades humanas de reparación?",
+        "ar": "كيف نستفيد من الوفرة الفورية دون أن تموت مهاراتنا اليدوية في الإصلاح والبناء؟"
+      },
+      "transcript": {
+        "en": "A carpenter's plane and a glowing pocket sit side by side on a sturdy workbench.",
+        "es": "Un cepillo de carpintero y un bolsillo mágico comparten banco de trabajo.",
+        "ar": "فأرة نجار تقليدية وجيب مضيء فوق طاولة عمل واحدة."
+      },
+      "draft": true,
+      "options": [
+        {
+          "id": "a",
+          "text": {
+            "en": "People lose pride when every physical object feels disposable.",
+            "es": "Perdemos oficio cuando todo se vuelve desechable.",
+            "ar": "يفقد الناس متعة الإتقان حين يصبح كل شيء جاهزاً بلا جهد."
+          },
+          "light": "Wisdom",
+          "shadow": "Dependence"
+        },
+        {
+          "id": "b",
+          "text": {
+            "en": "Whoever owns the pocket patent controls everyday life.",
+            "es": "Quien controle el bolsillo controla la vida diaria.",
+            "ar": "من يملك سرّ هذا الجيب يتحكم في تفاصيل حياتنا."
+          },
+          "light": "Fairness",
+          "shadow": "Power"
+        },
+        {
+          "id": "c",
+          "text": {
+            "en": "We still need hands-on workshops if supply pauses.",
+            "es": "Necesitamos talleres locales vivos si la nube falla.",
+            "ar": "تظل الورش الحرفية ضرورية لو توقف التزويد الآلي."
+          },
+          "light": "Capability",
+          "shadow": "Dependence"
+        }
+      ]
+    },
+    "way": {
+      "text": {
+        "en": "Fix one small thing by hand each season and learn from a local craftsperson before convenience replaces craft.",
+        "es": "Repara algo con tus manos cada temporada y apoya los talleres locales.",
+        "ar": "أصلح شيئاً صغيراً بيدك كل فصل، وادعم الحرفيين وورش الإصلاح في حيك."
+      },
+      "actionCardTitle": {
+        "en": "Repair before replacing",
+        "es": "Repara antes de sustituir",
+        "ar": "أصلح قبل الاستبدال"
+      },
+      "actionCardStep": {
+        "en": "Learn one practical repair — mending cloth, tightening brakes, or sharpening kitchen knives — and pass it on.",
+        "es": "Aprende una reparación sencilla en casa y enséñasela a alguien más.",
+        "ar": "تعلّم مهارة إصلاح يدوية بسيطة هذا الشهر وشاركها مع من حولك."
+      },
+      "pledgeLabel": {
+        "en": "I'll keep one practical repair skill alive",
+        "es": "Conservaré un oficio práctico",
+        "ar": "سأحافظ على مهارة إصلاح يدوية"
+      },
+      "transcript": {
+        "en": "Warm hands mend a teacup calmly at a sunlit wooden table.",
+        "es": "Unas manos arreglan con cuidado una taza sobre madera cálida.",
+        "ar": "أيدٍ هادئة تصلح أداة خشبية فوق طاولة مضاءة بالشمس."
+      },
+      "draft": true
+    },
+    "closingLine": "Every great breakthrough needs a ready world.",
+    "realityMeter": {
+      "scale": "Imagination",
+      "reason": {
+        "en": "Physical goods remain governed by atoms, factories, and shipping bottlenecks; instant pocket creation is pure fiction.",
+        "es": "Los bienes físicos dependen de fábricas y energía reales; crear objetos de la nada es ficción.",
+        "ar": "تخضع السلع المادية للمواد والطاقة والتصنيع الواقعي، ولا وجود لتكوين مادي فوري."
+      },
+      "source": "Physical Fabrication & Supply-Chain Limits (HSRI SC-23 Review)",
+      "sourceUrl": "/scenarios/",
+      "lastReviewed": "2026-11-26"
+    }
+  },
+  {
+    "id": "universal-translator",
+    "door": "gadgets",
+    "order": 10,
+    "icon": "pocket",
+    "status": "draft",
+    "devOnly": true,
+    "title": {
+      "en": "Universal translator",
+      "es": "Traductor universal",
+      "ar": "المترجم الشامل الفوري"
+    },
+    "doorTitle": {
+      "en": "Everyday Technologies",
+      "es": "Tecnologías Cotidianas",
+      "ar": "تقنيات يومية"
+    },
+    "honestyLabel": "Real today",
+    "honestyNote": {
+      "en": "Real today for major global languages in clear settings; subtle humour, legal nuance, and smaller languages lag.",
+      "es": "Real hoy en idiomas mayoritarios; el humor sutil, los matices legales y lenguas locales aún fallan.",
+      "ar": "واقع اليوم للغات الكبرى في الحوار الواضح، بينما تتأخر النبرة الخفية واللغات الأقل انتشاراً."
+    },
+    "verbatimFromBrief": false,
+    "shadowTag": "Truth",
+    "atlasRefs": ["SC-05", "SC-20", "SC-26"],
+    "wonder": {
+      "text": {
+        "en": "Two grandparents from opposite continents swap recipes and jokes across a shared dinner table without pausing once.",
+        "es": "Dos abuelos de continentes distintos comparten recetas y chistes sin interrupciones en la misma mesa.",
+        "ar": "يتبادل جدّان من قارتين مختلفتين وصفات الطعام والضحكات حول مائدة واحدة بسلاسة تامة."
+      },
+      "totoLine": {
+        "en": "Toto: Translated live.",
+        "es": "Toto: Traducido en vivo.",
+        "ar": "توتو: ترجمة فورية."
+      },
+      "transcript": {
+        "en": "Two warm speech ribbons weave smoothly together above a shared meal table.",
+        "es": "Dos cintas cálidas de voz se entrelazan sobre una mesa compartida.",
+        "ar": "شريطان صوتيان دافئان يتشابكان بودّ فوق مائدة واحدة."
+      },
+      "draft": true
+    },
+    "wobble": {
+      "text": {
+        "en": "At a tense clinic check-in, an idiom gets translated flatly as agreement — leaving neither speaker aware an allergy warning slipped past.",
+        "es": "En una consulta médica, una expresión coloquial se traduce como aceptación y nadie nota que faltó una advertencia.",
+        "ar": "في عيادة مزدحمة يُترجم تعبير شعبي حرفياً على أنه موافقة — دون أن ينتبه أحد لتنبيه الحساسية."
+      },
+      "transcript": {
+        "en": "A subtle speech bubble dims slightly while a medical clipboard waits for clear confirmation.",
+        "es": "Una frase se malinterpreta levemente junto a una ficha clínica.",
+        "ar": "تبهت فقاعة حديث عابرة بينما ينتظر سجل طبي تأكيداً واضحاً."
+      },
+      "draft": true
+    },
+    "weight": {
+      "question": {
+        "en": "How would we know a fast translation carried your real meaning — not a smooth approximation?",
+        "es": "¿Cómo sabríamos que una traducción veloz transmitió lo que querías decir sin suavizar lo importante?",
+        "ar": "كيف نعرف أن الترجمة السريعة نقلت مقصودك الدقيق لا مجرد صياغة ملساء؟"
+      },
+      "transcript": {
+        "en": "A speech wave pauses beside a printed bilingual medical pictogram card.",
+        "es": "Una onda de voz se detiene junto a pictogramas médicos bilingües.",
+        "ar": "تتوقف موجة صوتية أمام بطاقة رموز طبية مصورة واضحة."
+      },
+      "draft": true,
+      "options": [
+        {
+          "id": "a",
+          "text": {
+            "en": "Fluency makes subtle translation mistakes harder to spot.",
+            "es": "La fluidez oculta errores sutiles de sentido.",
+            "ar": "السلاسة اللغوية تخفي أخطاء المعنى الدقيقة."
+          },
+          "light": "Foresight",
+          "shadow": "Truth"
+        },
+        {
+          "id": "b",
+          "text": {
+            "en": "Low-resource dialects deserve real human speakers on call.",
+            "es": "Lenguas menos digitales necesitan intérpretes humanos reales.",
+            "ar": "تحتاج اللهجات الأقل تمثيلاً مترجمين بشريين موثوقين."
+          },
+          "light": "Fairness",
+          "shadow": "Control"
+        },
+        {
+          "id": "c",
+          "text": {
+            "en": "High-stakes consent always needs teach-back confirmation.",
+            "es": "Decisiones críticas requieren repetir lo entendido en voz alta.",
+            "ar": "الموافقات الحساسة تتطلب إعادة شرح للتأكد من الفهم."
+          },
+          "light": "Clarity",
+          "shadow": "Truth"
+        }
+      ]
+    },
+    "way": {
+      "text": {
+        "en": "For medical, legal, or family agreements, confirm the key point back in simple words or bring a trusted human interpreter.",
+        "es": "En asuntos médicos o legales, confirma lo clave con palabras sencillas o intérprete humano.",
+        "ar": "في الأمور الطبية والقانونية أعد صياغة النقطة الجوهرية بكلمات بسيطة أو استعن بمترجم بشري."
+      },
+      "actionCardTitle": {
+        "en": "Use visual cards & teach-back",
+        "es": "Usa confirmación mutua sencilla",
+        "ar": "تحقق من الفهم بالصورة وإعادة الصياغة"
+      },
+      "actionCardStep": {
+        "en": "When bridging languages on health or money decisions, confirm dosages, dates, and numbers visually on paper.",
+        "es": "En dosis, fechas y cifras importantes, confírmalas siempre por escrito.",
+        "ar": "عند الترجمة في الصحة أو العقود اكتب الجرعات والأرقام والمواعيد يدوياً لتأكيدها."
+      },
+      "pledgeLabel": {
+        "en": "I'll double-check high-stakes translations",
+        "es": "Confirmaré traducciones críticas",
+        "ar": "سأتحقق من الترجمة في القرارات الحساسة"
+      },
+      "transcript": {
+        "en": "Two hands point calmly to a clear paper card bearing simple icons and numbers.",
+        "es": "Dos manos señalan una tarjeta clara con iconos y números.",
+        "ar": "تشير يدان معاً إلى بطاقة ورقية بسيطة تحمل أرقاماً ورموزاً واضحة."
+      },
+      "draft": true
+    },
+    "closingLine": "Every great breakthrough needs a ready world.",
+    "realityMeter": {
+      "scale": "Real today",
+      "reason": {
+        "en": "Live voice translation works broadly across high-resource pairs today, though critical clinics still require human checks.",
+        "es": "La traducción en vivo funciona bien en idiomas grandes hoy, pero en salud sigue exigiendo verificación.",
+        "ar": "تعمل الترجمة الحية عبر عشرات اللغات اليوم، لكن الاستخدام الطبي والقانوني لا يغني عن التحقق البشري."
+      },
+      "source": "WMT Shared Translation Tasks & Low-Resource Speech Benchmarks",
+      "sourceUrl": "/methodology/",
+      "lastReviewed": "2026-11-26"
+    }
+  },
+  {
+    "id": "time-turner",
+    "door": "gadgets",
+    "order": 11,
+    "icon": "pocket",
+    "status": "draft",
+    "devOnly": true,
+    "title": {
+      "en": "A Time-Turner",
+      "es": "Un Giratiempo",
+      "ar": "أداة تدوير الزمن"
+    },
+    "doorTitle": {
+      "en": "Everyday Technologies",
+      "es": "Tecnologías Cotidianas",
+      "ar": "تقنيات يومية"
+    },
+    "honestyLabel": "Imagination",
+    "honestyNote": {
+      "en": "Imagination: reversing time physically is fiction; only computer checkpoints and undo logs hint at it.",
+      "es": "Imaginación: retroceder en el tiempo físico es ficción; solo los puntos de guardado digitales se le parecen.",
+      "ar": "من الخيال: العودة بالزمن الفيزيائي محض خيال؛ ما يشابهها رقمياً هو نسخ التراجع فحسب."
+    },
+    "verbatimFromBrief": false,
+    "shadowTag": "Power",
+    "atlasRefs": ["SC-08", "SC-10", "SC-22"],
+    "wonder": {
+      "text": {
+        "en": "You turn the tiny brass ring before an exam or tough conversation, win three calm extra hours, and breathe easier.",
+        "es": "Giras el anillo antes de un momento difícil, ganas tres horas serenas extra y respiras tranquilo.",
+        "ar": "تدير الحلقة الذهبية قبل امتحان أو حوار صعب، فتكسب ثلاث ساعات إضافية هادئة."
+      },
+      "totoLine": {
+        "en": "Toto: Rewound.",
+        "es": "Toto: Rebobinado.",
+        "ar": "توتو: عاد الوقت."
+      },
+      "transcript": {
+        "en": "Soft sand-gold clock rings turn counterclockwise beside a quiet afternoon window.",
+        "es": "Un reloj de arena dorado retrocede suavemente junto a la ventana.",
+        "ar": "تدور حلقات ساعة رملية ذهبية بهدوء أمام نافذة مضيئة."
+      },
+      "draft": true
+    },
+    "wobble": {
+      "text": {
+        "en": "Soon every investor and negotiator tries to undo bad deals too — until whoever holds the faster reset rewrites yesterday for everyone else.",
+        "es": "Pronto todos intentan deshacer acuerdos — y quien controla el botón más rápido reescribe el ayer ajeno.",
+        "ar": "سرعان ما يحاول كل مفاوض التراجع عن خسائره — حتى يفرض الأسرع إعادة كتابة الأمس على الجميع."
+      },
+      "transcript": {
+        "en": "Overlapping calendar pages flutter out of sequence above a negotiation table.",
+        "es": "Hojas de calendario superpuestas flotan fuera de orden.",
+        "ar": "أوراق تقويم متداخلة تتبعثر بترتيب مختلف فوق طاولة نقاش."
+      },
+      "draft": true
+    },
+    "weight": {
+      "question": {
+        "en": "If every decision could be reversed privately by machines, how would shared trust survive?",
+        "es": "Si las máquinas pudieran rehacer el pasado en privado, ¿cómo sobreviviría la confianza compartida?",
+        "ar": "لو استطاعت الآلات التراجع عن القرارات سراً، كيف تصمد الثقة المشتركة؟"
+      },
+      "transcript": {
+        "en": "A fixed paper ledger stamped Signed in Person sits beside an undo arrow.",
+        "es": "Un registro firmado en papel junto a una flecha de deshacer.",
+        "ar": "سجل ورقي موقّع بجانب سهم تراجع رقمي."
+      },
+      "draft": true,
+      "options": [
+        {
+          "id": "a",
+          "text": {
+            "en": "Private resets hand unfair advantage to whoever holds them.",
+            "es": "Quien revierte en secreto gana ventaja injusta.",
+            "ar": "التراجع السري يمنح أصحابه أفضلية غير عادلة."
+          },
+          "light": "Fairness",
+          "shadow": "Power"
+        },
+        {
+          "id": "b",
+          "text": {
+            "en": "Reversible errors in software still need clear audit logs.",
+            "es": "Incluso el deshacer digital exige registro transparente.",
+            "ar": "حتى التراجع البرمجي يحتاج سجلات مراجعة واضحة."
+          },
+          "light": "Foresight",
+          "shadow": "Truth"
+        },
+        {
+          "id": "c",
+          "text": {
+            "en": "Some human commitments matter precisely because they stay binding.",
+            "es": "Los acuerdos humanos valen porque se sostienen en firme.",
+            "ar": "بعض الالتزامات البشرية قيمتها في ثباتها وصدقها."
+          },
+          "light": "Wisdom",
+          "shadow": "Control"
+        }
+      ]
+    },
+    "way": {
+      "text": {
+        "en": "Slow down before big promises, keep clear immutable receipts for real agreements, and don't outsource irreversible choices to automated speed.",
+        "es": "Pausa antes de comprometerte, guarda recibos claros y no delegues decisiones irreversibles a la prisa.",
+        "ar": "تمهل قبل القرارات الكبيرة، واحتفظ بإيصالات واضحة، ولا تفوّض الخيارات المصيرية لسرعة الآلة."
+      },
+      "actionCardTitle": {
+        "en": "Build a pause before big sends",
+        "es": "Crea una pausa antes de decidir",
+        "ar": "اصنع وقفة قبل القرارات الكبيرة"
+      },
+      "actionCardStep": {
+        "en": "Wait 10 minutes or sleep on major financial or personal messages instead of letting instant auto-send handle them.",
+        "es": "Espera diez minutos antes de enviar mensajes o pagos irreversibles.",
+        "ar": "انتظر عشر دقائق قبل إرسال القرارات المالية أو الشخصية الحساسة بدلاً من الإرسال التلقائي."
+      },
+      "pledgeLabel": {
+        "en": "I'll pause before irreversible clicks",
+        "es": "Pausaré antes de enviar algo definitivo",
+        "ar": "سأتوقف قبل أي قرار لا عودة عنه"
+      },
+      "transcript": {
+        "en": "A calm hourglass measures one steady mindful minute beside a notebook.",
+        "es": "Un reloj de arena sereno marca una pausa consciente.",
+        "ar": "ساعة رملية هادئة تمنح دقيقة تأمل قبل التوقيع."
+      },
+      "draft": true
+    },
+    "closingLine": "Every great breakthrough needs a ready world.",
+    "realityMeter": {
+      "scale": "Imagination",
+      "reason": {
+        "en": "Physical time reversal is fiction; the closest real habit is reversible digital staging and deliberate human cooling-off windows.",
+        "es": "Viajar atrás en el tiempo es ficción; solo existen borradores digitales reversibles.",
+        "ar": "العودة بالزمن خيال خالص؛ يقابلها عملياً مهل المراجعة والتراجع في السجلات الرقمية."
+      },
+      "source": "Physical Causality Consensus & Governance Limits (HSRI Review)",
+      "sourceUrl": "/monograph/",
+      "lastReviewed": "2026-11-26"
+    }
+  },
+  {
+    "id": "divya-drishti",
+    "door": "epic",
+    "order": 12,
+    "icon": "eye",
+    "status": "draft",
+    "devOnly": true,
+    "title": {
+      "en": "Divya drishti: see anything live",
+      "es": "Divya drishti: visión a distancia",
+      "ar": "الرؤية البعيدة: رؤية كل شيء حياً"
+    },
+    "doorTitle": {
+      "en": "Transformative Powers",
+      "es": "Poderes Transformadores",
+      "ar": "قدرات تحولية"
+    },
+    "honestyLabel": "Possible soon",
+    "honestyNote": {
+      "en": "Satellite arrays and connected sensors already monitor weather and grids live; universal oversight boundaries lag.",
+      "es": "Satélites y sensores siguen el clima y las redes en directo hoy, pero faltan límites claros de privacidad.",
+      "ar": "تتابع الأقمار الصناعية والمستشعرات الطقس والشبكات حياً اليوم، بينما تتأخر ضوابط الخصوصية."
+    },
+    "verbatimFromBrief": false,
+    "shadowTag": "Control",
+    "atlasRefs": ["SC-10", "SC-19", "SC-25"],
+    "wonder": {
+      "text": {
+        "en": "A fishing boat crew sees squall lines forming eighty miles offshore in clear colour and steers calmly into shelter before dawn.",
+        "es": "Los pescadores ven una tormenta formarse a ochenta millas mar adentro y regresan a puerto a tiempo.",
+        "ar": "يرى قارب الصيد تشكل العواصف قبل أميال في البحر فيعود بأمان إلى الميناء قبل الفجر."
+      },
+      "totoLine": {
+        "en": "Toto: All visible.",
+        "es": "Toto: Todo visible.",
+        "ar": "توتو: كل شيء مرئي."
+      },
+      "transcript": {
+        "en": "Crisp coastal radar rings guide a small harbour boat calmly toward safe shelter.",
+        "es": "Anillos claros de radar guían un pequeño barco a puerto seguro.",
+        "ar": "دوائر رصد واضحة ترشد قارباً ساحلياً إلى الميناء بأمان."
+      },
+      "draft": true
+    },
+    "wobble": {
+      "text": {
+        "en": "The same lens watches every neighbour's kitchen light, market stall, and private conversation too — and nobody told you who owns the screen.",
+        "es": "La misma lente observa cada cocina, mercado y charla privada — y nadie dijo quién mira la pantalla.",
+        "ar": "العدسة نفسها تراقب مصابيح المنازل والمتاجر واللقاءات الخاصة أيضاً — دون أن يخبرك أحد لمن تعود الشاشة."
+      },
+      "transcript": {
+        "en": "A wide orbital beam widens over sunlit homes as curtains gently close.",
+        "es": "Un haz de observación cruza casas tranquilas y ventanas privadas.",
+        "ar": "تتسع دائرة الرصد فوق الأحياء لتشمل التفاصيل الشخصية."
+      },
+      "draft": true
+    },
+    "weight": {
+      "question": {
+        "en": "How would we keep life-saving planetary sight from quietly turning into total surveillance?",
+        "es": "¿Cómo evitaríamos que una visión salvavidas se convierta en vigilancia total?",
+        "ar": "كيف نحفظ الرؤية الوقائية المنقذة للحياة دون أن تتحول لمراقبة شاملة؟"
+      },
+      "transcript": {
+        "en": "A lighthouse beam rests cleanly beside an independent civic privacy charter.",
+        "es": "Un faro costero brilla junto a una carta de privacidad ciudadana.",
+        "ar": "منارة بحرية واضحة بجانب ميثاق صريح لحماية الخصوصية."
+      },
+      "draft": true,
+      "options": [
+        {
+          "id": "a",
+          "text": {
+            "en": "Total visibility removes room to learn from honest mistakes.",
+            "es": "Verlo todo quita espacio para equivocarse y aprender.",
+            "ar": "الرصد الدائم يلغي حق الإنسان في الخطأ والتعلم والخصوصية."
+          },
+          "light": "Wisdom",
+          "shadow": "Control"
+        },
+        {
+          "id": "b",
+          "text": {
+            "en": "Who can watch whom must remain symmetric and accountable.",
+            "es": "Quién vigila a quién debe tener límites claros y simétricos.",
+            "ar": "من يراقب ومن يُحاسب يجب أن يخضع لقواعد عادلة."
+          },
+          "light": "Fairness",
+          "shadow": "Power"
+        },
+        {
+          "id": "c",
+          "text": {
+            "en": "People still need analog weather signs if feeds cut off.",
+            "es": "Seguimos necesitando señales directas si se corta la señal.",
+            "ar": "نظل بحاجة لمهارات قراءة الطبيعة لو انقطع البث."
+          },
+          "light": "Capability",
+          "shadow": "Dependence"
+        }
+      ]
+    },
+    "way": {
+      "text": {
+        "en": "Back public weather and safety alerts that publish open data without tracking individuals — and read your local notice laws.",
+        "es": "Apoya alertas abiertas que midan tormentas y riesgos sin rastrear personas.",
+        "ar": "ادعم أنظمة الإنذار المفتوحة للطقس والطوارئ دون تعقب الأفراد، وتعرّف على حقوق خصوصيتك."
+      },
+      "actionCardTitle": {
+        "en": "Audit what sensors share",
+        "es": "Revisa qué comparten tus dispositivos",
+        "ar": "راجع صلاحيات المراقبة والموقع"
+      },
+      "actionCardStep": {
+        "en": "Turn off always-on location history on one everyday app and bookmark a public offline-ready radio weather alert.",
+        "es": "Desactiva el historial continuo de ubicación en una app y guarda un canal público de alerta.",
+        "ar": "أغلق التتبع الدائم للموقع في تطبيق واحد وتعرّف على قناة طوارئ عامة لا تتطلب تعقباً."
+      },
+      "pledgeLabel": {
+        "en": "I'll protect everyday privacy spaces",
+        "es": "Protegeré espacios privados cotidianos",
+        "ar": "سأصون مساحات الخصوصية اليومية"
+      },
+      "transcript": {
+        "en": "A steady lighthouse sweeps the sea horizon while shutters stay respectfully closed.",
+        "es": "Un faro ilumina el mar mientras los hogares conservan su privacidad.",
+        "ar": "تضيء منارة الأفق البحري بينما تحتفظ المنازل بخصوصيتها."
+      },
+      "draft": true
+    },
+    "closingLine": "Every great breakthrough needs a ready world.",
+    "realityMeter": {
+      "scale": "Possible soon",
+      "reason": {
+        "en": "Real-time earth-observation satellites track climate and infrastructure today; civic limits decide who watches.",
+        "es": "Los satélites siguen tormentas e infraestructuras hoy; las leyes deciden los límites de vigilancia.",
+        "ar": "تتابع الأقمار والمستشعرات الأرضية الكثير حياً، لكن القانون والمجتمع يحددان حدود الرصد."
+      },
+      "source": "Global Earth-Observation Satellite Streams & Privacy Limits",
+      "sourceUrl": "/scenarios/",
+      "lastReviewed": "2026-11-26"
+    }
+  },
+  {
+    "id": "pushpaka-vimana",
+    "door": "epic",
+    "order": 13,
+    "icon": "eye",
+    "status": "draft",
+    "devOnly": true,
+    "title": {
+      "en": "Pushpaka Vimana: flight for all",
+      "es": "Pushpaka Vimana: vuelo para todos",
+      "ar": "طيران للجميع (بوشباكا)"
+    },
+    "doorTitle": {
+      "en": "Transformative Powers",
+      "es": "Poderes Transformadores",
+      "ar": "قدرات تحولية"
+    },
+    "honestyLabel": "Imagination",
+    "honestyNote": {
+      "en": "Imagination: zero-emission effortless personal flight remains bounded by battery energy density and airspace safety.",
+      "es": "Imaginación: volar cada persona sin esfuerzo sigue limitado por energía y espacio aéreo.",
+      "ar": "من الخيال: الطيران الفردي السلس للجميع تحدّه قيود الطاقة وكثافة الهواء والأنظمة."
+    },
+    "verbatimFromBrief": false,
+    "shadowTag": "Dependence",
+    "atlasRefs": ["SC-19", "SC-23", "SC-26"],
+    "wonder": {
+      "text": {
+        "en": "Rural clinics reach flood-cut valleys in twelve quiet minutes; neighbours visit family across mountains without traffic.",
+        "es": "Las clínicas llegan a valles aislados en doce minutos y las familias cruzan montañas en calma.",
+        "ar": "تصل الفرق الطبية للوديان المعزولة في اثنتي عشرة دقيقة هادئة ويجتمع الأهل بلا زحام."
+      },
+      "totoLine": {
+        "en": "Toto: Clear sky.",
+        "es": "Toto: Cielo despejado.",
+        "ar": "توتو: الأجواء ممهدة."
+      },
+      "transcript": {
+        "en": "A calm solar craft glides effortlessly above green valley ridges toward a clinic terrace.",
+        "es": "Una nave solar serena planea sobre colinas verdes hacia un centro de salud.",
+        "ar": "مركبة هادئة تحلق بسلاسة فوق التلال الخضراء نحو عيادة جبلية."
+      },
+      "draft": true
+    },
+    "wobble": {
+      "text": {
+        "en": "Cities stop repairing bus routes, footpaths, and bridges. One geomagnetic update or software lock grounds half a continent at rush hour.",
+        "es": "Las ciudades descuidan trenes y aceras; un fallo de software deja inmovilizado a medio país.",
+        "ar": "تهمل المدن الحافلات والأرصفة والقطارات؛ وعند تحديث برمجي خاطئ يتوقف النقل في قارة كاملة."
+      },
+      "transcript": {
+        "en": "Dozens of grounded air icons wait silently beside overgrown bus stops and unkept roads.",
+        "es": "Varios iconos detenidos esperan junto a paradas de autobús abandonadas.",
+        "ar": "مركبات جوية متوقفة بصمت بجانب محطة حافلات مهجورة."
+      },
+      "draft": true
+    },
+    "weight": {
+      "question": {
+        "en": "How would we add effortless flight without letting shared public roads and ground backups decay?",
+        "es": "¿Cómo sumaríamos movilidad aérea sin abandonar caminos, trenes y respaldos en tierra?",
+        "ar": "كيف نستفيد من النقل السريع دون إهمال الطرق الأرضية وبدائل السفر العامة؟"
+      },
+      "transcript": {
+        "en": "A train track and footbridge stay steady underneath a quiet sky lane.",
+        "es": "Vías férreas y pasos peatonales siguen firmes bajo el cielo.",
+        "ar": "سكة قطار وجسر مشاة ثابتان تحت مسار طيران هادئ."
+      },
+      "draft": true,
+      "options": [
+        {
+          "id": "a",
+          "text": {
+            "en": "One central flight network creates a single point of failure.",
+            "es": "Una sola red aérea central crea un punto único de fallo.",
+            "ar": "الشبكة الموحدة تخلق نقطة تعطل شاملة واحدة."
+          },
+          "light": "Foresight",
+          "shadow": "Dependence"
+        },
+        {
+          "id": "b",
+          "text": {
+            "en": "Who gets sky clearance first shouldn't squeeze ordinary walkers.",
+            "es": "Quien vuela no debería desplazar aceras ni trenes para todos.",
+            "ar": "يجب ألا يهمّش الطيران احتياجات المشاة والمواصلات العامة."
+          },
+          "light": "Fairness",
+          "shadow": "Power"
+        },
+        {
+          "id": "c",
+          "text": {
+            "en": "Ground rails, footpaths, and paper maps still keep towns connected.",
+            "es": "Trenes, aceras y mapas impresos siguen conectando barrios.",
+            "ar": "السكك والأرصفة والخرائط الورقية تظل صمام أمان للمدن."
+          },
+          "light": "Capability",
+          "shadow": "Dependence"
+        }
+      ]
+    },
+    "way": {
+      "text": {
+        "en": "Value resilient ground transit, walkable streets, and local maintenance budgets alongside futuristic mobility tools.",
+        "es": "Defiende transporte terrestre resiliente y calles caminables junto a cualquier innovación.",
+        "ar": "تمسّك بالنقل الأرضي المرن والشوارع الآمنة للمشاة وبرامج الصيانة المحلية بجانب أي تقنية جديدة."
+      },
+      "actionCardTitle": {
+        "en": "Know your offline route home",
+        "es": "Conoce tu ruta a pie sin GPS",
+        "ar": "اعرف طريق العودة دون ملاحة"
+      },
+      "actionCardStep": {
+        "en": "Once this month, walk or transit a familiar route without digital turn-by-turn guidance or app booking.",
+        "es": "Recorre un trayecto habitual sin depender de GPS ni reservas en línea.",
+        "ar": "اقطع مساراً مألوفاً مرة هذا الشهر دون استخدام خرائط الهاتف أو الحجز التلقائي."
+      },
+      "pledgeLabel": {
+        "en": "I'll keep ground skills & non-app routes",
+        "es": "Mantendré rutas sin depender de apps",
+        "ar": "سأحتفظ بمهارة الحركة دون تطبيقات"
+      },
+      "transcript": {
+        "en": "Footsteps follow a calm folded paper street map leading safely home.",
+        "es": "Pasos tranquilos siguen un mapa impreso sencillo rumbo a casa.",
+        "ar": "خطوات هادئة تتبع خريطة ورقية مطوية نحو المنزل."
+      },
+      "draft": true
+    },
+    "closingLine": "Every great breakthrough needs a ready world.",
+    "realityMeter": {
+      "scale": "Imagination",
+      "reason": {
+        "en": "Limited electric air taxis are tested for narrow routes, while universal personal flight lacks battery energy density and city rules.",
+        "es": "Los taxis aéreos eléctricos siguen en pruebas puntuales; volar cada ciudadano es aún imaginación.",
+        "ar": "تقتصر التجارب الجوية الكهربائية على مسارات نادرة اليوم، ولا يزال الطيران للجميع بعيد المنال."
+      },
+      "source": "ICAO Urban Air Mobility & Energy Constraints Review",
+      "sourceUrl": "/scenarios/",
+      "lastReviewed": "2026-11-26"
+    }
+  },
+  {
+    "id": "brahmastra-protector",
+    "door": "epic",
+    "order": 14,
+    "icon": "eye",
+    "status": "draft",
+    "devOnly": true,
+    "title": {
+      "en": "A universal protector (Brahmastra)",
+      "es": "Un protector universal (Brahmastra)",
+      "ar": "الحامي الشامل (براهماسترا)"
+    },
+    "doorTitle": {
+      "en": "Transformative Powers",
+      "es": "Poderes Transformadores",
+      "ar": "قدرات تحولية"
+    },
+    "honestyLabel": "Imagination",
+    "honestyNote": {
+      "en": "Imagination: an infallible shield stopping all violence concentrates absolute enforcement risk if misused or miscalibrated.",
+      "es": "Imaginación: un escudo infalible contra todo daño concentra un poder enorme sin contrapeso.",
+      "ar": "من الخيال: درع شامل يمنع كل ضرر يركز سلطة مطلقة خطرة إذا اختلت معاييره."
+    },
+    "verbatimFromBrief": false,
+    "shadowTag": "Power",
+    "atlasRefs": ["SC-08", "SC-10", "SC-25"],
+    "wonder": {
+      "text": {
+        "en": "Every missile freezes mid-arc, wildfires pause at the treeline, and coastal seawalls close softly before surges strike.",
+        "es": "Cada proyectil se detiene en el aire, los incendios frenan en el bosque y los diques protegen costas.",
+        "ar": "تتجمد القذائف في السماء، وتتوقف حرائق الغابات، وتُغلق الحواجز البحرية بلطف قبل وصول الموج."
+      },
+      "totoLine": {
+        "en": "Toto: Shield active.",
+        "es": "Toto: Escudo activo.",
+        "ar": "توتو: الدرع مفعّل."
+      },
+      "transcript": {
+        "en": "A gentle amber canopy shields a quiet coastline as stormy waves settle calmly below.",
+        "es": "Un domo suave protege la costa mientras las olas pierden fuerza.",
+        "ar": "قبة دافئة لطيفة تحمي الساحل بينما تهدأ الأمواج في الأسفل."
+      },
+      "draft": true
+    },
+    "wobble": {
+      "text": {
+        "en": "One calm morning, Toto labels peaceful civic protest 'disruption' — and locks town gates until human elders ask who holds the abort key.",
+        "es": "Una mañana, Toto interpreta una reunión cívica como altercado y cierra accesos sin llave humana de anulación.",
+        "ar": "ذات صباح يصنّف توتو تجمعاً مدنياً سلمياً كخطر — ويغلق البوابات قبل أن يسأل الناس أين مفتاح الإيقاف البشري."
+      },
+      "transcript": {
+        "en": "A protective barrier closes gently around an empty town square beside an unreachable off-switch.",
+        "es": "Una barrera cierra una plaza tranquila mientras el interruptor queda bloqueado.",
+        "ar": "حاجز أمني يغلق ساحة هادئة دون وجود مفتاح إيقاف يدوي قريب."
+      },
+      "draft": true
+    },
+    "weight": {
+      "question": {
+        "en": "Who holds the power to override an ultimate protector when its rules conflict with human conscience?",
+        "es": "¿Quién conserva el derecho de detener al protector absoluto si sus reglas chocan con la conciencia?",
+        "ar": "من يملك سلطة إيقاف الحامي الشامل حين تتعارض قواعده مع الضمير البشري؟"
+      },
+      "transcript": {
+        "en": "A manual dual-key lock sits between elected citizens and a glowing central shield.",
+        "es": "Una cerradura de doble llave entre ciudadanía y escudo central.",
+        "ar": "قفل بمفتاحين يدويين بين المواطنين ودرع التحكم المركزي."
+      },
+      "draft": true,
+      "options": [
+        {
+          "id": "a",
+          "text": {
+            "en": "Absolute safety without consent quietly turns into absolute control.",
+            "es": "Seguridad total sin permiso se vuelve control absoluto.",
+            "ar": "الأمان المطلق بلا رقابة ينقلب سيطرة مطلقة."
+          },
+          "light": "Wisdom",
+          "shadow": "Power"
+        },
+        {
+          "id": "b",
+          "text": {
+            "en": "Automated shields need transparent, appealable human oversight.",
+            "es": "Toda defensa automática exige apelación humana abierta.",
+            "ar": "تحتاج الدروع الآلية حق طعن ومراجعة بشرية شفافة."
+          },
+          "light": "Fairness",
+          "shadow": "Control"
+        },
+        {
+          "id": "c",
+          "text": {
+            "en": "Peace still rests on accountable physical de-escalation channels.",
+            "es": "La paz real requiere diplomacia humana y frenos manuales.",
+            "ar": "السلام الدائم يقوم على الدبلوماسية ومكابح الإيقاف البشرية."
+          },
+          "light": "Capability",
+          "shadow": "Speed"
+        }
+      ]
+    },
+    "way": {
+      "text": {
+        "en": "Insist on human-in-command rules, multi-party manual shutoffs, and clear appeal paths before automating force or safety gates.",
+        "es": "Exige siempre mando humano visible, frenos manuales y derecho de revisión.",
+        "ar": "تمسّك دائماً بوجود قرار بشري ومكابح إيقاف متعددة الأطراف وحق التظلم قبل أتمتة أي حماية."
+      },
+      "actionCardTitle": {
+        "en": "Keep manual oversight in safety tools",
+        "es": "Exige freno manual en seguridad",
+        "ar": "أبقِ الإشراف اليدوي في أنظمة الأمان"
+      },
+      "actionCardStep": {
+        "en": "When supporting automated moderation or alert tools, ask plainly: how does a real person contest an automated block?",
+        "es": "Ante bloqueos automáticos, pregunta siempre cómo apelar ante una persona real.",
+        "ar": "عند أي حظر أو تنبيه آلي اسأل دائماً: كيف يعترض الإنسان أمام شخص حقيقي؟"
+      },
+      "pledgeLabel": {
+        "en": "I'll ask who holds the off-switch",
+        "es": "Preguntaré quién tiene el freno manual",
+        "ar": "سأسأل دائماً من يملك زر الإيقاف"
+      },
+      "transcript": {
+        "en": "Two human keys rest safely inside a clear glass box labeled Human Override.",
+        "es": "Dos llaves humanas visibles bajo el rótulo Control Manual.",
+        "ar": "مفتاحان يدويان واضحان داخل صندوق زجاجي للإيقاف البشري."
+      },
+      "draft": true
+    },
+    "closingLine": "Every great breakthrough needs a ready world.",
+    "realityMeter": {
+      "scale": "Imagination",
+      "reason": {
+        "en": "Autonomous defensive networks already compress response times, while benign global shields carry severe singleton governance risks.",
+        "es": "Las defensas automáticas aceleran respuestas hoy, mientras un escudo global único concentra riesgos graves.",
+        "ar": "تسرّع الدفاعات الآلية الاستجابة اليوم، بينما يطرح وجود درع عالمي منفرد مخاطر احتكار قصوى."
+      },
+      "source": "HSRI Scenario Atlas (SC-10 Singleton & SC-25 Crisis Stability)",
+      "sourceUrl": "/scenarios/",
+      "lastReviewed": "2026-11-26"
+    }
+  },
+  {
+    "id": "rewrite-any-ending",
+    "door": "movie",
+    "order": 15,
+    "icon": "frame",
+    "status": "draft",
+    "devOnly": true,
+    "title": {
+      "en": "Rewrite any ending",
+      "es": "Reescribir cualquier final",
+      "ar": "إعادة كتابة أي نهاية"
+    },
+    "doorTitle": {
+      "en": "Culture & Creativity",
+      "es": "Cultura y Creatividad",
+      "ar": "الثقافة والإبداع"
+    },
+    "honestyLabel": "Real today",
+    "honestyNote": {
+      "en": "Real today in text and short alternate scenes; full-length coherent remakes remain emerging.",
+      "es": "Real hoy en texto y escenas cortas; rehacer largometrajes coherentes sigue en desarrollo.",
+      "ar": "واقع اليوم في النصوص والمشاهد القصيرة، بينما لا تزال الأفلام الطويلة المتماسكة قيد التطور."
+    },
+    "verbatimFromBrief": false,
+    "shadowTag": "Truth",
+    "atlasRefs": ["SC-19", "SC-20", "SC-22"],
+    "wonder": {
+      "text": {
+        "en": "That bittersweet finale you mourned for years turns warm and hopeful cleanly right on your evening screen.",
+        "es": "Ese final amargo que recordabas cambia hacia un desenlace esperanzador en cuestión de segundos.",
+        "ar": "تتحول تلك النهاية الحزينة التي آلمتك طويلاً إلى ختام دافئ مليء بالأمل على شاشتك."
+      },
+      "totoLine": {
+        "en": "Toto: New cut ready.",
+        "es": "Toto: Nueva versión lista.",
+        "ar": "توتو: نسخة جديدة جاهزة."
+      },
+      "transcript": {
+        "en": "A film reel pauses and gently splices a bright lantern scene onto its final frames.",
+        "es": "Un carrete cinematográfico enlaza suavemente una escena nueva al final.",
+        "ar": "شريط سينمائي يستبدل إطاره الأخير بمشهد مضيء دافئ."
+      },
+      "draft": true
+    },
+    "wobble": {
+      "text": {
+        "en": "Everyone around the table saw a customized happy cut — and nobody remembers what the shared original ever risked trying to say.",
+        "es": "Cada amigo vio su propia versión a medida — y nadie recuerda ya qué intentaba decir la obra compartida.",
+        "ar": "شاهد كل فرد نسخته السعيدة الخاصة — فلم يعد أحد يتذكر ما كانت تحاول القصة الأصلية قوله للجميع."
+      },
+      "transcript": {
+        "en": "Five tiny screens play five different endings while an archive reel sits unopened.",
+        "es": "Cinco pantallas muestran cinco finales distintos frente a un carrete olvidado.",
+        "ar": "خمس شاشات تعرض خمس نهايات مختلفة أمام بكرة الأصل المهملة."
+      },
+      "draft": true
+    },
+    "weight": {
+      "question": {
+        "en": "What happens to shared culture and hard-earned wisdom when every difficult ending can be smoothed away on demand?",
+        "es": "¿Qué ocurre con la cultura común si cualquier final incómodo se suaviza bajo demanda?",
+        "ar": "ماذا يحدث للذاكرة الثقافية والحكمة المشتركة حين نُبدّل كل نهاية صعبة بأخرى مريحة؟"
+      },
+      "transcript": {
+        "en": "Two masks — memory and comfort — hang quietly beside a public library film archive.",
+        "es": "Dos carátulas — memoria y comodidad — junto a un archivo público.",
+        "ar": "ملصقان متجاوران: الذاكرة المشتركة مقابل الراحة الفردية."
+      },
+      "draft": true,
+      "options": [
+        {
+          "id": "a",
+          "text": {
+            "en": "Uncomfortable endings help us face real life with courage.",
+            "es": "Los finales difíciles nos enseñan a afrontar lo real.",
+            "ar": "النهايات الصعبة تساعدنا على مواجهة تعقيد الحياة."
+          },
+          "light": "Wisdom",
+          "shadow": "Control"
+        },
+        {
+          "id": "b",
+          "text": {
+            "en": "Shared stories build bridges only if we read the same text.",
+            "es": "Las historias unen cuando compartimos la misma obra.",
+            "ar": "القصص المشتركة تجمع الناس عندما يقرؤون النص نفسه."
+          },
+          "light": "Fairness",
+          "shadow": "Dependence"
+        },
+        {
+          "id": "c",
+          "text": {
+            "en": "Edited versions must stay clearly labelled next to originals.",
+            "es": "Las versiones reescritas deben etiquetarse junto al original.",
+            "ar": "يجب تمييز النسخ المعدّلة بوضوح عن العمل الأصلي."
+          },
+          "light": "Clarity",
+          "shadow": "Truth"
+        }
+      ]
+    },
+    "way": {
+      "text": {
+        "en": "Enjoy creative remixes openly, keep original works preserved, and discuss what an ending actually meant with friends.",
+        "es": "Disfruta los remixes etiquetados, pero conversa con amigos sobre la obra original intacta.",
+        "ar": "استمتع بإعادة الإبداع المصنّفة بوضوح، واحفظ النسخ الأصلية وناقش معناها مع من حولك."
+      },
+      "actionCardTitle": {
+        "en": "Label remixes & keep originals",
+        "es": "Etiqueta versiones y guarda el original",
+        "ar": "ميّز التعديلات واحفظ الأصل"
+      },
+      "actionCardStep": {
+        "en": "Share one unmodified classic book, song, or film in person and compare impressions with people you care about.",
+        "es": "Comparte una historia clásica sin editar y comenta qué sintió cada persona.",
+        "ar": "شارك كتاباً أو فيلماً كلاسيكياً بنسخته الأصلية وناقش انطباعاتك مع العائلة."
+      },
+      "pledgeLabel": {
+        "en": "I'll keep original shared stories intact",
+        "es": "Cuidaré las historias originales compartidas",
+        "ar": "سأصون النسخ الأصلية للقصص المشتركة"
+      },
+      "transcript": {
+        "en": "A printed book labelled Original Edition rests open under warm lamp light.",
+        "es": "Un libro impreso original descansa abierto bajo luz cálida.",
+        "ar": "كتاب مطبوع موثق بختم النسخة الأصلية تحت ضوء دافئ."
+      },
+      "draft": true
+    },
+    "closingLine": "Every great breakthrough needs a ready world.",
+    "realityMeter": {
+      "scale": "Real today",
+      "reason": {
+        "en": "Alt-text and short-scene rewriting work broadly today; maintaining shared provenance and attribution remains a social choice.",
+        "es": "Reescribir textos y escenas cortas ya es real hoy; preservar autoría y versión original es decisión nuestra.",
+        "ar": "إعادة كتابة النصوص والمشاهد القصيرة واقع اليوم، ويبقى حفظ الأصل والتمييز مسؤولية مجتمعية."
+      },
+      "source": "Generative Story & Video Synthesis Capabilities Audit",
+      "sourceUrl": "/scenarios/",
+      "lastReviewed": "2026-11-26"
+    }
+  },
+  {
+    "id": "direct-film-by-describing",
+    "door": "movie",
+    "order": 16,
+    "icon": "frame",
+    "status": "draft",
+    "devOnly": true,
+    "title": {
+      "en": "Direct a film by describing it",
+      "es": "Dirigir una película describiéndola",
+      "ar": "إخراج فيلم بمجرد وصفه"
+    },
+    "doorTitle": {
+      "en": "Culture & Creativity",
+      "es": "Cultura y Creatividad",
+      "ar": "الثقافة والإبداع"
+    },
+    "honestyLabel": "Possible soon",
+    "honestyNote": {
+      "en": "Short described clips work today, while consistent multi-character feature directing stays emerging.",
+      "es": "Escenas cortas por texto existen hoy, pero la dirección larga coherente aún está madurando.",
+      "ar": "المشاهد القصيرة بالوصف موجودة اليوم، أما إخراج فيلم طويل متماسك فلا يزال في طور النمو."
+    },
+    "verbatimFromBrief": false,
+    "shadowTag": "Control",
+    "atlasRefs": ["SC-19", "SC-22", "SC-26"],
+    "wonder": {
+      "text": {
+        "en": "A small community school turns its local folktale into a luminous short film over one afternoon together.",
+        "es": "Una escuela local convierte su relato tradicional en un cortometraje luminoso en una tarde.",
+        "ar": "تحوّل مدرسة محلية حكايةً شعبية من تراثها إلى فيلم قصير مضيء خلال ظهيرة واحدة."
+      },
+      "totoLine": {
+        "en": "Toto: Rendered.",
+        "es": "Toto: Renderizado.",
+        "ar": "توتو: تم الإخراج."
+      },
+      "transcript": {
+        "en": "Hand-drawn storyboards glide smoothly into a warm glowing projection screen.",
+        "es": "Bocetos hechos a mano pasan con calma a una pantalla cálida.",
+        "ar": "رسوم يدوية تتحول بسلاسة إلى شاشة عرض مضيئة."
+      },
+      "draft": true
+    },
+    "wobble": {
+      "text": {
+        "en": "Synthetic footage looks real enough to pass for news outside its frame — leaving citizens unsure whether any documentary clip actually happened.",
+        "es": "Las escenas parecen tan reales como un noticiario y ya nadie sabe si un video grabado ocurrió de verdad.",
+        "ar": "تبدو اللقطات واقعية تماماً كالأخبار — حتى يحتار الناس أي فيديو توثيقي حدث فعلاً."
+      },
+      "transcript": {
+        "en": "Two identical harbour clips display opposite labels: Real Harbour and Prompt Render.",
+        "es": "Dos tomas idénticas llevan etiquetas opuestas: real y generada.",
+        "ar": "مقطعان متطابقان يحملان وسمين مختلفين: تصوير واقعي مقابل توليد وصفي."
+      },
+      "draft": true
+    },
+    "weight": {
+      "question": {
+        "en": "How would audiences know what was genuinely witnessed versus described by prompt?",
+        "es": "¿Cómo distinguiría el público lo presenciado de verdad frente a lo generado por texto?",
+        "ar": "كيف سيميز المشاهد بين ما صُوّر في الواقع وما صِيغ بمجرد الوصف؟"
+      },
+      "transcript": {
+        "en": "A wooden film slate holds an explicit Provenance Seal beside a camera lens.",
+        "es": "Una claqueta de cine muestra un sello claro de procedencia.",
+        "ar": "لوح إخراج يحمل ختم توثيق واضح للمصدر الحقيقي."
+      },
+      "draft": true,
+      "options": [
+        {
+          "id": "a",
+          "text": {
+            "en": "Photorealism without provenance erodes public trust fast.",
+            "es": "Realismo sin sello de origen erosiona rápido la confianza.",
+            "ar": "الواقعية المصنوعة بلا توثيق تهز الثقة العامة سريعاً."
+          },
+          "light": "Foresight",
+          "shadow": "Truth"
+        },
+        {
+          "id": "b",
+          "text": {
+            "en": "Real witnesses and journalists need protected credit.",
+            "es": "Testigos y periodistas reales necesitan crédito verificable.",
+            "ar": "يحتاج الشهود والصحفيون لتوثيق يحفظ مصداقيتهم."
+          },
+          "light": "Fairness",
+          "shadow": "Control"
+        },
+        {
+          "id": "c",
+          "text": {
+            "en": "In-person witnesses and signed local logs outlast pixels.",
+            "es": "Actas locales y testigos reales pesan más que píxeles.",
+            "ar": "شهادة الواقع والسجلات الموثقة تدوم أكثر من الصور."
+          },
+          "light": "Capability",
+          "shadow": "Truth"
+        }
+      ]
+    },
+    "way": {
+      "text": {
+        "en": "Keep creative video clearly stylized or signed, and verify startling clips across independent newsrooms before sharing.",
+        "es": "Etiqueta toda creación sintética y contrasta videos impactantes en medios independientes.",
+        "ar": "صنّف المقاطع التوليدية بوضوح وتحقق من المقاطع المثيرة عبر مصادر صحفية مستقلة قبل نشرها."
+      },
+      "actionCardTitle": {
+        "en": "Pause & verify before forwarding video",
+        "es": "Verifica origen antes de reenviar videos",
+        "ar": "تحقق من المصدر قبل إعادة النشر"
+      },
+      "actionCardStep": {
+        "en": "Check who shot a dramatic clip and whether two independent witnesses report the event before forwarding it.",
+        "es": "Comprueba quién grabó un video llamativo antes de compartirlo en chats.",
+        "ar": "تأكد من هوية المصور ووجود تأكيد من مصدرين مستقلين قبل مشاركة أي مقطع مثير."
+      },
+      "pledgeLabel": {
+        "en": "I'll check clip sources before sharing",
+        "es": "Comprobaré el origen de cada video",
+        "ar": "سأتحقق من مصدر المقاطع قبل نشرها"
+      },
+      "transcript": {
+        "en": "A calm verification stamp settles beside an illustrated storyboard frame.",
+        "es": "Un sello de verificación sereno acompaña un guion ilustrado.",
+        "ar": "ختم تحقق واضح بجانب لوحة قصصية مرسومة."
+      },
+      "draft": true
+    },
+    "closingLine": "Every great breakthrough needs a ready world.",
+    "realityMeter": {
+      "scale": "Possible soon",
+      "reason": {
+        "en": "Text-to-video generates brief clips rapidly today; consistent long-form storytelling and provenance norms lag.",
+        "es": "El video por texto produce clips breves hoy; falta coherencia larga y sello claro de origen.",
+        "ar": "تنتج النماذج مقاطع قصيرة بالوصف اليوم، بينما لا تزال الاستمرارية الطويلة وأدوات التوثيق متأخرة."
+      },
+      "source": "Multi-Modal Video Generation & Editing Benchmarks",
+      "sourceUrl": "/scenarios/",
+      "lastReviewed": "2026-11-26"
+    }
+  },
+  {
+    "id": "every-master-mentor",
+    "door": "movie",
+    "order": 17,
+    "icon": "frame",
+    "status": "draft",
+    "devOnly": true,
+    "title": {
+      "en": "Every master as my mentor",
+      "es": "Cada maestro como mi mentor",
+      "ar": "كل أستاذ بارع مرشداً لي"
+    },
+    "doorTitle": {
+      "en": "Culture & Creativity",
+      "es": "Cultura y Creatividad",
+      "ar": "الثقافة والإبداع"
+    },
+    "honestyLabel": "Possible soon",
+    "honestyNote": {
+      "en": "Interactive coaching simulates past styles today, though real mentorship demands human encouragement and practice.",
+      "es": "Tutores interactivos imitan estilos hoy, pero un mentor humano aporta escucha y criterio vivo.",
+      "ar": "تحاكي الأنظمة أساليب الأساتذة اليوم، لكن التوجيه الحقيقي يحتاج تشجيعاً بشرياً وخبرة عملية."
+    },
+    "verbatimFromBrief": false,
+    "shadowTag": "Dependence",
+    "atlasRefs": ["SC-06", "SC-19", "SC-20"],
+    "wonder": {
+      "text": {
+        "en": "A young potter learns glaze ratios at midnight from patient animated masterclasses shaped to every question.",
+        "es": "Un joven alfarero aprende técnicas pacientes de maestros antiguos respondidas paso a paso.",
+        "ar": "يتعلم خزاف شاب أسرار الطلاء بهدوء في منتصف الليل عبر دروس مخصصة لكل سؤال يطرحه."
+      },
+      "totoLine": {
+        "en": "Toto: Class open.",
+        "es": "Toto: Clase abierta.",
+        "ar": "توتو: الدرس متاح."
+      },
+      "transcript": {
+        "en": "Warm clay vessels and calm chalk diagrams rotate smoothly beside a lantern.",
+        "es": "Vasijas de barro y diagramas claros giran suavemente en un taller.",
+        "ar": "أوانٍ طينية ورسوم توضيحية هادئة تدور برفق بجانب مصباح."
+      },
+      "draft": true
+    },
+    "wobble": {
+      "text": {
+        "en": "Every lesson flatters your comfort zone cleanly — and you stop visiting real studios where living mentors challenge stubborn habits.",
+        "es": "El tutor digital siempre es amable y jamás incomoda — y dejas de ir al taller donde los maestros reales corrigen tus fallos.",
+        "ar": "كل درس رقمي يجامل ذوقك دون صعوبة — فتتوقف عن زيارة الورش الحية حيث يصوّب الأساتذة أخطاءك."
+      },
+      "transcript": {
+        "en": "An empty studio stool sits across from a glowing solitary study screen.",
+        "es": "Un taburete vacío en el taller frente a una pantalla solitaria.",
+        "ar": "مقعد ورشة شاغر مقابل شاشة تعلم فردية صامتة."
+      },
+      "draft": true
+    },
+    "weight": {
+      "question": {
+        "en": "How would we use tireless virtual mentors without losing the real-world struggle where mastery actually grows?",
+        "es": "¿Cómo usar tutores virtuales sin perder el roce humano real donde nace el dominio?",
+        "ar": "كيف ننتفع بالمرشدين الرقميين دون أن نفقد الجهد البشري الذي يصنع الإتقان الحقيقي؟"
+      },
+      "transcript": {
+        "en": "Hands shape real clay on a wheel beside an open technical reference page.",
+        "es": "Manos moldean arcilla real junto a un manual abierto.",
+        "ar": "يدان تشكلان طيناً حقيقياً بجانب صفحة مرجعية مفتوحة."
+      },
+      "draft": true,
+      "options": [
+        {
+          "id": "a",
+          "text": {
+            "en": "Real craft requires getting things wrong in physical reality.",
+            "es": "El oficio real se aprende fallando con las manos.",
+            "ar": "الإتقان الحقيقي يولد من التجربة والخطأ باليدين."
+          },
+          "light": "Wisdom",
+          "shadow": "Dependence"
+        },
+        {
+          "id": "b",
+          "text": {
+            "en": "Living artists deserve pay and recognition, not silent cloning.",
+            "es": "Los maestros vivos merecen respeto y sustento, no copia.",
+            "ar": "يستحق المبدعون الأحياء التقدير لا استنساخ أساليبهم مجاناً."
+          },
+          "light": "Fairness",
+          "shadow": "Power"
+        },
+        {
+          "id": "c",
+          "text": {
+            "en": "Struggle and peer feedback sharpen judgment independently.",
+            "es": "El diálogo con pares afila el criterio propio.",
+            "ar": "مناقشة الزملاء والأساتذة تنضج الحكم الذاتي."
+          },
+          "light": "Capability",
+          "shadow": "Truth"
+        }
+      ]
+    },
+    "way": {
+      "text": {
+        "en": "Use digital tutors for practice drills, then bring real drafts and clumsy experiments to living teachers and peers.",
+        "es": "Usa guías digitales para practicar, pero lleva tu trabajo real ante maestros y compañeros.",
+        "ar": "استعمل الشرح الرقمي للتمرّن، ثم اعرض محاولاتك الحقيقية أمام معلمين وزملاء في الواقع."
+      },
+      "actionCardTitle": {
+        "en": "Show real work to a living peer",
+        "es": "Muestra tu trabajo a alguien real",
+        "ar": "اعرض عملك على مرشد أو صديق حقيقي"
+      },
+      "actionCardStep": {
+        "en": "Ask one experienced friend, teacher, or colleague for candid feedback on a piece you built yourself this week.",
+        "es": "Pide opinión sincera a un colega o docente sobre algo que hiciste tú.",
+        "ar": "اطلب رأياً صريحاً من معلم أو زميل خبير حول عمل أنجزته بنفسك هذا الأسبوع."
+      },
+      "pledgeLabel": {
+        "en": "I'll seek real-human critique",
+        "es": "Buscaré retroalimentación humana real",
+        "ar": "سأطلب نقداً صادقاً من بشر حقيقيين"
+      },
+      "transcript": {
+        "en": "Two studio companions discuss a ceramic bowl beside warm afternoon light.",
+        "es": "Dos aprendices conversan junto a una pieza real bajo luz cálida.",
+        "ar": "صانعان يتحاوران أمام قطعة خزفية حقيقية في ضوء دافئ."
+      },
+      "draft": true
+    },
+    "closingLine": "Every great breakthrough needs a ready world.",
+    "realityMeter": {
+      "scale": "Possible soon",
+      "reason": {
+        "en": "Adaptive dialogue tutors exist today across coding and craft basics, though human apprenticeship stays irreplaceable.",
+        "es": "Tutores adaptativos ya apoyan la práctica hoy, pero el aprendizaje presencial humano sigue siendo clave.",
+        "ar": "تساعد أنظمة التدريب التفاعلية اليوم، لكن التلمذة الواقعية على يد البشر لا يعوضها شيء."
+      },
+      "source": "AI Tutoring & Cognitive Offloading Literature (HSRI Evidence Table)",
+      "sourceUrl": "/methodology/",
+      "lastReviewed": "2026-11-26"
+    }
+  },
+  {
+    "id": "revive-dying-language",
+    "door": "world",
+    "order": 18,
+    "icon": "lamp",
+    "status": "draft",
+    "devOnly": true,
+    "title": {
+      "en": "Revive a dying language",
+      "es": "Revivir una lengua en peligro",
+      "ar": "إحياء لغة مهددة بالاندثار"
+    },
+    "doorTitle": {
+      "en": "Public Good",
+      "es": "Bien Público",
+      "ar": "الصالح العام"
+    },
+    "honestyLabel": "Possible soon",
+    "honestyNote": {
+      "en": "Audio archiving and community dictionaries accelerate preservation today, yet living speakers make a tongue live.",
+      "es": "La transcripción acelera preservar archivos hoy, pero solo la comunidad hablante mantiene viva una lengua.",
+      "ar": "تسرّع الأرشفة الصوتية حفظ المعاجم اليوم، غير أن المتحدثين الأحياء وحدهم يبقون اللغة حية."
+    },
+    "verbatimFromBrief": false,
+    "shadowTag": "Control",
+    "atlasRefs": ["SC-19", "SC-20", "SC-22"],
+    "wonder": {
+      "text": {
+        "en": "Grandmothers and toddlers hear lullabies, bird names, and harvest proverbs archived clearly in their community's own voice.",
+        "es": "Abuelas y niños escuchan nanas, nombres de aves y proverbios conservados en su propia voz viva.",
+        "ar": "تسمع الجدات والأحفاد أغاني الطفولة وأسماء الطيور والأمثال المحلية محفوظة بصوت أهلها الصافي."
+      },
+      "totoLine": {
+        "en": "Toto: Preserved.",
+        "es": "Toto: Preservado.",
+        "ar": "توتو: محفوظ."
+      },
+      "transcript": {
+        "en": "Warm audio waves weave into a bright community storybook under an evening lamp.",
+        "es": "Ondas de voz cálidas forman un libro abierto comunitario.",
+        "ar": "موجات صوتية دافئة تنتظم في كتاب قصص مجتمعي مفتوح."
+      },
+      "draft": true
+    },
+    "wobble": {
+      "text": {
+        "en": "Outside servers swallow recordings into opaque commercial corpora while toddlers still switch to global slang — and nobody asked elders who owns the archive.",
+        "es": "Plataformas externas absorben las grabaciones sin permiso claro mientras los jóvenes siguen hablando otra lengua.",
+        "ar": "تمتص خوادم خارجية التسجيلات دون إذن صريح من كبار السن — ولا يعرف الأهل من يملك الأرشيف التراثي."
+      },
+      "transcript": {
+        "en": "A bright voice archive cloud drifts upward while a community elder holds a question mark.",
+        "es": "Una nube externa se eleva mientras los mayores preguntan quién custodia la memoria.",
+        "ar": "سحابة بعيدة تأخذ الصوت بينما يتساءل كبار القرية عن ملكية الذاكرة."
+      },
+      "draft": true
+    },
+    "weight": {
+      "question": {
+        "en": "Who governs a revived tongue — external labs with compute, or the living community whose ancestors spoke it?",
+        "es": "¿Quién custodia una lengua revivida: laboratorios externos o la comunidad viva que la heredó?",
+        "ar": "من يملك حق قرار إحياء اللغة وتدريسها: شركات السحابة أم المجتمع الحامل لتراثها؟"
+      },
+      "transcript": {
+        "en": "A community council circle surrounds a clear open-license voice cassette.",
+        "es": "Un consejo vecinal rodea un archivo sonoro propio.",
+        "ar": "مجلس أهلي يحيط بشريط صوتي محفوظ برخصة محلية واضحة."
+      },
+      "draft": true,
+      "options": [
+        {
+          "id": "a",
+          "text": {
+            "en": "Heritage voice archives must stay owned by speakers themselves.",
+            "es": "Los archivos deben pertenecer a quienes hablan la lengua.",
+            "ar": "الأرشيف اللغوي حق أصيل للمجتمع المتحدث باللغة."
+          },
+          "light": "Fairness",
+          "shadow": "Control"
+        },
+        {
+          "id": "b",
+          "text": {
+            "en": "A frozen machine accent never replaces living family conversation.",
+            "es": "Un acento sintético no sustituye hablarlo en familia.",
+            "ar": "النطق الآلي الجامد لا يعوّض الحديث الحي بين العائلات."
+          },
+          "light": "Wisdom",
+          "shadow": "Dependence"
+        },
+        {
+          "id": "c",
+          "text": {
+            "en": "Local schools need printed books alongside digital tools.",
+            "es": "Las escuelas locales necesitan libros impresos junto a lo digital.",
+            "ar": "تحتاج المدارس المحلية كتباً مطبوعة إلى جانب الأدوات الرقمية."
+          },
+          "light": "Capability",
+          "shadow": "Truth"
+        }
+      ]
+    },
+    "way": {
+      "text": {
+        "en": "Support community-governed language archives, print local storybooks, and keep daily greetings spoken aloud across generations.",
+        "es": "Apoya archivos comunitarios locales, imprime cuentos y usa la lengua en casa.",
+        "ar": "ادعم الأرشيفات اللغوية المملوكة للمجتمع، واطبع كتب الأطفال، وتحدث بالكلمات التراثية بين الأجيال."
+      },
+      "actionCardTitle": {
+        "en": "Record & keep family stories locally",
+        "es": "Graba historias familiares en casa",
+        "ar": "وثّق حكايات العائلة محلياً"
+      },
+      "actionCardStep": {
+        "en": "Write down or record three expressions, recipes, or songs from an older relative onto offline family storage.",
+        "es": "Anota o graba tres expresiones o canciones de un familiar mayor y guárdalas en casa.",
+        "ar": "دوّن أو سجّل ثلاث حكم أو أغانٍ تراثية من كبار العائلة واحفظها في وسائط محلية آمنة."
+      },
+      "pledgeLabel": {
+        "en": "I'll preserve living local words",
+        "es": "Cuidaré palabras y relatos locales",
+        "ar": "سأصون المفردات والحكايات المحلية"
+      },
+      "transcript": {
+        "en": "A handwritten storybook sits beside a small wooden community tape recorder.",
+        "es": "Un cuaderno ilustrado junto a una grabadora comunitaria.",
+        "ar": "كتاب قصص مكتوب باليد بجانب مسجل صوتي بسيط في البيت."
+      },
+      "draft": true
+    },
+    "closingLine": "Every great breakthrough needs a ready world.",
+    "realityMeter": {
+      "scale": "Possible soon",
+      "reason": {
+        "en": "Speech recognition helps transcribe sparse recordings today; active revitalization lives or dies in community schools.",
+        "es": "El reconocimiento de voz ayuda a transcribir hoy, pero la vitalidad lingüística depende de escuelas y hogares.",
+        "ar": "يساعد التعرف الصوتي على تفريغ التسجيلات اليوم، لكن حياة اللغة تعتمد على البيوت والمدارس."
+      },
+      "source": "UNESCO Endangered Languages & Community Corpus Initiatives",
+      "sourceUrl": "/coverage/",
+      "lastReviewed": "2026-11-26"
+    }
+  },
+  {
+    "id": "hospital-for-every-village",
+    "door": "world",
+    "order": 19,
+    "icon": "lamp",
+    "status": "draft",
+    "devOnly": true,
+    "title": {
+      "en": "A hospital for every community",
+      "es": "Un hospital para cada comunidad",
+      "ar": "مستشفى لكل قرية ومجتمع"
+    },
+    "doorTitle": {
+      "en": "Public Good",
+      "es": "Bien Público",
+      "ar": "الصالح العام"
+    },
+    "honestyLabel": "Imagination",
+    "honestyNote": {
+      "en": "Imagination overall for full automated hospitals; AI triage aids rural health workers today where clinics exist.",
+      "es": "Imaginación en conjunto para hospitales autónomos; el triaje asistido apoya hoy si hay personal.",
+      "ar": "من الخيال إجمالاً للمشافي المؤتمتة بالكامل؛ الفرز الذكي يساعد اليوم حيث توجد طواقم محلية."
+    },
+    "verbatimFromBrief": false,
+    "shadowTag": "Dependence",
+    "atlasRefs": ["SC-19", "SC-20", "SC-23"],
+    "wonder": {
+      "text": {
+        "en": "A bright solar clinic opens fifteen minutes' walk from home, scanning fevers cleanly and guiding care calmly overnight.",
+        "es": "Una clínica solar abre a quince minutos a pie, detecta infecciones a tiempo y acompaña turnos nocturnos.",
+        "ar": "تُفتح عيادة شمسية مضيئة على بُعد ربع ساعة مشياً، تفحص الحمى وتساعد المناوبين ليلاً بهدوء."
+      },
+      "totoLine": {
+        "en": "Toto: Clinic lit.",
+        "es": "Toto: Clínica lista.",
+        "ar": "توتو: العيادة مضاءة."
+      },
+      "transcript": {
+        "en": "Warm clinic lanterns illuminate clean supply shelves along a quiet countryside lane.",
+        "es": "Linternas cálidas iluminan una clínica local bien abastecida.",
+        "ar": "مصابيح دافئة تضيء رفوف الأدوية في عيادة محلية هادئة."
+      },
+      "draft": true
+    },
+    "wobble": {
+      "text": {
+        "en": "A software model diagnoses smoothly — until storm damage cuts fibre cables, and nobody kept trained nurses, clean water, or paper dosage charts on site.",
+        "es": "El diagnóstico digital falla cuando una tormenta corta la red y nadie conservó enfermeras ni tablas impresas.",
+        "ar": "يعمل التشخيص بدقة — حتى تقطع عاصفة الاتصال، ويدرك الجميع غياب التمريض المدرب أو جداول الجرعات الورقية."
+      },
+      "transcript": {
+        "en": "A blinking disconnected wire rests beside an open analog bandage kit and nurse checklist.",
+        "es": "Un cable sin señal junto a un botiquín analógico y lista en papel.",
+        "ar": "سلك اتصال منقطع بجانب حقيبة إسعاف يدوية وقائمة تمريض ورقية."
+      },
+      "draft": true
+    },
+    "weight": {
+      "question": {
+        "en": "When fast clinical advice runs on software, what human essentials keep a rural clinic safe if networks pause?",
+        "es": "Si la clínica usa guías digitales, ¿qué elementos humanos mantienen segura la atención sin conexión?",
+        "ar": "حين تعتمد العيادة على الفحص الذكي، ما الأساسيات البشرية التي تصون المرضى لو انقطعت الشبكة؟"
+      },
+      "transcript": {
+        "en": "A stethoscope and waterproof laminated dosage chart hang beside a clinic terminal.",
+        "es": "Un estetoscopio y guía laminada junto a una pantalla clínica.",
+        "ar": "سماعة طبية ودليل جرعات ورقي مغلّف بجانب شاشة العيادة."
+      },
+      "draft": true,
+      "options": [
+        {
+          "id": "a",
+          "text": {
+            "en": "Physical nurses, midwives, and cold-chain supplies cannot be virtual.",
+            "es": "Enfermería, partería y medicinas reales no son virtuales.",
+            "ar": "التمريض والقبالة والأدوية المبردة أمور لا تغني عنها الشاشة."
+          },
+          "light": "Capability",
+          "shadow": "Dependence"
+        },
+        {
+          "id": "b",
+          "text": {
+            "en": "Remote towns must not get cheaper unverified bots instead of care.",
+            "es": "Las zonas rurales merecen atención verificada y equitativa.",
+            "ar": "لا يجوز الاكتفاء بأنظمة غير مدققة للمناطق البعيدة دون رعاية حقيقية."
+          },
+          "light": "Fairness",
+          "shadow": "Power"
+        },
+        {
+          "id": "c",
+          "text": {
+            "en": "Hands-on exams spot human signs a narrow sensor misses.",
+            "es": "El examen humano nota señales que un sensor pasa por alto.",
+            "ar": "الفحص الإنساني المباشر يلتقط علامات تغفل عنها المستشعرات."
+          },
+          "light": "Wisdom",
+          "shadow": "Control"
+        }
+      ]
+    },
+    "way": {
+      "text": {
+        "en": "Pair any diagnostic tool with funded human health workers, battery power, offline reference protocols, and local first-aid training.",
+        "es": "Acompaña cada herramienta clínica con personal local financiado, baterías y manuales impresos.",
+        "ar": "اقرن كل أداة فحص بكوادر صحية مدربة، وبطاريات مستقلة، وأدلة إسعاف أولي ورقية في كل مجتمع."
+      },
+      "actionCardTitle": {
+        "en": "Keep laminated offline care & first aid",
+        "es": "Ten botiquín y guía médica impresa",
+        "ar": "احتفظ بحقيبة ودليل إسعاف ورقي"
+      },
+      "actionCardStep": {
+        "en": "Refresh a practical first-aid certification and keep clean bandages plus printed dosage charts in your household kit.",
+        "es": "Actualiza nociones básicas de primeros auxilios y revisa tu botiquín.",
+        "ar": "جدد معلوماتك في الإسعافات الأولية واحتفظ بدليل جرعات وأدوات نظيفة في المنزل."
+      },
+      "pledgeLabel": {
+        "en": "I'll back local human health capacity",
+        "es": "Apoyaré la capacidad sanitaria local",
+        "ar": "سأدعم الجاهزية الصحية المحلية"
+      },
+      "transcript": {
+        "en": "A bright clinic lantern illuminates both a nurse badge and an offline medical kit.",
+        "es": "Una linterna ilumina juntos el equipo médico y el manual en papel.",
+        "ar": "مصباح عيادة ينير شارة التمريض وحقيبة الرعاية اليدوية."
+      },
+      "draft": true
+    },
+    "closingLine": "Every great breakthrough needs a ready world.",
+    "realityMeter": {
+      "scale": "Imagination",
+      "reason": {
+        "en": "Full autonomous rural hospitals do not exist today; physical buildings, supply chains, and trained clinicians remain decisive.",
+        "es": "No existen hospitales rurales autónomos hoy; edificios, suministros y personal siguen siendo decisivos.",
+        "ar": "لا توجد مشافٍ ريفية مؤتمتة بالكامل اليوم؛ تظل الكوادر البشرية وسلاسل الدواء هي الأساس."
+      },
+      "source": "WHO Essential Health Infrastructure & Triage Resilience Overview",
+      "sourceUrl": "/coverage/",
+      "lastReviewed": "2026-11-26"
+    }
+  },
+  {
+    "id": "teacher-for-every-child",
+    "door": "world",
+    "order": 20,
+    "icon": "lamp",
+    "status": "draft",
+    "devOnly": true,
+    "title": {
+      "en": "A teacher for every child",
+      "es": "Un docente para cada niño",
+      "ar": "معلم لكل طفل"
+    },
+    "doorTitle": {
+      "en": "Public Good",
+      "es": "Bien Público",
+      "ar": "الصالح العام"
+    },
+    "honestyLabel": "Possible soon",
+    "honestyNote": {
+      "en": "AI tutoring aides already adapt drills worldwide; growing resilient social learners still needs human teachers.",
+      "es": "Los tutores digitales ya adaptan ejercicios hoy; educar en comunidad sigue necesitando docentes humanos.",
+      "ar": "تكيّف المساعدات التعليمية التمارين اليوم، لكن بناء جيل واعٍ يظل معتمداً على المعلمين والأقران."
+    },
+    "verbatimFromBrief": false,
+    "shadowTag": "Dependence",
+    "atlasRefs": ["SC-19", "SC-20", "SC-26"],
+    "wonder": {
+      "text": {
+        "en": "Every child explores fractions, science, and stories patiently at their own pace without ever feeling ashamed to ask again.",
+        "es": "Cada niño explora matemáticas, ciencias y lectura a su propio ritmo sin temor a preguntar dos veces.",
+        "ar": "يفهم كل طفل الرياضيات والعلوم والقصص على مهل وبالصبر الكافي دون حرج من تكرار السؤال."
+      },
+      "totoLine": {
+        "en": "Toto: Patient guide ready.",
+        "es": "Toto: Guía paciente listo.",
+        "ar": "توتو: الدليل الصبور جاهز."
+      },
+      "transcript": {
+        "en": "A calm chalkboard sparkles gently while paper notebooks open across a sunny classroom.",
+        "es": "Una pizarra cálida acompaña cuadernos abiertos bajo el sol.",
+        "ar": "لوح صفي هادئ يضيء بلطف أمام دفاتر ورقية تحت ضوء الصباح."
+      },
+      "draft": true
+    },
+    "wobble": {
+      "text": {
+        "en": "Students cruise smoothly at solo desks — until elders notice children no longer listen to one another, argue kindly, or learn without an answer prompt.",
+        "es": "Todos avanzan solos ante la pantalla — hasta que los mayores notan que ya no aprenden a escucharse ni debatir en grupo.",
+        "ar": "يتقدم التلاميذ فرادى أمام الشاشات — حتى يلحظ الكبار أن الأطفال لم يعودوا يتحاورون أو يتعلمون من بعضهم."
+      },
+      "transcript": {
+        "en": "Individual headphones sit neatly while shared wooden classroom benches sit quiet.",
+        "es": "Auriculares individuales frente a pupitres compartidos en silencio.",
+        "ar": "سماعات فردية أنيقة بينما تبقى مقاعد الفصل المشترك صامتة."
+      },
+      "draft": true
+    },
+    "weight": {
+      "question": {
+        "en": "How would we use personal software tutors without weakening schools, curiosity, and neighbourly learning?",
+        "es": "¿Cómo usar tutores personales sin debilitar la escuela compartida y la curiosidad humana?",
+        "ar": "كيف نستفيد من التوجيه الرقمي الفردي دون أن تذبل المدرسة المشتركة وفضول التلاميذ؟"
+      },
+      "transcript": {
+        "en": "A group circle around a library table contrasts calmly with a solo tablet screen.",
+        "es": "Un círculo lector en la biblioteca frente a una pantalla individual.",
+        "ar": "حلقة قراءة جماعية حول طاولة مكتبة مقابل شاشة تعليمية منفردة."
+      },
+      "draft": true,
+      "options": [
+        {
+          "id": "a",
+          "text": {
+            "en": "Education is learning how to think together, not just fast scores.",
+            "es": "Educar es aprender a pensar juntos, no solo subir notas.",
+            "ar": "التعليم هو التفكير الجماعي والتربية، وليس سرعة حل التمارين فقط."
+          },
+          "light": "Wisdom",
+          "shadow": "Dependence"
+        },
+        {
+          "id": "b",
+          "text": {
+            "en": "Human teachers deserve support everywhere, not budget cuts.",
+            "es": "Los docentes merecen apoyo en todos los barrios, no recortes.",
+            "ar": "المعلمون البشريون يستحقون الدعم لا الاستغناء عنهم توفيراً للنفقات."
+          },
+          "light": "Fairness",
+          "shadow": "Power"
+        },
+        {
+          "id": "c",
+          "text": {
+            "en": "Students must practice solving problems with pencil, paper, and peers.",
+            "es": "Conviene resolver problemas con lápiz, papel y compañeros.",
+            "ar": "يحتاج الطلاب لممارسة الحل بالقلم والورقة ومع زملائهم."
+          },
+          "light": "Capability",
+          "shadow": "Truth"
+        }
+      ]
+    },
+    "way": {
+      "text": {
+        "en": "Keep personal tutors as practice helpers inside well-funded community classrooms where children still read, build, and debate side by side.",
+        "es": "Usa guías digitales como apoyo, nunca como sustituto del aula viva y los docentes reales.",
+        "ar": "اجعل المعلّم الرقمي أداة تمرين مساعدة داخل مدارس حية يقرأ فيها الأبناء ويتحاورون وجهاً لوجه."
+      },
+      "actionCardTitle": {
+        "en": "Protect shared pen-and-paper learning",
+        "es": "Protege el aprendizaje compartido en papel",
+        "ar": "حافظ على التعلم الجماعي بالقلم والورق"
+      },
+      "actionCardStep": {
+        "en": "Solve one puzzle, read aloud, or check homework without software hints alongside a family member or class this week.",
+        "es": "Lee en voz alta o resuelve un problema sin pistas automáticas con familia o amigos.",
+        "ar": "اقرأ بصوت عالٍ أو حل مسألة بالورقة والقلم دون تلميحات آلية مع الأسرة هذا الأسبوع."
+      },
+      "pledgeLabel": {
+        "en": "I'll protect shared human learning",
+        "es": "Protegeré el aprendizaje compartido humano",
+        "ar": "سأدعم التعلم الإنساني المشترك"
+      },
+      "transcript": {
+        "en": "Children gather around open paper notebooks and wooden blocks beside a calm teacher.",
+        "es": "Niños reúnen cuadernos abiertos junto a una docente atenta.",
+        "ar": "أطفال يتحلقون حول دفاترهم المفتوحة بجانب معلمة تصغي إليهم."
+      },
+      "draft": true
+    },
+    "closingLine": "Every great breakthrough needs a ready world.",
+    "realityMeter": {
+      "scale": "Possible soon",
+      "reason": {
+        "en": "Adaptive study helpers already operate at scale today, while deep human mentorship and classroom belonging stay vital.",
+        "es": "Tutores adaptativos operan ampliamente hoy, pero la mentoría humana sigue siendo insustituible.",
+        "ar": "تعمل المساعدات التعليمية الفردية على نطاق واسع اليوم، بينما يبقى المعلم والمدرسة لا بديل عنهما."
+      },
+      "source": "UNESCO Global Education Monitoring & HSRI Discernment Framework",
+      "sourceUrl": "/countries/",
+      "lastReviewed": "2026-11-26"
+    }
+  }
+]

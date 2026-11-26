@@ -1,0 +1,27 @@
+---
+import HSRILayout from '../layouts/HSRILayout.astro';
+import HSRIHeader from '../components/HSRIHeader.svelte';
+import HSRIFooter from '../components/HSRIFooter.svelte';
+import TotoStoryPage from '../components/TotoStoryPage.svelte';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<HSRILayout
+  title="Meet Toto — A Fictional Storytelling Guide | Humanity Readiness"
+  description="Toto is a fictional superintelligence used as a storytelling device to explore what happens when humanity gets exactly what it asks for."
+>
+  <div class="toto-page-shell">
+    <HSRIHeader client:interact currentPath={Astro.url.pathname} />
+    <TotoStoryPage client:load base={base} />
+    <HSRIFooter client:visible />
+  </div>
+</HSRILayout>
+
+<style>
+  .toto-page-shell {
+    min-height: 100vh;
+    background: var(--bg-canvas);
+    color: var(--text-primary);
+  }
+</style>

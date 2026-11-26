@@ -2,13 +2,18 @@
   import { onMount, tick } from 'svelte';
   import { dict, activeLocale } from '../i18n/store';
   import WishSceneIllustration from './WishSceneIllustration.svelte';
+  import TotoIllustration from './TotoIllustration.svelte';
   import {
     readinessStore,
     recordWishCompletion,
+    hasSeenTotoIntro,
+    markTotoIntroSeen,
     type LightKey,
     type ShadowKey
   } from '../lib/readinessState';
   import { trackEvent } from '../lib/privacyStorage';
+
+  const SHOW_DRAFT_BADGE = __HSRI_SHOW_DRAFTS__;
 
   type LangCode = 'en' | 'es' | 'ar';
   type LText = { en: string; es: string; ar: string };
@@ -18,6 +23,8 @@
     door: string;
     order: number;
     icon: string;
+    status: 'draft' | 'owner_approved';
+    devOnly: boolean;
     title: LText;
     doorTitle: LText;
     honestyLabel: 'Imagination' | 'Possible soon' | 'Real today';
@@ -25,7 +32,7 @@
     verbatimFromBrief: boolean;
     shadowTag: ShadowKey;
     atlasRefs: string[];
-    wonder: { text: LText; kalpaLine: LText; transcript: LText; draft: boolean };
+    wonder: { text: LText; totoLine: LText; transcript: LText; draft: boolean };
     wobble: { text: LText; transcript: LText; draft: boolean };
     weight: {
       question: LText;
@@ -43,10 +50,9 @@
     };
     closingLine: string;
     realityMeter: {
-      score: number;
-      isConservativeBaseline: boolean;
-      statusLabel: LText;
-      note: LText;
+      scale: 'Imagination' | 'Possible soon' | 'Real today';
+      reason: LText;
+      observedMetric?: { value: string; label: LText; directCapabilityMatch: true } | null;
       source: string;
       sourceUrl: string;
       lastReviewed: string;
@@ -58,6 +64,8 @@
   export let onClose: () => void = () => {};
   export let onNextWish: () => void = () => {};
 
+  let showIntro = false;
+  let introStartBtnEl: HTMLButtonElement | null = null;
   let beat: 'wonder' | 'wobble' | 'weight' | 'way' = 'wonder';
   let startedAt = Date.now();
   let guessedWobble = false;
@@ -71,19 +79,33 @@
   $: lText = (t: LText) => t[loc] ?? t.en;
   $: chosenOpt = wish.weight.options.find((o) => o.id === selectedWeight) ?? null;
   $: countryRef = $readinessStore.selectedCountry;
+  $: scaleIdx =
+    wish.realityMeter.scale === 'Real today' ? 2 : wish.realityMeter.scale === 'Possible soon' ? 1 : 0;
 
   onMount(async () => {
     startedAt = Date.now();
-    trackEvent('wish_started', { wish: wish.id });
+    trackEvent('breakthrough_started', { breakthrough: wish.id });
+    showIntro = !hasSeenTotoIntro();
+    await tick();
+    if (showIntro) {
+      introStartBtnEl?.focus({ preventScroll: true });
+    } else {
+      playerHeadingEl?.focus({ preventScroll: true });
+    }
+  });
+
+  async function dismissIntro(method: 'begin' | 'skip') {
+    markTotoIntroSeen(method);
+    showIntro = false;
     await tick();
     playerHeadingEl?.focus({ preventScroll: true });
-  });
+  }
 
   function chooseForesight(idx: number) {
     foresightPicked = idx;
     const isRealGuess = idx < 3;
     guessedWobble = isRealGuess;
-    if (isRealGuess) trackEvent('foresight_guess', { wish: wish.id, choice: idx });
+    if (isRealGuess) trackEvent('foresight_guess', { breakthrough: wish.id, choice: idx });
     beat = 'wobble';
   }
 
@@ -91,7 +113,7 @@
     selectedWeight = optId;
     const opt = wish.weight.options.find((o) => o.id === optId);
     if (opt) {
-      trackEvent('weight_choice', { wish: wish.id, choice: optId, light: opt.light, shadow: opt.shadow });
+      trackEvent('weight_choice', { breakthrough: wish.id, choice: optId, light: opt.light, shadow: opt.shadow });
     }
     beat = 'way';
     saveCompletion(pledged);
@@ -99,7 +121,7 @@
 
   function togglePledge() {
     pledged = !pledged;
-    if (pledged) trackEvent('way_pledge', { wish: wish.id });
+    if (pledged) trackEvent('way_pledge', { breakthrough: wish.id });
     saveCompletion(pledged);
   }
 
@@ -124,6 +146,15 @@
   }
 </script>
 
+<svelte:window
+  on:keydown={(e) => {
+    if (showIntro && e.key === 'Escape') {
+      e.preventDefault();
+      dismissIntro('skip');
+    }
+  }}
+/>
+
 <article class="wish-player-shell" aria-label={lText(wish.title)}>
   <header class="wp-head">
     <div>
@@ -131,6 +162,9 @@
         <span class="wp-door">{lText(wish.doorTitle)}</span>
         <span class="wp-honesty">{$dict.player.honestyPrefix} {wish.honestyLabel}</span>
         <span class="wp-dur">{$dict.player.durationBadge}</span>
+        {#if SHOW_DRAFT_BADGE && wish.status === 'draft'}
+          <span class="draft-pill wp-draft-tag">{$dict.player.draftTag}</span>
+        {/if}
       </div>
       <h3 class="wp-title" tabindex="-1" bind:this={playerHeadingEl}>{lText(wish.title)}</h3>
       <p class="wp-honesty-note">{lText(wish.honestyNote)}</p>
@@ -140,8 +174,41 @@
     </button>
   </header>
 
+  {#if showIntro}
+    <div class="toto-intro-panel" role="region" aria-label={$dict.totoIntro.ariaLabel}>
+      <div class="toto-intro-top">
+        <span class="toto-intro-badge">{$dict.totoIntro.badge}</span>
+        <button type="button" class="toto-skip-btn" on:click={() => dismissIntro('skip')}>
+          {$dict.totoIntro.skipBtn}
+        </button>
+      </div>
+
+      <div class="toto-intro-body">
+        <div class="toto-intro-orb">
+          <TotoIllustration pose="curious" size={88} label={$dict.totoIntro.svgAlt} />
+        </div>
+        <div class="toto-intro-lines">
+          {#each $dict.totoIntro.lines as line, idx}
+            <p class={idx === 0 ? 'ti-lead' : 'ti-text'}>{line}</p>
+          {/each}
+        </div>
+      </div>
+
+      <div class="toto-intro-actions">
+        <button
+          type="button"
+          class="btn-advance"
+          bind:this={introStartBtnEl}
+          on:click={() => dismissIntro('begin')}
+        >
+          {$dict.totoIntro.startBtn} <span class="arrow-flip" aria-hidden="true">&rarr;</span>
+        </button>
+        <p class="ti-footnote">{$dict.totoIntro.footnote}</p>
+      </div>
+    </div>
+  {:else}
   <!-- 4-Beat Progress Tabs -->
-  <nav class="beat-steps" aria-label="Wish story progression">
+  <nav class="beat-steps" aria-label="Breakthrough story progression">
     {#each ['wonder', 'wobble', 'weight', 'way'] as b, idx}
       {@const isEnabled =
         b === 'wonder' ||
@@ -171,7 +238,16 @@
         beat="wonder"
         transcript={lText(wish.wonder.transcript)}
       />
-      <p class="kalpa-badge">{lText(wish.wonder.kalpaLine)}</p>
+      {@const rawToto = lText(wish.wonder.totoLine).replace(/^(Toto|توتو):\s*/i, '').trim()}
+      <div class="toto-beat-bar">
+        <TotoIllustration pose="calm" size={44} label={$dict.totoPage.poses[0].alt} />
+        <p class="toto-speech">
+          <strong class="toto-speaker">{$dict.totoBeats.speaker}:</strong> {$dict.totoBeats.wonder}
+          {#if rawToto && rawToto.toLowerCase() !== $dict.totoBeats.wonder.toLowerCase()}
+            <span class="toto-detail">&middot; {rawToto}</span>
+          {/if}
+        </p>
+      </div>
       <p class="beat-main-text">{lText(wish.wonder.text)}</p>
 
       <!-- Optional Foresight Prediction (Pre-Wobble) -->
@@ -198,7 +274,13 @@
         beat="wobble"
         transcript={lText(wish.wobble.transcript)}
       />
-      {#if wish.wobble.draft}
+      <div class="toto-beat-bar is-wobble">
+        <TotoIllustration pose="apologetic" size={44} label={$dict.totoPage.poses[2].alt} />
+        <p class="toto-speech">
+          <strong class="toto-speaker">{$dict.totoBeats.speaker}:</strong> {$dict.totoBeats.wobble}
+        </p>
+      </div>
+      {#if SHOW_DRAFT_BADGE && (wish.wobble.draft || wish.status === 'draft')}
         <span class="draft-pill">{$dict.player.draftTag}</span>
       {/if}
       <p class="beat-main-text">{lText(wish.wobble.text)}</p>
@@ -212,7 +294,13 @@
         beat="weight"
         transcript={lText(wish.weight.transcript)}
       />
-      {#if wish.weight.draft}
+      <div class="toto-beat-bar">
+        <TotoIllustration pose="curious" size={44} label={$dict.totoPage.poses[1].alt} />
+        <p class="toto-speech">
+          <strong class="toto-speaker">{$dict.totoBeats.speaker}:</strong> {$dict.totoBeats.weight}
+        </p>
+      </div>
+      {#if SHOW_DRAFT_BADGE && (wish.weight.draft || wish.status === 'draft')}
         <span class="draft-pill">{$dict.player.draftTag}</span>
       {/if}
       <p class="beat-main-text weight-q">{lText(wish.weight.question)}</p>
@@ -239,6 +327,12 @@
         beat="way"
         transcript={lText(wish.way.transcript)}
       />
+      <div class="toto-beat-bar">
+        <TotoIllustration pose="calm" size={44} label={$dict.totoPage.poses[0].alt} />
+        <p class="toto-speech">
+          <strong class="toto-speaker">{$dict.totoBeats.speaker}:</strong> {$dict.totoBeats.way}
+        </p>
+      </div>
       <p class="beat-main-text">{lText(wish.way.text)}</p>
 
       <div class="way-action-box">
@@ -250,18 +344,33 @@
         </button>
       </div>
 
-      <!-- Reality Meter + Cited Source & Last Reviewed Date -->
+      <!-- 3-Step Reality Meter + One-Line Reason, Cited Source & Last Reviewed Date -->
       <div class="reality-grid">
         <div class="reality-card">
           <div class="rc-top">
             <span class="rc-tag">{$dict.player.realityTitle}</span>
             <span class="rc-date">{$dict.player.realityReviewed}: {wish.realityMeter.lastReviewed}</span>
           </div>
-          <div class="rm-bar-track" aria-hidden="true">
-            <div class="rm-bar-fill" style={`width: ${Math.max(4, wish.realityMeter.score)}%`}></div>
-          </div>
-          <p class="rm-status">{lText(wish.realityMeter.statusLabel)}</p>
-          <p class="rm-note">{lText(wish.realityMeter.note)}</p>
+          <ol class="rm-scale-steps" aria-label={$dict.player.realityTitle}>
+            <li class="rm-step" class:active={scaleIdx === 0}>
+              <span class="rm-dot" aria-hidden="true"></span>
+              <span>{$dict.player.realityScales.imagination}</span>
+            </li>
+            <li class="rm-step" class:active={scaleIdx === 1}>
+              <span class="rm-dot" aria-hidden="true"></span>
+              <span>{$dict.player.realityScales.possibleSoon}</span>
+            </li>
+            <li class="rm-step" class:active={scaleIdx === 2}>
+              <span class="rm-dot" aria-hidden="true"></span>
+              <span>{$dict.player.realityScales.realToday}</span>
+            </li>
+          </ol>
+          <p class="rm-note">{lText(wish.realityMeter.reason)}</p>
+          {#if wish.realityMeter.observedMetric?.directCapabilityMatch}
+            <p class="rm-direct-metric">
+              <strong>{wish.realityMeter.observedMetric.value}</strong> — {lText(wish.realityMeter.observedMetric.label)}
+            </p>
+          {/if}
           <p class="rm-source">
             {$dict.player.realitySource}:
             {#if wish.realityMeter.sourceUrl.startsWith('/')}
@@ -294,7 +403,7 @@
       </div>
 
       <div class="wish-finale">
-        <p class="closing-line">{$dict.player.closingLine}</p>
+        <p class="closing-line">{$dict.totoBeats.close}</p>
         <div class="finale-actions">
           <button type="button" class="btn-advance" on:click={onNextWish}>
             {$dict.player.nextWishBtn} <span class="arrow-flip" aria-hidden="true">&rarr;</span>
@@ -304,6 +413,7 @@
       </div>
     {/if}
   </div>
+  {/if}
 </article>
 
 <style>
@@ -420,16 +530,137 @@
     cursor: not-allowed;
   }
 
-  .kalpa-badge {
-    display: inline-block;
+  .toto-intro-panel {
+    background: var(--bg-surface);
+    border: 1.5px solid var(--border-medium);
+    border-radius: 14px;
+    padding: 1.15rem 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .toto-intro-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .toto-intro-badge {
     font-family: var(--font-family-mono);
-    font-size: 0.76rem;
+    font-size: 0.7rem;
     font-weight: 800;
+    letter-spacing: 0.06em;
     color: var(--accent-primary);
     background: var(--threat-sovereign-bg);
-    padding: 0.2rem 0.6rem;
-    border-radius: 6px;
-    margin: 0 0 0.55rem;
+    border: 1px solid var(--threat-sovereign-border);
+    padding: 0.2rem 0.65rem;
+    border-radius: 9999px;
+  }
+
+  .toto-skip-btn {
+    border: 1px solid var(--border-medium);
+    background: var(--bg-surface-elevated);
+    color: var(--text-secondary);
+    border-radius: 8px;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    min-height: 36px;
+  }
+
+  .toto-skip-btn:hover {
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+  }
+
+  .toto-intro-body {
+    display: flex;
+    align-items: center;
+    gap: 1.15rem;
+    margin-bottom: 1rem;
+  }
+
+  .toto-intro-orb {
+    flex-shrink: 0;
+  }
+
+  .ti-lead {
+    margin: 0 0 0.45rem;
+    font-size: 1.16rem;
+    font-weight: 800;
+    color: var(--accent-primary);
+  }
+
+  .ti-text {
+    margin: 0 0 0.4rem;
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: var(--text-primary);
+  }
+
+  .toto-intro-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.65rem 1rem;
+  }
+
+  .ti-footnote {
+    margin: 0;
+    font-size: 0.74rem;
+    color: var(--text-secondary);
+  }
+
+  .toto-beat-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--threat-sovereign-bg);
+    border: 1px solid var(--threat-sovereign-border);
+    border-radius: 12px;
+    padding: 0.5rem 0.85rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .toto-beat-bar.is-wobble {
+    background: var(--threat-warning-bg);
+    border-color: var(--threat-warning-border);
+  }
+
+  .toto-speech {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.45;
+    color: var(--text-primary);
+  }
+
+  .toto-speaker {
+    color: var(--accent-primary);
+    font-weight: 800;
+  }
+
+  .toto-detail {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    margin-inline-start: 0.35rem;
+  }
+
+  :global([dir='rtl']) .wp-door,
+  :global([dir='rtl']) .wp-honesty,
+  :global([dir='rtl']) .wp-dur,
+  :global([dir='rtl']) .beat-tab,
+  :global([dir='rtl']) .draft-pill,
+  :global([dir='rtl']) .toto-intro-badge,
+  :global([dir='rtl']) .way-box-tag {
+    font-family: var(--font-family-sans);
+    letter-spacing: 0;
+  }
+
+  :global([dir='rtl']) .arrow-flip {
+    display: inline-block;
+    transform: scaleX(-1);
   }
 
   .draft-pill {
@@ -633,25 +864,55 @@
     color: var(--text-secondary);
   }
 
-  .rm-bar-track {
-    height: 8px;
-    border-radius: 9999px;
+  .wp-draft-tag {
+    margin-bottom: 0;
+  }
+
+  .rm-scale-steps {
+    list-style: none;
+    margin: 0 0 0.65rem;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.35rem;
+  }
+
+  .rm-step {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.34rem 0.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-subtle);
     background: var(--bg-surface-sunken);
-    overflow: hidden;
-    margin-bottom: 0.45rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-secondary);
   }
 
-  .rm-bar-fill {
-    height: 100%;
+  .rm-step.active {
+    background: var(--threat-sovereign-bg);
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+    font-weight: 800;
+  }
+
+  .rm-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: var(--border-medium);
+  }
+
+  .rm-step.active .rm-dot {
     background: var(--accent-primary);
-    border-radius: 9999px;
   }
 
-  .rm-status {
-    margin: 0 0 0.25rem;
-    font-size: 0.84rem;
-    font-weight: 700;
-    color: var(--text-primary);
+  .rm-direct-metric {
+    margin: 0 0 0.3rem;
+    font-size: 0.78rem;
+    color: var(--accent-primary);
   }
 
   .rm-note,
@@ -746,8 +1007,18 @@
     .beat-steps {
       grid-template-columns: repeat(2, 1fr);
     }
+    .toto-intro-body {
+      flex-direction: column;
+      align-items: flex-start;
+    }
     .fp-opts,
     .reality-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 440px) {
+    .rm-scale-steps {
       grid-template-columns: 1fr;
     }
   }

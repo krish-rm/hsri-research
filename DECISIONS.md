@@ -85,11 +85,44 @@
   - `The Keeper` (Wisdom/Dependence human stewardship fallback)
 - **Client-Side Export**: `1200×630` and `1080×1920` PNG exports + `.svg` render locally via HTML5 Canvas (`0 KB` third-party libraries).
 
-### 11. Reality Meter Grounding & Provenance
-- **Imagination Wishes (`sanjeevani`, `prove-riemann-hypothesis`, `walk-into-classic-film`, `fix-my-river`)**: Set to conservative `0 / 100` pre-deployment baseline (`isConservativeBaseline: true`), paired with explicit status notes and cited open references (WHO, Clay Mathematics Institute, HSRI Scenario Atlas `SC-01..SC-26`).
-- **Jarvis for my life (`Possible soon`)**: Anchored directly to repo `site-astro/src/data/autonomy_seismometer.json` (`m2m_composite_share = 0.6357 -> 64 / 100`, reviewed `2026-11-26`), explicitly paired with its 75.6% human paper-trail gap note.
+### 11. Reality Meter Grounding & Provenance (Superseded in Checkpoint 2.5 -> See §15)
+- Earlier Phase 2 draft displayed `0/100` baselines and `64/100` (for Jarvis from `m2m_composite_share` in `autonomy_seismometer.json`). Replaced in §15 at owner review.
 
 ### 12. Spanish & Arabic Live Localization (`B.1`)
 - Implemented full dictionary parity across English (`en`), Spanish (`es`), and Arabic (`ar` with live `dir="rtl"` and mirrored margins/arrows via `BaseLayout.astro` + `store.ts` + static `data-hr-t` DOM sync).
 - Arabic renders via crisp native system sans stacks with **zero extra external webfont bytes**, keeping Mandarin/Hindi deferred until CJK/Devanagari font budgets are reviewed.
+
+---
+
+## Phase 2.5: Terminology & Toto Guide Architecture (2026-11-26)
+
+### 13. Terminology Migration (`wish` -> `breakthrough`, `Kalpa` -> `Toto`)
+- **User-Facing Vocabulary**: Replaced every user-facing occurrence of `wish` / `wishes` / `wisher` and `Kalpa` / `Wishgiver` with **`breakthrough` / `breakthroughs` / `participant`** and **`Toto`**, updating the headline to `"Humanity Readiness: are we ready for what we're asking superintelligence to deliver?"`, domains to **Open Problems, Everyday Technologies, Transformative Powers, Culture & Creativity, Public Good**, and closing line to `"Every great breakthrough needs a ready world."`.
+- **Natural ES/AR Renderings & Native Review (`reports/TRANSLATION_REVIEW_AR_ES.md`)**:
+  - **Spanish (`es`)**: Rendered `breakthrough` as **`avance` / `avances`**, `ready world` as **`mundo preparado`**, and preserved `Toto` untranslated per brief §9.5.
+  - **Arabic (`ar`)**: Rendered `breakthrough` as **`إنجاز` / `إنجازات`** rather than `اختراق` (cyber intrusion), localized `Toto` phonetically as **`توتو`**, and updated `wishWall.emptyHeadline` (`"What the world is asking for"`) from loose `"الخريطة المشتركة العالمية"` to plain, literal **`تُفتح صفحة «ما الذي يطلبه العالم؟» بعد أول 20 مساهمة مجهولة الهوية.`** per Checkpoint 2.5 review Fix #4. Full candidate alternatives (`نقلة نوعية`, `كشف/طفرة علمية`) and complete AR/ES `Meet Toto` + `/toto/` string sheets sit in `reports/TRANSLATION_REVIEW_AR_ES.md`.
+- **Backward-Compatible Internals & Migration Plan**: Preserved `wishes.json`, `wishes.schema.json`, existing breakthrough `id` strings, DOM anchor IDs (`#wish-doors`, `#wish-wall`), and all `hr:v1:*` browser storage keys unchanged until a future v2 storage migration.
+
+### 14. Toto Guide Character, Greeting (`hr:v1:intro_seen`) & Trademark Note
+- **Storytelling Disclaimer**: Toto is explicitly labelled as a fictional superintelligence storytelling device (`Fictional, not a real system`), never a forecast or real AI product.
+- **Visual Spec (`TotoIllustration.svelte`)**: Original inline SVG glowing dawn orb inside a thin orbital ring with three poses (`calm`, `curious`, `apologetic`), zero animal/dog likeness, zero SVG blurs/filters, and static `prefers-reduced-motion` support.
+- **Presence**: Appears in Hero SVG (`#toto-glow`), `MeetTotoCard`, one-time dismissible Breakthrough Player greeting (`hr:v1:intro_seen` with `Skip` + `Escape`, clearable in `/privacy/`), all 4 beat speech bars, and `/toto/`.
+- **Merchandise/Brand Flag (§9.5)**: *TOTO* is an existing commercial brand and band name; acceptable strictly as a fictional non-commercial storytelling guide character, flagged for legal review prior to any merchandise.
+
+---
+
+## Checkpoint 2.5 Owner Decisions & Fixes (2026-11-26)
+
+### 15. Status Labels (`draft` / `owner_approved`), 3-Step Reality Meter & Dev Gating
+- **Strict Status Enum**: All breakthroughs use strictly `"status": "draft" | "owner_approved"`. All 5 current breakthroughs (`wishes.json`) and all 15 Phase 6 drafts (`wishes.draft15.json`) are marked `"draft"` until explicit owner sign-off.
+- **Build-Flag Gating (`site-astro/src/lib/breakthroughCatalog.ts`)**:
+  - `PUBLIC_SHOW_DRAFTS === 'true'` (enabled by `npm run build:preview` / `astro dev`, **unset on production `npm run build`**): renders the visual `DRAFT` pill in preview builds and hides every `DRAFT` pill on production builds.
+  - `PUBLIC_SHOW_DEV_BREAKTHROUGHS === 'true'` (enabled by `npm run build:dev` / `astro dev`, **unset on production `npm run build`**): gates `wishes.draft15.json` so Vite tree-shakes the 15 unapproved entries out of the production bundle completely.
+- **3-Step Reality Meter (Fix #2 — Zero Unsupported Numeric Scores)**:
+  - Removed the `0–100` progress bar and removed the **`Jarvis` `64` metric** because `autonomy_seismometer.json` (`m2m_composite_share = 0.6357`) measures macro M2M traffic/billing rather than personal AI life-assistant readiness.
+  - Replaced with a 3-step scale (`Imagination` | `Possible soon` | `Real today`), one-line plain `reason`, cited `source` (`sourceUrl`), and `lastReviewed` date on every entry. An optional `observedMetric` field is permitted by `wishes.schema.json` **strictly only when `directCapabilityMatch === true`**.
+- **Capability Rule Sign-Off (Fix #3)**: Explicit-selection `Capability` rule (`>= 3 of 5` safeguards adds `+1` glow tier) confirmed as a documented **editorial choice** (not a statistical changepoint).
+- **Stacked Merge Gate & Planning Docs (Fix #5, Next Work B & C)**: Full stack (`Phase 1` -> `Phase 2` -> `Phase 2.5`) merges together after owner PageSpeed sign-off on `hsri-phase2-preview`; Phase 1 alone never merges. Merge checklist (`reports/PHASE_2_5_MERGE_CHECKLIST.md`), Pilot Episode 1 storyboard (`reports/PILOT_EPISODE_1_STORYBOARD.md`), and Phase 3 backend design doc (`reports/PHASE_3_DESIGN.md`) checked in as `DRAFT` documents.
+
+
 

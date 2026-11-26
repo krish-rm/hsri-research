@@ -1,9 +1,10 @@
 ---
-// index.astro — "Humanity Readiness: are we ready to receive what we're wishing for?"
-// Phase 1 Story-First Entry Page: static Astro HTML + minimal Svelte interactive islands.
+// index.astro — "Humanity Readiness: are we ready for what we're asking superintelligence to deliver?"
+// Phase 2.5 Story-First Entry Page: static Astro HTML + minimal Svelte interactive islands.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HSRIHeader from '../components/HSRIHeader.svelte';
 import HeroStory from '../components/HeroStory.svelte';
+import MeetTotoCard from '../components/MeetTotoCard.svelte';
 import FiveDoorsPreview from '../components/FiveDoorsPreview.svelte';
 import CountryCatchWidget from '../components/CountryCatchWidget.svelte';
 import GoDeeperSection from '../components/GoDeeperSection.svelte';
@@ -32,7 +33,7 @@ const countryCatalog = buildCountryWidgetCatalog().filter((c) => starterIsos.has
 
   <main class="story-canvas">
     <!-- =================================================================== -->
-    <!-- SECTION 1: HERO (Global Harbour, Kalpa Arrival, Empty Crowd Ring)   -->
+    <!-- SECTION 1: HERO (Global Harbour, Toto Arrival, Empty Crowd Ring)    -->
     <!-- =================================================================== -->
     <HeroStory client:interact />
     <script is:inline>try{let i={Lagos:1,Sao_Paulo:2,Kolkata:3,Calcutta:3,Berlin:4,Jakarta:5,Dubai:6,Toronto:7,Nairobi:8}[Intl.DateTimeFormat().resolvedOptions().timeZone.split("/").pop()],p=document.querySelectorAll(".city-pill"),b=i&&p[i];if(b){let d=b.dataset.c.split("|");window.__hc=b.dataset.city;hcn.textContent=b.textContent;hcr.textContent=d[0];[hst,hsb,hsa].map((e,j)=>e.setAttribute("stop-color",d[j+1]));p[0].classList.remove("active");b.classList.add("active")}}catch{}</script>
@@ -69,17 +70,22 @@ const countryCatalog = buildCountryWidgetCatalog().filter((c) => starterIsos.has
     </section>
 
     <!-- =================================================================== -->
-    <!-- SECTIONS 3, 4 & 5: FIVE DOORS, FOUR MOMENTS & FIVE LIGHTS           -->
+    <!-- MEET TOTO (Guide Character Card, Directly After Pulse Strip)        -->
+    <!-- =================================================================== -->
+    <MeetTotoCard client:visible={{ rootMargin: '350px' }} base={base} />
+
+    <!-- =================================================================== -->
+    <!-- SECTIONS 3, 4 & 5: FIVE DOMAINS, FOUR MOMENTS & FIVE LIGHTS         -->
     <!-- =================================================================== -->
     <FiveDoorsPreview client:visible={{ rootMargin: '350px' }} base={base} />
 
     <!-- =================================================================== -->
-    <!-- SECTION 6: CAN YOUR COUNTRY CATCH THE GIFT? (39 Rated + All Unrated) -->
+    <!-- SECTION 6: CAN YOUR COUNTRY CATCH THE BREAKTHROUGH?                 -->
     <!-- =================================================================== -->
     <CountryCatchWidget client:visible={{ rootMargin: '500px' }} countries={countryCatalog} base={base} />
 
     <!-- =================================================================== -->
-    <!-- SECTION 7: THIS WEEK IN KALPA'S CITY (Pilot Episode 1 Preview)      -->
+    <!-- SECTION 7: THIS WEEK WITH TOTO (Pilot Episode 1 Preview)            -->
     <!-- =================================================================== -->
     <section id="this-week" class="story-block defer-section defer-week">
       <div class="story-container">
@@ -111,7 +117,7 @@ const countryCatalog = buildCountryWidgetCatalog().filter((c) => starterIsos.has
     </section>
 
     <!-- =================================================================== -->
-    <!-- SECTION 8: THE WISH WALL (Honest Invitation State Until n >= 20)    -->
+    <!-- SECTION 8: WHAT THE WORLD IS ASKING FOR (Invitation State n < 20)   -->
     <!-- =================================================================== -->
     <section id="wish-wall" class="story-block alt-surface defer-section defer-wall">
       <div class="story-container">
@@ -120,7 +126,7 @@ const countryCatalog = buildCountryWidgetCatalog().filter((c) => starterIsos.has
         </div>
 
         <div class="wall-invitation-box">
-          <div class="wall-themes" aria-label="Wish themes">
+          <div class="wall-themes" aria-label="Breakthrough themes">
             {en.wishWall.themes.map((theme, idx) => (
               <span class="theme-tag" data-hr-t={`wishWall.themes.${idx}`}>{theme}</span>
             ))}
@@ -135,7 +141,7 @@ const countryCatalog = buildCountryWidgetCatalog().filter((c) => starterIsos.has
     </section>
 
     <!-- =================================================================== -->
-    <!-- SECTION 9: WHY A GOOD WISH STILL NEEDS A GOOD WISHER                -->
+    <!-- SECTION 9: WHY A GREAT BREAKTHROUGH STILL NEEDS A READY WORLD       -->
     <!-- =================================================================== -->
     <section id="why-good-wisher" class="story-block defer-section defer-wisher">
       <div class="story-container">

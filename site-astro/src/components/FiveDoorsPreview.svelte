@@ -3,14 +3,19 @@
   import { dict, activeLocale } from '../i18n/store';
   import { trackEvent } from '../lib/privacyStorage';
   import { readinessStore } from '../lib/readinessState';
-  import wishesRaw from '../data/wishes.json';
+  import {
+    CORE_BREAKTHROUGHS,
+    loadAllBreakthroughs
+  } from '../lib/breakthroughCatalog';
+
+  const SHOW_DRAFT_BADGE = __HSRI_SHOW_DRAFTS__;
+  const INCLUDE_DEV_BREAKTHROUGHS = __HSRI_INCLUDE_DEV15__;
   import WishPlayer, { type WishItem } from './WishPlayer.svelte';
   import TrailAndShadowCard from './TrailAndShadowCard.svelte';
 
   export let base = '';
 
-  const PLAYABLE_WISHES = wishesRaw as unknown as WishItem[];
-  const WISH_BY_ID = new Map(PLAYABLE_WISHES.map((w) => [w.id, w]));
+  let catalog: WishItem[] = CORE_BREAKTHROUGHS;
   const FEATURED_IDS = ['sanjeevani', 'jarvis-for-my-life', 'prove-riemann-hypothesis'];
 
   let revealed = false;
@@ -18,14 +23,22 @@
   let activeWishId: string | null = null;
   let playerAnchorEl: HTMLElement | null = null;
 
-  onMount(() => {
+  onMount(async () => {
     revealed = true;
+    if (INCLUDE_DEV_BREAKTHROUGHS) {
+      catalog = await loadAllBreakthroughs();
+    }
   });
 
   $: loc = ($activeLocale === 'es' || $activeLocale === 'ar' ? $activeLocale : 'en') as 'en' | 'es' | 'ar';
+  $: PLAYABLE_WISHES = catalog;
+  $: WISH_BY_ID = new Map(PLAYABLE_WISHES.map((w) => [w.id, w]));
   $: selectedDoor = $dict.doors.items.find((d) => d.id === activeDoorId) ?? $dict.doors.items[0];
   $: activeWish = activeWishId ? WISH_BY_ID.get(activeWishId) ?? null : null;
   $: completedIds = $readinessStore.wishes;
+  $: domainDevItems = INCLUDE_DEV_BREAKTHROUGHS
+    ? PLAYABLE_WISHES.filter((w) => w.door === selectedDoor.id)
+    : [];
 
   function chooseDoor(id: string) {
     activeDoorId = id;
@@ -49,7 +62,7 @@
   }
 </script>
 
-<!-- SECTION 3: THE FIVE DOORS -->
+<!-- SECTION 3: FIVE DOMAINS -->
 <section id="wish-doors" class="story-section doors-section">
   <div class="section-wrap">
     <div class="section-head">
@@ -59,7 +72,7 @@
     </div>
 
     {#if revealed}
-      <!-- Quick-Launch Bar for the 3 Core Flagship Playable Wishes (~60s) -->
+      <!-- Quick-Launch Bar for the 3 Core Flagship Breakthroughs (~60s) -->
       <div class="featured-bar" aria-label={$dict.player.featuredLabel}>
         <span class="featured-label">{$dict.player.featuredLabel}</span>
         <div class="featured-btns">
@@ -82,7 +95,7 @@
         </div>
       </div>
 
-      <div class="doors-grid" role="tablist" aria-label="Five wish categories">
+      <div class="doors-grid" role="tablist" aria-label="Five breakthrough domains">
       {#each $dict.doors.items as door}
         <button
           type="button"
@@ -132,7 +145,7 @@
       {/each}
     </div>
 
-    <!-- Interactive Door Preview or Active 4-Beat Wish Player -->
+    <!-- Interactive Domain Preview or Active 4-Beat Breakthrough Player -->
     <div bind:this={playerAnchorEl}>
       {#if activeWish}
         {#key activeWish.id}
@@ -151,28 +164,52 @@
           </div>
           <p class="dp-lead">{selectedDoor.lead}</p>
           <div class="dp-wishes-grid">
-            {#each selectedDoor.wishes as wish}
-              {@const playableObj = 'id' in wish && wish.id ? WISH_BY_ID.get(wish.id) : null}
-              <article class="dp-wish-card">
-                <div class="dp-wish-head">
-                  <h4>{wish.title}</h4>
-                  <span class="honesty-pill" title={wish.honestyNote}>{wish.honesty}</span>
-                </div>
-                <p class="dp-wish-honesty-note">{wish.honestyNote}</p>
-                <p class="dp-wish-beat">{wish.beatSummary}</p>
-                {#if playableObj}
+            {#if INCLUDE_DEV_BREAKTHROUGHS && domainDevItems.length > 0}
+              {#each domainDevItems as item}
+                <article class="dp-wish-card">
+                  <div class="dp-wish-head">
+                    <h4>{item.title[loc] ?? item.title.en}</h4>
+                    <span class="honesty-pill" title={item.honestyNote[loc] ?? item.honestyNote.en}>{item.honestyLabel}</span>
+                  </div>
+                  <p class="dp-wish-honesty-note">{item.honestyNote[loc] ?? item.honestyNote.en}</p>
+                  <p class="dp-wish-beat">{item.wobble.text[loc] ?? item.wobble.text.en}</p>
                   <button
                     type="button"
                     class="dp-play-btn"
-                    onclick={() => launchWish(playableObj.id)}
+                    onclick={() => launchWish(item.id)}
                   >
-                    {completedIds[playableObj.id] ? `✓ ${$dict.player.playedBadge} · ` : ''}{$dict.player.playBtn} <span class="arrow-flip" aria-hidden="true">&rarr;</span>
+                    {completedIds[item.id] ? `✓ ${$dict.player.playedBadge} · ` : ''}{$dict.player.playBtn}
+                    {#if SHOW_DRAFT_BADGE && item.status === 'draft'} (DRAFT){/if}
+                    <span class="arrow-flip" aria-hidden="true">&rarr;</span>
                   </button>
-                {:else}
-                  <span class="dp-soon-note">{$dict.player.previewOnlyNote}</span>
-                {/if}
-              </article>
-            {/each}
+                </article>
+              {/each}
+            {:else}
+              {#each selectedDoor.wishes as wish}
+                {@const playableObj = 'id' in wish && wish.id ? WISH_BY_ID.get(wish.id) : null}
+                <article class="dp-wish-card">
+                  <div class="dp-wish-head">
+                    <h4>{wish.title}</h4>
+                    <span class="honesty-pill" title={wish.honestyNote}>{wish.honesty}</span>
+                  </div>
+                  <p class="dp-wish-honesty-note">{wish.honestyNote}</p>
+                  <p class="dp-wish-beat">{wish.beatSummary}</p>
+                  {#if playableObj}
+                    <button
+                      type="button"
+                      class="dp-play-btn"
+                      onclick={() => launchWish(playableObj.id)}
+                    >
+                      {completedIds[playableObj.id] ? `✓ ${$dict.player.playedBadge} · ` : ''}{$dict.player.playBtn}
+                      {#if SHOW_DRAFT_BADGE && playableObj.status === 'draft'} (DRAFT){/if}
+                      <span class="arrow-flip" aria-hidden="true">&rarr;</span>
+                    </button>
+                  {:else}
+                    <span class="dp-soon-note">{$dict.player.previewOnlyNote}</span>
+                  {/if}
+                </article>
+              {/each}
+            {/if}
           </div>
         </div>
       {/if}
@@ -181,7 +218,7 @@
   </div>
 </section>
 
-<!-- SECTION 4: HOW A WISH WORKS -->
+<!-- SECTION 4: HOW A BREAKTHROUGH WORKS -->
 <section id="how-it-works" class="story-section alt-surface how-section">
   <div class="section-wrap">
     <div class="section-head">

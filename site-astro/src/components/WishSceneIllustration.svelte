@@ -35,7 +35,7 @@
           <stop offset="0%" stop-color={beat === 'wobble' ? '#fdf3df' : '#fdf7ec'} />
           <stop offset="100%" stop-color={beat === 'way' ? '#dff4ee' : '#f4e6cf'} />
         </linearGradient>
-        <radialGradient id="ws-kalpa" cx="50%" cy="50%" r="50%">
+        <radialGradient id="ws-toto" cx="50%" cy="50%" r="50%">
           <stop offset="0%" stop-color="#fff8dc" stop-opacity="0.95" />
           <stop offset="55%" stop-color="#7ce0c6" stop-opacity="0.55" />
           <stop offset="100%" stop-color="#1b6756" stop-opacity="0" />
@@ -45,11 +45,14 @@
       <rect width="420" height="150" rx="10" fill="url(#ws-sky)" />
       <rect x="0" y="118" width="420" height="32" fill="#1b6756" opacity="0.14" />
 
-      <!-- Soft Kalpa diamond core -->
-      <circle cx="72" cy="54" r="36" fill="url(#ws-kalpa)" class="anim-pulse" />
-      <g transform="translate(72 54)" class="anim-float">
-        <polygon points="0,-13 9,0 0,13 -9,0" fill="#ffffff" stroke="#1b6756" stroke-width="1.6" />
-        <circle cx="0" cy="0" r="3" fill="#1b6756" />
+      <!-- Soft Toto glowing dawn orb + thin ring (outer group sets coords so CSS anim-float preserves position) -->
+      <circle cx="72" cy="54" r="36" fill="url(#ws-toto)" class="anim-pulse" />
+      <g transform="translate(72 54)">
+        <g class="anim-float">
+          <ellipse cx="0" cy="0" rx="22" ry="15" fill="none" stroke="#1b6756" stroke-width="1.4" stroke-dasharray="4 3" opacity="0.72" />
+          <circle cx="0" cy="0" r="10.5" fill="#ffffff" stroke="#1b6756" stroke-width="1.6" />
+          <circle cx="0" cy="0" r="3.2" fill="#1b6756" />
+        </g>
       </g>
 
       <!-- Beat-specific narrative vector art -->
@@ -80,11 +83,13 @@
           <circle cx="265" cy="64" r="14" fill="#fef3c7" class="anim-float" />
         {/if}
       {:else if beat === 'wobble'}
-        <g transform="translate(230 72) rotate(-6)" class="anim-tilt">
-          <rect x="-74" y="-34" width="148" height="68" rx="8" fill="#ffffff" stroke="#d97706" stroke-width="2" />
-          <line x1="-54" y1="-14" x2="54" y2="-14" stroke="#d97706" stroke-width="2.5" />
-          <line x1="-54" y1="2" x2="36" y2="2" stroke="#94a3b8" stroke-width="2.5" />
-          <line x1="-54" y1="16" x2="48" y2="16" stroke="#94a3b8" stroke-width="2.5" />
+        <g transform="translate(230 72) rotate(-6)">
+          <g class="anim-tilt">
+            <rect x="-74" y="-34" width="148" height="68" rx="8" fill="#ffffff" stroke="#d97706" stroke-width="2" />
+            <line x1="-54" y1="-14" x2="54" y2="-14" stroke="#d97706" stroke-width="2.5" />
+            <line x1="-54" y1="2" x2="36" y2="2" stroke="#94a3b8" stroke-width="2.5" />
+            <line x1="-54" y1="16" x2="48" y2="16" stroke="#94a3b8" stroke-width="2.5" />
+          </g>
         </g>
         <circle cx="348" cy="46" r="14" fill="#fef3c7" stroke="#b45309" stroke-width="2" />
         <text x="348" y="51" text-anchor="middle" font-weight="bold" font-size="14" fill="#b45309">?</text>

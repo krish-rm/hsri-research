@@ -72,11 +72,11 @@
 
     ctx.fillStyle = '#1b6756';
     ctx.font = `700 ${isStory ? 28 : 22}px sans-serif`;
-    ctx.fillText('HUMANITY READINESS · KALPA', padX, isStory ? 130 : 100);
+    ctx.fillText('HUMANITY READINESS · TOTO', padX, isStory ? 130 : 100);
 
     ctx.fillStyle = '#1e1915';
     ctx.font = `800 ${isStory ? 56 : 44}px sans-serif`;
-    const title = mode === 'trail' ? archetypeInfo.name : 'My 5-Wish Shadow Map';
+    const title = mode === 'trail' ? archetypeInfo.name : 'My 5-Breakthrough Shadow Map';
     ctx.fillText(title, padX, isStory ? 210 : 165);
 
     ctx.fillStyle = '#4a4034';
@@ -84,7 +84,7 @@
     const sub =
       mode === 'trail'
         ? archetypeInfo.note.slice(0, 74)
-        : `Completed ${doneCount} wishes across Control, Dependence, Power, Truth & Speed`;
+        : `Completed ${doneCount} breakthroughs across Control, Dependence, Power, Truth & Speed`;
     ctx.fillText(sub, padX, isStory ? 265 : 210);
 
     // Draw the 5 lights (glow levels 0..3 as luminous circles, zero raw digits)
@@ -133,7 +133,7 @@
 
     ctx.fillStyle = '#1b6756';
     ctx.font = `700 ${isStory ? 32 : 24}px sans-serif`;
-    ctx.fillText('Every great wish needs a good wisher.', padX, h - (isStory ? 140 : 88));
+    ctx.fillText('Every great breakthrough needs a ready world.', padX, h - (isStory ? 140 : 88));
 
     ctx.fillStyle = '#6c6152';
     ctx.font = `600 ${isStory ? 24 : 18}px monospace`;
@@ -185,7 +185,7 @@
   <p class="lights-empty">
     {doneCount === 0
       ? $dict.lights.emptyState
-      : `${doneCount} wish${doneCount === 1 ? '' : 'es'} completed · ${$dict.lights.lowLightNote}`}
+      : `${doneCount} breakthrough${doneCount === 1 ? '' : 's'} completed · ${$dict.lights.lowLightNote}`}
   </p>
   <p class="lights-reassurance">
     <strong>{getLocalizedLight(LIGHT_KEYS.indexOf(activeLightKey)).key}:</strong>
@@ -195,7 +195,7 @@
   <p class="lights-trail-note">{$dict.player.lightsLegend}</p>
 </div>
 
-<!-- Trail Card (3+ wishes) & Shadow Map (5+ wishes) -->
+<!-- Trail Card (3+ breakthroughs) & Shadow Map (5+ breakthroughs) -->
 <div class="trail-wrap">
   <h3 class="trail-heading">{$dict.player.trailSectionTitle}</h3>
 
@@ -250,7 +250,7 @@
             {getLocalizedLight(idx).key}
           </text>
         {/each}
-        <text x="18" y="166" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b6756">Every great wish needs a good wisher.</text>
+        <text x="18" y="166" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b6756">Every great breakthrough needs a ready world.</text>
       </svg>
     </div>
 
