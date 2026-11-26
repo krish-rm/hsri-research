@@ -166,7 +166,7 @@ const countryCatalog = buildCountryWidgetCatalog().filter((c) => starterIsos.has
     <!-- =================================================================== -->
     <!-- SECTION 10: GO DEEPER ("The research behind the story")             -->
     <!-- =================================================================== -->
-    <section id="go-deeper" class="story-block alt-surface defer-section">
+    <section id="go-deeper" class="story-block alt-surface">
       <div class="story-container">
         <div class="section-head">
           <h2 class="sec-title">{en.deeper.heading}</h2>
@@ -209,9 +209,7 @@ const countryCatalog = buildCountryWidgetCatalog().filter((c) => starterIsos.has
     </section>
   </main>
 
-  <div class="defer-island defer-footer">
-    <HSRIFooter client:visible />
-  </div>
+  <HSRIFooter client:visible />
 </BaseLayout>
 
 <style>
@@ -242,10 +240,6 @@ const countryCatalog = buildCountryWidgetCatalog().filter((c) => starterIsos.has
   .defer-section {
     content-visibility: auto;
     contain-intrinsic-size: auto 480px;
-  }
-
-  .defer-footer {
-    contain-intrinsic-size: auto 360px;
   }
 
   .alt-surface {
