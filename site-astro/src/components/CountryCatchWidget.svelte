@@ -365,12 +365,12 @@
 <style>
   .country-section {
     contain: layout style;
-    padding: clamp(2.25rem, 4.5vw, 3.75rem) 0;
+    padding: clamp(1.75rem, 3.8vw, 3.25rem) 0;
     scroll-margin-top: 112px;
     background: var(--bg-surface-sunken);
     border-top: 1px solid var(--border-subtle);
     border-bottom: 1px solid var(--border-subtle);
-    min-height: 1183px;
+    min-height: 620px;
   }
 
   .section-wrap {
@@ -382,7 +382,7 @@
   .section-head {
     text-align: center;
     max-width: 700px;
-    margin: 0 auto 1.75rem;
+    margin: 0 auto 1.25rem;
   }
 
   .sec-title {
@@ -780,19 +780,66 @@
 
   @media (max-width: 900px) {
     .country-section {
-      min-height: 2046px;
+      min-height: 540px;
     }
   }
 
   @media (max-width: 720px) {
     .country-section {
-      min-height: 2312px;
+      padding: 1.55rem 0;
+      min-height: 920px;
+    }
+    .section-head {
+      margin-bottom: 1rem;
+    }
+    .picker-shell {
+      padding: 0.75rem 0.85rem;
+      margin-bottom: 0.85rem;
+    }
+    .quick-row {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      gap: 0.4rem;
+      margin-bottom: 0.65rem;
+      padding-bottom: 0.2rem;
+    }
+    .quick-chip {
+      flex: 0 0 auto;
+      white-space: nowrap;
+      padding: 0.28rem 0.68rem;
+      font-size: 0.78rem;
+      min-height: 36px;
     }
     .select-grid,
     .plain-metrics-grid,
     .cl-items,
     .unrated-grid {
       grid-template-columns: 1fr;
+      gap: 0.55rem;
+    }
+    .rated-panel,
+    .unrated-panel {
+      padding: 0.9rem;
+    }
+    .rp-header {
+      gap: 0.55rem;
+      margin-bottom: 0.8rem;
+      padding-bottom: 0.65rem;
+    }
+    .pm-card,
+    .ur-card {
+      padding: 0.75rem;
+    }
+    .pm-value {
+      font-size: 1.18rem;
+      margin-bottom: 0.28rem;
+    }
+    .checklist-box {
+      padding: 0.85rem;
+    }
+    .cl-items li {
+      padding: 0.45rem 0.6rem;
     }
   }
 </style>

@@ -546,7 +546,55 @@
 
   @media (max-width: 640px) {
     .lights-row {
-      grid-template-columns: 1fr;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.4rem;
+      margin-bottom: 0.75rem;
+    }
+    .light-pill {
+      flex: 0 1 auto;
+      padding: 0.45rem 0.7rem;
+      border-radius: 9999px;
+      align-items: center;
+      gap: 0.45rem;
+      min-height: 38px;
+    }
+    .lamp-orb {
+      margin-top: 0;
+      width: 14px;
+      height: 14px;
+    }
+    .lamp-text span {
+      display: none;
+    }
+    .lamp-text strong {
+      font-size: 0.84rem;
+    }
+    .lights-status-box {
+      padding: 0.85rem 0.9rem;
+    }
+    .lights-empty {
+      font-size: 0.88rem;
+    }
+    .lights-reassurance,
+    .lights-country-cap {
+      font-size: 0.8rem;
+    }
+    .lights-trail-note {
+      font-size: 0.72rem;
+    }
+    .trail-wrap {
+      margin-top: 0.85rem;
+      padding: 0.9rem;
+    }
+    .trail-heading {
+      margin-bottom: 0.5rem;
+      font-size: 0.98rem;
+    }
+    .unlock-box {
+      padding: 0.7rem 0.8rem;
+      font-size: 0.8rem;
     }
   }
 </style>

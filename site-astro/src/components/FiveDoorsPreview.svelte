@@ -185,16 +185,18 @@
                 </article>
               {/each}
             {:else}
-              {#each selectedDoor.wishes as wish}
-                {@const playableObj = 'id' in wish && wish.id ? WISH_BY_ID.get(wish.id) : null}
-                <article class="dp-wish-card">
-                  <div class="dp-wish-head">
-                    <h4>{wish.title}</h4>
-                    <span class="honesty-pill" title={wish.honestyNote}>{wish.honesty}</span>
-                  </div>
-                  <p class="dp-wish-honesty-note">{wish.honestyNote}</p>
-                  <p class="dp-wish-beat">{wish.beatSummary}</p>
-                  {#if playableObj}
+              {@const playableList = selectedDoor.wishes.filter((w) => 'id' in w && w.id && WISH_BY_ID.has(w.id))}
+              {@const stubList = selectedDoor.wishes.filter((w) => !('id' in w && w.id && WISH_BY_ID.has(w.id)))}
+              {#each playableList as wish}
+                {@const playableObj = WISH_BY_ID.get(wish.id!)}
+                {#if playableObj}
+                  <article class="dp-wish-card">
+                    <div class="dp-wish-head">
+                      <h4>{wish.title}</h4>
+                      <span class="honesty-pill" title={wish.honestyNote}>{wish.honesty}</span>
+                    </div>
+                    <p class="dp-wish-honesty-note">{wish.honestyNote}</p>
+                    <p class="dp-wish-beat">{wish.beatSummary}</p>
                     <button
                       type="button"
                       class="dp-play-btn"
@@ -204,11 +206,20 @@
                       {#if SHOW_DRAFT_BADGE && playableObj.status === 'draft'} (DRAFT){/if}
                       <span class="arrow-flip" aria-hidden="true">&rarr;</span>
                     </button>
-                  {:else}
-                    <span class="dp-soon-note">{$dict.player.previewOnlyNote}</span>
-                  {/if}
-                </article>
+                  </article>
+                {/if}
               {/each}
+              {#if stubList.length > 0}
+                <div class="dp-soon-list">
+                  {#each stubList as stub}
+                    <div class="dp-soon-chip">
+                      <strong>{stub.title}</strong>
+                      <span class="honesty-pill">{stub.honesty}</span>
+                      <span class="dp-soon-note">{$dict.player.previewOnlyNote}</span>
+                    </div>
+                  {/each}
+                </div>
+              {/if}
             {/if}
           </div>
         </div>
@@ -257,20 +268,20 @@
 <style>
   .story-section {
     contain: layout style;
-    padding: clamp(2.25rem, 4.5vw, 3.75rem) 0;
+    padding: clamp(1.75rem, 3.8vw, 3.25rem) 0;
     scroll-margin-top: 112px;
   }
 
   .doors-section {
-    min-height: 755px;
+    min-height: 620px;
   }
 
   .how-section {
-    min-height: 362px;
+    min-height: 310px;
   }
 
   .lights-section {
-    min-height: 408px;
+    min-height: 360px;
   }
 
   .alt-surface {
@@ -288,7 +299,7 @@
   .section-head {
     text-align: center;
     max-width: 720px;
-    margin: 0 auto 2rem;
+    margin: 0 auto 1.35rem;
   }
 
   .sec-title {
@@ -588,22 +599,40 @@
   }
 
   .dp-soon-note {
-    display: inline-block;
-    margin-top: 0.75rem;
-    font-size: 0.76rem;
+    font-size: 0.74rem;
     color: var(--text-secondary);
     font-style: italic;
   }
 
+  .dp-soon-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.55rem;
+  }
+
+  .dp-soon-chip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem 0.5rem;
+    padding: 0.7rem 0.85rem;
+    border-radius: 10px;
+    border: 1px dashed var(--border-medium);
+    background: var(--bg-surface);
+    font-size: 0.82rem;
+    color: var(--text-primary);
+  }
+
   @media (max-width: 1024px) {
     .doors-section {
-      min-height: 1766px;
+      min-height: 820px;
     }
     .how-section {
-      min-height: 731px;
+      min-height: 420px;
     }
     .lights-section {
-      min-height: 693px;
+      min-height: 450px;
     }
     .doors-grid,
     .featured-btns {
@@ -615,20 +644,120 @@
   }
 
   @media (max-width: 640px) {
+    .story-section {
+      padding: 1.55rem 0;
+    }
+    .section-head {
+      margin-bottom: 1rem;
+    }
     .doors-section {
-      min-height: 1761px;
+      min-height: 900px;
     }
     .how-section {
-      min-height: 760px;
+      min-height: 380px;
     }
     .lights-section {
-      min-height: 717px;
+      min-height: 560px;
     }
-    .doors-grid,
-    .featured-btns,
-    .dp-wishes-grid,
-    .beats-grid {
+    .featured-bar {
+      padding: 0.6rem 0.75rem;
+      margin-bottom: 0.7rem;
+    }
+    .featured-label {
+      margin-bottom: 0.35rem;
+    }
+    .featured-btns {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      gap: 0.45rem;
+      padding-bottom: 0.15rem;
+    }
+    .featured-wish-btn {
+      flex: 0 0 auto;
+      padding: 0.4rem 0.72rem;
+      min-height: 38px;
+      flex-direction: row;
+      align-items: center;
+      gap: 0.45rem;
+      white-space: nowrap;
+    }
+    .fw-title {
+      font-size: 0.8rem;
+    }
+    .fw-meta {
+      font-size: 0.64rem;
+      flex-shrink: 0;
+    }
+    .doors-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 0.75rem;
+    }
+    .door-card {
+      flex: 1 1 calc(50% - 0.2rem);
+      flex-direction: row;
+      align-items: center;
+      padding: 0.5rem 0.65rem;
+      border-radius: 10px;
+      gap: 0.45rem;
+      min-height: 42px;
+    }
+    .door-icon {
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
+    }
+    .door-title {
+      font-size: 0.82rem;
+    }
+    .door-samples,
+    .door-more {
+      display: none;
+    }
+    .door-preview-panel {
+      padding: 0.9rem;
+    }
+    .dp-lead {
+      font-size: 0.86rem;
+      margin-bottom: 0.65rem;
+    }
+    .dp-wishes-grid {
       grid-template-columns: 1fr;
+      gap: 0.6rem;
+    }
+    .dp-wish-card {
+      padding: 0.8rem;
+    }
+    .dp-soon-chip {
+      padding: 0.55rem 0.7rem;
+      font-size: 0.78rem;
+    }
+    .beats-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+      margin-bottom: 0.95rem;
+    }
+    .beat-card {
+      padding: 0.7rem 0.65rem;
+      border-radius: 10px;
+    }
+    .beat-num {
+      font-size: 0.68rem;
+      margin-bottom: 0.15rem;
+    }
+    .beat-name {
+      font-size: 0.96rem;
+      margin-bottom: 0.2rem;
+    }
+    .beat-desc {
+      font-size: 0.8rem;
+      line-height: 1.38;
+    }
+    .beats-footer-line {
+      font-size: 0.98rem;
     }
   }
 </style>
