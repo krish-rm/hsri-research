@@ -8,6 +8,7 @@
   export let base = '';
 
   let allCountries: CountrySummaryItem[] = countries;
+  let revealed = false;
   let selectedIso = 'NOR';
   let searchFilter = '';
   let localeDetected = false;
@@ -72,6 +73,7 @@
   }
 
   onMount(async () => {
+    revealed = true;
     try {
       const mod = await import('../data/country_catch_catalog.json');
       allCountries = (mod.default ?? mod) as CountrySummaryItem[];
@@ -113,8 +115,9 @@
       <p class="sec-sub">{$dict.country.subhead}</p>
     </div>
 
-    <!-- Picker Bar -->
-    <div class="picker-shell">
+    {#if revealed}
+      <!-- Picker Bar -->
+      <div class="picker-shell">
       <div class="quick-row" role="group" aria-label="Example countries across world regions">
         {#each quickCountries as qc}
           <button
@@ -335,16 +338,25 @@
         </p>
       </div>
     {/if}
+    {:else}
+      <noscript>
+        <p class="ur-footnote">
+          Explore all 148 countries in the <a href={`${base}/countries/`}>39-nation index</a> and <a href={`${base}/coverage/`}>global coverage audit</a>.
+        </p>
+      </noscript>
+    {/if}
   </div>
 </section>
 
 <style>
   .country-section {
+    contain: layout style;
     padding: clamp(2.25rem, 4.5vw, 3.75rem) 0;
     scroll-margin-top: 112px;
     background: var(--bg-surface-sunken);
     border-top: 1px solid var(--border-subtle);
     border-bottom: 1px solid var(--border-subtle);
+    min-height: 1183px;
   }
 
   .section-wrap {
@@ -752,7 +764,16 @@
     white-space: nowrap;
   }
 
+  @media (max-width: 900px) {
+    .country-section {
+      min-height: 2046px;
+    }
+  }
+
   @media (max-width: 720px) {
+    .country-section {
+      min-height: 2312px;
+    }
     .select-grid,
     .plain-metrics-grid,
     .cl-items,

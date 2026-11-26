@@ -1,9 +1,15 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import { dict } from '../i18n/store';
   import { trackEvent } from '../lib/privacyStorage';
 
+  let revealed = false;
   let activeDoorId = 'epic';
   let activeLightKey: string | null = 'Clarity';
+
+  onMount(() => {
+    revealed = true;
+  });
 
   $: selectedDoor = $dict.doors.items.find((d) => d.id === activeDoorId) ?? $dict.doors.items[0];
   $: selectedLight = $dict.lights.items.find((l) => l.key === activeLightKey) ?? $dict.lights.items[0];
@@ -15,7 +21,7 @@
 </script>
 
 <!-- SECTION 3: THE FIVE DOORS -->
-<section id="wish-doors" class="story-section">
+<section id="wish-doors" class="story-section doors-section">
   <div class="section-wrap">
     <div class="section-head">
       <h2 class="sec-title">{$dict.doors.heading}</h2>
@@ -23,7 +29,8 @@
       <p class="sec-micro">{$dict.doors.microcopy}</p>
     </div>
 
-    <div class="doors-grid" role="tablist" aria-label="Five wish categories">
+    {#if revealed}
+      <div class="doors-grid" role="tablist" aria-label="Five wish categories">
       {#each $dict.doors.items as door}
         <button
           type="button"
@@ -93,70 +100,88 @@
         {/each}
       </div>
     </div>
+    {/if}
   </div>
 </section>
 
 <!-- SECTION 4: HOW A WISH WORKS -->
-<section id="how-it-works" class="story-section alt-surface">
+<section id="how-it-works" class="story-section alt-surface how-section">
   <div class="section-wrap">
     <div class="section-head">
       <h2 class="sec-title">{$dict.beats.heading}</h2>
     </div>
 
-    <div class="beats-grid">
-      {#each $dict.beats.items as beat, idx}
-        <div class="beat-card">
-          <div class="beat-num">0{idx + 1}</div>
-          <h3 class="beat-name">{beat.key}</h3>
-          <p class="beat-desc">{beat.desc}</p>
-        </div>
-      {/each}
-    </div>
+    {#if revealed}
+      <div class="beats-grid">
+        {#each $dict.beats.items as beat, idx}
+          <div class="beat-card">
+            <div class="beat-num">0{idx + 1}</div>
+            <h3 class="beat-name">{beat.key}</h3>
+            <p class="beat-desc">{beat.desc}</p>
+          </div>
+        {/each}
+      </div>
 
-    <p class="beats-footer-line">{$dict.beats.footerLine}</p>
+      <p class="beats-footer-line">{$dict.beats.footerLine}</p>
+    {/if}
   </div>
 </section>
 
 <!-- SECTION 5: YOUR FIVE LIGHTS -->
-<section id="five-lights" class="story-section">
+<section id="five-lights" class="story-section lights-section">
   <div class="section-wrap">
     <div class="section-head">
       <h2 class="sec-title">{$dict.lights.heading}</h2>
     </div>
 
-    <div class="lights-row" role="tablist" aria-label="Five personal readiness lights">
-      {#each $dict.lights.items as light}
-        <button
-          type="button"
-          role="tab"
-          aria-selected={activeLightKey === light.key}
-          class="light-pill"
-          class:active={activeLightKey === light.key}
-          onclick={() => (activeLightKey = light.key)}
-        >
-          <span class="lamp-orb" class:lit={activeLightKey === light.key} aria-hidden="true"></span>
-          <span class="lamp-text">
-            <strong>{light.key}</strong>
-            <span>{light.meaning}</span>
-          </span>
-        </button>
-      {/each}
-    </div>
+    {#if revealed}
+      <div class="lights-row" role="tablist" aria-label="Five personal readiness lights">
+        {#each $dict.lights.items as light}
+          <button
+            type="button"
+            role="tab"
+            aria-selected={activeLightKey === light.key}
+            class="light-pill"
+            class:active={activeLightKey === light.key}
+            onclick={() => (activeLightKey = light.key)}
+          >
+            <span class="lamp-orb" class:lit={activeLightKey === light.key} aria-hidden="true"></span>
+            <span class="lamp-text">
+              <strong>{light.key}</strong>
+              <span>{light.meaning}</span>
+            </span>
+          </button>
+        {/each}
+      </div>
 
-    <div class="lights-status-box">
-      <p class="lights-empty">{$dict.lights.emptyState}</p>
-      <p class="lights-reassurance">
-        <strong>{selectedLight.key}:</strong> {selectedLight.meaning} &mdash; {$dict.lights.lowLightNote}
-      </p>
-      <p class="lights-trail-note">{$dict.lights.trailNote}</p>
-    </div>
+      <div class="lights-status-box">
+        <p class="lights-empty">{$dict.lights.emptyState}</p>
+        <p class="lights-reassurance">
+          <strong>{selectedLight.key}:</strong> {selectedLight.meaning} &mdash; {$dict.lights.lowLightNote}
+        </p>
+        <p class="lights-trail-note">{$dict.lights.trailNote}</p>
+      </div>
+    {/if}
   </div>
 </section>
 
 <style>
   .story-section {
+    contain: layout style;
     padding: clamp(2.25rem, 4.5vw, 3.75rem) 0;
     scroll-margin-top: 112px;
+  }
+
+  .doors-section {
+    min-height: 755px;
+  }
+
+  .how-section {
+    min-height: 362px;
+  }
+
+  .lights-section {
+    min-height: 408px;
   }
 
   .alt-surface {
@@ -490,6 +515,15 @@
   }
 
   @media (max-width: 1024px) {
+    .doors-section {
+      min-height: 1766px;
+    }
+    .how-section {
+      min-height: 731px;
+    }
+    .lights-section {
+      min-height: 693px;
+    }
     .doors-grid,
     .lights-row {
       grid-template-columns: repeat(2, 1fr);
@@ -500,6 +534,15 @@
   }
 
   @media (max-width: 640px) {
+    .doors-section {
+      min-height: 1761px;
+    }
+    .how-section {
+      min-height: 760px;
+    }
+    .lights-section {
+      min-height: 717px;
+    }
     .doors-grid,
     .dp-wishes-grid,
     .beats-grid,

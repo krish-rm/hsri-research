@@ -6,6 +6,7 @@ import HSRIHeader from '../components/HSRIHeader.svelte';
 import HeroStory from '../components/HeroStory.svelte';
 import FiveDoorsPreview from '../components/FiveDoorsPreview.svelte';
 import CountryCatchWidget from '../components/CountryCatchWidget.svelte';
+import GoDeeperSection from '../components/GoDeeperSection.svelte';
 import HSRIFooter from '../components/HSRIFooter.svelte';
 import precursorSummary from '../data/precursor_summary.json';
 import { buildCountryWidgetCatalog } from '../lib/countryData';
@@ -70,21 +71,17 @@ const countryCatalog = buildCountryWidgetCatalog().filter((c) => starterIsos.has
     <!-- =================================================================== -->
     <!-- SECTIONS 3, 4 & 5: FIVE DOORS, FOUR MOMENTS & FIVE LIGHTS           -->
     <!-- =================================================================== -->
-    <div class="defer-island">
-      <FiveDoorsPreview client:visible />
-    </div>
+    <FiveDoorsPreview client:visible={{ rootMargin: '350px' }} />
 
     <!-- =================================================================== -->
     <!-- SECTION 6: CAN YOUR COUNTRY CATCH THE GIFT? (39 Rated + All Unrated) -->
     <!-- =================================================================== -->
-    <div class="defer-island">
-      <CountryCatchWidget client:visible countries={countryCatalog} base={base} />
-    </div>
+    <CountryCatchWidget client:visible={{ rootMargin: '500px' }} countries={countryCatalog} base={base} />
 
     <!-- =================================================================== -->
     <!-- SECTION 7: THIS WEEK IN KALPA'S CITY (Pilot Episode 1 Preview)      -->
     <!-- =================================================================== -->
-    <section id="this-week" class="story-block defer-section">
+    <section id="this-week" class="story-block defer-section defer-week">
       <div class="story-container">
         <div class="section-head">
           <h2 class="sec-title">{en.episode.heading}</h2>
@@ -116,7 +113,7 @@ const countryCatalog = buildCountryWidgetCatalog().filter((c) => starterIsos.has
     <!-- =================================================================== -->
     <!-- SECTION 8: THE WISH WALL (Honest Invitation State Until n >= 20)    -->
     <!-- =================================================================== -->
-    <section id="wish-wall" class="story-block alt-surface defer-section">
+    <section id="wish-wall" class="story-block alt-surface defer-section defer-wall">
       <div class="story-container">
         <div class="section-head">
           <h2 class="sec-title">{en.wishWall.heading}</h2>
@@ -140,7 +137,7 @@ const countryCatalog = buildCountryWidgetCatalog().filter((c) => starterIsos.has
     <!-- =================================================================== -->
     <!-- SECTION 9: WHY A GOOD WISH STILL NEEDS A GOOD WISHER                -->
     <!-- =================================================================== -->
-    <section id="why-good-wisher" class="story-block defer-section">
+    <section id="why-good-wisher" class="story-block defer-section defer-wisher">
       <div class="story-container">
         <div class="section-head">
           <h2 class="sec-title">{en.wisher.heading}</h2>
@@ -166,50 +163,10 @@ const countryCatalog = buildCountryWidgetCatalog().filter((c) => starterIsos.has
     <!-- =================================================================== -->
     <!-- SECTION 10: GO DEEPER ("The research behind the story")             -->
     <!-- =================================================================== -->
-    <section id="go-deeper" class="story-block alt-surface">
-      <div class="story-container">
-        <div class="section-head">
-          <h2 class="sec-title">{en.deeper.heading}</h2>
-          <p class="sec-sub">{en.deeper.subhead}</p>
-        </div>
-
-        <div class="deeper-grid">
-          {en.deeper.cards.map((card) => (
-            <article class="deeper-card">
-              <span class="dc-tag">{card.tag}</span>
-              <h3 class="dc-title">{card.title}</h3>
-              <p class="dc-desc">{card.desc}</p>
-
-              {'extraLinks' in card && card.extraLinks ? (
-                <div class="dc-multi-links">
-                  {card.extraLinks.map((sub) => (
-                    <a href={`${base}${sub.href}`} class="dc-link-inline">{sub.label} &rarr;</a>
-                  ))}
-                </div>
-              ) : (
-                <a href={`${base}${card.href}`} class="dc-link">
-                  Open {card.title} <span class="arrow-flip" aria-hidden="true">&rarr;</span>
-                </a>
-              )}
-            </article>
-          ))}
-        </div>
-
-        <div class="release-footer-box">
-          <p class="release-note">{en.deeper.releaseNote}</p>
-          <p class="release-doi">
-            Permanent academic archive:
-            <a href="https://doi.org/10.5281/zenodo.23441742" target="_blank" rel="noopener noreferrer">
-              DOI 10.5281/zenodo.23441742
-            </a>
-            &middot; Open Access (CC BY-SA 4.0)
-          </p>
-        </div>
-      </div>
-    </section>
+    <GoDeeperSection client:visible={{ rootMargin: '450px' }} base={base} />
   </main>
 
-  <HSRIFooter client:visible />
+  <HSRIFooter client:visible={{ rootMargin: '300px' }} />
 </BaseLayout>
 
 <style>
@@ -232,14 +189,21 @@ const countryCatalog = buildCountryWidgetCatalog().filter((c) => starterIsos.has
     scroll-margin-top: 112px;
   }
 
-  .defer-island {
-    content-visibility: auto;
-    contain-intrinsic-size: auto 720px;
-  }
-
   .defer-section {
     content-visibility: auto;
-    contain-intrinsic-size: auto 480px;
+    contain-intrinsic-size: auto 440px;
+  }
+
+  .defer-week {
+    contain-intrinsic-size: auto 595px;
+  }
+
+  .defer-wall {
+    contain-intrinsic-size: auto 437px;
+  }
+
+  .defer-wisher {
+    contain-intrinsic-size: auto 426px;
   }
 
   .alt-surface {
@@ -582,120 +546,26 @@ const countryCatalog = buildCountryWidgetCatalog().filter((c) => starterIsos.has
     margin: 0;
   }
 
-  /* Section 10: Go Deeper */
-  .deeper-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .deeper-card {
-    contain: layout style;
-    background: var(--bg-surface-elevated);
-    border: 1px solid var(--border-medium);
-    border-radius: 14px;
-    padding: 1.25rem;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .dc-tag {
-    font-family: var(--font-family-mono);
-    font-size: 0.68rem;
-    font-weight: 800;
-    letter-spacing: 0.06em;
-    color: var(--accent-primary);
-    margin-bottom: 0.4rem;
-  }
-
-  .dc-title {
-    font-size: 1.08rem;
-    font-weight: 700;
-    margin: 0 0 0.45rem;
-    color: var(--text-primary);
-  }
-
-  .dc-desc {
-    margin: 0 0 1rem;
-    font-size: 0.88rem;
-    line-height: 1.52;
-    color: var(--text-secondary);
-    flex-grow: 1;
-  }
-
-  .dc-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    width: fit-content;
-    padding: 0.5rem 0.95rem;
-    border-radius: 8px;
-    background: var(--accent-primary);
-    color: var(--btn-primary-text);
-    text-decoration: none;
-    font-size: 0.82rem;
-    font-weight: 700;
-  }
-
-  .dc-link:hover {
-    background: var(--accent-primary-hover);
-  }
-
-  .dc-multi-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem 0.9rem;
-  }
-
-  .dc-link-inline {
-    font-size: 0.84rem;
-    font-weight: 700;
-    color: var(--accent-primary);
-    text-decoration: none;
-  }
-
-  .dc-link-inline:hover {
-    text-decoration: underline;
-  }
-
-  .release-footer-box {
-    background: var(--bg-surface-elevated);
-    border: 1px solid var(--border-subtle);
-    border-radius: 12px;
-    padding: 1rem 1.25rem;
-    text-align: center;
-  }
-
-  .release-note {
-    margin: 0 0 0.35rem;
-    font-size: 0.86rem;
-    color: var(--text-secondary);
-  }
-
-  .release-doi {
-    margin: 0;
-    font-size: 0.82rem;
-    color: var(--text-secondary);
-  }
-
-  .release-doi a {
-    color: var(--accent-primary);
-    font-weight: 600;
-  }
-
   @media (max-width: 960px) {
-    .deeper-grid {
-      grid-template-columns: repeat(2, 1fr);
+    .defer-week {
+      contain-intrinsic-size: auto 552px;
     }
     .episode-grid {
       grid-template-columns: 1fr;
     }
   }
 
+  @media (max-width: 768px) {
+    .defer-wall {
+      contain-intrinsic-size: auto 554px;
+    }
+    .defer-wisher {
+      contain-intrinsic-size: auto 552px;
+    }
+  }
+
   @media (max-width: 680px) {
-    .wisher-dual-grid,
-    .deeper-grid {
+    .wisher-dual-grid {
       grid-template-columns: 1fr;
     }
   }
