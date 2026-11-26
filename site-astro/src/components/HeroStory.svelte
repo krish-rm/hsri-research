@@ -87,7 +87,7 @@
         <figure class="skyline-card" aria-label={`Dawn harbour scene for ${city.name} showing Kalpa arriving as a calm light`}>
           <div class="skyline-top-bar">
             <span class="skyline-caption-label">
-              {$dict.hero.cityLabel} <strong id="hcn">{city.name}</strong>
+              {$dict.hero.cityLabel} <strong id="hcn">{activeCityId === 'neutral' ? $dict.hero.cityNeutralName : city.name}</strong>
               <span id="hcr" class="region-chip">{city.regionHint}</span>
             </span>
           </div>
@@ -276,6 +276,10 @@
     letter-spacing: 0.08em;
     color: var(--accent-primary);
     margin-bottom: 1rem;
+  }
+
+  :global([dir='rtl']) .eyebrow-pill {
+    letter-spacing: 0;
   }
 
   .pulse-dot {

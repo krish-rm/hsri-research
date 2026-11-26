@@ -44,16 +44,16 @@ const countryCatalog = buildCountryWidgetCatalog().filter((c) => starterIsos.has
       <div class="story-container">
         <div class="pulse-inner">
           <div class="pulse-status-cluster">
-            <span class="pulse-name">{en.pulse.label}</span>
-            <span class={`pulse-pill state-${pulseKey}`}>{activePulse.word}</span>
+            <span class="pulse-name" data-hr-t="pulse.label">{en.pulse.label}</span>
+            <span class={`pulse-pill state-${pulseKey}`} data-hr-t={`pulse.states.${pulseKey}.word`}>{activePulse.word}</span>
           </div>
 
-          <p class="pulse-sentence">{activePulse.sentence}</p>
+          <p class="pulse-sentence" data-hr-t={`pulse.states.${pulseKey}.sentence`}>{activePulse.sentence}</p>
 
           <div class="pulse-actions">
             <details class="pulse-tooltip">
               <summary class="pulse-tip-summary">
-                <span aria-hidden="true">ⓘ</span> {en.pulse.tooltipTrigger}
+                <span aria-hidden="true">ⓘ</span> <span data-hr-t="pulse.tooltipTrigger">{en.pulse.tooltipTrigger}</span>
               </summary>
               <div class="pulse-tip-card">
                 Technical reading: <strong>{rawPulseScore.toFixed(2)} / 10</strong> on the live system-speed and oversight monitor (checked periodically from open benchmarks).
@@ -61,7 +61,7 @@ const countryCatalog = buildCountryWidgetCatalog().filter((c) => starterIsos.has
             </details>
 
             <a href={`${base}/seismograph/`} class="pulse-link">
-              {en.pulse.cta} <span class="arrow-flip" aria-hidden="true">&rarr;</span>
+              <span data-hr-t="pulse.cta">{en.pulse.cta}</span> <span class="arrow-flip" aria-hidden="true">&rarr;</span>
             </a>
           </div>
         </div>
@@ -71,7 +71,7 @@ const countryCatalog = buildCountryWidgetCatalog().filter((c) => starterIsos.has
     <!-- =================================================================== -->
     <!-- SECTIONS 3, 4 & 5: FIVE DOORS, FOUR MOMENTS & FIVE LIGHTS           -->
     <!-- =================================================================== -->
-    <FiveDoorsPreview client:visible={{ rootMargin: '350px' }} />
+    <FiveDoorsPreview client:visible={{ rootMargin: '350px' }} base={base} />
 
     <!-- =================================================================== -->
     <!-- SECTION 6: CAN YOUR COUNTRY CATCH THE GIFT? (39 Rated + All Unrated) -->
@@ -84,27 +84,27 @@ const countryCatalog = buildCountryWidgetCatalog().filter((c) => starterIsos.has
     <section id="this-week" class="story-block defer-section defer-week">
       <div class="story-container">
         <div class="section-head">
-          <h2 class="sec-title">{en.episode.heading}</h2>
+          <h2 class="sec-title" data-hr-t="episode.heading">{en.episode.heading}</h2>
         </div>
 
         <div class="episode-grid">
           <article class="episode-card">
             <div class="ep-top">
-              <span class="ep-badge">{en.episode.badge}</span>
+              <span class="ep-badge" data-hr-t="episode.badge">{en.episode.badge}</span>
             </div>
-            <h3 class="ep-title">Episode 1: &ldquo;{en.episode.title}&rdquo;</h3>
-            <p class="ep-body">{en.episode.synopsis}</p>
+            <h3 class="ep-title">Episode 1: &ldquo;<span data-hr-t="episode.title">{en.episode.title}</span>&rdquo;</h3>
+            <p class="ep-body" data-hr-t="episode.synopsis">{en.episode.synopsis}</p>
             <div class="ep-real-life">
               <span class="rl-tag">REAL LIFE ACTION</span>
               <p>Keep one small paper note of essential family contacts and prescriptions offline so calm care continues even if digital tools hiccup.</p>
             </div>
-            <p class="ep-note">{en.episode.voteNote}</p>
+            <p class="ep-note" data-hr-t="episode.voteNote">{en.episode.voteNote}</p>
           </article>
 
           <aside class="recap-card">
-            <h3 class="recap-title">{en.episode.recapTitle}</h3>
-            <p class="recap-body">{en.episode.recapBody}</p>
-            <p class="recap-status">{en.episode.recapStatus}</p>
+            <h3 class="recap-title" data-hr-t="episode.recapTitle">{en.episode.recapTitle}</h3>
+            <p class="recap-body" data-hr-t="episode.recapBody">{en.episode.recapBody}</p>
+            <p class="recap-status" data-hr-t="episode.recapStatus">{en.episode.recapStatus}</p>
           </aside>
         </div>
       </div>
@@ -116,19 +116,19 @@ const countryCatalog = buildCountryWidgetCatalog().filter((c) => starterIsos.has
     <section id="wish-wall" class="story-block alt-surface defer-section defer-wall">
       <div class="story-container">
         <div class="section-head">
-          <h2 class="sec-title">{en.wishWall.heading}</h2>
+          <h2 class="sec-title" data-hr-t="wishWall.heading">{en.wishWall.heading}</h2>
         </div>
 
         <div class="wall-invitation-box">
           <div class="wall-themes" aria-label="Wish themes">
-            {en.wishWall.themes.map((theme) => (
-              <span class="theme-tag">{theme}</span>
+            {en.wishWall.themes.map((theme, idx) => (
+              <span class="theme-tag" data-hr-t={`wishWall.themes.${idx}`}>{theme}</span>
             ))}
           </div>
-          <h3 class="wall-empty-head">{en.wishWall.emptyHeadline}</h3>
-          <p class="wall-empty-body">{en.wishWall.emptyBody}</p>
+          <h3 class="wall-empty-head" data-hr-t="wishWall.emptyHeadline">{en.wishWall.emptyHeadline}</h3>
+          <p class="wall-empty-body" data-hr-t="wishWall.emptyBody">{en.wishWall.emptyBody}</p>
           <a href="#wish-doors" class="btn-wall-cta">
-            {en.wishWall.cta} <span class="arrow-flip" aria-hidden="true">&rarr;</span>
+            <span data-hr-t="wishWall.cta">{en.wishWall.cta}</span> <span class="arrow-flip" aria-hidden="true">&rarr;</span>
           </a>
         </div>
       </div>
@@ -140,23 +140,23 @@ const countryCatalog = buildCountryWidgetCatalog().filter((c) => starterIsos.has
     <section id="why-good-wisher" class="story-block defer-section defer-wisher">
       <div class="story-container">
         <div class="section-head">
-          <h2 class="sec-title">{en.wisher.heading}</h2>
+          <h2 class="sec-title" data-hr-t="wisher.heading">{en.wisher.heading}</h2>
         </div>
 
         <div class="wisher-dual-grid">
-          {en.wisher.cards.map((card) => (
+          {en.wisher.cards.map((card, idx) => (
             <article class="wisher-card">
-              <h3 class="wisher-title">{card.title}</h3>
-              <p class="wisher-body">{card.body}</p>
+              <h3 class="wisher-title" data-hr-t={`wisher.cards.${idx}.title`}>{card.title}</h3>
+              <p class="wisher-body" data-hr-t={`wisher.cards.${idx}.body`}>{card.body}</p>
               <details class="card-tech-note">
-                <summary>ⓘ Technical reading</summary>
-                <p>{card.techHint}</p>
+                <summary>ⓘ <span data-hr-t="pulse.tooltipTrigger">{en.pulse.tooltipTrigger}</span></summary>
+                <p data-hr-t={`wisher.cards.${idx}.techHint`}>{card.techHint}</p>
               </details>
             </article>
           ))}
         </div>
 
-        <p class="wisher-closing">{en.wisher.closingLine}</p>
+        <p class="wisher-closing" data-hr-t="wisher.closingLine">{en.wisher.closingLine}</p>
       </div>
     </section>
 

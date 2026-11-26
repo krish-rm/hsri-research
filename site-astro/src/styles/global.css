@@ -322,3 +322,21 @@ input:focus, select:focus, textarea:focus {
 .score-band-c { background-color: var(--threat-warning); color: #ffffff; }
 .score-band-d { background-color: var(--threat-critical); color: #ffffff; }
 .score-band-f { background-color: #991b1b; color: #ffffff; }
+
+/* Preserve connected cursive Arabic shaping in RTL layouts */
+[dir='rtl'] .eyebrow-pill,
+[dir='rtl'] .pulse-name,
+[dir='rtl'] .rp-badge,
+[dir='rtl'] .ep-badge,
+[dir='rtl'] .wp-door,
+[dir='rtl'] .wp-honesty,
+[dir='rtl'] .wp-dur,
+[dir='rtl'] .rc-tag,
+[dir='rtl'] .dc-tag,
+[dir='rtl'] .way-box-tag,
+[dir='rtl'] .unlock-badge,
+[dir='rtl'] .featured-label,
+[dir='rtl'] .draft-pill,
+[dir='rtl'] .dp-door-tag {
+  letter-spacing: 0 !important;
+}

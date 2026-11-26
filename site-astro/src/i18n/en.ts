@@ -1,13 +1,22 @@
-// Structured translation dictionary for Humanity Readiness (Phase 1+ global i18n)
-// All homepage & interactive copy lives here cleanly without Section 12 jargon.
+// Structured translation dictionary for Humanity Readiness (Phase 1+2 global i18n)
+// All homepage & interactive Wish Player copy lives here cleanly without Section 12 jargon.
+
+export interface DeeperCard {
+  readonly title: string;
+  readonly desc: string;
+  readonly href: string;
+  readonly tag: string;
+  readonly extraLinks?: readonly { readonly label: string; readonly href: string }[];
+}
 
 export const en = {
   lang: 'en',
-  dir: 'ltr' as const,
+  dir: 'ltr' as 'ltr' | 'rtl',
   label: 'English',
 
   meta: {
-    title: "Humanity Readiness: are we ready to receive what we're wishing for? | Humanity Superintelligence Readiness Index",
+    title:
+      "Humanity Readiness: are we ready to receive what we're wishing for? | Humanity Superintelligence Readiness Index",
     description:
       "Imagine a superintelligence offers you one wish. Pick it, watch it come true, and see what humans can still do. Backed by open research across 39 benchmark nations."
   },
@@ -55,9 +64,9 @@ export const en = {
     heading: 'What would you wish for?',
     subhead: 'Five doors. Behind each, things people have dreamed of for centuries.',
     microcopy: 'One wish. About 60 seconds.',
-    phase2Badge: 'Interactive wish player opens in Phase 2 — preview the 4 moments below',
+    phase2Badge: 'Interactive 4-beat wish player · live',
     sampleHeading: 'Inside this door:',
-    previewCta: 'Preview these 4 moments',
+    previewCta: 'Play a 4-beat wish',
     items: [
       {
         id: 'mysteries',
@@ -68,16 +77,21 @@ export const en = {
         moreCount: '+ Explain dark matter & P vs NP',
         wishes: [
           {
+            id: 'prove-riemann-hypothesis',
             title: 'Prove the Riemann Hypothesis',
             honesty: 'Imagination',
-            honestyNote: 'Frontier AI can verify short formal lemmas, not crack open Millennium Prize proofs.',
-            beatSummary: 'Kalpa publishes a proof overnight — then humans discover a million pages nobody alive can check.'
+            honestyNote:
+              'Frontier AI can verify short formal lemmas, not crack open Millennium Prize proofs.',
+            beatSummary:
+              'Kalpa publishes a proof overnight — then humans discover a million pages nobody alive can check.'
           },
           {
             title: 'Read the Indus script',
             honesty: 'Possible soon',
-            honestyNote: 'Pattern-matching across short seal fragments is advancing quickly, though ground truth stays scarce.',
-            beatSummary: 'Lost inscriptions light up cleanly — until competing readings force historians to ask what counts as proof.'
+            honestyNote:
+              'Pattern-matching across short seal fragments is advancing quickly, though ground truth stays scarce.',
+            beatSummary:
+              'Lost inscriptions light up cleanly — until competing readings force historians to ask what counts as proof.'
           }
         ]
       },
@@ -90,16 +104,21 @@ export const en = {
         moreCount: '+ Universal translator & Time-Turner',
         wishes: [
           {
+            id: 'jarvis-for-my-life',
             title: 'Jarvis for my life',
             honesty: 'Possible soon',
-            honestyNote: 'Tool-using assistants already book, pay, and reply today, though reliable boundaries lag.',
-            beatSummary: 'Your week runs like magic — until a quiet outage leaves you unable to remember your own passwords.'
+            honestyNote:
+              'Tool-using assistants already book, pay, and reply today, though reliable boundaries lag.',
+            beatSummary:
+              'Your week runs like magic — until a quiet outage leaves you unable to remember your own passwords.'
           },
           {
             title: "Doraemon's pocket",
             honesty: 'Imagination',
-            honestyNote: 'On-demand matter creation remains pure fiction; only digital fabrication hints at the edge.',
-            beatSummary: 'Any tool appears on request — until local repair shops disappear and nobody knows how anything is fixed.'
+            honestyNote:
+              'On-demand matter creation remains pure fiction; only digital fabrication hints at the edge.',
+            beatSummary:
+              'Any tool appears on request — until local repair shops disappear and nobody knows how anything is fixed.'
           }
         ]
       },
@@ -112,16 +131,21 @@ export const en = {
         moreCount: '+ Divya drishti & Brahmastra protector',
         wishes: [
           {
+            id: 'sanjeevani',
             title: 'Sanjeevani — cure anything',
-            honesty: 'Imagination → Possible soon for narrow diseases',
-            honestyNote: 'Targeted drug discovery is advancing today; universal cures remain far out.',
-            beatSummary: 'Wards empty at dawn — then hospital leaders realise every rule on care and funding assumed yesterday’s world.'
+            honesty: 'Imagination',
+            honestyNote:
+              'Imagination overall — target AI assists narrow disease discovery (Possible soon for specific diseases), not universal cures.',
+            beatSummary:
+              'Wards empty at dawn — then hospital leaders realise every rule on care and funding assumed yesterday’s world.'
           },
           {
             title: 'Divya drishti — far-seeing sight',
             honesty: 'Possible soon',
-            honestyNote: 'Global satellite and sensor streams can already track storms and infrastructure live.',
-            beatSummary: 'Every storm is visible miles ahead — alongside the realisation that everyone can watch everyone else.'
+            honestyNote:
+              'Global satellite and sensor streams can already track storms and infrastructure live.',
+            beatSummary:
+              'Every storm is visible miles ahead — alongside the realisation that everyone can watch everyone else.'
           }
         ]
       },
@@ -134,16 +158,21 @@ export const en = {
         moreCount: '+ Rewrite any ending & direct from text',
         wishes: [
           {
+            id: 'walk-into-classic-film',
             title: 'Walk into a classic film',
             honesty: 'Possible soon',
-            honestyNote: 'Interactive 3D worlds are emerging fast, though believable long-form memory stays fragile.',
-            beatSummary: 'You step onto a rainy street that answers back — and gradually notice fewer people hanging around real cafés.'
+            honestyNote:
+              'Interactive 3D worlds are emerging fast, though believable long-form memory stays fragile.',
+            beatSummary:
+              'You step onto a rainy street that answers back — and gradually notice fewer people hanging around real cafés.'
           },
           {
             title: 'Direct a film by describing it',
             honesty: 'Partly real today',
-            honestyNote: 'Short generated scenes already work; coherent multi-hour cinema control does not yet.',
-            beatSummary: 'A feature film renders over lunch — then audiences drown in endless custom cuts with no shared story left.'
+            honestyNote:
+              'Short generated scenes already work; coherent multi-hour cinema control does not yet.',
+            beatSummary:
+              'A feature film renders over lunch — then audiences drown in endless custom cuts with no shared story left.'
           }
         ]
       },
@@ -156,16 +185,21 @@ export const en = {
         moreCount: '+ Revive a dying language & local clinics',
         wishes: [
           {
+            id: 'fix-my-river',
             title: 'Fix my river',
             honesty: 'Possible soon',
-            honestyNote: 'Sensor monitoring helps spot leaks early; physical watershed restoration still takes human action.',
-            beatSummary: 'Sensors pinpoint every runoff pipe — yet nothing changes until towns agree who sacrifices profit upstream.'
+            honestyNote:
+              'Sensor monitoring helps spot leaks early; physical watershed restoration still takes human action.',
+            beatSummary:
+              'Sensors pinpoint every runoff pipe — yet nothing changes until towns agree who sacrifices profit upstream.'
           },
           {
             title: 'A teacher for every child',
             honesty: 'Possible soon',
-            honestyNote: 'Personal tutoring systems already help millions study; human mentorship and community remain irreplaceable.',
-            beatSummary: 'Every child advances smoothly at home — until elders ask what happens when neighbours stop teaching each other.'
+            honestyNote:
+              'Personal tutoring systems already help millions study; human mentorship and community remain irreplaceable.',
+            beatSummary:
+              'Every child advances smoothly at home — until elders ask what happens when neighbours stop teaching each other.'
           }
         ]
       }
@@ -194,7 +228,7 @@ export const en = {
     ],
     emptyState: 'Make your first wish to light your first light.',
     lowLightNote: "A dim light isn't failure. It's where to grow next.",
-    trailNote: 'Finish 3 wishes to unlock your shareable Trail card (coming in the wish player).'
+    trailNote: 'Finish 3 wishes to unlock your shareable Trail card; finish 5 to unlock your Shadow Map.'
   },
 
   country: {
@@ -217,7 +251,8 @@ export const en = {
       'Dawn breaks over the harbour. Meera, working the night ward shift, makes the city’s very first wish. Every bed heals — and the corridor asks a question no machine settled beforehand: who goes first tomorrow?',
     voteNote: 'Interactive 3-minute story & live vote launch alongside Phase 4.',
     recapTitle: "Join Friday's recap",
-    recapBody: 'We are listening to early visitors worldwide before picking our weekly digest format. No spam, ever.',
+    recapBody:
+      'We are listening to early visitors worldwide before picking our weekly digest format. No spam, ever.',
     recapStatus: 'Recap channel opens after subscriber preferences settle.'
   },
 
@@ -295,8 +330,112 @@ export const en = {
         ],
         tag: 'OPEN SCIENCE'
       }
-    ]
-  }
-} as const;
+    ] as readonly DeeperCard[]
+  },
 
-export type LocaleKey = 'en' | 'rtl-stub';
+  player: {
+    featuredLabel: 'Featured flagship wishes (~60s interactive)',
+    doorsBadge: 'Interactive 4-Beat Player',
+    playBtn: 'Play this wish',
+    playedBadge: 'Played',
+    previewOnlyNote: 'Preview sketch — full script opens in Phase 6',
+    stepLabels: ['1. Wonder', '2. Wobble', '3. Weight', '4. Way'],
+    backToDoors: 'Browse all 5 doors',
+    kalpaDone: 'Kalpa: Done.',
+    draftTag: 'DRAFT copy awaiting owner review',
+    honestyPrefix: 'Reality check:',
+    foresightLead: 'Optional foresight check (lights your Foresight lamp):',
+    foresightQuestion: 'Before Kalpa shows the catch — what could slip first?',
+    foresightOptions: [
+      'A rule or edge case nobody specified',
+      'People losing the habit of checking for themselves',
+      'Unfair access or hidden control',
+      'Skip straight to Wobble'
+    ],
+    toWobbleBtn: 'See what happens next',
+    toWeightBtn: 'Pause and weigh it',
+    weightLead: 'What bothers me here is...',
+    toWayBtn: 'See the human Way',
+    wayActionTitle: 'One concrete human step',
+    pledgeBtn: "I'll keep this human habit",
+    pledgeDone: 'Habit pledged on this device',
+    closingLine: 'Every great wish needs a good wisher.',
+    realityTitle: 'Reality Meter',
+    realityReviewed: 'Last reviewed',
+    realitySource: 'Source',
+    shadowTitle: 'Behind this wish (Scenario Atlas)',
+    nextWishBtn: 'Play another wish',
+    countryHookPrefix: 'Country readiness link:',
+    countryHookUnset: 'Select your country below to see how many of 5 things it has in place for this wish.',
+    animPlay: 'Play animation',
+    animPause: 'Pause animation',
+    animReplay: 'Replay',
+    transcriptBtn: 'Scene transcript',
+    durationBadge: '~60s · 4 beats',
+    trailSectionTitle: 'Your Readiness Trail & Shadow Map',
+    trailLocked: 'Complete 3 distinct wishes to unlock your shareable Trail Card ({done}/3 done).',
+    trailUnlockedBadge: 'TRAIL CARD UNLOCKED (3+ WISHES)',
+    shadowLocked: 'Complete 5 distinct wishes to unlock your personal Shadow Map ({done}/5 done).',
+    shadowUnlockedBadge: 'SHADOW MAP UNLOCKED (5+ WISHES)',
+    downloadLandscape: 'Download Trail Card (1200×630 PNG)',
+    downloadStory: 'Download Phone Story (1080×1920 PNG)',
+    downloadShadowPng: 'Download Shadow Map (1200×630 PNG)',
+    downloadSvg: 'Save Vector (.svg)',
+    lightsLegend: 'Light brightness shows glow levels 0–3 locally on this browser only (no numeric rank).',
+    countryCapabilityNote:
+      'Country connected ({name}): {count} of 5 safeguards count toward your Capability light.',
+    countryCapabilityUnset:
+      'Capability currently reflects your personal Way habits only. Pick a country below to include real national data.',
+    countryCapabilityUnrated:
+      'Selected country ({name}) is not yet rated in the 39-nation index — your personal Way habits lead your Capability light.',
+    shadows: {
+      Control: 'Control',
+      Dependence: 'Dependence',
+      Power: 'Power',
+      Truth: 'Truth',
+      Speed: 'Speed'
+    },
+    trails: {
+      Verifier: {
+        name: 'The Verifier',
+        note: 'You check fast answers before trusting them — asking who verifies the verifier.'
+      },
+      Neighbour: {
+        name: 'The Neighbour',
+        note: 'You ask who goes first and keep fairness and shared human dignity at the centre.'
+      },
+      Builder: {
+        name: 'The Builder',
+        note: 'You pair bold capabilities with offline fallbacks, backups, and practical community resilience.'
+      },
+      Keeper: {
+        name: 'The Keeper',
+        note: 'You hold onto human judgment, memory, and lived craft alongside superhuman speed.'
+      }
+    }
+  },
+
+  footerUi: {
+    brandTitle: 'Humanity Superintelligence Readiness Index',
+    brandDesc:
+      'An open empirical benchmark measuring human judgment, institutional preparedness, and how well societies can stand on their own feet if automated cloud systems pause.',
+    langHeading: 'Languages:',
+    rtlActiveNotice: 'Arabic live RTL active (dir="rtl"). Layouts and reading tracks mirror automatically.',
+    privacyLink: 'Privacy',
+    languagesLink: 'Languages',
+    recapLink: "Join Friday's recap"
+  }
+};
+
+type DeepStringWiden<T> = T extends string
+  ? string
+  : T extends boolean
+    ? boolean
+    : T extends readonly (infer U)[]
+      ? readonly DeepStringWiden<U>[]
+      : T extends object
+        ? { readonly [K in keyof T]: DeepStringWiden<T[K]> }
+        : T;
+
+export type TranslationDict = DeepStringWiden<typeof en>;
+export type LocaleKey = 'en' | 'es' | 'ar' | 'rtl-stub';

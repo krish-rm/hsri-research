@@ -1,22 +1,51 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import { dict } from '../i18n/store';
+  import { onMount, tick } from 'svelte';
+  import { dict, activeLocale } from '../i18n/store';
   import { trackEvent } from '../lib/privacyStorage';
+  import { readinessStore } from '../lib/readinessState';
+  import wishesRaw from '../data/wishes.json';
+  import WishPlayer, { type WishItem } from './WishPlayer.svelte';
+  import TrailAndShadowCard from './TrailAndShadowCard.svelte';
+
+  export let base = '';
+
+  const PLAYABLE_WISHES = wishesRaw as unknown as WishItem[];
+  const WISH_BY_ID = new Map(PLAYABLE_WISHES.map((w) => [w.id, w]));
+  const FEATURED_IDS = ['sanjeevani', 'jarvis-for-my-life', 'prove-riemann-hypothesis'];
 
   let revealed = false;
   let activeDoorId = 'epic';
-  let activeLightKey: string | null = 'Clarity';
+  let activeWishId: string | null = null;
+  let playerAnchorEl: HTMLElement | null = null;
 
   onMount(() => {
     revealed = true;
   });
 
+  $: loc = ($activeLocale === 'es' || $activeLocale === 'ar' ? $activeLocale : 'en') as 'en' | 'es' | 'ar';
   $: selectedDoor = $dict.doors.items.find((d) => d.id === activeDoorId) ?? $dict.doors.items[0];
-  $: selectedLight = $dict.lights.items.find((l) => l.key === activeLightKey) ?? $dict.lights.items[0];
+  $: activeWish = activeWishId ? WISH_BY_ID.get(activeWishId) ?? null : null;
+  $: completedIds = $readinessStore.wishes;
 
   function chooseDoor(id: string) {
     activeDoorId = id;
+    activeWishId = null;
     trackEvent('door_preview_select', { door: id });
+  }
+
+  async function launchWish(wishId: string) {
+    activeWishId = wishId;
+    await tick();
+    playerAnchorEl?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function playNextUnseenWish() {
+    const next = PLAYABLE_WISHES.find((w) => !completedIds[w.id] && w.id !== activeWishId)
+      ?? PLAYABLE_WISHES[(PLAYABLE_WISHES.findIndex((w) => w.id === activeWishId) + 1) % PLAYABLE_WISHES.length];
+    if (next) {
+      activeDoorId = next.door;
+      launchWish(next.id);
+    }
   }
 </script>
 
@@ -30,6 +59,29 @@
     </div>
 
     {#if revealed}
+      <!-- Quick-Launch Bar for the 3 Core Flagship Playable Wishes (~60s) -->
+      <div class="featured-bar" aria-label={$dict.player.featuredLabel}>
+        <span class="featured-label">{$dict.player.featuredLabel}</span>
+        <div class="featured-btns">
+          {#each FEATURED_IDS as fId}
+            {@const fw = WISH_BY_ID.get(fId)}
+            {#if fw}
+              <button
+                type="button"
+                class="featured-wish-btn"
+                class:active={activeWishId === fw.id}
+                onclick={() => launchWish(fw.id)}
+              >
+                <span class="fw-title">{fw.title[loc] ?? fw.title.en}</span>
+                <span class="fw-meta">
+                  {completedIds[fw.id] ? `✓ ${$dict.player.playedBadge}` : fw.honestyLabel}
+                </span>
+              </button>
+            {/if}
+          {/each}
+        </div>
+      </div>
+
       <div class="doors-grid" role="tablist" aria-label="Five wish categories">
       {#each $dict.doors.items as door}
         <button
@@ -80,25 +132,50 @@
       {/each}
     </div>
 
-    <!-- Interactive Phase 1 Door Preview Drawer -->
-    <div class="door-preview-panel" role="tabpanel" aria-live="polite">
-      <div class="dp-top">
-        <span class="dp-door-tag">{selectedDoor.title}</span>
-        <span class="dp-phase-pill">{$dict.doors.phase2Badge}</span>
-      </div>
-      <p class="dp-lead">{selectedDoor.lead}</p>
-      <div class="dp-wishes-grid">
-        {#each selectedDoor.wishes as wish}
-          <article class="dp-wish-card">
-            <div class="dp-wish-head">
-              <h4>{wish.title}</h4>
-              <span class="honesty-pill" title={wish.honestyNote}>{wish.honesty}</span>
-            </div>
-            <p class="dp-wish-honesty-note">{wish.honestyNote}</p>
-            <p class="dp-wish-beat">{wish.beatSummary}</p>
-          </article>
-        {/each}
-      </div>
+    <!-- Interactive Door Preview or Active 4-Beat Wish Player -->
+    <div bind:this={playerAnchorEl}>
+      {#if activeWish}
+        {#key activeWish.id}
+          <WishPlayer
+            wish={activeWish}
+            base={base}
+            onClose={() => (activeWishId = null)}
+            onNextWish={playNextUnseenWish}
+          />
+        {/key}
+      {:else}
+        <div class="door-preview-panel" role="tabpanel" aria-live="polite">
+          <div class="dp-top">
+            <span class="dp-door-tag">{selectedDoor.title}</span>
+            <span class="dp-phase-pill">{$dict.doors.phase2Badge}</span>
+          </div>
+          <p class="dp-lead">{selectedDoor.lead}</p>
+          <div class="dp-wishes-grid">
+            {#each selectedDoor.wishes as wish}
+              {@const playableObj = 'id' in wish && wish.id ? WISH_BY_ID.get(wish.id) : null}
+              <article class="dp-wish-card">
+                <div class="dp-wish-head">
+                  <h4>{wish.title}</h4>
+                  <span class="honesty-pill" title={wish.honestyNote}>{wish.honesty}</span>
+                </div>
+                <p class="dp-wish-honesty-note">{wish.honestyNote}</p>
+                <p class="dp-wish-beat">{wish.beatSummary}</p>
+                {#if playableObj}
+                  <button
+                    type="button"
+                    class="dp-play-btn"
+                    onclick={() => launchWish(playableObj.id)}
+                  >
+                    {completedIds[playableObj.id] ? `✓ ${$dict.player.playedBadge} · ` : ''}{$dict.player.playBtn} <span class="arrow-flip" aria-hidden="true">&rarr;</span>
+                  </button>
+                {:else}
+                  <span class="dp-soon-note">{$dict.player.previewOnlyNote}</span>
+                {/if}
+              </article>
+            {/each}
+          </div>
+        </div>
+      {/if}
     </div>
     {/if}
   </div>
@@ -135,32 +212,7 @@
     </div>
 
     {#if revealed}
-      <div class="lights-row" role="tablist" aria-label="Five personal readiness lights">
-        {#each $dict.lights.items as light}
-          <button
-            type="button"
-            role="tab"
-            aria-selected={activeLightKey === light.key}
-            class="light-pill"
-            class:active={activeLightKey === light.key}
-            onclick={() => (activeLightKey = light.key)}
-          >
-            <span class="lamp-orb" class:lit={activeLightKey === light.key} aria-hidden="true"></span>
-            <span class="lamp-text">
-              <strong>{light.key}</strong>
-              <span>{light.meaning}</span>
-            </span>
-          </button>
-        {/each}
-      </div>
-
-      <div class="lights-status-box">
-        <p class="lights-empty">{$dict.lights.emptyState}</p>
-        <p class="lights-reassurance">
-          <strong>{selectedLight.key}:</strong> {selectedLight.meaning} &mdash; {$dict.lights.lowLightNote}
-        </p>
-        <p class="lights-trail-note">{$dict.lights.trailNote}</p>
-      </div>
+      <TrailAndShadowCard />
     {/if}
   </div>
 </section>
@@ -420,98 +472,90 @@
 
   .beats-footer-line {
     text-align: center;
-    font-family: var(--font-family-display);
+    font-family: var(--font-family-sans);
     font-size: 1.12rem;
-    font-weight: 700;
+    font-weight: 800;
+    line-height: 1.35;
     color: var(--accent-primary);
     margin: 0;
   }
 
-  .lights-row {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 0.75rem;
-    margin-bottom: 1.15rem;
-  }
-
-  .light-pill {
-    text-align: start;
+  .featured-bar {
     background: var(--bg-surface-elevated);
-    border: 1.5px solid var(--border-subtle);
-    border-radius: 12px;
-    padding: 0.85rem 0.9rem;
-    display: flex;
-    align-items: flex-start;
-    gap: 0.65rem;
-    cursor: pointer;
-    transition: all 0.16s ease;
+    border: 1px solid var(--border-medium);
+    border-radius: 14px;
+    padding: 0.85rem 1rem;
+    margin-bottom: 1.1rem;
   }
 
-  .light-pill:hover,
-  .light-pill.active {
-    border-color: var(--accent-primary);
+  .featured-label {
+    display: block;
+    font-family: var(--font-family-mono);
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: var(--accent-primary);
+    margin-bottom: 0.55rem;
+  }
+
+  .featured-btns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.55rem;
+  }
+
+  .featured-wish-btn {
+    text-align: start;
+    border: 1.5px solid var(--border-medium);
     background: var(--bg-surface);
-  }
-
-  .lamp-orb {
-    width: 14px;
-    height: 14px;
-    margin-top: 3px;
-    border-radius: 50%;
-    flex-shrink: 0;
-    border: 2px solid var(--border-strong);
-    background: var(--bg-surface-sunken);
-    transition: all 0.2s ease;
-  }
-
-  .lamp-orb.lit {
-    background: #f59e0b;
-    border-color: #d97706;
-    box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
-  }
-
-  .lamp-text {
+    color: var(--text-primary);
+    border-radius: 10px;
+    padding: 0.55rem 0.75rem;
+    cursor: pointer;
     display: flex;
     flex-direction: column;
     gap: 0.2rem;
+    min-height: 48px;
   }
 
-  .lamp-text strong {
-    font-size: 0.94rem;
-    color: var(--text-primary);
+  .featured-wish-btn:hover,
+  .featured-wish-btn.active {
+    border-color: var(--accent-primary);
+    background: var(--threat-sovereign-bg);
   }
 
-  .lamp-text span {
-    font-size: 0.8rem;
-    color: var(--text-secondary);
-    line-height: 1.35;
-  }
-
-  .lights-status-box {
-    text-align: center;
-    background: var(--bg-surface);
-    border: 1px solid var(--border-medium);
-    border-radius: 14px;
-    padding: 1.15rem 1.25rem;
-  }
-
-  .lights-empty {
-    font-weight: 700;
-    font-size: 0.96rem;
-    color: var(--text-primary);
-    margin: 0 0 0.3rem;
-  }
-
-  .lights-reassurance {
+  .fw-title {
     font-size: 0.88rem;
-    color: var(--text-secondary);
-    margin: 0 0 0.35rem;
+    font-weight: 700;
   }
 
-  .lights-trail-note {
-    font-size: 0.8rem;
+  .fw-meta {
+    font-family: var(--font-family-mono);
+    font-size: 0.68rem;
+    color: var(--accent-primary);
+  }
+
+  .dp-play-btn {
+    margin-top: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    border: 0;
+    background: var(--accent-primary);
+    color: var(--btn-primary-text);
+    border-radius: 8px;
+    padding: 0.45rem 0.85rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    min-height: 36px;
+  }
+
+  .dp-soon-note {
+    display: inline-block;
+    margin-top: 0.75rem;
+    font-size: 0.76rem;
     color: var(--text-secondary);
-    margin: 0;
+    font-style: italic;
   }
 
   @media (max-width: 1024px) {
@@ -525,7 +569,7 @@
       min-height: 693px;
     }
     .doors-grid,
-    .lights-row {
+    .featured-btns {
       grid-template-columns: repeat(2, 1fr);
     }
     .beats-grid {
@@ -544,9 +588,9 @@
       min-height: 717px;
     }
     .doors-grid,
+    .featured-btns,
     .dp-wishes-grid,
-    .beats-grid,
-    .lights-row {
+    .beats-grid {
       grid-template-columns: 1fr;
     }
   }

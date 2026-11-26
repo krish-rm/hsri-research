@@ -7,6 +7,13 @@ export type FunnelEventName =
   | 'hero_cta_click'
   | 'hero_city_switch'
   | 'door_preview_select'
+  | 'wish_started'
+  | 'foresight_guess'
+  | 'weight_choice'
+  | 'way_pledge'
+  | 'wish_completed'
+  | 'light_gained'
+  | 'share_clicked'
   | 'country_selected'
   | 'locale_switched';
 

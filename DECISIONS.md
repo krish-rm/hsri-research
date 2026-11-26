@@ -63,3 +63,33 @@
 - **CI/CD Smoke Test (`deploy.yml`)**: Preserve exact text `"Humanity Superintelligence Readiness Index"` and `/` links to `/methodology/`, `/coverage/`, `/monograph/`.
 - **Footer Additions**: New `/privacy/` route (anonymous local-first `hr:v1:*` privacy notice + interactive inspect/export/delete controls), `Languages` anchor (`#languages` switcher), and `"Join Friday's recap"` (`#this-week`).
 - **Reality Meter (Phase 2 Open Sign-Off)**: Anchor percentages/ratings strictly to verifiable milestones + `lastReviewed` + `sources[]`; `Imagination` wishes receive a documented conservative baseline for owner sign-off in Phase 2.
+
+---
+
+## Phase 2 Calibration & Design Decisions (2026-11-26)
+
+### 9. Readiness Lights Formula (`hr:v1:*`, Glow Levels `0–3`)
+- Lights display **only** visual glow tiers (`0 = unlit`, `1 = spark`, `2 = warm`, `3 = bright`) with zero numeric ranking scores shown in the UI.
+- **Clarity (`0–3`)**: +1 per unique wish completed through Beat 4 (`Way`), capped at 3.
+- **Foresight (`0–3`)**: +1 per unique wish where the visitor chooses a pre-Wobble guess OR selects a `Foresight`-mapped worry in Beat 3, capped at 3.
+- **Fairness (`0–3`)**: +1 per unique wish where the visitor selects a `Fairness`-mapped worry in Beat 3, capped at 3.
+- **Wisdom (`0–3`)**: +1 per unique wish where the visitor selects a `Wisdom`-mapped worry OR commits to a human `Way` habit pledge, capped at 3.
+- **Capability (`0–3`)**: +1 per unique human `Way` habit pledge (capped at 2) **plus `+1` ONLY when the visitor explicitly selects a country in Section 6 whose rated checklist has `>= 3 of 5` checks in place** (ambient timezone/locale pre-detection never alters `hr:v1:country` or `Capability`; unrated countries contribute `0` and clearly explain why).
+
+### 10. Trail Card (`3` Wishes) & Shadow Map (`5` Wishes)
+- **Playable Wish Pool**: Ships the 3 verbatim Checkpoint 1 flagship wishes (`sanjeevani`, `jarvis-for-my-life`, `prove-riemann-hypothesis`) plus 2 cross-door wishes (`walk-into-classic-film`, `fix-my-river`, clearly tagged **`DRAFT`** on new Wobble/Weight/Way copy for owner review) so visitors can explore all 5 doors and reach the 5-wish Shadow Map unlock.
+- **Trail Archetype Selection**: Deterministic priority from dominant lights & spotted shadows:
+  - `The Verifier` (Foresight/Truth verification focus)
+  - `The Neighbour` (Fairness/Power equity focus)
+  - `The Builder` (Capability/Speed resilience focus)
+  - `The Keeper` (Wisdom/Dependence human stewardship fallback)
+- **Client-Side Export**: `1200×630` and `1080×1920` PNG exports + `.svg` render locally via HTML5 Canvas (`0 KB` third-party libraries).
+
+### 11. Reality Meter Grounding & Provenance
+- **Imagination Wishes (`sanjeevani`, `prove-riemann-hypothesis`, `walk-into-classic-film`, `fix-my-river`)**: Set to conservative `0 / 100` pre-deployment baseline (`isConservativeBaseline: true`), paired with explicit status notes and cited open references (WHO, Clay Mathematics Institute, HSRI Scenario Atlas `SC-01..SC-26`).
+- **Jarvis for my life (`Possible soon`)**: Anchored directly to repo `site-astro/src/data/autonomy_seismometer.json` (`m2m_composite_share = 0.6357 -> 64 / 100`, reviewed `2026-11-26`), explicitly paired with its 75.6% human paper-trail gap note.
+
+### 12. Spanish & Arabic Live Localization (`B.1`)
+- Implemented full dictionary parity across English (`en`), Spanish (`es`), and Arabic (`ar` with live `dir="rtl"` and mirrored margins/arrows via `BaseLayout.astro` + `store.ts` + static `data-hr-t` DOM sync).
+- Arabic renders via crisp native system sans stacks with **zero extra external webfont bytes**, keeping Mandarin/Hindi deferred until CJK/Devanagari font budgets are reviewed.
+
