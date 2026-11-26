@@ -37,7 +37,7 @@
     trackEvent('hero_city_switch', { city: id });
   }
 
-  function handleCta(target: 'wish' | 'country') {
+  function handleCta(target: 'breakthrough' | 'country') {
     trackEvent('hero_cta_click', { target });
   }
 
@@ -74,7 +74,7 @@
         <p class="hero-subhead">{$dict.hero.subhead}</p>
 
         <div class="cta-row">
-          <a href="#wish-doors" class="btn-primary-hero" onclick={() => handleCta('wish')}>
+          <a href="#wish-doors" class="btn-primary-hero" onclick={() => handleCta('breakthrough')}>
             {$dict.hero.ctaPrimary}
             <span class="arrow-flip" aria-hidden="true">&rarr;</span>
           </a>
@@ -84,7 +84,7 @@
         </div>
 
         <!-- Original Calm Coastal Harbour SVG -->
-        <figure class="skyline-card" aria-label={`Dawn harbour scene for ${city.name} showing Kalpa arriving as a calm light`}>
+        <figure class="skyline-card" aria-label={`Dawn harbour scene for ${city.name} showing Toto arriving as a calm light`}>
           <div class="skyline-top-bar">
             <span class="skyline-caption-label">
               {$dict.hero.cityLabel} <strong id="hcn">{activeCityId === 'neutral' ? $dict.hero.cityNeutralName : city.name}</strong>
@@ -98,14 +98,14 @@
             width="640"
             height="200"
             role="img"
-            aria-label={`Calm dawn illustration of ${city.name} harbour as Kalpa arrives softly above the horizon`}
+            aria-label={`Calm dawn illustration of ${city.name} harbour as Toto arrives softly above the horizon`}
           >
             <defs>
               <linearGradient id="dawn-sky" x1="0" y1="0" x2="0" y2="1">
                 <stop id="hst" offset="0%" stop-color={city.skyTop} />
                 <stop id="hsb" offset="100%" stop-color={city.skyBottom} />
               </linearGradient>
-              <radialGradient id="kalpa-glow" cx="50%" cy="42%" r="38%">
+              <radialGradient id="toto-glow" cx="50%" cy="42%" r="38%">
                 <stop offset="0%" stop-color="#fff8dc" stop-opacity="0.98" />
                 <stop offset="42%" stop-color="#7ce0c6" stop-opacity="0.52" />
                 <stop offset="100%" stop-color="#1b6756" stop-opacity="0" />
@@ -119,11 +119,12 @@
             <!-- Dawn Sky -->
             <rect width="640" height="145" fill="url(#dawn-sky)" />
 
-            <!-- Kalpa arrival prism & soft halo over harbour -->
-            <circle cx="430" cy="64" r="68" fill="url(#kalpa-glow)" class="kalpa-halo" />
-            <g class="kalpa-prism" transform="translate(430 62)">
-              <polygon points="0,-16 11,0 0,16 -11,0" fill="#ffffff" stroke="#1b6756" stroke-width="1.5" />
-              <circle cx="0" cy="0" r="3.5" fill="#1b6756" />
+            <!-- Toto arrival orb & thin ring over harbour -->
+            <circle cx="430" cy="64" r="68" fill="url(#toto-glow)" class="toto-halo" />
+            <g class="toto-orb" transform="translate(430 62)">
+              <circle cx="0" cy="0" r="18" fill="none" stroke="#1b6756" stroke-width="1.2" stroke-dasharray="4 3" opacity="0.7" />
+              <circle cx="0" cy="0" r="9.5" fill="#ffffff" stroke="#1b6756" stroke-width="1.5" />
+              <circle cx="0" cy="0" r="3" fill="#1b6756" />
             </g>
 
             <!-- City-varied silhouette (calm coastal blocks + landmark detail) -->
@@ -201,7 +202,7 @@
           </svg>
 
           <figcaption class="skyline-figcaption">
-            <span>{$dict.hero.kalpaCaption}</span>
+            <span>{$dict.hero.totoCaption}</span>
           </figcaption>
 
           <div class="city-pills" role="group" aria-label="Choose example coastal city skyline">
@@ -225,11 +226,11 @@
       <div class="ring-panel">
         <div class="ring-card">
           <div class="ring-svg-wrap">
-            <svg viewBox="0 0 160 160" width="160" height="160" class="ring-svg" role="img" aria-label="Crowd readiness gauge awaiting the first 200 wishers">
+            <svg viewBox="0 0 160 160" width="160" height="160" class="ring-svg" role="img" aria-label="Crowd readiness gauge awaiting the first 200 participants">
               <circle cx="80" cy="80" r="64" fill="none" stroke="var(--border-medium)" stroke-width="10" stroke-dasharray="6 6" />
               <circle cx="80" cy="80" r="50" fill="none" stroke="var(--accent-primary)" stroke-width="2" opacity="0.25" class="ring-breath" />
               <text x="80" y="76" text-anchor="middle" class="ring-num">0 / 200</text>
-              <text x="80" y="95" text-anchor="middle" class="ring-unit">WISHERS</text>
+              <text x="80" y="95" text-anchor="middle" class="ring-unit">PARTICIPANTS</text>
             </svg>
           </div>
           <p class="ring-title">{$dict.hero.ringTitle}</p>
@@ -279,6 +280,7 @@
   }
 
   :global([dir='rtl']) .eyebrow-pill {
+    font-family: var(--font-family-sans);
     letter-spacing: 0;
   }
 
@@ -401,7 +403,7 @@
     height: auto;
   }
 
-  .kalpa-halo {
+  .toto-halo {
     opacity: 0.92;
   }
 
@@ -534,7 +536,7 @@
 
   @media (prefers-reduced-motion: reduce) {
     .pulse-dot,
-    .kalpa-halo,
+    .toto-halo,
     .boat-drift,
     .ring-breath {
       animation: none !important;

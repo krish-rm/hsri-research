@@ -1,7 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://humanityreadiness.org/schemas/wishes.schema.json",
-  "title": "Humanity Readiness Wish Collection",
+  "$comment": "Internal filename wishes.schema.json preserved from Phase 2 for hr:v1:* compatibility; validates Humanity Readiness breakthrough records.",
+  "title": "Humanity Readiness Breakthrough Collection",
   "type": "array",
   "minItems": 3,
   "items": {
@@ -12,6 +13,7 @@
       "door",
       "order",
       "icon",
+      "status",
       "title",
       "doorTitle",
       "honestyLabel",
@@ -28,9 +30,14 @@
     ],
     "properties": {
       "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
-      "door": { "type": "string", "enum": ["mysteries", "gadgets", "epic", "movie", "world"] },
+      "door": {
+        "type": "string",
+        "enum": ["mysteries", "gadgets", "epic", "movie", "world"],
+        "description": "Internal domain key (maps to Five domains: Open Problems, Everyday Technologies, Transformative Powers, Culture & Creativity, Public Good)"
+      },
       "order": { "type": "integer", "minimum": 1 },
       "icon": { "type": "string", "enum": ["chalkboard", "pocket", "eye", "frame", "lamp"] },
+      "status": { "type": "string", "enum": ["DRAFT", "reviewed"] },
       "title": { "$ref": "#/$defs/localizedText" },
       "doorTitle": { "$ref": "#/$defs/localizedText" },
       "honestyLabel": { "type": "string", "enum": ["Imagination", "Possible soon", "Real today"] },
@@ -45,10 +52,10 @@
       "wonder": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["text", "kalpaLine", "transcript", "draft"],
+        "required": ["text", "totoLine", "transcript", "draft"],
         "properties": {
           "text": { "$ref": "#/$defs/localizedText" },
-          "kalpaLine": { "$ref": "#/$defs/localizedText" },
+          "totoLine": { "$ref": "#/$defs/localizedText" },
           "transcript": { "$ref": "#/$defs/localizedText" },
           "draft": { "type": "boolean" }
         }
@@ -108,7 +115,7 @@
           "draft": { "type": "boolean" }
         }
       },
-      "closingLine": { "type": "string", "const": "Every great wish needs a good wisher." },
+      "closingLine": { "type": "string", "const": "Every great breakthrough needs a ready world." },
       "realityMeter": {
         "type": "object",
         "additionalProperties": false,

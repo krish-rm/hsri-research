@@ -2,9 +2,12 @@
   import { onMount, tick } from 'svelte';
   import { dict, activeLocale } from '../i18n/store';
   import WishSceneIllustration from './WishSceneIllustration.svelte';
+  import TotoIllustration from './TotoIllustration.svelte';
   import {
     readinessStore,
     recordWishCompletion,
+    hasSeenTotoIntro,
+    markTotoIntroSeen,
     type LightKey,
     type ShadowKey
   } from '../lib/readinessState';
@@ -18,6 +21,7 @@
     door: string;
     order: number;
     icon: string;
+    status: 'DRAFT' | 'reviewed';
     title: LText;
     doorTitle: LText;
     honestyLabel: 'Imagination' | 'Possible soon' | 'Real today';
@@ -25,7 +29,7 @@
     verbatimFromBrief: boolean;
     shadowTag: ShadowKey;
     atlasRefs: string[];
-    wonder: { text: LText; kalpaLine: LText; transcript: LText; draft: boolean };
+    wonder: { text: LText; totoLine: LText; transcript: LText; draft: boolean };
     wobble: { text: LText; transcript: LText; draft: boolean };
     weight: {
       question: LText;
@@ -58,6 +62,8 @@
   export let onClose: () => void = () => {};
   export let onNextWish: () => void = () => {};
 
+  let showIntro = false;
+  let introStartBtnEl: HTMLButtonElement | null = null;
   let beat: 'wonder' | 'wobble' | 'weight' | 'way' = 'wonder';
   let startedAt = Date.now();
   let guessedWobble = false;
@@ -74,16 +80,28 @@
 
   onMount(async () => {
     startedAt = Date.now();
-    trackEvent('wish_started', { wish: wish.id });
+    trackEvent('breakthrough_started', { breakthrough: wish.id });
+    showIntro = !hasSeenTotoIntro();
+    await tick();
+    if (showIntro) {
+      introStartBtnEl?.focus({ preventScroll: true });
+    } else {
+      playerHeadingEl?.focus({ preventScroll: true });
+    }
+  });
+
+  async function dismissIntro(method: 'begin' | 'skip') {
+    markTotoIntroSeen(method);
+    showIntro = false;
     await tick();
     playerHeadingEl?.focus({ preventScroll: true });
-  });
+  }
 
   function chooseForesight(idx: number) {
     foresightPicked = idx;
     const isRealGuess = idx < 3;
     guessedWobble = isRealGuess;
-    if (isRealGuess) trackEvent('foresight_guess', { wish: wish.id, choice: idx });
+    if (isRealGuess) trackEvent('foresight_guess', { breakthrough: wish.id, choice: idx });
     beat = 'wobble';
   }
 
@@ -91,7 +109,7 @@
     selectedWeight = optId;
     const opt = wish.weight.options.find((o) => o.id === optId);
     if (opt) {
-      trackEvent('weight_choice', { wish: wish.id, choice: optId, light: opt.light, shadow: opt.shadow });
+      trackEvent('weight_choice', { breakthrough: wish.id, choice: optId, light: opt.light, shadow: opt.shadow });
     }
     beat = 'way';
     saveCompletion(pledged);
@@ -99,7 +117,7 @@
 
   function togglePledge() {
     pledged = !pledged;
-    if (pledged) trackEvent('way_pledge', { wish: wish.id });
+    if (pledged) trackEvent('way_pledge', { breakthrough: wish.id });
     saveCompletion(pledged);
   }
 
@@ -124,6 +142,15 @@
   }
 </script>
 
+<svelte:window
+  on:keydown={(e) => {
+    if (showIntro && e.key === 'Escape') {
+      e.preventDefault();
+      dismissIntro('skip');
+    }
+  }}
+/>
+
 <article class="wish-player-shell" aria-label={lText(wish.title)}>
   <header class="wp-head">
     <div>
@@ -140,8 +167,41 @@
     </button>
   </header>
 
+  {#if showIntro}
+    <div class="toto-intro-panel" role="region" aria-label={$dict.totoIntro.ariaLabel}>
+      <div class="toto-intro-top">
+        <span class="toto-intro-badge">{$dict.totoIntro.badge}</span>
+        <button type="button" class="toto-skip-btn" on:click={() => dismissIntro('skip')}>
+          {$dict.totoIntro.skipBtn}
+        </button>
+      </div>
+
+      <div class="toto-intro-body">
+        <div class="toto-intro-orb">
+          <TotoIllustration pose="curious" size={88} label={$dict.totoIntro.svgAlt} />
+        </div>
+        <div class="toto-intro-lines">
+          {#each $dict.totoIntro.lines as line, idx}
+            <p class={idx === 0 ? 'ti-lead' : 'ti-text'}>{line}</p>
+          {/each}
+        </div>
+      </div>
+
+      <div class="toto-intro-actions">
+        <button
+          type="button"
+          class="btn-advance"
+          bind:this={introStartBtnEl}
+          on:click={() => dismissIntro('begin')}
+        >
+          {$dict.totoIntro.startBtn} <span class="arrow-flip" aria-hidden="true">&rarr;</span>
+        </button>
+        <p class="ti-footnote">{$dict.totoIntro.footnote}</p>
+      </div>
+    </div>
+  {:else}
   <!-- 4-Beat Progress Tabs -->
-  <nav class="beat-steps" aria-label="Wish story progression">
+  <nav class="beat-steps" aria-label="Breakthrough story progression">
     {#each ['wonder', 'wobble', 'weight', 'way'] as b, idx}
       {@const isEnabled =
         b === 'wonder' ||
@@ -171,7 +231,16 @@
         beat="wonder"
         transcript={lText(wish.wonder.transcript)}
       />
-      <p class="kalpa-badge">{lText(wish.wonder.kalpaLine)}</p>
+      {@const rawToto = lText(wish.wonder.totoLine).replace(/^(Toto|توتو):\s*/i, '').trim()}
+      <div class="toto-beat-bar">
+        <TotoIllustration pose="calm" size={44} label={$dict.totoPage.poses[0].alt} />
+        <p class="toto-speech">
+          <strong class="toto-speaker">{$dict.totoBeats.speaker}:</strong> {$dict.totoBeats.wonder}
+          {#if rawToto && rawToto.toLowerCase() !== $dict.totoBeats.wonder.toLowerCase()}
+            <span class="toto-detail">&middot; {rawToto}</span>
+          {/if}
+        </p>
+      </div>
       <p class="beat-main-text">{lText(wish.wonder.text)}</p>
 
       <!-- Optional Foresight Prediction (Pre-Wobble) -->
@@ -198,6 +267,12 @@
         beat="wobble"
         transcript={lText(wish.wobble.transcript)}
       />
+      <div class="toto-beat-bar is-wobble">
+        <TotoIllustration pose="apologetic" size={44} label={$dict.totoPage.poses[2].alt} />
+        <p class="toto-speech">
+          <strong class="toto-speaker">{$dict.totoBeats.speaker}:</strong> {$dict.totoBeats.wobble}
+        </p>
+      </div>
       {#if wish.wobble.draft}
         <span class="draft-pill">{$dict.player.draftTag}</span>
       {/if}
@@ -212,6 +287,12 @@
         beat="weight"
         transcript={lText(wish.weight.transcript)}
       />
+      <div class="toto-beat-bar">
+        <TotoIllustration pose="curious" size={44} label={$dict.totoPage.poses[1].alt} />
+        <p class="toto-speech">
+          <strong class="toto-speaker">{$dict.totoBeats.speaker}:</strong> {$dict.totoBeats.weight}
+        </p>
+      </div>
       {#if wish.weight.draft}
         <span class="draft-pill">{$dict.player.draftTag}</span>
       {/if}
@@ -239,6 +320,12 @@
         beat="way"
         transcript={lText(wish.way.transcript)}
       />
+      <div class="toto-beat-bar">
+        <TotoIllustration pose="calm" size={44} label={$dict.totoPage.poses[0].alt} />
+        <p class="toto-speech">
+          <strong class="toto-speaker">{$dict.totoBeats.speaker}:</strong> {$dict.totoBeats.way}
+        </p>
+      </div>
       <p class="beat-main-text">{lText(wish.way.text)}</p>
 
       <div class="way-action-box">
@@ -294,7 +381,7 @@
       </div>
 
       <div class="wish-finale">
-        <p class="closing-line">{$dict.player.closingLine}</p>
+        <p class="closing-line">{$dict.totoBeats.close}</p>
         <div class="finale-actions">
           <button type="button" class="btn-advance" on:click={onNextWish}>
             {$dict.player.nextWishBtn} <span class="arrow-flip" aria-hidden="true">&rarr;</span>
@@ -304,6 +391,7 @@
       </div>
     {/if}
   </div>
+  {/if}
 </article>
 
 <style>
@@ -420,16 +508,137 @@
     cursor: not-allowed;
   }
 
-  .kalpa-badge {
-    display: inline-block;
+  .toto-intro-panel {
+    background: var(--bg-surface);
+    border: 1.5px solid var(--border-medium);
+    border-radius: 14px;
+    padding: 1.15rem 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .toto-intro-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .toto-intro-badge {
     font-family: var(--font-family-mono);
-    font-size: 0.76rem;
+    font-size: 0.7rem;
     font-weight: 800;
+    letter-spacing: 0.06em;
     color: var(--accent-primary);
     background: var(--threat-sovereign-bg);
-    padding: 0.2rem 0.6rem;
-    border-radius: 6px;
-    margin: 0 0 0.55rem;
+    border: 1px solid var(--threat-sovereign-border);
+    padding: 0.2rem 0.65rem;
+    border-radius: 9999px;
+  }
+
+  .toto-skip-btn {
+    border: 1px solid var(--border-medium);
+    background: var(--bg-surface-elevated);
+    color: var(--text-secondary);
+    border-radius: 8px;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    min-height: 36px;
+  }
+
+  .toto-skip-btn:hover {
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+  }
+
+  .toto-intro-body {
+    display: flex;
+    align-items: center;
+    gap: 1.15rem;
+    margin-bottom: 1rem;
+  }
+
+  .toto-intro-orb {
+    flex-shrink: 0;
+  }
+
+  .ti-lead {
+    margin: 0 0 0.45rem;
+    font-size: 1.16rem;
+    font-weight: 800;
+    color: var(--accent-primary);
+  }
+
+  .ti-text {
+    margin: 0 0 0.4rem;
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: var(--text-primary);
+  }
+
+  .toto-intro-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.65rem 1rem;
+  }
+
+  .ti-footnote {
+    margin: 0;
+    font-size: 0.74rem;
+    color: var(--text-secondary);
+  }
+
+  .toto-beat-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--threat-sovereign-bg);
+    border: 1px solid var(--threat-sovereign-border);
+    border-radius: 12px;
+    padding: 0.5rem 0.85rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .toto-beat-bar.is-wobble {
+    background: var(--threat-warning-bg);
+    border-color: var(--threat-warning-border);
+  }
+
+  .toto-speech {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.45;
+    color: var(--text-primary);
+  }
+
+  .toto-speaker {
+    color: var(--accent-primary);
+    font-weight: 800;
+  }
+
+  .toto-detail {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    margin-inline-start: 0.35rem;
+  }
+
+  :global([dir='rtl']) .wp-door,
+  :global([dir='rtl']) .wp-honesty,
+  :global([dir='rtl']) .wp-dur,
+  :global([dir='rtl']) .beat-tab,
+  :global([dir='rtl']) .draft-pill,
+  :global([dir='rtl']) .toto-intro-badge,
+  :global([dir='rtl']) .way-box-tag {
+    font-family: var(--font-family-sans);
+    letter-spacing: 0;
+  }
+
+  :global([dir='rtl']) .arrow-flip {
+    display: inline-block;
+    transform: scaleX(-1);
   }
 
   .draft-pill {
@@ -745,6 +954,10 @@
   @media (max-width: 720px) {
     .beat-steps {
       grid-template-columns: repeat(2, 1fr);
+    }
+    .toto-intro-body {
+      flex-direction: column;
+      align-items: flex-start;
     }
     .fp-opts,
     .reality-grid {

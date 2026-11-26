@@ -5,6 +5,15 @@ All notable changes to the Humanity Superintelligence Readiness Index (HSRI) res
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased — Phase 2.5 Terminology & Toto Guide Pass] — 2026-11-26
+
+### Changed
+- **Terminology Migration Across `en`, `es`, `ar` (`AGENT PROMPT v2` §2)**: Replaced user-facing `wish`/`wishes`/`wisher`/`Five doors` and `Kalpa`/`Wishgiver` with **`breakthrough`/`breakthroughs`/`participant`/`Five domains`** (*Open Problems*, *Everyday Technologies*, *Transformative Powers*, *Culture & Creativity*, *Public Good*) and fictional guide **`Toto`** (`توتو` in Arabic), updating headline (`"Humanity Readiness: are we ready for what we're asking superintelligence to deliver?"`), closing line (`"Every great breakthrough needs a ready world."`), `/privacy/` labels, country catch panel, and Trail/Shadow exports while preserving internal IDs, filenames (`wishes.json`), and `hr:v1:*` storage keys.
+- **Breakthrough Schema & Build Gate (`wishes.schema.json`, `wishes.json`, `validate_wishes.mjs`)**: Added explicit `status` (`DRAFT` vs `reviewed`), `wonder.totoLine`, updated closing-line assertion, and build-time guard against retired `wish`/`Kalpa`/`Wishgiver` copy.
+
+### Added
+- **Toto Guide Surfaces (`AGENT PROMPT v2` §9)**: Added `TotoIllustration.svelte` (dawn orb + orbital ring SVG in `calm`/`curious`/`apologetic` poses with `prefers-reduced-motion` static fallback), `MeetTotoCard.svelte` below Humanity's Pulse (`client:visible`, `CLS 0`), one-time dismissible Breakthrough Player greeting persisted in `hr:v1:intro_seen` (with `Skip` + `Escape` support and `/privacy/` inspection/deletion), spoken Toto lines/poses across all 4 beats, and static [`/toto/`](/toto/) route linked from the card and footer.
+
 ## [Unreleased — Phase 2 Wish Player, Readiness Lights & Live ES/AR i18n] — 2026-11-26
 
 ### Added

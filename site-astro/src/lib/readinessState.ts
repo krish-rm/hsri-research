@@ -1,5 +1,6 @@
-// Local-first state for the 5 Readiness Lights, completed wishes, Trail Card & Shadow Map
-// All data stored strictly under hr:v1:* on the visitor's browser (zero PII, zero network transmission).
+// Local-first state for the 5 Readiness Lights, completed breakthroughs, Trail Card & Shadow Map
+// Internal hr:v1:* keys (including hr:v1:wishes) are preserved unchanged for saved-progress compatibility.
+// All data stored strictly on the visitor's browser (zero PII, zero network transmission).
 import { writable, derived } from 'svelte/store';
 import { trackEvent } from './privacyStorage';
 
@@ -35,9 +36,29 @@ export interface ReadinessState {
   selectedCountry: SelectedCountryRef | null;
 }
 
-const KEY_WISHES = 'hr:v1:wishes';
+const KEY_WISHES = 'hr:v1:wishes'; // Internal Phase 2 key retained; holds completed breakthroughs
 const KEY_LIGHTS = 'hr:v1:lights';
 const KEY_COUNTRY = 'hr:v1:country';
+export const KEY_INTRO_SEEN = 'hr:v1:intro_seen';
+
+export function hasSeenTotoIntro(): boolean {
+  if (typeof window === 'undefined') return false;
+  try {
+    return localStorage.getItem(KEY_INTRO_SEEN) === 'true' || localStorage.getItem(KEY_INTRO_SEEN) === '1';
+  } catch {
+    return false;
+  }
+}
+
+export function markTotoIntroSeen(method: 'begin' | 'skip' = 'begin') {
+  if (typeof window === 'undefined') return;
+  try {
+    localStorage.setItem(KEY_INTRO_SEEN, 'true');
+  } catch {
+    // Ignore quota errors
+  }
+  trackEvent('toto_intro_seen', { method });
+}
 
 function clampGlow(n: number): 0 | 1 | 2 | 3 {
   if (n <= 0) return 0;
@@ -164,8 +185,8 @@ export function recordWishCompletion(entry: CompletedWishEntry) {
         trackEvent('light_gained', { light, level: nextLights[light] });
       }
     }
-    trackEvent('wish_completed', {
-      wish: entry.wishId,
+    trackEvent('breakthrough_completed', {
+      breakthrough: entry.wishId,
       light: entry.weightLight,
       shadow: entry.weightShadow,
       sec: entry.durationSec

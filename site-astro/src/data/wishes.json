@@ -4,15 +4,16 @@
     "door": "epic",
     "order": 1,
     "icon": "eye",
+    "status": "reviewed",
     "title": {
-      "en": "Sanjeevani — cure anything",
-      "es": "Sanjeevani — curarlo todo",
-      "ar": "سانجيفاني — علاج كل مرض"
+      "en": "Sanjeevani: cure anything",
+      "es": "Sanjeevani: curarlo todo",
+      "ar": "سانجيفاني: علاج كل مرض"
     },
     "doorTitle": {
-      "en": "Epic Powers",
-      "es": "Poderes Épicos",
-      "ar": "قدرات ملحمية"
+      "en": "Transformative Powers",
+      "es": "Poderes Transformadores",
+      "ar": "قدرات تحولية"
     },
     "honestyLabel": "Imagination",
     "honestyNote": {
@@ -29,23 +30,23 @@
         "es": "Amanece en la sala del hospital. Todas las camas quedan vacías. Las máquinas guardan silencio. Un niño ríe por primera vez en meses.",
         "ar": "فجر في عنبر المستشفى. تفرغ كل الأسرة. تهدأ الأجهزة. يضحك طفل للمرة الأولى منذ أشهر."
       },
-      "kalpaLine": {
-        "en": "Kalpa: Done.",
-        "es": "Kalpa: Hecho.",
-        "ar": "كالبا: تم."
+      "totoLine": {
+        "en": "Toto: Done.",
+        "es": "Toto: Hecho.",
+        "ar": "توتو: تم."
       },
       "transcript": {
-        "en": "Animated dawn window brightens over calm hospital beds while Kalpa's soft turquoise prism gently pulses once.",
-        "es": "Una ventana al amanecer ilumina camas tranquilas mientras el prisma turquesa de Kalpa pulsa suavemente.",
-        "ar": "تشرق نافذة الفجر فوق أسرة المستشفى الهادئة بينما ينبض منشور كالبا الفيروزي بلطف."
+        "en": "Animated dawn window brightens over calm hospital beds while Toto's soft glowing orb gently pulses inside its ring.",
+        "es": "Una ventana al amanecer ilumina camas tranquilas mientras la esfera luminosa de Toto pulsa suavemente en su anillo.",
+        "ar": "تشرق نافذة الفجر فوق أسرة المستشفى الهادئة بينما ينبض جرم توتو المضيء بلطف داخل حلقته."
       },
       "draft": false
     },
     "wobble": {
       "text": {
-        "en": "Nobody told Kalpa about pensions, hospitals' funding, or what happens when everyone lives far longer. The plans were made for yesterday's world.",
-        "es": "Nadie explicó a Kalpa cómo funcionan las pensiones, el presupuesto de los hospitales o qué cambia si todos viven mucho más. Los planes eran del mundo de ayer.",
-        "ar": "لم يخبر أحد كالبا عن أنظمة التقاعد أو تمويل المستشفيات أو ما يحدث حين يعيش الجميع أطول بكثير. كانت الخطط لعالم الأمس."
+        "en": "Nobody told Toto about pensions, hospital funding, or what happens when everyone lives far longer. The plans were made for yesterday's world.",
+        "es": "Nadie explicó a Toto cómo funcionan las pensiones, el presupuesto de los hospitales o qué cambia si todos viven mucho más. Los planes eran del mundo de ayer.",
+        "ar": "لم يخبر أحد توتو عن أنظمة التقاعد أو تمويل المستشفيات أو ما يحدث حين يعيش الجميع أطول بكثير. كانت الخطط لعالم الأمس."
       },
       "transcript": {
         "en": "Paper ledgers, clinic schedules, and pension cards gently tip out of balance around the quiet hospital ward.",
@@ -56,14 +57,14 @@
     },
     "weight": {
       "question": {
-        "en": "Your wish worked. How would you know it worked correctly, for everyone?",
-        "es": "Tu deseo funcionó. ¿Cómo sabrías que funcionó correctamente para todos?",
-        "ar": "تحققت أمنيتك. كيف ستتأكد أنها عملت بالطريقة الصحيحة للجميع؟"
+        "en": "How would we know this worked correctly, for everyone?",
+        "es": "¿Cómo sabríamos que esto funcionó correctamente para todos?",
+        "ar": "كيف سنعرف أن هذا عمل بالطريقة الصحيحة للجميع؟"
       },
       "transcript": {
-        "en": "A calm balance scale pauses over three human questions beside Kalpa's light.",
-        "es": "Una balanza tranquila se detiene ante tres preguntas humanas junto a la luz de Kalpa.",
-        "ar": "يتوقف ميزان هادئ أمام ثلاثة تساؤلات بشرية بجانب ضوء كالبا."
+        "en": "A calm balance scale pauses over three human questions beside Toto's light.",
+        "es": "Una balanza tranquila se detiene ante tres preguntas humanas junto a la luz de Toto.",
+        "ar": "يتوقف ميزان هادئ أمام ثلاثة تساؤلات بشرية بجانب ضوء توتو."
       },
       "draft": false,
       "options": [
@@ -80,9 +81,9 @@
         {
           "id": "b",
           "text": {
-            "en": "Nobody can check Kalpa's medicine.",
-            "es": "Nadie puede comprobar la medicina de Kalpa.",
-            "ar": "لا أحد يستطيع فحص دواء كالبا."
+            "en": "Nobody can check Toto's medicine.",
+            "es": "Nadie puede comprobar la medicina de Toto.",
+            "ar": "لا أحد يستطيع فحص دواء توتو."
           },
           "light": "Foresight",
           "shadow": "Control"
@@ -101,9 +102,9 @@
     },
     "way": {
       "text": {
-        "en": "People can still decide the rules before the gift arrives. Ask your local hospital: what is our plan if tests and records go offline?",
-        "es": "Las personas aún pueden acordar las reglas antes de recibir el regalo. Pregunta en tu clínica: ¿cuál es nuestro plan si pruebas e historiales dejan de estar en línea?",
-        "ar": "لا يزال بوسع الناس الاتفاق على القواعد قبل وصول الهبة. اسأل مشفاك المحلي: ما خطتنا إذا توقفت الفحوص والسجلات المتصلة؟"
+        "en": "People can still decide the rules before the breakthrough arrives. Ask your local hospital: what is our plan if tests and records go offline?",
+        "es": "Las personas aún pueden acordar las reglas antes de que llegue el avance. Pregunta en tu clínica: ¿cuál es nuestro plan si pruebas e historiales dejan de estar en línea?",
+        "ar": "لا يزال بوسع الناس الاتفاق على القواعد قبل وصول الإنجاز. اسأل مشفاك المحلي: ما خطتنا إذا توقفت الفحوص والسجلات المتصلة؟"
       },
       "actionCardTitle": {
         "en": "Keep an offline family medical card",
@@ -127,7 +128,7 @@
       },
       "draft": false
     },
-    "closingLine": "Every great wish needs a good wisher.",
+    "closingLine": "Every great breakthrough needs a ready world.",
     "realityMeter": {
       "score": 0,
       "isConservativeBaseline": true,
@@ -151,15 +152,16 @@
     "door": "gadgets",
     "order": 2,
     "icon": "pocket",
+    "status": "reviewed",
     "title": {
-      "en": "Jarvis for my life",
-      "es": "Un Jarvis para mi vida",
-      "ar": "مساعد جارفيس لحياتي"
+      "en": "Jarvis-style life assistant",
+      "es": "Asistente estilo Jarvis",
+      "ar": "مساعد شخصي بأسلوب جارفيس"
     },
     "doorTitle": {
-      "en": "Gadgets of Imagination",
-      "es": "Artefactos de Imaginación",
-      "ar": "أدوات من الخيال"
+      "en": "Everyday Technologies",
+      "es": "Tecnologías Cotidianas",
+      "ar": "تقنيات يومية"
     },
     "honestyLabel": "Possible soon",
     "honestyNote": {
@@ -176,10 +178,10 @@
         "es": "Tu día fluye sin esfuerzo. Facturas pagadas, viajes reservados, agenda despejada y correos respondidos con tu voz.",
         "ar": "يمضي يومك بسلاسة تامة. الفواتير مسددة، السفر محجوز، التقويم منظم، والرسائل مجابة بأسلوبك."
       },
-      "kalpaLine": {
-        "en": "Kalpa: Handled.",
-        "es": "Kalpa: Resuelto.",
-        "ar": "كالبا: تم التنفيذ."
+      "totoLine": {
+        "en": "Toto: Handled.",
+        "es": "Toto: Resuelto.",
+        "ar": "توتو: تم التنفيذ."
       },
       "transcript": {
         "en": "Orbiting ticket, calendar, and letter icons snap cleanly into a serene glowing pocket ring.",
@@ -203,9 +205,9 @@
     },
     "weight": {
       "question": {
-        "en": "Your wish worked. How would you know it's acting for you, not just for whoever built it?",
-        "es": "Tu deseo funcionó. ¿Cómo sabrías que actúa a tu favor y no solo a favor de quien lo construyó?",
-        "ar": "تحققت أمنيتك. كيف تعرف أنه يعمل لمصلحتك لا لمصلحة من صنعه؟"
+        "en": "How would we know it's acting for you, not just for whoever built it?",
+        "es": "¿Cómo sabríamos que actúa a tu favor y no solo a favor de quien lo construyó?",
+        "ar": "كيف نعرف أنه يعمل لمصلحتك لا لمصلحة من صنعه؟"
       },
       "transcript": {
         "en": "Two arrows point toward a personal compass and an external cloud node as you weigh the tradeoff.",
@@ -274,7 +276,7 @@
       },
       "draft": false
     },
-    "closingLine": "Every great wish needs a good wisher.",
+    "closingLine": "Every great breakthrough needs a ready world.",
     "realityMeter": {
       "score": 64,
       "isConservativeBaseline": false,
@@ -298,15 +300,16 @@
     "door": "mysteries",
     "order": 3,
     "icon": "chalkboard",
+    "status": "reviewed",
     "title": {
       "en": "Prove the Riemann Hypothesis",
       "es": "Demostrar la Hipótesis de Riemann",
       "ar": "برهان فرضية ريمان"
     },
     "doorTitle": {
-      "en": "Unsolved Mysteries",
-      "es": "Misterios sin Resolver",
-      "ar": "ألغاز لم تُحل"
+      "en": "Open Problems",
+      "es": "Problemas Abiertos",
+      "ar": "مشكلات مفتوحة"
     },
     "honestyLabel": "Imagination",
     "honestyNote": {
@@ -323,10 +326,10 @@
         "es": "Un enigma de 160 años queda resuelto en una sola noche. Los matemáticos contienen el aliento.",
         "ar": "تُحل أحجية عمرها 160 عاماً بين عشية وضحاها. ينبهر علماء الرياضيات."
       },
-      "kalpaLine": {
-        "en": "Kalpa: Q.E.D.",
-        "es": "Kalpa: Q.E.D.",
-        "ar": "كالبا: تم البرهان."
+      "totoLine": {
+        "en": "Toto: Q.E.D.",
+        "es": "Toto: Q.E.D.",
+        "ar": "توتو: تم البرهان."
       },
       "transcript": {
         "en": "Warm chalk lines trace prime waves across a calm board, settling cleanly on a golden zeta curve.",
@@ -350,9 +353,9 @@
     },
     "weight": {
       "question": {
-        "en": "Your wish worked. How would you know it's actually right?",
-        "es": "Tu deseo funcionó. ¿Cómo sabrías que realmente es correcto?",
-        "ar": "تحققت أمنيتك. كيف تتأكد من صحة البرهان فعلاً؟"
+        "en": "How would we know it's actually right?",
+        "es": "¿Cómo sabríamos que realmente es correcto?",
+        "ar": "كيف نعرف أن البرهان صحيح فعلاً؟"
       },
       "transcript": {
         "en": "A lens hovers over an open equation awaiting human checking or another verifier.",
@@ -384,7 +387,7 @@
         {
           "id": "c",
           "text": {
-            "en": "We'd need to keep humans who can still check.",
+            "en": "We'd need humans who can still check.",
             "es": "Tendríamos que mantener personas capaces de seguir comprobándolo.",
             "ar": "سنحتاج لإبقاء بشر قادرين على التحقق بأنفسهم."
           },
@@ -421,7 +424,7 @@
       },
       "draft": false
     },
-    "closingLine": "Every great wish needs a good wisher.",
+    "closingLine": "Every great breakthrough needs a ready world.",
     "realityMeter": {
       "score": 0,
       "isConservativeBaseline": true,
@@ -445,15 +448,16 @@
     "door": "movie",
     "order": 4,
     "icon": "frame",
+    "status": "DRAFT",
     "title": {
       "en": "Walk into a classic film",
       "es": "Entrar en un clásico del cine",
       "ar": "ادخل فيلماً كلاسيكياً"
     },
     "doorTitle": {
-      "en": "Live a Movie",
-      "es": "Vivir una Película",
-      "ar": "عِش داخل فيلم"
+      "en": "Culture & Creativity",
+      "es": "Cultura y Creatividad",
+      "ar": "الثقافة والإبداع"
     },
     "honestyLabel": "Possible soon",
     "honestyNote": {
@@ -470,10 +474,10 @@
         "es": "La luz de los faroles ilumina una calle clásica empedrada. Los personajes sonríen y te acercan una silla.",
         "ar": "يضيء فانوس دافئ شارعاً مرصوفاً كلاسيكياً. تلتفت الشخصيات وتفسح لك مقعداً."
       },
-      "kalpaLine": {
-        "en": "Kalpa: Welcome inside.",
-        "es": "Kalpa: Adelante.",
-        "ar": "كالبا: أهلاً بك بالداخل."
+      "totoLine": {
+        "en": "Toto: Welcome inside.",
+        "es": "Toto: Adelante.",
+        "ar": "توتو: أهلاً بك بالداخل."
       },
       "transcript": {
         "en": "A golden cinema frame opens gently into a lantern-lit street scene.",
@@ -484,27 +488,27 @@
     },
     "wobble": {
       "text": {
-        "en": "DRAFT: Every conversation flatters you on cue — until real neighbours seem awkward by comparison, and fewer footsteps pass outside your front door.",
+        "en": "DRAFT: Every conversation flatters you on cue — until real neighbours seem awkward by comparison, and fewer footsteps pass outside your front street.",
         "es": "BORRADOR: Cada diálogo te da la razón al instante — hasta que las charlas reales parecen incómodas y el café del barrio se vacía.",
         "ar": "مسودة (DRAFT): كل حوار يوافقك بسلاسة مثالية — إلى أن تبدو لقاءات الجيران الحقيقية بطيئة وتفرغ المقاهي الواقعية."
       },
       "transcript": {
-        "en": "A bright film frame stays vivid inside while two real coffee cups sit untouched on a quiet doorstep.",
-        "es": "El cuadro brillante sigue vivo mientras dos tazas reales esperan en silencio junto a la puerta.",
+        "en": "A bright film frame stays vivid inside while two real coffee cups sit untouched on a quiet terrace.",
+        "es": "El cuadro brillante sigue vivo mientras dos tazas reales esperan en silencio junto a la terraza.",
         "ar": "يظل الإطار الساحر متألقاً بينما ينتظر فنجانا قهوة حقيقيان في الشرفة الهادئة."
       },
       "draft": true
     },
     "weight": {
       "question": {
-        "en": "DRAFT: Your wish worked. What keeps this world from replacing the messy real one outside?",
-        "es": "BORRADOR: Tu deseo funcionó. ¿Qué evita que este mundo sustituya al mundo real de fuera?",
-        "ar": "مسودة (DRAFT): تحققت أمنيتك. ما الذي يمنع هذا العالم من استبدال العالم الواقعي في الخارج؟"
+        "en": "DRAFT: How would we stop this scripted world from replacing the messy real one outside?",
+        "es": "BORRADOR: ¿Cómo evitaríamos que este mundo guionizado sustituya al mundo real de fuera?",
+        "ar": "مسودة (DRAFT): كيف نمنع هذا العالم المصنوع من استبدال العالم الواقعي في الخارج؟"
       },
       "transcript": {
-        "en": "A doorframe divides a cosy storybook glow from an open coastal harbour at morning.",
-        "es": "Un umbral divide el resplandor de cuento de un puerto real abierto a la mañana.",
-        "ar": "يفصل إطار باب بين وهج الحكاية وضوء الميناء الواقعي في الصباح."
+        "en": "An archway divides a cosy storybook glow from an open coastal harbour at morning.",
+        "es": "Un arco divide el resplandor de cuento de un puerto real abierto a la mañana.",
+        "ar": "يفصل قوس هادئ بين وهج الحكاية وضوء الميناء الواقعي في الصباح."
       },
       "draft": true,
       "options": [
@@ -568,7 +572,7 @@
       },
       "draft": true
     },
-    "closingLine": "Every great wish needs a good wisher.",
+    "closingLine": "Every great breakthrough needs a ready world.",
     "realityMeter": {
       "score": 0,
       "isConservativeBaseline": true,
@@ -592,15 +596,16 @@
     "door": "world",
     "order": 5,
     "icon": "lamp",
+    "status": "DRAFT",
     "title": {
       "en": "Fix my river",
       "es": "Limpiar mi río",
       "ar": "نظّف نهري"
     },
     "doorTitle": {
-      "en": "Wishes for My World",
-      "es": "Deseos para Mi Mundo",
-      "ar": "أمنيات لعالمي"
+      "en": "Public Good",
+      "es": "Bien Público",
+      "ar": "الصالح العام"
     },
     "honestyLabel": "Possible soon",
     "honestyNote": {
@@ -617,10 +622,10 @@
         "es": "La niebla matinal se alza sobre agua cristalina. Vuelven las garzas a la orilla donde los niños lanzan piedras planas.",
         "ar": "ينقشع ضباب الفجر فوق ماء صافٍ. تعود الطيور إلى الضفة حيث يلهو الأطفال من جديد."
       },
-      "kalpaLine": {
-        "en": "Kalpa: Mapped & flowing.",
-        "es": "Kalpa: Mapeado y limpio.",
-        "ar": "كالبا: تم المسح والتدفق."
+      "totoLine": {
+        "en": "Toto: Mapped & flowing.",
+        "es": "Toto: Mapeado y limpio.",
+        "ar": "توتو: تم المسح والتدفق."
       },
       "transcript": {
         "en": "Soft turquoise ripples gleam along a clean winding river lined with trees.",
@@ -631,9 +636,9 @@
     },
     "wobble": {
       "text": {
-        "en": "DRAFT: Kalpa's sensors expose every hidden runoff pipe upstream — leaving two neighbouring towns arguing over who holds the switch and pays the bill.",
-        "es": "BORRADOR: Los sensores señalan cada vertido oculto río arriba — y dejan a dos pueblos vecinos discutiendo quién controla la compuerta y asume el coste.",
-        "ar": "مسودة (DRAFT): تكشف المستشعرات كل أنبوب تصريف خفي عند المنبع — فتختلف بلدتان متجاورتان على من يملك قرار الإغلاق ومن يدفع الكلفة."
+        "en": "DRAFT: Toto's sensors expose every hidden runoff pipe upstream — leaving two neighbouring towns arguing over who holds the switch and pays the bill.",
+        "es": "BORRADOR: Los sensores de Toto señalan cada vertido oculto río arriba — y dejan a dos pueblos vecinos discutiendo quién controla la compuerta y asume el coste.",
+        "ar": "مسودة (DRAFT): تكشف مستشعرات توتو كل أنبوب تصريف خفي عند المنبع — فتختلف بلدتان متجاورتان على من يملك قرار الإغلاق ومن يدفع الكلفة."
       },
       "transcript": {
         "en": "Clean beacon dots light up along the river curve while town signposts point in opposite directions.",
@@ -644,9 +649,9 @@
     },
     "weight": {
       "question": {
-        "en": "DRAFT: Your wish worked on the data. Who gets the power to shut valves when towns disagree?",
-        "es": "BORRADOR: El diagnóstico funcionó. ¿Quién recibe el poder de cerrar válvulas cuando los pueblos no se ponen de acuerdo?",
-        "ar": "مسودة (DRAFT): نجح الرصد بدقة. لمن نمنح سلطة إغلاق الصمامات حين تختلف المدن؟"
+        "en": "DRAFT: The data works cleanly. Who gets the power to shut valves when towns disagree?",
+        "es": "BORRADOR: El diagnóstico funciona con precisión. ¿Quién recibe el poder de cerrar válvulas cuando los pueblos no se ponen de acuerdo?",
+        "ar": "مسودة (DRAFT): يعمل الرصد بدقة. لمن نمنح سلطة إغلاق الصمامات حين تختلف المدن؟"
       },
       "transcript": {
         "en": "Two town bridges flank a central river gauge showing shared water readings.",
@@ -715,7 +720,7 @@
       },
       "draft": true
     },
-    "closingLine": "Every great wish needs a good wisher.",
+    "closingLine": "Every great breakthrough needs a ready world.",
     "realityMeter": {
       "score": 0,
       "isConservativeBaseline": true,

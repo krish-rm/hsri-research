@@ -93,3 +93,21 @@
 - Implemented full dictionary parity across English (`en`), Spanish (`es`), and Arabic (`ar` with live `dir="rtl"` and mirrored margins/arrows via `BaseLayout.astro` + `store.ts` + static `data-hr-t` DOM sync).
 - Arabic renders via crisp native system sans stacks with **zero extra external webfont bytes**, keeping Mandarin/Hindi deferred until CJK/Devanagari font budgets are reviewed.
 
+---
+
+## Phase 2.5: Terminology & Toto Guide Architecture (2026-11-26)
+
+### 13. Terminology Migration (`wish` -> `breakthrough`, `Kalpa` -> `Toto`)
+- **User-Facing Vocabulary**: Replaced every user-facing occurrence of `wish` / `wishes` / `wisher` and `Kalpa` / `Wishgiver` with **`breakthrough` / `breakthroughs` / `participant`** and **`Toto`**, updating the headline to `"Humanity Readiness: are we ready for what we're asking superintelligence to deliver?"`, domains to **Open Problems, Everyday Technologies, Transformative Powers, Culture & Creativity, Public Good**, and closing line to `"Every great breakthrough needs a ready world."`.
+- **Natural ES/AR Renderings (Flagged for Native Review)**:
+  - **Spanish (`es`)**: Rendered `breakthrough` as **`avance` / `avances`**, `ready world` as **`mundo preparado`**, and preserved `Toto` untranslated per brief §9.5.
+  - **Arabic (`ar`)**: Rendered `breakthrough` as **`إنجاز` / `إنجازات`** (scientific/civilizational milestone) rather than `اختراق` (which reads primarily as breach/cyber-intrusion), and localized `Toto` phonetically as **`توتو`**.
+- **Backward-Compatible Internals & Migration Plan**: Preserved `wishes.json`, `wishes.schema.json`, existing breakthrough `id` strings, DOM anchor IDs (`#wish-doors`, `#wish-wall`), and all `hr:v1:*` browser storage keys (`hr:v1:wishes`, `hr:v1:lights`, `hr:v1:country`, `hr:v1:locale`, `hr:v1:events`) unchanged so saved Phase 2 progress continues seamlessly. Any future storage v2 schema (`hr:v2:*`) will read/migrate `hr:v1:wishes -> hr:v2:breakthroughs`.
+
+### 14. Toto Guide Character, Greeting (`hr:v1:intro_seen`) & Trademark Note
+- **Storytelling Disclaimer**: Toto is explicitly labelled as a fictional superintelligence storytelling device (`Fictional, not a real system`), never a forecast or real AI product.
+- **Visual Spec (`TotoIllustration.svelte`)**: Original lightweight inline SVG glowing dawn orb inside a thin orbital ring with three poses (`calm`, `curious`, `apologetic`), zero animal/dog likeness, zero SVG blurs/filters, and static `prefers-reduced-motion` support.
+- **Presence**: Appears in Hero SVG (`#toto-glow`), the new **`MeetTotoCard`** directly after `#pulse` (`client:visible` shell, CLS 0), the one-time dismissible Breakthrough Player greeting (`hr:v1:intro_seen`, with `Let's begin`, visible `Skip`, and `Escape` keyboard support, clearable in `/privacy/`), spoken lines/poses across all 4 beats, and the static `/toto/` story page (footer-linked & sitemap-indexed).
+- **Merchandise/Brand Flag (§9.5)**: *TOTO* is an existing commercial brand and musical band name; acceptable here strictly as a fictional non-commercial research/storytelling guide character, and flagged for legal/trademark review prior to any external merchandise or branding expansion.
+
+

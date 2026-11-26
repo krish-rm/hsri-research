@@ -154,6 +154,7 @@
     <div class="footer-bottom">
       <div class="footer-links">
         <a href={`${base}/privacy/`} class="footer-link">{$dict.footerUi.privacyLink}</a>
+        <a href={`${base}/toto/`} class="footer-link">{$dict.footerUi.totoLink}</a>
         <a href="#languages" class="footer-link">{$dict.footerUi.languagesLink}</a>
         <a href={`${base}/#this-week`} class="footer-link">{$dict.footerUi.recapLink}</a>
         <a href="https://doi.org/10.5281/zenodo.23441742" class="footer-link" target="_blank" rel="noopener noreferrer">Permanent DOI (Zenodo)</a>

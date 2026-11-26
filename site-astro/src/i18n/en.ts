@@ -1,5 +1,5 @@
-// Structured translation dictionary for Humanity Readiness (Phase 1+2 global i18n)
-// All homepage & interactive Wish Player copy lives here cleanly without Section 12 jargon.
+// Structured translation dictionary for Humanity Readiness (Phase 2.5: Breakthrough & Toto pass)
+// All homepage & interactive Breakthrough Player copy lives here cleanly without Section 13 jargon.
 
 export interface DeeperCard {
   readonly title: string;
@@ -16,25 +16,25 @@ export const en = {
 
   meta: {
     title:
-      "Humanity Readiness: are we ready to receive what we're wishing for? | Humanity Superintelligence Readiness Index",
+      "Humanity Readiness: are we ready for what we're asking superintelligence to deliver? | Humanity Superintelligence Readiness Index",
     description:
-      "Imagine a superintelligence offers you one wish. Pick it, watch it come true, and see what humans can still do. Backed by open research across 39 benchmark nations."
+      "Imagine a superintelligence could deliver one breakthrough for humanity. Pick it, watch it arrive, and see what humans can still do. Backed by open research across 39 benchmark nations."
   },
 
   hero: {
     eyebrow: 'A HUMANITY READINESS STORY',
-    headline: "Humanity Readiness: are we ready to receive what we're wishing for?",
+    headline: "Humanity Readiness: are we ready for what we're asking superintelligence to deliver?",
     subhead:
-      'Imagine a superintelligence offers you one wish. Pick it. Watch it come true. Then see what it would really take.',
-    ctaPrimary: 'Make your wish',
+      'Imagine a superintelligence could deliver one breakthrough for humanity. Pick it. Watch it arrive. Then see what it would really take.',
+    ctaPrimary: 'Choose a breakthrough',
     ctaSecondary: 'See how your country does',
     cityLabel: 'Arrival sky over:',
     cityNeutralName: 'Coastal Harbour',
     cityNeutralNote: 'Default neutral port view · pick any city to shift the horizon',
-    kalpaCaption: 'Kalpa arrives at dawn: "I can offer one wish per person. Ask clearly."',
+    totoCaption: 'Toto arrives at dawn: "I can deliver one breakthrough per person. Ask clearly."',
     ringTitle: "Humanity's readiness, as chosen by people like you",
-    ringEmptyHeadline: 'Be one of the first 200 wishers.',
-    ringEmptySub: 'Crowd readiness lights up here once 200 people have completed a wish.'
+    ringEmptyHeadline: 'Be one of the first 200 participants.',
+    ringEmptySub: 'Crowd readiness lights up here once 200 people have completed a breakthrough.'
   },
 
   pulse: {
@@ -60,21 +60,100 @@ export const en = {
     cta: 'See the live pulse'
   },
 
+  totoCard: {
+    eyebrow: 'MEET YOUR GUIDE',
+    heading: 'Meet Toto.',
+    body: "Toto is a fictional superintelligence we use to explore one question: what happens when humanity gets exactly what it asks for? Toto is helpful, fast, and very literal. It delivers what you ask, not always what you meant. Together you'll test each breakthrough and see how ready the world is to receive it.",
+    chipsLabel: 'What Toto is and is not',
+    chips: ['Fictional, not a real system', 'Helpful, never hostile', 'Literal by design'],
+    ctaPrimary: 'Choose a breakthrough',
+    ctaSecondary: "Read Toto's story",
+    footnote:
+      'Toto is a storytelling device. It is not a forecast and does not represent any real AI system.',
+    svgAlt:
+      'Toto, a fictional superintelligence depicted as a soft glowing dawn orb inside a thin ring'
+  },
+
+  totoIntro: {
+    ariaLabel: 'First-time greeting from Toto',
+    badge: 'FIRST TIME · MEET TOTO',
+    lines: [
+      "Hello. I'm Toto.",
+      "I can deliver one breakthrough to the world. Pick what you'd like.",
+      "I'll do exactly what you ask. Watch closely, then tell me how we'd know it worked."
+    ] as readonly [string, string, string],
+    startBtn: "Let's begin",
+    skipBtn: 'Skip',
+    svgAlt: 'Toto in curious pose: a warm glowing orb inside an orbital ring',
+    footnote: 'Remembered quietly on this browser only (hr:v1:intro_seen) — clear anytime in Privacy.'
+  },
+
+  totoBeats: {
+    speaker: 'Toto',
+    wonder: 'Done.',
+    wobble: "Hm. That's not quite what you meant, is it?",
+    weight: 'Your turn. How would we know this worked correctly?',
+    way: "Good. Here's what people can still do.",
+    close: 'Every great breakthrough needs a ready world.'
+  },
+
+  totoPage: {
+    eyebrow: 'STORYTELLING GUIDE · FICTION',
+    title: 'Meet Toto.',
+    lead: 'A fictional superintelligence used as a calm lens for exploring one question: what happens when humanity gets exactly what it asks for?',
+    posesLabel: 'Toto visual poses',
+    poses: [
+      {
+        name: 'Calm',
+        caption: 'When a breakthrough arrives cleanly and people are ready to steer it.',
+        alt: 'Toto in calm pose: warm dawn orb centred inside a steady orbital ring'
+      },
+      {
+        name: 'Curious',
+        caption: 'Asking the open question: "How would we know this worked?"',
+        alt: 'Toto in curious pose: tilted orbital ring and attentive gaze'
+      },
+      {
+        name: 'Apologetic',
+        caption: 'Used in the Wobble when a literal delivery misses unstated context.',
+        alt: 'Toto in apologetic pose: gentle amber glow signalling an unexpected catch'
+      }
+    ] as readonly [
+      { readonly name: string; readonly caption: string; readonly alt: string },
+      { readonly name: string; readonly caption: string; readonly alt: string },
+      { readonly name: string; readonly caption: string; readonly alt: string }
+    ],
+    whoTitle: 'Who Toto is',
+    whoBody:
+      'A small name for a very large intelligence. The contrast is the point. Toto is helpful, fast, calm, curious, and very literal: it delivers what is asked, not always what was meant.',
+    rulesTitle: "Toto's three rules",
+    rules: [
+      'It delivers one breakthrough per person, then always shows the cost afterwards.',
+      'It never lies — and it never hides tradeoffs behind comfort.',
+      'It always asks: "How would we know this worked?"'
+    ],
+    notTitle: 'What Toto is not',
+    notBody:
+      'Toto is not a forecast, not a real AI system or product, and never a villain. It is a fictional storytelling device created to pair awareness with practical human agency.',
+    backCta: 'Choose a breakthrough',
+    homeLink: 'Back to homepage'
+  },
+
   doors: {
-    heading: 'What would you wish for?',
-    subhead: 'Five doors. Behind each, things people have dreamed of for centuries.',
-    microcopy: 'One wish. About 60 seconds.',
-    phase2Badge: 'Interactive 4-beat wish player · live',
-    sampleHeading: 'Inside this door:',
-    previewCta: 'Play a 4-beat wish',
+    heading: 'What would you like humanity to be handed?',
+    subhead: 'Five domains. Behind each, things people have dreamed of for centuries.',
+    microcopy: 'One breakthrough. About 60 seconds.',
+    phase2Badge: 'Interactive 4-beat breakthrough player · live',
+    sampleHeading: 'Inside this domain:',
+    previewCta: 'Play a 4-beat breakthrough',
     items: [
       {
         id: 'mysteries',
-        title: 'Unsolved Mysteries',
+        title: 'Open Problems',
         icon: 'chalkboard',
         lead: 'Deep questions nobody has cracked alone yet.',
         samples: ['Prove the Riemann Hypothesis', 'Read the Indus script'],
-        moreCount: '+ Explain dark matter & P vs NP',
+        moreCount: '+ Explain dark matter & settle P vs NP',
         wishes: [
           {
             id: 'prove-riemann-hypothesis',
@@ -83,7 +162,7 @@ export const en = {
             honestyNote:
               'Frontier AI can verify short formal lemmas, not crack open Millennium Prize proofs.',
             beatSummary:
-              'Kalpa publishes a proof overnight — then humans discover a million pages nobody alive can check.'
+              'Toto publishes a proof overnight — then humans discover a million pages nobody alive can check.'
           },
           {
             title: 'Read the Indus script',
@@ -97,15 +176,15 @@ export const en = {
       },
       {
         id: 'gadgets',
-        title: 'Gadgets of Imagination',
+        title: 'Everyday Technologies',
         icon: 'pocket',
-        lead: 'Impossible pockets, translators, and personal aides.',
-        samples: ["Doraemon's pocket", 'Jarvis for my life'],
+        lead: 'Impossible pockets, translators, and personal life aides.',
+        samples: ["Doraemon's pocket", 'Jarvis-style life assistant'],
         moreCount: '+ Universal translator & Time-Turner',
         wishes: [
           {
             id: 'jarvis-for-my-life',
-            title: 'Jarvis for my life',
+            title: 'Jarvis-style life assistant',
             honesty: 'Possible soon',
             honestyNote:
               'Tool-using assistants already book, pay, and reply today, though reliable boundaries lag.',
@@ -124,15 +203,15 @@ export const en = {
       },
       {
         id: 'epic',
-        title: 'Epic Powers',
+        title: 'Transformative Powers',
         icon: 'eye',
         lead: 'Ancient stories of sight, flight, healing, and shields.',
         samples: ['Sanjeevani (cure anything)', 'Pushpaka Vimana (flight for all)'],
-        moreCount: '+ Divya drishti & Brahmastra protector',
+        moreCount: '+ Divya drishti & universal protector',
         wishes: [
           {
             id: 'sanjeevani',
-            title: 'Sanjeevani — cure anything',
+            title: 'Sanjeevani: cure anything',
             honesty: 'Imagination',
             honestyNote:
               'Imagination overall — target AI assists narrow disease discovery (Possible soon for specific diseases), not universal cures.',
@@ -151,7 +230,7 @@ export const en = {
       },
       {
         id: 'movie',
-        title: 'Live a Movie',
+        title: 'Culture & Creativity',
         icon: 'frame',
         lead: 'Worlds you can step inside, rewrite, or direct in seconds.',
         samples: ['Walk into a classic film', 'Every master as my mentor'],
@@ -168,9 +247,9 @@ export const en = {
           },
           {
             title: 'Direct a film by describing it',
-            honesty: 'Partly real today',
+            honesty: 'Real today',
             honestyNote:
-              'Short generated scenes already work; coherent multi-hour cinema control does not yet.',
+              'Short generated scenes work partly today; coherent multi-hour cinema control does not yet.',
             beatSummary:
               'A feature film renders over lunch — then audiences drown in endless custom cuts with no shared story left.'
           }
@@ -178,7 +257,7 @@ export const en = {
       },
       {
         id: 'world',
-        title: 'Wishes for My World',
+        title: 'Public Good',
         icon: 'lamp',
         lead: 'Care, clean water, teachers, and shared memory where you live.',
         samples: ['Fix my river', 'A teacher for every child'],
@@ -207,14 +286,14 @@ export const en = {
   },
 
   beats: {
-    heading: 'Every wish has four moments',
+    heading: 'Every breakthrough has four moments',
     items: [
-      { key: 'Wonder', desc: 'Your wish comes true.' },
-      { key: 'Wobble', desc: 'Something small goes sideways.' },
-      { key: 'Weight', desc: 'You spot what matters.' },
-      { key: 'Way', desc: 'You see what humans can still do.' }
+      { key: 'Wonder', desc: 'it arrives.' },
+      { key: 'Wobble', desc: 'something small goes sideways.' },
+      { key: 'Weight', desc: 'you spot what matters.' },
+      { key: 'Way', desc: 'you see what humans can still do.' }
     ],
-    footerLine: 'Every great wish needs a good wisher.'
+    footerLine: 'Every great breakthrough needs a ready world.'
   },
 
   lights: {
@@ -222,17 +301,18 @@ export const en = {
     items: [
       { key: 'Clarity', meaning: 'do you know what you want?' },
       { key: 'Foresight', meaning: 'did you think about side effects?' },
-      { key: 'Fairness', meaning: 'did your wish include others?' },
+      { key: 'Fairness', meaning: 'did your choice include others?' },
       { key: 'Wisdom', meaning: 'what would you keep human?' },
-      { key: 'Capability', meaning: 'could you actually use the gift?' }
+      { key: 'Capability', meaning: 'could you actually use it?' }
     ],
-    emptyState: 'Make your first wish to light your first light.',
+    emptyState: 'Choose your first breakthrough to light your first light.',
     lowLightNote: "A dim light isn't failure. It's where to grow next.",
-    trailNote: 'Finish 3 wishes to unlock your shareable Trail card; finish 5 to unlock your Shadow Map.'
+    trailNote:
+      'Finish 3 breakthroughs to unlock your shareable Trail card; finish 5 to unlock your Shadow Map.'
   },
 
   country: {
-    heading: 'Can your country catch the gift?',
+    heading: 'Can your country catch the breakthrough?',
     subhead: "Pick a country. See what's already in place, and what's missing.",
     searchPlaceholder: 'Search 148 countries...',
     checklistLabel: 'A simple checklist, not a ranking',
@@ -244,11 +324,11 @@ export const en = {
   },
 
   episode: {
-    heading: "This week in Kalpa's city",
+    heading: 'This week with Toto',
     badge: 'PILOT EPISODE 1 · IN PRODUCTION',
-    title: 'The First Wish',
+    title: 'The First Breakthrough',
     synopsis:
-      'Dawn breaks over the harbour. Meera, working the night ward shift, makes the city’s very first wish. Every bed heals — and the corridor asks a question no machine settled beforehand: who goes first tomorrow?',
+      'Dawn breaks over the harbour. Meera, working the night ward shift, chooses the city’s first breakthrough. Every bed heals — and the corridor asks a question no machine settled beforehand: who goes first tomorrow?',
     voteNote: 'Interactive 3-minute story & live vote launch alongside Phase 4.',
     recapTitle: "Join Friday's recap",
     recapBody:
@@ -257,25 +337,25 @@ export const en = {
   },
 
   wishWall: {
-    heading: 'What the world is wishing for',
+    heading: 'What the world is asking for',
     themes: ['Health', 'Learning', 'Climate', 'Dignity', 'Wonder', 'Truth'],
-    emptyHeadline: 'The global Wish Wall opens after the first 20 anonymous shared wishes.',
+    emptyHeadline: 'The shared global tapestry opens after the first 20 anonymous contributions.',
     emptyBody:
-      'Every wish stays private in your browser by default. Crowd themes only appear once a threshold of at least 20 real people choose to contribute.',
-    cta: 'Make a wish of your own'
+      'Every choice stays private in your browser by default. Crowd themes only appear once a threshold of at least 20 real people choose to contribute.',
+    cta: 'Choose a breakthrough'
   },
 
   wisher: {
-    heading: 'Why a good wish still needs a good wisher',
+    heading: 'Why a great breakthrough still needs a ready world',
     cards: [
       {
         title: 'Speed',
-        body: "Machines can act thousands of times faster than we can blink. So we can't just watch. We need checks built in before the gift arrives.",
+        body: "Machines can act thousands of times faster than we can blink. So we can't just watch. We need checks built in before the breakthrough arrives.",
         techHint: 'Currently ~3,200× faster than line-by-line human review.'
       },
       {
         title: 'Dependence',
-        body: "The more we hand over, the harder it is to pause. Hospitals, power, food all run on systems we can't just switch off. A small paper backup is worth a lot.",
+        body: "The more we hand over, the harder it is to pause. Hospitals, power, and food all run on systems we can't simply switch off. A small paper backup is worth a lot.",
         techHint: 'Measured across national grids, food logistics, and hospital triage tolerances.'
       }
     ],
@@ -309,7 +389,7 @@ export const en = {
       },
       {
         title: 'Scenario Atlas',
-        desc: 'Explore the 26 AI transition pathways linking behind every wish.',
+        desc: 'Explore the 26 AI transition pathways linking behind every breakthrough.',
         href: '/scenarios/',
         tag: 'SHADOW LIBRARY'
       },
@@ -334,18 +414,18 @@ export const en = {
   },
 
   player: {
-    featuredLabel: 'Featured flagship wishes (~60s interactive)',
+    featuredLabel: 'Featured flagship breakthroughs (~60s interactive)',
     doorsBadge: 'Interactive 4-Beat Player',
-    playBtn: 'Play this wish',
+    playBtn: 'Play this breakthrough',
     playedBadge: 'Played',
     previewOnlyNote: 'Preview sketch — full script opens in Phase 6',
     stepLabels: ['1. Wonder', '2. Wobble', '3. Weight', '4. Way'],
-    backToDoors: 'Browse all 5 doors',
-    kalpaDone: 'Kalpa: Done.',
+    backToDoors: 'Browse all 5 domains',
     draftTag: 'DRAFT copy awaiting owner review',
     honestyPrefix: 'Reality check:',
     foresightLead: 'Optional foresight check (lights your Foresight lamp):',
-    foresightQuestion: 'Before Kalpa shows the catch — what could slip first?',
+    foresightQuestion: 'Before Toto shows the catch — what could slip first?',
+    foresightSkip: 'Skip straight to Wobble',
     foresightOptions: [
       'A rule or edge case nobody specified',
       'People losing the habit of checking for themselves',
@@ -359,24 +439,27 @@ export const en = {
     wayActionTitle: 'One concrete human step',
     pledgeBtn: "I'll keep this human habit",
     pledgeDone: 'Habit pledged on this device',
-    closingLine: 'Every great wish needs a good wisher.',
+    closingLine: 'Every great breakthrough needs a ready world.',
     realityTitle: 'Reality Meter',
     realityReviewed: 'Last reviewed',
     realitySource: 'Source',
-    shadowTitle: 'Behind this wish (Scenario Atlas)',
-    nextWishBtn: 'Play another wish',
+    shadowTitle: 'Behind this breakthrough (Scenario Atlas)',
+    nextWishBtn: 'Play another breakthrough',
     countryHookPrefix: 'Country readiness link:',
-    countryHookUnset: 'Select your country below to see how many of 5 things it has in place for this wish.',
+    countryHookUnset:
+      'Select your country below to see how many of 5 things it has in place for this breakthrough.',
     animPlay: 'Play animation',
     animPause: 'Pause animation',
     animReplay: 'Replay',
     transcriptBtn: 'Scene transcript',
     durationBadge: '~60s · 4 beats',
     trailSectionTitle: 'Your Readiness Trail & Shadow Map',
-    trailLocked: 'Complete 3 distinct wishes to unlock your shareable Trail Card ({done}/3 done).',
-    trailUnlockedBadge: 'TRAIL CARD UNLOCKED (3+ WISHES)',
-    shadowLocked: 'Complete 5 distinct wishes to unlock your personal Shadow Map ({done}/5 done).',
-    shadowUnlockedBadge: 'SHADOW MAP UNLOCKED (5+ WISHES)',
+    trailLocked:
+      'Complete 3 distinct breakthroughs to unlock your shareable Trail Card ({done}/3 done).',
+    trailUnlockedBadge: 'TRAIL CARD UNLOCKED (3+ BREAKTHROUGHS)',
+    shadowLocked:
+      'Complete 5 distinct breakthroughs to unlock your personal Shadow Map ({done}/5 done).',
+    shadowUnlockedBadge: 'SHADOW MAP UNLOCKED (5+ BREAKTHROUGHS)',
     downloadLandscape: 'Download Trail Card (1200×630 PNG)',
     downloadStory: 'Download Phone Story (1080×1920 PNG)',
     downloadShadowPng: 'Download Shadow Map (1200×630 PNG)',
@@ -423,6 +506,7 @@ export const en = {
     rtlActiveNotice: 'Arabic live RTL active (dir="rtl"). Layouts and reading tracks mirror automatically.',
     privacyLink: 'Privacy',
     languagesLink: 'Languages',
+    totoLink: 'Toto',
     recapLink: "Join Friday's recap"
   }
 };

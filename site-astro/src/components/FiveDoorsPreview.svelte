@@ -49,7 +49,7 @@
   }
 </script>
 
-<!-- SECTION 3: THE FIVE DOORS -->
+<!-- SECTION 3: FIVE DOMAINS -->
 <section id="wish-doors" class="story-section doors-section">
   <div class="section-wrap">
     <div class="section-head">
@@ -59,7 +59,7 @@
     </div>
 
     {#if revealed}
-      <!-- Quick-Launch Bar for the 3 Core Flagship Playable Wishes (~60s) -->
+      <!-- Quick-Launch Bar for the 3 Core Flagship Breakthroughs (~60s) -->
       <div class="featured-bar" aria-label={$dict.player.featuredLabel}>
         <span class="featured-label">{$dict.player.featuredLabel}</span>
         <div class="featured-btns">
@@ -82,7 +82,7 @@
         </div>
       </div>
 
-      <div class="doors-grid" role="tablist" aria-label="Five wish categories">
+      <div class="doors-grid" role="tablist" aria-label="Five breakthrough domains">
       {#each $dict.doors.items as door}
         <button
           type="button"
@@ -132,7 +132,7 @@
       {/each}
     </div>
 
-    <!-- Interactive Door Preview or Active 4-Beat Wish Player -->
+    <!-- Interactive Domain Preview or Active 4-Beat Breakthrough Player -->
     <div bind:this={playerAnchorEl}>
       {#if activeWish}
         {#key activeWish.id}
@@ -181,7 +181,7 @@
   </div>
 </section>
 
-<!-- SECTION 4: HOW A WISH WORKS -->
+<!-- SECTION 4: HOW A BREAKTHROUGH WORKS -->
 <section id="how-it-works" class="story-section alt-surface how-section">
   <div class="section-wrap">
     <div class="section-head">

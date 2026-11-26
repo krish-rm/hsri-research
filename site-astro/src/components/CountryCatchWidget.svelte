@@ -222,10 +222,10 @@
             {/if}
           </div>
 
-          <!-- Catches the Gift -->
+          <!-- Catches the Breakthrough -->
           <div class="pm-card">
             <div class="pm-top">
-              <span class="pm-label">Catches the gift</span>
+              <span class="pm-label">Catches the breakthrough</span>
               <button type="button" class="tip-btn" onclick={() => toggleTip('catch')} aria-expanded={openTooltip === 'catch'}>
                 ⓘ {$dict.country.techReadingLabel}
               </button>
