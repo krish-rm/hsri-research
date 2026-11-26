@@ -6,13 +6,15 @@ interface Props {
   description?: string;
   image?: string;
   canonicalUrl?: string;
+  keywords?: string;
 }
 
 const {
-  title = "Humanity Superintelligence Readiness Index (HSRI 2.0)",
-  description = "Planetary stress-test and real-time precursor seismograph measuring sovereign resilience, human verification limits, and civilizational decoupling across 39 nations.",
+  title = "Humanity Readiness: are we ready to receive what we're wishing for? | Humanity Superintelligence Readiness Index",
+  description = "Imagine a superintelligence offers you one wish. Pick it, watch it come true, and see what it would really take. Backed by open research across 39 benchmark nations.",
   image = "https://humanityreadiness.org/assets/og-image.png",
-  canonicalUrl = Astro.url ? Astro.url.href : "https://humanityreadiness.org/"
+  canonicalUrl = Astro.url ? Astro.url.href : "https://humanityreadiness.org/",
+  keywords = "humanity readiness, AI readiness, superintelligence, country preparedness, human oversight, open research"
 } = Astro.props;
 
 // Ensure absolute URL for image (WhatsApp and social scrapers strictly require absolute https URLs)
@@ -38,9 +40,33 @@ const ogPageUrl = canonicalUrl.startsWith("http") ? canonicalUrl : `${siteOrigin
     <title>{title}</title>
     <link rel="canonical" href={ogPageUrl} />
     <link rel="sitemap" href="/sitemap-index.xml" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Boldonse&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style is:inline>
+      @font-face {
+        font-family: 'Boldonse';
+        font-style: normal;
+        font-weight: 400;
+        font-display: optional;
+        src: url(https://fonts.gstatic.com/s/boldonse/v1/ZgNQjPxGPbbJUZemjB37jGA.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+      @font-face {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 400 800;
+        font-display: optional;
+        src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: normal;
+        font-weight: 600 700;
+        font-display: optional;
+        src: url(https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+    </style>
 
     <!-- Search Engine Indexing & Bot Permissions -->
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
@@ -48,7 +74,7 @@ const ogPageUrl = canonicalUrl.startsWith("http") ? canonicalUrl : `${siteOrigin
     <!-- Primary Meta Tags -->
     <meta name="title" content={title}>
     <meta name="description" content={description}>
-    <meta name="keywords" content="AI readiness, superintelligence, ASI, sovereignty sentinel, verification latency wedge, seismograph, econometrics, AI governance, open science">
+    <meta name="keywords" content={keywords}>
     <meta name="author" content="HSRI Research Consortium">
 
     <!-- Open Graph / Facebook / WhatsApp / LinkedIn -->
@@ -72,16 +98,18 @@ const ogPageUrl = canonicalUrl.startsWith("http") ? canonicalUrl : `${siteOrigin
     <meta name="twitter:image" content={ogImageUrl}>
     <meta name="twitter:image:alt" content="HSRI 2.0 — Sovereign Sentinel & ASI Precursor Seismograph">
 
-    <!-- Theme Initialization (Zero-FOUT: Defaults to Vintage Cream Paper) -->
+    <!-- Theme & Locale Direction Initialization (Zero-FOUT) -->
     <script is:inline>
       (function () {
         try {
           const savedTheme = localStorage.getItem('hsri-theme');
-          // Default to cream/light unless explicitly set to dark
           const theme = savedTheme === 'dark' ? 'dark' : 'light';
           document.documentElement.setAttribute('data-theme', theme);
+          const savedLocale = localStorage.getItem('hr:v1:locale');
+          document.documentElement.setAttribute('dir', savedLocale === 'rtl-stub' ? 'rtl' : 'ltr');
         } catch (e) {
           document.documentElement.setAttribute('data-theme', 'light');
+          document.documentElement.setAttribute('dir', 'ltr');
         }
       })();
     </script>

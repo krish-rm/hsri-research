@@ -1,0 +1,510 @@
+<script lang="ts">
+  import { dict } from '../i18n/store';
+  import { trackEvent } from '../lib/privacyStorage';
+
+  let activeDoorId = 'epic';
+  let activeLightKey: string | null = 'Clarity';
+
+  $: selectedDoor = $dict.doors.items.find((d) => d.id === activeDoorId) ?? $dict.doors.items[0];
+  $: selectedLight = $dict.lights.items.find((l) => l.key === activeLightKey) ?? $dict.lights.items[0];
+
+  function chooseDoor(id: string) {
+    activeDoorId = id;
+    trackEvent('door_preview_select', { door: id });
+  }
+</script>
+
+<!-- SECTION 3: THE FIVE DOORS -->
+<section id="wish-doors" class="story-section">
+  <div class="section-wrap">
+    <div class="section-head">
+      <h2 class="sec-title">{$dict.doors.heading}</h2>
+      <p class="sec-sub">{$dict.doors.subhead}</p>
+      <p class="sec-micro">{$dict.doors.microcopy}</p>
+    </div>
+
+    <div class="doors-grid" role="tablist" aria-label="Five wish categories">
+      {#each $dict.doors.items as door}
+        <button
+          type="button"
+          role="tab"
+          aria-selected={activeDoorId === door.id}
+          class="door-card"
+          class:selected={activeDoorId === door.id}
+          onclick={() => chooseDoor(door.id)}
+        >
+          <div class="door-icon" aria-hidden="true">
+            {#if door.icon === 'chalkboard'}
+              <svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="4" y="6" width="28" height="20" rx="2" />
+                <path d="M10 14h10M10 19h14M13 26l-2 5M23 26l2 5" stroke-linecap="round" />
+              </svg>
+            {:else if door.icon === 'pocket'}
+              <svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 9h22v10a11 11 0 0 1-22 0V9z" />
+                <circle cx="18" cy="18" r="4" stroke="var(--accent-primary)" />
+              </svg>
+            {:else if door.icon === 'eye'}
+              <svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 18s5.5-8 14-8 14 8 14 8-5.5 8-14 8-14-8-14-8z" />
+                <circle cx="18" cy="18" r="4.5" />
+              </svg>
+            {:else if door.icon === 'frame'}
+              <svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="5" y="7" width="26" height="22" rx="2" />
+                <path d="M10 7v22M26 7v22M15 14l7 4-7 4v-8z" stroke-linejoin="round" />
+              </svg>
+            {:else}
+              <svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 24h12l-2 6h-8l-2-6z" />
+                <path d="M18 6v4M10 10l2.5 2.5M26 10l-2.5 2.5" stroke-linecap="round" />
+                <circle cx="18" cy="18" r="5" />
+              </svg>
+            {/if}
+          </div>
+          <h3 class="door-title">{door.title}</h3>
+          <ul class="door-samples">
+            {#each door.samples as s}
+              <li>{s}</li>
+            {/each}
+          </ul>
+          <span class="door-more">{door.moreCount}</span>
+        </button>
+      {/each}
+    </div>
+
+    <!-- Interactive Phase 1 Door Preview Drawer -->
+    <div class="door-preview-panel" role="tabpanel" aria-live="polite">
+      <div class="dp-top">
+        <span class="dp-door-tag">{selectedDoor.title}</span>
+        <span class="dp-phase-pill">{$dict.doors.phase2Badge}</span>
+      </div>
+      <p class="dp-lead">{selectedDoor.lead}</p>
+      <div class="dp-wishes-grid">
+        {#each selectedDoor.wishes as wish}
+          <article class="dp-wish-card">
+            <div class="dp-wish-head">
+              <h4>{wish.title}</h4>
+              <span class="honesty-pill" title={wish.honestyNote}>{wish.honesty}</span>
+            </div>
+            <p class="dp-wish-honesty-note">{wish.honestyNote}</p>
+            <p class="dp-wish-beat">{wish.beatSummary}</p>
+          </article>
+        {/each}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: HOW A WISH WORKS -->
+<section id="how-it-works" class="story-section alt-surface">
+  <div class="section-wrap">
+    <div class="section-head">
+      <h2 class="sec-title">{$dict.beats.heading}</h2>
+    </div>
+
+    <div class="beats-grid">
+      {#each $dict.beats.items as beat, idx}
+        <div class="beat-card">
+          <div class="beat-num">0{idx + 1}</div>
+          <h3 class="beat-name">{beat.key}</h3>
+          <p class="beat-desc">{beat.desc}</p>
+        </div>
+      {/each}
+    </div>
+
+    <p class="beats-footer-line">{$dict.beats.footerLine}</p>
+  </div>
+</section>
+
+<!-- SECTION 5: YOUR FIVE LIGHTS -->
+<section id="five-lights" class="story-section">
+  <div class="section-wrap">
+    <div class="section-head">
+      <h2 class="sec-title">{$dict.lights.heading}</h2>
+    </div>
+
+    <div class="lights-row" role="tablist" aria-label="Five personal readiness lights">
+      {#each $dict.lights.items as light}
+        <button
+          type="button"
+          role="tab"
+          aria-selected={activeLightKey === light.key}
+          class="light-pill"
+          class:active={activeLightKey === light.key}
+          onclick={() => (activeLightKey = light.key)}
+        >
+          <span class="lamp-orb" class:lit={activeLightKey === light.key} aria-hidden="true"></span>
+          <span class="lamp-text">
+            <strong>{light.key}</strong>
+            <span>{light.meaning}</span>
+          </span>
+        </button>
+      {/each}
+    </div>
+
+    <div class="lights-status-box">
+      <p class="lights-empty">{$dict.lights.emptyState}</p>
+      <p class="lights-reassurance">
+        <strong>{selectedLight.key}:</strong> {selectedLight.meaning} &mdash; {$dict.lights.lowLightNote}
+      </p>
+      <p class="lights-trail-note">{$dict.lights.trailNote}</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .story-section {
+    padding: clamp(2.25rem, 4.5vw, 3.75rem) 0;
+    scroll-margin-top: 112px;
+  }
+
+  .alt-surface {
+    background: var(--bg-surface-sunken);
+    border-top: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .section-wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 1.15rem;
+  }
+
+  .section-head {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 2rem;
+  }
+
+  .sec-title {
+    font-family: var(--font-family-sans);
+    font-size: clamp(1.5rem, 3.2vw, 2.15rem);
+    font-weight: 800;
+    color: var(--text-primary);
+    margin: 0 0 0.55rem;
+    line-height: 1.22;
+    letter-spacing: -0.02em;
+  }
+
+  .sec-sub {
+    font-size: clamp(0.98rem, 1.5vw, 1.1rem);
+    color: var(--text-secondary);
+    margin: 0 0 0.45rem;
+    line-height: 1.6;
+  }
+
+  .sec-micro {
+    font-family: var(--font-family-mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--accent-primary);
+    margin: 0;
+  }
+
+  .doors-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.85rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .door-card {
+    text-align: start;
+    background: var(--bg-surface-elevated);
+    border: 1.5px solid var(--border-subtle);
+    border-radius: 14px;
+    padding: 1.1rem 1rem;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    transition: border-color 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
+  }
+
+  .door-card:hover {
+    border-color: var(--accent-primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .door-card.selected {
+    border-color: var(--accent-primary);
+    background: var(--bg-surface);
+    box-shadow: var(--shadow-md);
+  }
+
+  .door-icon {
+    width: 34px;
+    height: 34px;
+    color: var(--accent-primary);
+  }
+
+  .door-title {
+    margin: 0;
+    font-size: 1.02rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.25;
+  }
+
+  .door-samples {
+    margin: 0;
+    padding-inline-start: 1.05rem;
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    line-height: 1.45;
+  }
+
+  .door-more {
+    margin-top: auto;
+    font-family: var(--font-family-mono);
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+  }
+
+  .door-preview-panel {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-medium);
+    border-radius: 16px;
+    padding: 1.25rem 1.35rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .dp-top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .dp-door-tag {
+    font-family: var(--font-family-mono);
+    font-size: 0.76rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--accent-primary);
+  }
+
+  .dp-phase-pill {
+    font-size: 0.74rem;
+    padding: 0.22rem 0.65rem;
+    border-radius: 9999px;
+    background: var(--bg-surface-sunken);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-subtle);
+  }
+
+  .dp-lead {
+    font-size: 0.94rem;
+    color: var(--text-secondary);
+    margin: 0 0 1rem;
+  }
+
+  .dp-wishes-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.9rem;
+  }
+
+  .dp-wish-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 1rem;
+  }
+
+  .dp-wish-head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.4rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .dp-wish-head h4 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .honesty-pill {
+    font-family: var(--font-family-mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 0.16rem 0.5rem;
+    border-radius: 6px;
+    background: var(--threat-sovereign-bg);
+    color: var(--threat-sovereign);
+    border: 1px solid var(--threat-sovereign-border);
+  }
+
+  .dp-wish-honesty-note {
+    font-size: 0.79rem;
+    color: var(--text-secondary);
+    margin: 0 0 0.45rem;
+    line-height: 1.45;
+  }
+
+  .dp-wish-beat {
+    font-size: 0.88rem;
+    color: var(--text-primary);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .beats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .beat-card {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-medium);
+    border-radius: 14px;
+    padding: 1.25rem 1.1rem;
+  }
+
+  .beat-num {
+    font-family: var(--font-family-mono);
+    font-size: 0.76rem;
+    font-weight: 800;
+    color: var(--accent-primary);
+    margin-bottom: 0.35rem;
+  }
+
+  .beat-name {
+    font-family: var(--font-family-display);
+    font-size: 1.15rem;
+    margin: 0 0 0.35rem;
+    color: var(--text-primary);
+  }
+
+  .beat-desc {
+    margin: 0;
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .beats-footer-line {
+    text-align: center;
+    font-family: var(--font-family-display);
+    font-size: 1.12rem;
+    font-weight: 700;
+    color: var(--accent-primary);
+    margin: 0;
+  }
+
+  .lights-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 1.15rem;
+  }
+
+  .light-pill {
+    text-align: start;
+    background: var(--bg-surface-elevated);
+    border: 1.5px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 0.85rem 0.9rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    cursor: pointer;
+    transition: all 0.16s ease;
+  }
+
+  .light-pill:hover,
+  .light-pill.active {
+    border-color: var(--accent-primary);
+    background: var(--bg-surface);
+  }
+
+  .lamp-orb {
+    width: 14px;
+    height: 14px;
+    margin-top: 3px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    border: 2px solid var(--border-strong);
+    background: var(--bg-surface-sunken);
+    transition: all 0.2s ease;
+  }
+
+  .lamp-orb.lit {
+    background: #f59e0b;
+    border-color: #d97706;
+    box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+  }
+
+  .lamp-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .lamp-text strong {
+    font-size: 0.94rem;
+    color: var(--text-primary);
+  }
+
+  .lamp-text span {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.35;
+  }
+
+  .lights-status-box {
+    text-align: center;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-medium);
+    border-radius: 14px;
+    padding: 1.15rem 1.25rem;
+  }
+
+  .lights-empty {
+    font-weight: 700;
+    font-size: 0.96rem;
+    color: var(--text-primary);
+    margin: 0 0 0.3rem;
+  }
+
+  .lights-reassurance {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    margin: 0 0 0.35rem;
+  }
+
+  .lights-trail-note {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+
+  @media (max-width: 1024px) {
+    .doors-grid,
+    .lights-row {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .beats-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .doors-grid,
+    .dp-wishes-grid,
+    .beats-grid,
+    .lights-row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

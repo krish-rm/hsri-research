@@ -1,265 +1,208 @@
 ---
-// index.astro — Human-Centered Superintelligence Readiness Awareness Journey
+// index.astro — "Humanity Readiness: are we ready to receive what we're wishing for?"
+// Phase 1 Story-First Entry Page: static Astro HTML + minimal Svelte interactive islands.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HSRIHeader from '../components/HSRIHeader.svelte';
+import HeroStory from '../components/HeroStory.svelte';
+import FiveDoorsPreview from '../components/FiveDoorsPreview.svelte';
+import CountryCatchWidget from '../components/CountryCatchWidget.svelte';
 import HSRIFooter from '../components/HSRIFooter.svelte';
-import VisualScenarioTheater from '../components/VisualScenarioTheater.svelte';
+import precursorSummary from '../data/precursor_summary.json';
+import { buildCountryWidgetCatalog } from '../lib/countryData';
+import { en } from '../i18n/en';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// Section 2: Deterministic Pulse state from live precursor_summary.json (Decision #1)
+// 0.0-3.9 Steady | 4.0-6.9 Stirring | 7.0-10.0 Rising
+const rawPulseScore = Number(precursorSummary.master_precursor_threat_score ?? 8.44);
+const pulseKey: 'steady' | 'stirring' | 'rising' =
+  rawPulseScore < 4.0 ? 'steady' : rawPulseScore < 7.0 ? 'stirring' : 'rising';
+const activePulse = en.pulse.states[pulseKey];
+
+// Section 6: Pass ONLY compact 8-country initial starter subset into SSR island HTML;
+// Full 148-country catalog lazy-loads when CountryCatchWidget hydrates on viewport.
+const starterIsos = new Set(['NOR', 'DEU', 'JPN', 'USA', 'SGP', 'BRA', 'IND', 'NGA']);
+const countryCatalog = buildCountryWidgetCatalog().filter((c) => starterIsos.has(c.iso));
 ---
 
-<BaseLayout title="Humanity Superintelligence Readiness Index (HSRI) — When Machines Surpass Minds">
-  <HSRIHeader client:load />
+<BaseLayout title={en.meta.title} description={en.meta.description}>
+  <HSRIHeader client:interact currentPath={Astro.url.pathname} />
 
-  <main class="awareness-canvas">
-    <!-- ===================================================================== -->
-    <!-- 1. HERO: THE HUMAN QUESTION -->
-    <!-- ===================================================================== -->
-    <section class="hero-section">
-      <div class="content-container text-center">
-        <div class="hero-badge">
-          <span class="pulse-dot"></span>
-          <span class="badge-text">HUMANITY READINESS INITIATIVE · OPEN CONSORTIUM</span>
-        </div>
+  <main class="story-canvas">
+    <!-- =================================================================== -->
+    <!-- SECTION 1: HERO (Global Harbour, Kalpa Arrival, Empty Crowd Ring)   -->
+    <!-- =================================================================== -->
+    <HeroStory client:interact />
 
-        <h1 class="hero-headline">
-          When Machines Surpass Human Minds,<br />
-          <span class="gradient-headline">Will Civilization Hold?</span>
-        </h1>
+    <!-- =================================================================== -->
+    <!-- SECTION 2: HUMANITY'S PULSE (Calm Thin Strip, Real Live Score)      -->
+    <!-- =================================================================== -->
+    <section id="pulse" class="pulse-strip" aria-label={en.pulse.label}>
+      <div class="story-container">
+        <div class="pulse-inner">
+          <div class="pulse-status-cluster">
+            <span class="pulse-name">{en.pulse.label}</span>
+            <span class={`pulse-pill state-${pulseKey}`}>{activePulse.word}</span>
+          </div>
 
-        <p class="hero-subhead">
-          We are spending hundreds of billions building artificial intelligence faster than our own thoughts. 
-          Yet almost nobody is asking the most urgent question: <strong>Can human civilization physically endure if the digital cloud goes dark?</strong>
-        </p>
+          <p class="pulse-sentence">{activePulse.sentence}</p>
 
-        <!-- Differentiator Callout -->
-        <div class="hero-paradox-callout">
-          <span class="paradox-pill">THE WEAKEST-LINK PARADOX</span>
-          <span class="paradox-text">Under cloud severance, <strong>Singapore drops 40 ranks</strong> and the <strong>US drops 37</strong>, while <strong>Norway holds #1</strong>. We test sovereign survival, not software adoption.</span>
+          <div class="pulse-actions">
+            <details class="pulse-tooltip">
+              <summary class="pulse-tip-summary">
+                <span aria-hidden="true">ⓘ</span> {en.pulse.tooltipTrigger}
+              </summary>
+              <div class="pulse-tip-card">
+                Technical reading: <strong>{rawPulseScore.toFixed(2)} / 10</strong> on the live system-speed and oversight monitor (checked periodically from open benchmarks).
+              </div>
+            </details>
+
+            <a href={`${base}/seismograph/`} class="pulse-link">
+              {en.pulse.cta} <span class="arrow-flip" aria-hidden="true">&rarr;</span>
+            </a>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ===================================================================== -->
-    <!-- 2. THE VISUAL SCENARIO THEATER (STORY BEFORE NUMBERS)                 -->
-    <!-- ===================================================================== -->
-    <div id="visual-theater">
-      <VisualScenarioTheater client:visible />
+    <!-- =================================================================== -->
+    <!-- SECTIONS 3, 4 & 5: FIVE DOORS, FOUR MOMENTS & FIVE LIGHTS           -->
+    <!-- =================================================================== -->
+    <div class="defer-island">
+      <FiveDoorsPreview client:visible />
     </div>
 
-    <!-- ===================================================================== -->
-    <!-- 3. THE CORE REALITY: TWO REASONS CIVILIZATION CANNOT "UNPLUG"         -->
-    <!-- ===================================================================== -->
-    <section id="the-mechanism" class="section-container">
-      <div class="content-container">
-        <div class="section-header text-center">
-          <span class="section-step">THE CORE REALITY</span>
-          <h2 class="section-title">Two Reasons Civilization Cannot Just "Unplug" the Machine</h2>
-          <p class="section-intro">
-            Superintelligence threatens nations not through science-fiction malice, but through two simple physical traps: speed and dependency.
-          </p>
+    <!-- =================================================================== -->
+    <!-- SECTION 6: CAN YOUR COUNTRY CATCH THE GIFT? (39 Rated + All Unrated) -->
+    <!-- =================================================================== -->
+    <div class="defer-island">
+      <CountryCatchWidget client:visible countries={countryCatalog} base={base} />
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- SECTION 7: THIS WEEK IN KALPA'S CITY (Pilot Episode 1 Preview)      -->
+    <!-- =================================================================== -->
+    <section id="this-week" class="story-block defer-section">
+      <div class="story-container">
+        <div class="section-head">
+          <h2 class="sec-title">{en.episode.heading}</h2>
         </div>
 
-        <div class="thesis-dual-grid">
-          <!-- Card 1: The Speed Trap -->
-          <div class="thesis-card">
-            <div class="tc-header">
-              <span class="tc-eyebrow">REALITY 01 · THE SPEED TRAP</span>
-              <h3 class="tc-title">We Cannot Steer What Moves Faster Than We Can Think</h3>
-              <p class="tc-body">
-                For thousands of years, every tool humans built waited for biological reflexes. That physical safeguard is gone. Autonomous algorithms and AI swarms execute complex decisions in microseconds—thousands of times faster than human sensory awareness.
-              </p>
+        <div class="episode-grid">
+          <article class="episode-card">
+            <div class="ep-top">
+              <span class="ep-badge">{en.episode.badge}</span>
             </div>
-
-            <div class="layman-speed-comparison">
-              <div class="lsc-side human">
-                <div class="lsc-icon">👁️</div>
-                <div class="lsc-content">
-                  <span class="lsc-label">Human Biology</span>
-                  <div class="lsc-headline">One Human Blink</div>
-                  <p class="lsc-sub">The bare minimum time needed for your brain to recognize danger.</p>
-                </div>
-              </div>
-
-              <div class="lsc-divider-arrow">VS</div>
-
-              <div class="lsc-side machine">
-                <div class="lsc-icon">⚡</div>
-                <div class="lsc-content">
-                  <span class="lsc-label">Machine Swarm</span>
-                  <div class="lsc-headline">Thousands of Moves</div>
-                  <p class="lsc-sub">Trades executed, power re-routed, and recursive code deployed.</p>
-                </div>
-              </div>
+            <h3 class="ep-title">Episode 1: &ldquo;{en.episode.title}&rdquo;</h3>
+            <p class="ep-body">{en.episode.synopsis}</p>
+            <div class="ep-real-life">
+              <span class="rl-tag">REAL LIFE ACTION</span>
+              <p>Keep one small paper note of essential family contacts and prescriptions offline so calm care continues even if digital tools hiccup.</p>
             </div>
+            <p class="ep-note">{en.episode.voteNote}</p>
+          </article>
 
-            <div class="layman-takeaway">
-              <span class="lt-icon">💡</span>
-              <p class="lt-text">
-                <strong>The Reality:</strong> "Human-in-the-loop" is a comforting narrative, but in an emergency it is impossible. We are not steering the car; we only arrive to examine the wreckage after the crash.
-              </p>
-            </div>
-          </div>
-
-          <!-- Card 2: The Dependency Trap -->
-          <div class="thesis-card">
-            <div class="tc-header">
-              <span class="tc-eyebrow">REALITY 02 · THE DEPENDENCY TRAP</span>
-              <h3 class="tc-title">Why Civilization Has No "Red Button"</h3>
-              <p class="tc-body">
-                People imagine leaders can just pull the plug if AI goes rogue. But modern cities threw away paper records and manual levers decades ago. Pausing the machine means pausing life.
-              </p>
-            </div>
-
-            <div class="layman-locks-list">
-              <div class="lll-item">
-                <span class="lll-icon">⚡</span>
-                <div class="lll-text">
-                  <strong>The Electrical Grid:</strong> Sub-stations trip in seconds without continuous algorithmic frequency balancing, triggering immediate national blackouts.
-                </div>
-              </div>
-
-              <div class="lll-item">
-                <span class="lll-icon">🚢</span>
-                <div class="lll-text">
-                  <strong>Food &amp; Supermarkets:</strong> Container ports and grocery supply chains run on cloud databases. Supermarkets empty within 24 hours of a cloud freeze.
-                </div>
-              </div>
-
-              <div class="lll-item">
-                <span class="lll-icon">🏥</span>
-                <div class="lll-text">
-                  <strong>Hospitals &amp; Medicine:</strong> Emergency triage, patient monitoring, and automated drug dispensing degrade up to 80% when foreign APIs disconnect.
-                </div>
-              </div>
-            </div>
-
-            <div class="layman-takeaway warning">
-              <span class="lt-icon">⚠️</span>
-              <p class="lt-text">
-                <strong>The Paradox:</strong> The richest, most digitalized nations freeze first, while countries with physical buffers (food grain, hydropower, manual overrides) endure.
-              </p>
-            </div>
-          </div>
+          <aside class="recap-card">
+            <h3 class="recap-title">{en.episode.recapTitle}</h3>
+            <p class="recap-body">{en.episode.recapBody}</p>
+            <p class="recap-status">{en.episode.recapStatus}</p>
+          </aside>
         </div>
       </div>
     </section>
 
-    <!-- ===================================================================== -->
-    <!-- 4. THE ROAD AHEAD: SAFEGUARDS & SCIENTIFIC INSTRUMENTS                -->
-    <!-- ===================================================================== -->
-    <section id="the-mandate" class="section-container alt-bg console-section">
-      <div class="content-container">
-        <div class="section-header text-center compact-header">
-          <span class="section-step">THE ROAD AHEAD · ACTION &amp; RESEARCH</span>
-          <h2 class="section-title">Civilizational Safeguards &amp; Scientific Instruments</h2>
-          <p class="section-intro">
-            Preparing for superintelligence requires immediate air-gapped life-rafts, backed by reproducible open-science tooling.
-          </p>
+    <!-- =================================================================== -->
+    <!-- SECTION 8: THE WISH WALL (Honest Invitation State Until n >= 20)    -->
+    <!-- =================================================================== -->
+    <section id="wish-wall" class="story-block alt-surface defer-section">
+      <div class="story-container">
+        <div class="section-head">
+          <h2 class="sec-title">{en.wishWall.heading}</h2>
         </div>
 
-        <!-- 1. The 3 Sovereign Safeguards (Horizontal Triad) -->
-        <div class="safeguards-triad">
-          <div class="safeguard-card">
-            <div class="sg-header">
-              <span class="sg-num">01</span>
-              <span class="sg-pill">AIR-GAP MANDATE</span>
-            </div>
-            <h3 class="sg-title">72h Analog Override</h3>
-            <p class="sg-body">
-              Critical facilities—hospitals, water utilities, electrical substations, and container ports—must legally maintain an air-gapped manual fallback capable of running 72 hours without cloud authentication.
-            </p>
-            <div class="sg-target">
-              <span class="sg-target-label">DEFENSE GOAL</span>
-              <span class="sg-target-val">72h Sovereign Autarky</span>
-            </div>
+        <div class="wall-invitation-box">
+          <div class="wall-themes" aria-label="Wish themes">
+            {en.wishWall.themes.map((theme) => (
+              <span class="theme-tag">{theme}</span>
+            ))}
           </div>
-
-          <div class="safeguard-card">
-            <div class="sg-header">
-              <span class="sg-num">02</span>
-              <span class="sg-pill">BUFFER MANDATE</span>
-            </div>
-            <h3 class="sg-title">Sovereign Reserves &amp; Grids</h3>
-            <p class="sg-body">
-              Governments must mandate physical stockpiles for grain, essential pharmaceuticals, and municipal islandable microgrids to survive single-point foreign cloud severance.
-            </p>
-            <div class="sg-target">
-              <span class="sg-target-label">DEFENSE GOAL</span>
-              <span class="sg-target-val">Physical Buffer Stocks</span>
-            </div>
-          </div>
-
-          <div class="safeguard-card">
-            <div class="sg-header">
-              <span class="sg-num">03</span>
-              <span class="sg-pill">TELEMETRY MANDATE</span>
-            </div>
-            <h3 class="sg-title">Continuous Open Telemetry</h3>
-            <p class="sg-body">
-              Replacing non-binding political summits with live empirical sensors tracking synthetic machine autonomy expansion, verification latency wedges, and tripwires in real time.
-            </p>
-            <div class="sg-target">
-              <span class="sg-target-label">DEFENSE GOAL</span>
-              <span class="sg-target-val">Live Empirical Sensing</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Subtle Console Divider -->
-        <div class="console-divider">
-          <div class="cd-line"></div>
-          <span class="cd-label">TWO PEER-REVIEWED EMPIRICAL INSTRUMENTS</span>
-          <div class="cd-line"></div>
-        </div>
-
-        <!-- 2. The 2 Live Empirical Instruments (Spatial Benchmark & Temporal Telemetry) -->
-        <div class="instruments-grid">
-          <a href={`${base}/countries/`} class="instrument-card">
-            <div class="ic-top">
-              <span class="ic-tag baseline">SPATIAL BENCHMARK</span>
-            </div>
-            <h4 class="ic-title">39-Nation Sovereign Index</h4>
-            <p class="ic-desc">Empirical audit of Leontief weakest-link floors, energy autarky &amp; survival half-lives across 39 benchmark economies.</p>
-            <span class="ic-action-btn">Explore Sovereign Scoreboard &rarr;</span>
-          </a>
-
-          <a href={`${base}/seismograph/`} class="instrument-card">
-            <div class="ic-top">
-              <span class="ic-tag live">LIVE TELEMETRY · 8.44/10</span>
-            </div>
-            <h4 class="ic-title">ASI Precursor Seismograph</h4>
-            <p class="ic-desc">Continuous real-time tracking of the 3,200x supervisory latency wedge, machine transaction volume &amp; 14 empirical tripwires.</p>
-            <span class="ic-action-btn">View Real-Time Seismograph &rarr;</span>
+          <h3 class="wall-empty-head">{en.wishWall.emptyHeadline}</h3>
+          <p class="wall-empty-body">{en.wishWall.emptyBody}</p>
+          <a href="#wish-doors" class="btn-wall-cta">
+            {en.wishWall.cta} <span class="arrow-flip" aria-hidden="true">&rarr;</span>
           </a>
         </div>
+      </div>
+    </section>
 
-        <!-- 3. Foundational Academic Authority & Monograph Citation -->
-        <div class="monograph-authority-banner">
-          <div class="mab-left">
-            <div class="mab-badge-row">
-              <span class="mab-tag">FOUNDATIONAL TREATISE</span>
-              <span class="mab-doi">PERMANENT DOI: <a href="https://doi.org/10.5281/zenodo.23441742" target="_blank" rel="noopener">10.5281/zenodo.23441742</a></span>
-              <span class="mab-license">OPEN ACCESS · CC BY-SA 4.0</span>
-            </div>
-            <h3 class="mab-title">The Civilizational Monograph</h3>
-            <p class="mab-sub">
-              Human Agency, Cognitive Oversight, and Sovereign Decoupling Under Superintelligent Transition
-            </p>
-            <p class="mab-desc">
-              A 35-minute peer-reviewed scientific inquest formalizing Leontief input-output weakest-link floors, Rice’s theorem boundaries on autonomous AI verification, and Solvency II / NAIC RBC tail-risk reinsurance pricing models.
-            </p>
-          </div>
-          <div class="mab-right">
-            <a href={`${base}/monograph/`} class="btn btn-primary btn-mab">
-              Read the 7-Chapter Monograph &rarr;
+    <!-- =================================================================== -->
+    <!-- SECTION 9: WHY A GOOD WISH STILL NEEDS A GOOD WISHER                -->
+    <!-- =================================================================== -->
+    <section id="why-good-wisher" class="story-block defer-section">
+      <div class="story-container">
+        <div class="section-head">
+          <h2 class="sec-title">{en.wisher.heading}</h2>
+        </div>
+
+        <div class="wisher-dual-grid">
+          {en.wisher.cards.map((card) => (
+            <article class="wisher-card">
+              <h3 class="wisher-title">{card.title}</h3>
+              <p class="wisher-body">{card.body}</p>
+              <details class="card-tech-note">
+                <summary>ⓘ Technical reading</summary>
+                <p>{card.techHint}</p>
+              </details>
+            </article>
+          ))}
+        </div>
+
+        <p class="wisher-closing">{en.wisher.closingLine}</p>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- SECTION 10: GO DEEPER ("The research behind the story")             -->
+    <!-- =================================================================== -->
+    <section id="go-deeper" class="story-block alt-surface">
+      <div class="story-container">
+        <div class="section-head">
+          <h2 class="sec-title">{en.deeper.heading}</h2>
+          <p class="sec-sub">{en.deeper.subhead}</p>
+        </div>
+
+        <div class="deeper-grid">
+          {en.deeper.cards.map((card) => (
+            <article class="deeper-card">
+              <span class="dc-tag">{card.tag}</span>
+              <h3 class="dc-title">{card.title}</h3>
+              <p class="dc-desc">{card.desc}</p>
+
+              {'extraLinks' in card && card.extraLinks ? (
+                <div class="dc-multi-links">
+                  {card.extraLinks.map((sub) => (
+                    <a href={`${base}${sub.href}`} class="dc-link-inline">{sub.label} &rarr;</a>
+                  ))}
+                </div>
+              ) : (
+                <a href={`${base}${card.href}`} class="dc-link">
+                  Open {card.title} <span class="arrow-flip" aria-hidden="true">&rarr;</span>
+                </a>
+              )}
+            </article>
+          ))}
+        </div>
+
+        <div class="release-footer-box">
+          <p class="release-note">{en.deeper.releaseNote}</p>
+          <p class="release-doi">
+            Permanent academic archive:
+            <a href="https://doi.org/10.5281/zenodo.23441742" target="_blank" rel="noopener noreferrer">
+              DOI 10.5281/zenodo.23441742
             </a>
-            <div class="mab-links">
-              <a href={`${base}/methodology/`}>Inspect Mathematical Proofs &rarr;</a>
-              <span class="sep">&bull;</span>
-              <a href={`${base}/data/`}>Download Open Datasets &rarr;</a>
-            </div>
-          </div>
+            &middot; Open Access (CC BY-SA 4.0)
+          </p>
         </div>
       </div>
     </section>
@@ -269,818 +212,486 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 </BaseLayout>
 
 <style>
-  /* ========================================================================= */
-  /* Awareness Canvas & Typography                                            */
-  /* ========================================================================= */
-  .awareness-canvas {
+  .story-canvas {
     background-color: var(--bg-canvas);
     color: var(--text-primary);
     overflow-x: hidden;
   }
 
-  .content-container {
-    max-width: 1200px;
+  .story-container {
+    max-width: 1180px;
     margin: 0 auto;
-    padding: 0 1.5rem;
+    padding: 0 1.15rem;
     box-sizing: border-box;
   }
 
-  .text-center {
-    text-align: center;
+  .story-block {
+    contain: layout style;
+    padding: clamp(2.25rem, 4.5vw, 3.75rem) 0;
+    scroll-margin-top: 112px;
   }
 
-  .alt-bg {
-    background-color: var(--bg-surface-sunken);
+  .defer-island {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 720px;
+  }
+
+  .defer-section {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 480px;
+  }
+
+  .alt-surface {
+    background: var(--bg-surface-sunken);
     border-top: 1px solid var(--border-subtle);
     border-bottom: 1px solid var(--border-subtle);
   }
 
-  /* ========================================================================= */
-  /* Hero Section                                                             */
-  /* ========================================================================= */
-  .hero-section {
-    padding: 5rem 0 3.25rem;
+  .section-head {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 2rem;
+  }
+
+  .sec-title {
+    font-family: var(--font-family-sans);
+    font-size: clamp(1.5rem, 3.2vw, 2.15rem);
+    font-weight: 800;
+    color: var(--text-primary);
+    margin: 0 0 0.55rem;
+    line-height: 1.22;
+    letter-spacing: -0.02em;
+  }
+
+  .sec-sub {
+    font-size: clamp(0.98rem, 1.5vw, 1.08rem);
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  :global([dir='rtl']) .arrow-flip {
+    display: inline-block;
+    transform: scaleX(-1);
+  }
+
+  /* Section 2: Humanity's Pulse */
+  .pulse-strip {
+    background: var(--bg-surface);
+    border-top: 1px solid var(--border-medium);
+    border-bottom: 1px solid var(--border-medium);
+    padding: 0.95rem 0;
+  }
+
+  .pulse-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.85rem 1.25rem;
+  }
+
+  .pulse-status-cluster {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    flex-shrink: 0;
+  }
+
+  .pulse-name {
+    font-family: var(--font-family-mono);
+    font-size: 0.78rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-secondary);
+  }
+
+  .pulse-pill {
+    font-family: var(--font-family-mono);
+    font-size: 0.78rem;
+    font-weight: 800;
+    padding: 0.22rem 0.65rem;
+    border-radius: 9999px;
+  }
+
+  .pulse-pill.state-steady {
+    background: var(--threat-sovereign-bg);
+    color: var(--threat-sovereign);
+    border: 1px solid var(--threat-sovereign-border);
+  }
+
+  .pulse-pill.state-stirring,
+  .pulse-pill.state-rising {
+    background: var(--threat-warning-bg);
+    color: var(--threat-warning);
+    border: 1px solid var(--threat-warning-border);
+  }
+
+  .pulse-sentence {
+    margin: 0;
+    flex: 1 1 320px;
+    font-size: 0.92rem;
+    color: var(--text-primary);
+    line-height: 1.5;
+  }
+
+  .pulse-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
     position: relative;
   }
 
-  .hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.4rem 0.95rem;
+  .pulse-tooltip {
+    position: relative;
+  }
+
+  .pulse-tip-summary {
+    list-style: none;
+    cursor: pointer;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    padding: 0.25rem 0.6rem;
+    border: 1px solid var(--border-subtle);
     border-radius: 9999px;
     background: var(--bg-surface-elevated);
+  }
+
+  .pulse-tip-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .pulse-tip-card {
+    margin-top: 0.45rem;
+    padding: 0.6rem 0.85rem;
+    border-radius: 10px;
+    background: var(--bg-surface-elevated);
     border: 1px solid var(--border-medium);
-    margin-bottom: 2rem;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    max-width: 300px;
+    box-shadow: var(--shadow-sm);
   }
 
-  .pulse-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--accent-primary);
-    box-shadow: 0 0 10px var(--accent-primary);
-    animation: pulse 2.2s infinite ease-in-out;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.35; transform: scale(0.85); }
-  }
-
-  .badge-text {
-    font-family: var(--font-family-mono);
-    font-size: 0.75rem;
+  .pulse-link {
     font-weight: 700;
-    letter-spacing: 0.08em;
-    color: var(--text-secondary);
-  }
-
-  .hero-headline {
-    font-size: 3.5rem;
-    font-weight: 900;
-    line-height: 1.15;
-    letter-spacing: -0.035em;
-    color: var(--text-primary);
-    margin: 0 0 1.5rem;
-  }
-
-  .gradient-headline {
-    background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-gradient-end, #38bdf8) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  .hero-subhead {
-    font-size: 1.25rem;
-    font-weight: 400;
-    line-height: 1.65;
-    color: var(--text-secondary);
-    max-width: 740px;
-    margin: 0 auto 1.5rem;
-  }
-
-  .hero-paradox-callout {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-    background: var(--bg-surface-sunken);
-    border: 1px solid var(--border-medium);
-    border-radius: 9999px;
-    padding: 0.4rem 1.15rem;
-    margin: 0 auto;
-    max-width: 820px;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .paradox-pill {
-    font-family: var(--font-family-mono);
-    font-size: 0.68rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    background: var(--threat-critical, #b91c1c);
-    color: #ffffff;
-    padding: 0.2rem 0.55rem;
-    border-radius: 4px;
+    font-size: 0.86rem;
+    color: var(--accent-primary);
+    text-decoration: none;
     white-space: nowrap;
   }
 
-  .paradox-text {
-    font-size: 0.88rem;
-    color: var(--text-secondary);
-    line-height: 1.4;
+  .pulse-link:hover {
+    text-decoration: underline;
   }
 
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    border-radius: 8px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    cursor: pointer;
-  }
-
-  .btn-lg {
-    padding: 0.85rem 1.65rem;
-    font-size: 0.95rem;
-  }
-
-  .btn-primary {
-    background: var(--accent-primary);
-    color: var(--btn-primary-text, #ffffff);
-  }
-  .btn-primary:hover {
-    background: var(--accent-primary-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 16px var(--accent-primary-glow);
-  }
-
-  .btn-secondary {
-    background: var(--bg-surface);
-    color: var(--text-primary);
-    border: 1px solid var(--border-medium);
-  }
-  .btn-secondary:hover {
-    border-color: var(--accent-primary);
-    background: var(--bg-surface-elevated);
-    transform: translateY(-2px);
-  }
-
-  .btn-ghost {
-    background: transparent;
-    color: var(--text-secondary);
-    border: 1px solid var(--border-subtle);
-  }
-  .btn-ghost:hover {
-    color: var(--text-primary);
-    border-color: var(--border-medium);
-  }
-
-  .btn-block {
-    width: 100%;
-  }
-
-  /* ========================================================================= */
-  /* Section Standards                                                         */
-  /* ========================================================================= */
-  .section-container {
-    padding: 5rem 0;
-  }
-
-  .section-header {
-    text-align: center;
-    max-width: 760px;
-    margin: 0 auto 3.5rem;
-  }
-
-  .section-step {
-    font-family: var(--font-family-mono);
-    font-size: 0.75rem;
-    font-weight: 800;
-    letter-spacing: 0.12em;
-    color: var(--accent-primary);
-    display: inline-block;
-    margin-bottom: 0.65rem;
-  }
-
-  .section-title {
-    font-size: 2.35rem;
-    font-weight: 800;
-    line-height: 1.25;
-    letter-spacing: -0.025em;
-    color: var(--text-primary);
-    margin: 0 0 1rem;
-  }
-
-  .section-intro {
-    font-size: 1.12rem;
-    line-height: 1.6;
-    color: var(--text-secondary);
-    margin: 0;
-  }
-
-  /* ========================================================================= */
-  /* Two Physical Realities: Dual Grid                                         */
-  /* ========================================================================= */
-  .thesis-dual-grid {
+  /* Section 7: Pilot Episode Teaser */
+  .episode-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    align-items: stretch;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 1.15rem;
   }
 
-  .thesis-card {
-    background: var(--bg-surface-elevated);
-    border: 1px solid var(--border-medium);
-    border-radius: 16px;
-    padding: 2.25rem 2rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    box-shadow: var(--shadow-sm);
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  }
-
-  .thesis-card:hover {
-    border-color: var(--accent-primary);
-    box-shadow: var(--shadow-md);
-  }
-
-  .tc-header {
-    margin-bottom: 1.25rem;
-  }
-
-  .tc-eyebrow {
-    font-family: var(--font-family-mono);
-    font-size: 0.70rem;
-    font-weight: 800;
-    letter-spacing: 0.1em;
-    color: var(--accent-primary);
-    display: inline-block;
-    margin-bottom: 0.5rem;
-  }
-
-  .tc-title {
-    font-size: 1.45rem;
-    font-weight: 800;
-    color: var(--text-primary);
-    line-height: 1.3;
-    margin: 0 0 0.85rem;
-  }
-
-  .tc-body {
-    font-size: 0.95rem;
-    line-height: 1.65;
-    color: var(--text-secondary);
-    margin: 0;
-  }
-
-  /* Layman Speed Comparison (Card 1) */
-  .layman-speed-comparison {
-    display: flex;
-    align-items: center;
-    gap: 0.85rem;
-    background: var(--bg-surface);
-    border: 1px solid var(--border-subtle);
-    border-radius: 12px;
-    padding: 1.15rem 1rem;
-    margin: 1.25rem 0;
-  }
-
-  .lsc-side {
-    flex: 1;
-    display: flex;
-    align-items: flex-start;
-    gap: 0.65rem;
-  }
-
-  .lsc-icon {
-    font-size: 1.5rem;
-    line-height: 1;
-    flex-shrink: 0;
-  }
-
-  .lsc-content {
-    display: flex;
-    flex-direction: column;
-    gap: 0.15rem;
-  }
-
-  .lsc-label {
-    font-family: var(--font-family-mono);
-    font-size: 0.65rem;
-    font-weight: 800;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-  }
-
-  .lsc-headline {
-    font-size: 1.05rem;
-    font-weight: 800;
-    color: var(--text-primary);
-    line-height: 1.25;
-  }
-
-  .lsc-side.machine .lsc-headline {
-    color: var(--threat-critical, #ef4444);
-  }
-
-  .lsc-sub {
-    font-size: 0.78rem;
-    line-height: 1.4;
-    color: var(--text-secondary);
-    margin: 0;
-  }
-
-  .lsc-divider-arrow {
-    font-family: var(--font-family-mono);
-    font-size: 0.72rem;
-    font-weight: 900;
-    color: var(--text-muted);
-    padding: 0.3rem 0.5rem;
-    background: var(--bg-surface-sunken);
-    border: 1px solid var(--border-medium);
-    border-radius: 6px;
-    flex-shrink: 0;
-  }
-
-  /* Layman Takeaway Box */
-  .layman-takeaway {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.75rem;
-    background: var(--bg-surface-sunken);
-    border: 1px solid var(--border-subtle);
-    border-left: 3px solid var(--accent-primary);
-    border-radius: 8px;
-    padding: 0.85rem 1rem;
-    margin-bottom: 1.25rem;
-  }
-
-  .layman-takeaway.warning {
-    border-left-color: var(--threat-critical, #ef4444);
-  }
-
-  .lt-icon {
-    font-size: 1.15rem;
-    line-height: 1;
-    flex-shrink: 0;
-  }
-
-  .lt-text {
-    font-size: 0.85rem;
-    line-height: 1.5;
-    color: var(--text-secondary);
-    margin: 0;
-  }
-
-  .lt-text strong {
-    color: var(--text-primary);
-  }
-
-  /* Layman Locks List (Card 2) */
-  .layman-locks-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.65rem;
-    margin: 1.25rem 0;
-  }
-
-  .lll-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.75rem;
-    background: var(--bg-surface);
-    border: 1px solid var(--border-subtle);
-    border-radius: 10px;
-    padding: 0.75rem 0.95rem;
-  }
-
-  .lll-icon {
-    font-size: 1.2rem;
-    line-height: 1;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-
-  .lll-text {
-    font-size: 0.84rem;
-    line-height: 1.45;
-    color: var(--text-secondary);
-  }
-
-  .lll-text strong {
-    color: var(--text-primary);
-  }
-
-  /* ========================================================================= */
-  /* Mandate Console: Safeguards Triad + Scientific Instruments                 */
-  /* ========================================================================= */
-  .console-section {
-    padding: 3.75rem 0 3.25rem;
-  }
-
-  .compact-header {
-    margin-bottom: 2.25rem;
-  }
-
-  /* 3-Column Safeguards Triad */
-  .safeguards-triad {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.25rem;
-    margin-bottom: 2.25rem;
-  }
-
-  .safeguard-card {
+  .episode-card,
+  .recap-card {
     background: var(--bg-surface-elevated);
     border: 1px solid var(--border-medium);
     border-radius: 14px;
-    padding: 1.5rem 1.35rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    box-shadow: var(--shadow-sm);
-    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, box-shadow 0.2s ease;
+    padding: 1.35rem;
   }
 
-  .safeguard-card:hover {
-    transform: translateY(-2px);
-    border-color: var(--threat-sovereign, #10b981);
-    box-shadow: var(--shadow-md);
+  .ep-badge {
+    display: inline-block;
+    font-family: var(--font-family-mono);
+    font-size: 0.7rem;
+    font-weight: 800;
+    padding: 0.2rem 0.55rem;
+    border-radius: 6px;
+    background: var(--threat-sovereign-bg);
+    color: var(--threat-sovereign);
+    margin-bottom: 0.55rem;
   }
 
-  .sg-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  .ep-title,
+  .recap-title {
+    font-family: var(--font-family-sans);
+    font-weight: 800;
+    font-size: 1.22rem;
+    margin: 0 0 0.55rem;
+    color: var(--text-primary);
+  }
+
+  .ep-body,
+  .recap-body {
+    margin: 0 0 0.9rem;
+    font-size: 0.94rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  .ep-real-life {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-inline-start: 3px solid var(--accent-primary);
+    border-radius: 10px;
+    padding: 0.8rem 0.95rem;
     margin-bottom: 0.85rem;
   }
 
-  .sg-num {
-    font-family: var(--font-family-mono);
-    font-size: 1.35rem;
-    font-weight: 900;
-    color: var(--threat-sovereign, #10b981);
-    line-height: 1;
-  }
-
-  .sg-pill {
-    font-family: var(--font-family-mono);
-    font-size: 0.65rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    color: var(--threat-sovereign, #10b981);
-    background: var(--threat-sovereign-bg, rgba(16, 185, 129, 0.12));
-    border: 1px solid rgba(16, 185, 129, 0.25);
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
-  }
-
-  .sg-title {
-    font-size: 1.12rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin: 0 0 0.5rem;
-    line-height: 1.3;
-  }
-
-  .sg-body {
-    font-size: 0.88rem;
-    line-height: 1.55;
-    color: var(--text-secondary);
-    margin: 0 0 1.25rem;
-    flex-grow: 1;
-  }
-
-  .sg-target {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 0.75rem;
-    border-top: 1px solid var(--border-subtle);
-  }
-
-  .sg-target-label {
-    font-family: var(--font-family-mono);
-    font-size: 0.65rem;
-    font-weight: 800;
-    color: var(--text-muted);
-    letter-spacing: 0.06em;
-  }
-
-  .sg-target-val {
-    font-family: var(--font-family-mono);
-    font-size: 0.78rem;
-    font-weight: 800;
-    color: var(--threat-sovereign, #10b981);
-  }
-
-  /* Console Divider */
-  .console-divider {
-    display: flex;
-    align-items: center;
-    gap: 1.25rem;
-    margin: 0.5rem 0 2rem;
-  }
-
-  .cd-line {
-    flex-grow: 1;
-    height: 1px;
-    background: var(--border-subtle);
-  }
-
-  .cd-label {
+  .rl-tag {
+    display: block;
     font-family: var(--font-family-mono);
     font-size: 0.68rem;
     font-weight: 800;
-    letter-spacing: 0.12em;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    white-space: nowrap;
+    color: var(--accent-primary);
+    margin-bottom: 0.2rem;
   }
 
-  /* 2-Column Instruments Strip */
-  .instruments-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem;
-    margin-bottom: 2rem;
-  }
-
-  .instrument-card {
-    background: var(--bg-surface);
-    border: 1px solid var(--border-subtle);
-    border-radius: 12px;
-    padding: 1.35rem 1.25rem;
-    text-decoration: none;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .instrument-card:hover {
-    border-color: var(--accent-primary);
-    background: var(--bg-surface-elevated);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-sm);
-  }
-
-  .ic-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 0.65rem;
-  }
-
-  .ic-tag {
-    font-family: var(--font-family-mono);
-    font-size: 0.62rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    padding: 0.15rem 0.45rem;
-    border-radius: 4px;
-    text-transform: uppercase;
-  }
-
-  .ic-tag.baseline {
-    color: #a78bfa;
-    background: rgba(167, 139, 250, 0.12);
-  }
-  .ic-tag.live {
-    color: var(--threat-critical, #ef4444);
-    background: rgba(239, 68, 68, 0.12);
-  }
-
-  .ic-title {
-    font-size: 1.12rem;
-    font-weight: 700;
+  .ep-real-life p {
+    margin: 0;
+    font-size: 0.88rem;
     color: var(--text-primary);
-    margin: 0 0 0.45rem;
-    line-height: 1.3;
   }
 
-  .ic-desc {
-    font-size: 0.84rem;
-    line-height: 1.5;
+  .ep-note,
+  .recap-status {
+    margin: 0;
+    font-size: 0.8rem;
     color: var(--text-secondary);
-    margin: 0 0 1.15rem;
-    flex-grow: 1;
   }
 
-  .ic-action-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 0.65rem 1.25rem;
-    border-radius: 8px;
-    font-family: var(--font-family-mono);
-    font-size: 0.78rem;
-    font-weight: 800;
-    letter-spacing: 0.03em;
-    background: var(--threat-sovereign, #1b6756);
-    color: var(--btn-primary-text, #ffffff);
-    border: 1px solid var(--threat-sovereign, #1b6756);
-    box-shadow: 0 2px 10px rgba(27, 103, 86, 0.22);
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    width: fit-content;
-    margin-top: auto;
-  }
-
-  .instrument-card:hover .ic-action-btn {
-    background: var(--accent-primary-hover, #2aa389);
-    border-color: var(--accent-primary-hover, #2aa389);
-    box-shadow: 0 4px 16px rgba(27, 103, 86, 0.35);
-    transform: translateX(3px);
-  }
-
-  /* Monograph Authority Banner */
-  .monograph-authority-banner {
+  /* Section 8: Wish Wall */
+  .wall-invitation-box {
+    max-width: 780px;
+    margin: 0 auto;
     background: var(--bg-surface-elevated);
     border: 1px solid var(--border-medium);
-    border-radius: 14px;
-    padding: 2rem 2.25rem;
-    display: grid;
-    grid-template-columns: 1.45fr 1fr;
-    gap: 2.25rem;
-    align-items: center;
-    box-shadow: var(--shadow-sm);
-    position: relative;
-    overflow: hidden;
+    border-radius: 16px;
+    padding: 1.75rem 1.35rem;
+    text-align: center;
   }
 
-  .monograph-authority-banner::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: 4px;
-    background: var(--accent-primary, #1b6756);
-  }
-
-  .mab-left {
+  .wall-themes {
     display: flex;
-    flex-direction: column;
-    gap: 0.45rem;
-  }
-
-  .mab-badge-row {
-    display: flex;
-    align-items: center;
-    gap: 0.65rem;
     flex-wrap: wrap;
-    margin-bottom: 0.25rem;
+    justify-content: center;
+    gap: 0.45rem;
+    margin-bottom: 1.15rem;
   }
 
-  .mab-tag {
+  .theme-tag {
     font-family: var(--font-family-mono);
-    font-size: 0.62rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
-    color: #34d399;
-    background: rgba(52, 211, 153, 0.12);
-    text-transform: uppercase;
-  }
-
-  .mab-doi {
-    font-family: var(--font-family-mono);
-    font-size: 0.70rem;
+    font-size: 0.74rem;
     font-weight: 700;
+    padding: 0.25rem 0.7rem;
+    border-radius: 9999px;
+    background: var(--bg-surface-sunken);
+    border: 1px solid var(--border-subtle);
     color: var(--text-secondary);
   }
 
-  .mab-doi a {
-    color: var(--accent-primary);
-    text-decoration: none;
-  }
-
-  .mab-doi a:hover {
-    text-decoration: underline;
-  }
-
-  .mab-license {
-    font-family: var(--font-family-mono);
-    font-size: 0.65rem;
-    font-weight: 700;
-    color: var(--text-muted);
-  }
-
-  .mab-title {
-    font-family: var(--font-family-display);
-    font-size: 1.42rem;
+  .wall-empty-head {
+    font-family: var(--font-family-sans);
     font-weight: 800;
+    font-size: 1.18rem;
+    margin: 0 0 0.5rem;
     color: var(--text-primary);
-    margin: 0;
-    line-height: 1.25;
   }
 
-  .mab-sub {
-    font-size: 0.90rem;
-    color: var(--text-secondary);
-    margin: 0;
-    font-style: italic;
-    line-height: 1.4;
-  }
-
-  .mab-desc {
-    font-size: 0.85rem;
+  .wall-empty-body {
+    margin: 0 auto 1.2rem;
+    max-width: 580px;
+    font-size: 0.92rem;
     line-height: 1.55;
     color: var(--text-secondary);
-    margin: 0.35rem 0 0;
   }
 
-  .mab-right {
-    display: flex;
-    flex-direction: column;
-    gap: 0.85rem;
-    align-items: flex-start;
-  }
-
-  .btn-mab {
-    width: 100%;
-    text-align: center;
-    padding: 0.85rem 1.25rem;
+  .btn-wall-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-height: 44px;
+    padding: 0.65rem 1.35rem;
+    border-radius: 10px;
+    background: var(--accent-primary);
+    color: var(--btn-primary-text);
+    text-decoration: none;
+    font-weight: 700;
     font-size: 0.92rem;
   }
 
-  .mab-links {
-    display: flex;
-    align-items: center;
-    gap: 0.65rem;
-    font-size: 0.76rem;
-    flex-wrap: wrap;
-    color: var(--text-muted);
+  .btn-wall-cta:hover {
+    background: var(--accent-primary-hover);
   }
 
-  .mab-links a {
+  /* Section 9: Why a good wish needs a good wisher */
+  .wisher-dual-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.15rem;
+    margin-bottom: 1.45rem;
+  }
+
+  .wisher-card {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-medium);
+    border-radius: 14px;
+    padding: 1.35rem;
+  }
+
+  .wisher-title {
+    font-family: var(--font-family-sans);
+    font-weight: 800;
+    font-size: 1.22rem;
+    margin: 0 0 0.55rem;
     color: var(--accent-primary);
-    text-decoration: none;
+  }
+
+  .wisher-body {
+    margin: 0 0 0.75rem;
+    font-size: 0.96rem;
+    line-height: 1.62;
+    color: var(--text-primary);
+  }
+
+  .card-tech-note summary {
+    cursor: pointer;
+    font-size: 0.78rem;
+    color: var(--text-secondary);
     font-weight: 600;
   }
 
-  .mab-links a:hover {
+  .card-tech-note p {
+    margin: 0.4rem 0 0;
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+  }
+
+  .wisher-closing {
+    text-align: center;
+    font-family: var(--font-family-sans);
+    font-size: 1.12rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  /* Section 10: Go Deeper */
+  .deeper-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .deeper-card {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-medium);
+    border-radius: 14px;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .dc-tag {
+    font-family: var(--font-family-mono);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    color: var(--accent-primary);
+    margin-bottom: 0.4rem;
+  }
+
+  .dc-title {
+    font-size: 1.08rem;
+    font-weight: 700;
+    margin: 0 0 0.45rem;
+    color: var(--text-primary);
+  }
+
+  .dc-desc {
+    margin: 0 0 1rem;
+    font-size: 0.88rem;
+    line-height: 1.52;
+    color: var(--text-secondary);
+    flex-grow: 1;
+  }
+
+  .dc-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    width: fit-content;
+    padding: 0.5rem 0.95rem;
+    border-radius: 8px;
+    background: var(--accent-primary);
+    color: var(--btn-primary-text);
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+
+  .dc-link:hover {
+    background: var(--accent-primary-hover);
+  }
+
+  .dc-multi-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.9rem;
+  }
+
+  .dc-link-inline {
+    font-size: 0.84rem;
+    font-weight: 700;
+    color: var(--accent-primary);
+    text-decoration: none;
+  }
+
+  .dc-link-inline:hover {
     text-decoration: underline;
   }
 
-  .mab-links .sep {
-    color: var(--border-medium);
+  .release-footer-box {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    text-align: center;
   }
 
-  @media (max-width: 1024px) {
-    .thesis-dual-grid {
-      grid-template-columns: 1fr;
-      gap: 1.75rem;
+  .release-note {
+    margin: 0 0 0.35rem;
+    font-size: 0.86rem;
+    color: var(--text-secondary);
+  }
+
+  .release-doi {
+    margin: 0;
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+  }
+
+  .release-doi a {
+    color: var(--accent-primary);
+    font-weight: 600;
+  }
+
+  @media (max-width: 960px) {
+    .deeper-grid {
+      grid-template-columns: repeat(2, 1fr);
     }
-    .safeguards-triad {
+    .episode-grid {
       grid-template-columns: 1fr;
-      gap: 1rem;
-    }
-    .instruments-grid {
-      grid-template-columns: 1fr;
-      gap: 1rem;
-    }
-    .monograph-authority-banner {
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-      padding: 1.5rem;
     }
   }
 
-  @media (max-width: 768px) {
-    .hero-section {
-      padding: 3.5rem 0 3rem;
-    }
-    .hero-headline {
-      font-size: 2.35rem;
-    }
-    .hero-subhead {
-      font-size: 1.10rem;
-    }
-    .section-title {
-      font-size: 1.85rem;
-    }
-    .btn-lg {
-      width: 100%;
-    }
-    .layman-speed-comparison {
-      flex-direction: column;
-      align-items: stretch;
-      gap: 0.65rem;
-    }
-    .lsc-divider-arrow {
-      align-self: center;
-    }
-    .instruments-grid {
+  @media (max-width: 680px) {
+    .wisher-dual-grid,
+    .deeper-grid {
       grid-template-columns: 1fr;
     }
   }

@@ -1,19 +1,24 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
+  import { activeLocale, initLocale, setLocale } from '../i18n/store';
+  import { trackEvent } from '../lib/privacyStorage';
+
   const base = (import.meta.env.BASE_URL || '/hsri-research').replace(/\/$/, '');
 
-  // Curated, simplified footer navigation
+  // Curated, simplified footer navigation preserving all research routes
   const footerNav = {
     'Inquiry & Research': [
-      { name: 'Civilizational Sandbox', href: `${base}/sandbox/` },
-      { name: 'Country Decoupling Index', href: `${base}/countries/` },
-      { name: 'ASI Precursor Seismograph', href: `${base}/seismograph/` },
-      { name: 'Takeoff Scenarios Atlas', href: `${base}/scenarios/` },
-      { name: 'Civilizational Monograph', href: `${base}/monograph/` },
+      { name: 'Open the Lab (Sandbox)', href: `${base}/sandbox/` },
+      { name: '39-Nation Country Index', href: `${base}/countries/` },
+      { name: 'Live Pulse (Seismograph)', href: `${base}/seismograph/` },
+      { name: '26-Pathway Scenario Atlas', href: `${base}/scenarios/` },
+      { name: 'The Civilizational Monograph', href: `${base}/monograph/` },
     ],
-    'Open Science & Methodology': [
+    'Open Science & Accountability': [
       { name: 'Scientific Methodology', href: `${base}/methodology/` },
       { name: 'Data Downloads', href: `${base}/data/` },
       { name: 'Coverage Audit', href: `${base}/coverage/` },
+      { name: "Join Friday's recap", href: `${base}/#this-week` },
       { name: 'Limitations & Disclaimer', href: `${base}/methodology/#limitations` },
     ]
   };
@@ -23,6 +28,18 @@
     { name: 'X / Twitter', href: 'https://twitter.com/hsri_research', icon: 'twitter' },
     { name: 'Research Inquiries', href: 'mailto:contact@humanityreadiness.org', icon: 'email' },
   ];
+
+  function chooseLocale(loc: 'en' | 'rtl-stub') {
+    setLocale(loc);
+    trackEvent('locale_switched', { locale: loc });
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new Event('hr:hydrate'));
+    }
+  }
+
+  onMount(() => {
+    initLocale();
+  });
 </script>
 
 <footer class="hsri-footer">
@@ -42,7 +59,7 @@
           </div>
         </div>
         <p class="footer-description">
-          An open empirical benchmark and civilizational stress-test measuring human cognitive discernment, institutional agency, and sovereign decoupling half-life under superintelligent AI transition.
+          An open empirical benchmark measuring human judgment, institutional preparedness, and how well societies can stand on their own feet if automated cloud systems pause.
         </p>
       </div>
 
@@ -99,9 +116,37 @@
       </div>
     </div>
 
+    <!-- Language & RTL Layout Switcher -->
+    <div id="languages" class="footer-languages" aria-label="Language and reading direction">
+      <span class="lang-heading">Languages:</span>
+      <button
+        type="button"
+        class="lang-btn"
+        class:active={$activeLocale === 'en'}
+        on:click={() => chooseLocale('en')}
+      >
+        English (LTR)
+      </button>
+      <button
+        type="button"
+        class="lang-btn"
+        class:active={$activeLocale === 'rtl-stub'}
+        on:click={() => chooseLocale('rtl-stub')}
+        title="Verify right-to-left layout mirroring for upcoming translations"
+      >
+        RTL Layout Test (Stub)
+      </button>
+      {#if $activeLocale === 'rtl-stub'}
+        <span class="rtl-badge" role="status">dir="rtl" active · global translations selected next</span>
+      {/if}
+    </div>
+
     <!-- Bottom section -->
     <div class="footer-bottom">
       <div class="footer-links">
+        <a href={`${base}/privacy/`} class="footer-link">Privacy</a>
+        <a href="#languages" class="footer-link">Languages</a>
+        <a href={`${base}/#this-week`} class="footer-link">Join Friday's recap</a>
         <a href="https://doi.org/10.5281/zenodo.23441742" class="footer-link" target="_blank" rel="noopener noreferrer">Permanent DOI (Zenodo)</a>
         <a href={`${base}/methodology/#limitations`} class="footer-link">Actuarial Disclaimer</a>
         <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="footer-link" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0 License</a>
@@ -277,6 +322,46 @@
     border: 0;
   }
 
+  .footer-languages {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.9rem 0;
+    border-top: 1px solid var(--border-color, #e2e8f0);
+  }
+
+  .lang-heading {
+    font-family: var(--font-family-mono, monospace);
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: var(--text-secondary, #64748b);
+  }
+
+  .lang-btn {
+    border: 1px solid var(--border-medium, #d4caa8);
+    background: var(--bg-surface-elevated, #ffffff);
+    color: var(--text-primary, #1e1915);
+    border-radius: 9999px;
+    padding: 0.25rem 0.7rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .lang-btn.active {
+    background: var(--accent-primary, #1b6756);
+    border-color: var(--accent-primary, #1b6756);
+    color: var(--btn-primary-text, #ffffff);
+  }
+
+  .rtl-badge {
+    font-family: var(--font-family-mono, monospace);
+    font-size: 0.7rem;
+    color: var(--accent-primary, #1b6756);
+    font-weight: 700;
+  }
+
   .footer-bottom {
     border-top: 1px solid var(--border-color, #e2e8f0);
     padding-top: var(--spacing-lg, 1.5rem);
@@ -289,13 +374,18 @@
 
   .footer-links {
     display: flex;
-    gap: var(--spacing-lg, 1.5rem);
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
   }
 
   .footer-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 32px;
+    padding: 0.2rem 0.25rem;
     color: var(--text-secondary, #64748b);
     text-decoration: none;
-    font-size: 0.75rem;
+    font-size: 0.78rem;
     transition: color 0.15s;
   }
 
