@@ -23,9 +23,4 @@ export default defineConfig({
     format: 'directory',
     inlineStylesheets: 'never',
   },
-  vite: {
-    build: {
-      cssCodeSplit: false,
-    },
-  },
 });
