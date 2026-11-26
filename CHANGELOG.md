@@ -5,6 +5,17 @@ All notable changes to the Humanity Superintelligence Readiness Index (HSRI) res
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased — Phase 1 Story Reframe] — 2026-11-26
+
+### Changed
+- **Homepage Reframe (`/` — Story-First Entry)**: Rebuilt `site-astro/src/pages/index.astro` around *"Humanity Readiness: are we ready to receive what we're wishing for?"* with 10 accessible sections (Hero with global coastal skyline switcher & empty-state Readiness Ring, Humanity's Pulse strip, Five Doors preview, Four Moments, Five Lights, `"Can your country catch the gift?"` wired strictly to the 39-nation `country_scores.json` + equal unrated coverage for 109 non-rated/context economies, Pilot teaser, Wish Wall invitation state, `"Why a good wish still needs a good wisher"`, and `"Go deeper"` preserving all research routes and Zenodo DOI).
+- **Data Completeness Metric Reconciliation**: Replaced stale hardcoded `84.6% Harmonized` in `HSRIHeader.svelte` (introduced in commit `881a4a1`) with verified **`96.5%`** (`share of retained indicators observed across 39 benchmark countries — 640 / 663 cells in data/normalized_indicators.csv` and `country_scores.json.metadata.avgCoverage`), including a visible one-line definition on `/`.
+- **Global i18n + RTL Structure**: Externalized homepage copy into `site-astro/src/i18n/en.ts` with logical CSS and an interactive `dir="rtl"` stub verifier (`#languages`).
+
+### Added
+- **`/privacy/` Route (`site-astro/src/pages/privacy.astro`)**: Anonymous, local-first storage policy (`hr:v1:*`) with instant browser inspection, JSON export, and deletion controls.
+- **`AUDIT.md` & `DECISIONS.md`**: Phase 0 forensic audit and ratified owner decisions log (`feat/phase-1-story-reframe`).
+
 ## [v1.2.0] — 2026-10-12 (Sprint 25: Study 2 Non-Compensatory Aggregation)
 
 ### Added

@@ -1,0 +1,123 @@
+---
+import HSRILayout from '../layouts/HSRILayout.astro';
+import HSRIHeader from '../components/HSRIHeader.svelte';
+import HSRIFooter from '../components/HSRIFooter.svelte';
+import PrivacyControls from '../components/PrivacyControls.svelte';
+---
+
+<HSRILayout
+  title="Privacy & Local Data Control — Humanity Readiness"
+  description="Anonymous by default. Inspect, export, or erase local browser data used by Humanity Readiness."
+>
+  <div class="privacy-page">
+    <HSRIHeader client:load currentPath={Astro.url.pathname} />
+
+    <main class="container main-wrap">
+      <div class="page-head">
+        <span class="eyebrow">ANONYMOUS BY DEFAULT</span>
+        <h1>Privacy &amp; Your Data</h1>
+        <p class="lead">
+          Humanity Readiness is designed so anyone can explore wishes, test readiness lights, and check country facts without creating an account or sharing personal details.
+        </p>
+      </div>
+
+      <section class="policy-grid">
+        <article class="policy-card">
+          <h2>1. Local-First Browser Storage</h2>
+          <p>
+            Your preferences, wish reflections, and language test settings live locally inside your browser under the <code>hr:v1:*</code> prefix. We do not set cross-site advertising cookies.
+          </p>
+        </article>
+
+        <article class="policy-card">
+          <h2>2. Crowd Threshold &amp; No PII Rule</h2>
+          <p>
+            Future anonymous aggregate statistics will never display group figures for fewer than <strong>20 independent responses</strong>, and any optional free-text wishes stay in a moderated review queue with identifiers removed before publication.
+          </p>
+        </article>
+
+        <article class="policy-card">
+          <h2>3. Optional Updates &amp; Clear Unsubscribe</h2>
+          <p>
+            Any weekly recap signup is strictly opt-in and consent-based, with one-click unsubscribe built in from day one. Questions? Write to <a href="mailto:contact@humanityreadiness.org">contact@humanityreadiness.org</a>.
+          </p>
+        </article>
+      </section>
+
+      <PrivacyControls client:load />
+    </main>
+
+    <HSRIFooter client:visible />
+  </div>
+</HSRILayout>
+
+<style>
+  .privacy-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-canvas);
+    color: var(--text-primary);
+  }
+
+  .main-wrap {
+    flex: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2.5rem 1.25rem 3.5rem;
+    width: 100%;
+  }
+
+  .eyebrow {
+    font-family: var(--font-family-mono);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: var(--accent-primary);
+  }
+
+  .page-head h1 {
+    font-family: var(--font-family-display);
+    font-size: clamp(1.85rem, 3.5vw, 2.5rem);
+    margin: 0.4rem 0 0.75rem;
+  }
+
+  .lead {
+    font-size: 1.04rem;
+    line-height: 1.65;
+    color: var(--text-secondary);
+    margin: 0 0 1.8rem;
+  }
+
+  .policy-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .policy-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 1.15rem;
+  }
+
+  .policy-card h2 {
+    font-size: 1rem;
+    margin: 0 0 0.5rem;
+  }
+
+  .policy-card p {
+    margin: 0;
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--text-secondary);
+  }
+
+  @media (max-width: 768px) {
+    .policy-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

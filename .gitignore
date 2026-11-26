@@ -16,6 +16,7 @@ downloads/
 eggs/
 .eggs/
 lib/
+!site-astro/src/lib/
 lib64/
 parts/
 sdist/
