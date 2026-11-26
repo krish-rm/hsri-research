@@ -43,11 +43,15 @@
 
   onMount(() => {
     try {
+      const preset = (window as any).__hc || (window as any).__hrHeroCity;
+      if (preset && CITIES.some((c) => c.id === preset)) {
+        activeCityId = preset;
+        return;
+      }
       const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
       const matched = CITIES.find((c) => c.tzPrefixes.some((p) => tz.startsWith(p)));
       if (matched) {
         activeCityId = matched.id;
-        autoDetectedNote = 'Matched to your time zone · switch anytime';
       }
     } catch {
       // Keep neutral Coastal Harbour fallback
@@ -83,12 +87,9 @@
         <figure class="skyline-card" aria-label={`Dawn harbour scene for ${city.name} showing Kalpa arriving as a calm light`}>
           <div class="skyline-top-bar">
             <span class="skyline-caption-label">
-              {$dict.hero.cityLabel} <strong>{city.name}</strong>
-              <span class="region-chip">{city.regionHint}</span>
+              {$dict.hero.cityLabel} <strong id="hcn">{city.name}</strong>
+              <span id="hcr" class="region-chip">{city.regionHint}</span>
             </span>
-            {#if autoDetectedNote}
-              <span class="tz-note">{autoDetectedNote}</span>
-            {/if}
           </div>
 
           <svg
@@ -101,8 +102,8 @@
           >
             <defs>
               <linearGradient id="dawn-sky" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color={city.skyTop} />
-                <stop offset="100%" stop-color={city.skyBottom} />
+                <stop id="hst" offset="0%" stop-color={city.skyTop} />
+                <stop id="hsb" offset="100%" stop-color={city.skyBottom} />
               </linearGradient>
               <radialGradient id="kalpa-glow" cx="50%" cy="42%" r="38%">
                 <stop offset="0%" stop-color="#fff8dc" stop-opacity="0.98" />
@@ -110,7 +111,7 @@
                 <stop offset="100%" stop-color="#1b6756" stop-opacity="0" />
               </radialGradient>
               <linearGradient id="sea-grad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color={city.waterTint} stop-opacity="0.82" />
+                <stop id="hsa" offset="0%" stop-color={city.waterTint} stop-opacity="0.82" />
                 <stop offset="100%" stop-color="#113c37" stop-opacity="0.95" />
               </linearGradient>
             </defs>
@@ -209,6 +210,8 @@
                 type="button"
                 class="city-pill"
                 class:active={activeCityId === c.id}
+                data-city={c.id}
+                data-c={`${c.regionHint}|${c.skyTop}|${c.skyBottom}|${c.waterTint}`}
                 onclick={() => selectCity(c.id)}
               >
                 {c.name}
@@ -363,8 +366,9 @@
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.6rem 0.9rem;
+    gap: 0.35rem 0.5rem;
+    min-height: 44px;
+    padding: 0.55rem 0.9rem;
     background: var(--bg-surface-elevated);
     border-bottom: 1px solid var(--border-subtle);
     font-size: 0.8rem;
@@ -511,6 +515,10 @@
   }
 
   @media (max-width: 480px) {
+    .skyline-top-bar {
+      min-height: 62px;
+      align-items: center;
+    }
     .cta-row {
       flex-direction: column;
     }

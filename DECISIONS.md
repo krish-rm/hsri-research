@@ -32,15 +32,15 @@
 - **Normalization**: `MKD` in `country_scores.json` (`name: "MKD"`) is normalized to **`North Macedonia`** in UI display.
 
 ### 4. Unrated Countries Policy — APPROVED (Strictly Equal Global Treatment)
-- **Universal Application**: Applies identically to **every** nation evaluated outside the 39-nation empirical index (86 rows in `data/unrated-nations.csv` + 22 `Context-only` rows & `TWN` in `data/coverage-by-country.csv` — zero special handling for any nation).
+- **Universal Application**: Applies identically to **every** nation evaluated outside the 39-nation empirical index (86 rows in `data/unrated-nations.csv` + 22 `Context-only` rows & `TWN` `Partial rating` in `data/coverage-by-country.csv` — zero special handling for any nation).
 - **UI Behavior**:
   - Every unrated country is selectable in the global Section 6 picker and tagged **`"Not yet rated in the full 39-nation index"`**.
-  - Displays **only genuine observed coverage flags** from `data/unrated-nations.csv` / `data/coverage-by-country.csv` alongside one plain line explaining what empirical surveys are still missing. Never fabricates a composite score, rank shift, survival days, or `x/5` checklist.
+  - Displays **only genuine observed fields from the real CSVs** (`available_pillars`, `missing_pillars`, `partial_coverage_notes` from `data/unrated-nations.csv`; all 9 binary coverage indicator columns `ai_lit_core`, `ai_lit_context`, `calibrated_trust`, `metacognition_core`, `metacognition_context`, `decision_agency`, `attentional_context`, `value_clarity`, `enabling_context`, plus `overall_status` from `data/coverage-by-country.csv`). Counts (`x/9`) are summed directly from those 9 binary indicator flags rather than the upstream `overall_coverage` integer (which is +1 above the binary flag sum for several rows such as BRA/ARG). Zero filled-in or estimated values anywhere. Only Guinea (`GIN`) replaces the single CSV word `"telemetry"` with `"survey tracking"` under the plain-language rule.
   - Includes a direct **`"Help us rate your country"`** link pointing to `/coverage/`.
 
 ### 5. Completeness Metric Reconciliation (`84.6%` vs `96.5%`) — APPROVED
-- **Forensic Audit Result**: Commit `881a4a1` (Oct 17, 2026) replaced `{stats.avgCoverage}%` (`96.5%`) in `HSRIHeader.svelte` with hardcoded text `84.6% Harmonized`. Cross-checking every dataset (`normalized_indicators.csv = 640/663 = 96.53%`, `country_scores.json.metadata.avgCoverage = 96.5`, `raw_observations_harmonized.csv = 730/780 = 93.59%`) confirms **`84.6%` is stale/unbacked**.
-- **Resolution**: Replace `84.6%` with verified **`96.5%`** defined cleanly as **`"share of retained indicators observed, 39 countries"`** in `HSRIHeader.svelte`, Homepage Section 10, and logged in `CHANGELOG.md`.
+- **Forensic Audit Result**: Commit `881a4a1` (Oct 17, 2026) replaced `{stats.avgCoverage}%` (`96.5%`) in `HSRIHeader.svelte` with hardcoded text `84.6% Harmonized`. Cross-checking every dataset (`normalized_indicators.csv = 640/663 = 96.53%`, `country_scores.json.metadata.avgCoverage = 96.5`, `raw_observations_harmonized.csv = 730/780 = 93.59%`) confirms **`84.6%` originated strictly from that hardcoded override in `881a4a1` and is stale**.
+- **Resolution**: Replace `84.6%` with verified **`96.5%`** (`640/663` cells), displayed visibly on `/` with its one-line definition (`"share of retained indicators observed across 39 benchmark countries — 640 of 663 cells"`) in `HSRIHeader.svelte` and Homepage Section 10, and logged in `CHANGELOG.md`.
 
 ### 6. Country Data Sources & Plain Archetype Mapping — APPROVED
 - **Single Source for Section 6**: Reads strictly from `site-astro/src/data/country_scores.json` (plus real coverage tables for unrated nations). Never mixes stylized sandbox shock ranks (`-40`/`-37`) with the 39-nation baseline (`-34`/`-21`).

@@ -244,7 +244,7 @@
       <div class="stats-container">
         <div class="stat-item"><span class="stat-label">Benchmark Scope</span><span class="stat-value">39 <small>Nations</small></span></div>
         <div class="stat-item"><span class="stat-label">Benchmark Mean</span><span class="stat-value">53.8 <small>/ 100</small></span></div>
-        <div class="stat-item" title="Share of retained indicators observed, 39 countries"><span class="stat-label">Data Completeness</span><span class="stat-value">96.5% <small>Observed · 39 Countries</small></span></div>
+        <div class="stat-item" title="Share of retained indicators observed across 39 benchmark countries (640 of 663 cells)"><span class="stat-label">Data Completeness</span><span class="stat-value">96.5% <small>Retained indicators · 39 countries</small></span></div>
         <div class="stat-item"><span class="stat-label">Index Status</span><span class="stat-value" style="display:flex;align-items:center;gap:6px;"><span class="status-dot"></span><span style="font-size:0.85rem;color:#92400e;">Preview Release</span></span></div>
       </div>
     </div>

@@ -134,34 +134,35 @@ const covLines = fs.readFileSync(path.join(repoRoot, 'data/coverage-by-country.c
 for (const line of covLines) {
   if (!line.trim()) continue;
   const cols = parseCsvRow(line);
-  const [iso, name, litC, _litX, trust, metaC, _metaX, dec, _att, _val, enab, totStr, status] = cols;
+  const [iso, name, litC, litX, trust, metaC, metaX, dec, att, val, enab, totStr, status] = cols;
   if (!ratedIsos.has(iso) && !seenNames.has(name.toLowerCase())) {
     ratedIsos.add(iso);
     seenNames.add(name.toLowerCase());
-    const obs = [];
-    const mis = [];
-    if (litC === '1') obs.push('Education & Skills');
-    else mis.push('Adult AI Skills');
-    if (trust === '1') obs.push('Public Trust');
-    else mis.push('Calibrated Trust');
-    if (metaC === '1') obs.push('Critical Discernment');
-    else mis.push('Critical Discernment');
-    if (dec === '1') obs.push('Public Rules');
-    if (enab === '1') obs.push('Connectivity');
+    const fields = [
+      [litC, 'AI Literacy (Core)'],
+      [litX, 'AI Literacy (Context)'],
+      [trust, 'Calibrated Trust'],
+      [metaC, 'Critical Discernment (Core)'],
+      [metaX, 'Critical Discernment (Context)'],
+      [dec, 'Decision Agency'],
+      [att, 'Attentional Context'],
+      [val, 'Value Clarity'],
+      [enab, 'Enabling Infrastructure']
+    ];
+    const obs = fields.filter(([v]) => v === '1').map(([, label]) => label);
+    const mis = fields.filter(([v]) => v !== '1').map(([, label]) => label);
     unrated.push({
       kind: 'unrated',
       iso,
       name,
-      region: status === 'Partial rating' ? 'Tracked Context Partner' : 'Context-Only Coverage',
+      region: status === 'Partial rating' ? 'Partial Rating (Non-Benchmark)' : status === 'Context-only' ? 'Context-Only Coverage' : status || 'Not Rated',
       observedSummary: obs.length
-        ? `Partial international data observed in: ${obs.join(', ')} (${totStr || '?'}/9 coverage indicators).`
+        ? `${obs.length}/9 coverage flags observed: ${obs.join(', ')}.`
         : 'Minimal contextual data recorded.',
       missingSummary: mis.length
-        ? `Missing international surveys for: ${mis.join(', ')}.`
-        : 'Full peer-reviewed cross-pillar harmonisation not yet completed.',
-      coverageDetail: status === 'Context-only'
-        ? 'Included in our preliminary coverage register, but excluded from the 39-nation benchmark until comparable microdata exists.'
-        : 'Preliminary indicators observed; excluded from the headline 39-nation cohort under strict non-extrapolation rules.'
+        ? `Missing coverage indicators (${mis.length}/9): ${mis.join(', ')}.`
+        : 'None of the 9 coverage indicators are missing.',
+      coverageDetail: `Source coverage-by-country.csv status "${status || 'Context-only'}": excluded from the 39-nation benchmark until comparable cross-pillar microdata exists.`
     });
   }
 }

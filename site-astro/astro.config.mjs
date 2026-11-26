@@ -21,6 +21,11 @@ export default defineConfig({
   output: 'static',
   build: {
     format: 'directory',
-    inlineStylesheets: 'auto',
+    inlineStylesheets: 'never',
+  },
+  vite: {
+    build: {
+      cssCodeSplit: false,
+    },
   },
 });

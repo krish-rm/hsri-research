@@ -1,31 +1,49 @@
-// Hydrate Astro island only after user interaction or custom locale event
+// Hydrate Astro island on first keyboard, screen-reader click, pointer, or scroll interaction
 export default (load, _options, el) => {
   let done = false;
   let hydrated = false;
-  let pendingBtn = null;
+  let pendingDescriptor = null;
 
   const events = ['pointerdown', 'touchstart', 'keydown', 'scroll', 'hr:hydrate'];
-  const cleanup = () => {
+  const cleanupTriggers = () => {
     for (const ev of events) {
       window.removeEventListener(ev, trigger, { capture: true });
     }
     el.removeEventListener('pointerenter', trigger);
     el.removeEventListener('focusin', trigger);
-    el.removeEventListener('click', onEarlyClick, { capture: true });
+  };
+
+  const replayButton = () => {
+    if (!pendingDescriptor) return;
+    const { node, btnIndex, dataCity, ariaLabel } = pendingDescriptor;
+    pendingDescriptor = null;
+    let target = node && el.contains(node) ? node : null;
+    if (!target && dataCity) {
+      target = el.querySelector(`button[data-city="${dataCity}"]`);
+    }
+    if (!target && ariaLabel) {
+      target = el.querySelector(`button[aria-label="${CSS.escape(ariaLabel)}"]`);
+    }
+    if (!target && btnIndex >= 0) {
+      target = el.querySelectorAll('button')[btnIndex] || null;
+    }
+    if (target instanceof HTMLElement) {
+      requestAnimationFrame(() => {
+        target.focus({ preventScroll: true });
+        target.click();
+      });
+    }
   };
 
   const trigger = async () => {
     if (done) return;
     done = true;
-    cleanup();
+    cleanupTriggers();
     const hydrate = await load();
     await hydrate();
     hydrated = true;
-    if (pendingBtn && el.contains(pendingBtn)) {
-      const target = pendingBtn;
-      pendingBtn = null;
-      queueMicrotask(() => target.click());
-    }
+    el.removeEventListener('click', onEarlyClick, { capture: true });
+    replayButton();
   };
 
   const onEarlyClick = (ev) => {
@@ -34,7 +52,13 @@ export default (load, _options, el) => {
     if (btn) {
       ev.preventDefault();
       ev.stopPropagation();
-      pendingBtn = btn;
+      const allBtns = [...el.querySelectorAll('button')];
+      pendingDescriptor = {
+        node: btn,
+        btnIndex: allBtns.indexOf(btn),
+        dataCity: btn.getAttribute('data-city'),
+        ariaLabel: btn.getAttribute('aria-label')
+      };
       trigger();
     }
   };

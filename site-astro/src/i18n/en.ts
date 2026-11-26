@@ -252,7 +252,7 @@ export const en = {
     subhead:
       'Every metaphor above rests on peer-reviewed measurements, open code, and country datasets one tap away.',
     releaseNote:
-      'Preview release: 39 countries rated (mean baseline score 53.8 / 100), 96.5% data completeness (share of retained indicators observed across 39 countries).',
+      'Preview release: 39 countries rated (mean baseline score 53.8 / 100), 96.5% data completeness (share of retained indicators observed across 39 benchmark countries — 640 of 663 cells).',
     cards: [
       {
         title: 'Open the Lab',

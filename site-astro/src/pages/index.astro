@@ -34,6 +34,7 @@ const countryCatalog = buildCountryWidgetCatalog().filter((c) => starterIsos.has
     <!-- SECTION 1: HERO (Global Harbour, Kalpa Arrival, Empty Crowd Ring)   -->
     <!-- =================================================================== -->
     <HeroStory client:interact />
+    <script is:inline>try{let i={Lagos:1,Sao_Paulo:2,Kolkata:3,Calcutta:3,Berlin:4,Jakarta:5,Dubai:6,Toronto:7,Nairobi:8}[Intl.DateTimeFormat().resolvedOptions().timeZone.split("/").pop()],p=document.querySelectorAll(".city-pill"),b=i&&p[i];if(b){let d=b.dataset.c.split("|");window.__hc=b.dataset.city;hcn.textContent=b.textContent;hcr.textContent=d[0];[hst,hsb,hsa].map((e,j)=>e.setAttribute("stop-color",d[j+1]));p[0].classList.remove("active");b.classList.add("active")}}catch{}</script>
 
     <!-- =================================================================== -->
     <!-- SECTION 2: HUMANITY'S PULSE (Calm Thin Strip, Real Live Score)      -->

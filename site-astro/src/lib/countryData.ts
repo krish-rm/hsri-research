@@ -214,38 +214,38 @@ export function buildCountryWidgetCatalog(): CountrySummaryItem[] {
     for (const line of lines) {
       if (!line.trim()) continue;
       const cols = parseCsvRow(line);
-      const [iso, name, litC, _litX, trust, metaC, _metaX, dec, _att, _val, enab, totStr, status] = cols;
+      const [iso, name, litC, litX, trust, metaC, metaX, dec, att, val, enab, totStr, status] = cols;
       if (!ratedIsos.has(iso) && !seenNames.has(name.toLowerCase())) {
         ratedIsos.add(iso);
         seenNames.add(name.toLowerCase());
-        const observedDomains: string[] = [];
-        const missingDomains: string[] = [];
-        if (litC === '1') observedDomains.push('Education & Skills');
-        else missingDomains.push('Adult AI Skills');
-        if (trust === '1') observedDomains.push('Public Trust');
-        else missingDomains.push('Calibrated Trust');
-        if (metaC === '1') observedDomains.push('Critical Discernment');
-        else missingDomains.push('Critical Discernment');
-        if (dec === '1') observedDomains.push('Public Rules');
-        if (enab === '1') observedDomains.push('Connectivity');
+        const fields: Array<[string, string]> = [
+          [litC, 'AI Literacy (Core)'],
+          [litX, 'AI Literacy (Context)'],
+          [trust, 'Calibrated Trust'],
+          [metaC, 'Critical Discernment (Core)'],
+          [metaX, 'Critical Discernment (Context)'],
+          [dec, 'Decision Agency'],
+          [att, 'Attentional Context'],
+          [val, 'Value Clarity'],
+          [enab, 'Enabling Infrastructure']
+        ];
+        const observedDomains = fields.filter(([v]) => v === '1').map(([, label]) => label);
+        const missingDomains = fields.filter(([v]) => v !== '1').map(([, label]) => label);
 
         unrated.push({
           kind: 'unrated',
           iso,
           name,
-          region: status === 'Partial rating' ? 'Tracked Context Partner' : 'Context-Only Coverage',
+          region: status === 'Partial rating' ? 'Partial Rating (Non-Benchmark)' : status === 'Context-only' ? 'Context-Only Coverage' : status || 'Not Rated',
           observedSummary:
             observedDomains.length > 0
-              ? `Partial international data observed in: ${observedDomains.join(', ')} (${totStr || '?'}/9 coverage indicators).`
+              ? `${observedDomains.length}/9 coverage flags observed: ${observedDomains.join(', ')}.`
               : 'Minimal contextual data recorded.',
           missingSummary:
             missingDomains.length > 0
-              ? `Missing international surveys for: ${missingDomains.join(', ')}.`
-              : 'Full peer-reviewed cross-pillar harmonisation not yet completed.',
-          coverageDetail:
-            status === 'Context-only'
-              ? 'Included in our preliminary coverage register, but excluded from the 39-nation benchmark until comparable microdata exists.'
-              : 'Preliminary indicators observed; excluded from the headline 39-nation cohort under strict non-extrapolation rules.'
+              ? `Missing coverage indicators (${missingDomains.length}/9): ${missingDomains.join(', ')}.`
+              : 'None of the 9 coverage indicators are missing.',
+          coverageDetail: `Source coverage-by-country.csv status "${status || 'Context-only'}": excluded from the 39-nation benchmark until comparable cross-pillar microdata exists.`
         });
       }
     }
