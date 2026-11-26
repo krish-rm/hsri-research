@@ -16,16 +16,18 @@ export const en = {
 
   meta: {
     title:
-      "Humanity Readiness: are we ready for what we're asking superintelligence to deliver? | Humanity Superintelligence Readiness Index",
+      "Are we ready for what we're asking superintelligence to deliver? | Humanity Superintelligence Readiness Index",
     description:
-      "Imagine a superintelligence could deliver one breakthrough for humanity. Pick it, watch it arrive, and see what humans can still do. Backed by open research across 39 benchmark nations."
+      "Choose one breakthrough, trace what breaks when it arrives, and test your country's real readiness data. Open research across 39 benchmark nations."
   },
 
   hero: {
     eyebrow: 'A HUMANITY READINESS STORY',
-    headline: "Humanity Readiness: are we ready for what we're asking superintelligence to deliver?",
+    headline: "Are we ready for what we're asking superintelligence to deliver?",
+    headlineLead: "Are we ready for what we're asking ",
+    headlineAccent: 'superintelligence to deliver?',
     subhead:
-      'Imagine a superintelligence could deliver one breakthrough for humanity. Pick it. Watch it arrive. Then see what it would really take.',
+      "Choose one breakthrough, trace what breaks when it arrives, and test your country's real readiness data.",
     ctaPrimary: 'Choose a breakthrough',
     ctaSecondary: 'See how your country does',
     cityLabel: 'Arrival sky over:',

@@ -10,8 +10,8 @@ interface Props {
 }
 
 const {
-  title = "Humanity Readiness: are we ready for what we're asking superintelligence to deliver? | Humanity Superintelligence Readiness Index",
-  description = "Imagine a superintelligence could deliver one breakthrough for humanity. Pick it, watch it arrive, and see what it would really take. Backed by open research across 39 benchmark nations.",
+  title = "Are we ready for what we're asking superintelligence to deliver? | Humanity Superintelligence Readiness Index",
+  description = "Choose one breakthrough, trace what breaks when it arrives, and test your country's real readiness data. Open research across 39 benchmark nations.",
   image = "https://humanityreadiness.org/assets/og-image.png",
   canonicalUrl = Astro.url ? Astro.url.href : "https://humanityreadiness.org/",
   keywords = "humanity readiness, AI readiness, superintelligence, country preparedness, human oversight, open research"
@@ -41,11 +41,12 @@ const ogPageUrl = canonicalUrl.startsWith("http") ? canonicalUrl : `${siteOrigin
     <link rel="canonical" href={ogPageUrl} />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/boldonse/v1/ZgNQjPxGPbbJUZemjB37jGA.woff2" />
     <style is:inline>
       @font-face {
         font-family: 'Boldonse';
         font-style: normal;
-        font-weight: 400;
+        font-weight: 400 900;
         font-display: optional;
         src: url(https://fonts.gstatic.com/s/boldonse/v1/ZgNQjPxGPbbJUZemjB37jGA.woff2) format('woff2');
         unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;

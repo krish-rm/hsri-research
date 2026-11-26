@@ -10,16 +10,18 @@ export const es: TranslationDict = {
 
   meta: {
     title:
-      'Humanity Readiness: ¿estamos listos para lo que pedimos a la superinteligencia? | Humanity Superintelligence Readiness Index',
+      '¿Estamos listos para lo que pedimos a la superinteligencia? | Humanity Superintelligence Readiness Index',
     description:
-      'Imagina que una superinteligencia pudiera entregar un avance a la humanidad. Elígelo, míralo llegar y descubre qué pueden seguir haciendo las personas. Con datos abiertos en 39 países.'
+      'Elige un avance, sigue lo que falla al llegar y pon a prueba los datos reales de tu país. Investigación abierta en 39 países.'
   },
 
   hero: {
     eyebrow: 'UNA HISTORIA DE PREPARACIÓN HUMANA',
-    headline: 'Humanity Readiness: ¿estamos listos para lo que pedimos a la superinteligencia?',
+    headline: '¿Estamos listos para lo que pedimos a la superinteligencia?',
+    headlineLead: '¿Estamos listos para lo que pedimos a ',
+    headlineAccent: 'la superinteligencia?',
     subhead:
-      'Imagina que una superinteligencia pudiera entregar un gran avance a la humanidad. Elígelo. Míralo llegar. Y descubre qué haría falta de verdad.',
+      'Elige un avance, sigue lo que falla al llegar y pon a prueba los datos reales de tu país.',
     ctaPrimary: 'Elige un avance',
     ctaSecondary: 'Mira cómo va tu país',
     cityLabel: 'Cielo de llegada sobre:',

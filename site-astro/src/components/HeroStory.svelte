@@ -69,7 +69,9 @@
           <span>{$dict.hero.eyebrow}</span>
         </div>
 
-        <h1 class="hero-title">{$dict.hero.headline}</h1>
+        <h1 class="hero-title">
+          {$dict.hero.headlineLead}<span class="hero-title-accent">{$dict.hero.headlineAccent}</span>
+        </h1>
 
         <p class="hero-subhead">{$dict.hero.subhead}</p>
 
@@ -276,7 +278,7 @@
     font-weight: 700;
     letter-spacing: 0.08em;
     color: var(--accent-primary);
-    margin-bottom: 1rem;
+    margin-bottom: 0.85rem;
   }
 
   :global([dir='rtl']) .eyebrow-pill {
@@ -292,21 +294,33 @@
   }
 
   .hero-title {
-    font-family: var(--font-family-sans);
-    font-size: clamp(1.85rem, 4vw, 2.85rem);
+    font-family: var(--font-family-display);
+    font-size: clamp(1.82rem, 4.1vw, 3.05rem);
     font-weight: 800;
-    line-height: 1.18;
-    letter-spacing: -0.025em;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
     color: var(--text-primary);
-    margin: 0 0 1rem;
+    max-width: 21ch;
+    margin: 0 0 1.05rem;
+  }
+
+  .hero-title-accent {
+    color: var(--accent-primary);
+  }
+
+  :global([dir='rtl']) .hero-title {
+    font-family: var(--font-family-sans);
+    font-weight: 800;
+    letter-spacing: 0;
+    line-height: 1.28;
   }
 
   .hero-subhead {
-    font-size: clamp(1rem, 1.8vw, 1.18rem);
-    line-height: 1.65;
+    font-size: clamp(1.02rem, 1.65vw, 1.16rem);
+    line-height: 1.6;
     color: var(--text-secondary);
-    max-width: 660px;
-    margin: 0 0 1.4rem;
+    max-width: 580px;
+    margin: 0 0 1.45rem;
   }
 
   .cta-row {
