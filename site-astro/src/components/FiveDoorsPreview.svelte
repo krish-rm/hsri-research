@@ -16,8 +16,6 @@
   export let base = '';
 
   let catalog: WishItem[] = CORE_BREAKTHROUGHS;
-  const FEATURED_IDS = ['sanjeevani', 'jarvis-for-my-life', 'prove-riemann-hypothesis'];
-
   let revealed = false;
   let activeDoorId = 'epic';
   let activeWishId: string | null = null;
@@ -62,141 +60,109 @@
   }
 </script>
 
-<!-- SECTION 3: FIVE DOMAINS -->
+<!-- STEP 2: COMPACT 60-SECOND BREAKTHROUGH EXPLORER -->
 <section id="wish-doors" class="story-section doors-section">
   <div class="section-wrap">
     <div class="section-head">
       <h2 class="sec-title">{$dict.doors.heading}</h2>
-      <p class="sec-sub">{$dict.doors.subhead}</p>
-      <p class="sec-micro">{$dict.doors.microcopy}</p>
+      <p class="sec-sub">{$dict.doors.microcopy}</p>
     </div>
 
     {#if revealed}
-      <!-- Quick-Launch Bar for the 3 Core Flagship Breakthroughs (~60s) -->
-      <div class="featured-bar" aria-label={$dict.player.featuredLabel}>
-        <span class="featured-label">{$dict.player.featuredLabel}</span>
-        <div class="featured-btns">
-          {#each FEATURED_IDS as fId}
-            {@const fw = WISH_BY_ID.get(fId)}
-            {#if fw}
-              <button
-                type="button"
-                class="featured-wish-btn"
-                class:active={activeWishId === fw.id}
-                onclick={() => launchWish(fw.id)}
-              >
-                <span class="fw-title">{fw.title[loc] ?? fw.title.en}</span>
-                <span class="fw-meta">
-                  {completedIds[fw.id] ? `✓ ${$dict.player.playedBadge}` : fw.honestyLabel}
-                </span>
-              </button>
-            {/if}
-          {/each}
-        </div>
+      <!-- Clean 5-Domain Pill Tabs -->
+      <div class="doors-tabs" role="tablist" aria-label="Five breakthrough domains">
+        {#each $dict.doors.items as door}
+          <button
+            type="button"
+            role="tab"
+            aria-selected={activeDoorId === door.id}
+            class="door-tab"
+            class:selected={activeDoorId === door.id}
+            onclick={() => chooseDoor(door.id)}
+          >
+            <span class="door-icon" aria-hidden="true">
+              {#if door.icon === 'chalkboard'}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="4" width="18" height="13" rx="1.5" />
+                  <path d="M7 9h6M7 13h9M9 17l-1.5 3M15 17l1.5 3" stroke-linecap="round" />
+                </svg>
+              {:else if door.icon === 'pocket'}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 6h14v7a7 7 0 0 1-14 0V6z" />
+                  <circle cx="12" cy="12" r="2.5" stroke="var(--accent-primary)" />
+                </svg>
+              {:else if door.icon === 'eye'}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M2 12s4-5.5 10-5.5S22 12 22 12s-4 5.5-10 5.5S2 12 2 12z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+              {:else if door.icon === 'frame'}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="5" width="18" height="14" rx="1.5" />
+                  <path d="M10 9l5 3-5 3V9z" stroke-linejoin="round" />
+                </svg>
+              {:else}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M8 16h8l-1.5 4h-5L8 16z" />
+                  <circle cx="12" cy="11" r="3.5" />
+                </svg>
+              {/if}
+            </span>
+            <span class="door-title">{door.title}</span>
+          </button>
+        {/each}
       </div>
 
-      <div class="doors-grid" role="tablist" aria-label="Five breakthrough domains">
-      {#each $dict.doors.items as door}
-        <button
-          type="button"
-          role="tab"
-          aria-selected={activeDoorId === door.id}
-          class="door-card"
-          class:selected={activeDoorId === door.id}
-          onclick={() => chooseDoor(door.id)}
-        >
-          <div class="door-icon" aria-hidden="true">
-            {#if door.icon === 'chalkboard'}
-              <svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="4" y="6" width="28" height="20" rx="2" />
-                <path d="M10 14h10M10 19h14M13 26l-2 5M23 26l2 5" stroke-linecap="round" />
-              </svg>
-            {:else if door.icon === 'pocket'}
-              <svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M7 9h22v10a11 11 0 0 1-22 0V9z" />
-                <circle cx="18" cy="18" r="4" stroke="var(--accent-primary)" />
-              </svg>
-            {:else if door.icon === 'eye'}
-              <svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M4 18s5.5-8 14-8 14 8 14 8-5.5 8-14 8-14-8-14-8z" />
-                <circle cx="18" cy="18" r="4.5" />
-              </svg>
-            {:else if door.icon === 'frame'}
-              <svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="5" y="7" width="26" height="22" rx="2" />
-                <path d="M10 7v22M26 7v22M15 14l7 4-7 4v-8z" stroke-linejoin="round" />
-              </svg>
-            {:else}
-              <svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 24h12l-2 6h-8l-2-6z" />
-                <path d="M18 6v4M10 10l2.5 2.5M26 10l-2.5 2.5" stroke-linecap="round" />
-                <circle cx="18" cy="18" r="5" />
-              </svg>
-            {/if}
-          </div>
-          <h3 class="door-title">{door.title}</h3>
-          <ul class="door-samples">
-            {#each door.samples as s}
-              <li>{s}</li>
-            {/each}
-          </ul>
-          <span class="door-more">{door.moreCount}</span>
-        </button>
-      {/each}
-    </div>
+      <!-- Active Domain Focus Card OR Interactive 4-Beat Player -->
+      <div bind:this={playerAnchorEl}>
+        {#if activeWish}
+          {#key activeWish.id}
+            <WishPlayer
+              wish={activeWish}
+              base={base}
+              onClose={() => (activeWishId = null)}
+              onNextWish={playNextUnseenWish}
+            />
+          {/key}
+        {:else}
+          <div class="door-preview-panel" role="tabpanel" aria-live="polite">
+            <div class="dp-header-line">
+              <span class="dp-door-tag">{selectedDoor.title}</span>
+              <span class="dp-lead">{selectedDoor.lead}</span>
+            </div>
 
-    <!-- Interactive Domain Preview or Active 4-Beat Breakthrough Player -->
-    <div bind:this={playerAnchorEl}>
-      {#if activeWish}
-        {#key activeWish.id}
-          <WishPlayer
-            wish={activeWish}
-            base={base}
-            onClose={() => (activeWishId = null)}
-            onNextWish={playNextUnseenWish}
-          />
-        {/key}
-      {:else}
-        <div class="door-preview-panel" role="tabpanel" aria-live="polite">
-          <div class="dp-top">
-            <span class="dp-door-tag">{selectedDoor.title}</span>
-            <span class="dp-phase-pill">{$dict.doors.phase2Badge}</span>
-          </div>
-          <p class="dp-lead">{selectedDoor.lead}</p>
-          <div class="dp-wishes-grid">
             {#if INCLUDE_DEV_BREAKTHROUGHS && domainDevItems.length > 0}
-              {#each domainDevItems as item}
-                <article class="dp-wish-card">
-                  <div class="dp-wish-head">
-                    <h4>{item.title[loc] ?? item.title.en}</h4>
-                    <span class="honesty-pill" title={item.honestyNote[loc] ?? item.honestyNote.en}>{item.honestyLabel}</span>
-                  </div>
-                  <p class="dp-wish-honesty-note">{item.honestyNote[loc] ?? item.honestyNote.en}</p>
-                  <p class="dp-wish-beat">{item.wobble.text[loc] ?? item.wobble.text.en}</p>
-                  <button
-                    type="button"
-                    class="dp-play-btn"
-                    onclick={() => launchWish(item.id)}
-                  >
-                    {completedIds[item.id] ? `✓ ${$dict.player.playedBadge} · ` : ''}{$dict.player.playBtn}
-                    {#if SHOW_DRAFT_BADGE && item.status === 'draft'} (DRAFT){/if}
-                    <span class="arrow-flip" aria-hidden="true">&rarr;</span>
-                  </button>
-                </article>
-              {/each}
+              <div class="dp-wishes-grid">
+                {#each domainDevItems as item}
+                  <article class="dp-wish-card">
+                    <div class="dp-wish-head">
+                      <h4>{item.title[loc] ?? item.title.en}</h4>
+                      <span class="honesty-pill">{item.honestyLabel}</span>
+                    </div>
+                    <p class="dp-wish-beat">{item.wobble.text[loc] ?? item.wobble.text.en}</p>
+                    <button type="button" class="dp-play-btn" onclick={() => launchWish(item.id)}>
+                      {completedIds[item.id] ? `✓ ${$dict.player.playedBadge} · ` : ''}{$dict.player.playBtn}
+                      {#if SHOW_DRAFT_BADGE && item.status === 'draft'} (DRAFT){/if}
+                      <span class="arrow-flip" aria-hidden="true">&rarr;</span>
+                    </button>
+                  </article>
+                {/each}
+              </div>
             {:else}
               {@const playableList = selectedDoor.wishes.filter((w) => 'id' in w && w.id && WISH_BY_ID.has(w.id))}
               {@const stubList = selectedDoor.wishes.filter((w) => !('id' in w && w.id && WISH_BY_ID.has(w.id)))}
+
               {#each playableList as wish}
                 {@const playableObj = WISH_BY_ID.get(wish.id!)}
                 {#if playableObj}
-                  <article class="dp-wish-card">
-                    <div class="dp-wish-head">
-                      <h4>{wish.title}</h4>
-                      <span class="honesty-pill" title={wish.honestyNote}>{wish.honesty}</span>
+                  <article class="dp-focus-card">
+                    <div class="dp-focus-copy">
+                      <div class="dp-wish-head">
+                        <h3>{wish.title}</h3>
+                        <span class="honesty-pill" title={wish.honestyNote}>{wish.honesty}</span>
+                      </div>
+                      <p class="dp-wish-beat">{wish.beatSummary}</p>
                     </div>
-                    <p class="dp-wish-honesty-note">{wish.honestyNote}</p>
-                    <p class="dp-wish-beat">{wish.beatSummary}</p>
                     <button
                       type="button"
                       class="dp-play-btn"
@@ -209,58 +175,21 @@
                   </article>
                 {/if}
               {/each}
+
               {#if stubList.length > 0}
-                <div class="dp-soon-list">
-                  {#each stubList as stub}
-                    <div class="dp-soon-chip">
-                      <strong>{stub.title}</strong>
-                      <span class="honesty-pill">{stub.honesty}</span>
-                      <span class="dp-soon-note">{$dict.player.previewOnlyNote}</span>
-                    </div>
-                  {/each}
-                </div>
+                <p class="dp-upcoming-line">
+                  Planned next: {stubList.map((s) => `${s.title} (${s.honesty})`).join(' · ')}
+                </p>
               {/if}
             {/if}
           </div>
-        </div>
-      {/if}
-    </div>
-    {/if}
-  </div>
-</section>
-
-<!-- SECTION 4: HOW A BREAKTHROUGH WORKS -->
-<section id="how-it-works" class="story-section alt-surface how-section">
-  <div class="section-wrap">
-    <div class="section-head">
-      <h2 class="sec-title">{$dict.beats.heading}</h2>
-    </div>
-
-    {#if revealed}
-      <div class="beats-grid">
-        {#each $dict.beats.items as beat, idx}
-          <div class="beat-card">
-            <div class="beat-num">0{idx + 1}</div>
-            <h3 class="beat-name">{beat.key}</h3>
-            <p class="beat-desc">{beat.desc}</p>
-          </div>
-        {/each}
+        {/if}
       </div>
 
-      <p class="beats-footer-line">{$dict.beats.footerLine}</p>
-    {/if}
-  </div>
-</section>
-
-<!-- SECTION 5: YOUR FIVE LIGHTS -->
-<section id="five-lights" class="story-section lights-section">
-  <div class="section-wrap">
-    <div class="section-head">
-      <h2 class="sec-title">{$dict.lights.heading}</h2>
-    </div>
-
-    {#if revealed}
-      <TrailAndShadowCard />
+      <!-- Compact Five Lights Progress Bar (Expands smoothly once player runs) -->
+      <div id="five-lights" class="lights-inline-wrap">
+        <TrailAndShadowCard compact={true} />
+      </div>
     {/if}
   </div>
 </section>
@@ -268,26 +197,15 @@
 <style>
   .story-section {
     contain: layout style;
-    padding: clamp(1.75rem, 3.8vw, 3.25rem) 0;
-    scroll-margin-top: 112px;
+    padding: clamp(1.35rem, 3vw, 2.25rem) 0;
+    scroll-margin-top: 90px;
   }
 
   .doors-section {
-    min-height: 620px;
-  }
-
-  .how-section {
-    min-height: 310px;
-  }
-
-  .lights-section {
-    min-height: 360px;
-  }
-
-  .alt-surface {
     background: var(--bg-surface-sunken);
     border-top: 1px solid var(--border-subtle);
     border-bottom: 1px solid var(--border-subtle);
+    min-height: 410px;
   }
 
   .section-wrap {
@@ -298,162 +216,131 @@
 
   .section-head {
     text-align: center;
-    max-width: 720px;
-    margin: 0 auto 1.35rem;
+    max-width: 680px;
+    margin: 0 auto 1rem;
   }
 
   .sec-title {
     font-family: var(--font-family-sans);
-    font-size: clamp(1.5rem, 3.2vw, 2.15rem);
+    font-size: clamp(1.4rem, 2.8vw, 1.95rem);
     font-weight: 800;
     color: var(--text-primary);
-    margin: 0 0 0.55rem;
-    line-height: 1.22;
+    margin: 0 0 0.35rem;
+    line-height: 1.2;
     letter-spacing: -0.02em;
   }
 
   .sec-sub {
-    font-size: clamp(0.98rem, 1.5vw, 1.1rem);
+    font-size: 0.94rem;
     color: var(--text-secondary);
-    margin: 0 0 0.45rem;
-    line-height: 1.6;
-  }
-
-  .sec-micro {
-    font-family: var(--font-family-mono);
-    font-size: 0.78rem;
-    font-weight: 700;
-    color: var(--accent-primary);
     margin: 0;
   }
 
-  .doors-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 0.85rem;
-    margin-bottom: 1.25rem;
-  }
-
-  .door-card {
-    text-align: start;
-    background: var(--bg-surface-elevated);
-    border: 1.5px solid var(--border-subtle);
-    border-radius: 14px;
-    padding: 1.1rem 1rem;
-    cursor: pointer;
+  .doors-tabs {
     display: flex;
-    flex-direction: column;
-    gap: 0.55rem;
-    transition: border-color 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.45rem;
+    margin-bottom: 0.95rem;
   }
 
-  .door-card:hover {
-    border-color: var(--accent-primary);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-sm);
+  .door-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.42rem;
+    min-height: 40px;
+    padding: 0.42rem 0.85rem;
+    border-radius: 9999px;
+    background: var(--bg-surface-elevated);
+    border: 1.5px solid var(--border-medium);
+    color: var(--text-secondary);
+    font-size: 0.84rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
   }
 
-  .door-card.selected {
+  .door-tab:hover {
     border-color: var(--accent-primary);
-    background: var(--bg-surface);
-    box-shadow: var(--shadow-md);
+    color: var(--accent-primary);
+  }
+
+  .door-tab.selected {
+    background: var(--accent-primary);
+    border-color: var(--accent-primary);
+    color: var(--btn-primary-text);
   }
 
   .door-icon {
-    width: 34px;
-    height: 34px;
-    color: var(--accent-primary);
+    width: 18px;
+    height: 18px;
+    display: inline-flex;
+    flex-shrink: 0;
   }
 
-  .door-title {
-    margin: 0;
-    font-size: 1.02rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    line-height: 1.25;
-  }
-
-  .door-samples {
-    margin: 0;
-    padding-inline-start: 1.05rem;
-    font-size: 0.82rem;
-    color: var(--text-secondary);
-    line-height: 1.45;
-  }
-
-  .door-more {
-    margin-top: auto;
-    font-family: var(--font-family-mono);
-    font-size: 0.72rem;
-    color: var(--text-secondary);
+  .door-icon svg {
+    width: 100%;
+    height: 100%;
   }
 
   .door-preview-panel {
     background: var(--bg-surface-elevated);
     border: 1px solid var(--border-medium);
     border-radius: 16px;
-    padding: 1.25rem 1.35rem;
+    padding: 1.15rem 1.25rem;
     box-shadow: var(--shadow-sm);
   }
 
-  .dp-top {
+  .dp-header-line {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 0.5rem;
+    align-items: baseline;
+    gap: 0.35rem 0.75rem;
+    margin-bottom: 0.75rem;
   }
 
   .dp-door-tag {
     font-family: var(--font-family-mono);
-    font-size: 0.76rem;
+    font-size: 0.72rem;
     font-weight: 800;
     text-transform: uppercase;
     color: var(--accent-primary);
   }
 
-  .dp-phase-pill {
-    font-size: 0.74rem;
-    padding: 0.22rem 0.65rem;
-    border-radius: 9999px;
-    background: var(--bg-surface-sunken);
-    color: var(--text-secondary);
-    border: 1px solid var(--border-subtle);
-  }
-
   .dp-lead {
-    font-size: 0.94rem;
+    font-size: 0.86rem;
     color: var(--text-secondary);
-    margin: 0 0 1rem;
   }
 
-  .dp-wishes-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.9rem;
-  }
-
-  .dp-wish-card {
+  .dp-focus-card {
     background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
     border-radius: 12px;
-    padding: 1rem;
+    padding: 1rem 1.1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.85rem 1.25rem;
+  }
+
+  .dp-focus-copy {
+    flex: 1 1 380px;
   }
 
   .dp-wish-head {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 0.4rem;
-    margin-bottom: 0.4rem;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.35rem;
   }
 
+  .dp-wish-head h3,
   .dp-wish-head h4 {
     margin: 0;
-    font-size: 1rem;
-    font-weight: 700;
+    font-size: 1.08rem;
+    font-weight: 800;
     color: var(--text-primary);
   }
 
@@ -461,303 +348,86 @@
     font-family: var(--font-family-mono);
     font-size: 0.68rem;
     font-weight: 700;
-    padding: 0.16rem 0.5rem;
+    padding: 0.14rem 0.5rem;
     border-radius: 6px;
     background: var(--threat-sovereign-bg);
     color: var(--threat-sovereign);
     border: 1px solid var(--threat-sovereign-border);
   }
 
-  .dp-wish-honesty-note {
-    font-size: 0.79rem;
-    color: var(--text-secondary);
-    margin: 0 0 0.45rem;
-    line-height: 1.45;
-  }
-
   .dp-wish-beat {
-    font-size: 0.88rem;
-    color: var(--text-primary);
     margin: 0;
-    line-height: 1.5;
-  }
-
-  .beats-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0.9rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .beat-card {
-    background: var(--bg-surface-elevated);
-    border: 1px solid var(--border-medium);
-    border-radius: 14px;
-    padding: 1.25rem 1.1rem;
-  }
-
-  .beat-num {
-    font-family: var(--font-family-mono);
-    font-size: 0.76rem;
-    font-weight: 800;
-    color: var(--accent-primary);
-    margin-bottom: 0.35rem;
-  }
-
-  .beat-name {
-    font-family: var(--font-family-display);
-    font-size: 1.15rem;
-    margin: 0 0 0.35rem;
-    color: var(--text-primary);
-  }
-
-  .beat-desc {
-    margin: 0;
-    font-size: 0.92rem;
+    font-size: 0.9rem;
     color: var(--text-secondary);
     line-height: 1.5;
-  }
-
-  .beats-footer-line {
-    text-align: center;
-    font-family: var(--font-family-sans);
-    font-size: 1.12rem;
-    font-weight: 800;
-    line-height: 1.35;
-    color: var(--accent-primary);
-    margin: 0;
-  }
-
-  .featured-bar {
-    background: var(--bg-surface-elevated);
-    border: 1px solid var(--border-medium);
-    border-radius: 14px;
-    padding: 0.85rem 1rem;
-    margin-bottom: 1.1rem;
-  }
-
-  .featured-label {
-    display: block;
-    font-family: var(--font-family-mono);
-    font-size: 0.72rem;
-    font-weight: 800;
-    color: var(--accent-primary);
-    margin-bottom: 0.55rem;
-  }
-
-  .featured-btns {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.55rem;
-  }
-
-  .featured-wish-btn {
-    text-align: start;
-    border: 1.5px solid var(--border-medium);
-    background: var(--bg-surface);
-    color: var(--text-primary);
-    border-radius: 10px;
-    padding: 0.55rem 0.75rem;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-    min-height: 48px;
-  }
-
-  .featured-wish-btn:hover,
-  .featured-wish-btn.active {
-    border-color: var(--accent-primary);
-    background: var(--threat-sovereign-bg);
-  }
-
-  .fw-title {
-    font-size: 0.88rem;
-    font-weight: 700;
-  }
-
-  .fw-meta {
-    font-family: var(--font-family-mono);
-    font-size: 0.68rem;
-    color: var(--accent-primary);
   }
 
   .dp-play-btn {
-    margin-top: 0.75rem;
     display: inline-flex;
     align-items: center;
-    gap: 0.35rem;
+    gap: 0.4rem;
     border: 0;
     background: var(--accent-primary);
     color: var(--btn-primary-text);
-    border-radius: 8px;
-    padding: 0.45rem 0.85rem;
-    font-size: 0.82rem;
+    border-radius: 10px;
+    padding: 0.65rem 1.15rem;
+    font-size: 0.9rem;
     font-weight: 700;
     cursor: pointer;
-    min-height: 36px;
+    min-height: 44px;
+    flex-shrink: 0;
   }
 
-  .dp-soon-note {
-    font-size: 0.74rem;
-    color: var(--text-secondary);
-    font-style: italic;
+  .dp-play-btn:hover {
+    background: var(--accent-primary-hover);
   }
 
-  .dp-soon-list {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 0.55rem;
+  .dp-upcoming-line {
+    margin: 0.65rem 0 0;
+    font-size: 0.78rem;
+    color: var(--text-muted);
   }
 
-  .dp-soon-chip {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.35rem 0.5rem;
-    padding: 0.7rem 0.85rem;
-    border-radius: 10px;
-    border: 1px dashed var(--border-medium);
+  .lights-inline-wrap {
+    margin-top: 0.95rem;
+  }
+
+  .dp-wishes-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  .dp-wish-card {
     background: var(--bg-surface);
-    font-size: 0.82rem;
-    color: var(--text-primary);
-  }
-
-  @media (max-width: 1024px) {
-    .doors-section {
-      min-height: 820px;
-    }
-    .how-section {
-      min-height: 420px;
-    }
-    .lights-section {
-      min-height: 450px;
-    }
-    .doors-grid,
-    .featured-btns {
-      grid-template-columns: repeat(2, 1fr);
-    }
-    .beats-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 0.9rem;
   }
 
   @media (max-width: 640px) {
-    .story-section {
-      padding: 1.55rem 0;
-    }
-    .section-head {
-      margin-bottom: 1rem;
-    }
     .doors-section {
-      min-height: 900px;
+      min-height: 450px;
     }
-    .how-section {
-      min-height: 380px;
-    }
-    .lights-section {
-      min-height: 560px;
-    }
-    .featured-bar {
-      padding: 0.6rem 0.75rem;
-      margin-bottom: 0.7rem;
-    }
-    .featured-label {
-      margin-bottom: 0.35rem;
-    }
-    .featured-btns {
-      display: flex;
-      flex-wrap: nowrap;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      gap: 0.45rem;
-      padding-bottom: 0.15rem;
-    }
-    .featured-wish-btn {
-      flex: 0 0 auto;
-      padding: 0.4rem 0.72rem;
-      min-height: 38px;
-      flex-direction: row;
-      align-items: center;
-      gap: 0.45rem;
-      white-space: nowrap;
-    }
-    .fw-title {
-      font-size: 0.8rem;
-    }
-    .fw-meta {
-      font-size: 0.64rem;
-      flex-shrink: 0;
-    }
-    .doors-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      margin-bottom: 0.75rem;
-    }
-    .door-card {
-      flex: 1 1 calc(50% - 0.2rem);
-      flex-direction: row;
-      align-items: center;
-      padding: 0.5rem 0.65rem;
-      border-radius: 10px;
-      gap: 0.45rem;
-      min-height: 42px;
-    }
-    .door-icon {
-      width: 22px;
-      height: 22px;
-      flex-shrink: 0;
-    }
-    .door-title {
-      font-size: 0.82rem;
-    }
-    .door-samples,
-    .door-more {
-      display: none;
+    .door-tab {
+      flex: 1 1 calc(50% - 0.25rem);
+      justify-content: center;
+      font-size: 0.78rem;
+      padding: 0.4rem 0.55rem;
     }
     .door-preview-panel {
-      padding: 0.9rem;
+      padding: 0.85rem;
     }
-    .dp-lead {
-      font-size: 0.86rem;
-      margin-bottom: 0.65rem;
+    .dp-focus-card {
+      padding: 0.85rem;
+    }
+    .dp-play-btn {
+      width: 100%;
+      justify-content: center;
     }
     .dp-wishes-grid {
       grid-template-columns: 1fr;
-      gap: 0.6rem;
-    }
-    .dp-wish-card {
-      padding: 0.8rem;
-    }
-    .dp-soon-chip {
-      padding: 0.55rem 0.7rem;
-      font-size: 0.78rem;
-    }
-    .beats-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0.5rem;
-      margin-bottom: 0.95rem;
-    }
-    .beat-card {
-      padding: 0.7rem 0.65rem;
-      border-radius: 10px;
-    }
-    .beat-num {
-      font-size: 0.68rem;
-      margin-bottom: 0.15rem;
-    }
-    .beat-name {
-      font-size: 0.96rem;
-      margin-bottom: 0.2rem;
-    }
-    .beat-desc {
-      font-size: 0.8rem;
-      line-height: 1.38;
-    }
-    .beats-footer-line {
-      font-size: 0.98rem;
     }
   }
 </style>
+

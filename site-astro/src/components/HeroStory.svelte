@@ -3,6 +3,10 @@
   import { dict } from '../i18n/store';
   import { trackEvent } from '../lib/privacyStorage';
 
+  export let base = '';
+  export let pulseKey: 'steady' | 'stirring' | 'rising' = 'rising';
+  export let pulseScore = 8.44;
+
   interface CitySkin {
     id: string;
     name: string;
@@ -27,13 +31,11 @@
   ];
 
   let activeCityId = 'neutral';
-  let autoDetectedNote = '';
 
   $: city = CITIES.find((c) => c.id === activeCityId) ?? CITIES[0];
 
   function selectCity(id: string) {
     activeCityId = id;
-    autoDetectedNote = '';
     trackEvent('hero_city_switch', { city: id });
   }
 
@@ -62,7 +64,7 @@
 <section class="hero-story">
   <div class="hero-container">
     <div class="hero-grid">
-      <!-- Left: Headline, Subhead, CTAs, City Switcher -->
+      <!-- Left: Clear Question, Concise Subtitle, Single Status Strip & Primary Actions -->
       <div class="hero-copy">
         <div class="eyebrow-pill">
           <span class="pulse-dot" aria-hidden="true"></span>
@@ -85,13 +87,38 @@
           </a>
         </div>
 
-        <!-- Original Calm Coastal Harbour SVG -->
+        <!-- Inline Quick Context Strip (replaces separate Pulse + Meet Toto wall) -->
+        <div class="hero-meta-strip">
+          <a href={`${base}/toto/`} class="hm-pill">
+            <strong>Toto:</strong> {$dict.totoCard.heading.replace('.', '')} &rarr;
+          </a>
+          <a href={`${base}/seismograph/`} class="hm-pill pulse-badge">
+            <span class={`hm-dot state-${pulseKey}`} aria-hidden="true"></span>
+            <span>{$dict.pulse.label}: <strong>{$dict.pulse.states[pulseKey].word}</strong> ({pulseScore.toFixed(1)}/10)</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: Clean Visual Horizon Card with Compact City Dropdown -->
+      <div class="hero-visual">
         <figure class="skyline-card" aria-label={`Dawn harbour scene for ${city.name} showing Toto arriving as a calm light`}>
           <div class="skyline-top-bar">
             <span class="skyline-caption-label">
               {$dict.hero.cityLabel} <strong id="hcn">{activeCityId === 'neutral' ? $dict.hero.cityNeutralName : city.name}</strong>
               <span id="hcr" class="region-chip">{city.regionHint}</span>
             </span>
+
+            <label class="sr-only" for="hero-city-select">Switch city horizon</label>
+            <select
+              id="hero-city-select"
+              class="city-select-mini"
+              bind:value={activeCityId}
+              onchange={() => selectCity(activeCityId)}
+            >
+              {#each CITIES as c}
+                <option value={c.id}>{c.name}</option>
+              {/each}
+            </select>
           </div>
 
           <svg
@@ -118,10 +145,8 @@
               </linearGradient>
             </defs>
 
-            <!-- Dawn Sky -->
             <rect width="640" height="145" fill="url(#dawn-sky)" />
 
-            <!-- Toto arrival orb & thin ring over harbour -->
             <circle cx="430" cy="64" r="68" fill="url(#toto-glow)" class="toto-halo" />
             <g class="toto-orb" transform="translate(430 62)">
               <circle cx="0" cy="0" r="18" fill="none" stroke="#1b6756" stroke-width="1.2" stroke-dasharray="4 3" opacity="0.7" />
@@ -129,66 +154,55 @@
               <circle cx="0" cy="0" r="3" fill="#1b6756" />
             </g>
 
-            <!-- City-varied silhouette (calm coastal blocks + landmark detail) -->
             <g fill="#2b3838" opacity="0.86">
               <rect x="28" y="106" width="38" height="39" rx="2" />
               <rect x="72" y="90" width="32" height="55" rx="2" />
               <rect x="110" y="114" width="44" height="31" rx="2" />
 
               {#if city.feature === 'cranes'}
-                <!-- Coastal Harbour cranes & lighthouse -->
                 <path d="M180 145 L180 86 L216 74 M194 94 L194 145" stroke="#2b3838" stroke-width="3" fill="none" />
                 <rect x="242" y="100" width="34" height="45" rx="2" />
                 <path d="M510 145 L516 92 L528 92 L534 145 Z" />
                 <circle cx="522" cy="87" r="4" fill="#f59e0b" />
               {:else if city.feature === 'bridge'}
-                <!-- Harbour suspension bridge -->
                 <path d="M172 145 L182 82 L190 145 M274 145 L284 82 L292 145" stroke="#2b3838" stroke-width="2" />
                 <path d="M150 120 Q232 95 316 120" stroke="#2b3838" stroke-width="2.5" fill="none" />
                 <rect x="145" y="122" width="175" height="6" />
                 <rect x="495" y="102" width="46" height="43" rx="2" />
               {:else if city.feature === 'domes'}
-                <!-- Archway & coastal domes -->
                 <path d="M185 145 L185 98 Q208 78 231 98 L231 145 Z" />
                 <rect x="242" y="88" width="28" height="57" rx="2" />
                 <rect x="496" y="108" width="52" height="37" rx="2" />
               {:else if city.feature === 'spires'}
-                <!-- Modern harbour spires -->
                 <polygon points="196,145 204,52 212,145" />
                 <rect x="225" y="92" width="28" height="53" rx="2" />
                 <path d="M268 145 Q286 92 296 145 Z" />
                 <rect x="506" y="106" width="36" height="39" rx="2" />
               {:else if city.feature === 'tvtower'}
-                <!-- Observation spire & riverside halls -->
                 <rect x="196" y="64" width="6" height="81" />
                 <ellipse cx="199" cy="88" rx="14" ry="5" />
                 <rect x="224" y="98" width="38" height="47" rx="2" />
                 <rect x="498" y="104" width="44" height="41" rx="2" />
               {:else if city.feature === 'island'}
-                <!-- Archipelago vessels & tropical roofs -->
                 <polygon points="182,118 206,96 230,118" />
                 <rect x="186" y="118" width="40" height="27" />
                 <rect x="244" y="94" width="32" height="51" rx="2" />
                 <path d="M510 145 Q528 112 548 145 Z" />
               {:else if city.feature === 'hills'}
-                <!-- Distant green hills & sunlit rooftops -->
                 <path d="M150 145 Q225 96 300 145 Z" opacity="0.65" />
                 <rect x="200" y="96" width="28" height="49" rx="2" />
                 <rect x="502" y="105" width="40" height="40" rx="2" />
               {:else}
-                <!-- Varied city blocks -->
                 <rect x="174" y="84" width="26" height="61" rx="2" />
                 <rect x="206" y="70" width="24" height="75" rx="2" />
                 <rect x="236" y="96" width="32" height="49" rx="2" />
                 <rect x="498" y="106" width="42" height="39" rx="2" />
               {/if}
 
-              <!-- Low waterfront warehouses right -->
               <rect x="330" y="122" width="46" height="23" rx="2" />
               <rect x="556" y="116" width="52" height="29" rx="2" />
             </g>
 
-            <!-- Sea & soft light path -->
             <rect x="0" y="145" width="640" height="55" fill="url(#sea-grad)" />
             <g fill="#fde68a" opacity="0.45">
               <rect x="398" y="152" width="64" height="3" rx="1.5" />
@@ -196,7 +210,6 @@
               <rect x="418" y="172" width="24" height="2" rx="1" />
             </g>
 
-            <!-- Small calm harbour boat -->
             <g transform="translate(292 152)" class="boat-drift">
               <path d="M0 10 L36 10 L30 17 L6 17 Z" fill="#f8fafc" />
               <polygon points="16,0 16,9 28,9" fill="#fef3c7" />
@@ -206,39 +219,7 @@
           <figcaption class="skyline-figcaption">
             <span>{$dict.hero.totoCaption}</span>
           </figcaption>
-
-          <div class="city-pills" role="group" aria-label="Choose example coastal city skyline">
-            {#each CITIES as c}
-              <button
-                type="button"
-                class="city-pill"
-                class:active={activeCityId === c.id}
-                data-city={c.id}
-                data-c={`${c.regionHint}|${c.skyTop}|${c.skyBottom}|${c.waterTint}`}
-                onclick={() => selectCity(c.id)}
-              >
-                {c.name}
-              </button>
-            {/each}
-          </div>
         </figure>
-      </div>
-
-      <!-- Right / Below on mobile: Crowd Readiness Ring (Honest empty state) -->
-      <div class="ring-panel">
-        <div class="ring-card">
-          <div class="ring-svg-wrap">
-            <svg viewBox="0 0 160 160" width="160" height="160" class="ring-svg" role="img" aria-label="Crowd readiness gauge awaiting the first 200 participants">
-              <circle cx="80" cy="80" r="64" fill="none" stroke="var(--border-medium)" stroke-width="10" stroke-dasharray="6 6" />
-              <circle cx="80" cy="80" r="50" fill="none" stroke="var(--accent-primary)" stroke-width="2" opacity="0.25" class="ring-breath" />
-              <text x="80" y="76" text-anchor="middle" class="ring-num">0 / 200</text>
-              <text x="80" y="95" text-anchor="middle" class="ring-unit">PARTICIPANTS</text>
-            </svg>
-          </div>
-          <p class="ring-title">{$dict.hero.ringTitle}</p>
-          <p class="ring-empty-headline">{$dict.hero.ringEmptyHeadline}</p>
-          <p class="ring-empty-sub">{$dict.hero.ringEmptySub}</p>
-        </div>
       </div>
     </div>
   </div>
@@ -247,7 +228,7 @@
 <style>
   .hero-story {
     contain: layout style;
-    padding: clamp(2rem, 4vw, 3.75rem) 0 clamp(1.75rem, 3vw, 2.75rem);
+    padding: clamp(1.4rem, 3.2vw, 2.75rem) 0 clamp(1.25rem, 2.5vw, 2rem);
     background: radial-gradient(900px 420px at 50% 0%, var(--accent-primary-glow), transparent 65%),
       var(--bg-canvas);
   }
@@ -260,25 +241,25 @@
 
   .hero-grid {
     display: grid;
-    grid-template-columns: 1.55fr 0.85fr;
-    gap: clamp(1.5rem, 3vw, 2.5rem);
-    align-items: start;
+    grid-template-columns: 1.25fr 0.95fr;
+    gap: clamp(1.25rem, 3vw, 2.25rem);
+    align-items: center;
   }
 
   .eyebrow-pill {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.32rem 0.85rem;
+    gap: 0.45rem;
+    padding: 0.28rem 0.8rem;
     border-radius: 9999px;
     background: var(--bg-surface-elevated);
     border: 1px solid var(--border-medium);
     font-family: var(--font-family-mono);
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     font-weight: 700;
     letter-spacing: 0.08em;
     color: var(--accent-primary);
-    margin-bottom: 0.85rem;
+    margin-bottom: 0.75rem;
   }
 
   :global([dir='rtl']) .eyebrow-pill {
@@ -295,13 +276,13 @@
 
   .hero-title {
     font-family: var(--font-family-display);
-    font-size: clamp(1.82rem, 4.1vw, 3.05rem);
+    font-size: clamp(1.82rem, 4vw, 2.95rem);
     font-weight: 800;
-    line-height: 1.4;
+    line-height: 1.38;
     letter-spacing: -0.01em;
     color: var(--text-primary);
     max-width: 21ch;
-    margin: 0 0 1.05rem;
+    margin: 0 0 0.85rem;
   }
 
   .hero-title-accent {
@@ -316,18 +297,18 @@
   }
 
   .hero-subhead {
-    font-size: clamp(1.02rem, 1.65vw, 1.16rem);
-    line-height: 1.6;
+    font-size: clamp(0.98rem, 1.55vw, 1.12rem);
+    line-height: 1.58;
     color: var(--text-secondary);
-    max-width: 580px;
-    margin: 0 0 1.45rem;
+    max-width: 540px;
+    margin: 0 0 1.25rem;
   }
 
   .cta-row {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.75rem;
-    margin-bottom: 1.75rem;
+    gap: 0.65rem;
+    margin-bottom: 1rem;
   }
 
   .btn-primary-hero,
@@ -336,11 +317,11 @@
     align-items: center;
     justify-content: center;
     gap: 0.45rem;
-    min-height: 46px;
-    padding: 0.7rem 1.35rem;
+    min-height: 44px;
+    padding: 0.65rem 1.25rem;
     border-radius: 10px;
     font-weight: 700;
-    font-size: 0.96rem;
+    font-size: 0.94rem;
     text-decoration: none;
     transition: transform 0.16s ease, background-color 0.16s ease, border-color 0.16s ease;
   }
@@ -367,6 +348,42 @@
     color: var(--accent-primary);
   }
 
+  .hero-meta-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .hm-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.32rem 0.72rem;
+    border-radius: 9999px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    min-height: 36px;
+  }
+
+  .hm-pill:hover {
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+  }
+
+  .hm-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .hm-dot.state-steady { background: var(--threat-sovereign); }
+  .hm-dot.state-stirring,
+  .hm-dot.state-rising { background: var(--threat-warning); }
+
   :global([dir='rtl']) .arrow-flip {
     display: inline-block;
     transform: scaleX(-1);
@@ -376,39 +393,44 @@
     margin: 0;
     background: var(--bg-surface);
     border: 1px solid var(--border-medium);
-    border-radius: 14px;
+    border-radius: 16px;
     overflow: hidden;
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-md);
   }
 
   .skyline-top-bar {
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    gap: 0.35rem 0.5rem;
+    gap: 0.5rem;
     min-height: 44px;
-    padding: 0.55rem 0.9rem;
+    padding: 0.5rem 0.85rem;
     background: var(--bg-surface-elevated);
     border-bottom: 1px solid var(--border-subtle);
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     color: var(--text-secondary);
   }
 
   .region-chip {
     display: inline-block;
-    margin-inline-start: 0.35rem;
-    padding: 0.1rem 0.45rem;
+    margin-inline-start: 0.3rem;
+    padding: 0.08rem 0.42rem;
     border-radius: 9999px;
     background: var(--bg-surface-sunken);
     font-family: var(--font-family-mono);
-    font-size: 0.68rem;
+    font-size: 0.65rem;
   }
 
-  .tz-note {
-    font-size: 0.72rem;
-    color: var(--accent-primary);
+  .city-select-mini {
+    border: 1px solid var(--border-medium);
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    border-radius: 8px;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.76rem;
     font-weight: 600;
+    min-height: 32px;
+    cursor: pointer;
   }
 
   .harbour-svg {
@@ -417,115 +439,22 @@
     height: auto;
   }
 
-  .toto-halo {
-    opacity: 0.92;
-  }
-
-  .boat-drift {
-    transform: translate(292px, 152px);
-  }
-
   .skyline-figcaption {
-    padding: 0.55rem 0.9rem;
-    font-size: 0.84rem;
+    padding: 0.6rem 0.9rem;
+    font-size: 0.82rem;
     color: var(--text-secondary);
     font-style: italic;
     border-top: 1px solid var(--border-subtle);
     background: var(--bg-surface);
   }
 
-  .city-pills {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-    padding: 0.65rem 0.9rem;
-    border-top: 1px solid var(--border-subtle);
-    background: var(--bg-surface-sunken);
-  }
-
-  .city-pill {
-    border: 1px solid var(--border-medium);
-    background: var(--bg-surface-elevated);
-    color: var(--text-secondary);
-    border-radius: 9999px;
-    padding: 0.3rem 0.7rem;
-    font-size: 0.76rem;
-    font-weight: 600;
-    cursor: pointer;
-    min-height: 32px;
-    transition: all 0.15s ease;
-  }
-
-  .city-pill:hover {
-    border-color: var(--accent-primary);
-    color: var(--accent-primary);
-  }
-
-  .city-pill.active {
-    background: var(--accent-primary);
-    border-color: var(--accent-primary);
-    color: var(--btn-primary-text);
-  }
-
-  .ring-card {
-    background: var(--bg-surface-elevated);
-    border: 1px solid var(--border-medium);
-    border-radius: 16px;
-    padding: 1.5rem 1.25rem;
-    text-align: center;
-    box-shadow: var(--shadow-md);
-  }
-
-  .ring-svg-wrap {
-    width: 148px;
-    margin: 0 auto 0.85rem;
-  }
-
-  .ring-svg {
-    width: 100%;
-    height: auto;
-  }
-
-  .ring-num {
-    font-family: var(--font-family-mono);
-    font-size: 16px;
-    font-weight: 700;
-    fill: var(--text-primary);
-    direction: ltr;
-    unicode-bidi: isolate;
-  }
-
-  .ring-unit {
-    font-family: var(--font-family-mono);
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    fill: var(--text-secondary);
-  }
-
-  .ring-breath {
-    stroke-opacity: 0.35;
-  }
-
-  .ring-title {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--text-secondary);
-    margin: 0 0 0.45rem;
-  }
-
-  .ring-empty-headline {
-    font-family: var(--font-family-sans);
-    font-size: 1.12rem;
-    font-weight: 800;
-    color: var(--accent-primary);
-    margin: 0 0 0.35rem;
-  }
-
-  .ring-empty-sub {
-    font-size: 0.82rem;
-    line-height: 1.5;
-    color: var(--text-secondary);
-    margin: 0;
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
   }
 
   @media (max-width: 900px) {
@@ -535,25 +464,12 @@
   }
 
   @media (max-width: 480px) {
-    .skyline-top-bar {
-      min-height: 62px;
-      align-items: center;
-    }
     .cta-row {
       flex-direction: column;
     }
     .btn-primary-hero,
     .btn-secondary-hero {
       width: 100%;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .pulse-dot,
-    .toto-halo,
-    .boat-drift,
-    .ring-breath {
-      animation: none !important;
     }
   }
 </style>

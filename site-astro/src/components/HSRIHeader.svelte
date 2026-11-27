@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
 
   export let currentPath = '';
+  export let showStatsBar = true;
 
   // ── Types ──────────────────────────────────────────────────────────
   type NavChild = { name: string; href: string; desc: string; external?: boolean };
@@ -239,15 +240,17 @@
       </nav>
     </div>
 
-    <!-- Stats bar — desktop only, hides on scroll -->
-    <div class="stats-bar" class:hidden-on-scroll={isScrolled}>
-      <div class="stats-container">
-        <div class="stat-item"><span class="stat-label">Benchmark Scope</span><span class="stat-value">39 <small>Nations</small></span></div>
-        <div class="stat-item"><span class="stat-label">Benchmark Mean</span><span class="stat-value">53.8 <small>/ 100</small></span></div>
-        <div class="stat-item" title="Share of retained indicators observed across 39 benchmark countries (640 of 663 cells)"><span class="stat-label">Data Completeness</span><span class="stat-value">96.5% <small>Retained indicators · 39 countries</small></span></div>
-        <div class="stat-item"><span class="stat-label">Index Status</span><span class="stat-value" style="display:flex;align-items:center;gap:6px;"><span class="status-dot"></span><span style="font-size:0.85rem;color:#92400e;">Preview Release</span></span></div>
+    <!-- Stats bar — research pages desktop only, hides on scroll -->
+    {#if showStatsBar}
+      <div class="stats-bar" class:hidden-on-scroll={isScrolled}>
+        <div class="stats-container">
+          <div class="stat-item"><span class="stat-label">Benchmark Scope</span><span class="stat-value">39 <small>Nations</small></span></div>
+          <div class="stat-item"><span class="stat-label">Benchmark Mean</span><span class="stat-value">53.8 <small>/ 100</small></span></div>
+          <div class="stat-item" title="Share of retained indicators observed across 39 benchmark countries (640 of 663 cells)"><span class="stat-label">Data Completeness</span><span class="stat-value">96.5% <small>Retained indicators · 39 countries</small></span></div>
+          <div class="stat-item"><span class="stat-label">Index Status</span><span class="stat-value" style="display:flex;align-items:center;gap:6px;"><span class="status-dot"></span><span style="font-size:0.85rem;color:#92400e;">Preview Release</span></span></div>
+        </div>
       </div>
-    </div>
+    {/if}
   </div>
 
   <!-- Mobile Drawer -->

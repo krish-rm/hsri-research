@@ -14,6 +14,7 @@
   const SHADOW_KEYS: ShadowKey[] = ['Control', 'Dependence', 'Power', 'Truth', 'Speed'];
 
   export let activeLightKey: LightKey = 'Clarity';
+  export let compact = false;
 
   $: state = $readinessStore;
   $: completed = $completedWishList;
@@ -156,6 +157,36 @@
   }
 </script>
 
+<!-- Compact strip mode on homepage until visitor begins playing -->
+{#if compact && doneCount === 0}
+  <div class="compact-lights-strip">
+    <div class="cls-top">
+      <span class="cls-title">{$dict.lights.heading}:</span>
+      <span class="cls-hint">{$dict.lights.emptyState}</span>
+    </div>
+    <div class="lights-row compact-orbs" role="tablist" aria-label={$dict.lights.heading}>
+      {#each LIGHT_KEYS as lk, idx}
+        {@const info = getLocalizedLight(idx)}
+        <button
+          type="button"
+          role="tab"
+          aria-selected={activeLightKey === lk}
+          class="light-pill compact-pill"
+          class:active={activeLightKey === lk}
+          on:click={() => (activeLightKey = lk)}
+        >
+          <span class="lamp-orb glow-0" aria-hidden="true"></span>
+          <strong>{info.key}</strong>
+        </button>
+      {/each}
+    </div>
+    <p class="cls-meaning">
+      <strong>{getLocalizedLight(LIGHT_KEYS.indexOf(activeLightKey)).key}:</strong>
+      {getLocalizedLight(LIGHT_KEYS.indexOf(activeLightKey)).meaning}
+      <span class="cls-local-note">&middot; {$dict.lights.trailNote}</span>
+    </p>
+  </div>
+{:else}
 <!-- Interactive 5 Lights Array (glow levels 0-3 only, zero numeric scores) -->
 <div class="lights-row" role="tablist" aria-label={$dict.lights.heading}>
   {#each LIGHT_KEYS as lk, idx}
@@ -281,8 +312,62 @@
     {/if}
   {/if}
 </div>
+{/if}
 
 <style>
+  .compact-lights-strip {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-medium);
+    border-radius: 14px;
+    padding: 0.85rem 1rem;
+    text-align: center;
+  }
+
+  .cls-top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.35rem;
+    margin-bottom: 0.55rem;
+    font-size: 0.84rem;
+  }
+
+  .cls-title {
+    font-weight: 800;
+    color: var(--text-primary);
+  }
+
+  .cls-hint {
+    color: var(--text-secondary);
+  }
+
+  .lights-row.compact-orbs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.4rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .light-pill.compact-pill {
+    padding: 0.38rem 0.72rem;
+    border-radius: 9999px;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 36px;
+    font-size: 0.82rem;
+  }
+
+  .cls-meaning {
+    margin: 0;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+  }
+
+  .cls-local-note {
+    color: var(--text-muted);
+  }
+
   .lights-row {
     display: grid;
     grid-template-columns: repeat(5, 1fr);

@@ -70,6 +70,56 @@
     </a>
     <a href={`${base}/`} class="btn-home">{$dict.totoPage.homeLink}</a>
   </div>
+
+  <!-- Relocated Background Guides & Community Roadmap (keeping / overload-free) -->
+  <section class="toto-extra-section" aria-label={$dict.beats.heading}>
+    <h2>{$dict.beats.heading}</h2>
+    <div class="beats-grid">
+      {#each $dict.beats.items as beat, idx}
+        <div class="beat-card">
+          <span class="beat-num">0{idx + 1}</span>
+          <h3>{beat.key}</h3>
+          <p>{beat.desc}</p>
+        </div>
+      {/each}
+    </div>
+    <p class="beats-footer">{$dict.beats.footerLine}</p>
+  </section>
+
+  <section class="toto-extra-section" aria-label={$dict.wisher.heading}>
+    <h2>{$dict.wisher.heading}</h2>
+    <div class="wisher-grid">
+      {#each $dict.wisher.cards as card}
+        <article class="story-card">
+          <h3>{card.title}</h3>
+          <p>{card.body}</p>
+          <details class="card-tech">
+            <summary>&#9432; {$dict.pulse.tooltipTrigger}</summary>
+            <p>{card.techHint}</p>
+          </details>
+        </article>
+      {/each}
+    </div>
+    <p class="beats-footer">{$dict.wisher.closingLine}</p>
+  </section>
+
+  <section id="this-week" class="toto-extra-section" aria-label={$dict.episode.heading}>
+    <h2>{$dict.episode.heading}</h2>
+    <div class="wisher-grid">
+      <article class="story-card">
+        <span class="toto-pill">{$dict.episode.badge}</span>
+        <h3>Episode 1: &ldquo;{$dict.episode.title}&rdquo;</h3>
+        <p>{$dict.episode.synopsis}</p>
+        <p class="muted-note">{$dict.episode.voteNote}</p>
+      </article>
+      <article class="story-card">
+        <h3>{$dict.wishWall.heading}</h3>
+        <p>{$dict.wishWall.emptyHeadline}</p>
+        <p>{$dict.wishWall.emptyBody}</p>
+        <p class="muted-note">{$dict.episode.recapTitle}: {$dict.episode.recapStatus}</p>
+      </article>
+    </div>
+  </section>
 </section>
 
 <style>
@@ -222,8 +272,89 @@
 
   @media (max-width: 760px) {
     .poses-row,
-    .sections-grid {
+    .sections-grid,
+    .beats-grid,
+    .wisher-grid {
       grid-template-columns: 1fr;
     }
+  }
+
+  .toto-extra-section {
+    margin-top: 2.25rem;
+    padding-top: 1.75rem;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .toto-extra-section h2 {
+    text-align: center;
+    font-size: clamp(1.25rem, 2.5vw, 1.6rem);
+    margin: 0 0 1rem;
+    color: var(--text-primary);
+  }
+
+  .beats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .beat-card {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-medium);
+    border-radius: 12px;
+    padding: 0.9rem;
+  }
+
+  .beat-num {
+    font-family: var(--font-family-mono);
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: var(--accent-primary);
+  }
+
+  .beat-card h3 {
+    margin: 0.2rem 0 0.25rem;
+    font-size: 1rem;
+    color: var(--text-primary);
+  }
+
+  .beat-card p {
+    margin: 0;
+    font-size: 0.86rem;
+    color: var(--text-secondary);
+  }
+
+  .beats-footer {
+    text-align: center;
+    font-weight: 800;
+    color: var(--accent-primary);
+    margin: 0;
+  }
+
+  .wisher-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .story-card h3 {
+    margin: 0 0 0.45rem;
+    font-size: 1.06rem;
+    color: var(--text-primary);
+  }
+
+  .card-tech summary {
+    cursor: pointer;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+
+  .muted-note {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 0;
   }
 </style>

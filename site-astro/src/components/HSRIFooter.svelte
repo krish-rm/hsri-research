@@ -19,7 +19,7 @@
       { name: 'Scientific Methodology', href: `${base}/methodology/` },
       { name: 'Data Downloads', href: `${base}/data/` },
       { name: 'Coverage Audit', href: `${base}/coverage/` },
-      { name: "Join Friday's recap", href: `${base}/#this-week` },
+      { name: "Join Friday's recap", href: `${base}/toto/#this-week` },
       { name: 'Limitations & Disclaimer', href: `${base}/methodology/#limitations` },
     ]
   };
@@ -425,8 +425,27 @@
   }
 
   @media (max-width: 640px) {
+    .hsri-footer {
+      margin-top: 0;
+      padding: 1.5rem 0 1.25rem;
+    }
+
+    .footer-content {
+      gap: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+
     .footer-nav {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .nav-section h4 {
+      margin-bottom: 0.45rem;
+    }
+
+    .nav-links li {
+      margin-bottom: 0.3rem;
     }
 
     .footer-bottom {
