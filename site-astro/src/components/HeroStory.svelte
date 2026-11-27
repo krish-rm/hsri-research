@@ -92,9 +92,10 @@
 
       <!-- Right / Visual Flow: 1. Meet Toto Portrait -> 2. Arrival Sky -> 3. Humanity's Pulse Visual -->
       <div class="hero-visual">
-        <!-- 1. Meet Toto Character Card -->
+        <!-- 1. Animated Toto Introduction Card -->
         <a href={`${base}/toto/`} class="toto-mini-card">
           <div class="toto-portrait-frame">
+            <span class="toto-portrait-aura" aria-hidden="true"></span>
             <img
               src={`${base}/assets/toto-character.webp`}
               alt={$dict.totoCard.svgAlt}
@@ -103,14 +104,19 @@
               decoding="async"
               class="toto-portrait-img"
             />
+            <svg class="toto-spark" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
+              <path d="M8 1 L9.6 6.4 L15 8 L9.6 9.6 L8 15 L6.4 9.6 L1 8 L6.4 6.4 Z" fill="#d97706" />
+            </svg>
           </div>
           <div class="toto-mini-copy">
             <div class="toto-mini-top">
-              <span class="mini-tag">{$dict.totoCard.eyebrow}</span>
+              <strong class="toto-mini-title">
+                <span class="live-hello-dot" aria-hidden="true"></span>
+                &ldquo;{$dict.totoIntro.lines[0]}&rdquo;
+              </strong>
               <span class="mini-arrow">{$dict.totoCard.ctaSecondary} <span class="arrow-flip" aria-hidden="true">&rarr;</span></span>
             </div>
-            <strong class="toto-mini-title">{$dict.totoCard.heading}</strong>
-            <p class="toto-mini-desc">{$dict.totoCard.chips.join(' · ')}</p>
+            <p class="toto-mini-desc">{$dict.totoIntro.lines[1]}</p>
           </div>
         </a>
 
@@ -435,10 +441,11 @@
   }
 
   .toto-portrait-frame {
+    position: relative;
     flex-shrink: 0;
-    width: 68px;
-    height: 68px;
-    border-radius: 12px;
+    width: 72px;
+    height: 72px;
+    border-radius: 14px;
     overflow: hidden;
     background: #fbf7ee;
     border: 1px solid var(--border-subtle);
@@ -447,11 +454,30 @@
     justify-content: center;
   }
 
+  .toto-portrait-aura {
+    position: absolute;
+    inset: 6px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(124, 224, 198, 0.35), rgba(245, 158, 11, 0.14) 55%, transparent 75%);
+    animation: totoAura 3.6s ease-in-out infinite;
+    pointer-events: none;
+  }
+
   .toto-portrait-img {
+    position: relative;
     display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    animation: totoFloat 3.8s ease-in-out infinite;
+  }
+
+  .toto-spark {
+    position: absolute;
+    top: 5px;
+    inset-inline-end: 5px;
+    pointer-events: none;
+    animation: totoTwinkle 2.8s ease-in-out infinite;
   }
 
   .toto-mini-copy {
@@ -465,15 +491,7 @@
     justify-content: space-between;
     align-items: center;
     gap: 0.35rem;
-    margin-bottom: 0.15rem;
-  }
-
-  .mini-tag {
-    font-family: var(--font-family-mono);
-    font-size: 0.64rem;
-    font-weight: 800;
-    letter-spacing: 0.06em;
-    color: var(--accent-primary);
+    margin-bottom: 0.2rem;
   }
 
   .mini-arrow {
@@ -484,18 +502,53 @@
   }
 
   .toto-mini-title {
-    display: block;
-    font-size: 0.96rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.98rem;
     font-weight: 800;
     color: var(--text-primary);
     line-height: 1.25;
   }
 
+  .live-hello-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent-primary);
+    animation: totoAura 2.4s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+
   .toto-mini-desc {
-    margin: 0.15rem 0 0;
-    font-size: 0.78rem;
+    margin: 0.12rem 0 0;
+    font-size: 0.82rem;
     color: var(--text-secondary);
-    line-height: 1.38;
+    line-height: 1.4;
+  }
+
+  @keyframes totoFloat {
+    0%, 100% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-3px) scale(1.02); }
+  }
+
+  @keyframes totoAura {
+    0%, 100% { transform: scale(0.95); opacity: 0.65; }
+    50% { transform: scale(1.06); opacity: 1; }
+  }
+
+  @keyframes totoTwinkle {
+    0%, 100% { transform: scale(0.8) rotate(0deg); opacity: 0.55; }
+    50% { transform: scale(1.1) rotate(18deg); opacity: 1; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toto-portrait-img,
+    .toto-portrait-aura,
+    .toto-spark,
+    .live-hello-dot {
+      animation: none !important;
+    }
   }
 
   /* 2. Arrival Sky Over Card */

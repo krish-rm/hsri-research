@@ -201,6 +201,18 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    animation: totoGentleFloat 3.8s ease-in-out infinite;
+  }
+
+  @keyframes totoGentleFloat {
+    0%, 100% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-3px) scale(1.02); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toto-hero-portrait {
+      animation: none !important;
+    }
   }
 
   .toto-head-copy {
