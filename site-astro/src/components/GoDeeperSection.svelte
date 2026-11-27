@@ -4,111 +4,170 @@
   export let base = '';
 </script>
 
-<section id="go-deeper" class="explore-strip">
+<section id="go-deeper" class="evidence-section">
   <div class="story-container">
     <div class="es-head">
+      <span class="es-kicker">OPEN EMPIRICAL FOUNDATION</span>
       <h2>{$dict.deeper.heading}</h2>
       <p>{$dict.deeper.subhead}</p>
     </div>
 
-    <nav class="es-links" aria-label="Research instruments and story guides">
-      <a href={`${base}/toto/`} class="es-pill">Guide: Toto &amp; How It Works &rarr;</a>
-      <a href={`${base}/seismograph/`} class="es-pill">Live AI Pace &rarr;</a>
-      <a href={`${base}/countries/`} class="es-pill">39-Country Index &rarr;</a>
-      <a href={`${base}/sandbox/`} class="es-pill">Interactive Lab &rarr;</a>
-      <a href={`${base}/scenarios/`} class="es-pill">26 Scenarios &rarr;</a>
-      <a href={`${base}/monograph/`} class="es-pill">The Monograph &rarr;</a>
-    </nav>
+    <!-- Non-redundant Empirical Scope Proof Cards (full site navigation lives cleanly in footer below) -->
+    <div class="proof-stats" aria-label="Empirical benchmark summary">
+      <div class="ps-card">
+        <strong>39</strong>
+        <span>Nations benchmarked in depth</span>
+      </div>
+      <div class="ps-card">
+        <strong>96.5%</strong>
+        <span>Observed indicator completeness</span>
+      </div>
+      <div class="ps-card">
+        <strong>26</strong>
+        <span>Modeled AI transition risks</span>
+      </div>
+      <div class="ps-card">
+        <strong>14</strong>
+        <span>Early pace signs monitored</span>
+      </div>
+    </div>
 
-    <div class="es-open-science">
-      <a href={`${base}/methodology/`}>Methodology</a>
-      <span>&middot;</span>
-      <a href={`${base}/data/`}>Data &amp; CSVs</a>
-      <span>&middot;</span>
-      <a href={`${base}/coverage/`}>Global Coverage Audit</a>
-      <span>&middot;</span>
-      <a href={`${base}/privacy/`}>Privacy</a>
-      <span>&middot;</span>
-      <a href="https://doi.org/10.5281/zenodo.23441742" target="_blank" rel="noopener noreferrer">
-        DOI 10.5281/zenodo.23441742
+    <div class="es-actions">
+      <a href={`${base}/sandbox/`} class="es-primary-cta">
+        Try a custom stress test in the Lab <span aria-hidden="true">&rarr;</span>
       </a>
+      <details class="es-citation-note">
+        <summary>Citation &amp; open data guarantee (DOI 10.5281/zenodo.23441742)</summary>
+        <p>{$dict.deeper.releaseNote}</p>
+      </details>
     </div>
   </div>
 </section>
 
 <style>
-  .explore-strip {
+  .evidence-section {
     contain: layout style;
-    padding: 1.5rem 0;
+    padding: 1.65rem 0;
     background: var(--bg-surface-sunken);
     border-top: 1px solid var(--border-subtle);
     border-bottom: 1px solid var(--border-subtle);
   }
 
   .story-container {
-    max-width: 1020px;
+    max-width: 960px;
     margin: 0 auto;
     padding: 0 1.15rem;
     text-align: center;
   }
 
+  .es-kicker {
+    display: inline-block;
+    font-family: var(--font-family-mono);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: var(--accent-primary);
+    margin-bottom: 0.3rem;
+  }
+
   .es-head h2 {
     margin: 0 0 0.25rem;
-    font-size: clamp(1.2rem, 2.2vw, 1.5rem);
+    font-size: clamp(1.22rem, 2.4vw, 1.55rem);
     font-weight: 800;
     color: var(--text-primary);
   }
 
   .es-head p {
-    margin: 0 auto 0.9rem;
-    max-width: 620px;
+    margin: 0 auto 1rem;
+    max-width: 600px;
     font-size: 0.88rem;
     color: var(--text-secondary);
+    line-height: 1.48;
   }
 
-  .es-links {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.45rem;
-    margin-bottom: 0.85rem;
+  .proof-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.65rem;
+    margin-bottom: 1rem;
   }
 
-  .es-pill {
-    display: inline-flex;
-    align-items: center;
-    min-height: 38px;
-    padding: 0.42rem 0.85rem;
-    border-radius: 9999px;
+  .ps-card {
     background: var(--bg-surface-elevated);
     border: 1px solid var(--border-medium);
-    color: var(--text-primary);
-    font-size: 0.82rem;
+    border-radius: 12px;
+    padding: 0.8rem 0.65rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+  }
+
+  .ps-card strong {
+    font-family: var(--font-family-mono);
+    font-size: 1.28rem;
+    font-weight: 800;
+    color: var(--accent-primary);
+    line-height: 1.1;
+  }
+
+  .ps-card span {
+    font-size: 0.76rem;
+    color: var(--text-secondary);
+    line-height: 1.3;
+  }
+
+  .es-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.55rem;
+  }
+
+  .es-primary-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    min-height: 42px;
+    padding: 0.58rem 1.25rem;
+    border-radius: 10px;
+    background: var(--accent-primary);
+    color: var(--btn-primary-text);
+    font-size: 0.88rem;
     font-weight: 700;
     text-decoration: none;
   }
 
-  .es-pill:hover {
-    border-color: var(--accent-primary);
-    color: var(--accent-primary);
+  .es-primary-cta:hover {
+    background: var(--accent-primary-hover);
   }
 
-  .es-open-science {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.35rem 0.55rem;
+  .es-citation-note {
     font-size: 0.78rem;
-    color: var(--text-muted);
+    color: var(--text-secondary);
+    max-width: 660px;
   }
 
-  .es-open-science a {
-    color: var(--accent-primary);
+  .es-citation-note summary {
+    cursor: pointer;
     font-weight: 600;
-    text-decoration: none;
+    color: var(--accent-primary);
   }
 
-  .es-open-science a:hover {
-    text-decoration: underline;
+  .es-citation-note p {
+    margin: 0.45rem 0 0;
+    line-height: 1.45;
+  }
+
+  @media (max-width: 680px) {
+    .proof-stats {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+    }
+
+    .es-primary-cta {
+      width: 100%;
+    }
   }
 </style>
