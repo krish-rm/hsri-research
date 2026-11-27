@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
   "label": "live telemetry",
-  "message": "97.1% \u00b7 updated 0h ago",
+  "message": "97.0% \u00b7 updated 0h ago",
   "color": "brightgreen",
   "is_fallback": false,
   "provenance": "live_sentinel_telemetry",
   "data_timestamp": "Tue, 24 Nov 2026 00:00:00 -0800",
   "window_30d": {
-    "total_runs": 170,
-    "success_runs": 165,
-    "success_rate": 0.971
+    "total_runs": 168,
+    "success_runs": 163,
+    "success_rate": 0.97
   },
   "window_7d": {
     "total_runs": 34,
