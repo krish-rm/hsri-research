@@ -270,15 +270,6 @@
     transform: scaleX(-1);
   }
 
-  @media (max-width: 760px) {
-    .poses-row,
-    .sections-grid,
-    .beats-grid,
-    .wisher-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-
   .toto-extra-section {
     margin-top: 2.25rem;
     padding-top: 1.75rem;
@@ -356,5 +347,14 @@
     font-size: 0.8rem;
     color: var(--text-muted);
     margin-bottom: 0;
+  }
+
+  @media (max-width: 760px) {
+    .poses-row,
+    .sections-grid,
+    .beats-grid,
+    .wisher-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
