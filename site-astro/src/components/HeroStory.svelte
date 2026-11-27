@@ -31,14 +31,32 @@
   ];
 
   let activeCityId = 'neutral';
+  let isArriving = false;
+  let arriveTimer: ReturnType<typeof setTimeout> | null = null;
 
   $: city = CITIES.find((c) => c.id === activeCityId) ?? CITIES[0];
   $: clampedPulse = Math.max(0, Math.min(10, Number.isFinite(pulseScore) ? pulseScore : 8.44));
   $: needleAngleDeg = -90 + (clampedPulse / 10) * 180;
 
-  function selectCity(id: string) {
+  function triggerArrival(id: string) {
     activeCityId = id;
+    isArriving = false;
+    if (typeof requestAnimationFrame !== 'undefined') {
+      requestAnimationFrame(() => {
+        isArriving = true;
+      });
+    }
+    if (arriveTimer) clearTimeout(arriveTimer);
+    arriveTimer = setTimeout(() => {
+      isArriving = false;
+    }, 1150);
     trackEvent('hero_city_switch', { city: id });
+  }
+
+  function cycleNextCity() {
+    const idx = CITIES.findIndex((c) => c.id === activeCityId);
+    const next = CITIES[(idx + 1) % CITIES.length];
+    if (next) triggerArrival(next.id);
   }
 
   function handleCta(target: 'breakthrough' | 'country') {
@@ -90,156 +108,171 @@
         </div>
       </div>
 
-      <!-- Right / Visual Flow: 1. Meet Toto Portrait -> 2. Arrival Sky -> 3. Humanity's Pulse Visual -->
+      <!-- Right / Visual Flow: 1. Unified Interactive Toto + Arrival Sky Card -> 2. Humanity's Pulse -->
       <div class="hero-visual">
-        <!-- 1. Animated Toto Introduction Card -->
-        <a href={`${base}/toto/`} class="toto-mini-card">
-          <div class="toto-portrait-frame">
-            <span class="toto-portrait-aura" aria-hidden="true"></span>
-            <img
-              src={`${base}/assets/toto-character.webp`}
-              alt={$dict.totoCard.svgAlt}
-              width="72"
-              height="72"
-              decoding="async"
-              class="toto-portrait-img"
-            />
-            <svg class="toto-spark" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
-              <path d="M8 1 L9.6 6.4 L15 8 L9.6 9.6 L8 15 L6.4 9.6 L1 8 L6.4 6.4 Z" fill="#d97706" />
-            </svg>
-          </div>
-          <div class="toto-mini-copy">
-            <div class="toto-mini-top">
-              <strong class="toto-mini-title">
-                <span class="live-hello-dot" aria-hidden="true"></span>
-                &ldquo;{$dict.totoIntro.lines[0]}&rdquo;
-              </strong>
-              <span class="mini-arrow">{$dict.totoCard.ctaSecondary} <span class="arrow-flip" aria-hidden="true">&rarr;</span></span>
+        <!-- 1. Unified Interactive Toto Greeting & Arrival Sky Card -->
+        <div class="toto-arrival-card toto-mini-card" class:arriving={isArriving}>
+          <div class="toto-intro-band">
+            <div class="toto-portrait-frame">
+              <span class="toto-portrait-aura" aria-hidden="true"></span>
+              <img
+                src={`${base}/assets/toto-character.webp`}
+                alt={$dict.totoCard.svgAlt}
+                width="64"
+                height="64"
+                decoding="async"
+                class="toto-portrait-img"
+              />
+              <svg class="toto-spark" viewBox="0 0 16 16" width="13" height="13" aria-hidden="true">
+                <path d="M8 1 L9.6 6.4 L15 8 L9.6 9.6 L8 15 L6.4 9.6 L1 8 L6.4 6.4 Z" fill="#d97706" />
+              </svg>
             </div>
-            <p class="toto-mini-desc">{$dict.totoIntro.lines[1]}</p>
+            <div class="toto-mini-copy">
+              <div class="toto-mini-top">
+                <strong class="toto-mini-title">
+                  <span class="live-hello-dot" aria-hidden="true"></span>
+                  &ldquo;{$dict.totoIntro.lines[0]}&rdquo;
+                </strong>
+                <a href={`${base}/toto/`} class="mini-arrow">
+                  {$dict.totoCard.ctaSecondary} <span class="arrow-flip" aria-hidden="true">&rarr;</span>
+                </a>
+              </div>
+              <p class="toto-mini-desc">{$dict.totoIntro.lines[1]}</p>
+            </div>
           </div>
-        </a>
 
-        <!-- 2. Arrival Sky Over Card -->
-        <figure class="skyline-card" aria-label={`Dawn harbour scene for ${city.name} showing Toto arriving as a calm light`}>
-          <div class="skyline-top-bar">
-            <span class="skyline-caption-label">
-              {$dict.hero.cityLabel} <strong id="hcn">{activeCityId === 'neutral' ? $dict.hero.cityNeutralName : city.name}</strong>
-              <span id="hcr" class="region-chip">{city.regionHint}</span>
-            </span>
+          <figure class="skyline-embed" aria-label={`Dawn harbour scene for ${city.name} showing Toto arriving as a calm light`}>
+            <div class="skyline-top-bar">
+              <span class="skyline-caption-label">
+                {$dict.hero.cityLabel} <strong id="hcn">{activeCityId === 'neutral' ? $dict.hero.cityNeutralName : city.name}</strong>
+                <span id="hcr" class="region-chip">{city.regionHint}</span>
+              </span>
 
-            <label class="sr-only" for="hero-city-select">Switch city horizon</label>
-            <select
-              id="hero-city-select"
-              class="city-select-mini"
-              bind:value={activeCityId}
-              onchange={() => selectCity(activeCityId)}
+              <div class="sky-controls">
+                <label class="sr-only" for="hero-city-select">Switch city horizon</label>
+                <select
+                  id="hero-city-select"
+                  class="city-select-mini"
+                  bind:value={activeCityId}
+                  onchange={() => triggerArrival(activeCityId)}
+                >
+                  {#each CITIES as c}
+                    <option value={c.id}>{c.name}</option>
+                  {/each}
+                </select>
+                <button
+                  type="button"
+                  class="btn-arrive-cycle"
+                  onclick={cycleNextCity}
+                  title="Shift horizon & replay Toto arrival"
+                >
+                  &#8635; Next sky
+                </button>
+              </div>
+            </div>
+
+            <svg
+              class="harbour-svg"
+              viewBox="0 0 640 160"
+              width="640"
+              height="160"
+              role="img"
+              aria-label={`Calm dawn illustration of ${city.name} harbour as Toto arrives softly above the horizon`}
             >
-              {#each CITIES as c}
-                <option value={c.id}>{c.name}</option>
-              {/each}
-            </select>
-          </div>
+              <defs>
+                <linearGradient id="dawn-sky" x1="0" y1="0" x2="0" y2="1">
+                  <stop id="hst" offset="0%" stop-color={city.skyTop} />
+                  <stop id="hsb" offset="100%" stop-color={city.skyBottom} />
+                </linearGradient>
+                <radialGradient id="toto-glow" cx="50%" cy="42%" r="38%">
+                  <stop offset="0%" stop-color="#fff8dc" stop-opacity="0.98" />
+                  <stop offset="42%" stop-color="#7ce0c6" stop-opacity="0.52" />
+                  <stop offset="100%" stop-color="#1b6756" stop-opacity="0" />
+                </radialGradient>
+                <linearGradient id="sea-grad" x1="0" y1="0" x2="0" y2="1">
+                  <stop id="hsa" offset="0%" stop-color={city.waterTint} stop-opacity="0.82" />
+                  <stop offset="100%" stop-color="#113c37" stop-opacity="0.95" />
+                </linearGradient>
+              </defs>
 
-          <svg
-            class="harbour-svg"
-            viewBox="0 0 640 160"
-            width="640"
-            height="160"
-            role="img"
-            aria-label={`Calm dawn illustration of ${city.name} harbour as Toto arrives softly above the horizon`}
-          >
-            <defs>
-              <linearGradient id="dawn-sky" x1="0" y1="0" x2="0" y2="1">
-                <stop id="hst" offset="0%" stop-color={city.skyTop} />
-                <stop id="hsb" offset="100%" stop-color={city.skyBottom} />
-              </linearGradient>
-              <radialGradient id="toto-glow" cx="50%" cy="42%" r="38%">
-                <stop offset="0%" stop-color="#fff8dc" stop-opacity="0.98" />
-                <stop offset="42%" stop-color="#7ce0c6" stop-opacity="0.52" />
-                <stop offset="100%" stop-color="#1b6756" stop-opacity="0" />
-              </radialGradient>
-              <linearGradient id="sea-grad" x1="0" y1="0" x2="0" y2="1">
-                <stop id="hsa" offset="0%" stop-color={city.waterTint} stop-opacity="0.82" />
-                <stop offset="100%" stop-color="#113c37" stop-opacity="0.95" />
-              </linearGradient>
-            </defs>
+              <rect width="640" height="118" fill="url(#dawn-sky)" />
 
-            <rect width="640" height="118" fill="url(#dawn-sky)" />
+              <circle cx="430" cy="52" r="56" fill="url(#toto-glow)" class="toto-halo" />
+              <g transform="translate(430 50)">
+                <g class="toto-orb-anim">
+                  <circle cx="0" cy="0" r="16" fill="none" stroke="#1b6756" stroke-width="1.2" stroke-dasharray="4 3" opacity="0.7" />
+                  <circle cx="0" cy="0" r="8.5" fill="#ffffff" stroke="#1b6756" stroke-width="1.5" />
+                  <circle cx="0" cy="0" r="2.8" fill="#1b6756" />
+                </g>
+              </g>
 
-            <circle cx="430" cy="52" r="56" fill="url(#toto-glow)" class="toto-halo" />
-            <g class="toto-orb" transform="translate(430 50)">
-              <circle cx="0" cy="0" r="16" fill="none" stroke="#1b6756" stroke-width="1.2" stroke-dasharray="4 3" opacity="0.7" />
-              <circle cx="0" cy="0" r="8.5" fill="#ffffff" stroke="#1b6756" stroke-width="1.5" />
-              <circle cx="0" cy="0" r="2.8" fill="#1b6756" />
-            </g>
+              <g fill="#2b3838" opacity="0.86">
+                <rect x="28" y="82" width="38" height="36" rx="2" />
+                <rect x="72" y="66" width="32" height="52" rx="2" />
+                <rect x="110" y="90" width="44" height="28" rx="2" />
 
-            <g fill="#2b3838" opacity="0.86">
-              <rect x="28" y="82" width="38" height="36" rx="2" />
-              <rect x="72" y="66" width="32" height="52" rx="2" />
-              <rect x="110" y="90" width="44" height="28" rx="2" />
+                {#if city.feature === 'cranes'}
+                  <path d="M180 118 L180 62 L216 50 M194 70 L194 118" stroke="#2b3838" stroke-width="3" fill="none" />
+                  <rect x="242" y="76" width="34" height="42" rx="2" />
+                  <path d="M510 118 L516 68 L528 68 L534 118 Z" />
+                  <circle cx="522" cy="63" r="4" fill="#f59e0b" />
+                {:else if city.feature === 'bridge'}
+                  <path d="M172 118 L182 58 L190 118 M274 118 L284 58 L292 118" stroke="#2b3838" stroke-width="2" />
+                  <path d="M150 96 Q232 72 316 96" stroke="#2b3838" stroke-width="2.5" fill="none" />
+                  <rect x="145" y="98" width="175" height="6" />
+                  <rect x="495" y="78" width="46" height="40" rx="2" />
+                {:else if city.feature === 'domes'}
+                  <path d="M185 118 L185 74 Q208 54 231 74 L231 118 Z" />
+                  <rect x="242" y="64" width="28" height="54" rx="2" />
+                  <rect x="496" y="84" width="52" height="34" rx="2" />
+                {:else if city.feature === 'spires'}
+                  <polygon points="196,118 204,32 212,118" />
+                  <rect x="225" y="68" width="28" height="50" rx="2" />
+                  <path d="M268 118 Q286 68 296 118 Z" />
+                  <rect x="506" y="82" width="36" height="36" rx="2" />
+                {:else if city.feature === 'tvtower'}
+                  <rect x="196" y="42" width="6" height="76" />
+                  <ellipse cx="199" cy="64" rx="14" ry="5" />
+                  <rect x="224" y="74" width="38" height="44" rx="2" />
+                  <rect x="498" y="80" width="44" height="38" rx="2" />
+                {:else if city.feature === 'island'}
+                  <polygon points="182,94 206,72 230,94" />
+                  <rect x="186" y="94" width="40" height="24" />
+                  <rect x="244" y="70" width="32" height="48" rx="2" />
+                  <path d="M510 118 Q528 86 548 118 Z" />
+                {:else if city.feature === 'hills'}
+                  <path d="M150 118 Q225 70 300 118 Z" opacity="0.65" />
+                  <rect x="200" y="72" width="28" height="46" rx="2" />
+                  <rect x="502" y="81" width="40" height="37" rx="2" />
+                {:else}
+                  <rect x="174" y="60" width="26" height="58" rx="2" />
+                  <rect x="206" y="48" width="24" height="70" rx="2" />
+                  <rect x="236" y="72" width="32" height="46" rx="2" />
+                  <rect x="498" y="82" width="42" height="36" rx="2" />
+                {/if}
 
-              {#if city.feature === 'cranes'}
-                <path d="M180 118 L180 62 L216 50 M194 70 L194 118" stroke="#2b3838" stroke-width="3" fill="none" />
-                <rect x="242" y="76" width="34" height="42" rx="2" />
-                <path d="M510 118 L516 68 L528 68 L534 118 Z" />
-                <circle cx="522" cy="63" r="4" fill="#f59e0b" />
-              {:else if city.feature === 'bridge'}
-                <path d="M172 118 L182 58 L190 118 M274 118 L284 58 L292 118" stroke="#2b3838" stroke-width="2" />
-                <path d="M150 96 Q232 72 316 96" stroke="#2b3838" stroke-width="2.5" fill="none" />
-                <rect x="145" y="98" width="175" height="6" />
-                <rect x="495" y="78" width="46" height="40" rx="2" />
-              {:else if city.feature === 'domes'}
-                <path d="M185 118 L185 74 Q208 54 231 74 L231 118 Z" />
-                <rect x="242" y="64" width="28" height="54" rx="2" />
-                <rect x="496" y="84" width="52" height="34" rx="2" />
-              {:else if city.feature === 'spires'}
-                <polygon points="196,118 204,32 212,118" />
-                <rect x="225" y="68" width="28" height="50" rx="2" />
-                <path d="M268 118 Q286 68 296 118 Z" />
-                <rect x="506" y="82" width="36" height="36" rx="2" />
-              {:else if city.feature === 'tvtower'}
-                <rect x="196" y="42" width="6" height="76" />
-                <ellipse cx="199" cy="64" rx="14" ry="5" />
-                <rect x="224" y="74" width="38" height="44" rx="2" />
-                <rect x="498" y="80" width="44" height="38" rx="2" />
-              {:else if city.feature === 'island'}
-                <polygon points="182,94 206,72 230,94" />
-                <rect x="186" y="94" width="40" height="24" />
-                <rect x="244" y="70" width="32" height="48" rx="2" />
-                <path d="M510 118 Q528 86 548 118 Z" />
-              {:else if city.feature === 'hills'}
-                <path d="M150 118 Q225 70 300 118 Z" opacity="0.65" />
-                <rect x="200" y="72" width="28" height="46" rx="2" />
-                <rect x="502" y="81" width="40" height="37" rx="2" />
-              {:else}
-                <rect x="174" y="60" width="26" height="58" rx="2" />
-                <rect x="206" y="48" width="24" height="70" rx="2" />
-                <rect x="236" y="72" width="32" height="46" rx="2" />
-                <rect x="498" y="82" width="42" height="36" rx="2" />
-              {/if}
+                <rect x="330" y="96" width="46" height="22" rx="2" />
+                <rect x="556" y="92" width="52" height="26" rx="2" />
+              </g>
 
-              <rect x="330" y="96" width="46" height="22" rx="2" />
-              <rect x="556" y="92" width="52" height="26" rx="2" />
-            </g>
+              <rect x="0" y="118" width="640" height="42" fill="url(#sea-grad)" />
+              <g fill="#fde68a" opacity="0.45">
+                <rect x="398" y="124" width="64" height="3" rx="1.5" />
+                <rect x="408" y="133" width="44" height="2.5" rx="1.2" />
+                <rect x="418" y="142" width="24" height="2" rx="1" />
+              </g>
 
-            <rect x="0" y="118" width="640" height="42" fill="url(#sea-grad)" />
-            <g fill="#fde68a" opacity="0.45">
-              <rect x="398" y="124" width="64" height="3" rx="1.5" />
-              <rect x="408" y="133" width="44" height="2.5" rx="1.2" />
-              <rect x="418" y="142" width="24" height="2" rx="1" />
-            </g>
+              <g transform="translate(292 124)" class="boat-drift">
+                <path d="M0 9 L36 9 L30 15 L6 15 Z" fill="#f8fafc" />
+                <polygon points="16,0 16,8 28,8" fill="#fef3c7" />
+              </g>
+            </svg>
 
-            <g transform="translate(292 124)" class="boat-drift">
-              <path d="M0 9 L36 9 L30 15 L6 15 Z" fill="#f8fafc" />
-              <polygon points="16,0 16,8 28,8" fill="#fef3c7" />
-            </g>
-          </svg>
-
-          <figcaption class="skyline-figcaption">
-            <span>{$dict.hero.totoCaption}</span>
-          </figcaption>
-        </figure>
+            <figcaption class="skyline-figcaption">
+              <span>{$dict.hero.totoCaption}</span>
+            </figcaption>
+          </figure>
+        </div>
 
         <!-- 3. Humanity's Pulse Visual Card (Speedometer + Pace Gap Visual) -->
         <a href={`${base}/seismograph/`} class="pulse-visual-card">
@@ -421,31 +454,35 @@
     gap: 0.65rem;
   }
 
-  /* 1. Meet Toto Character Mini Card */
-  .toto-mini-card {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    padding: 0.65rem 0.85rem;
+  /* 1. Unified Interactive Toto + Arrival Sky Card */
+  .toto-arrival-card {
     background: var(--bg-surface-elevated);
     border: 1.5px solid var(--border-medium);
-    border-radius: 14px;
-    text-decoration: none;
-    box-shadow: var(--shadow-sm);
-    transition: border-color 0.16s ease, transform 0.16s ease;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
   }
 
-  .toto-mini-card:hover {
+  .toto-arrival-card.arriving {
     border-color: var(--accent-primary);
-    transform: translateY(-1px);
+    box-shadow: 0 0 0 3px var(--accent-primary-glow), var(--shadow-md);
+  }
+
+  .toto-intro-band {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.65rem 0.85rem;
+    border-bottom: 1px solid var(--border-subtle);
   }
 
   .toto-portrait-frame {
     position: relative;
     flex-shrink: 0;
-    width: 72px;
-    height: 72px;
-    border-radius: 14px;
+    width: 62px;
+    height: 62px;
+    border-radius: 12px;
     overflow: hidden;
     background: #fbf7ee;
     border: 1px solid var(--border-subtle);
@@ -456,7 +493,7 @@
 
   .toto-portrait-aura {
     position: absolute;
-    inset: 6px;
+    inset: 4px;
     border-radius: 50%;
     background: radial-gradient(circle, rgba(124, 224, 198, 0.35), rgba(245, 158, 11, 0.14) 55%, transparent 75%);
     animation: totoAura 3.6s ease-in-out infinite;
@@ -474,8 +511,8 @@
 
   .toto-spark {
     position: absolute;
-    top: 5px;
-    inset-inline-end: 5px;
+    top: 4px;
+    inset-inline-end: 4px;
     pointer-events: none;
     animation: totoTwinkle 2.8s ease-in-out infinite;
   }
@@ -491,24 +528,29 @@
     justify-content: space-between;
     align-items: center;
     gap: 0.35rem;
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.15rem;
   }
 
   .mini-arrow {
     font-size: 0.74rem;
     font-weight: 700;
     color: var(--accent-primary);
+    text-decoration: none;
     white-space: nowrap;
+  }
+
+  .mini-arrow:hover {
+    text-decoration: underline;
   }
 
   .toto-mini-title {
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
-    font-size: 0.98rem;
+    gap: 0.38rem;
+    font-size: 0.96rem;
     font-weight: 800;
     color: var(--text-primary);
-    line-height: 1.25;
+    line-height: 1.22;
   }
 
   .live-hello-dot {
@@ -521,10 +563,100 @@
   }
 
   .toto-mini-desc {
-    margin: 0.12rem 0 0;
-    font-size: 0.82rem;
+    margin: 0.1rem 0 0;
+    font-size: 0.8rem;
     color: var(--text-secondary);
-    line-height: 1.4;
+    line-height: 1.38;
+  }
+
+  .skyline-embed {
+    margin: 0;
+    background: var(--bg-surface);
+  }
+
+  .skyline-top-bar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.45rem;
+    min-height: 38px;
+    padding: 0.38rem 0.8rem;
+    background: var(--bg-surface-sunken);
+    border-bottom: 1px solid var(--border-subtle);
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+  }
+
+  .sky-controls {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .region-chip {
+    display: inline-block;
+    margin-inline-start: 0.28rem;
+    padding: 0.06rem 0.4rem;
+    border-radius: 9999px;
+    background: var(--bg-surface-elevated);
+    font-family: var(--font-family-mono);
+    font-size: 0.62rem;
+  }
+
+  .city-select-mini {
+    border: 1px solid var(--border-medium);
+    background: var(--bg-surface-elevated);
+    color: var(--text-primary);
+    border-radius: 8px;
+    padding: 0.2rem 0.42rem;
+    font-size: 0.74rem;
+    font-weight: 600;
+    min-height: 28px;
+    cursor: pointer;
+  }
+
+  .btn-arrive-cycle {
+    border: 1px solid var(--accent-primary);
+    background: var(--threat-sovereign-bg);
+    color: var(--accent-primary);
+    border-radius: 8px;
+    padding: 0.22rem 0.55rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    min-height: 28px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+
+  .btn-arrive-cycle:hover {
+    background: var(--accent-primary);
+    color: var(--btn-primary-text);
+  }
+
+  .harbour-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .toto-arrival-card.arriving .toto-orb-anim {
+    animation: skyOrbArrive 0.95s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .toto-arrival-card.arriving .toto-halo {
+    animation: skyHaloPulse 0.95s ease-out forwards;
+    transform-origin: 430px 52px;
+  }
+
+  .skyline-figcaption {
+    padding: 0.45rem 0.8rem;
+    font-size: 0.77rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    border-top: 1px solid var(--border-subtle);
+    background: var(--bg-surface);
   }
 
   @keyframes totoFloat {
@@ -542,73 +674,27 @@
     50% { transform: scale(1.1) rotate(18deg); opacity: 1; }
   }
 
+  @keyframes skyOrbArrive {
+    0% { transform: translate(-72px, -22px) scale(0.62); opacity: 0.35; }
+    65% { transform: translate(4px, 3px) scale(1.08); opacity: 1; }
+    100% { transform: translate(0px, 0px) scale(1); opacity: 1; }
+  }
+
+  @keyframes skyHaloPulse {
+    0% { transform: scale(0.75); opacity: 0.45; }
+    55% { transform: scale(1.18); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .toto-portrait-img,
     .toto-portrait-aura,
     .toto-spark,
-    .live-hello-dot {
+    .live-hello-dot,
+    .toto-arrival-card.arriving .toto-orb-anim,
+    .toto-arrival-card.arriving .toto-halo {
       animation: none !important;
     }
-  }
-
-  /* 2. Arrival Sky Over Card */
-  .skyline-card {
-    margin: 0;
-    background: var(--bg-surface);
-    border: 1px solid var(--border-medium);
-    border-radius: 14px;
-    overflow: hidden;
-    box-shadow: var(--shadow-sm);
-  }
-
-  .skyline-top-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.5rem;
-    min-height: 40px;
-    padding: 0.4rem 0.8rem;
-    background: var(--bg-surface-elevated);
-    border-bottom: 1px solid var(--border-subtle);
-    font-size: 0.76rem;
-    color: var(--text-secondary);
-  }
-
-  .region-chip {
-    display: inline-block;
-    margin-inline-start: 0.3rem;
-    padding: 0.06rem 0.4rem;
-    border-radius: 9999px;
-    background: var(--bg-surface-sunken);
-    font-family: var(--font-family-mono);
-    font-size: 0.64rem;
-  }
-
-  .city-select-mini {
-    border: 1px solid var(--border-medium);
-    background: var(--bg-surface);
-    color: var(--text-primary);
-    border-radius: 8px;
-    padding: 0.22rem 0.45rem;
-    font-size: 0.75rem;
-    font-weight: 600;
-    min-height: 30px;
-    cursor: pointer;
-  }
-
-  .harbour-svg {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-
-  .skyline-figcaption {
-    padding: 0.48rem 0.8rem;
-    font-size: 0.78rem;
-    color: var(--text-secondary);
-    font-style: italic;
-    border-top: 1px solid var(--border-subtle);
-    background: var(--bg-surface);
   }
 
   /* 3. Humanity's Pulse Visual Card */
