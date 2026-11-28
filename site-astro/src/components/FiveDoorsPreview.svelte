@@ -150,7 +150,63 @@
     </div>
 
     {#if revealed}
-      <!-- Precedence Stage 1: Selected Country Tradition / Active Domain Visual Concept Card -->
+      <!-- Navigation First: Show All 5 Domain Options Upfront (with Selected Country's Tradition Highlighted) -->
+      <div class="domains-explorer-band">
+        {#if activeIso !== 'GLOBAL'}
+          <p class="band-micro-label">{$dict.heritageUi.otherDomainsLabel.replace('{country}', activeCountryLabel)}</p>
+        {/if}
+        <div class="doors-tabs" role="tablist" aria-label="Five breakthrough domains">
+          {#each $dict.doors.items as door}
+            <button
+              type="button"
+              role="tab"
+              aria-selected={activeDoorId === door.id}
+              class="door-tab"
+              class:selected={activeDoorId === door.id}
+              onclick={() => chooseDoor(door.id)}
+            >
+              <span class="door-icon" aria-hidden="true">
+                {#if door.icon === 'chalkboard'}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="13" rx="1.5" />
+                    <path d="M7 9h6M7 13h9M9 17l-1.5 3M15 17l1.5 3" stroke-linecap="round" />
+                  </svg>
+                {:else if door.icon === 'pocket'}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 6h14v7a7 7 0 0 1-14 0V6z" />
+                    <circle cx="12" cy="12" r="2.5" stroke="var(--accent-primary)" />
+                  </svg>
+                {:else if door.icon === 'eye'}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M2 12s4-5.5 10-5.5S22 12 22 12s-4 5.5-10 5.5S2 12 2 12z" />
+                    <circle cx="12" cy="12" r="3" />
+                  </svg>
+                {:else if door.icon === 'frame'}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="5" width="18" height="14" rx="1.5" />
+                    <path d="M10 9l5 3-5 3V9z" stroke-linejoin="round" />
+                  </svg>
+                {:else}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M8 16h8l-1.5 4h-5L8 16z" />
+                    <circle cx="12" cy="11" r="3.5" />
+                  </svg>
+                {/if}
+              </span>
+              <span class="door-title">{door.title}</span>
+              {#if doorHasHeritageForCountry(activeIso, door.id)}
+                <span
+                  class="door-heritage-dot"
+                  title={$dict.heritageUi.localHorizonTag.replace('{country}', activeCountryLabel)}
+                  aria-hidden="true"
+                ></span>
+              {/if}
+            </button>
+          {/each}
+        </div>
+      </div>
+
+      <!-- Active Tabpanel Stage: Selected Country Tradition / Active Domain Visual Concept Card -->
       <div bind:this={playerAnchorEl}>
         {#if activeWish}
           {#key activeWish.id}
@@ -325,63 +381,7 @@
         {/if}
       </div>
 
-      <!-- Stage 2: 5 Domain Switcher (Secondary to Selected Country's Own Lens) -->
-      <div class="domains-explorer-band">
-        {#if activeIso !== 'GLOBAL'}
-          <p class="band-micro-label">{$dict.heritageUi.otherDomainsLabel.replace('{country}', activeCountryLabel)}</p>
-        {/if}
-        <div class="doors-tabs" role="tablist" aria-label="Five breakthrough domains">
-          {#each $dict.doors.items as door}
-            <button
-              type="button"
-              role="tab"
-              aria-selected={activeDoorId === door.id}
-              class="door-tab"
-              class:selected={activeDoorId === door.id}
-              onclick={() => chooseDoor(door.id)}
-            >
-              <span class="door-icon" aria-hidden="true">
-                {#if door.icon === 'chalkboard'}
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect x="3" y="4" width="18" height="13" rx="1.5" />
-                    <path d="M7 9h6M7 13h9M9 17l-1.5 3M15 17l1.5 3" stroke-linecap="round" />
-                  </svg>
-                {:else if door.icon === 'pocket'}
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M5 6h14v7a7 7 0 0 1-14 0V6z" />
-                    <circle cx="12" cy="12" r="2.5" stroke="var(--accent-primary)" />
-                  </svg>
-                {:else if door.icon === 'eye'}
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M2 12s4-5.5 10-5.5S22 12 22 12s-4 5.5-10 5.5S2 12 2 12z" />
-                    <circle cx="12" cy="12" r="3" />
-                  </svg>
-                {:else if door.icon === 'frame'}
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect x="3" y="5" width="18" height="14" rx="1.5" />
-                    <path d="M10 9l5 3-5 3V9z" stroke-linejoin="round" />
-                  </svg>
-                {:else}
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M8 16h8l-1.5 4h-5L8 16z" />
-                    <circle cx="12" cy="11" r="3.5" />
-                  </svg>
-                {/if}
-              </span>
-              <span class="door-title">{door.title}</span>
-              {#if doorHasHeritageForCountry(activeIso, door.id)}
-                <span
-                  class="door-heritage-dot"
-                  title={$dict.heritageUi.localHorizonTag.replace('{country}', activeCountryLabel)}
-                  aria-hidden="true"
-                ></span>
-              {/if}
-            </button>
-          {/each}
-        </div>
-      </div>
-
-      <!-- Stage 3: Compact Scrollable World Traditions Switcher (Secondary Comparison Rail) -->
+      <!-- Compact Scrollable World Traditions Switcher (Secondary Comparison Rail) -->
       <div class="world-horizons-bar" aria-label="Cultural traditions around the world">
         <span class="wh-label">{$dict.heritageUi.otherTraditionsLabel}</span>
         <div class="wh-scroll">
@@ -555,7 +555,7 @@
   }
 
   .domains-explorer-band {
-    margin-top: 0.9rem;
+    margin: 0 0 0.75rem;
   }
 
   .band-micro-label {
@@ -571,14 +571,14 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: 0.45rem;
-    margin-bottom: 0.65rem;
+    margin-bottom: 0;
   }
 
   .world-horizons-bar {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    margin: 0 auto 0.2rem;
+    margin: 0.85rem auto 0.2rem;
     padding: 0.36rem 0.65rem;
     border-radius: 12px;
     background: var(--bg-surface-elevated);
