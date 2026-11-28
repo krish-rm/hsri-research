@@ -30,6 +30,9 @@ export const en = {
       "Choose one breakthrough, trace what breaks when it arrives, and test your country's real readiness data.",
     ctaPrimary: 'Choose a breakthrough',
     ctaSecondary: 'See how your country does',
+    guideCue: 'Start in Toto’s sky chooser:',
+    ctaCountryPrimary: "Explore {country}'s breakthrough",
+    ctaCountrySecondary: 'Can {country} catch it?',
     cityLabel: 'Arrival sky over:',
     cityNeutralName: 'Coastal Harbour',
     cityNeutralNote: 'Default neutral port view · pick any city to shift the horizon',
@@ -41,6 +44,7 @@ export const en = {
 
   pulse: {
     label: "Humanity's Pulse",
+    sectionKicker: 'WHY READINESS MATTERS NOW · LIVE PACE MONITOR',
     tooltipTrigger: 'Technical reading',
     states: {
       steady: {
@@ -558,12 +562,12 @@ export const en = {
 type DeepStringWiden<T> = T extends string
   ? string
   : T extends boolean
-    ? boolean
-    : T extends readonly (infer U)[]
-      ? readonly DeepStringWiden<U>[]
-      : T extends object
-        ? { readonly [K in keyof T]: DeepStringWiden<T[K]> }
-        : T;
+  ? boolean
+  : T extends readonly (infer U)[]
+  ? readonly DeepStringWiden<U>[]
+  : T extends object
+  ? { readonly [K in keyof T]: DeepStringWiden<T[K]> }
+  : T;
 
 export type TranslationDict = DeepStringWiden<typeof en>;
 export type LocaleKey = 'en' | 'es' | 'ar' | 'rtl-stub';

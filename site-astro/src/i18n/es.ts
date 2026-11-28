@@ -24,6 +24,9 @@ export const es: TranslationDict = {
       'Elige un avance, sigue lo que falla al llegar y pon a prueba los datos reales de tu país.',
     ctaPrimary: 'Elige un avance',
     ctaSecondary: 'Mira cómo va tu país',
+    guideCue: 'Empieza en el cielo de Toto:',
+    ctaCountryPrimary: 'Explorar el avance de {country}',
+    ctaCountrySecondary: '¿Puede {country} sostenerlo?',
     cityLabel: 'Cielo de llegada sobre:',
     cityNeutralName: 'Puerto Costero',
     cityNeutralNote: 'Vista portuaria neutral · elige una ciudad para cambiar el horizonte',
@@ -35,6 +38,7 @@ export const es: TranslationDict = {
 
   pulse: {
     label: 'Pulso de la Humanidad',
+    sectionKicker: 'POR QUÉ IMPORTA HOY · RITMO EN VIVO',
     tooltipTrigger: 'Lectura técnica',
     states: {
       steady: {

@@ -23,6 +23,9 @@ export const ar: TranslationDict = {
       'اختر إنجازاً واحداً، وتتبع ما يختلّ عند وصوله، واختبر بيانات الجاهزية الحقيقية لبلدك.',
     ctaPrimary: 'اختر إنجازاً',
     ctaSecondary: 'شاهد استعداد بلدك',
+    guideCue: 'ابدأ باختيار السماء مع توتو:',
+    ctaCountryPrimary: 'استكشف إنجاز {country}',
+    ctaCountrySecondary: 'هل يستطيع {country} استقباله؟',
     cityLabel: 'سماء الفجر فوق:',
     cityNeutralName: 'الميناء الساحلي',
     cityNeutralNote: 'مشهد ساحلي محايد · اختر أي مدينة لتبديل الأفق',
@@ -34,6 +37,7 @@ export const ar: TranslationDict = {
 
   pulse: {
     label: 'نبض البشرية',
+    sectionKicker: 'لماذا تهم الجاهزية الآن · متابعة التسارع',
     tooltipTrigger: 'القراءة التقنية',
     states: {
       steady: {
