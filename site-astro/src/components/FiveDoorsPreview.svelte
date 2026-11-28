@@ -3,10 +3,18 @@
   import { dict, activeLocale } from '../i18n/store';
   import { trackEvent } from '../lib/privacyStorage';
   import { readinessStore } from '../lib/readinessState';
+  import { countryContextStore } from '../lib/countryContext';
   import {
     CORE_BREAKTHROUGHS,
     loadAllBreakthroughs
   } from '../lib/breakthroughCatalog';
+  import {
+    doorHasHeritageForCountry,
+    findAnyHeritageForCountry,
+    findHeritageForCountryAndDoor,
+    loadHeritageBreakthrough
+  } from '../lib/heritageLoader';
+  import type { HeritageIndexEntry, PlayableHeritageWish } from '../lib/heritageTypes';
 
   const SHOW_DRAFT_BADGE = __HSRI_SHOW_DRAFTS__;
   const INCLUDE_DEV_BREAKTHROUGHS = __HSRI_INCLUDE_DEV15__;
@@ -16,9 +24,13 @@
   export let base = '';
 
   let catalog: WishItem[] = CORE_BREAKTHROUGHS;
+  let heritageCache: Record<string, PlayableHeritageWish> = {};
   let revealed = false;
   let activeDoorId = 'epic';
   let activeWishId: string | null = null;
+  let preferGlobal = false;
+  let lastSeenIso = 'GLOBAL';
+  let loadingHeritage = false;
   let playerAnchorEl: HTMLElement | null = null;
 
   onMount(async () => {
@@ -29,10 +41,20 @@
   });
 
   $: loc = ($activeLocale === 'es' || $activeLocale === 'ar' ? $activeLocale : 'en') as 'en' | 'es' | 'ar';
+  $: activeIso = $countryContextStore.iso;
+  $: activeCountryLabel = $countryContextStore.countryName;
+  $: if (activeIso !== lastSeenIso) {
+    lastSeenIso = activeIso;
+    preferGlobal = false;
+  }
   $: PLAYABLE_WISHES = catalog;
   $: WISH_BY_ID = new Map(PLAYABLE_WISHES.map((w) => [w.id, w]));
   $: selectedDoor = $dict.doors.items.find((d) => d.id === activeDoorId) ?? $dict.doors.items[0];
-  $: activeWish = activeWishId ? WISH_BY_ID.get(activeWishId) ?? null : null;
+  $: doorHeritage = findHeritageForCountryAndDoor(activeIso, selectedDoor.id);
+  $: anyCountryHeritage = findAnyHeritageForCountry(activeIso);
+  $: showingHeritage = Boolean(doorHeritage && !preferGlobal);
+  $: activeWish =
+    (activeWishId ? WISH_BY_ID.get(activeWishId) ?? heritageCache[activeWishId] : null) ?? null;
   $: completedIds = $readinessStore.wishes;
   $: domainDevItems = INCLUDE_DEV_BREAKTHROUGHS
     ? PLAYABLE_WISHES.filter((w) => w.door === selectedDoor.id)
@@ -41,6 +63,7 @@
   function chooseDoor(id: string) {
     activeDoorId = id;
     activeWishId = null;
+    preferGlobal = false;
     trackEvent('door_preview_select', { door: id });
   }
 
@@ -48,6 +71,21 @@
     activeWishId = wishId;
     await tick();
     playerAnchorEl?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  async function launchHeritage(entry: HeritageIndexEntry) {
+    loadingHeritage = true;
+    try {
+      const loaded = await loadHeritageBreakthrough(entry.id);
+      if (loaded) {
+        heritageCache = { ...heritageCache, [loaded.id]: loaded };
+        activeWishId = loaded.id;
+        await tick();
+        playerAnchorEl?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    } finally {
+      loadingHeritage = false;
+    }
   }
 
   function playNextUnseenWish() {
@@ -109,6 +147,13 @@
               {/if}
             </span>
             <span class="door-title">{door.title}</span>
+            {#if doorHasHeritageForCountry(activeIso, door.id)}
+              <span
+                class="door-heritage-dot"
+                title={$dict.heritageUi.localHorizonTag.replace('{country}', activeCountryLabel)}
+                aria-hidden="true"
+              ></span>
+            {/if}
           </button>
         {/each}
       </div>
@@ -131,7 +176,86 @@
               <span class="dp-lead">{selectedDoor.lead}</span>
             </div>
 
-            {#if INCLUDE_DEV_BREAKTHROUGHS && domainDevItems.length > 0}
+            <!-- Fixed-height 1-line heritage swap bar (zero extra mobile scroll / CLS=0) -->
+            <div class="heritage-swap-bar">
+              {#if doorHeritage && showingHeritage}
+                <div class="hs-left">
+                  <span class="hs-pill">
+                    {$dict.heritageUi.localHorizonTag.replace('{country}', activeCountryLabel)}
+                  </span>
+                  <span class="hs-era">
+                    {doorHeritage.era === 'living' ? $dict.heritageUi.livingBadge : $dict.heritageUi.historicalBadge}
+                  </span>
+                </div>
+                <div class="hs-actions">
+                  <a href={`${base}/traditions/${doorHeritage.slug}/`} class="hs-archive-link">
+                    {$dict.heritageUi.readArchiveLink} &rarr;
+                  </a>
+                  <button type="button" class="hs-toggle-btn" onclick={() => (preferGlobal = true)}>
+                    {$dict.heritageUi.seeGlobalBtn}
+                  </button>
+                </div>
+              {:else if doorHeritage && preferGlobal}
+                <div class="hs-left">
+                  <span class="hs-muted">{$dict.doors.sampleHeading}</span>
+                </div>
+                <div class="hs-actions">
+                  <button type="button" class="hs-toggle-btn active" onclick={() => (preferGlobal = false)}>
+                    {$dict.heritageUi.seeLocalBtn.replace('{country}', activeCountryLabel)}
+                  </button>
+                </div>
+              {:else if anyCountryHeritage && anyCountryHeritage.door !== selectedDoor.id}
+                {@const targetDoor = $dict.doors.items.find((d) => d.id === anyCountryHeritage.door)}
+                <div class="hs-left">
+                  <span class="hs-muted">
+                    {$dict.heritageUi.livesInOtherDoor
+                      .replace('{country}', activeCountryLabel)
+                      .replace('{door}', targetDoor?.title ?? anyCountryHeritage.door)}
+                  </span>
+                </div>
+                <div class="hs-actions">
+                  <button
+                    type="button"
+                    class="hs-toggle-btn active"
+                    onclick={() => chooseDoor(anyCountryHeritage.door)}
+                  >
+                    {targetDoor?.title ?? 'Open'} &rarr;
+                  </button>
+                </div>
+              {:else if activeIso !== 'GLOBAL'}
+                <div class="hs-left">
+                  <span class="hs-muted">{$dict.heritageUi.noLocalYet.replace('{country}', activeCountryLabel)}</span>
+                </div>
+              {:else}
+                <div class="hs-left">
+                  <span class="hs-muted">{$dict.doors.sampleHeading}</span>
+                </div>
+              {/if}
+            </div>
+
+            {#if doorHeritage && showingHeritage}
+              {@const hTitle = doorHeritage.chipTitle[loc] ?? doorHeritage.chipTitle.en}
+              {@const hId = `heritage-${doorHeritage.id}`}
+              <article class="dp-focus-card is-heritage-focus">
+                <div class="dp-focus-copy">
+                  <div class="dp-wish-head">
+                    <h3>{hTitle}</h3>
+                    <span class="honesty-pill">{doorHeritage.honestyLabel}</span>
+                    <span class="tradition-mini-pill">{doorHeritage.traditionLabel[loc] ?? doorHeritage.traditionLabel.en}</span>
+                  </div>
+                  <p class="dp-wish-beat">{doorHeritage.summary[loc] ?? doorHeritage.summary.en}</p>
+                </div>
+                <button
+                  type="button"
+                  class="dp-play-btn"
+                  disabled={loadingHeritage}
+                  onclick={() => launchHeritage(doorHeritage)}
+                >
+                  {completedIds[hId] ? `✓ ${$dict.player.playedBadge} · ` : ''}{$dict.player.playBtn}
+                  <span class="arrow-flip" aria-hidden="true">&rarr;</span>
+                </button>
+              </article>
+            {:else if INCLUDE_DEV_BREAKTHROUGHS && domainDevItems.length > 0}
               <div class="dp-wishes-grid">
                 {#each domainDevItems as item}
                   <article class="dp-wish-card">
@@ -269,6 +393,99 @@
     background: var(--accent-primary);
     border-color: var(--accent-primary);
     color: var(--btn-primary-text);
+  }
+
+  .door-heritage-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent-primary);
+    flex-shrink: 0;
+  }
+
+  .door-tab.selected .door-heritage-dot {
+    background: #fef3c7;
+  }
+
+  .heritage-swap-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.4rem 0.65rem;
+    min-height: 30px;
+    margin-bottom: 0.65rem;
+    padding: 0.35rem 0.65rem;
+    border-radius: 9px;
+    background: var(--bg-surface);
+    border: 1px dashed var(--border-medium);
+    font-size: 0.78rem;
+  }
+
+  .hs-left,
+  .hs-actions {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  .hs-pill {
+    font-family: var(--font-family-mono);
+    font-size: 0.68rem;
+    font-weight: 800;
+    color: var(--accent-primary);
+  }
+
+  .hs-era {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    padding: 0.05rem 0.42rem;
+    border-radius: 9999px;
+    background: var(--bg-surface-sunken);
+  }
+
+  .hs-muted {
+    color: var(--text-secondary);
+  }
+
+  .hs-archive-link {
+    color: var(--accent-primary);
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 0.75rem;
+  }
+
+  .hs-archive-link:hover {
+    text-decoration: underline;
+  }
+
+  .hs-toggle-btn {
+    border: 1px solid var(--border-medium);
+    background: var(--bg-surface-elevated);
+    color: var(--text-secondary);
+    border-radius: 7px;
+    padding: 0.2rem 0.55rem;
+    font-size: 0.74rem;
+    font-weight: 700;
+    cursor: pointer;
+    min-height: 28px;
+  }
+
+  .hs-toggle-btn.active,
+  .hs-toggle-btn:hover {
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+    background: var(--threat-sovereign-bg);
+  }
+
+  .tradition-mini-pill {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.14rem 0.5rem;
+    border-radius: 6px;
+    background: var(--bg-surface-sunken);
+    color: var(--text-secondary);
   }
 
   .door-icon {

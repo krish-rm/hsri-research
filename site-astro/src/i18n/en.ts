@@ -515,6 +515,26 @@ export const en = {
     languagesLink: 'Languages',
     totoLink: 'Toto',
     recapLink: "Join Friday's recap"
+  },
+
+  heritageUi: {
+    localHorizonTag: 'Cultural horizon · {country}',
+    livingBadge: 'Living tradition',
+    historicalBadge: 'Historical lineage',
+    seeGlobalBtn: 'Show global breakthrough',
+    seeLocalBtn: 'Show {country} heritage',
+    livesInOtherDoor: '{country} cultural horizon lives in {door}',
+    noLocalYet: 'No local horizon added for {country} yet — explore global breakthroughs.',
+    readArchiveLink: 'Sources & cultural dossier',
+    reviewOpenNote: '2+ cited sources · Native review welcome',
+    weightBindingTitle: 'Real delivery check for {country}',
+    weightRatedInPlace: 'In place',
+    weightRatedGap: 'Bottleneck observed',
+    weightContextNote: '{country} has partial data tracking ({region}) — {observed}',
+    weightNoCountry: 'Pick any country below to check this delivery dependency against real national data.',
+    wayTestCountryCta: "Test {country}'s safeguard in Country Check",
+    trailStampLabel: 'Cultural horizons explored: {count}',
+    autoDetectedHint: 'Auto sky · pick any country'
   }
 };
 

@@ -1,0 +1,200 @@
+{
+  "id": "china-river-stewardship",
+  "slug": "china-river-stewardship",
+  "door": "world",
+  "era": "living",
+  "originRegion": {
+    "en": "East Asia River Basins",
+    "es": "Cuencas fluviales de Asia Oriental",
+    "ar": "أحواض أنهار شرق آسيا"
+  },
+  "traditionLabel": {
+    "en": "Dujiangyan & River Commons",
+    "es": "Dujiangyan y cuencas compartidas",
+    "ar": "دوجيانغيان وإدارة الأنهار"
+  },
+  "chipTitle": {
+    "en": "Guide floods rather than shifting risk unseen",
+    "es": "Guiar crecientes sin ocultar riesgos aguas arriba",
+    "ar": "توجيه الفيضانات بشفافية دون نقل الضرر"
+  },
+  "title": {
+    "en": "Dujiangyan wisdom: guide waters without hidden trade-offs",
+    "es": "Sabiduría de Dujiangyan: aguas sin costes ocultos",
+    "ar": "حكمة دوجيانغيان: إدارة الأنهار دون أضرار خفية"
+  },
+  "summary": {
+    "en": "Automated reservoir gates hold back floods downstream — until silent mountain valleys realise whose fields took the overflow.",
+    "es": "Compuertas automáticas salvan grandes ciudades — hasta que aldeas río arriba descubren quién asumió el desborde.",
+    "ar": "تحمي البوابات الآلية المدن الكبرى — حتى تكتشف القرى الأعلى مجرى النهر من تحمّل الفائض بصمت."
+  },
+  "countries": [
+    "CHN",
+    "HKG",
+    "MAC",
+    "TWN"
+  ],
+  "honestyLabel": "Possible soon",
+  "honestyNote": {
+    "en": "Basin-scale hydro forecasting already informs dam releases; transparent upstream-downstream governance stays the hardest step.",
+    "es": "Los modelos hidrológicos ya operan hoy; el mayor reto sigue siendo la transparencia entre cuencas.",
+    "ar": "تعمل توقعات الأحواض النهرية اليوم، لكن الشفافية بين أعلى النهر وأسفله تبقى التحدي الأهم."
+  },
+  "shadowTag": "Power",
+  "binding": {
+    "primary": "governance",
+    "secondary": "infrastructure",
+    "dependencyLabel": {
+      "en": "Transparent watershed oversight and public accountability across basins",
+      "es": "Supervisión pública y reglas claras entre regiones de la cuenca",
+      "ar": "حوكمة شفافة ومساءلة مشتركة على طول حوض النهر"
+    },
+    "safeguardChecklistIdx": 3
+  },
+  "atlasRefs": [
+    "SC-19",
+    "SC-22"
+  ],
+  "status": "review_open",
+  "wonder": {
+    "totoLine": {
+      "en": "Every valley stays green and calm.",
+      "es": "Cada valle mantiene su cauce sereno.",
+      "ar": "يبقى النهر منساباً عبر كل وادٍ."
+    },
+    "text": {
+      "en": "Toto links rain gauges across entire river basins. Automated spillways balance silt and irrigation calmly from glacial headwaters down to harbour deltas.",
+      "es": "Toto enlaza estaciones desde las cumbres hasta el delta, equilibrando riego y sedimentos sin daños.",
+      "ar": "يربط توتو مقاييس المطر من المنبع إلى المصب، موازناً بين الري وحركة الطمي بهدوء."
+    },
+    "transcript": {
+      "en": "Braided turquoise channels divide neatly around a sculpted fish-mouth stone weir under morning mist.",
+      "es": "Canales claros se dividen junto a un tajamar de piedra bajo la bruma matinal.",
+      "ar": "قنوات مائية تتفرع بنظام حول حاجز حجري وسط ضباب الصباح."
+    },
+    "draft": false
+  },
+  "wobble": {
+    "text": {
+      "en": "When a sudden monsoon arrives, a centralized dispatch objective scores high-GDP city districts highest—silently diverting floodwaters into unmeasured farming valleys before residents see a single public reason.",
+      "es": "Ante una crecida súbita, el algoritmo prioriza distritos centrales y desvía agua hacia valles agrícolas antes de explicar la regla al público.",
+      "ar": "عند هطول غزير مفاجئ، تعطي البرمجيات الأولوية للمناطق المركزية وتحوّل الفائض نحو الوديان الزراعية دون توضيح علني مسبق."
+    },
+    "transcript": {
+      "en": "One river fork surges dark amber while automated lock gates stay closed ahead of city towers.",
+      "es": "Un brazo del río crece con fuerza mientras las compuertas centrales permanecen cerradas.",
+      "ar": "يتدفق أحد فروع النهر بقوة بينما تغلق البوابات أمام المدن."
+    },
+    "draft": false
+  },
+  "weight": {
+    "question": {
+      "en": "When basin models choose where water goes, what safeguard keeps trust whole?",
+      "es": "Cuando un modelo decide adónde va el agua, ¿qué regla protege la confianza común?",
+      "ar": "عندما تقرر النماذج مسار المياه، ما الضمانة التي تحفظ ثقة الجميع؟"
+    },
+    "transcript": {
+      "en": "Village elders and river engineers read open level markers etched directly into canyon stone.",
+      "es": "Vecinos e ingenieros leen escalas grabadas directamente en la piedra del cauce.",
+      "ar": "سكان ومهندسون يقرؤون علامات المنسوب المحفورة على الصخر."
+    },
+    "draft": false,
+    "options": [
+      {
+        "id": "a",
+        "text": {
+          "en": "Publish every release rule and compensation trigger openly before rainy season.",
+          "es": "Publicar las reglas de desvío y compensación antes de las lluvias.",
+          "ar": "نشر قواعد التصريف والتعويض علناً قبل موسم الأمطار."
+        },
+        "light": "Fairness",
+        "shadow": "Power"
+      },
+      {
+        "id": "b",
+        "text": {
+          "en": "Follow Li Bing's weir principle: self-dividing stone channels that fail safely without power.",
+          "es": "Usar canales de reparto pasivo que funcionen sin electricidad.",
+          "ar": "اعتماد قنوات تقسيم طبيعية تعمل بانسيابية دون كهرباء."
+        },
+        "light": "Foresight",
+        "shadow": "Dependence"
+      },
+      {
+        "id": "c",
+        "text": {
+          "en": "Include upstream valley delegates in every emergency override decision.",
+          "es": "Incluir delegados de los valles altos en cada decisión de emergencia.",
+          "ar": "إشراك ممثلي القرى في قرارات الطوارئ النهرية."
+        },
+        "light": "Wisdom",
+        "shadow": "Control"
+      }
+    ]
+  },
+  "way": {
+    "text": {
+      "en": "Built over two millennia ago without shutting the Min River behind one rigid wall, Dujiangyan divided flow with shaped stone islands ('fish mouth') and public depth markers carved where anyone could verify.",
+      "es": "Construido hace más de dos milenios sin bloquear el río con un muro rígido, Dujiangyan reparte la corriente con islas de piedra y marcas visibles para todos.",
+      "ar": "بُني نظام دوجيانغيان منذ أكثر من ألفي عام دون إغلاق النهر بجدار صلب، مقسّماً التدفق بحواجز حجرية وعلامات منسوب يقرأها الجميع."
+    },
+    "actionCardTitle": {
+      "en": "Look up who governs your local watershed",
+      "es": "Conoce quién decide sobre tu cuenca local",
+      "ar": "تعرّف إلى الجهة المسؤولة عن حوض المياه في منطقتك"
+    },
+    "actionCardStep": {
+      "en": "Find your town's local river or water-authority public dashboard and note how citizens check seasonal reservoir levels.",
+      "es": "Busca el boletín público de agua o cuenca de tu zona y comprueba cómo se publican niveles y avisos.",
+      "ar": "ابحث عن النشرة العامة لمستوى المياه أو السدود في منطقتك وكيفية متابعة الجمهور لها."
+    },
+    "pledgeLabel": {
+      "en": "I'll ask for open public-good rules",
+      "es": "Pediré reglas públicas y transparentes",
+      "ar": "سأتابع شفافية قواعد الصالح العام"
+    },
+    "transcript": {
+      "en": "Clean river markers stand above balanced irrigation canals under bright sunlight.",
+      "es": "Marcas claras en el canal equilibran dos brazos de agua bajo el sol.",
+      "ar": "مقاييس حجرية واضحة توازن تفرّع القنوات المائية."
+    },
+    "draft": false
+  },
+  "closingLine": "Every great breakthrough needs a ready world.",
+  "realityMeter": {
+    "scale": "Possible soon",
+    "reason": {
+      "en": "Hydro-routing tools exist; transparent basin governance and passive fail-safe channels decide who bears flood risk.",
+      "es": "Las herramientas hidrológicas existen; la gobernanza transparente define quién asume el riesgo.",
+      "ar": "تتوفر أدوات التنبؤ المائي، لكن الحوكمة الشفافة تحدد توزيع المخاطر."
+    },
+    "observedMetric": null,
+    "source": "UNESCO Dujiangyan Irrigation System & FAO River Stewardship",
+    "sourceUrl": "https://whc.unesco.org/en/list/1001/",
+    "lastReviewed": "2026-11-28"
+  },
+  "sources": [
+    {
+      "title": "UNESCO World Heritage — Mount Qingcheng and the Dujiangyan Irrigation System",
+      "url": "https://whc.unesco.org/en/list/1001/",
+      "note": "Two-millennium damless flood-diversion engineering keeping silt flow intact."
+    },
+    {
+      "title": "FAO GIAHS — Traditional Watershed Commons",
+      "url": "https://www.fao.org/giahs/",
+      "note": "Governance linking upland valleys and downstream harvests."
+    }
+  ],
+  "reviewers": {
+    "en": "Open for Chinese & East Asian hydrology review",
+    "es": "Abierto a revisión en español",
+    "ar": "مفتوح للمراجعة بالعربية"
+  },
+  "doorTitle": {
+    "en": "Public Good",
+    "es": "Bien Común",
+    "ar": "الصالح العام"
+  },
+  "icon": "lamp",
+  "sourceCount": 2
+}

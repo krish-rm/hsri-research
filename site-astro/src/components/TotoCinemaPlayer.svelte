@@ -12,6 +12,7 @@
     type RegionGroup
   } from '../lib/countrySkies';
   import CountrySkylineSvg from './CountrySkylineSvg.svelte';
+  import { countryContextStore, getCountryParamFromUrl, syncCountryContext } from '../lib/countryContext';
 
   export let base = '';
   export let compact = false;
@@ -19,6 +20,8 @@
   const DURATION_SEC = 16;
 
   let activeCityId = 'neutral';
+  let autoSuggested = false;
+  let selectEl: HTMLSelectElement | null = null;
   let playing = true;
   let elapsedSec = 0;
   let seekOffsetSec = 0;
@@ -66,6 +69,8 @@
 
   function handleCitySelect(id: string) {
     activeCityId = id;
+    autoSuggested = false;
+    syncCountryContext(findCityById(id), true);
     restartFrom(0);
     trackEvent('hero_city_switch', { city: id });
   }
@@ -100,19 +105,36 @@
 
   onMount(() => {
     try {
-      const preset = (window as any).__hc || (window as any).__hrHeroCity;
-      if (preset && COUNTRY_SKIES.some((c) => c.id === preset || c.iso.toLowerCase() === String(preset).toLowerCase())) {
-        activeCityId = findCityById(preset).id;
+      const urlMatch = getCountryParamFromUrl();
+      if (urlMatch) {
+        activeCityId = urlMatch.id;
+        autoSuggested = false;
+        syncCountryContext(urlMatch, true);
       } else {
-        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
-        const matched = matchCityByTimezone(tz);
-        if (matched) activeCityId = matched.id;
+        const preset = (window as any).__hc || (window as any).__hrHeroCity;
+        if (preset && COUNTRY_SKIES.some((c) => c.id === preset || c.iso.toLowerCase() === String(preset).toLowerCase())) {
+          activeCityId = findCityById(preset).id;
+          autoSuggested = activeCityId !== 'neutral';
+        } else {
+          const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+          const matched = matchCityByTimezone(tz);
+          if (matched) {
+            activeCityId = matched.id;
+            autoSuggested = true;
+          }
+        }
+        syncCountryContext(findCityById(activeCityId), false);
       }
     } catch {
       // Keep Coastal Harbour default
     }
     startClock();
   });
+
+  $: if ($countryContextStore.explicit && $countryContextStore.cityId && $countryContextStore.cityId !== activeCityId) {
+    activeCityId = $countryContextStore.cityId;
+    autoSuggested = false;
+  }
 
   onDestroy(() => {
     if (clockTimer) clearInterval(clockTimer);
@@ -127,12 +149,18 @@
       {$dict.hero.cityLabel}
       <strong id="hcn">{activeCityId === 'neutral' ? $dict.hero.cityNeutralName : city.name}</strong>
       <span id="hcr" class="region-chip">{city.regionHint}</span>
+      {#if autoSuggested}
+        <button type="button" class="tz-switch-hint" onclick={() => selectEl?.focus()}>
+          {$dict.heritageUi.autoDetectedHint}
+        </button>
+      {/if}
     </span>
 
     <div class="tc-controls-top">
       <label class="sr-only" for="hero-city-select">Switch country or city backdrop</label>
       <select
         id="hero-city-select"
+        bind:this={selectEl}
         class="city-select-mini"
         bind:value={activeCityId}
         onchange={() => handleCitySelect(activeCityId)}
@@ -363,6 +391,17 @@
     font-family: var(--font-family-mono);
     font-size: 0.62rem;
     color: var(--text-secondary);
+  }
+
+  .tz-switch-hint {
+    border: 0;
+    background: transparent;
+    padding: 0;
+    color: var(--accent-primary);
+    font-size: 0.66rem;
+    font-weight: 700;
+    text-decoration: underline;
+    cursor: pointer;
   }
 
   .tc-controls-top {

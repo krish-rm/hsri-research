@@ -1,0 +1,203 @@
+{
+  "id": "west-africa-timbuktu-keepers",
+  "slug": "west-africa-timbuktu-keepers",
+  "door": "movie",
+  "era": "living",
+  "originRegion": {
+    "en": "West Africa & the Sahel",
+    "es": "África Occidental y el Sahel",
+    "ar": "غرب أفريقيا والساحل"
+  },
+  "traditionLabel": {
+    "en": "Timbuktu Family Libraries",
+    "es": "Bibliotecas vivas de Tombuctú",
+    "ar": "أمناء مخطوطات تمبكتو"
+  },
+  "chipTitle": {
+    "en": "Digitize living archives without losing custody",
+    "es": "Digitalizar archivos sin perder custodia local",
+    "ar": "رقمنة التراث مع بقاء السيادة لأهله"
+  },
+  "title": {
+    "en": "Keepers of Timbuktu: preserve heritage without locking families out",
+    "es": "Guardianes de Tombuctú: memoria en manos locales",
+    "ar": "حفظة تمبكتو: صون المخطوطات دون سلب حق العائلات"
+  },
+  "summary": {
+    "en": "Every fragile manuscript scans smoothly overnight — then licensing terms lock descendants outside their own family vault.",
+    "es": "Cada manuscrito se escanea al instante — hasta que las licencias cierran la puerta a sus propias familias.",
+    "ar": "تُصوَّر المخطوطات كلها رقمياً بلمح البصر — ثم تقفل شروط المنصة الباب أمام العائلات الحافظة لها."
+  },
+  "countries": [
+    "MLI",
+    "SEN",
+    "NER",
+    "BFA",
+    "MRT",
+    "NGA",
+    "GHA"
+  ],
+  "honestyLabel": "Real today",
+  "honestyNote": {
+    "en": "High-speed digitization and language models exist today; fair community custody decides who owns the living archive tomorrow.",
+    "es": "La digitalización veloz existe hoy; la custodia comunitaria decide quién controla la memoria mañana.",
+    "ar": "تتوفر الرقمنة والنماذج اللغوية اليوم، لكن حوكمة الملكية المجتمعية تحدد من يملك الأرشيف غداً."
+  },
+  "shadowTag": "Power",
+  "binding": {
+    "primary": "governance",
+    "secondary": "infrastructure",
+    "dependencyLabel": {
+      "en": "Local institutional custody and linguistic sovereignty over archives",
+      "es": "Custodia institucional local y soberanía sobre los archivos",
+      "ar": "السيادة المؤسسية والمجتمعية على الأرشيفات الثقافية واللغوية"
+    },
+    "safeguardChecklistIdx": 3
+  },
+  "atlasRefs": [
+    "SC-08",
+    "SC-22"
+  ],
+  "status": "review_open",
+  "wonder": {
+    "totoLine": {
+      "en": "Every page is crystal clear at dawn.",
+      "es": "Cada página brilla intacta al amanecer.",
+      "ar": "كل صفحة محفوظة بوضوح تام مع الفجر."
+    },
+    "text": {
+      "en": "Toto dusts, photographs, and indexes hundreds of thousands of Sahelian treatises—astronomy, law, poetry, and medicine—making fragile ink readable without cracking a single spine.",
+      "es": "Toto fotografía e indexa cientos de miles de folios de astronomía, poesía y derecho sin dañar un solo lomo.",
+      "ar": "يمسح توتو مئات الآلاف من مخطوطات الفلك والطب والشعر بدقة فائقة، فتصبح واضحة دون مساس بورقة هشة."
+    },
+    "transcript": {
+      "en": "Golden morning light falls across leather-bound folios inside a calm mud-brick library courtyard.",
+      "es": "Luz cálida ilumina manuscritos encuadernados en un patio de adobe sereno.",
+      "ar": "ضوء صباحي ذهبي يضيء مخطوطات جلدية في فناء مكتبة هادئة."
+    },
+    "draft": false
+  },
+  "wobble": {
+    "text": {
+      "en": "When an external cloud host packages the archive into closed subscription models, local scholars find their own community manuscripts gated behind distant servers—while offline community libraries receive no copies.",
+      "es": "Cuando un servidor externo empaqueta el archivo en modelos cerrados, los estudiosos locales descubren que su propio patrimonio queda tras muros de pago.",
+      "ar": "حين تضع منصة خارجية الأرشيف في نموذج اشتراك مغلق، يجد الباحثون المحليون تراث عائلاتهم محجوباً في خوادم بعيدة."
+    },
+    "transcript": {
+      "en": "Digital archive chests float away behind padlocks while local bookshelves sit empty.",
+      "es": "Cofres digitales se alejan con candados mientras estantes locales quedan vacíos.",
+      "ar": "صناديق رقمية مغلقة تبتعد عن الرفوف المحلية الفارغة."
+    },
+    "draft": false
+  },
+  "weight": {
+    "question": {
+      "en": "Who holds the keys when community memory meets planetary digitization?",
+      "es": "¿Quién guarda las llaves cuando la memoria comunitaria se digitaliza a escala mundial?",
+      "ar": "من يملك المفاتيح حين تتحول ذاكرة المجتمع إلى ملفات رقمية عالمية؟"
+    },
+    "transcript": {
+      "en": "Stewards hold matching physical chests and open community storage drives side by side.",
+      "es": "Guardianes sostienen juntos cofres físicos y copias locales abiertas.",
+      "ar": "حفظة المخطوطات يجمعون بين الصناديق الورقية ونسخ التخزين المحلية المفتوحة."
+    },
+    "draft": false,
+    "options": [
+      {
+        "id": "a",
+        "text": {
+          "en": "Leave master copies and usage rights firmly inside local community hands.",
+          "es": "Dejar copias maestras y derechos de uso en manos locales.",
+          "ar": "إبقاء النسخ الأصلية وحقوق الاستخدام بيد العائلات والمجتمع المحلي."
+        },
+        "light": "Fairness",
+        "shadow": "Power"
+      },
+      {
+        "id": "b",
+        "text": {
+          "en": "Distribute mirror copies across independent libraries, never one vault.",
+          "es": "Distribuir copias espejo entre bibliotecas locales, nunca en una sola bóveda.",
+          "ar": "توزيع النسخ الاحتياطية على مكتبات مستقلة بدلاً من مستودع واحد."
+        },
+        "light": "Capability",
+        "shadow": "Dependence"
+      },
+      {
+        "id": "c",
+        "text": {
+          "en": "Ask living elders which pages belong public and which remain family trust.",
+          "es": "Preguntar a quienes custodian qué textos son públicos y cuáles privados.",
+          "ar": "استشارة الحفظة حول ما يُتاح للعامة وما يبقى أمانة أسرية."
+        },
+        "light": "Wisdom",
+        "shadow": "Control"
+      }
+    ]
+  },
+  "way": {
+    "text": {
+      "en": "Timbuktu families kept centuries of learning alive not inside one fragile palace, but across hundreds of trusted household chests and couriers—the timeless blueprint for distributed, community-owned backups.",
+      "es": "Las familias de Tombuctú salvaron siglos de libros no en un único palacio, sino repartiéndolos en cientos de cofres domésticos: el modelo vivo de respaldo distribuido.",
+      "ar": "حافظت عائلات تمبكتو على قرون من العلم عبر مئات الصناديق الأسرية الموزعة لا قصر واحد، وهو النموذج الأمثل للنسخ الاحتياطي اللامركزي بقيادة المجتمع."
+    },
+    "actionCardTitle": {
+      "en": "Back up one family story or language record offline",
+      "es": "Respalda una historia familiar fuera de la nube",
+      "ar": "احفظ قصة أو تسجيلاً عائلياً بعيداً عن السحابة"
+    },
+    "actionCardStep": {
+      "en": "Save one family notebook, recipe, or elder audio recording on an offline drive and share a copy with a relative.",
+      "es": "Guarda una libreta familiar o grabación en un disco sin conexión y entrega copia a un familiar.",
+      "ar": "احفظ دفتراً عائلياً أو تسجيلاً صوتياً لكبار السن على قرص غير متصل بالشبكة وشارك نسخة مع قريب."
+    },
+    "pledgeLabel": {
+      "en": "I'll keep memory in community hands",
+      "es": "Protegeré copias locales compartidas",
+      "ar": "سأحفظ الذاكرة في نسخ محلية تشاركية"
+    },
+    "transcript": {
+      "en": "Matching wooden trunks and offline memory cards glow warmly across neighboring homes.",
+      "es": "Arcas de madera y copias locales brillan entre hogares vecinos.",
+      "ar": "صناديق حفظ محلية ونسخ رقمية تتوزع بأمان بين المنازل."
+    },
+    "draft": false
+  },
+  "closingLine": "Every great breakthrough needs a ready world.",
+  "realityMeter": {
+    "scale": "Real today",
+    "reason": {
+      "en": "Scanning and OCR run rapidly today; fair licensing, local offline copies, and community governance remain urgent.",
+      "es": "El escaneo automático funciona hoy; licencias justas y copias locales siguen siendo urgentes.",
+      "ar": "تتوفر تقنيات المسح الضوئي اليوم، وتبقى العدالة في الترخيص والنسخ المحلية أولوية."
+    },
+    "observedMetric": null,
+    "source": "UNESCO Timbuktu Manuscripts & SAVAMA-DCI Community Stewardship",
+    "sourceUrl": "https://whc.unesco.org/en/list/119/",
+    "lastReviewed": "2026-11-28"
+  },
+  "sources": [
+    {
+      "title": "UNESCO World Heritage — Timbuktu & Manuscript Preservation",
+      "url": "https://whc.unesco.org/en/list/119/",
+      "note": "Documents family library protection and decentralized safeguarding in Mali."
+    },
+    {
+      "title": "Hill Museum & Manuscript Library (HMML) — Community Custody Partnerships",
+      "url": "https://hmml.org/",
+      "note": "Preserving master rights with local owning families and institutions."
+    }
+  ],
+  "reviewers": {
+    "en": "Open for West African archival & civic review",
+    "es": "Abierto a revisión en español",
+    "ar": "مفتوح للمراجعة بالعربية"
+  },
+  "doorTitle": {
+    "en": "Culture & Creativity",
+    "es": "Cultura y Creatividad",
+    "ar": "الثقافة والإبداع"
+  },
+  "icon": "frame",
+  "sourceCount": 2
+}

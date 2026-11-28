@@ -20,6 +20,7 @@
   $: completed = $completedWishList;
   $: shadows = $shadowSummary;
   $: doneCount = completed.length;
+  $: heritageDoneCount = completed.filter((w) => w.wishId.startsWith('heritage-')).length;
   $: archetypeKey = deriveTrailArchetype(state.lights, shadows);
   $: archetypeInfo = $dict.player.trails[archetypeKey];
 
@@ -132,6 +133,12 @@
       });
     }
 
+    if (heritageDoneCount > 0) {
+      ctx.fillStyle = '#1b6756';
+      ctx.font = `700 ${isStory ? 26 : 19}px sans-serif`;
+      ctx.fillText(`Cultural horizons explored: ${heritageDoneCount}`, padX, h - (isStory ? 190 : 122));
+    }
+
     ctx.fillStyle = '#1b6756';
     ctx.font = `700 ${isStory ? 32 : 24}px sans-serif`;
     ctx.fillText('Every great breakthrough needs a ready world.', padX, h - (isStory ? 140 : 88));
@@ -241,6 +248,11 @@
         <span class="unlock-badge">{$dict.player.trailUnlockedBadge}</span>
         <h4>{archetypeInfo.name}</h4>
         <p>{archetypeInfo.note}</p>
+        {#if heritageDoneCount > 0}
+          <p class="heritage-stamp-pill">
+            {$dict.heritageUi.trailStampLabel.replace('{count}', String(heritageDoneCount))}
+          </p>
+        {/if}
 
         <div class="share-actions">
           <button type="button" class="btn-share" on:click={() => exportCardPng(1200, 630, 'trail')}>
@@ -647,6 +659,19 @@
 
   .sb-cell.filled {
     background: var(--accent-primary);
+  }
+
+  .heritage-stamp-pill {
+    display: inline-block;
+    margin: 0.45rem 0 0;
+    padding: 0.18rem 0.6rem;
+    border-radius: 9999px;
+    background: var(--threat-sovereign-bg);
+    border: 1px solid var(--threat-sovereign-border);
+    color: var(--accent-primary);
+    font-family: var(--font-family-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
   }
 
   @media (max-width: 1024px) {

@@ -3,6 +3,7 @@
   import { dict, activeLocale } from '../i18n/store';
   import WishSceneIllustration from './WishSceneIllustration.svelte';
   import TotoIllustration from './TotoIllustration.svelte';
+  import WobbleReadout from './WobbleReadout.svelte';
   import {
     readinessStore,
     recordWishCompletion,
@@ -11,7 +12,9 @@
     type LightKey,
     type ShadowKey
   } from '../lib/readinessState';
+  import { countryContextStore, focusSafeguardInCountryCheck } from '../lib/countryContext';
   import { trackEvent } from '../lib/privacyStorage';
+  import type { PlayableHeritageWish } from '../lib/heritageTypes';
 
   const SHOW_DRAFT_BADGE = __HSRI_SHOW_DRAFTS__;
 
@@ -59,10 +62,20 @@
     };
   }
 
-  export let wish: WishItem;
+  export let wish: WishItem | PlayableHeritageWish;
   export let base = '';
   export let onClose: () => void = () => {};
   export let onNextWish: () => void = () => {};
+
+  $: heritageWish = ('isHeritage' in wish && wish.isHeritage ? wish : null) as PlayableHeritageWish | null;
+  $: ctxCountryIso =
+    $countryContextStore.iso && $countryContextStore.iso !== 'GLOBAL'
+      ? $countryContextStore.iso
+      : countryRef?.iso ?? 'GLOBAL';
+  $: ctxCountryName =
+    $countryContextStore.iso && $countryContextStore.iso !== 'GLOBAL'
+      ? $countryContextStore.countryName
+      : countryRef?.name ?? 'Global';
 
   let showIntro = false;
   let introStartBtnEl: HTMLButtonElement | null = null;
@@ -162,7 +175,12 @@
         <span class="wp-door">{lText(wish.doorTitle)}</span>
         <span class="wp-honesty">{$dict.player.honestyPrefix} {wish.honestyLabel}</span>
         <span class="wp-dur">{$dict.player.durationBadge}</span>
-        {#if SHOW_DRAFT_BADGE && wish.status === 'draft'}
+        {#if heritageWish}
+          <span class="wp-heritage-pill">{lText(heritageWish.traditionLabel)}</span>
+          <a href={`${base}/traditions/${heritageWish.slug}/`} class="wp-archive-link">
+            {$dict.heritageUi.readArchiveLink} &rarr;
+          </a>
+        {:else if SHOW_DRAFT_BADGE && wish.status === 'draft'}
           <span class="draft-pill wp-draft-tag">{$dict.player.draftTag}</span>
         {/if}
       </div>
@@ -304,6 +322,14 @@
         <span class="draft-pill">{$dict.player.draftTag}</span>
       {/if}
       <p class="beat-main-text weight-q">{lText(wish.weight.question)}</p>
+      {#if heritageWish}
+        <WobbleReadout
+          countryIso={ctxCountryIso}
+          countryName={ctxCountryName}
+          binding={heritageWish.binding}
+          base={base}
+        />
+      {/if}
       <p class="weight-lead">{$dict.player.weightLead}</p>
 
       <div class="weight-options">
@@ -390,7 +416,23 @@
           </div>
           <div class="country-hook-box">
             <strong>{$dict.player.countryHookPrefix}</strong>
-            {#if countryRef && countryRef.kind === 'rated'}
+            {#if heritageWish}
+              {@const ctaCountryIso = ctxCountryIso !== 'GLOBAL' ? ctxCountryIso : (heritageWish.countries[0] ?? 'NOR')}
+              {@const ctaCountryLabel = ctxCountryIso !== 'GLOBAL' ? ctxCountryName : ctaCountryIso}
+              <p>
+                <button
+                  type="button"
+                  class="btn-country-test"
+                  on:click={() => focusSafeguardInCountryCheck(ctaCountryIso, heritageWish.binding.safeguardChecklistIdx)}
+                >
+                  {$dict.heritageUi.wayTestCountryCta.replace('{country}', ctaCountryLabel)} &rarr;
+                </button>
+              </p>
+              <p class="heritage-review-note">
+                {$dict.heritageUi.reviewOpenNote} &middot;
+                <a href={`${base}/traditions/${heritageWish.slug}/`}>{$dict.heritageUi.readArchiveLink}</a>
+              </p>
+            {:else if countryRef && countryRef.kind === 'rated'}
               <p>
                 To receive &ldquo;{lText(wish.title)}&rdquo;, <strong>{countryRef.name}</strong> has
                 <strong>{countryRef.checklistCount} of 5</strong> things in place.
@@ -955,6 +997,131 @@
 
   .country-hook-box p {
     margin: 0.25rem 0 0;
+  }
+
+  .wp-heritage-pill {
+    font-family: var(--font-family-mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 0.18rem 0.55rem;
+    border-radius: 9999px;
+    background: #fef3c7;
+    color: #92400e;
+    border: 1px solid #f59e0b;
+  }
+
+  .wp-archive-link {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--accent-primary);
+    text-decoration: none;
+  }
+
+  .btn-country-test {
+    border: 1px solid var(--accent-primary);
+    background: var(--threat-sovereign-bg);
+    color: var(--accent-primary);
+    border-radius: 8px;
+    padding: 0.36rem 0.7rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+    min-height: 36px;
+  }
+
+  .btn-country-test:hover {
+    background: var(--accent-primary);
+    color: var(--btn-primary-text);
+  }
+
+  .heritage-review-note {
+    font-size: 0.74rem;
+    color: var(--text-muted);
+  }
+
+  .wish-player-shell :global(.wobble-readout) {
+    background: var(--bg-surface);
+    border: 1.5px solid var(--border-medium);
+    border-inline-start: 4px solid var(--accent-primary);
+    border-radius: 10px;
+    padding: 0.72rem 0.9rem;
+    margin: 0.75rem 0 0.85rem;
+  }
+
+  .wish-player-shell :global(.wr-head) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.45rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .wish-player-shell :global(.wr-tag) {
+    font-family: var(--font-family-mono);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--accent-primary);
+  }
+
+  .wish-player-shell :global(.wr-dep) {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+
+  .wish-player-shell :global(.wr-rated-row) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.45rem;
+    margin-bottom: 0.28rem;
+  }
+
+  .wish-player-shell :global(.wr-status-pill) {
+    font-size: 0.72rem;
+    font-weight: 800;
+    padding: 0.14rem 0.5rem;
+    border-radius: 9999px;
+  }
+
+  .wish-player-shell :global(.wr-status-pill.pass) {
+    background: var(--threat-sovereign-bg);
+    color: var(--accent-primary);
+  }
+
+  .wish-player-shell :global(.wr-status-pill.gap) {
+    background: #fef3c7;
+    color: #92400e;
+  }
+
+  .wish-player-shell :global(.wr-label) {
+    font-size: 0.86rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .wish-player-shell :global(.wr-body) {
+    margin: 0;
+    font-size: 0.82rem;
+    line-height: 1.48;
+    color: var(--text-secondary);
+  }
+
+  .wish-player-shell :global(.wr-muted) {
+    color: var(--text-muted);
+  }
+
+  .wish-player-shell :global(.wr-link) {
+    display: inline-block;
+    margin-inline-start: 0.35rem;
+    color: var(--accent-primary);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .wish-player-shell :global(.wr-link:hover) {
+    text-decoration: underline;
   }
 
   .wish-finale {

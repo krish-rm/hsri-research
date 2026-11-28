@@ -1,0 +1,201 @@
+{
+  "id": "south-asia-healing-commons",
+  "slug": "south-asia-healing-commons",
+  "door": "epic",
+  "era": "living",
+  "originRegion": {
+    "en": "South Asia",
+    "es": "Asia del Sur",
+    "ar": "جنوب آسيا"
+  },
+  "traditionLabel": {
+    "en": "Sanjeevani & Clinic Commons",
+    "es": "Sanjeevani y clínicas comunitarias",
+    "ar": "سانجيفاني والعيادات المجتمعية"
+  },
+  "chipTitle": {
+    "en": "Cure fast while clinics stay resilient",
+    "es": "Sanar rápido sin debilitar clínicas locales",
+    "ar": "شفاء سريع مع بقاء العيادات متماسكة"
+  },
+  "title": {
+    "en": "Sanjeevani commons: healing that reaches every village",
+    "es": "Sanjeevani comunitario: salud para cada aldea",
+    "ar": "سانجيفاني المشترك: رعاية تصل كل قرية"
+  },
+  "summary": {
+    "en": "A fever clears overnight — until clinics discover prescriptions and triage rules now route through one distant server.",
+    "es": "Las fiebres ceden al alba — hasta notar que recetas e historiales dependen de un servidor lejano.",
+    "ar": "يزول المرض فجراً — ثم تكتشف العيادات أن الوصفات والسجلات تعتمد على خادم بعيد واحد."
+  },
+  "countries": [
+    "IND",
+    "NPL",
+    "LKA",
+    "BGD",
+    "PAK"
+  ],
+  "honestyLabel": "Imagination",
+  "honestyNote": {
+    "en": "AI speeds narrow molecule screening today; community clinics still depend on trained local nurses, grids, and paper records.",
+    "es": "La IA acelera búsquedas moleculares puntuales hoy; las clínicas siguen necesitando personal local, energía y registros.",
+    "ar": "يسرّع الذكاء الاصطناعي فرز الجزيئات اليوم، لكن العيادات تعتمد على الطواقم والكهرباء والسجلات."
+  },
+  "shadowTag": "Control",
+  "binding": {
+    "primary": "infrastructure",
+    "secondary": "governance",
+    "dependencyLabel": {
+      "en": "Grid and clinic infrastructure stability for local delivery",
+      "es": "Estabilidad eléctrica y de red para clínicas locales",
+      "ar": "استقرار البنية الكهربائية والرقمية للعيادات المحلية"
+    },
+    "safeguardChecklistIdx": 1
+  },
+  "atlasRefs": [
+    "SC-07",
+    "SC-23"
+  ],
+  "status": "review_open",
+  "wonder": {
+    "totoLine": {
+      "en": "Dawn breaks in the district ward.",
+      "es": "Amanece en la sala distrital.",
+      "ar": "يشرق الفجر في العنبر المحلي."
+    },
+    "text": {
+      "en": "Across crowded district clinics and mountain health posts, Toto identifies infections in seconds and clears wards peacefully. Families breathe in quiet relief before sunrise.",
+      "es": "En postas de montaña y clínicas distritales, Toto identifica infecciones al instante y vacía salas en calma.",
+      "ar": "في العيادات المحلية ومراكز القرى، يشخّص توتو العدوى في ثوانٍ فتفرغ الأسرة بسلام قبل الشروق."
+    },
+    "transcript": {
+      "en": "Warm dawn light enters a serene community clinic beside leaf herbs and clean water vessels.",
+      "es": "Luz cálida de alba entra en una clínica tranquila con plantas medicinales y agua limpia.",
+      "ar": "ضوء فجر دافئ يغمر عيادة مجتمعية هادئة."
+    },
+    "draft": false
+  },
+  "wobble": {
+    "text": {
+      "en": "Weeks later, nurses realise automated supply dispatch sidelined rural pharmacies outside the main fiber line. When power fluctuates, sealed AI dispensers refuse to open without cloud verification.",
+      "es": "Semanas después, el reparto automático deja fuera boticas rurales lejos de la fibra óptica, y los dispensadores cerrados no abren sin red.",
+      "ar": "بعد أسابيع، تكتشف الممرضات أن التوزيع الآلي همّش القرى البعيدة، وتتوقف الأجهزة المقفلة إذا انقطعت الشبكة."
+    },
+    "transcript": {
+      "en": "Automated supply boxes pause beside a rural clinic road while nurses hold a folded ledger.",
+      "es": "Cajas automatizadas se detienen junto a una clínica rural mientras enfermeras revisan una libreta.",
+      "ar": "صناديق إمداد آلية تتوقف بينما تراجع الممرضات السجل الورقي."
+    },
+    "draft": false
+  },
+  "weight": {
+    "question": {
+      "en": "How do we make fast healing reach every rural clinic without single-hub fragility?",
+      "es": "¿Cómo llevar curación rápida a cada posta rural sin depender de un centro único?",
+      "ar": "كيف يصل العلاج السريع لكل قرية دون هشاشة المركز الواحد؟"
+    },
+    "transcript": {
+      "en": "A village health worker and physician compare digital guidance with open community pharmacy shelves.",
+      "es": "Trabajadores de salud comparan guías digitales con estantes comunitarios abiertos.",
+      "ar": "طواقم صحية تقارن الإرشاد الرقمي بمخزون الصيدلية المحلية."
+    },
+    "draft": false,
+    "options": [
+      {
+        "id": "a",
+        "text": {
+          "en": "Ensure rural clinics keep solar power, manual cabinets, and multilingual labels.",
+          "es": "Garantizar respaldo solar, botiquines manuales y etiquetas locales.",
+          "ar": "ضمان طاقة شمسية وخزائن يدوية وإرشادات بلغة المجتمع."
+        },
+        "light": "Capability",
+        "shadow": "Dependence"
+      },
+      {
+        "id": "b",
+        "text": {
+          "en": "Guarantee outlying villages equal access before private tier rollouts.",
+          "es": "Asegurar acceso equitativo a zonas rurales desde el primer día.",
+          "ar": "ضمان وصول القرى النائية أولاً على قدم المساواة."
+        },
+        "light": "Fairness",
+        "shadow": "Power"
+      },
+      {
+        "id": "c",
+        "text": {
+          "en": "Train local health workers to inspect dosage recommendations independently.",
+          "es": "Formar personal local para revisar dosis de forma independiente.",
+          "ar": "تدريب الكوادر المحلية على مراجعة الجرعات بشكل مستقل."
+        },
+        "light": "Wisdom",
+        "shadow": "Control"
+      }
+    ]
+  },
+  "way": {
+    "text": {
+      "en": "The Sanjeevani story reminds us: healing whole mountains requires knowing where life grows locally—strengthened today by frontline community health workers, solar micro-fridges, and an offline paper household health card.",
+      "es": "El relato recuerda que sanar una comunidad requiere conocer lo cercano: hoy se logra con agentes sanitarios locales, frío solar y tarjetas médicas en papel en casa.",
+      "ar": "تذكّرنا القصة أن الشفاء الحقيقي يبدأ بالمعرفة القريبة من الناس: كوادر صحة مجتمعية، وثلاجات شمسية، وبطاقة صحية ورقية في كل بيت."
+    },
+    "actionCardTitle": {
+      "en": "Keep an offline household health card",
+      "es": "Guarda una ficha médica familiar en papel",
+      "ar": "احتفظ ببطاقة صحية ورقية للأسرة"
+    },
+    "actionCardStep": {
+      "en": "Keep one folded card at home with blood types, allergies, active prescriptions, and local clinic numbers.",
+      "es": "Anota grupo sanguíneo, alergias, medicamentos clave y el teléfono de tu clínica local en papel.",
+      "ar": "دوّن فصيلة الدم والحساسيات والأدوية الأساسية وأرقام العيادة المحلية على بطاقة ورقية."
+    },
+    "pledgeLabel": {
+      "en": "I'll keep my family card offline",
+      "es": "Guardaré nuestra ficha en papel",
+      "ar": "سأحتفظ بالبطاقة الصحية الورقية"
+    },
+    "transcript": {
+      "en": "A folded paper health card sits next to clean glass vials in morning sun.",
+      "es": "Una ficha en papel reposa junto a frascos limpios al sol.",
+      "ar": "بطاقة صحية ورقية موضوعة بجانب قوارير الدواء تحت نور الصباح."
+    },
+    "draft": false
+  },
+  "closingLine": "Every great breakthrough needs a ready world.",
+  "realityMeter": {
+    "scale": "Imagination",
+    "reason": {
+      "en": "Universal instant cures remain fiction; real equity turns on rural clinic power grids, trained nurses, and reliable supply chains.",
+      "es": "Las curas universales siguen siendo ficción; la equidad real depende de energía clínica y personal local.",
+      "ar": "العلاج الشامل الفوري خيال؛ أما العدالة الحقيقية فتعتمد على كهرباء العيادات والكوادر."
+    },
+    "observedMetric": null,
+    "source": "WHO Primary Health Care & Rural Clinic Infrastructure",
+    "sourceUrl": "https://www.who.int/health-topics/primary-health-care",
+    "lastReviewed": "2026-11-28"
+  },
+  "sources": [
+    {
+      "title": "World Health Organization — Primary Health Care Systems",
+      "url": "https://www.who.int/health-topics/primary-health-care",
+      "note": "Role of community health workers, local formularies, and resilient supply lines."
+    },
+    {
+      "title": "WHO India — Digital Health & Community Resilience Context",
+      "url": "https://www.who.int/india",
+      "note": "Highlights physical grid, cold-chain, and rural access gaps."
+    }
+  ],
+  "reviewers": {
+    "en": "Open for South Asian health & civic review",
+    "es": "Abierto a revisión en español",
+    "ar": "مفتوح للمراجعة بالعربية"
+  },
+  "doorTitle": {
+    "en": "Transformative Powers",
+    "es": "Poderes Transformadores",
+    "ar": "قدرات تحولية"
+  },
+  "icon": "eye",
+  "sourceCount": 2
+}

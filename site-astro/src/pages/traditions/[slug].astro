@@ -1,0 +1,429 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import HSRILayout from '../../layouts/HSRILayout.astro';
+import HSRIHeader from '../../components/HSRIHeader.svelte';
+import HSRIFooter from '../../components/HSRIFooter.svelte';
+import countryCatchCatalog from '../../data/country_catch_catalog.json';
+import type { HeritageFullRecord, HeritageIndexEntry } from '../../lib/heritageTypes';
+
+export async function getStaticPaths() {
+  const indexRaw = JSON.parse(
+    fs.readFileSync(path.resolve(process.cwd(), 'src/data/heritage/index.json'), 'utf-8')
+  ) as HeritageIndexEntry[];
+  return indexRaw.map((entry) => {
+    const rec = JSON.parse(
+      fs.readFileSync(
+        path.resolve(process.cwd(), `src/data/heritage/scripts/${entry.id}.json`),
+        'utf-8'
+      )
+    ) as HeritageFullRecord;
+    return {
+      params: { slug: entry.slug },
+      props: { rec }
+    };
+  });
+}
+
+const { rec } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const catalogByIso = new Map(
+  (countryCatchCatalog as Array<{ iso: string; name: string; kind: string; id?: string; catchStatus?: string; cloudDaysText?: string; checklistCount?: number; observedSummary?: string }>).map(
+    (c) => [c.iso, c]
+  )
+);
+
+const linkedCountries = rec.countries
+  .map((iso) => catalogByIso.get(iso))
+  .filter((c): c is NonNullable<typeof c> => Boolean(c));
+
+const primaryIso = rec.countries[0] ?? 'NOR';
+---
+
+<HSRILayout
+  title={`${rec.traditionLabel.en} — Cultural Horizon | Humanity Readiness`}
+  description={rec.summary.en}
+>
+  <div class="tradition-page-shell">
+    <HSRIHeader client:interact currentPath={Astro.url.pathname} />
+
+    <div class="breadcrumb-bar">
+      <div class="tr-container">
+        <a href={base || '/'}>Home</a> &rsaquo;
+        <a href={`${base}/traditions/`}>Cultural Horizons</a> &rsaquo;
+        <span>{rec.traditionLabel.en}</span>
+      </div>
+    </div>
+
+    <main class="tr-main">
+      <div class="tr-container">
+        <header class="tr-hero-card">
+          <div class="tr-badges">
+            <span class="pill-accent">{rec.doorTitle.en}</span>
+            <span class="pill-neutral">{rec.originRegion.en}</span>
+            <span class="pill-neutral">{rec.era === 'living' ? 'Living tradition' : 'Historical lineage'}</span>
+            <span class="pill-warn">{rec.realityMeter.scale}</span>
+          </div>
+          <h1>{rec.title.en}</h1>
+          <p class="tr-lead">{rec.honestyNote.en}</p>
+          <div class="tr-hero-actions">
+            <a href={`${base}/?c=${primaryIso}#wish-doors`} class="btn-tr-primary">
+              Play 60s interactive version &rarr;
+            </a>
+            <a href={`${base}/traditions/`} class="btn-tr-secondary">
+              Browse all traditions
+            </a>
+          </div>
+        </header>
+
+        <section class="beats-grid" aria-label="Four storytelling moments">
+          <article class="beat-box">
+            <span class="beat-num">01 · WONDER</span>
+            <p>{rec.wonder.text.en}</p>
+          </article>
+          <article class="beat-box is-wobble">
+            <span class="beat-num">02 · WOBBLE (DELIVERY FAILURE)</span>
+            <p>{rec.wobble.text.en}</p>
+          </article>
+          <article class="beat-box">
+            <span class="beat-num">03 · WEIGHT (WHAT MATTERS)</span>
+            <p><strong>{rec.weight.question.en}</strong></p>
+            <ul class="weight-list">
+              {rec.weight.options.map((opt) => (
+                <li>
+                  <span class="wl-badge">{opt.light}</span> {opt.text.en}
+                </li>
+              ))}
+            </ul>
+          </article>
+          <article class="beat-box is-way">
+            <span class="beat-num">04 · WAY (FROM THE TRADITION)</span>
+            <p>{rec.way.text.en}</p>
+            <div class="step-callout">
+              <strong>{rec.way.actionCardTitle.en}:</strong> {rec.way.actionCardStep.en}
+            </div>
+          </article>
+        </section>
+
+        <section class="binding-panel">
+          <h2>Connected Readiness Data &amp; Safeguard</h2>
+          <p class="bp-dep">
+            <strong>Delivery dependency tested:</strong> {rec.binding.dependencyLabel.en}
+          </p>
+          <div class="country-chips-grid">
+            {linkedCountries.map((c) => (
+              <div class="cc-item">
+                <div class="cc-head">
+                  <strong>{c.name} ({c.iso})</strong>
+                  {c.kind === 'rated' ? (
+                    <span class="cc-tag rated">39-Nation Benchmark</span>
+                  ) : (
+                    <span class="cc-tag unrated">Context-Only Coverage</span>
+                  )}
+                </div>
+                {c.kind === 'rated' ? (
+                  <p>
+                    Runs offline: <strong>{c.cloudDaysText}</strong> &middot; {c.checklistCount}/5 safeguards &middot;{' '}
+                    <a href={`${base}/countries/${c.id}/`}>Full dossier &rarr;</a>
+                  </p>
+                ) : (
+                  <p>
+                    {c.observedSummary} Never guessed.{' '}
+                    <a href={`${base}/coverage/`}>Coverage audit &rarr;</a>
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section class="sources-panel">
+          <div class="sp-col">
+            <h2>Cited Sources ({rec.sources.length})</h2>
+            <ul class="src-list">
+              {rec.sources.map((src) => (
+                <li>
+                  <a href={src.url} target="_blank" rel="noopener noreferrer">{src.title} &nearr;</a>
+                  <small>{src.note}</small>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div class="sp-col">
+            <h2>Multilingual &amp; Community Review</h2>
+            <p class="rev-note">
+              Every cultural tradition is published openly with at least two primary sources and invited review by speakers close to the lineage:
+            </p>
+            <ul class="rev-list">
+              <li><strong>English (EN):</strong> {rec.reviewers.en}</li>
+              <li><strong>Español (ES):</strong> {rec.reviewers.es}</li>
+              <li><strong>العربية (AR):</strong> {rec.reviewers.ar}</li>
+            </ul>
+            <p class="atlas-row">
+              <strong>Scenario Atlas links:</strong>{' '}
+              {rec.atlasRefs.map((sc) => (
+                <a href={`${base}/scenarios/`} class="sc-pill">{sc}</a>
+              ))}
+            </p>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <HSRIFooter client:interact />
+  </div>
+</HSRILayout>
+
+<style>
+  .tradition-page-shell {
+    min-height: 100vh;
+    background: var(--bg-canvas);
+    color: var(--text-primary);
+  }
+  .tr-container {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 1.15rem;
+  }
+  .breadcrumb-bar {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border-subtle);
+    background: var(--bg-surface);
+    font-size: 0.82rem;
+    color: var(--text-muted);
+  }
+  .breadcrumb-bar a {
+    color: var(--accent-primary);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .tr-main {
+    padding: 1.75rem 0 3rem;
+  }
+  .tr-hero-card,
+  .binding-panel,
+  .sources-panel {
+    background: var(--bg-surface-elevated);
+    border: 1.5px solid var(--border-medium);
+    border-radius: 16px;
+    padding: 1.35rem;
+    margin-bottom: 1.25rem;
+  }
+  .tr-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 0.65rem;
+  }
+  .pill-accent,
+  .pill-neutral,
+  .pill-warn {
+    font-family: var(--font-family-mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 0.16rem 0.55rem;
+    border-radius: 9999px;
+  }
+  .pill-accent {
+    background: var(--threat-sovereign-bg);
+    color: var(--accent-primary);
+  }
+  .pill-neutral {
+    background: var(--bg-surface-sunken);
+    color: var(--text-secondary);
+  }
+  .pill-warn {
+    background: #fef3c7;
+    color: #92400e;
+  }
+  .tr-hero-card h1 {
+    margin: 0 0 0.5rem;
+    font-size: clamp(1.5rem, 3.2vw, 2.2rem);
+    line-height: 1.15;
+  }
+  .tr-lead {
+    margin: 0 0 1rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+  }
+  .tr-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+  }
+  .btn-tr-primary {
+    background: var(--accent-primary);
+    color: var(--btn-primary-text);
+    padding: 0.55rem 1rem;
+    border-radius: 9px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.88rem;
+  }
+  .btn-tr-secondary {
+    border: 1px solid var(--border-medium);
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    padding: 0.55rem 1rem;
+    border-radius: 9px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.88rem;
+  }
+  .beats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.9rem;
+    margin-bottom: 1.25rem;
+  }
+  .beat-box {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-medium);
+    border-radius: 14px;
+    padding: 1.05rem;
+  }
+  .beat-box.is-wobble {
+    border-color: #f59e0b;
+  }
+  .beat-box.is-way {
+    border-color: var(--accent-primary);
+  }
+  .beat-num {
+    display: inline-block;
+    font-family: var(--font-family-mono);
+    font-size: 0.68rem;
+    font-weight: 800;
+    color: var(--accent-primary);
+    margin-bottom: 0.4rem;
+  }
+  .beat-box p {
+    margin: 0 0 0.5rem;
+    line-height: 1.55;
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+  }
+  .weight-list {
+    margin: 0.35rem 0 0;
+    padding-left: 1rem;
+    font-size: 0.84rem;
+    color: var(--text-secondary);
+  }
+  .weight-list li {
+    margin-bottom: 0.3rem;
+  }
+  .wl-badge {
+    font-weight: 800;
+    color: var(--accent-primary);
+  }
+  .step-callout {
+    background: var(--threat-sovereign-bg);
+    border-radius: 9px;
+    padding: 0.6rem 0.75rem;
+    font-size: 0.84rem;
+    color: var(--text-primary);
+  }
+  .binding-panel h2,
+  .sources-panel h2 {
+    margin: 0 0 0.55rem;
+    font-size: 1.12rem;
+  }
+  .bp-dep {
+    margin: 0 0 0.85rem;
+    color: var(--text-secondary);
+  }
+  .country-chips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 0.65rem;
+  }
+  .cc-item {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    padding: 0.65rem 0.8rem;
+  }
+  .cc-head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.3rem;
+    margin-bottom: 0.3rem;
+    font-size: 0.86rem;
+  }
+  .cc-tag {
+    font-family: var(--font-family-mono);
+    font-size: 0.62rem;
+    font-weight: 800;
+    padding: 0.1rem 0.42rem;
+    border-radius: 9999px;
+  }
+  .cc-tag.rated {
+    background: var(--threat-sovereign-bg);
+    color: var(--accent-primary);
+  }
+  .cc-tag.unrated {
+    background: var(--bg-surface-sunken);
+    color: var(--text-muted);
+  }
+  .cc-item p {
+    margin: 0;
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    line-height: 1.45;
+  }
+  .cc-item a {
+    color: var(--accent-primary);
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .sources-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+  .src-list,
+  .rev-list {
+    margin: 0;
+    padding-left: 1.1rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
+  .src-list li,
+  .rev-list li {
+    margin-bottom: 0.5rem;
+  }
+  .src-list a {
+    display: block;
+    font-weight: 700;
+    color: var(--accent-primary);
+    text-decoration: none;
+  }
+  .src-list small {
+    display: block;
+    color: var(--text-muted);
+  }
+  .rev-note,
+  .atlas-row {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+  }
+  .sc-pill {
+    display: inline-block;
+    font-family: var(--font-family-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.14rem 0.45rem;
+    border-radius: 6px;
+    background: var(--bg-surface-sunken);
+    color: var(--accent-primary);
+    text-decoration: none;
+    margin-inline-end: 0.25rem;
+  }
+  @media (max-width: 720px) {
+    .beats-grid,
+    .sources-panel {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

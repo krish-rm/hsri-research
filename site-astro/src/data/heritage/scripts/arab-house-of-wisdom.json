@@ -1,0 +1,211 @@
+{
+  "id": "arab-house-of-wisdom",
+  "slug": "arab-house-of-wisdom",
+  "door": "mysteries",
+  "era": "historical",
+  "originRegion": {
+    "en": "Arab & West Asian Scholarship",
+    "es": "Tradición científica árabe",
+    "ar": "بيت الحكمة وتراث التحقق"
+  },
+  "traditionLabel": {
+    "en": "Bayt al-Hikma & Verification",
+    "es": "Casa de la Sabiduría",
+    "ar": "بيت الحكمة ومراجعة المصادر"
+  },
+  "chipTitle": {
+    "en": "Translate all knowledge without losing proof",
+    "es": "Traducir todo saber sin perder la fuente",
+    "ar": "جمع المعرفة وترجمتها دون فقدان الإسناد"
+  },
+  "title": {
+    "en": "Bayt al-Hikma: translate every text—and check every chain",
+    "es": "Casa de la Sabiduría: traducir sin perder fuentes",
+    "ar": "بيت الحكمة: جمع المعارف مع حفظ سلاسل التثبّت"
+  },
+  "summary": {
+    "en": "Every manuscript renders into crisp summaries overnight — until scholars see nobody verified the original witness line.",
+    "es": "Cada manuscrito se resume en segundos — hasta notar que nadie comprobó las citas originales.",
+    "ar": "تُترجم وتُلخّص كل المخطوطات في ليلة — حتى يكتشف العلماء غياب سلسلة الإسناد والتدقيق."
+  },
+  "countries": [
+    "EGY",
+    "ARE",
+    "SAU",
+    "QAT",
+    "KWT",
+    "OMN",
+    "JOR",
+    "LBN",
+    "SYR",
+    "IRQ",
+    "MAR",
+    "DZA",
+    "TUN",
+    "LBY",
+    "YEM"
+  ],
+  "honestyLabel": "Real today",
+  "honestyNote": {
+    "en": "Fluently translated summaries exist today; independent verification of citations and edge discrepancies remains deeply human work.",
+    "es": "Hoy existen resúmenes traducidos al instante; verificar citas originales y matices sigue siendo tarea humana.",
+    "ar": "تتوفر الترجمة والملخصات الآلية اليوم، لكن التحقق من المراجع الأصلية يظل عملاً بشرياً أساسياً."
+  },
+  "shadowTag": "Truth",
+  "binding": {
+    "primary": "discernment",
+    "secondary": "governance",
+    "dependencyLabel": {
+      "en": "Public ability to audit fluent machine-generated claims and translations",
+      "es": "Capacidad pública de auditar resúmenes y traducciones automáticas",
+      "ar": "قدرة الجمهور والباحثين على تدقيق الادعاءات والترجمات الآلية"
+    },
+    "safeguardChecklistIdx": 2
+  },
+  "atlasRefs": [
+    "SC-06",
+    "SC-16"
+  ],
+  "status": "review_open",
+  "wonder": {
+    "totoLine": {
+      "en": "Every scroll sits translated side by side.",
+      "es": "Cada tratado aparece traducido al instante.",
+      "ar": "كل كتاب ومخطوطة مترجمة بدقة في متناول اليد."
+    },
+    "text": {
+      "en": "Toto opens a sunlit courtyard library linking astronomy, medicine, poetry, and mathematics across dozens of tongues in moments, answering every student's question in fluent prose.",
+      "es": "Toto abre una gran biblioteca luminosa donde astronomía, medicina y geometría conversan al instante en todos los idiomas.",
+      "ar": "يفتح توتو مكتبة مشرقة تجمع الفلك والطب والرياضيات بعشرات اللغات في لحظات، وتجيب كل باحث بلغة سلسة."
+    },
+    "transcript": {
+      "en": "Warm limestone library arches open onto glowing geometric star charts and neat folio pages.",
+      "es": "Arcos cálidos de biblioteca muestran cartas estelares y folios abiertos.",
+      "ar": "أقواس مكتبة مضيئة تضم خرائط فلكية ومخطوطات مفتوحة."
+    },
+    "draft": false
+  },
+  "wobble": {
+    "text": {
+      "en": "Because every translation reads smoothly, subtle fabrications and drifted measurements blend into genuine theorems. Downstream teachers quote the machine digest without ever checking which manuscript actually said it.",
+      "es": "Como todo suena fluido, pequeñas invenciones y errores de medida se mezclan con teoremas reales sin que nadie revise el folio original.",
+      "ar": "لأن الصياغة تبدو رصينة ومتماسكة، تتسلل أخطاء وأوهام دقيقة إلى الملخصات، فيستشهد المعلمون بالخلاصة الآلية دون مراجعة الأصل."
+    },
+    "transcript": {
+      "en": "Identical glowing summaries mask one crooked citation thread linking back to nowhere.",
+      "es": "Resúmenes idénticos ocultan una cita que no apunta a ningún original.",
+      "ar": "ملخصات متشابهة تخفي خيط إحالة منقطعاً لا يعود لأي أصل."
+    },
+    "draft": false
+  },
+  "weight": {
+    "question": {
+      "en": "When fluency hides errors effortlessly, how do communities keep truth grounded?",
+      "es": "Cuando la fluidez oculta errores, ¿cómo mantiene viva la verdad una comunidad?",
+      "ar": "حين تخفي السلاسة اللغوية الأخطاء، كيف تحافظ المجتمعات على صدق المعرفة؟"
+    },
+    "transcript": {
+      "en": "Two readers sit side-by-side marking margins and tracing a chain of citations across three books.",
+      "es": "Dos lectores cotejan márgenes y trazan citas entre tres libros reales.",
+      "ar": "قارئان يراجعان الحواشي ويتتبعان سلاسل الإسناد بين الكتب."
+    },
+    "draft": false,
+    "options": [
+      {
+        "id": "a",
+        "text": {
+          "en": "Insist every automated claim link cleanly back to original primary witnesses.",
+          "es": "Exigir que cada afirmación enlace siempre a su fuente primaria real.",
+          "ar": "اشتراط ربط كل خلاصة آلية بالمصدر الأصلي الموثق."
+        },
+        "light": "Foresight",
+        "shadow": "Truth"
+      },
+      {
+        "id": "b",
+        "text": {
+          "en": "Preserve open peer debate (munazara) across multiple schools and languages.",
+          "es": "Sostener el debate abierto entre lectores y escuelas distintas.",
+          "ar": "حفظ تقليد المناظرة والمراجعة بين القراء والمدارس المختلفة."
+        },
+        "light": "Wisdom",
+        "shadow": "Control"
+      },
+      {
+        "id": "c",
+        "text": {
+          "en": "Keep original manuscripts public so anyone, anywhere can check the quote.",
+          "es": "Mantener abiertos los textos originales para verificación libre.",
+          "ar": "إتاحة النصوص الأصلية للجميع للتحقق المباشر دون عوائق."
+        },
+        "light": "Fairness",
+        "shadow": "Power"
+      }
+    ]
+  },
+  "way": {
+    "text": {
+      "en": "Scholars of Bayt al-Hikma built twin safeguards alongside translation: explicit chains of transmission (*isnad*) and marginal commentary (*hashiya*) so any reader could see where certainty ended and interpretation began.",
+      "es": "Los estudiosos acompañaron cada traducción con cadenas explícitas de fuentes y notas al margen para mostrar dónde terminaba el dato y empezaba la hipótesis.",
+      "ar": "قرن علماء بيت الحكمة الترجمةَ بأداة تثبّت أصيلة: سلاسل الإسناد الواضحة والحواشي النقدية حتى يرى كل قارئ حدَّ الدليل وبداية الاجتهاد."
+    },
+    "actionCardTitle": {
+      "en": "Trace two claims to their original page",
+      "es": "Comprueba dos citas en su página original",
+      "ar": "تتبّع معلومتين إلى مصدرهما الأصلي"
+    },
+    "actionCardStep": {
+      "en": "Next time an AI assistant summarizes history, medicine, or law, open two cited primary sources yourself before repeating the number.",
+      "es": "La próxima vez que uses un resumen automático, abre al menos dos fuentes primarias reales antes de citarlo.",
+      "ar": "في المرة القادمة التي تستخدم فيها ملخصاً آلياً، افتح مصدرين أصليين بنفسك للتحقق قبل نشر المعلومة."
+    },
+    "pledgeLabel": {
+      "en": "I'll trace the chain before trusting",
+      "es": "Rastrearé la fuente antes de citar",
+      "ar": "سأتثبّت من الإسناد والمصدر الأصلي"
+    },
+    "transcript": {
+      "en": "Open ink margins connect a modern page cleanly back to a sunlit archival manuscript.",
+      "es": "Notas al margen enlazan una página actual con el archivo original.",
+      "ar": "هوامش واضحة تربط النص الحديث بالمخطوطة الأصلية المضيئة."
+    },
+    "draft": false
+  },
+  "closingLine": "Every great breakthrough needs a ready world.",
+  "realityMeter": {
+    "scale": "Real today",
+    "reason": {
+      "en": "Instant multilingual summaries work today; citation fabrication and nuance drift make human source verification vital.",
+      "es": "La traducción instantánea ya existe hoy; los errores sutiles hacen imprescindible verificar las fuentes.",
+      "ar": "تعمل الترجمة الفورية اليوم، لكن التضليل الدقيق يجعل تدقيق المصادر ضرورة يومية."
+    },
+    "observedMetric": null,
+    "source": "Qatar National Library Digital Archive & UNESCO Memory of the World",
+    "sourceUrl": "https://www.qnl.qa/en",
+    "lastReviewed": "2026-11-28"
+  },
+  "sources": [
+    {
+      "title": "Qatar National Library — Heritage & Manuscript Digital Archive",
+      "url": "https://www.qnl.qa/en",
+      "note": "Preserves verifiable Arabic scientific treatises and marginalia traditions."
+    },
+    {
+      "title": "UNESCO — Translation, Scholarship & Epistemic Heritage",
+      "url": "https://en.unesco.org/",
+      "note": "Multilingual scholarly transmission and manuscript authenticity."
+    }
+  ],
+  "reviewers": {
+    "en": "Open for Arabic scholarly review",
+    "es": "Abierto a revisión en español",
+    "ar": "مفتوح للمراجعة العلمية باللغة العربية"
+  },
+  "doorTitle": {
+    "en": "Open Problems",
+    "es": "Preguntas Abiertas",
+    "ar": "مسائل مفتوحة"
+  },
+  "icon": "chalkboard",
+  "sourceCount": 2
+}

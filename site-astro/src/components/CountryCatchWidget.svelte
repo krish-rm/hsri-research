@@ -1,9 +1,12 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import type { CountrySummaryItem } from '../lib/countryData';
-  import { dict } from '../i18n/store';
+  import { dict, activeLocale } from '../i18n/store';
   import { trackEvent } from '../lib/privacyStorage';
   import { completedWishList, setSelectedCountryForReadiness } from '../lib/readinessState';
+  import { countryContextStore, syncCountryContext } from '../lib/countryContext';
+  import { findCityById } from '../lib/countrySkies';
+  import { findAnyHeritageForCountry } from '../lib/heritageLoader';
 
   export let countries: CountrySummaryItem[] = [];
   export let base = '';
@@ -13,6 +16,9 @@
   let selectedIso = 'NOR';
   let searchFilter = '';
   let localeDetected = false;
+  let highlightedIdx: number | null = null;
+  let detailsOpen = false;
+  let lastSyncedCtxKey = '';
 
   const LOCALE_TO_ISO: Record<string, string> = {
     AU: 'AUS', AT: 'AUT', BE: 'BEL', BG: 'BGR', BR: 'BRA', CA: 'CAN',
@@ -55,8 +61,10 @@
   $: ratedFiltered = filteredCountries.filter((c) => c.kind === 'rated');
   $: unratedFiltered = filteredCountries.filter((c) => c.kind === 'unrated');
   $: activeCountry = allCountries.find((c) => c.iso === selectedIso) ?? allCountries[0];
+  $: loc = ($activeLocale === 'es' || $activeLocale === 'ar' ? $activeLocale : 'en') as 'en' | 'es' | 'ar';
+  $: countryHeritage = activeCountry ? findAnyHeritageForCountry(activeCountry.iso) : null;
 
-  function pickCountry(iso: string) {
+  function applyCountrySelection(iso: string, pushContext = true) {
     selectedIso = iso;
     localeDetected = false;
     const found = allCountries.find((c) => c.iso === iso);
@@ -68,7 +76,30 @@
         checklistCount: found.kind === 'rated' ? found.checklistCount : undefined
       });
     }
+    if (pushContext) {
+      syncCountryContext(findCityById(iso), true);
+      highlightedIdx = null;
+    }
     trackEvent('country_selected', { iso });
+  }
+
+  function pickCountry(iso: string) {
+    applyCountrySelection(iso, true);
+  }
+
+  $: if ($countryContextStore.explicit && $countryContextStore.iso && $countryContextStore.iso !== 'GLOBAL') {
+    const syncKey = `${$countryContextStore.iso}:${$countryContextStore.highlightChecklistIdx ?? ''}`;
+    if (syncKey !== lastSyncedCtxKey && allCountries.some((c) => c.iso === $countryContextStore.iso)) {
+      lastSyncedCtxKey = syncKey;
+      searchFilter = '';
+      if (selectedIso !== $countryContextStore.iso) {
+        applyCountrySelection($countryContextStore.iso, false);
+      }
+      if ($countryContextStore.highlightChecklistIdx !== null) {
+        highlightedIdx = $countryContextStore.highlightChecklistIdx;
+        detailsOpen = true;
+      }
+    }
   }
 
   onMount(async () => {
@@ -185,18 +216,25 @@
               </div>
             </div>
 
-            <details class="cc-details">
+            <details class="cc-details" bind:open={detailsOpen}>
               <summary>See the 5 safeguards &amp; primary bottleneck for {activeCountry.name}</summary>
               <p class="cc-weak"><strong>Main constraint:</strong> {activeCountry.weakestLinkPlain}</p>
               <ul class="cl-items">
-                {#each activeCountry.checklist as item}
-                  <li class:passed={item.pass}>
+                {#each activeCountry.checklist as item, idx}
+                  <li class:passed={item.pass} class:focused-check={highlightedIdx === idx}>
                     <span>{item.pass ? '✓' : '○'} {item.label}</span>
                     <small>{item.metricNote}</small>
                   </li>
                 {/each}
               </ul>
             </details>
+
+            {#if countryHeritage}
+              <div class="cc-heritage-strip">
+                <span>🌍 <strong>{countryHeritage.traditionLabel[loc] ?? countryHeritage.traditionLabel.en}</strong> &middot; {countryHeritage.chipTitle[loc] ?? countryHeritage.chipTitle.en}</span>
+                <a href={`${base}/traditions/${countryHeritage.slug}/`}>{$dict.heritageUi.readArchiveLink} &rarr;</a>
+              </div>
+            {/if}
           </div>
         {:else if activeCountry && activeCountry.kind === 'unrated'}
           <div class="country-card-row">
@@ -210,6 +248,12 @@
               </a>
             </div>
             <p class="ur-summary">{activeCountry.observedSummary} Never guessed — {activeCountry.missingSummary}</p>
+            {#if countryHeritage}
+              <div class="cc-heritage-strip">
+                <span>🌍 <strong>{countryHeritage.traditionLabel[loc] ?? countryHeritage.traditionLabel.en}</strong> &middot; {countryHeritage.chipTitle[loc] ?? countryHeritage.chipTitle.en}</span>
+                <a href={`${base}/traditions/${countryHeritage.slug}/`}>{$dict.heritageUi.readArchiveLink} &rarr;</a>
+              </div>
+            {/if}
           </div>
         {/if}
       </div>
@@ -417,6 +461,36 @@
   .cl-items li.passed {
     border-color: var(--threat-sovereign-border);
     color: var(--text-primary);
+  }
+
+  .cl-items li.focused-check {
+    border: 2px solid var(--accent-primary);
+    background: var(--threat-sovereign-bg);
+    box-shadow: 0 0 0 2px rgba(27, 103, 86, 0.14);
+  }
+
+  .cc-heritage-strip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.35rem 0.65rem;
+    margin-top: 0.7rem;
+    padding-top: 0.6rem;
+    border-top: 1px dashed var(--border-subtle);
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+  }
+
+  .cc-heritage-strip a {
+    color: var(--accent-primary);
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .cc-heritage-strip a:hover {
+    text-decoration: underline;
   }
 
   .ur-summary {

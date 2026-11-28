@@ -508,5 +508,25 @@ export const es: TranslationDict = {
     languagesLink: 'Idiomas',
     totoLink: 'Toto',
     recapLink: 'Resumen del viernes'
+  },
+
+  heritageUi: {
+    localHorizonTag: 'Horizonte cultural · {country}',
+    livingBadge: 'Tradición viva',
+    historicalBadge: 'Linaje histórico',
+    seeGlobalBtn: 'Ver avance global',
+    seeLocalBtn: 'Ver tradición de {country}',
+    livesInOtherDoor: 'El horizonte de {country} vive en {door}',
+    noLocalYet: 'Aún no hay tradición añadida para {country} — explora los avances globales.',
+    readArchiveLink: 'Fuentes y contexto cultural',
+    reviewOpenNote: '2+ fuentes citadas · Revisión abierta',
+    weightBindingTitle: 'Chequeo real de entrega para {country}',
+    weightRatedInPlace: 'En marcha',
+    weightRatedGap: 'Punto frágil observado',
+    weightContextNote: '{country} tiene seguimiento parcial ({region}) — {observed}',
+    weightNoCountry: 'Elige un país abajo para contrastar esta dependencia con datos reales.',
+    wayTestCountryCta: 'Probar esta salvaguarda en {country}',
+    trailStampLabel: 'Horizontes culturales explorados: {count}',
+    autoDetectedHint: 'Cielo sugerido · elige cualquier país'
   }
 };

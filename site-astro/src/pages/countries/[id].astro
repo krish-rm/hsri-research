@@ -4,6 +4,7 @@ import HSRIHeader from '../../components/HSRIHeader.svelte';
 import HSRIFooter from '../../components/HSRIFooter.svelte';
 import countryScoresData from '../../data/country_scores.json';
 import countryProfilesData from '../../data/country_profiles.json';
+import { findAnyHeritageForCountry } from '../../lib/heritageLoader';
 
 export async function getStaticPaths() {
   const { countries } = countryScoresData;
@@ -28,6 +29,7 @@ const bandColors: Record<string, { bg: string; text: string }> = {
 
 const bandStyle = bandColors[country.band] || { bg: '#f1f5f9', text: '#475569' };
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const countryHeritage = findAnyHeritageForCountry(country.code);
 
 function statusSlug(status: string): string {
   return (status || '').toLowerCase().replace(/[^a-z0-9]+/g, '-');
@@ -99,6 +101,17 @@ function statusSlug(status: string): string {
         <p class="summary-text">
           {country.executiveSummary || country.summary || `${country.name} enters 2026 with a composite readiness score of ${country.score}/100 and an exposure level of ${country.exposure}/100.`}
         </p>
+        {countryHeritage && (
+          <div style="margin-top:0.85rem;padding:0.75rem 0.9rem;border-radius:10px;background:var(--bg-surface);border:1px solid var(--border-subtle);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:0.5rem;">
+            <div>
+              <strong style="color:var(--accent-primary);font-size:0.85rem;">Cultural Horizon · {countryHeritage.traditionLabel.en}:</strong>{' '}
+              <span style="font-size:0.85rem;color:var(--text-secondary);">{countryHeritage.chipTitle.en}</span>
+            </div>
+            <a href={`${base}/traditions/${countryHeritage.slug}/`} style="font-size:0.82rem;font-weight:700;color:var(--accent-primary);text-decoration:none;">
+              Read cultural dossier ({countryHeritage.sourceCount} sources) &rarr;
+            </a>
+          </div>
+        )}
       </section>
 
       <!-- Methodological Callout for Singapore Missingness & Band Sensitivity -->

@@ -1,0 +1,197 @@
+{
+  "id": "japan-craft-repair",
+  "slug": "japan-craft-repair",
+  "door": "gadgets",
+  "era": "living",
+  "originRegion": {
+    "en": "Japan",
+    "es": "Japón",
+    "ar": "اليابان"
+  },
+  "traditionLabel": {
+    "en": "Monozukuri & Craft Repair",
+    "es": "Monozukuri y el arte de reparar",
+    "ar": "مونوزوكوري وإتقان الإصلاح"
+  },
+  "chipTitle": {
+    "en": "Summon any tool without losing repair skill",
+    "es": "Crear objetos sin olvidar cómo repararlos",
+    "ar": "ابتكار الأدوات دون نسيان كيفية إصلاحها"
+  },
+  "title": {
+    "en": "Monozukuri pocket: tools everyone can still open and mend",
+    "es": "Bolsillo Monozukuri: objetos reparables a mano",
+    "ar": "أدوات مونوزوكوري: تقنية تظل قابلة للإصلاح البشري"
+  },
+  "summary": {
+    "en": "Any appliance arrives whole at dawn — until a tiny power pause leaves towns stuck with sealed black boxes nobody can open.",
+    "es": "Cualquier objeto llega intacto al alba — hasta que un fallo deja cajas selladas que nadie sabe abrir.",
+    "ar": "يصل كل جهاز في لحظة — حتى يترك عطلٌ بسيطٌ المدينة أمام صناديق مغلقة لا يعرف أحد إصلاحها."
+  },
+  "countries": [
+    "JPN"
+  ],
+  "honestyLabel": "Imagination",
+  "honestyNote": {
+    "en": "Instant matter creation is fiction; rapid additive manufacturing and sealed hardware already raise right-to-repair challenges today.",
+    "es": "Materializar objetos al instante es ficción; el hardware sellado ya pone a prueba el derecho a reparar hoy.",
+    "ar": "خلق الأشياء فورياً خيال، لكن الأجهزة المغلقة تختبر حق الإصلاح الفعلي اليوم."
+  },
+  "shadowTag": "Dependence",
+  "binding": {
+    "primary": "t_half",
+    "secondary": "p8_post_labor",
+    "dependencyLabel": {
+      "en": "Hours society functions cleanly when automated logistics and parts hubs pause",
+      "es": "Horas de autonomía cotidiana cuando se detiene la logística automática",
+      "ar": "المدة التي تصمد فيها الحياة اليومية إذا توقف التوريد الآلي"
+    },
+    "safeguardChecklistIdx": 0
+  },
+  "atlasRefs": [
+    "SC-19",
+    "SC-23"
+  ],
+  "status": "review_open",
+  "wonder": {
+    "totoLine": {
+      "en": "Anything broken swaps out cleanly.",
+      "es": "Cada pieza rota se reemplaza sin demora.",
+      "ar": "كل أداة معطوبة تُستبدل في لحظة."
+    },
+    "text": {
+      "en": "Drop a cracked rice cooker, torn train seal, or worn bike chain, and Toto hands you a spotless factory-fresh replacement in one breath. Towns run smoothly with zero scrap heaps.",
+      "es": "Cada aparato gastado o pieza de tren dañada se sustituye al instante con precisión limpia y sin demoras.",
+      "ar": "يسلّمك توتو بديلاً جديداً متقناً لكل جهاز معطوب في لمح البصر، فتسير المدن بسلاسة تامة."
+    },
+    "transcript": {
+      "en": "Gleaming household tools float onto a tidy wooden workbench in warm morning sun.",
+      "es": "Herramientas relucientes aparecen sobre un banco de madera al sol matinal.",
+      "ar": "أدوات أنيقة تظهر على طاولة نجارة خشبية في نور الصباح."
+    },
+    "draft": false
+  },
+  "wobble": {
+    "text": {
+      "en": "After years of instant sealed swaps, local hardware shops and neighborhood machinists close. When an earthquake disrupts port fiber lines, households hold thousands of gleaming seamless appliances nobody has schematics or screws to fix.",
+      "es": "Tras años de reemplazo cerrado, cierran los talleres del barrio. Cuando un seísmo corta los enlaces portuarios, quedan miles de cajas imposibles de abrir.",
+      "ar": "بعد سنوات من الاستبدال الفوري المغلق، تُغلق ورش الحي. وحين ينقطع الاتصال في أزمة، تعجز الأسر عن فتح جهاز واحد لعدم وجود مخطط أو براغٍ."
+    },
+    "transcript": {
+      "en": "Sealed smooth devices sit motionless on a counter beside an empty screwdriver rack.",
+      "es": "Aparatos sellados sin tornillos descansan ante un estante vacío de llaves.",
+      "ar": "أجهزة مغلقة بلا براغٍ متوقفة أمام رف مفكات فارغ."
+    },
+    "draft": false
+  },
+  "weight": {
+    "question": {
+      "en": "When machines replace anything effortlessly, what human skill keeps a town resilient?",
+      "es": "Si la máquina repone todo, ¿qué saber mantiene firme al vecindario?",
+      "ar": "إذا وفرت الآلة بديلاً لكل شيء، ما المهارة التي تحفظ تماسك المدينة؟"
+    },
+    "transcript": {
+      "en": "Craftspeople mend a wooden joinery hinge alongside a sleek modern sensor module.",
+      "es": "Artesanos ajustan un ensamble de madera junto a un módulo moderno.",
+      "ar": "حرفي يصلح مفصلاً خشبياً متقناً بجانب وحدة تقنية حديثة."
+    },
+    "draft": false,
+    "options": [
+      {
+        "id": "a",
+        "text": {
+          "en": "Require modular screws, printed schematics, and human right-to-repair inside every tool.",
+          "es": "Exigir tornillos accesibles, planos impresos y derecho real a reparar.",
+          "ar": "اشتراط البراغي القياسية والكتيبات المطبوعة وحق الإصلاح في كل جهاز."
+        },
+        "light": "Capability",
+        "shadow": "Dependence"
+      },
+      {
+        "id": "b",
+        "text": {
+          "en": "Keep neighborhood craft guilds and apprenticeships funded across automation.",
+          "es": "Apoyar talleres locales y aprendizajes de oficio en cada distrito.",
+          "ar": "حماية الورش الحرفية والتلمذة المهنية مع توسع الأتمتة."
+        },
+        "light": "Wisdom",
+        "shadow": "Speed"
+      },
+      {
+        "id": "c",
+        "text": {
+          "en": "Make repair parts open to independent technicians, not just single brands.",
+          "es": "Abrir repuestos a técnicos independientes y no solo a una marca.",
+          "ar": "إتاحة قطع الغيار للفنيين المستقلين لا لشركة واحدة."
+        },
+        "light": "Fairness",
+        "shadow": "Power"
+      }
+    ]
+  },
+  "way": {
+    "text": {
+      "en": "From wooden temple joinery built without glue (*kigumi*) to golden ceramic repair (*kintsugi*), craft longevity treats repairability as beauty—carried forward today through modular designs and local repair tools.",
+      "es": "Desde ensambles sin clavos hasta el kintsugi, cuidar la reparabilidad honra la materia y protege la autonomía vecinal en tiempos de apagón.",
+      "ar": "من تعشيق الخشب دون مسامير إلى فن الكينتسوغي في الجبر، يرى الإتقانُ قابليةَ الإصلاح قيمةً جمالية وأماناً عملياً في الأزمات."
+    },
+    "actionCardTitle": {
+      "en": "Keep one manual tool & paper diagram handy",
+      "es": "Ten una herramienta manual y esquema impresos",
+      "ar": "احتفظ بعدّة يدوية ودليل صيانة ورقي"
+    },
+    "actionCardStep": {
+      "en": "Learn how to shut off your home's water valve and main breaker by hand, and keep one basic screwdriver kit accessible offline.",
+      "es": "Ubica la llave de paso y el cuadro eléctrico manual de casa y guarda un juego básico de destornilladores.",
+      "ar": "تعرّف إلى صمام المياه والقاطع الكهربائي اليدوي في منزلك واحتفظ بحقيبة مفكات أساسية."
+    },
+    "pledgeLabel": {
+      "en": "I'll keep hands-on repair skills",
+      "es": "Conservaré destreza manual básica",
+      "ar": "سأحافظ على مهارات الإصلاح اليدوي"
+    },
+    "transcript": {
+      "en": "Golden joinery seams glow subtly on a mended vessel beside open workshop tools.",
+      "es": "Vetas doradas lucen en una vasija reparada junto a herramientas abiertas.",
+      "ar": "خطوط ذهبية تزيّن إناءً مصلحاً بجانب أدوات الورشة."
+    },
+    "draft": false
+  },
+  "closingLine": "Every great breakthrough needs a ready world.",
+  "realityMeter": {
+    "scale": "Imagination",
+    "reason": {
+      "en": "Pocket materializers are fiction; today's sealed devices already challenge repairability, logistics buffers, and craft livelihoods.",
+      "es": "Los creadores instantáneos son ficción; los aparatos sellados ya ponen en juego repuestos y oficios.",
+      "ar": "أدوات الخلق الفوري خيال، لكن الأجهزة المغلقة تختبر حق الإصلاح وسلاسل الإمداد اليوم."
+    },
+    "observedMetric": null,
+    "source": "Agency for Cultural Affairs Japan & OECD Right-to-Repair Context",
+    "sourceUrl": "https://www.bunka.go.jp/english/",
+    "lastReviewed": "2026-11-28"
+  },
+  "sources": [
+    {
+      "title": "Agency for Cultural Affairs Japan — Living Craftsmanship Heritage",
+      "url": "https://www.bunka.go.jp/english/",
+      "note": "Preserving modular wooden joinery and long-lived artisanal transmission."
+    },
+    {
+      "title": "OECD — Skills, Craft Transition & Economic Resilience",
+      "url": "https://www.oecd.org/",
+      "note": "Labor adaptability and right-to-repair infrastructure benchmarks."
+    }
+  ],
+  "reviewers": {
+    "en": "Open for Japanese craft & engineering review",
+    "es": "Abierto a revisión en español",
+    "ar": "مفتوح للمراجعة بالعربية"
+  },
+  "doorTitle": {
+    "en": "Everyday Technologies",
+    "es": "Tecnologías Cotidianas",
+    "ar": "تقنيات يومية"
+  },
+  "icon": "pocket",
+  "sourceCount": 2
+}

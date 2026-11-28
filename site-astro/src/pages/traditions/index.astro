@@ -1,0 +1,179 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import HSRILayout from '../../layouts/HSRILayout.astro';
+import HSRIHeader from '../../components/HSRIHeader.svelte';
+import HSRIFooter from '../../components/HSRIFooter.svelte';
+import type { HeritageIndexEntry } from '../../lib/heritageTypes';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const traditions = JSON.parse(
+  fs.readFileSync(path.resolve(process.cwd(), 'src/data/heritage/index.json'), 'utf-8')
+) as HeritageIndexEntry[];
+---
+
+<HSRILayout
+  title="Cultural Horizons & Local Traditions | Humanity Readiness"
+  description="Explore how distinct civilizational traditions and living civic practices stress-test AI breakthroughs against real national readiness data."
+>
+  <div class="traditions-index-shell">
+    <HSRIHeader client:interact currentPath={Astro.url.pathname} />
+
+    <main class="ti-main">
+      <div class="ti-container">
+        <header class="ti-header">
+          <span class="ti-badge">CULTURAL HORIZONS &middot; MILESTONE 1 (10 TRADITIONS)</span>
+          <h1>Every culture holds long-dreamed hopes—and living safeguards.</h1>
+          <p>
+            Instead of flattening 148 countries into clichés, each breakthrough belongs to a real regional or civic
+            tradition, cites at least two verified sources, blames delivery systems rather than culture when things wobble,
+            and binds cleanly to empirical national safeguards.
+          </p>
+        </header>
+
+        <div class="ti-grid">
+          {traditions.map((t) => (
+            <article class="ti-card">
+              <div class="ti-meta">
+                <span class="ti-region">{t.originRegion.en}</span>
+                <span class="ti-era">{t.era === 'living' ? 'Living' : 'Historical'}</span>
+              </div>
+              <h2>{t.traditionLabel.en}</h2>
+              <p class="ti-sub">{t.chipTitle.en}</p>
+              <p class="ti-summary">{t.summary.en}</p>
+              <div class="ti-countries">
+                <span>Covers {t.countries.length} countries:</span> {t.countries.join(', ')}
+              </div>
+              <div class="ti-actions">
+                <a href={`${base}/traditions/${t.slug}/`} class="ti-link-btn">
+                  Read dossier ({t.sourceCount} sources) &rarr;
+                </a>
+                <a href={`${base}/?c=${t.countries[0]}#wish-doors`} class="ti-play-link">
+                  Try 60s player
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </main>
+
+    <HSRIFooter client:interact />
+  </div>
+</HSRILayout>
+
+<style>
+  .traditions-index-shell {
+    min-height: 100vh;
+    background: var(--bg-canvas);
+    color: var(--text-primary);
+  }
+  .ti-main {
+    padding: 2rem 0 3.25rem;
+  }
+  .ti-container {
+    max-width: 1060px;
+    margin: 0 auto;
+    padding: 0 1.15rem;
+  }
+  .ti-header {
+    max-width: 740px;
+    margin-bottom: 1.75rem;
+  }
+  .ti-badge {
+    display: inline-block;
+    font-family: var(--font-family-mono);
+    font-size: 0.7rem;
+    font-weight: 800;
+    padding: 0.2rem 0.6rem;
+    border-radius: 9999px;
+    background: var(--threat-sovereign-bg);
+    color: var(--accent-primary);
+    margin-bottom: 0.55rem;
+  }
+  .ti-header h1 {
+    margin: 0 0 0.55rem;
+    font-size: clamp(1.6rem, 3.2vw, 2.3rem);
+    line-height: 1.15;
+  }
+  .ti-header p {
+    margin: 0;
+    color: var(--text-secondary);
+    line-height: 1.55;
+  }
+  .ti-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  .ti-card {
+    background: var(--bg-surface-elevated);
+    border: 1.5px solid var(--border-medium);
+    border-radius: 14px;
+    padding: 1.15rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.42rem;
+  }
+  .ti-meta {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-family-mono);
+    font-size: 0.68rem;
+    font-weight: 800;
+    color: var(--accent-primary);
+  }
+  .ti-era {
+    color: var(--text-muted);
+  }
+  .ti-card h2 {
+    margin: 0;
+    font-size: 1.15rem;
+  }
+  .ti-sub {
+    margin: 0;
+    font-weight: 700;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+  }
+  .ti-summary {
+    margin: 0;
+    font-size: 0.86rem;
+    color: var(--text-secondary);
+    line-height: 1.48;
+  }
+  .ti-countries {
+    font-family: var(--font-family-mono);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin-top: auto;
+    padding-top: 0.4rem;
+  }
+  .ti-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    align-items: center;
+    padding-top: 0.45rem;
+  }
+  .ti-link-btn {
+    background: var(--accent-primary);
+    color: var(--btn-primary-text);
+    padding: 0.42rem 0.85rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+  .ti-play-link {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--accent-primary);
+    text-decoration: none;
+  }
+  @media (max-width: 720px) {
+    .ti-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

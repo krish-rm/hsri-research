@@ -1,0 +1,514 @@
+[
+  {
+    "id": "polynesian-wayfinding",
+    "slug": "polynesian-wayfinding",
+    "door": "epic",
+    "icon": "eye",
+    "era": "living",
+    "originRegion": {
+      "en": "Pacific Islands",
+      "es": "Islas del Pacífico",
+      "ar": "جزر المحيط الهادئ"
+    },
+    "traditionLabel": {
+      "en": "Pacific Wayfinding",
+      "es": "Navegación estelar del Pacífico",
+      "ar": "الملاحة النجمية في الهادئ"
+    },
+    "chipTitle": {
+      "en": "Navigate any ocean without instruments",
+      "es": "Cruzar cualquier océano sin instrumentos",
+      "ar": "عبور المحيطات بالنجوم والأمواج"
+    },
+    "summary": {
+      "en": "Every boat glides across empty horizon — until crews lose the craft of reading swells if sky signals fail.",
+      "es": "Cada barco cruza sin brújula electrónica — hasta olvidar leer el oleaje si la señal falla.",
+      "ar": "تعبر السفن الأفق بسلاسة — حتى ينسى البحارة قراءة النجوم والأمواج عند انقطاع الإشارة."
+    },
+    "countries": [
+      "NZL",
+      "FJI"
+    ],
+    "honestyLabel": "Possible soon",
+    "binding": {
+      "primary": "t_half",
+      "secondary": "discernment",
+      "dependencyLabel": {
+        "en": "Offline navigation continuity when automated positioning pauses",
+        "es": "Continuidad sin conexión si se detiene la guía automática",
+        "ar": "استمرارية الملاحة دون اتصال إذا توقف التوجيه الآلي"
+      },
+      "safeguardChecklistIdx": 0
+    },
+    "atlasRefs": [
+      "SC-19",
+      "SC-20"
+    ],
+    "status": "review_open",
+    "sourceCount": 2
+  },
+  {
+    "id": "south-asia-healing-commons",
+    "slug": "south-asia-healing-commons",
+    "door": "epic",
+    "icon": "eye",
+    "era": "living",
+    "originRegion": {
+      "en": "South Asia",
+      "es": "Asia del Sur",
+      "ar": "جنوب آسيا"
+    },
+    "traditionLabel": {
+      "en": "Sanjeevani & Clinic Commons",
+      "es": "Sanjeevani y clínicas comunitarias",
+      "ar": "سانجيفاني والعيادات المجتمعية"
+    },
+    "chipTitle": {
+      "en": "Cure fast while clinics stay resilient",
+      "es": "Sanar rápido sin debilitar clínicas locales",
+      "ar": "شفاء سريع مع بقاء العيادات متماسكة"
+    },
+    "summary": {
+      "en": "A fever clears overnight — until clinics discover prescriptions and triage rules now route through one distant server.",
+      "es": "Las fiebres ceden al alba — hasta notar que recetas e historiales dependen de un servidor lejano.",
+      "ar": "يزول المرض فجراً — ثم تكتشف العيادات أن الوصفات والسجلات تعتمد على خادم بعيد واحد."
+    },
+    "countries": [
+      "IND",
+      "NPL",
+      "LKA",
+      "BGD",
+      "PAK"
+    ],
+    "honestyLabel": "Imagination",
+    "binding": {
+      "primary": "infrastructure",
+      "secondary": "governance",
+      "dependencyLabel": {
+        "en": "Grid and clinic infrastructure stability for local delivery",
+        "es": "Estabilidad eléctrica y de red para clínicas locales",
+        "ar": "استقرار البنية الكهربائية والرقمية للعيادات المحلية"
+      },
+      "safeguardChecklistIdx": 1
+    },
+    "atlasRefs": [
+      "SC-07",
+      "SC-23"
+    ],
+    "status": "review_open",
+    "sourceCount": 2
+  },
+  {
+    "id": "netherlands-delta-works",
+    "slug": "netherlands-delta-works",
+    "door": "world",
+    "icon": "lamp",
+    "era": "living",
+    "originRegion": {
+      "en": "Low Countries",
+      "es": "Países Bajos y Flandes",
+      "ar": "الأراضي المنخفضة"
+    },
+    "traditionLabel": {
+      "en": "Living with Water (Delta Works)",
+      "es": "Convivir con el agua (Obras del Delta)",
+      "ar": "التعايش مع المياه (دلتا ووركس)"
+    },
+    "chipTitle": {
+      "en": "Hold back the sea without brittle locks",
+      "es": "Contener el mar con espacio para el agua",
+      "ar": "كبح البحر بمرونة دون أقفال هشة"
+    },
+    "summary": {
+      "en": "Automated barriers predict every storm surge — until twin river-and-sea tides freeze sealed digital sluices.",
+      "es": "Barreras automáticas frenan cada marejada — hasta que mareas opuestas traban las compuertas cerradas.",
+      "ar": "تصد الحواجز الآلية كل عاصفة — حتى تشل موجات متعارضة البوابات الرقمية المغلقة."
+    },
+    "countries": [
+      "NLD",
+      "BEL"
+    ],
+    "honestyLabel": "Real today",
+    "binding": {
+      "primary": "t_half",
+      "secondary": "infrastructure",
+      "dependencyLabel": {
+        "en": "Offline flood-barrier control duration during telecom or power outages",
+        "es": "Autonomía física de compuertas sin red ni energía externa",
+        "ar": "مدة تشغيل بوابات الفيضان دون اتصال إذا انقطعت الشبكة"
+      },
+      "safeguardChecklistIdx": 0
+    },
+    "atlasRefs": [
+      "SC-19",
+      "SC-20"
+    ],
+    "status": "review_open",
+    "sourceCount": 2
+  },
+  {
+    "id": "china-river-stewardship",
+    "slug": "china-river-stewardship",
+    "door": "world",
+    "icon": "lamp",
+    "era": "living",
+    "originRegion": {
+      "en": "East Asia River Basins",
+      "es": "Cuencas fluviales de Asia Oriental",
+      "ar": "أحواض أنهار شرق آسيا"
+    },
+    "traditionLabel": {
+      "en": "Dujiangyan & River Commons",
+      "es": "Dujiangyan y cuencas compartidas",
+      "ar": "دوجيانغيان وإدارة الأنهار"
+    },
+    "chipTitle": {
+      "en": "Guide floods rather than shifting risk unseen",
+      "es": "Guiar crecientes sin ocultar riesgos aguas arriba",
+      "ar": "توجيه الفيضانات بشفافية دون نقل الضرر"
+    },
+    "summary": {
+      "en": "Automated reservoir gates hold back floods downstream — until silent mountain valleys realise whose fields took the overflow.",
+      "es": "Compuertas automáticas salvan grandes ciudades — hasta que aldeas río arriba descubren quién asumió el desborde.",
+      "ar": "تحمي البوابات الآلية المدن الكبرى — حتى تكتشف القرى الأعلى مجرى النهر من تحمّل الفائض بصمت."
+    },
+    "countries": [
+      "CHN",
+      "HKG",
+      "MAC",
+      "TWN"
+    ],
+    "honestyLabel": "Possible soon",
+    "binding": {
+      "primary": "governance",
+      "secondary": "infrastructure",
+      "dependencyLabel": {
+        "en": "Transparent watershed oversight and public accountability across basins",
+        "es": "Supervisión pública y reglas claras entre regiones de la cuenca",
+        "ar": "حوكمة شفافة ومساءلة مشتركة على طول حوض النهر"
+      },
+      "safeguardChecklistIdx": 3
+    },
+    "atlasRefs": [
+      "SC-19",
+      "SC-22"
+    ],
+    "status": "review_open",
+    "sourceCount": 2
+  },
+  {
+    "id": "arab-house-of-wisdom",
+    "slug": "arab-house-of-wisdom",
+    "door": "mysteries",
+    "icon": "chalkboard",
+    "era": "historical",
+    "originRegion": {
+      "en": "Arab & West Asian Scholarship",
+      "es": "Tradición científica árabe",
+      "ar": "بيت الحكمة وتراث التحقق"
+    },
+    "traditionLabel": {
+      "en": "Bayt al-Hikma & Verification",
+      "es": "Casa de la Sabiduría",
+      "ar": "بيت الحكمة ومراجعة المصادر"
+    },
+    "chipTitle": {
+      "en": "Translate all knowledge without losing proof",
+      "es": "Traducir todo saber sin perder la fuente",
+      "ar": "جمع المعرفة وترجمتها دون فقدان الإسناد"
+    },
+    "summary": {
+      "en": "Every manuscript renders into crisp summaries overnight — until scholars see nobody verified the original witness line.",
+      "es": "Cada manuscrito se resume en segundos — hasta notar que nadie comprobó las citas originales.",
+      "ar": "تُترجم وتُلخّص كل المخطوطات في ليلة — حتى يكتشف العلماء غياب سلسلة الإسناد والتدقيق."
+    },
+    "countries": [
+      "EGY",
+      "ARE",
+      "SAU",
+      "QAT",
+      "KWT",
+      "OMN",
+      "JOR",
+      "LBN",
+      "SYR",
+      "IRQ",
+      "MAR",
+      "DZA",
+      "TUN",
+      "LBY",
+      "YEM"
+    ],
+    "honestyLabel": "Real today",
+    "binding": {
+      "primary": "discernment",
+      "secondary": "governance",
+      "dependencyLabel": {
+        "en": "Public ability to audit fluent machine-generated claims and translations",
+        "es": "Capacidad pública de auditar resúmenes y traducciones automáticas",
+        "ar": "قدرة الجمهور والباحثين على تدقيق الادعاءات والترجمات الآلية"
+      },
+      "safeguardChecklistIdx": 2
+    },
+    "atlasRefs": [
+      "SC-06",
+      "SC-16"
+    ],
+    "status": "review_open",
+    "sourceCount": 2
+  },
+  {
+    "id": "west-africa-timbuktu-keepers",
+    "slug": "west-africa-timbuktu-keepers",
+    "door": "movie",
+    "icon": "frame",
+    "era": "living",
+    "originRegion": {
+      "en": "West Africa & the Sahel",
+      "es": "África Occidental y el Sahel",
+      "ar": "غرب أفريقيا والساحل"
+    },
+    "traditionLabel": {
+      "en": "Timbuktu Family Libraries",
+      "es": "Bibliotecas vivas de Tombuctú",
+      "ar": "أمناء مخطوطات تمبكتو"
+    },
+    "chipTitle": {
+      "en": "Digitize living archives without losing custody",
+      "es": "Digitalizar archivos sin perder custodia local",
+      "ar": "رقمنة التراث مع بقاء السيادة لأهله"
+    },
+    "summary": {
+      "en": "Every fragile manuscript scans smoothly overnight — then licensing terms lock descendants outside their own family vault.",
+      "es": "Cada manuscrito se escanea al instante — hasta que las licencias cierran la puerta a sus propias familias.",
+      "ar": "تُصوَّر المخطوطات كلها رقمياً بلمح البصر — ثم تقفل شروط المنصة الباب أمام العائلات الحافظة لها."
+    },
+    "countries": [
+      "MLI",
+      "SEN",
+      "NER",
+      "BFA",
+      "MRT",
+      "NGA",
+      "GHA"
+    ],
+    "honestyLabel": "Real today",
+    "binding": {
+      "primary": "governance",
+      "secondary": "infrastructure",
+      "dependencyLabel": {
+        "en": "Local institutional custody and linguistic sovereignty over archives",
+        "es": "Custodia institucional local y soberanía sobre los archivos",
+        "ar": "السيادة المؤسسية والمجتمعية على الأرشيفات الثقافية واللغوية"
+      },
+      "safeguardChecklistIdx": 3
+    },
+    "atlasRefs": [
+      "SC-08",
+      "SC-22"
+    ],
+    "status": "review_open",
+    "sourceCount": 2
+  },
+  {
+    "id": "andean-water-terraces",
+    "slug": "andean-water-terraces",
+    "door": "world",
+    "icon": "lamp",
+    "era": "living",
+    "originRegion": {
+      "en": "Andean Highlands",
+      "es": "Andes y terrazas de agua",
+      "ar": "مرتفعات الأنديز والمدرجات المائية"
+    },
+    "traditionLabel": {
+      "en": "Andenes & Amunas Commons",
+      "es": "Andenes y amunas comunales",
+      "ar": "مدرجات الأنديز وتقاسم المياه"
+    },
+    "chipTitle": {
+      "en": "Share mountain water across seasons",
+      "es": "Compartir el agua de montaña entre estaciones",
+      "ar": "تقاسم مياه الجبال عبر المواسم"
+    },
+    "summary": {
+      "en": "Precision irrigation boosts export slopes smoothly — until dry-season springs pause above highland towns.",
+      "es": "El riego automático dispara cosechas de exportación — hasta que los manantiales altos dejan de llegar.",
+      "ar": "يرفع الري الدقيق المحاصيل التجارية — حتى تجف الينابيع فوق القرى الجبلية في موسم الجفاف."
+    },
+    "countries": [
+      "PER",
+      "ECU",
+      "CHL",
+      "COL",
+      "VEN",
+      "ARG"
+    ],
+    "honestyLabel": "Possible soon",
+    "binding": {
+      "primary": "t_half",
+      "secondary": "governance",
+      "dependencyLabel": {
+        "en": "Physical water-infiltration endurance if electric pump sensors fail",
+        "es": "Reserva hídrica física sin bombeo ni sensores activos",
+        "ar": "صمود مخزون المياه الطبيعي إذا تعطلت المضخات الآلية"
+      },
+      "safeguardChecklistIdx": 0
+    },
+    "atlasRefs": [
+      "SC-19",
+      "SC-20"
+    ],
+    "status": "review_open",
+    "sourceCount": 2
+  },
+  {
+    "id": "japan-craft-repair",
+    "slug": "japan-craft-repair",
+    "door": "gadgets",
+    "icon": "pocket",
+    "era": "living",
+    "originRegion": {
+      "en": "Japan",
+      "es": "Japón",
+      "ar": "اليابان"
+    },
+    "traditionLabel": {
+      "en": "Monozukuri & Craft Repair",
+      "es": "Monozukuri y el arte de reparar",
+      "ar": "مونوزوكوري وإتقان الإصلاح"
+    },
+    "chipTitle": {
+      "en": "Summon any tool without losing repair skill",
+      "es": "Crear objetos sin olvidar cómo repararlos",
+      "ar": "ابتكار الأدوات دون نسيان كيفية إصلاحها"
+    },
+    "summary": {
+      "en": "Any appliance arrives whole at dawn — until a tiny power pause leaves towns stuck with sealed black boxes nobody can open.",
+      "es": "Cualquier objeto llega intacto al alba — hasta que un fallo deja cajas selladas que nadie sabe abrir.",
+      "ar": "يصل كل جهاز في لحظة — حتى يترك عطلٌ بسيطٌ المدينة أمام صناديق مغلقة لا يعرف أحد إصلاحها."
+    },
+    "countries": [
+      "JPN"
+    ],
+    "honestyLabel": "Imagination",
+    "binding": {
+      "primary": "t_half",
+      "secondary": "p8_post_labor",
+      "dependencyLabel": {
+        "en": "Hours society functions cleanly when automated logistics and parts hubs pause",
+        "es": "Horas de autonomía cotidiana cuando se detiene la logística automática",
+        "ar": "المدة التي تصمد فيها الحياة اليومية إذا توقف التوريد الآلي"
+      },
+      "safeguardChecklistIdx": 0
+    },
+    "atlasRefs": [
+      "SC-19",
+      "SC-23"
+    ],
+    "status": "review_open",
+    "sourceCount": 2
+  },
+  {
+    "id": "nordic-right-to-roam",
+    "slug": "nordic-right-to-roam",
+    "door": "gadgets",
+    "icon": "pocket",
+    "era": "living",
+    "originRegion": {
+      "en": "Nordic Commons",
+      "es": "Tradición nórdica del bien común",
+      "ar": "تقليد الحرية والمشاع الإسكندنافي"
+    },
+    "traditionLabel": {
+      "en": "Allemansrätten & Open Commons",
+      "es": "Derecho común de paso",
+      "ar": "حق التجوال والمشاع الرقمي"
+    },
+    "chipTitle": {
+      "en": "Keep shared tools open when work automates",
+      "es": "Mantener herramientas públicas al automatizar el trabajo",
+      "ar": "إبقاء الأدوات والبيانات متاحة كمشاع عام"
+    },
+    "summary": {
+      "en": "Digital helpers run every task smoothly — until public trails and livelihoods quietly migrate inside private tollgates.",
+      "es": "Asistentes diarios coordinan todo — hasta que servicios y empleos pasan tras peajes privados.",
+      "ar": "تنظم المساعدات الرقمية كل شأن — حتى تتحول المرافق وسبل العيش تدريجياً خلف بوابات خاصة."
+    },
+    "countries": [
+      "NOR",
+      "SWE",
+      "FIN",
+      "ISL",
+      "DNK"
+    ],
+    "honestyLabel": "Real today",
+    "binding": {
+      "primary": "p8_post_labor",
+      "secondary": "discernment",
+      "dependencyLabel": {
+        "en": "Livelihood, social-budget, and retraining cushions when knowledge tasks automate",
+        "es": "Colchón de ingresos y presupuestos públicos si se automatizan oficinas",
+        "ar": "مرونة سوق العمل والموازنة العامة عند أتمتة المهام المعرفية"
+      },
+      "safeguardChecklistIdx": 4
+    },
+    "atlasRefs": [
+      "SC-18",
+      "SC-19"
+    ],
+    "status": "review_open",
+    "sourceCount": 2
+  },
+  {
+    "id": "anatolia-mediterranean-crossroads",
+    "slug": "anatolia-mediterranean-crossroads",
+    "door": "movie",
+    "icon": "frame",
+    "era": "living",
+    "originRegion": {
+      "en": "Eastern Mediterranean & Anatolia",
+      "es": "Mediterráneo Oriental y Anatolia",
+      "ar": "شرق المتوسط والأناضول"
+    },
+    "traditionLabel": {
+      "en": "Stone Crossroads & Civic Squares",
+      "es": "Plazas vivas y puentes de piedra",
+      "ar": "تراث الساحات المشتركة والمرونة العمرانية"
+    },
+    "chipTitle": {
+      "en": "Keep shared squares calm through crises",
+      "es": "Mantener plazas e infraestructura listas ante sismos",
+      "ar": "حماية الأحياء التاريخية والتواصل دون كهرباء"
+    },
+    "summary": {
+      "en": "Smart city screens choreograph every ferry and plaza — until seismic tremors silence cell towers around ancient squares.",
+      "es": "Pantallas urbanas coordinan ferris y plazas — hasta que un temblor silencia antenas en barrios antiguos.",
+      "ar": "تنسق الشاشات كل عبارة وساحة — حتى تصمت أبراج الاتصال لحظة الهزات الأرضية."
+    },
+    "countries": [
+      "TUR",
+      "GRC",
+      "ITA",
+      "CYP",
+      "MLT"
+    ],
+    "honestyLabel": "Real today",
+    "binding": {
+      "primary": "infrastructure",
+      "secondary": "t_half",
+      "dependencyLabel": {
+        "en": "Physical grid endurance and community assembly readiness in historic port cities",
+        "es": "Resistencia física de red y puntos vecinales en puertos históricos",
+        "ar": "متانة الشبكة الكهربائية ونقاط التجمع الحيّة في المدن الساحلية"
+      },
+      "safeguardChecklistIdx": 1
+    },
+    "atlasRefs": [
+      "SC-19",
+      "SC-20"
+    ],
+    "status": "review_open",
+    "sourceCount": 2
+  }
+]

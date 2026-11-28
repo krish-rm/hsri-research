@@ -490,5 +490,25 @@ export const ar: TranslationDict = {
     languagesLink: 'اللغات',
     totoLink: 'توتو',
     recapLink: 'ملخص الجمعة'
+  },
+
+  heritageUi: {
+    localHorizonTag: 'أفق ثقافي · {country}',
+    livingBadge: 'تقليد حيّ',
+    historicalBadge: 'تراث معرفي',
+    seeGlobalBtn: 'عرض الإنجاز العالمي',
+    seeLocalBtn: 'عرض تراث {country}',
+    livesInOtherDoor: 'أفق {country} الثقافي في {door}',
+    noLocalYet: 'لا يتوفر مسار محلي لـ {country} بعد — استكشف الإنجازات العالمية.',
+    readArchiveLink: 'المصادر والسياق الثقافي',
+    reviewOpenNote: 'مصدران موثقان · متاح للمراجعة الأهلية',
+    weightBindingTitle: 'فحص البنية الواقعية لـ {country}',
+    weightRatedInPlace: 'متوفر',
+    weightRatedGap: 'فجوة مرصودة',
+    weightContextNote: 'تغطية جزئية لـ {country} ({region}) — {observed}',
+    weightNoCountry: 'اختر بلداً بالأسفل لاختبار هذا الاعتماد أمام البيانات الحقيقية.',
+    wayTestCountryCta: 'اختبر ضابط الحماية لـ {country}',
+    trailStampLabel: 'آفاق ثقافية مستكشفة: {count}',
+    autoDetectedHint: 'سماء مقترحة · اختر أي بلد'
   }
 };
