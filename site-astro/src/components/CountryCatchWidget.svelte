@@ -1,58 +1,36 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import { get } from 'svelte/store';
   import type { CountrySummaryItem } from '../lib/countryData';
   import { dict, activeLocale, storyOverlay, getCountryDisplayName } from '../i18n/store';
   import { resolveHeritageMeta } from '../i18n/storyTypes';
   import { trackEvent } from '../lib/privacyStorage';
   import { completedWishList, setSelectedCountryForReadiness } from '../lib/readinessState';
   import { countryContextStore, syncCountryContext } from '../lib/countryContext';
-  import { findCityById } from '../lib/countrySkies';
+  import { detectBrowserCountrySky, findCityById } from '../lib/countrySkies';
   import { findAnyHeritageForCountry } from '../lib/heritageLoader';
   import ConceptVisualSvg from './ConceptVisualSvg.svelte';
 
   export let countries: CountrySummaryItem[] = [];
   export let base = '';
 
+  const initialCtx = get(countryContextStore);
+  const initialDetectedIso =
+    initialCtx.iso && initialCtx.iso !== 'GLOBAL' ? initialCtx.iso : 'NOR';
+
   let allCountries: CountrySummaryItem[] = countries;
   let revealed = true;
-  let selectedIso = 'NOR';
+  let catalogReady = false;
+  let boxEl: HTMLDivElement | null = null;
+  let selectedIso = initialDetectedIso;
   let searchFilter = '';
-  let localeDetected = false;
+  let localeDetected = initialCtx.iso !== 'GLOBAL' && !initialCtx.explicit;
   let highlightedIdx: number | null = null;
   let detailsOpen = false;
-  let lastSyncedCtxKey = '';
-
-  const LOCALE_TO_ISO: Record<string, string> = {
-    AU: 'AUS', AT: 'AUT', BE: 'BEL', BG: 'BGR', BR: 'BRA', CA: 'CAN',
-    CN: 'CHN', CY: 'CYP', CZ: 'CZE', DE: 'DEU', DK: 'DNK', EG: 'EGY',
-    ES: 'ESP', EE: 'EST', FI: 'FIN', FR: 'FRA', GB: 'GBR', UK: 'GBR',
-    GR: 'GRC', HK: 'HKG', HR: 'HRV', HU: 'HUN', ID: 'IDN', IE: 'IRL',
-    IL: 'ISR', IN: 'IND', IS: 'ISL', IT: 'ITA', JP: 'JPN', KE: 'KEN',
-    KR: 'KOR', LT: 'LTU', LU: 'LUX', LV: 'LVA', MK: 'MKD', MT: 'MLT',
-    MX: 'MEX', MY: 'MYS', NG: 'NGA', NL: 'NLD', NO: 'NOR', NZ: 'NZL',
-    OM: 'OMN', PH: 'PHL', PK: 'PAK', PL: 'POL', PT: 'PRT', QA: 'QAT',
-    RO: 'ROU', RU: 'RUS', SA: 'SAU', SE: 'SWE', SG: 'SGP', SK: 'SVK',
-    SI: 'SVN', TH: 'THA', TR: 'TUR', TW: 'TWN', UA: 'UKR', AE: 'ARE',
-    US: 'USA', VN: 'VNM', ZA: 'ZAF'
-  };
-
-  const TZ_TO_ISO: Array<[string, string]> = [
-    ['Africa/Lagos', 'NGA'], ['Africa/Nairobi', 'KEN'], ['Africa/Cairo', 'EGY'],
-    ['Africa/Johannesburg', 'ZAF'], ['America/Sao_Paulo', 'BRA'], ['America/Toronto', 'CAN'],
-    ['America/Vancouver', 'CAN'], ['America/Mexico_City', 'MEX'], ['America/New_York', 'USA'],
-    ['America/Chicago', 'USA'], ['America/Los_Angeles', 'USA'], ['Asia/Tokyo', 'JPN'],
-    ['Asia/Seoul', 'KOR'], ['Asia/Singapore', 'SGP'], ['Asia/Hong_Kong', 'HKG'],
-    ['Asia/Kolkata', 'IND'], ['Asia/Calcutta', 'IND'], ['Asia/Jakarta', 'IDN'],
-    ['Asia/Dubai', 'ARE'], ['Asia/Riyadh', 'SAU'], ['Asia/Qatar', 'QAT'],
-    ['Asia/Taipei', 'TWN'], ['Asia/Bangkok', 'THA'], ['Asia/Manila', 'PHL'],
-    ['Asia/Karachi', 'PAK'], ['Australia/Sydney', 'AUS'], ['Australia/Melbourne', 'AUS'],
-    ['Pacific/Auckland', 'NZL'], ['Europe/London', 'GBR'], ['Europe/Berlin', 'DEU'],
-    ['Europe/Paris', 'FRA'], ['Europe/Oslo', 'NOR'], ['Europe/Helsinki', 'FIN'],
-    ['Europe/Stockholm', 'SWE'], ['Europe/Copenhagen', 'DNK'], ['Europe/Amsterdam', 'NLD'],
-    ['Europe/Madrid', 'ESP'], ['Europe/Rome', 'ITA'], ['Europe/Warsaw', 'POL'],
-    ['Europe/Dublin', 'IRL'], ['Europe/Vienna', 'AUT'], ['Europe/Lisbon', 'PRT'],
-    ['Europe/Athens', 'GRC']
-  ];
+  let lastSyncedCtxKey =
+    initialCtx.iso !== 'GLOBAL'
+      ? `${initialCtx.iso}::${initialCtx.explicit ? '1' : '0'}`
+      : '';
 
   $: filteredCountries = allCountries.filter((c) => {
     const q = searchFilter.trim().toLowerCase();
@@ -66,11 +44,25 @@
   });
   $: ratedFiltered = filteredCountries.filter((c) => c.kind === 'rated');
   $: unratedFiltered = filteredCountries.filter((c) => c.kind === 'unrated');
-  $: activeCountry = allCountries.find((c) => c.iso === selectedIso) ?? allCountries[0];
+  $: activeCountry =
+    allCountries.find((c) => c.iso === selectedIso) ?? (catalogReady ? allCountries[0] : null);
+  $: fallbackCountryLabel =
+    selectedIso !== 'GLOBAL'
+      ? getCountryDisplayName(
+          selectedIso,
+          $countryContextStore.iso === selectedIso && $countryContextStore.countryName !== 'Global'
+            ? $countryContextStore.countryName
+            : selectedIso,
+          $activeLocale
+        )
+      : '';
   $: activeCountryName = activeCountry
     ? getCountryDisplayName(activeCountry.iso, activeCountry.name, $activeLocale)
-    : '';
-  $: countryHeritage = activeCountry ? findAnyHeritageForCountry(activeCountry.iso) : null;
+    : fallbackCountryLabel;
+  $: countryHeritage =
+    selectedIso && selectedIso !== 'GLOBAL'
+      ? findAnyHeritageForCountry(activeCountry?.iso ?? selectedIso)
+      : null;
   $: countryHeritageMeta = countryHeritage
     ? resolveHeritageMeta(countryHeritage, $activeLocale, $storyOverlay)
     : null;
@@ -169,11 +161,14 @@
 
   onMount(async () => {
     revealed = true;
+    boxEl?.removeAttribute('data-prepaint-pending');
     try {
       const mod = await import('../data/country_catch_catalog.json');
       allCountries = (mod.default ?? mod) as CountrySummaryItem[];
+      catalogReady = true;
     } catch {
       allCountries = countries;
+      catalogReady = true;
     }
     try {
       const availSet = new Set(allCountries.map((c) => c.iso));
@@ -182,21 +177,12 @@
         matchIso = $countryContextStore.iso;
         localeDetected = !$countryContextStore.explicit;
       } else {
-        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
-        const tzHit = TZ_TO_ISO.find(([prefix]) => tz.startsWith(prefix));
-        if (tzHit && availSet.has(tzHit[1])) matchIso = tzHit[1];
-
-        if (!matchIso) {
-          const langs = navigator.languages?.length ? navigator.languages : [navigator.language];
-          for (const locItem of langs) {
-            const region = locItem?.split(/[-_]/)[1]?.toUpperCase();
-            if (region && LOCALE_TO_ISO[region] && availSet.has(LOCALE_TO_ISO[region])) {
-              matchIso = LOCALE_TO_ISO[region];
-              break;
-            }
-          }
+        const detected = detectBrowserCountrySky();
+        if (detected.sky.iso !== 'GLOBAL' && availSet.has(detected.sky.iso)) {
+          matchIso = detected.sky.iso;
+          localeDetected = true;
+          syncCountryContext(detected.sky, false);
         }
-        localeDetected = true;
       }
 
       if (matchIso) {
@@ -221,8 +207,8 @@
 <section id="country-check" class="country-section">
   <div class="section-wrap">
     <div class="section-head">
-      <h2 class="sec-title">
-        {activeCountry
+      <h2 id="country-check-heading" class="sec-title">
+        {activeCountryName
           ? $dict.heritageUi.countryCatchHeading.replace('{country}', activeCountryName)
           : $dict.country.heading}
       </h2>
@@ -230,7 +216,8 @@
     </div>
 
     {#if revealed}
-      <div class="compact-country-box">
+      <div class="compact-country-box" bind:this={boxEl}>
+        <p class="cc-prepaint-pending" aria-hidden="true"></p>
         <div class="select-grid">
           <div class="input-group">
             <label for="country-search-input" class="sr-only">{$dict.country.searchLabel}</label>
@@ -410,6 +397,16 @@
               </div>
             {/if}
           </div>
+        {:else if !activeCountry && activeCountryName}
+          <div class="country-card-row">
+            <div class="cc-top">
+              <div>
+                <span class="rp-badge unrated-badge">{$dict.country.autoDetectedBadge}</span>
+                <h3 class="rp-name">{activeCountryName} <small class="iso-small">({selectedIso})</small></h3>
+              </div>
+            </div>
+            <p class="ur-summary">{$dict.country.checkingBaseline}</p>
+          </div>
         {/if}
       </div>
     {:else}
@@ -454,6 +451,27 @@
     font-size: 0.94rem;
     color: var(--text-secondary);
     margin: 0;
+  }
+
+  .cc-prepaint-pending {
+    display: none;
+    margin: 0.85rem 0 0;
+    padding: 0.9rem 1rem;
+    border-radius: 12px;
+    background: var(--bg-surface);
+    border: 1px dashed var(--border-medium);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-align: center;
+  }
+
+  .compact-country-box:global([data-prepaint-pending='true']) .country-card-row {
+    display: none;
+  }
+
+  .compact-country-box:global([data-prepaint-pending='true']) .cc-prepaint-pending {
+    display: block;
   }
 
   .compact-country-box {

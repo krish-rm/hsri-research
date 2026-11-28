@@ -1,13 +1,14 @@
 <script lang="ts">
   import { onDestroy, onMount } from 'svelte';
+  import { get } from 'svelte/store';
   import { activeLocale, dict, getCountryDisplayName, type LocaleKey } from '../i18n/store';
   import { trackEvent } from '../lib/privacyStorage';
   import {
     COUNTRY_SKIES,
     REGION_GROUP_ORDER,
     SHOWCASE_CYCLE_IDS,
+    detectBrowserCountrySky,
     findCityById,
-    matchCityByTimezone,
     type CountrySky,
     type RegionGroup
   } from '../lib/countrySkies';
@@ -19,8 +20,9 @@
 
   const DURATION_SEC = 16;
 
-  let activeCityId = 'neutral';
-  let autoSuggested = false;
+  const initialSkyCtx = get(countryContextStore);
+  let activeCityId = initialSkyCtx.cityId || 'neutral';
+  let autoSuggested = !initialSkyCtx.explicit && activeCityId !== 'neutral';
   let selectEl: HTMLSelectElement | null = null;
   let playing = true;
   let elapsedSec = 0;
@@ -123,16 +125,15 @@
         activeCityId = urlMatch.id;
         autoSuggested = false;
         syncCountryContext(urlMatch, true);
-      } else {
+      } else if (activeCityId === 'neutral') {
         const preset = (window as any).__hc || (window as any).__hrHeroCity;
         if (preset && COUNTRY_SKIES.some((c) => c.id === preset || c.iso.toLowerCase() === String(preset).toLowerCase())) {
           activeCityId = findCityById(preset).id;
           autoSuggested = activeCityId !== 'neutral';
         } else {
-          const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
-          const matched = matchCityByTimezone(tz);
-          if (matched) {
-            activeCityId = matched.id;
+          const detected = detectBrowserCountrySky();
+          if (detected.sky.iso !== 'GLOBAL') {
+            activeCityId = detected.sky.id;
             autoSuggested = true;
           }
         }

@@ -70,8 +70,8 @@ export function getLocaleMeta(key: LocaleKey): LocaleMeta {
   return META_BY_CODE.get(key) ?? SUPPORTED_LOCALES[0];
 }
 
-// Common ISO-3166 alpha-3 -> alpha-2 lookup for localized Intl.DisplayNames country names (zero bundle table bloat).
-const ISO3_TO_ISO2: Record<string, string> = {
+// Common ISO-3166 alpha-3 -> alpha-2 lookup for localized Intl.DisplayNames & region fallback (zero bundle table bloat).
+export const ISO3_TO_ISO2: Record<string, string> = {
   AFG: 'AF', ALB: 'AL', DZA: 'DZ', AGO: 'AO', ARG: 'AR', ARM: 'AM', AUS: 'AU', AUT: 'AT', AZE: 'AZ',
   BGD: 'BD', BEL: 'BE', BEN: 'BJ', BRA: 'BR', BGR: 'BG', BFA: 'BF', BDI: 'BI', CMR: 'CM', CAN: 'CA',
   CAF: 'CF', TCD: 'TD', CHL: 'CL', CHN: 'CN', COL: 'CO', COM: 'KM', COG: 'CG', CRI: 'CR', CYP: 'CY',
@@ -85,9 +85,9 @@ const ISO3_TO_ISO2: Record<string, string> = {
   MAR: 'MA', MOZ: 'MZ', MMR: 'MM', NAM: 'NA', NPL: 'NP', NLD: 'NL', NZL: 'NZ', NIC: 'NI', NER: 'NE',
   NGA: 'NG', MKD: 'MK', NOR: 'NO', OMN: 'OM', PAK: 'PK', PAN: 'PA', PNG: 'PG', PRY: 'PY', PER: 'PE',
   PHL: 'PH', POL: 'PL', PRT: 'PT', QAT: 'QA', ROU: 'RO', RUS: 'RU', RWA: 'RW', SAU: 'SA', SEN: 'SN',
-  SRB: 'RS', SLE: 'SL', SGP: 'SG', SVK: 'SK', SVN: 'SI', SOM: 'SO', ZAF: 'ZA', KOR: 'KR', ESP: 'ES',
+  SRB: 'RS', SLE: 'SL', SGP: 'SG', SVK: 'SK', SVN: 'SI', SOM: 'SO', ZAF: 'ZA', KOR: 'KR', SSD: 'SS', ESP: 'ES',
   LKA: 'LK', SDN: 'SD', SUR: 'SR', SWE: 'SE', CHE: 'CH', SYR: 'SY', TWN: 'TW', TJK: 'TJ', TZA: 'TZ',
-  THA: 'TH', TGO: 'TG', TTO: 'TT', TUN: 'TN', TUR: 'TR', UGA: 'UG', UKR: 'UA', ARE: 'AE', GBR: 'GB',
+  THA: 'TH', TGO: 'TG', TKM: 'TM', TTO: 'TT', TUN: 'TN', TUR: 'TR', UGA: 'UG', UKR: 'UA', ARE: 'AE', GBR: 'GB',
   USA: 'US', URY: 'UY', UZB: 'UZ', VEN: 'VE', VNM: 'VN', YEM: 'YE', ZMB: 'ZM', ZWE: 'ZW'
 };
 

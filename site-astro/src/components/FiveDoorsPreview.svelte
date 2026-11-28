@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount, tick } from 'svelte';
+  import { get } from 'svelte/store';
   import { dict, activeLocale, storyOverlay, getCountryDisplayName } from '../i18n/store';
   import { pickBaseLText, pickHonestyScale, resolveHeritageMeta } from '../i18n/storyTypes';
   import { trackEvent } from '../lib/privacyStorage';
@@ -27,13 +28,16 @@
 
   export let base = '';
 
+  const initialCtx = get(countryContextStore);
+  const initialLocalHeritage = initialCtx.iso !== 'GLOBAL' ? findAnyHeritageForCountry(initialCtx.iso) : null;
+
   let catalog: WishItem[] = CORE_BREAKTHROUGHS;
   let heritageCache: Record<string, PlayableHeritageWish> = {};
   let revealed = false;
-  let activeDoorId = 'epic';
+  let activeDoorId = initialLocalHeritage ? initialLocalHeritage.door : 'epic';
   let activeWishId: string | null = null;
   let preferGlobal = false;
-  let lastSeenIso = 'GLOBAL';
+  let lastSeenIso = initialCtx.iso;
   let loadingHeritage = false;
   let playerAnchorEl: HTMLElement | null = null;
 
@@ -138,7 +142,7 @@
             {$dict.heritageUi.resetGlobalBtn}
           </button>
         </div>
-        <h2 class="sec-title">
+        <h2 id="doors-sec-title" class="sec-title">
           {#if anyCountryHeritage && anyCountryHeritageMeta}
             {$dict.heritageUi.countryHeadingTradition
               .replace('{country}', activeCountryLabel)
@@ -147,12 +151,12 @@
             {$dict.heritageUi.countryHeadingGlobal.replace('{country}', activeCountryLabel)}
           {/if}
         </h2>
-        <p class="sec-sub">
+        <p id="doors-sec-sub" class="sec-sub">
           {$dict.heritageUi.countrySubhead.replace('{country}', activeCountryLabel)}
         </p>
       {:else}
-        <h2 class="sec-title">{$dict.doors.heading}</h2>
-        <p class="sec-sub">{$dict.doors.microcopy}</p>
+        <h2 id="doors-sec-title" class="sec-title">{$dict.doors.heading}</h2>
+        <p id="doors-sec-sub" class="sec-sub">{$dict.doors.microcopy}</p>
       {/if}
     </div>
 

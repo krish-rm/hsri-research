@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import { findCityById, type CountrySky } from './countrySkies';
+import { detectBrowserCountrySky, findCityById, type CountrySky } from './countrySkies';
 
 export interface CountryContextState {
   iso: string;
@@ -17,8 +17,6 @@ const DEFAULT_CTX: CountryContextState = {
   highlightChecklistIdx: null
 };
 
-export const countryContextStore = writable<CountryContextState>(DEFAULT_CTX);
-
 export function getCountryParamFromUrl(): CountrySky | null {
   if (typeof window === 'undefined') return null;
   try {
@@ -32,6 +30,46 @@ export function getCountryParamFromUrl(): CountrySky | null {
     return null;
   }
 }
+
+function resolveInitialCountryContext(): CountryContextState {
+  if (typeof window === 'undefined') return DEFAULT_CTX;
+  const urlMatch = getCountryParamFromUrl();
+  if (urlMatch) {
+    return {
+      iso: urlMatch.iso,
+      cityId: urlMatch.id,
+      countryName: urlMatch.country,
+      explicit: true,
+      highlightChecklistIdx: null
+    };
+  }
+  const preset = (window as any).__hc || (window as any).__hrHeroCity;
+  if (preset) {
+    const presetMatch = findCityById(String(preset));
+    if (presetMatch && presetMatch.iso !== 'GLOBAL') {
+      return {
+        iso: presetMatch.iso,
+        cityId: presetMatch.id,
+        countryName: presetMatch.country,
+        explicit: false,
+        highlightChecklistIdx: null
+      };
+    }
+  }
+  const detected = detectBrowserCountrySky();
+  if (detected.sky.iso !== 'GLOBAL') {
+    return {
+      iso: detected.sky.iso,
+      cityId: detected.sky.id,
+      countryName: detected.sky.country,
+      explicit: false,
+      highlightChecklistIdx: null
+    };
+  }
+  return DEFAULT_CTX;
+}
+
+export const countryContextStore = writable<CountryContextState>(resolveInitialCountryContext());
 
 export function syncCountryContext(
   sky: CountrySky,
