@@ -1,5 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import { activeLocale, dict, initLocale, setLocale, SUPPORTED_LOCALES, getLocaleMeta, type LocaleKey } from '../i18n/store';
+  import { trackEvent } from '../lib/privacyStorage';
 
   export let currentPath = '';
   export let showStatsBar = true;
@@ -9,26 +11,26 @@
   type NavGroup = { name: string; href?: string; live?: boolean; badge?: string; children?: NavChild[] };
   type PrimaryItem = { name: string; href: string; badge?: string; live?: boolean };
 
-  // ── Config — THE SINGLE SOURCE OF TRUTH ─────────────────────────
-  // Primary = foveal, always visible on desktop. Max 3.
-  const primaryNav: PrimaryItem[] = [
-    { name: 'Sandbox', href: '/sandbox/', badge: 'SIMULATOR' },
-    { name: 'Country Index', href: '/countries/' },
-    { name: 'Seismograph', href: '/seismograph/', live: true },
-    { name: 'Scenario Atlas', href: '/scenarios/' },
-    { name: 'Monograph', href: '/monograph/', badge: 'TREATISE' },
-  ];
+  // ── Config — Localized reactively via $dict.headerUi ───────────────
+  $: primaryNav = [
+    { name: $dict.headerUi.nav.sandbox || 'Sandbox', href: '/sandbox/', badge: $dict.headerUi.nav.sandboxBadge || 'SIMULATOR' },
+    { name: $dict.headerUi.nav.countries || 'Country Index', href: '/countries/' },
+    { name: $dict.headerUi.nav.seismograph || 'Seismograph', href: '/seismograph/', live: true },
+    { name: $dict.headerUi.nav.scenarios || 'Scenario Atlas', href: '/scenarios/' },
+    { name: $dict.headerUi.nav.monograph || 'Monograph', href: '/monograph/', badge: $dict.headerUi.nav.monographBadge || 'TREATISE' },
+  ] as PrimaryItem[];
 
-  // Secondary dropdown — progressive disclosure for Persona C
-  const utilityGroup: NavGroup = {
-    name: 'Science & Data',
+  $: utilityGroup = {
+    name: $dict.headerUi.nav.scienceGroup,
     children: [
-      { name: 'Methodology', href: '/methodology/', desc: 'Scoring rules & formal proofs' },
-      { name: 'Data & Coverage', href: '/data/', desc: 'Indicators & downloads' },
-      { name: 'Research Logs', href: '/research-updates/', desc: 'Updates & preprints' },
-      { name: 'DOI 10.5281/zenodo.23441742', href: 'https://doi.org/10.5281/zenodo.23441742', desc: 'Permanent record — CC BY-SA 4.0', external: true },
+      { name: $dict.headerUi.utility.methodology, href: '/methodology/', desc: $dict.headerUi.utility.methodologyDesc },
+      { name: $dict.headerUi.utility.data, href: '/data/', desc: $dict.headerUi.utility.dataDesc },
+      { name: $dict.headerUi.utility.researchLogs, href: '/research-updates/', desc: $dict.headerUi.utility.researchLogsDesc },
+      { name: 'DOI 10.5281/zenodo.23441742', href: 'https://doi.org/10.5281/zenodo.23441742', desc: $dict.headerUi.utility.doiDesc, external: true },
     ],
-  };
+  } as NavGroup;
+
+  $: currentLocaleMeta = getLocaleMeta($activeLocale);
 
   const base = (import.meta.env.BASE_URL || '/').replace(/\/$/, '');
   const withBase = (href: string) => {
@@ -41,20 +43,35 @@
   let isMenuOpen = false;
   let isUtilityOpen = false;
   let isUtilityMobileOpen = false;
+  let isLangOpen = false;
   let isScrolled = false;
   let currentTheme: 'dark' | 'light' = 'light';
 
   let utilityTriggerEl: HTMLButtonElement | null = null;
   let utilityMenuEl: HTMLDivElement | null = null;
+  let langTriggerEl: HTMLButtonElement | null = null;
+  let langMenuEl: HTMLDivElement | null = null;
 
   function toggleMenu(e?: Event) {
     if (e) { e.preventDefault(); e.stopPropagation(); }
     isMenuOpen = !isMenuOpen;
     if (!isMenuOpen) isUtilityMobileOpen = false;
+    if (isMenuOpen) isLangOpen = false;
   }
   function closeMenu() { isMenuOpen = false; isUtilityMobileOpen = false; }
-  function toggleUtility() { isUtilityOpen = !isUtilityOpen; }
+  function toggleUtility() { isUtilityOpen = !isUtilityOpen; if (isUtilityOpen) isLangOpen = false; }
   function closeUtility() { isUtilityOpen = false; }
+  function toggleLangMenu() { isLangOpen = !isLangOpen; if (isLangOpen) isUtilityOpen = false; }
+  function closeLangMenu() { isLangOpen = false; }
+
+  function chooseLocale(loc: LocaleKey) {
+    setLocale(loc);
+    trackEvent('locale_switched', { locale: loc });
+    isLangOpen = false;
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new Event('hr:hydrate'));
+    }
+  }
 
   // ── Theme ─────────────────────────────────────────────────────────
   function initTheme() {
@@ -91,20 +108,25 @@
 
   // ── A11y: click outside + Escape + focus management ──────────────
   function onWindowClick(e: MouseEvent) {
-    if (!isUtilityOpen) return;
     const t = e.target as Node;
-    if (utilityTriggerEl?.contains(t) || utilityMenuEl?.contains(t)) return;
-    closeUtility();
+    if (isUtilityOpen && !utilityTriggerEl?.contains(t) && !utilityMenuEl?.contains(t)) {
+      closeUtility();
+    }
+    if (isLangOpen && !langTriggerEl?.contains(t) && !langMenuEl?.contains(t)) {
+      closeLangMenu();
+    }
   }
   function onKeydown(e: KeyboardEvent) {
     if (e.key === 'Escape') {
       if (isUtilityOpen) { closeUtility(); utilityTriggerEl?.focus(); }
+      if (isLangOpen) { closeLangMenu(); langTriggerEl?.focus(); }
       if (isMenuOpen) closeMenu();
     }
   }
 
   onMount(() => {
     initTheme();
+    initLocale();
     if (typeof window !== 'undefined') {
       if (!currentPath) {
         currentPath = window.location.pathname;
@@ -123,7 +145,7 @@
   <div class="header-outer-container">
     <div class="header-content">
       <!-- Brand — sole Home affordance -->
-      <a href={withBase('/')} class="header-brand" aria-label="HSRI — Home">
+      <a href={withBase('/')} class="header-brand" aria-label={$dict.headerUi.homeAria}>
         <svg class="logo" width="38" height="38" viewBox="0 0 40 40" fill="none" aria-hidden="true">
           <circle cx="20" cy="20" r="19" stroke="var(--primary-color)" stroke-width="2"/>
           <path d="M20 5 L15 15 L5 20 L15 25 L20 35 L25 25 L35 20 L25 15 Z" fill="var(--primary-color)" opacity="0.8"/>
@@ -131,12 +153,12 @@
         </svg>
         <div class="brand-text">
           <h1 class="site-title">HSRI</h1>
-          <p class="site-tagline">Humanity Superintelligence Readiness Index</p>
+          <p class="site-tagline">{$dict.headerUi.tagline}</p>
         </div>
       </a>
 
       <!-- Desktop Primary Nav — 3 pillars -->
-      <nav class="main-nav" aria-label="Primary">
+      <nav class="main-nav" aria-label={$dict.headerUi.primaryNavAria}>
         <ul class="nav-list">
           {#each primaryNav as item}
             <li class="nav-item">
@@ -149,7 +171,7 @@
               >
                 {#if item.live}<span class="live-dot" aria-hidden="true"></span>{/if}
                 {item.name}
-                {#if item.live}<span class="live-label">LIVE</span>{/if}
+                {#if item.live}<span class="live-label">{$dict.headerUi.nav.liveBadge}</span>{/if}
                 {#if item.badge}<span class="nav-badge">{item.badge}</span>{/if}
               </a>
             </li>
@@ -200,12 +222,59 @@
           </li>
         </ul>
 
-        <!-- Divider + Theme -->
+        <!-- Divider + Language + Theme -->
         <span class="nav-divider" aria-hidden="true"></span>
 
+        <div class="lang-item">
+          <button
+            bind:this={langTriggerEl}
+            type="button"
+            class="lang-trigger-btn"
+            class:active={isLangOpen}
+            aria-haspopup="listbox"
+            aria-expanded={isLangOpen}
+            aria-controls="header-lang-menu"
+            aria-label={$dict.headerUi.langSwitcherAria}
+            title={$dict.headerUi.langMenuLabel}
+            on:click={toggleLangMenu}
+          >
+            <svg class="lang-globe-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M2 12h20"/>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+            <span class="lang-short">{currentLocaleMeta.short}</span>
+            <span class="chevron" class:open={isLangOpen} aria-hidden="true">▾</span>
+          </button>
+
+          {#if isLangOpen}
+            <div
+              bind:this={langMenuEl}
+              id="header-lang-menu"
+              class="lang-menu"
+              role="listbox"
+              aria-label={$dict.headerUi.langSwitcherAria}
+            >
+              {#each SUPPORTED_LOCALES as locOpt}
+                <button
+                  type="button"
+                  class="lang-option"
+                  class:active={$activeLocale === locOpt.code}
+                  role="option"
+                  aria-selected={$activeLocale === locOpt.code}
+                  on:click={() => chooseLocale(locOpt.code)}
+                >
+                  <span class="lang-opt-native">{locOpt.label}</span>
+                  <span class="lang-opt-meta">{locOpt.englishName}</span>
+                </button>
+              {/each}
+            </div>
+          {/if}
+        </div>
+
         <button type="button" class="theme-toggle-btn" on:click={toggleTheme}
-          aria-label={currentTheme === 'dark' ? 'Switch to Cream Paper' : 'Switch to Dark Mode'}
-          title={currentTheme === 'dark' ? 'Switch to Cream Paper' : 'Switch to Dark Mode'}>
+          aria-label={currentTheme === 'dark' ? $dict.headerUi.themeLightAria : $dict.headerUi.themeDarkAria}
+          title={currentTheme === 'dark' ? $dict.headerUi.themeLightAria : $dict.headerUi.themeDarkAria}>
           {#if currentTheme === 'dark'}
             <!-- Light bulb icon (switch to cream) -->
             <svg class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -223,7 +292,7 @@
 
         <!-- Hamburger — only <768px -->
         <button type="button" class="mobile-menu-button" on:click={toggleMenu}
-          aria-label={isMenuOpen ? 'Close navigation' : 'Open navigation'} aria-expanded={isMenuOpen}>
+          aria-label={isMenuOpen ? $dict.headerUi.menuCloseAria : $dict.headerUi.menuOpenAria} aria-expanded={isMenuOpen}>
           {#if isMenuOpen}
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <line x1="18" y1="6" x2="6" y2="18"/>
@@ -255,14 +324,14 @@
 
   <!-- Mobile Drawer -->
   {#if isMenuOpen}
-    <div class="mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation">
+    <div class="mobile-menu" role="dialog" aria-modal="true" aria-label={$dict.headerUi.primaryNavAria}>
       <ul class="mobile-nav-list">
         {#each primaryNav as item}
           <li class="mobile-nav-item">
             <a href={withBase(item.href)} class="mobile-nav-link" class:active={isActive(item.href)} on:click={closeMenu}>
               {#if item.live}<span class="live-dot" aria-hidden="true"></span>{/if}
               {item.name}
-              {#if item.live}<span class="live-label">LIVE</span>{/if}
+              {#if item.live}<span class="live-label">{$dict.headerUi.nav.liveBadge}</span>{/if}
               {#if item.badge}<span class="nav-badge">{item.badge}</span>{/if}
             </a>
           </li>
@@ -287,6 +356,23 @@
           {/if}
         </li>
 
+        <!-- Mobile language switcher -->
+        <li class="mobile-nav-item mobile-lang-item">
+          <p class="mobile-lang-heading">{$dict.headerUi.langMenuLabel}</p>
+          <div class="mobile-lang-grid" role="group" aria-label={$dict.headerUi.langSwitcherAria}>
+            {#each SUPPORTED_LOCALES as locOpt}
+              <button
+                type="button"
+                class="mobile-lang-pill"
+                class:active={$activeLocale === locOpt.code}
+                aria-pressed={$activeLocale === locOpt.code}
+                on:click={() => { chooseLocale(locOpt.code); closeMenu(); }}
+              >
+                {locOpt.label}
+              </button>
+            {/each}
+          </div>
+        </li>
 
       </ul>
     </div>
@@ -421,7 +507,94 @@
   }
   .ext{ font-size: 0.7rem; opacity: 0.7; }
 
-  /* Theme Toggle: Tactile Icon-only Button (Zero Text) */
+  /* Theme Toggle & Language Selector */
+  .lang-item {
+    position: relative;
+    flex-shrink: 0;
+  }
+  .lang-trigger-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    height: 36px;
+    padding: 0 0.62rem;
+    border-radius: 8px;
+    background-color: var(--bg-surface-elevated);
+    border: 1px solid var(--border-medium);
+    color: var(--text-primary);
+    font-family: var(--font-family-mono, monospace);
+    font-size: 0.76rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    white-space: nowrap;
+  }
+  .lang-trigger-btn:hover,
+  .lang-trigger-btn.active {
+    color: var(--accent-primary);
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 12px -2px var(--accent-primary-glow);
+  }
+  .lang-globe-icon {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+  }
+  .lang-short {
+    line-height: 1;
+  }
+  .lang-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    inset-inline-end: 0;
+    width: min(360px, calc(100vw - 24px));
+    background: var(--bg-surface-elevated, #ffffff);
+    border: 1.5px solid var(--border-medium, #d4caa8);
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg, 0 12px 28px rgba(45, 35, 20, 0.14));
+    padding: 8px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4px;
+    z-index: 1002;
+  }
+  .lang-option {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1px;
+    padding: 7px 10px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    background: transparent;
+    text-align: start;
+    cursor: pointer;
+    color: var(--text-primary);
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+  }
+  .lang-option:hover {
+    background: var(--accent-primary-glow);
+    border-color: var(--border-subtle);
+  }
+  .lang-option.active {
+    background: var(--accent-primary-glow);
+    border-color: var(--accent-primary);
+  }
+  .lang-opt-native {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.25;
+  }
+  .lang-option.active .lang-opt-native {
+    color: var(--accent-primary);
+  }
+  .lang-opt-meta {
+    font-size: 0.68rem;
+    color: var(--text-secondary);
+    line-height: 1.2;
+  }
+
   .theme-toggle-btn{
     display: inline-flex; align-items: center; justify-content: center;
     width: 36px; height: 36px; padding: 0; margin-inline-start: 0.35rem; border-radius: 8px;
@@ -460,18 +633,19 @@
   .stat-value small{ font-size: 0.72rem; font-weight: 400; opacity: 0.85; }
   .status-dot{ display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #f59e0b; flex-shrink: 0; }
 
-  /* ── Responsive: keep 6 nav items + theme toggle cleanly inside 1280px ── */
+  /* ── Responsive: keep 6 nav items + language selector + theme toggle cleanly inside 1280px ── */
   @media (max-width: 1380px){
     .site-tagline{ display: none; }
     .header-outer-container{ padding: 0 1rem; }
-    .header-content{ gap: 0.85rem; }
-    .nav-list{ gap: 0.25rem; }
-    .nav-link{ font-size: 0.84rem; padding: 0.32rem 0.5rem; gap: 4px; letter-spacing: 0.01em; }
-    .nav-divider{ margin-inline: 0.3rem 0.2rem; }
+    .header-content{ gap: 0.75rem; }
+    .nav-list{ gap: 0.2rem; }
+    .nav-link{ font-size: 0.83rem; padding: 0.32rem 0.46rem; gap: 4px; letter-spacing: 0.01em; }
+    .nav-divider{ margin-inline: 0.28rem 0.2rem; }
   }
-  @media (max-width: 1080px){
+  @media (max-width: 1320px){
     .nav-badge{ display: none; }
-    .nav-link{ font-size: 0.82rem; padding: 0.3rem 0.42rem; }
+    .nav-link{ font-size: 0.81rem; padding: 0.3rem 0.42rem; }
+    .lang-trigger-btn{ padding: 0 0.5rem; }
   }
   @media (max-width: 768px){
     .header-content{ justify-content: space-between; gap: 0.75rem; }
@@ -527,6 +701,16 @@
     .mobile-sub-link span:first-child{ font-family: var(--font-family-display, 'Boldonse', sans-serif); font-size: 0.96rem; font-weight: 700; color: var(--text-primary); }
     .mobile-sub-link:hover span:first-child, .mobile-sub-link.active span:first-child{ color: var(--accent-primary); }
     .sub-desc{ font-size: 0.78rem; color: var(--text-secondary); font-weight: 500; }
+    .mobile-lang-item { padding: 0.55rem 0.25rem 0.25rem; border-bottom: none; }
+    .mobile-lang-heading { font-family: var(--font-family-mono, monospace); font-size: 0.72rem; font-weight: 700; color: var(--text-secondary); margin: 0 0 0.45rem; }
+    .mobile-lang-grid { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .mobile-lang-pill {
+      border: 1px solid var(--border-medium); background: var(--bg-surface); color: var(--text-primary);
+      border-radius: 9999px; padding: 0.3rem 0.65rem; font-size: 0.78rem; font-weight: 600; cursor: pointer;
+    }
+    .mobile-lang-pill.active {
+      background: var(--accent-primary); border-color: var(--accent-primary); color: var(--btn-primary-text, #ffffff);
+    }
 
   }
 </style>

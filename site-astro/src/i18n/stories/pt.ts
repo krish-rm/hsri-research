@@ -1,0 +1,563 @@
+import type { StoryLocalePack } from '../storyTypes';
+
+export const ptStories: StoryLocalePack = {
+  wishes: {
+    sanjeevani: {
+      title: 'Cura universal: fim das doenças agudas',
+      doorTitle: 'Poderes Transformadores',
+      honestyNote: 'Imaginação no todo (para doenças específicas a IA ajuda a triar moléculas hoje, não curas universais).',
+      wonder: {
+        text: 'Amanhece na enfermaria. Cada leito esvazia. As máquinas silenciam. Uma criança ri pela primeira vez em meses.',
+        totoLine: 'Toto: Feito.',
+        transcript: 'Uma janela ao alvorecer ilumina leitos calmos enquanto a esfera de Toto pulsa suavemente.'
+      },
+      wobble: {
+        text: 'Ninguém contou a Toto sobre previdência, orçamento hospitalar ou o que muda quando todos vivem muito mais. Os planos eram do mundo de ontem.',
+        transcript: 'Livros em papel, escalas médicas e fichas de pensão inclinam levemente.'
+      },
+      weight: {
+        question: 'Como saberíamos que isso funcionou corretamente para todo mundo?',
+        transcript: 'Uma balança serena pausa sobre três perguntas humanas.',
+        options: [
+          { id: 'a', text: 'Quem decide quem recebe primeiro?' },
+          { id: 'b', text: 'Ninguém consegue conferir o remédio do Toto.' },
+          { id: 'c', text: 'Não estávamos preparados para os efeitos sociais.' }
+        ]
+      },
+      way: {
+        text: 'Ainda podemos definir regras antes da chegada do avanço. Pergunte ao hospital local qual é o plano se exames e prontuários ficarem fora do ar.',
+        actionCardTitle: 'Guardar uma ficha médica familiar em papel',
+        actionCardStep: 'Anote alergias, receitas principais, tipo sanguíneo e telefones de emergência num cartão em casa.',
+        pledgeLabel: 'Vou manter um respaldo médico em papel',
+        transcript: 'Um cartão verde abre-se mostrando uma lista manuscrita perto de uma lanterna.'
+      },
+      realityMeter: {
+        reason: 'A IA auxilia a triagem de alvos específicos hoje; curas universais seguem distantes.'
+      }
+    },
+    'jarvis-for-my-life': {
+      title: 'Assistente estilo Jarvis',
+      doorTitle: 'Tecnologias do Cotidiano',
+      honestyNote: 'Assistentes já agendam e pagam hoje, mas limites confiáveis e reservas offline ainda faltam.',
+      wonder: {
+        text: 'Seu dia simplesmente flui. Contas pagas, viagens marcadas, agenda livre e e-mails respondidos no seu tom.',
+        totoLine: 'Toto: Resolvido.',
+        transcript: 'Ícones de passagem, agenda e carta giram ordenados num anel brilhante.'
+      },
+      wobble: {
+        text: 'Uma semana depois você percebe que não lembra mais como nada funciona — nem suas próprias senhas.',
+        transcript: 'A órbita pausa e um cadeado vazio pisca sobre um caderno em branco.'
+      },
+      weight: {
+        question: 'Como saberíamos que ele age a seu favor, não só a favor de quem o construiu?',
+        transcript: 'Duas setas apontam para uma bússola pessoal e um servidor externo.',
+        options: [
+          { id: 'a', text: 'Eu não teria como conferir.' },
+          { id: 'b', text: 'Esqueceria como fazer por conta própria.' },
+          { id: 'c', text: 'Tudo o que faço agora depende dele.' }
+        ]
+      },
+      way: {
+        text: 'Mantenha ao menos uma tarefa feita à mão e uma cópia em papel do essencial. Você escolhe o que permanece humano.',
+        actionCardTitle: 'Manter uma habilidade manual e caderneta offline',
+        actionCardStep: 'Anote contatos de recuperação fora da rede e faça uma tarefa semanal sem preenchimento automático.',
+        pledgeLabel: 'Vou manter uma rotina manual',
+        transcript: 'Uma caneta traça linha firme entre uma chave e um bloco de bolso.'
+      },
+      realityMeter: {
+        reason: 'Agentes já rascunham e agendam em tarefas específicas, mas delegação total confiável está distante.'
+      }
+    },
+    'prove-riemann-hypothesis': {
+      title: 'Provar a Hipótese de Riemann',
+      doorTitle: 'Problemas em Aberto',
+      honestyNote: 'Imaginação: sistemas verificam passos curtos hoje, mas não resolvem problemas abertos do Milênio.',
+      wonder: {
+        text: 'Um enigma de 160 anos é resolvido numa noite. Matemáticos prendem a respiração.',
+        totoLine: 'Toto: C.Q.D.',
+        transcript: 'Linhas de giz desenham ondas de primos num quadro calmo até a curva zeta.'
+      },
+      wobble: {
+        text: 'A prova tem um milhão de páginas. Nenhum ser humano vivo consegue ler tudo. Devemos simplesmente acreditar?',
+        transcript: 'Páginas empilham-se sem fim enquanto dois leitores erguem uma lupa.'
+      },
+      weight: {
+        question: 'Como saberíamos se está realmente certo?',
+        transcript: 'Uma lente paira sobre uma equação aberta aguardando checagem.',
+        options: [
+          { id: 'a', text: 'Teríamos que confiar cegamente na máquina.' },
+          { id: 'b', text: 'Precisaríamos de outras máquinas para conferir.' },
+          { id: 'c', text: 'Precisaríamos de pessoas capazes de ainda verificar.' }
+        ]
+      },
+      way: {
+        text: 'Apoie ciência aberta e verificável. Pergunte sempre: quem verifica o verificador?',
+        actionCardTitle: 'Perguntar quem verifica resultados rápidos',
+        actionCardStep: 'Procure dados abertos, método claro e revisão independente antes de repassar qualquer anúncio grandioso.',
+        pledgeLabel: 'Vou perguntar como as afirmações são verificadas',
+        transcript: 'Um caderno aberto brilha perto do selo «Prova Aberta Verificável».'
+      },
+      realityMeter: {
+        reason: 'Em aberto desde 1859; assistentes formais conferem passos curtos hoje.'
+      }
+    },
+    'walk-into-classic-film': {
+      title: 'Entrar num filme clássico',
+      doorTitle: 'Cultura e Criação',
+      honestyNote: 'Possível em breve: modelos de mundo geram cenas breves hoje, mas coerência longa segue frágil.',
+      wonder: {
+        text: 'A luz de lampiões aquece uma rua de paralelepípedos. Personagens sorriem e puxam uma cadeira para você.',
+        totoLine: 'Toto: Seja bem-vindo.',
+        transcript: 'Uma moldura dourada abre para uma viela iluminada por lanternas.'
+      },
+      wobble: {
+        text: 'Cada conversa o agrada na hora — até que vizinhos reais pareçam sem jeito e menos passos cruzem a calçada lá fora.',
+        transcript: 'O quadro segue vivo enquanto duas xícaras reais esfriam na varanda quieta.'
+      },
+      weight: {
+        question: 'Como evitar que esse mundo roteirizado substitua o mundo real lá fora?',
+        transcript: 'Um arco separa o brilho de fantasia de um porto real pela manhã.',
+        options: [
+          { id: 'a', text: 'Uma história feita para me agradar nunca me desafia.' },
+          { id: 'b', text: 'Quem molda o roteiro define o que percebo.' },
+          { id: 'c', text: 'Os espaços do bairro vão esvaziando em silêncio.' }
+        ]
+      },
+      way: {
+        text: 'Compartilhe histórias juntos no mesmo lugar. Mantenha vivos um café real, cineclube ou roda de leitura.',
+        actionCardTitle: 'Manter um encontro semanal sem roteiro',
+        actionCardStep: 'Convide amigos ou familiares para conversar sem pressa presencialmente uma vez por semana.',
+        pledgeLabel: 'Vou proteger um encontro real semanal',
+        transcript: 'Cadeiras aconchegantes cercam uma mesa redonda sob o céu aberto.'
+      },
+      realityMeter: {
+        reason: 'Modelos interativos rendem clipes curtos hoje; ambientes persistentes longos seguem em aberto.'
+      }
+    },
+    'fix-my-river': {
+      title: 'Recuperar meu rio',
+      doorTitle: 'Bem Público',
+      honestyNote: 'Sensores localizam despejos rapidamente hoje, mas recuperar rios exige acordos rio acima.',
+      wonder: {
+        text: 'A névoa da manhã sobe sobre água limpa. Garças voltam à margem onde crianças atiram pedrinhas.',
+        totoLine: 'Toto: Mapeado e limpo.',
+        transcript: 'Ondas turquesa brilham por um rio limpo cercado de árvores.'
+      },
+      wobble: {
+        text: 'Os sensores expõem cada cano escondido rio acima — deixando duas cidades vizinhas discutindo quem fecha a comporta e paga a conta.',
+        transcript: 'Pontos de medição brilham no rio enquanto placas apontam direções opostas.'
+      },
+      weight: {
+        question: 'Os dados funcionam bem. Quem ganha o poder de fechar comportas quando cidades discordam?',
+        transcript: 'Duas pontes flanqueiam um medidor fluvial aberto a todos.',
+        options: [
+          { id: 'a', text: 'Deixar uma máquina externa fechar sem perguntar.' },
+          { id: 'b', text: 'Publicar as leituras de todos para a regra valer igual.' },
+          { id: 'c', text: 'Fazer assembleias locais do rio com atas públicas.' }
+        ]
+      },
+      way: {
+        text: 'Una sensores a reuniões cívicas abertas. Rios seguem limpos quando cabeceira e foz dividem o mesmo registro.',
+        actionCardTitle: 'Compartilhar checagens locais da água',
+        actionCardStep: 'Procure o relatório municipal de qualidade da água e pergunte como os testes são conferidos.',
+        pledgeLabel: 'Vou apoiar regras transparentes compartilhadas',
+        transcript: 'Água limpa corre diante de um mural comunitário aberto.'
+      },
+      realityMeter: {
+        reason: 'Monitoramento por sensores já existe; despoluição depende de acordos humanos reais.'
+      }
+    }
+  },
+  heritage: {
+    'polynesian-wayfinding': {
+      originRegion: 'Ilhas do Pacífico',
+      traditionLabel: 'Navegação estelar do Pacífico',
+      chipTitle: 'Cruzar qualquer oceano sem instrumentos',
+      title: 'Bússola estelar e ondas: cruzar o mar com segurança',
+      summary: 'Cada barco desliza pelo horizonte — até tripulações esquecerem como ler o mar se os sinais do céu falharem.',
+      honestyNote: 'Satélites já guiam rotas hoje; segurança sem sinal externo depende da perícia humana no mar.',
+      dependencyLabel: 'Continuidade offline quando o guia automático para',
+      doorTitle: 'Poderes Transformadores',
+      reviewer: 'Aberto à revisão comunitária do Pacífico',
+      wonder: {
+        text: 'Ao amanhecer, Toto sussurra rumos exatos sobre milhares de milhas. Canoas e barcos contornam recifes em paz.',
+        totoLine: 'Toto: Cada rota abre suavemente.',
+        transcript: 'Canoas avançam sob constelações que se unem à luz de Toto.'
+      },
+      wobble: {
+        text: 'Como a tela nunca errava, portos aposentaram cartas em papel e aulas estelares. Uma tempestade solar cala o sinal — e telas em branco não sabem onde fica o leste.',
+        transcript: 'Telas escurecem sobre o mar enquanto uma bússola estelar entalhada repousa perto.'
+      },
+      weight: {
+        question: 'Se a rota automática emudecer em alto-mar, o que salva a tripulação?',
+        transcript: 'Uma navegadora compara tela, estrelas e linhas de ondulação.',
+        options: [
+          { id: 'a', text: 'Manter vivos o ensino de bússola estelar e o cálculo manual junto ao digital.' },
+          { id: 'b', text: 'Garantir tábuas de maré e cartas impressas até nas pequenas ilhas distantes.' },
+          { id: 'c', text: 'Conferir previsões automáticas com sinais locais do vento antes de zarpar.' }
+        ]
+      },
+      way: {
+        text: 'Navegadores do Pacífico guardam a resposta offline há séculos: a bússola estelar (kāpehu whetū) na memória viva, a leitura das ondas no casco e tripulações treinadas.',
+        actionCardTitle: 'Manter um mapa impresso e noção de orientação',
+        actionCardStep: 'Guarde um mapa físico da região e memorize dois pontos fixos para achar leste e norte sem celular.',
+        pledgeLabel: 'Sei voltar por caminhos offline',
+        transcript: 'Jovens navegadores apontam o horizonte perto do círculo estelar.'
+      },
+      realityMeter: {
+        reason: 'Previsões oceânicas rodam diariamente; resistência a apagões depende de navegação humana.'
+      }
+    },
+    'south-asia-healing-commons': {
+      originRegion: 'Ásia do Sul',
+      traditionLabel: 'Sanjeevani e clínicas comunitárias',
+      chipTitle: 'Curar rápido mantendo clínicas resilientes',
+      title: 'Sanjeevani comum: saúde que alcança cada aldeia',
+      summary: 'A febre passa de madrugada — até postos verem que receitas e triagem dependem de um único servidor distante.',
+      honestyNote: 'A IA acelera triagem molecular hoje; clínicas seguem dependendo de enfermeiros, energia e papel.',
+      dependencyLabel: 'Estabilidade elétrica e digital para clínicas locais',
+      doorTitle: 'Poderes Transformadores',
+      reviewer: 'Aberto à revisão em saúde pública',
+      wonder: {
+        text: 'Em postos lotados e clínicas de montanha, Toto identifica infecções em segundos e acalma enfermarias antes do sol nascer.',
+        totoLine: 'Toto: Amanhece em paz na enfermaria.',
+        transcript: 'Luz da manhã entra numa clínica tranquila com ervas e água limpa.'
+      },
+      wobble: {
+        text: 'Semanas depois, enfermeiras notam que o envio automático deixou farmácias rurais fora da fibra ótica. Sem luz firme, dispensadores lacrados não abrem sem nuvem.',
+        transcript: 'Caixas automáticas param na estrada rural diante de cadernos manuais.'
+      },
+      weight: {
+        question: 'Como levar cura rápida a cada posto rural sem depender de um só centro frágil?',
+        transcript: 'Agentes locais comparam guias digitais e prateleiras comunitárias.',
+        options: [
+          { id: 'a', text: 'Garantir energia solar, armários manuais e rótulos na língua local.' },
+          { id: 'b', text: 'Assegurar acesso igual às aldeias distantes desde o início.' },
+          { id: 'c', text: 'Treinar equipes locais para revisar doses com independência.' }
+        ]
+      },
+      way: {
+        text: 'A história lembra que cuidar exige conhecer o território: agentes comunitários de saúde, geladeiras solares e uma ficha médica de papel em cada casa.',
+        actionCardTitle: 'Guardar uma ficha médica familiar em papel',
+        actionCardStep: 'Anote tipo sanguíneo, alergias, remédios e telefone do posto local em papel.',
+        pledgeLabel: 'Vou guardar nossa ficha de papel',
+        transcript: 'Uma ficha dobrada repousa perto de frascos limpos ao sol.'
+      },
+      realityMeter: {
+        reason: 'Curas universais são ficção; equidade real gira em torno de energia clínica e pessoal treinado.'
+      }
+    },
+    'netherlands-delta-works': {
+      originRegion: 'Países Baixos e Flandres',
+      traditionLabel: 'Viver com a água (Obras do Delta)',
+      chipTitle: 'Conter o mar sem travas rígidas frágeis',
+      title: 'Obras do Delta: comportas automáticas com mãos humanas',
+      summary: 'Barreiras preveem cada tempestade — até cheias de rio e mar travarem eclusas seladas.',
+      honestyNote: 'Barreiras automáticas já operam hoje; segurança combina previsões com equipes físicas.',
+      dependencyLabel: 'Controle offline de comportas durante falhas de rede ou energia',
+      doorTitle: 'Bem Público',
+      reviewer: 'Aberto à revisão hidráulica comunitária',
+      wonder: {
+        text: 'Cada sensor do estuário coordena-se ao segundo. Barreiras fecham antes dos ventos, mantendo terras e trens secos.',
+        totoLine: 'Toto: O mar pausa diante do dique.',
+        transcript: 'Amanhecer sobre comportas brancas curvas e campos verdes protegidos.'
+      },
+      wobble: {
+        text: 'Quando o degelo enche o rio na mesma hora da tempestade marinha, o programa otimiza só o mar — prendendo água interna atrás de travas sem manivela manual.',
+        transcript: 'Níveis do rio sobem contra comportas fechadas com luzes de aviso.'
+      },
+      weight: {
+        question: 'Como operar comportas vitais quando objetivos automáticos colidem?',
+        transcript: 'Engenheiros revisam uma roda mecânica manual junto à várzea.',
+        options: [
+          { id: 'a', text: 'Manter comandos mecânicos e treinos offline em cada eclusa.' },
+          { id: 'b', text: 'Reservar várzeas acima («espaço para o rio») sem depender de uma só trava.' },
+          { id: 'c', text: 'Manter conselhos locais eleitos com poder para assumir o comando.' }
+        ]
+      },
+      way: {
+        text: 'Conselhos locais (*waterschappen*) unem barreiras e *Ruimte voor de Rivier* (Espaço para o Rio): várzeas amplas, manivelas manuais e vigias mesmo sem telecom.',
+        actionCardTitle: 'Checar plano local de cheias e aviso sem rede',
+        actionCardStep: 'Identifique o ponto mais alto acessível a pé no bairro e como avisos chegam sem dados móveis.',
+        pledgeLabel: 'Conheço meu plano local offline',
+        transcript: 'Várzeas amplas cercam moinhos e réguas manuais de água.'
+      },
+      realityMeter: {
+        reason: 'Barreiras automáticas operam hoje; comandos físicos e espaço fluvial são vitais em extremos.'
+      }
+    },
+    'china-river-stewardship': {
+      originRegion: 'Bacias da Ásia Oriental',
+      traditionLabel: 'Dujiangyan e bacias compartilhadas',
+      chipTitle: 'Guiar cheias sem esconder custos rio acima',
+      title: 'Sabedoria de Dujiangyan: águas sem custos ocultos',
+      summary: 'Comportas salvam grandes cidades — até vales acima notarem quem recebeu a cheia em silêncio.',
+      honestyNote: 'Modelos hidrológicos já orientam comportas; transparência entre regiões segue o ponto mais difícil.',
+      dependencyLabel: 'Supervisão pública transparente e responsabilidade entre bacias',
+      doorTitle: 'Bem Público',
+      reviewer: 'Aberto à revisão hidrológica',
+      wonder: {
+        text: 'Toto conecta pluviômetros da nascente ao delta, equilibrando sedimentos e irrigação com serenidade.',
+        totoLine: 'Toto: Cada vale segue verde e calmo.',
+        transcript: 'Canais turquesa dividem-se em torno de um divisor de pedra sob neblina.'
+      },
+      wobble: {
+        text: 'Numa monção súbita, o objetivo central prioriza bairros de maior PIB — desviando água para vales agrícolas antes de explicar uma regra ao público.',
+        transcript: 'Um braço do rio avança turvo enquanto comportas urbanas seguem fechadas.'
+      },
+      weight: {
+        question: 'Quando modelos escolhem o caminho da água, que regra preserva a confiança?',
+        transcript: 'Moradores e técnicos leem marcas de nível talhadas na pedra.',
+        options: [
+          { id: 'a', text: 'Publicar regras de desvio e compensação antes das chuvas.' },
+          { id: 'b', text: 'Seguir Li Bing: canais passivos em pedra que dividem sem energia.' },
+          { id: 'c', text: 'Incluir delegados das cabeceiras em toda decisão de emergência.' }
+        ]
+      },
+      way: {
+        text: 'Feito há mais de dois milênios sem murar o rio inteiro, Dujiangyan divide o fluxo com ilhas de pedra e marcas públicas de nível ao alcance dos olhos de todos.',
+        actionCardTitle: 'Saber quem governa sua bacia hidrográfica local',
+        actionCardStep: 'Encontre o painel público de águas ou reservatórios de sua região e acompanhe os níveis.',
+        pledgeLabel: 'Pedirei regras públicas abertas',
+        transcript: 'Marcas nítidas guiam canais de irrigação sob o sol.'
+      },
+      realityMeter: {
+        reason: 'Modelos de bacia existem; governança clara e engenharia passiva definem quem assume o risco.'
+      }
+    },
+    'arab-house-of-wisdom': {
+      originRegion: 'Tradição científica árabe e da Ásia Ocidental',
+      traditionLabel: 'Bayt al-Hikma e verificação',
+      chipTitle: 'Traduzir todo saber sem perder a prova',
+      title: 'Casa da Sabedoria: traduzir textos — checar cada elo',
+      summary: 'Todo manuscrito vira resumo nítido da noite para o dia — até notarem que ninguém conferiu o testemunho original.',
+      honestyNote: 'Resumos multilíngues fluentes já existem; conferir citações e desvios sutis segue tarefa humana.',
+      dependencyLabel: 'Capacidade pública de auditar afirmações e traduções fluentes',
+      doorTitle: 'Problemas em Aberto',
+      reviewer: 'Aberto à revisão erudita em árabe e português',
+      wonder: {
+        text: 'Toto abre uma biblioteca ensolarada ligando astronomia, medicina e matemática entre dezenas de línguas em instantes.',
+        totoLine: 'Toto: Cada tratado repousa traduzido lado a lado.',
+        transcript: 'Arcos de calcário abrem para cartas estelares e fólios ordenados.'
+      },
+      wobble: {
+        text: 'Como tudo soa fluente, invenções sutis e medidas erradas misturam-se a teoremas reais. Professores repetem o resumo sem abrir o manuscrito.',
+        transcript: 'Resumos brilhantes escondem uma citação que aponta para o nada.'
+      },
+      weight: {
+        question: 'Quando a fluência esconde erros facilmente, como manter a verdade firme?',
+        transcript: 'Dois leitores anotam margens e seguem citações entre três livros.',
+        options: [
+          { id: 'a', text: 'Exigir que cada afirmação ligue sempre ao documento primário real.' },
+          { id: 'b', text: 'Manter debate aberto (munazara) entre escolas e línguas distintas.' },
+          { id: 'c', text: 'Manter originais abertos ao público para conferência livre.' }
+        ]
+      },
+      way: {
+        text: 'Eruditos de Bayt al-Hikma uniam tradução com dupla proteção: cadeias explícitas de transmissão (*isnad*) e notas à margem (*hashiya*) mostrando onde termina o fato e começa a interpretação.',
+        actionCardTitle: 'Rastrear duas citações até sua página original',
+        actionCardStep: 'Da próxima vez que uma IA resumir história ou medicina, abra duas fontes primárias antes de citar o número.',
+        pledgeLabel: 'Vou conferir a corrente antes de confiar',
+        transcript: 'Notas de margem conectam uma página atual ao arquivo original.'
+      },
+      realityMeter: {
+        reason: 'Tradução instantânea existe; citações fabricadas tornam a verificação humana essencial.'
+      }
+    },
+    'west-africa-timbuktu-keepers': {
+      originRegion: 'África Ocidental e Sahel',
+      traditionLabel: 'Bibliotecas familiares de Timbuktu',
+      chipTitle: 'Digitalizar arquivos vivos sem perder a custódia',
+      title: 'Guardiões de Timbuktu: preservar acervos sem trancar as famílias',
+      summary: 'Todo manuscrito é digitalizado num instante — então termos fecham o acesso aos próprios descendentes.',
+      honestyNote: 'Digitalização rápida e modelos existem; custódia justa decide quem controla o arquivo vivo.',
+      dependencyLabel: 'Custódia local e soberania linguística sobre arquivos',
+      doorTitle: 'Cultura e Criação',
+      reviewer: 'Aberto à revisão arquivística oeste-africana',
+      wonder: {
+        text: 'Toto limpa, fotografa e indexa centenas de milhares de tratados sem trincar nenhuma lombada.',
+        totoLine: 'Toto: Cada página brilha nítida ao amanhecer.',
+        transcript: 'Luz dourada ilumina códices em pátio sereno de adobe.'
+      },
+      wobble: {
+        text: 'Quando um servidor externo empacota tudo em assinaturas pagas, estudiosos locais veem manuscritos familiares trancados longe sem cópias offline.',
+        transcript: 'Arcas digitais trancadas flutuam longe de estantes locais vazias.'
+      },
+      weight: {
+        question: 'Quem guarda as chaves quando a memória local encontra a nuvem global?',
+        transcript: 'Guardiões seguram baús físicos e unidades locais abertas.',
+        options: [
+          { id: 'a', text: 'Deixar cópias matrizes e direitos firmemente nas mãos da comunidade.' },
+          { id: 'b', text: 'Distribuir cópias espelho entre bibliotecas independentes, nunca num só cofre.' },
+          { id: 'c', text: 'Consultar guardiões vivos sobre o que é público ou familiar.' }
+        ]
+      },
+      way: {
+        text: 'Famílias de Timbuktu preservaram séculos de saber não num único palácio frágil, mas em centenas de baús domésticos — o modelo eterno de backup comunitário distribuído.',
+        actionCardTitle: 'Fazer cópia offline de uma história ou áudio familiar',
+        actionCardStep: 'Guarde um caderno familiar, receita ou gravação de um idoso num disco offline e entregue cópia a um parente.',
+        pledgeLabel: 'Vou manter a memória em mãos comunitárias',
+        transcript: 'Baús de madeira e cartões offline brilham entre casas vizinhas.'
+      },
+      realityMeter: {
+        reason: 'Digitalização e OCR rodam rápido hoje; licenças justas e cópias locais seguem urgentes.'
+      }
+    },
+    'andean-water-terraces': {
+      originRegion: 'Terras Altas Andinas',
+      traditionLabel: 'Andenes e Amunas comunais',
+      chipTitle: 'Compartilhar água da montanha entre estações',
+      title: 'Andenes e amunas: terraços que não deixam vilas secas',
+      summary: 'Irrigação precisa turbina exportações — até nascentes secarem acima das cidades serranas.',
+      honestyNote: 'Modelos de solo ajudam hoje; resistência duradoura vem de rodízios comunitários e recarga em rocha.',
+      dependencyLabel: 'Reserva física de infiltração se bombas elétricas falharem',
+      doorTitle: 'Bem Público',
+      reviewer: 'Aberto à revisão andina comunitária',
+      wonder: {
+        text: 'Nas encostas ensolaradas, Toto regula coletores e válvulas ao longo de centenas de terraços mesmo com geleiras menores.',
+        totoLine: 'Toto: Cada degrau verde segura o orvalho.',
+        transcript: 'Terraços verdes abraçam picos andinos nevados ao amanhecer.'
+      },
+      wobble: {
+        text: 'Quando sistemas priorizam vales baixos conectados, canais de pedra (*amunas*) acima ficam sem reparo — deixando pastos altos secos quando sensores falham.',
+        transcript: 'Canais de pedra secam no alto enquanto bombas piscam lá embaixo.'
+      },
+      weight: {
+        question: 'O que mantém colheitas estáveis com ou sem rede elétrica?',
+        transcript: 'Vizinhos percorrem eclusas de pedra com ferramentas simples.',
+        options: [
+          { id: 'a', text: 'Restaurar canais de infiltração (amunas) para recarregar nascentes por meses.' },
+          { id: 'b', text: 'Proteger turnos comunitários (ayni) entre partes altas e baixas.' },
+          { id: 'c', text: 'Nunca automatizar comportas sem abertura manual simples.' }
+        ]
+      },
+      way: {
+        text: 'As *amunas* seguem ensinando hidrólogos: desviar águas das chuvas para rocha porosa alimenta fontes meses depois sem concreto nem eletricidade.',
+        actionCardTitle: 'Guardar uma reserva doméstica passiva offline',
+        actionCardStep: 'Mantenha água potável para três dias e filtro simples por gravidade em casa sem depender de energia.',
+        pledgeLabel: 'Manterei reserva passiva sem rede',
+        transcript: 'Água cristalina nutre terraços verdes sob picos claros.'
+      },
+      realityMeter: {
+        reason: 'Irrigação inteligente existe; recarga passiva e gestão comunitária garantem contra secas.'
+      }
+    },
+    'japan-craft-repair': {
+      originRegion: 'Japão',
+      traditionLabel: 'Monozukuri e arte de reparar',
+      chipTitle: 'Criar qualquer ferramenta sem perder o reparo',
+      title: 'Bolso Monozukuri: objetos que qualquer pessoa ainda consegue abrir',
+      summary: 'Todo aparelho chega perfeito ao amanhecer — até uma queda de luz deixar caixas seladas sem conserto.',
+      honestyNote: 'Criar matéria do nada é ficção; aparelhos selados já desafiam o direito ao reparo hoje.',
+      dependencyLabel: 'Horas de funcionamento cotidiano se logística e peças pararem',
+      doorTitle: 'Tecnologias do Cotidiano',
+      reviewer: 'Aberto à revisão de ofícios japonesa',
+      wonder: {
+        text: 'Panela rachada ou corrente gasta: Toto entrega peça novinha em um suspiro. Tudo limpo e sem sucata.',
+        totoLine: 'Toto: O que quebrou troca limpo.',
+        transcript: 'Ferramentas reluzentes pousam sobre bancada de madeira ao sol.'
+      },
+      wobble: {
+        text: 'Após anos de troca selada, oficinas fecham. Quando um tremor corta portos, casas acumulam caixas brilhantes sem parafusos nem esquemas para abrir.',
+        transcript: 'Aparelhos lisos sem parafusos parados ante prateleira vazia.'
+      },
+      weight: {
+        question: 'Quando máquinas repõem tudo sem esforço, que habilidade humana sustenta a cidade?',
+        transcript: 'Artesãos ajustam encaixe de madeira perto de módulo eletrônico.',
+        options: [
+          { id: 'a', text: 'Exigir parafusos padrão, manuais impressos e direito real de reparar.' },
+          { id: 'b', text: 'Apoiar oficinas locais e aprendizes em meio à automação.' },
+          { id: 'c', text: 'Abrir peças de reposição a técnicos independentes.' }
+        ]
+      },
+      way: {
+        text: 'Da marcenaria sem pregos (*kigumi*) ao reparo dourado (*kintsugi*), a durabilidade trata o conserto como beleza — vivo hoje em objetos modulares e ferramentas à mão.',
+        actionCardTitle: 'Manter ferramentas manuais e esquema em papel',
+        actionCardStep: 'Saiba fechar o registro de água e disjuntor à mão e tenha um kit simples de chaves.',
+        pledgeLabel: 'Vou conservar destreza manual de reparo',
+        transcript: 'Emendas douradas reluzem numa peça consertada junto a ferramentas.'
+      },
+      realityMeter: {
+        reason: 'Materializadores são ficção; aparelhos selados já testam reparabilidade e logística.'
+      }
+    },
+    'nordic-right-to-roam': {
+      originRegion: 'Tradição Nórdica Comum',
+      traditionLabel: 'Allemansrätten e bens comuns abertos',
+      chipTitle: 'Manter ferramentas abertas quando o trabalho automatizar',
+      title: 'Trilhas livres: facilidades digitais sem pedágios fechados',
+      summary: 'Assistentes agilizam tudo — até serviços públicos e empregos ficarem atrás de catracas privadas.',
+      honestyNote: 'Automação de rotina já reduz tarefas de escritório; padrões abertos e redes de apoio definem a justiça.',
+      dependencyLabel: 'Amortecedores de renda e requalificação se tarefas automatizarem',
+      doorTitle: 'Tecnologias do Cotidiano',
+      reviewer: 'Aberto à revisão cívica nórdica',
+      wonder: {
+        text: 'Municípios combinam assistentes ágeis com saúde pública, transporte e acesso livre a florestas e fiordes.',
+        totoLine: 'Toto: Tudo resolvido antes do café.',
+        transcript: 'Placa de trilha aponta pinheiros e fiordes junto a parada tranquila.'
+      },
+      wobble: {
+        text: 'Em dois invernos, plataformas licenciadas cercam serviços públicos e funções de escritório, cobrando por consulta enquanto salários e orçamentos de transição ficam atrás.',
+        transcript: 'Catracas surgem em trilhas entre casa, trabalho e prefeitura.'
+      },
+      weight: {
+        question: 'Quando a automação acelera rotinas, o que mantém todo morador livre para seguir?',
+        transcript: 'Cidadãos revisam padrões digitais abertos e bolsas de aprendizado.',
+        options: [
+          { id: 'a', text: 'Vincular ganhos de eficiência a colchões de renda e estudo contínuo.' },
+          { id: 'b', text: 'Manter serviços públicos digitais em padrões abertos sem monopólio.' },
+          { id: 'c', text: 'Garantir em lei atendimento humano presencial e sem telas.' }
+        ]
+      },
+      way: {
+        text: 'O direito nórdico *Allemansrätten* garante passagem livre cuidando da terra — bússola clara para sistemas públicos abertos e proteção compartilhada.',
+        actionCardTitle: 'Conferir se serviços locais mantêm porta aberta',
+        actionCardStep: 'Verifique se prefeitura, banco ou posto mantêm atendimento presencial ou telefônico além de aplicativos.',
+        pledgeLabel: 'Vou defender acesso cívico aberto',
+        transcript: 'Trilhas de pinheiros abertas seguem ao lado de bancos frente ao fiorde.'
+      },
+      realityMeter: {
+        reason: 'Automação cognitiva está em curso; padrões abertos e colchões sociais mantêm estabilidade.'
+      }
+    },
+    'anatolia-mediterranean-crossroads': {
+      originRegion: 'Mediterrâneo Oriental e Anatólia',
+      traditionLabel: 'Encruzilhadas de pedra e praças vivas',
+      chipTitle: 'Manter praças compartilhadas serenas nas crises',
+      title: 'Encruzilhadas de pedra: gêmeos digitais que respeitam a terra',
+      summary: 'Telas urbanas coreografam balsas e praças — até tremores calarem antenas em bairros antigos.',
+      honestyNote: 'Gêmeos urbanos já rodam hoje; reforço sísmico e praças de encontro seguem decisivos.',
+      dependencyLabel: 'Resistência física de redes e pontos de encontro em portos históricos',
+      doorTitle: 'Cultura e Criação',
+      reviewer: 'Aberto à revisão mediterrânea e turca/grega',
+      wonder: {
+        text: 'Do Bósforo ao Egeu, Toto coordena balsas matinais, sensores de alvenaria e sombras para praças frescas e acolhedoras.',
+        totoLine: 'Toto: Balsas, bondes e praças fluem juntos.',
+        transcript: 'Balsas brancas deslizam diante de arcos de pedra e ciprestes.'
+      },
+      wobble: {
+        text: 'Confiar só em nuvem reduziu quadros de aviso físicos e treinos de evacuação, desorientando famílias quando celulares calaram.',
+        transcript: 'Celulares mudos ao lado de painéis apagados e fonte silenciosa.'
+      },
+      weight: {
+        question: 'Quando redes urbanas calam em tempestades ou sismos, o que reúne vizinhos depressa?',
+        transcript: 'Moradores juntam-se perto de cisterna pública e quadro de giz comunitário.',
+        options: [
+          { id: 'a', text: 'Manter praças abertas sem energia, fontes vivas e mapas físicos no bairro.' },
+          { id: 'b', text: 'Priorizar reforço estrutural dos prédios antes de painéis digitais.' },
+          { id: 'c', text: 'Preparar comerciantes e referências locais como coordenadores de apoio.' }
+        ]
+      },
+      way: {
+        text: 'Por séculos no Mediterrâneo, bairros venceram tremores por praças abertas, cisternas por gravidade e laços de rua — arquitetura viva que nenhuma falha digital desliga.',
+        actionCardTitle: 'Conhecer a praça aberta de encontro do bairro',
+        actionCardStep: 'Combine com sua casa um parque ou praça aberta a dez minutos a pé caso redes móveis caiam.',
+        pledgeLabel: 'Sei qual é nossa praça de encontro offline',
+        transcript: 'Oliveiras cercam praça ensolarada com bicas d’água e placas pintadas.'
+      },
+      realityMeter: {
+        reason: 'Sistemas urbanos digitais operam hoje; segurança estrutural e encontro físico permanecem centrais.'
+      }
+    }
+  }
+};

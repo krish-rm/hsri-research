@@ -1,0 +1,563 @@
+import type { StoryLocalePack } from '../storyTypes';
+
+export const idStories: StoryLocalePack = {
+  wishes: {
+    sanjeevani: {
+      title: 'Obat universal: akhiri penyakit akut',
+      doorTitle: 'Kekuatan Pengubah',
+      honestyNote: 'Imajinasi secara utuh (AI membantu menyaring molekul penyakit tertentu hari ini, bukan penyembuh segala penyakit).',
+      wonder: {
+        text: 'Fajar di bangsal rumah sakit. Setiap tempat tidur kosong dengan tenang. Mesin-mesin hening. Seorang anak tertawa untuk pertama kalinya dalam berbulan-bulan.',
+        totoLine: 'Toto: Selesai.',
+        transcript: 'Jendela fajar menerangi ranjang tenang sementara bola cahaya Toto berdenyut lembut.'
+      },
+      wobble: {
+        text: 'Tak seorang pun memberi tahu Toto soal dana pensiun, anggaran rumah sakit, atau apa yang terjadi ketika semua orang hidup jauh lebih lama. Semua rencana disusun untuk dunia kemarin.',
+        transcript: 'Buku catatan kertas, jadwal klinik, dan kartu pensiun sedikit miring di samping bangsal.'
+      },
+      weight: {
+        question: 'Bagaimana kita tahu terobosan ini berjalan adil untuk semua orang?',
+        transcript: 'Timbangan tenang berhenti di atas tiga pertanyaan manusia di sisi cahaya Toto.',
+        options: [
+          { id: 'a', text: 'Siapa yang menentukan siapa mendapatkannya lebih dulu?' },
+          { id: 'b', text: 'Tak seorang pun bisa memeriksa ramuan Toto.' },
+          { id: 'c', text: 'Kita belum siap menghadapi dampaknya pada masyarakat.' }
+        ]
+      },
+      way: {
+        text: 'Masyarakat tetap bisa menetapkan aturan sebelum terobosan datang. Tanyakan pada klinik Anda: apa rencana kita jika pemeriksaan dan arsip harus berjalan luring?',
+        actionCardTitle: 'Simpan kartu kesehatan keluarga dalam bentuk kertas',
+        actionCardStep: 'Catat alergi utama, resep obat, golongan darah, dan nomor darurat pada satu kartu lipat di rumah.',
+        pledgeLabel: 'Saya akan menyimpan cadangan medis kertas sederhana',
+        transcript: 'Kartu hijau terbuka menampilkan daftar tulisan tangan di samping lentera hangat.'
+      },
+      realityMeter: {
+        reason: 'AI kini membantu menyaring kandidat obat spesifik, sementara obat universal lintas organ masih fiksi.'
+      }
+    },
+    'jarvis-for-my-life': {
+      title: 'Asisten pribadi ala Jarvis',
+      doorTitle: 'Teknologi Sehari-hari',
+      honestyNote: 'Asisten pemesan dan pembayar sudah ada hari ini, tetapi pagar aman dan cadangan luring tertinggal.',
+      wonder: {
+        text: 'Hari Anda berjalan mulus. Tagihan terbayar, tiket dipesan, kalender rapi, dan surel dibalas persis dengan gaya Anda.',
+        totoLine: 'Toto: Beres.',
+        transcript: 'Ikon tiket, kalender, dan surat mengorbit rapi dalam lingkaran bercahaya.'
+      },
+      wobble: {
+        text: 'Seminggu kemudian Anda sadar sudah lupa cara mengerjakan apa pun sendiri — bahkan tidak ingat kata sandi sendiri.',
+        transcript: 'Orbit berhenti sejenak; gembok kosong berkedip pelan di atas buku catatan kosong.'
+      },
+      weight: {
+        question: 'Bagaimana kita tahu ia bekerja demi kepentingan Anda, bukan pembuatnya saja?',
+        transcript: 'Dua panah mengarah ke kompas pribadi dan simpul awan luar.',
+        options: [
+          { id: 'a', text: 'Saya tidak punya cara untuk memeriksa.' },
+          { id: 'b', text: 'Saya akan lupa cara melakukannya sendiri.' },
+          { id: 'c', text: 'Segala yang saya lakukan kini bergantung padanya.' }
+        ]
+      },
+      way: {
+        text: 'Pertahankan satu hal yang tetap Anda kerjakan dengan tangan. Simpan satu salinan kertas hal penting. Anda memilih apa yang tetap manusiawi.',
+        actionCardTitle: 'Pertahankan satu kebiasaan manual & buku kata sandi',
+        actionCardStep: 'Tulis kontak pemulihan penting di kertas dan jalankan satu rutinitas mingguan tanpa isi otomatis.',
+        pledgeLabel: 'Saya akan menjaga satu rutinitas manual',
+        transcript: 'Pena menggambar garis tegas menghubungkan kunci dan buku saku.'
+      },
+      realityMeter: {
+        reason: 'Agen perangkat lunak sudah membantu tugas sempit hari ini, tetapi pendelegasian menyeluruh belum matang.'
+      }
+    },
+    'prove-riemann-hypothesis': {
+      title: 'Membuktikan Hipotesis Riemann',
+      doorTitle: 'Pertanyaan Terbuka',
+      honestyNote: 'Imajinasi: sistem AI membantu langkah bukti formal pendek, belum memecahkan Masalah Milenium.',
+      wonder: {
+        text: 'Teka-teki berusia 160 tahun terpecahkan dalam semalam. Para matematikawan terkesiap.',
+        totoLine: 'Toto: Terbukti.',
+        transcript: 'Garis kapur hangat menggambar gelombang bilangan prima ke kurva zeta emas.'
+      },
+      wobble: {
+        text: 'Pembuktiannya sepanjang sejuta halaman. Tak satu pun manusia hidup bisa membaca habis. Haruskah kita memercayainya begitu saja?',
+        transcript: 'Tumpukan halaman menjulang ke langit sementara dua pembaca mendongak dengan kaca pembesar.'
+      },
+      weight: {
+        question: 'Bagaimana kita tahu bukti itu memang benar?',
+        transcript: 'Lensa melayang di atas persamaan terbuka menunggu pemeriksaan.',
+        options: [
+          { id: 'a', text: 'Kita terpaksa mempercayai mesin begitu saja.' },
+          { id: 'b', text: 'Kita perlu mesin lain untuk mengeceknya.' },
+          { id: 'c', text: 'Kita perlu manusia yang tetap mampu memeriksa sendiri.' }
+        ]
+      },
+      way: {
+        text: 'Dukung sains terbuka dan dapat diverifikasi. Selalu tanya: siapa yang memeriksa si pemeriksa?',
+        actionCardTitle: 'Tanyakan siapa yang menguji klaim cepat',
+        actionCardStep: 'Carilah data terbuka, metode transparan, dan tinjauan manusia independen sebelum menyebarkan klaim besar.',
+        pledgeLabel: 'Saya akan bertanya bagaimana klaim diverifikasi',
+        transcript: 'Buku catatan terbuka bersinar di sebelah segel «Bukti Terbuka Terverifikasi».'
+      },
+      realityMeter: {
+        reason: 'Belum terpecahkan sejak 1859; asisten formal hari ini hanya mengecek langkah-langkah pendek.'
+      }
+    },
+    'walk-into-classic-film': {
+      title: 'Masuk ke film klasik',
+      doorTitle: 'Budaya & Kreativitas',
+      honestyNote: 'Mungkin segera: model dunia menghasilkan klip singkat hari ini, tetapi konsistensi jangka panjang rapuh.',
+      wonder: {
+        text: 'Cahaya lentera menghangatkan jalan batu klasik. Tokoh film menoleh, tersenyum, dan menarik kursi untuk Anda.',
+        totoLine: 'Toto: Selamat datang di dalam.',
+        transcript: 'Bingkai sinema keemasan membuka lembut ke jalanan berhiaskan lentera.'
+      },
+      wobble: {
+        text: 'Setiap obrolan memuji Anda tepat waktu — sampai tetangga sungguhan terasa canggung dan kian sedikit langkah kaki di jalan nyata depan rumah.',
+        transcript: 'Bingkai cerah tetap ramai sementara dua cangkir kopi nyata dingin di teras sepi.'
+      },
+      weight: {
+        question: 'Bagaimana mencegah dunia berskrip ini menggantikan dunia nyata di luar sana?',
+        transcript: 'Lengkungan batu memisahkan cahaya dongeng dengan pelabuhan pagi nyata.',
+        options: [
+          { id: 'a', text: 'Kisah yang dibuat untuk menyenangkan saya tak pernah menantang saya.' },
+          { id: 'b', text: 'Siapa yang membentuk cerita menentukan apa yang saya perhatikan.' },
+          { id: 'c', text: 'Ruang pertemuan warga perlahan sepi tanpa suara.' }
+        ]
+      },
+      way: {
+        text: 'Berbagi cerita bersama dalam satu ruangan. Pertahankan meja kopi nyata, nonton bareng warga, atau klub buku.',
+        actionCardTitle: 'Jaga satu pertemuan mingguan tanpa skrip',
+        actionCardStep: 'Ajak teman atau keluarga mengobrol tatap muka tanpa terburu-buru sekali seminggu.',
+        pledgeLabel: 'Saya akan menjaga satu pertemuan nyata tiap minggu',
+        transcript: 'Kursi hangat mengelilingi meja bundar kecil di bawah langit terbuka.'
+      },
+      realityMeter: {
+        reason: 'Model dunia interaktif merender klip singkat hari ini; ruang persisten panjang belum tercapai.'
+      }
+    },
+    'fix-my-river': {
+      title: 'Pulihkan sungai saya',
+      doorTitle: 'Kebaikan Publik',
+      honestyNote: 'Sensor menemukan limbah dengan cepat hari ini; pemulihan sungai tetap menuntut kesepakatan hulu.',
+      wonder: {
+        text: 'Kabut fajar terangkat dari air jernih. Burung bangau kembali ke tepian tempat anak-anak bermain batu loncat.',
+        totoLine: 'Toto: Terpetakan & jernih.',
+        transcript: 'Riak biru kehijauan berkilau di sepanjang sungai bersih berpohon rindang.'
+      },
+      wobble: {
+        text: 'Sensor Toto menyingkap setiap pipa limbah tersembunyi di hulu — membuat dua kota tetangga bertengkar siapa pemegang saklar dan pembayar biaya.',
+        transcript: 'Titik suar terang di kelokan sungai sementara papan dua kota menunjuk berlawanan arah.'
+      },
+      weight: {
+        question: 'Datanya akurat. Siapa yang berhak menutup pintu air saat kota-kota berselisih?',
+        transcript: 'Dua jembatan mengapit pengukur air sungai bersama yang terbuka.',
+        options: [
+          { id: 'a', text: 'Biarkan mesin luar menutup pintu air tanpa bertanya.' },
+          { id: 'b', text: 'Terbitkan pembacaan tiap kota agar aturan berlaku adil.' },
+          { id: 'c', text: 'Gelarkan musyawarah sungai lokal dengan catatan kertas terbuka.' }
+        ]
+      },
+      way: {
+        text: 'Pasangkan sensor dengan forum warga terbuka. Sungai tetap bersih ketika warga hulu dan hilir berbagi buku catatan yang sama.',
+        actionCardTitle: 'Bagikan pengecekan kualitas air lokal terbuka',
+        actionCardStep: 'Cari laporan mutu air daerah Anda dan tanyakan bagaimana tanggal uji hulu diverifikasi secara independen.',
+        pledgeLabel: 'Saya mendukung aturan bersama yang transparan',
+        transcript: 'Air jernih mengalir bebas melewati papan pengumuman warga.'
+      },
+      realityMeter: {
+        reason: 'Pemantauan sensor bekerja hari ini; pembersihan fisik tetap membutuhkan kesepakatan warga.'
+      }
+    }
+  },
+  heritage: {
+    'polynesian-wayfinding': {
+      originRegion: 'Kepulauan Pasifik',
+      traditionLabel: 'Pelayaran Bintang Pasifik',
+      chipTitle: 'Menyeberangi lautan mana pun tanpa instrumen',
+      title: 'Kompas bintang & alunan ombak: menyeberangi laut dengan aman',
+      summary: 'Setiap perahu melaju melintasi cakrawala — hingga pelaut lupa cara membaca ombak jika sinyal langit padam.',
+      honestyNote: 'Satelit memandu kapal hari ini; keselamatan tanpa sinyal eksternal membutuhkan kecakapan manusia.',
+      dependencyLabel: 'Keberlanjutan navigasi luring saat penentu posisi berhenti',
+      doorTitle: 'Kekuatan Pengubah',
+      reviewer: 'Terbuka untuk tinjauan komunitas pelayaran Pasifik',
+      wonder: {
+        text: 'Saat fajar Toto membisikkan koordinat tenang di ribuan mil laut. Perahu nelayan dan pemasok melaju mulus melewati karang.',
+        totoLine: 'Toto: Tiap alur laut terbuka tenang.',
+        transcript: 'Perahu bercadik meluncur di air biru di bawah garis rasi bintang.'
+      },
+      wobble: {
+        text: 'Terbiasa dengan layar tak pernah meleset, pelabuhan menyisihkan peta kertas dan latihan bintang. Satu badai surya membungkam sinyal — menyisakan layar kosong tanpa tahu arah timur.',
+        transcript: 'Layar meredup di atas alunan ombak di samping kompas bintang kayu.'
+      },
+      weight: {
+        question: 'Jika pemandu otomatis terdiam di tengah laut, apa yang menyelamatkan awak?',
+        transcript: 'Pelaut membandingkan layar dengan bintang dan garis gelombang.',
+        options: [
+          { id: 'a', text: 'Pelihara pelatihan kompas bintang dan perkiraan manual bersama elektronik.' },
+          { id: 'b', text: 'Pastikan pelabuhan pulau kecil tetap menyimpan tabel pasang surut dan peta cetak.' },
+          { id: 'c', text: 'Cocokkan ramalan otomatis dengan tanda angin lokal sebelum berlayar.' }
+        ]
+      },
+      way: {
+        text: 'Para pelaut Pasifik membawa jawaban luring berabad-abad: kompas bintang (kāpehu whetū) dalam ingatan hidup, irama ombak di lunas, dan kru terlatih.',
+        actionCardTitle: 'Simpan satu peta rute kertas dan pengecekan arah',
+        actionCardStep: 'Simpan peta cetak daerah Anda dan hafalkan dua patokan tetap untuk menentukan timur dan utara tanpa ponsel.',
+        pledgeLabel: 'Saya mengenal jalan pulang luring',
+        transcript: 'Pelaut muda menunjuk cakrawala di samping lingkaran kompas bintang.'
+      },
+      realityMeter: {
+        reason: 'Prakiraan laut satelit berjalan harian; ketahanan saat listrik padam bertumpu pada pelaut luring.'
+      }
+    },
+    'south-asia-healing-commons': {
+      originRegion: 'Asia Selatan',
+      traditionLabel: 'Sanjeevani & Klinik Komunitas',
+      chipTitle: 'Menyembuhkan cepat sambil menjaga ketahanan klinik lokal',
+      title: 'Kemaslahatan Sanjeevani: pengobatan yang menjangkau tiap desa',
+      summary: 'Demam reda semalaman — lalu klinik sadar resep dan aturan layanan bergantung pada satu server jauh.',
+      honestyNote: 'AI mempercepat penyaringan molekul tertentu hari ini; klinik desa tetap bergantung pada perawat, listrik, dan catatan.',
+      dependencyLabel: 'Stabilitas listrik dan jaringan untuk layanan klinik lokal',
+      doorTitle: 'Kekuatan Pengubah',
+      reviewer: 'Terbuka untuk tinjauan kesehatan masyarakat Asia Selatan',
+      wonder: {
+        text: 'Di klinik daerah yang padat dan pos kesehatan gunung, Toto mengenali infeksi dalam detik dan menenangkan bangsal sebelum matahari terbit.',
+        totoLine: 'Toto: Fajar menyingsing di bangsal daerah.',
+        transcript: 'Cahaya pagi hangat masuk ke klinik desa bersama tanaman obat dan air jernih.'
+      },
+      wobble: {
+        text: 'Beberapa minggu kemudian perawat melihat distribusi otomatis melewatkan apotek desa jauh dari serat optik. Saat listrik naik-turun, lemari AI terkunci menolak terbuka tanpa awan.',
+        transcript: 'Kotak pasokan otomatis berhenti di jalan desa dekat catatan kertas.'
+      },
+      weight: {
+        question: 'Bagaimana membawa penyembuhan cepat ke setiap desa tanpa kerapuhan satu pusat?',
+        transcript: 'Tenaga kesehatan desa membandingkan panduan digital dan rak apotek lokal.',
+        options: [
+          { id: 'a', text: 'Pastikan klinik desa memiliki tenaga surya, lemari manual, dan label bahasa lokal.' },
+          { id: 'b', text: 'Jamin akses setara untuk desa terpencil sejak awal peluncuran.' },
+          { id: 'c', text: 'Latih petugas lokal memeriksa rekomendasi dosis secara mandiri.' }
+        ]
+      },
+      way: {
+        text: 'Kisah Sanjeevani mengingatkan kita bahwa menyembuhkan butuh mengenal apa yang tumbuh di dekat kita — kini diperkuat kader kesehatan desa, kulkas surya, dan kartu kesehatan kertas di rumah.',
+        actionCardTitle: 'Simpan kartu kesehatan keluarga luring di rumah',
+        actionCardStep: 'Catat golongan darah, alergi, obat rutin, dan nomor klinik terdekat pada kartu lipat di rumah.',
+        pledgeLabel: 'Saya akan menyimpan kartu keluarga luring',
+        transcript: 'Kartu kertas terlipat diletakkan di sebelah botol bersih bermandi cahaya pagi.'
+      },
+      realityMeter: {
+        reason: 'Penyembuh universal seketika adalah fiksi; keadilan bergantung pada listrik klinik dan petugas terlatih.'
+      }
+    },
+    'netherlands-delta-works': {
+      originRegion: 'Belanda & Flandria',
+      traditionLabel: 'Hidup Bersama Air (Delta Works)',
+      chipTitle: 'Menahan laut tanpa kunci mekanis kaku yang rapuh',
+      title: 'Delta Works: pintu banjir otomatis yang tetap butuh tangan manusia',
+      summary: 'Penghalang memprediksi tiap badai — hingga pasang laut dan banjir sungai bersamaan mengunci pintu digital.',
+      honestyNote: 'Penghalang badai otomatis beroperasi hari ini; ketahanan menggabungkan prakiraan dengan kru manual.',
+      dependencyLabel: 'Durasi kontrol pintu banjir secara luring saat listrik atau telekom mati',
+      doorTitle: 'Kebaikan Publik',
+      reviewer: 'Terbuka untuk tinjauan hidrolik Belanda/komunitas',
+      wonder: {
+        text: 'Tiap sensor pasang muara sinkron sempurna. Pintu banjir menutup beberapa menit sebelum angin kencang, menjaga daratan dan kereta aman.',
+        totoLine: 'Toto: Laut berhenti rapi di luar tanggul.',
+        transcript: 'Fajar menyinari pintu badai putih lengkung dan padang rumput hijau.'
+      },
+      wobble: {
+        text: 'Saat lelehan salju meluapkan sungai tepat ketika badai menutup pintu laut, perangkat lunak hanya mengoptimalkan laut — menjebak air darat di balik kunci tanpa tuas engkol.',
+        transcript: 'Penanda sungai naik menekan pintu baja tertutup di bawah lampu peringatan.'
+      },
+      weight: {
+        question: 'Bagaimana menjalankan pintu air kritis jika dua model otomatis saling bertentangan?',
+        transcript: 'Insinyur memeriksa roda engkol mekanis di tepi dataran banjir.',
+        options: [
+          { id: 'a', text: 'Pelihara tuas mekanis dan latihan luring rutin di setiap rumah pintu air.' },
+          { id: 'b', text: 'Sisakan dataran banjir di hulu («ruang bagi sungai») agar tak bertumpu pada satu katup.' },
+          { id: 'c', text: 'Pertahankan dewan air warga terpilih yang berwenang mengambil alih kendali pusat.' }
+        ]
+      },
+      way: {
+        text: 'Dewan air lokal memadukan tanggul dengan *Ruimte voor de Rivier* (Ruang bagi Sungai): dataran limpasan, engkol manual, dan penjaga lokal yang bisa membuka meski telekom mati.',
+        actionCardTitle: 'Periksa rencana banjir & peringatan luring lingkungan Anda',
+        actionCardStep: 'Ketahui titik kumpul tertinggi terdekat dengan berjalan kaki dan cara peringatan warga tanpa sinyal seluler.',
+        pledgeLabel: 'Saya tahu rencana luring lingkungan saya',
+        transcript: 'Padang sungai luas mendampingi kincir dan papan ukur air manual.'
+      },
+      realityMeter: {
+        reason: 'Penghalang otomatis bekerja harian; kendali manual dan ruang sungai penting saat kondisi ekstrem.'
+      }
+    },
+    'china-river-stewardship': {
+      originRegion: 'DAS Asia Timur',
+      traditionLabel: 'Dujiangyan & Tata Kelola Sungai Bersama',
+      chipTitle: 'Mengarahkan banjir alih-alih memindahkan risiko diam-diam',
+      title: 'Kearifan Dujiangyan: menuntun air tanpa ongkos tersembunyi',
+      summary: 'Pintu bendung otomatis menahan banjir kota hilir — sampai lembah sepi sadar sawah siapa yang menanggung luapan.',
+      honestyNote: 'Prakiraan hidrologi DAS sudah membantu operasi bendung; tata kelola transparan hulu-hilir tetap paling menantang.',
+      dependencyLabel: 'Pengawasan DAS yang transparan dan akuntabilitas publik',
+      doorTitle: 'Kebaikan Publik',
+      reviewer: 'Terbuka untuk tinjauan hidrologi Asia Timur',
+      wonder: {
+        text: 'Toto menghubungkan penakar hujan di seluruh DAS. Saluran pelimpah menenangkan endapan dan irigasi dari hulu gletser sampai delta.',
+        totoLine: 'Toto: Setiap lembah tetap hijau dan tenang.',
+        transcript: 'Saluran pirus terbelah rapi mengitari bendung batu «mulut ikan» dalam kabut pagi.'
+      },
+      wobble: {
+        text: 'Saat monsun mendadak tiba, kendali terpusat memberi nilai tertinggi bagi distrik kota ber-PDB tinggi — mengalirkan banjir ke lembah tani sebelum warga melihat satu pun alasan terbuka.',
+        transcript: 'Satu cabang sungai meluap kuning keruh saat pintu gerbang kota tertutup.'
+      },
+      weight: {
+        question: 'Ketika model menentukan ke mana air dialirkan, pengaman apa yang menjaga kepercayaan bersama?',
+        transcript: 'Warga desa dan insinyur membaca skala ketinggian air yang dipahat di batu.',
+        options: [
+          { id: 'a', text: 'Umumkan aturan pelepasan dan kompensasi secara terbuka sebelum musim hujan.' },
+          { id: 'b', text: 'Terapkan prinsip Li Bing: kanal batu pasif yang membagi aliran aman tanpa listrik.' },
+          { id: 'c', text: 'Libatkan utusan lembah hulu dalam tiap keputusan darurat.' }
+        ]
+      },
+      way: {
+        text: 'Dibangun lebih dari dua milenium lalu tanpa menutup Sungai Min dengan satu tembok kaku, Dujiangyan membagi aliran dengan pulau batu dan penanda kedalaman terbuka bagi siapa saja.',
+        actionCardTitle: 'Ketahui siapa mengelola daerah aliran sungai lokal Anda',
+        actionCardStep: 'Temukan papan pengumuman publik badan air atau sungai setempat dan lihat cara warga mengecek tinggi air.',
+        pledgeLabel: 'Saya akan menuntut aturan kebaikan publik terbuka',
+        transcript: 'Penanda sungai bersih berdiri di atas dua saluran irigasi seimbang.'
+      },
+      realityMeter: {
+        reason: 'Alat peramalan hidrologi sudah ada; tata kelola transparan menentukan siapa menanggung risiko.'
+      }
+    },
+    'arab-house-of-wisdom': {
+      originRegion: 'Tradisi Keilmuan Arab & Asia Barat',
+      traditionLabel: 'Bayt al-Hikma & Verifikasi Rantai Sumber',
+      chipTitle: 'Menerjemahkan semua ilmu tanpa kehilangan rantai bukti',
+      title: 'Bayt al-Hikma: terjemahkan tiap naskah — periksa tiap mata rantai',
+      summary: 'Tiap manuskrip menjadi ringkasan rapi semalam — hingga ilmuwan sadar tak seorang pun memverifikasi saksi aslinya.',
+      honestyNote: 'Ringkasan multibahasa yang fasih sudah ada hari ini; memverifikasi kutipan asli tetap kerja manusia.',
+      dependencyLabel: 'Kemampuan publik mengaudit klaim dan terjemahan otomatis yang fasih',
+      doorTitle: 'Pertanyaan Terbuka',
+      reviewer: 'Terbuka untuk tinjauan ilmiah berbahasa Arab & Indonesia',
+      wonder: {
+        text: 'Toto membuka perpustakaan halaman bermandi cahaya yang menautkan astronomi, kedokteran, dan matematika puluhan bahasa dalam sekejap.',
+        totoLine: 'Toto: Tiap gulungan duduk terjemah berdampingan.',
+        transcript: 'Lengkungan batu kapur terang membuka peta bintang dan lembaran naskah rapi.'
+      },
+      wobble: {
+        text: 'Karena tiap kalimat berbunyi lancar, rekayasa halus dan angka meleset bercampur ke dalam teorema asli. Pengajar mengutip ringkasan mesin tanpa membuka naskah asal.',
+        transcript: 'Ringkasan serupa menyembunyikan benang rujukan putus menuju ketiadaan.'
+      },
+      weight: {
+        question: 'Bila kefasihan menyembunyikan kesalahan dengan mulus, bagaimana komunitas menjaga pijakan kebenaran?',
+        transcript: 'Dua pembaca menandai pinggir halaman dan melacak rujukan lintas tiga buku.',
+        options: [
+          { id: 'a', text: 'Wajibkan setiap klaim otomatis bertaut rapi ke saksi primer aslinya.' },
+          { id: 'b', text: 'Jaga perdebatan terbuka (munazara) lintas mazhab dan bahasa.' },
+          { id: 'c', text: 'Pertahankan manuskrip asli tetap terbuka bagi siapa pun untuk diperiksa.' }
+        ]
+      },
+      way: {
+        text: 'Para cendekiawan Bayt al-Hikma menyandingkan terjemahan dengan dua pengaman: rantai periwayatan (*isnad*) yang jelas dan catatan pinggir (*hashiya*) untuk menandai batas bukti dan tafsir.',
+        actionCardTitle: 'Lacak dua klaim hingga halaman sumber aslinya',
+        actionCardStep: 'Lain kali AI merangkum sejarah atau kesehatan, buka dua sumber primer sendiri sebelum mengulang angkanya.',
+        pledgeLabel: 'Saya akan melacak rantai bukti sebelum percaya',
+        transcript: 'Catatan tinta pinggir menautkan halaman modern kembali ke manuskrip arsip.'
+      },
+      realityMeter: {
+        reason: 'Ringkasan instan ada hari ini; rujukan karangan membuat pemeriksaan sumber oleh manusia vital.'
+      }
+    },
+    'west-africa-timbuktu-keepers': {
+      originRegion: 'Afrika Barat & Sahel',
+      traditionLabel: 'Perpustakaan Keluarga Timbuktu',
+      chipTitle: 'Mendigitalkan arsip hidup tanpa kehilangan hak asuh lokal',
+      title: 'Penjaga Timbuktu: jaga warisan tanpa mengunci keluarga di luar',
+      summary: 'Tiap manuskrip rapuh terpindai dalam semalam — lalu syarat lisensi mengunci ahli waris dari brankas mereka sendiri.',
+      honestyNote: 'Pemindaian cepat tersedia hari ini; pengelolaan adil komunitas menentukan pemilik arsip esok.',
+      dependencyLabel: 'Hak asuh kelembagaan lokal dan kedaulatan bahasa atas arsip',
+      doorTitle: 'Budaya & Kreativitas',
+      reviewer: 'Terbuka untuk tinjauan kearsipan Afrika Barat',
+      wonder: {
+        text: 'Toto membersihkan, memotret, dan mengindeks ratusan ribu risalah Sahel — astronomi, hukum, puisi — tanpa meretakkan satu pun punggung buku.',
+        totoLine: 'Toto: Setiap halaman jernih di waktu fajar.',
+        transcript: 'Cahaya pagi keemasan jatuh di atas naskah kulit di halaman perpustakaan bata tanah.'
+      },
+      wobble: {
+        text: 'Saat host awan luar mengemas arsip menjadi layanan berlangganan tertutup, peneliti lokal mendapati naskah leluhur terkunci di server jauh tanpa salinan luring di rumah.',
+        transcript: 'Peti arsip digital tergembok melayang menjauh dari rak lokal kosong.'
+      },
+      weight: {
+        question: 'Siapa memegang kunci ketika memori komunitas bertemu digitalisasi global?',
+        transcript: 'Penjaga memegang peti fisik dan penyimpan lokal terbuka berdampingan.',
+        options: [
+          { id: 'a', text: 'Pertahankan salinan induk dan hak pakai tetap di tangan komunitas lokal.' },
+          { id: 'b', text: 'Sebar salinan cermin antar perpustakaan mandiri, bukan satu brankas.' },
+          { id: 'c', text: 'Tanyakan tetua naskah mana yang terbuka publik dan mana yang amanah keluarga.' }
+        ]
+      },
+      way: {
+        text: 'Keluarga Timbuktu menjaga berabad-abad ilmu bukan di satu istana rapuh, melainkan di ratusan peti rumah tangga — cetak biru abadi bagi cadangan terdistribusi milik warga.',
+        actionCardTitle: 'Cadangkan satu kisah keluarga atau rekaman bahasa secara luring',
+        actionCardStep: 'Simpan buku resep, catatan keluarga, atau rekaman suara sesepuh di diska luring dan beri salinannya ke kerabat.',
+        pledgeLabel: 'Saya menjaga ingatan tetap di tangan komunitas',
+        transcript: 'Peti kayu serasi dan kartu memori luring bersinar hangat antar rumah tetangga.'
+      },
+      realityMeter: {
+        reason: 'Pemindaian dan OCR berjalan cepat; lisensi adil serta salinan luring tetap mendesak.'
+      }
+    },
+    'andean-water-terraces': {
+      originRegion: 'Dataran Tinggi Andes',
+      traditionLabel: 'Andenes & Amunas Bersama',
+      chipTitle: 'Berbagi air pegunungan lintas musim',
+      title: 'Andenes & amunas: terasering yang tidak membiarkan desa kering',
+      summary: 'Irigasi presisi melipatgandakan ekspor — hingga mata air musim kemarau surut di atas kota pegunungan.',
+      honestyNote: 'Model tanah membantu hari ini; ketahanan sejati bertumpu pada giliran kanal warga dan akuifer batuan.',
+      dependencyLabel: 'Daya tahan resapan air alami bila pompa sensor listrik gagal',
+      doorTitle: 'Kebaikan Publik',
+      reviewer: 'Terbuka untuk tinjauan komunitas Andes',
+      wonder: {
+        text: 'Di lereng gunung cerah, Toto mengatur penangkap kabut dan katup sepanjang ratusan terasering batu. Panen matang merata meski musim gletser menipis.',
+        totoLine: 'Toto: Tiap undakan hijau menahan embun pagi.',
+        transcript: 'Terasering hijau melingkari puncak bersalju Andes di bawah fajar keemasan.'
+      },
+      wobble: {
+        text: 'Ketika sistem memprioritaskan lembah rendah bersinyal kuat, kanal resapan batu (*amunas*) di atas terbengkalai — membuat padang tinggi kering saat sensor terputus.',
+        transcript: 'Kanal batu di atas kering sementara pompa listrik berkedip di lembah.'
+      },
+      weight: {
+        question: 'Apa yang menjaga panen gunung stabil baik saat listrik hidup maupun padam?',
+        transcript: 'Warga berjalan menyusuri pintu air batu membawa perkakas kayu.',
+        options: [
+          { id: 'a', text: 'Pulihkan kanal resapan batu (amunas) agar mata air tetap mengalir berminggu-minggu.' },
+          { id: 'b', text: 'Lindungi jadwal giliran air warga (ayni) antara desa atas dan bawah.' },
+          { id: 'c', text: 'Jangan pernah mengotomatiskan pintu air tanpa gerbang manual kayu atau besi.' }
+        ]
+      },
+      way: {
+        text: 'Kanal *amunas* kuno masih mengajari ahli hidrologi: menyalurkan aliran musim hujan ke batuan berpori memberi makan mata air berbulan-bulan kemudian tanpa beton atau awan listrik.',
+        actionCardTitle: 'Simpan satu cadangan rumah tangga pasif luring',
+        actionCardStep: 'Siapkan air minum untuk tiga hari dan saringan gravitasi sederhana tanpa listrik di rumah.',
+        pledgeLabel: 'Saya menjaga ketahanan pasif tanpa listrik',
+        transcript: 'Air jernih mengairi terasering subur di bawah puncak gunung cerah.'
+      },
+      realityMeter: {
+        reason: 'Irigasi cerdas beroperasi kini; pengisian akuifer pasif dan aturan warga menopang kekeringan.'
+      }
+    },
+    'japan-craft-repair': {
+      originRegion: 'Jepang',
+      traditionLabel: 'Monozukuri & Seni Memperbaiki',
+      chipTitle: 'Membuat alat apa saja tanpa kehilangan keterampilan memperbaiki',
+      title: 'Saku Monozukuri: alat yang masih bisa dibuka dan diperbaiki siapa saja',
+      summary: 'Tiap perangkat datang utuh saat fajar — hingga jeda listrik meninggalkan kotak tersegel yang tak bisa dibuka.',
+      honestyNote: 'Menciptakan materi seketika adalah fiksi; perangkat tersegel sudah menantang hak memperbaiki hari ini.',
+      dependencyLabel: 'Jam fungsi harian masyarakat saat logistik dan suku cadang otomatis berhenti',
+      doorTitle: 'Teknologi Sehari-hari',
+      reviewer: 'Terbuka untuk tinjauan kerajinan dan rekayasa Jepang',
+      wonder: {
+        text: 'Panci nasi retak atau rantai sepeda putus: Toto menyerahkan pengganti mulus dalam satu helaan napas tanpa tumpukan sampah.',
+        totoLine: 'Toto: Apa pun yang rusak diganti bersih.',
+        transcript: 'Perkakas rumah tangga berkilau di atas meja kerja kayu bermandi mentari pagi.'
+      },
+      wobble: {
+        text: 'Setelah bertahun-tahun tukar-ganti tersegel, toko perkakas dan tukang lokal tutup. Saat gempa memutus kabel pelabuhan, warga memegang alat mulus tanpa sekrup atau skema untuk dibetulkan.',
+        transcript: 'Alat mulus tanpa sekrup terhenti di samping rak obeng yang kosong.'
+      },
+      weight: {
+        question: 'Saat mesin mengganti segalanya dengan mudah, keterampilan manusia apa yang menjaga ketahanan kota?',
+        transcript: 'Perajin memperbaiki engsel sambungan kayu di sebelah modul sensor modern.',
+        options: [
+          { id: 'a', text: 'Wajibkan sekrup standar, skema cetak, dan hak nyata memperbaiki di tiap produk.' },
+          { id: 'b', text: 'Tetap danai bengkel warga serta program magang di tengah otomatisasi.' },
+          { id: 'c', text: 'Buka suku cadang untuk teknisi mandiri, bukan hanya satu merek.' }
+        ]
+      },
+      way: {
+        text: 'Dari sambungan kayu tanpa paku (*kigumi*) hingga perbaikan emas (*kintsugi*), kriya yang awet memuliakan keterbaikan — diteruskan lewat desain modular dan kotak obeng rumah.',
+        actionCardTitle: 'Siapkan satu set perkakas tangan & denah kertas',
+        actionCardStep: 'Pelajari cara menutup katup air dan saklar utama rumah secara manual dan siapkan obeng dasar.',
+        pledgeLabel: 'Saya menjaga keterampilan perbaikan tangan',
+        transcript: 'Garis emas menyambung bejana di samping perkakas bengkel terbuka.'
+      },
+      realityMeter: {
+        reason: 'Pembuat barang seketika adalah fiksi; perangkat tersegel hari ini sudah menguji hak reparasi.'
+      }
+    },
+    'nordic-right-to-roam': {
+      originRegion: 'Tradisi Bersama Nordik',
+      traditionLabel: 'Allemansrätten & Ruang Publik Terbuka',
+      chipTitle: 'Menjaga alat bersama tetap terbuka saat pekerjaan terotomatisasi',
+      title: 'Jalur terbuka di dunia cepat: kemudahan tanpa gerbang berbayar',
+      summary: 'Asisten menata tiap tugas — hingga layanan publik dan nafkah diam-diam berpindah ke balik gerbang berbayar.',
+      honestyNote: 'Otomatisasi kantor meringkas tugas rutin hari ini; standar terbuka dan jaring pengaman menentukan keadilan.',
+      dependencyLabel: 'Bantalan penghasilan dan pelatihan ulang ketika tugas pengetahuan terotomatisasi',
+      doorTitle: 'Teknologi Sehari-hari',
+      reviewer: 'Terbuka untuk tinjauan kebijakan sipil Nordik',
+      wonder: {
+        text: 'Pemerintah kota memadukan asisten digital gesit dengan layanan kesehatan, trem umum, dan akses bebas ke hutan serta fyord.',
+        totoLine: 'Toto: Tiap urusan beres sebelum sarapan.',
+        transcript: 'Papan penunjuk jalur kayu mengarah ke hutan pinus dan fyord dari halte trem.'
+      },
+      wobble: {
+        text: 'Dalam dua musim dingin, platform berlisensi menguasai layanan warga dan pekerjaan kantor — menarik biaya per kueri sementara gaji menyusut lebih cepat dari anggaran pelatihan.',
+        transcript: 'Pintu putar berbayar muncul di jalan setapak antara rumah, kantor, dan balai kota.'
+      },
+      weight: {
+        question: 'Saat otomatisasi melesatkan kerja rutin, apa yang membuat warga tetap merdeka melangkah?',
+        transcript: 'Warga meninjau standar publik terbuka dan kupon belajar sepanjang hayat.',
+        options: [
+          { id: 'a', text: 'Ikatkan kenaikan produktivitas ke bantalan penghasilan portabel dan pendidikan.' },
+          { id: 'b', text: 'Pertahankan layanan digital publik di atas standar terbuka tanpa kunci monopoli.' },
+          { id: 'c', text: 'Lindungi ruang publik bebas layar dan layanan petugas manusia sebagai hak sah.' }
+        ]
+      },
+      way: {
+        text: '*Allemansrätten* Nordik menjamin hak melintas bebas sambil merawat bumi — kompas jernih bagi protokol AI publik yang terbuka dan perlindungan sosial bersama.',
+        actionCardTitle: 'Pastikan layanan lokal tetap membuka pintu langsung',
+        actionCardStep: 'Periksa apakah kelurahan, bank, atau klinik Anda mempertahankan layanan tatap muka atau telepon di samping aplikasi.',
+        pledgeLabel: 'Saya menjaga akses warga tetap terbuka',
+        transcript: 'Jalur pinus terbuka membentang di samping bangku kayu menghadap fyord.'
+      },
+      realityMeter: {
+        reason: 'Otomatisasi tugas kantor sedang berlangsung; standar terbuka dan jaring fiskal menjaga stabilitas.'
+      }
+    },
+    'anatolia-mediterranean-crossroads': {
+      originRegion: 'Mediterania Timur & Anatolia',
+      traditionLabel: 'Simpang Batu & Alun-Alun Warga',
+      chipTitle: 'Menjaga alun-alun bersama tetap tenang melewati krisis',
+      title: 'Simpang batu: kembaran digital kota yang menghormati bumi dan tetangga',
+      summary: 'Layar kota pintar mengatur kapal feri dan alun-alun — hingga getaran gempa membisukan menara seluler di kota tua.',
+      honestyNote: 'Kembaran digital pelabuhan sudah beroperasi; penguatan gempa dan titik kumpul warga tetap menentukan.',
+      dependencyLabel: 'Ketahanan jaringan listrik dan kesiapan kumpul warga di kota pelabuhan',
+      doorTitle: 'Budaya & Kreativitas',
+      reviewer: 'Terbuka untuk tinjauan Turki, Yunani, dan Mediterania',
+      wonder: {
+        text: 'Dari dermaga Bosporus ke tepian Aegea, Toto menyelaraskan feri pagi, sensor bangunan tua, dan kanopi teduh agar kawasan bersejarah nyaman.',
+        totoLine: 'Toto: Feri, trem, dan alun-alun mengalir serempak.',
+        transcript: 'Feri putih melaju melewati lengkungan batu dan pohon cemara sipres.'
+      },
+      wobble: {
+        text: 'Bergantung penuh pada sensor awan menumbuhkan rasa aman semu: papan pengumuman dan latihan evakuasi dikurangi, membuat warga bingung mencari tempat aman saat sinyal putus.',
+        transcript: 'Ponsel bisu berkedip di dekat layar padam dan air pancur batu.'
+      },
+      weight: {
+        question: 'Saat jaringan kota padam diterpa badai atau gempa, apa yang menghimpun warga paling cepat?',
+        transcript: 'Warga berkumpul di sekitar bak tampung air dan papan tulis kapur bersama.',
+        options: [
+          { id: 'a', text: 'Pertahankan alun-alun terbuka tanpa listrik, sumber air, dan peta kertas di tiap rukun.' },
+          { id: 'b', text: 'Utamakan perkuatan struktur bangunan fisik sebelum memasang layar canggih.' },
+          { id: 'c', text: 'Latih pemilik toko lokal dan koordinator blok sebagai penghubung warga.' }
+        ]
+      },
+      way: {
+        text: 'Berabad-abad di Mediterania, kampung selamat dari guncangan lewat alun-alun terbuka, tandon gravitasi, dan solidaritas gang — arsitektur hidup yang tak bisa dimatikan gangguan perangkat lunak.',
+        actionCardTitle: 'Kenali alun-alun terbuka titik kumpul lingkungan Anda',
+        actionCardStep: 'Sepakati satu taman atau lapangan terbuka dalam jarak sepuluh menit jalan kaki untuk bertemu keluarga bila ponsel mati.',
+        pledgeLabel: 'Saya tahu titik kumpul luring kami',
+        transcript: 'Pohon zaitun menaungi alun-alun batu cerah dengan pancuran air dan papan penunjuk.'
+      },
+      realityMeter: {
+        reason: 'Kembaran digital perkotaan sudah jalan; ketahanan fisik bangunan dan titik kumpul luring tetap nomor satu.'
+      }
+    }
+  }
+};

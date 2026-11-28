@@ -69,4 +69,11 @@ export default (load, _options, el) => {
   el.addEventListener('pointerenter', trigger, { passive: true, once: true });
   el.addEventListener('focusin', trigger, { passive: true, once: true });
   el.addEventListener('click', onEarlyClick, { capture: true });
+
+  // Hydrate immediately when a non-English locale or RTL layout is active so translated copy appears on first paint
+  const htmlLang = document.documentElement.getAttribute('lang');
+  const htmlDir = document.documentElement.getAttribute('dir');
+  if ((htmlLang && htmlLang !== 'en') || htmlDir === 'rtl') {
+    trigger();
+  }
 };

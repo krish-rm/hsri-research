@@ -8,6 +8,38 @@ export const ar: TranslationDict = {
   dir: 'rtl',
   label: 'العربية (RTL)',
 
+  headerUi: {
+    homeAria: 'مؤشر جاهزية البشرية — الرئيسية',
+    tagline: 'مؤشر جاهزية البشرية للذكاء الفائق',
+    primaryNavAria: 'التنقل الرئيسي',
+    nav: {
+      sandbox: 'المختبر',
+      sandboxBadge: 'محاكاة',
+      countries: 'الدول',
+      seismograph: 'النبض المباشر',
+      liveBadge: 'مباشر',
+      scenarios: 'السيناريوهات',
+      monograph: 'الدراسة',
+      monographBadge: 'بحث',
+      scienceGroup: 'العلم والبيانات'
+    },
+    utility: {
+      methodology: 'المنهجية',
+      methodologyDesc: 'قواعد القياس والبراهين الرياضية',
+      data: 'البيانات والتغطية',
+      dataDesc: 'المؤشرات وملفات التنزيل',
+      researchLogs: 'سجل الأبحاث',
+      researchLogsDesc: 'التحديثات والأوراق الأولية',
+      doiDesc: 'سجل علمي دائم — CC BY-SA 4.0'
+    },
+    langSwitcherAria: 'اختر لغة الموقع',
+    langMenuLabel: 'اللغة',
+    themeDarkAria: 'التبديل إلى الوضع الداكن',
+    themeLightAria: 'التبديل إلى الورق الكريمي',
+    menuOpenAria: 'فتح القائمة',
+    menuCloseAria: 'إغلاق القائمة'
+  },
+
   meta: {
     title: 'هل نحن مستعدون لما نطلب من الذكاء الفائق تحقيقه؟ | مؤشر جاهزية البشرية',
     description:
@@ -28,7 +60,28 @@ export const ar: TranslationDict = {
     ctaCountrySecondary: 'هل يستطيع {country} استقباله؟',
     cityLabel: 'سماء الفجر فوق:',
     cityNeutralName: 'الميناء الساحلي',
+    cityNeutralOption: 'الميناء الساحلي (عالمي)',
     cityNeutralNote: 'مشهد ساحلي محايد · اختر أي مدينة لتبديل الأفق',
+    citySelectLabel: 'بدّل أفق البلد أو المدينة',
+    nextCityBtn: 'المدينة التالية',
+    nextCityTitle: 'حلّق مع توتو فوق البلد التالي',
+    pauseBtn: 'إيقاف',
+    playBtn: 'تشغيل',
+    replayBtn: 'إعادة',
+    pauseAria: 'إيقاف العرض المتحرك',
+    playAria: 'تشغيل العرض المتحرك',
+    replayAria: 'إعادة تشغيل العرض المتحرك',
+    scrubAria: 'تحريك شريط زمن وصول توتو',
+    jumpSceneAria: 'انتقل إلى المشهد {n}',
+    regionGroups: {
+      'Featured Skies': 'آفاق مميزة',
+      Africa: 'أفريقيا',
+      Americas: 'الأمريكتان',
+      'Asia & Middle East': 'آسيا والشرق الأوسط',
+      Europe: 'أوروبا',
+      Oceania: 'أوقيانوسيا',
+      'Global view': 'نظرة عالمية'
+    },
     totoCaption: 'يصل «توتو» عند الفجر: «أستطيع تقديم إنجاز واحد لكل شخص. اطلب بوضوح.»',
     ringTitle: 'جاهزية البشرية كما يختارها أشخاص مثلك',
     ringEmptyHeadline: 'كن من أوائل 200 مشارك.',
@@ -54,7 +107,9 @@ export const ar: TranslationDict = {
           'هذا الأسبوع تسارعت الآلات في مهام متعددة الخطوات كان يراجعها البشر يدوياً. لذلك تهمنا خطط التحقق.'
       }
     },
-    cta: 'شاهد النبض المباشر'
+    cta: 'شاهد النبض المباشر',
+    humanPaceLabel: 'وتيرة الإنسان',
+    aiPaceLabel: 'وتيرة الآلة (~3,200×)'
   },
 
   totoCard: {
@@ -301,16 +356,39 @@ export const ar: TranslationDict = {
     heading: 'هل يستطيع بلدك استقبال الإنجاز؟',
     subhead: 'اختر بلداً. شاهد ما هو قائم اليوم وما ينقصه.',
     searchPlaceholder: 'ابحث في 148 دولة...',
+    searchLabel: 'ابحث عن دولة بالاسم',
+    selectLabel: 'اختر بلداً',
     checklistLabel: 'قائمة فحص بسيطة، وليست تصنيفاً',
     unratedBadge: 'غير مصنفة بعد في مؤشر الـ 39 دولة الكامل',
     unratedHelpCta: 'ساعدنا في تقييم بلدك',
     openCountryCta: 'افتح ملف البلد الكامل',
     openLabCta: 'استكشف التفاصيل في المختبر المفتوح',
-    techReadingLabel: 'القراءة التقنية'
+    techReadingLabel: 'القراءة التقنية',
+    benchmarkBadge: 'مؤشر الـ 39 دولة',
+    autoDetectedBadge: 'تم التعرف تلقائياً',
+    benchmarkGroupTpl: 'الدول المقاسة ({count})',
+    coverageGroupTpl: 'تدقيق التغطية ({count})',
+    partialDataSuffix: 'بيانات جزئية',
+    runsOfflineLabel: 'يعمل دون شبكة',
+    catchesLabel: 'استقبال الإنجاز',
+    safeguardsReadyLabel: 'ضوابط جاهزة',
+    ofFiveTpl: '{count} من 5',
+    catchStates: {
+      easily: 'بسلاسة',
+      effort: 'بجهد',
+      struggles: 'بصعوبة'
+    },
+    safeguardPills: ['72 ساعة دون نت', 'الكهرباء والشبكة', 'فحص الادعاءات', 'قواعد واضحة', 'حماية المعيشة'],
+    detailsSummaryTpl: 'عرض الضوابط الخمسة وأكبر عائق في {country}',
+    mainConstraintLabel: 'العائق الرئيسي:',
+    checkingBaseline: 'جاري التحقق من خط الأساس الوطني...',
+    neverGuessedNote: 'بلا تخمين أبداً',
+    countryHookTpl: 'لاستقبال «{title}»، يمتلك {country} {count} من أصل 5 ركائز جاهزة.'
   },
 
   episode: {
     heading: 'هذا الأسبوع مع توتو',
+    episodeLabel: 'الحلقة 1',
     badge: 'الحلقة التجريبية 1 · قيد الإنتاج',
     title: 'الإنجاز الأول',
     synopsis:
@@ -348,8 +426,15 @@ export const ar: TranslationDict = {
   },
 
   deeper: {
+    eyebrow: 'أساس علمي مفتوح',
     heading: 'الأبحاث خلف القصة',
     subhead: 'كل استعارة هنا تستند إلى قياسات محكّمة وكود مفتوح وبيانات دولية بلمسة واحدة.',
+    statNations: 'دولة مقاسة بعمق',
+    statCompleteness: 'اكتمال المؤشرات المرصودة',
+    statScenarios: 'سيناريو تحول منمذج',
+    statSignals: 'مؤشراً مبكراً قيد الرصد',
+    primaryCta: 'جرّب اختبار ضغط في المختبر',
+    citationSummary: 'التوثيق وضمان البيانات المفتوحة (DOI 10.5281/zenodo.23441742)',
     releaseNote:
       'إصدار معاينة: 39 دولة مقيّمة (متوسط 53.8 / 100)، واكتمال بيانات 96.5% (نسبة المؤشرات المرصودة في 39 دولة مرجعية — 640 من 663 خلية).',
     cards: [
@@ -486,14 +571,38 @@ export const ar: TranslationDict = {
 
   footerUi: {
     brandTitle: 'مؤشر جاهزية البشرية للذكاء الفائق (HSRI)',
+    tagline: 'اتحاد أبحاث مفتوح · المعرّف الدائم: 10.5281/zenodo.23441742',
     brandDesc:
       'مرجع علمي مفتوح يقيس الحكم البشري والجاهزية المؤسسية وقدرة المجتمعات على الصمود إذا توقفت الأنظمة السحابية الآلية.',
-    langHeading: 'اللغات:',
+    researchHeading: 'البحث والاستكشاف',
+    scienceHeading: 'العلم المفتوح والمساءلة',
+    researchLinks: [
+      'افتح المختبر التفاعلي',
+      'مؤشر 39 دولة',
+      'النبض المباشر (الراصد)',
+      'أطلس 26 سيناريو',
+      'الدراسة المرجعية الشاملة'
+    ],
+    scienceLinks: [
+      'المنهجية العلمية',
+      'تنزيل البيانات',
+      'تدقيق التغطية',
+      'ملخص الجمعة',
+      'القيود وإخلاء المسؤولية'
+    ],
+    contactHeading: 'الاستفسارات البحثية',
+    contactDesc: 'للإحاطات المؤسسية أو تدقيق البيانات أو التعاون الأكاديمي:',
+    langHeading: 'اللغات (14 نسخة عالمية):',
     rtlActiveNotice: 'تم تفعيل العربية واتجاه اليمين إلى اليسار (dir="rtl").',
+    communityReviewNotice: 'متاح للمراجعة الأهلية بلغتك — نرحب بالملاحظات.',
     privacyLink: 'الخصوصية',
     languagesLink: 'اللغات',
     totoLink: 'توتو',
-    recapLink: 'ملخص الجمعة'
+    recapLink: 'ملخص الجمعة',
+    doiLink: 'المعرّف الدائم (Zenodo)',
+    disclaimerLink: 'تنبيه إحصائي',
+    licenseLink: 'رخصة CC BY-SA 4.0',
+    copyright: '© 2026 اتحاد أبحاث HSRI. بيانات مفتوحة بموجب ترخيص بحثي حر.'
   },
 
   heritageUi: {
@@ -524,6 +633,11 @@ export const ar: TranslationDict = {
     flowCatch: 'جاهزية {country}',
     otherDomainsLabel: 'استكشف المجالات الخمسة من منظور {country}:',
     otherTraditionsLabel: 'قارن تقاليد العالم:',
+    allTraditionsBtn: 'كل {count}',
+    plannedNextLabel: 'قريباً لاحقاً:',
+    auditChip: 'تدقيق',
+    domainsTablistAria: 'المجالات الخمسة للإنجازات',
+    traditionsAria: 'التقاليد الثقافية حول العالم',
     lightsCountryHeading: 'أضواء الجاهزية الخمسة · {country}',
     lightsHumanGroup: 'اختياراتك البشرية',
     lightsCountryGroup: 'قدرة {country}',

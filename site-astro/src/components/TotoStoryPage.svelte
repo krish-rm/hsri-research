@@ -149,21 +149,21 @@
     <div class="wisher-grid">
       <article class="story-card">
         <span class="toto-pill">{$dict.episode.badge}</span>
-        <h3>Episode 1: &ldquo;{$dict.episode.title}&rdquo;</h3>
+        <h3>{$dict.episode.episodeLabel}: &ldquo;{$dict.episode.title}&rdquo;</h3>
         <p>{$dict.episode.synopsis}</p>
         <p class="muted-note">{$dict.episode.voteNote}</p>
       </article>
 
       <article class="story-card">
         <h3>{$dict.wishWall.heading}</h3>
-        <div class="theme-chips" aria-label="Upcoming themes">
+        <div class="theme-chips" aria-label={$dict.wishWall.heading}>
           {#each $dict.wishWall.themes as th}
             <span class="theme-chip">{th}</span>
           {/each}
         </div>
         <p>{$dict.wishWall.emptyHeadline}</p>
         <details class="card-tech">
-          <summary>{$dict.episode.recapTitle} &amp; privacy details</summary>
+          <summary>{$dict.episode.recapTitle}</summary>
           <p>{$dict.wishWall.emptyBody}</p>
           <p class="muted-note">{$dict.episode.recapStatus}</p>
         </details>

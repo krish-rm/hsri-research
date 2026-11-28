@@ -1,12 +1,14 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { dict, activeLocale } from '../i18n/store';
+  import { dict, activeLocale, getCountryDisplayName } from '../i18n/store';
+  import { pickBaseLText } from '../i18n/storyTypes';
   import type { CountrySummaryItem } from '../lib/countryData';
-  import type { HeritageBinding, LangCode } from '../lib/heritageTypes';
+  import type { HeritageBinding } from '../lib/heritageTypes';
 
   export let countryIso: string = 'GLOBAL';
   export let countryName: string = 'Global';
   export let binding: HeritageBinding;
+  export let dependencyText: string = '';
   export let base = '';
 
   let catalog: CountrySummaryItem[] = [];
@@ -23,7 +25,6 @@
     }
   });
 
-  $: loc = ($activeLocale === 'es' || $activeLocale === 'ar' ? $activeLocale : 'en') as LangCode;
   $: matchedCountry =
     countryIso && countryIso !== 'GLOBAL'
       ? catalog.find((c) => c.iso === countryIso.toUpperCase()) ?? null
@@ -32,7 +33,10 @@
     matchedCountry?.kind === 'rated'
       ? matchedCountry.checklist[binding.safeguardChecklistIdx] ?? matchedCountry.checklist[0]
       : null;
-  $: displayName = matchedCountry?.name ?? countryName;
+  $: displayName = matchedCountry
+    ? getCountryDisplayName(matchedCountry.iso, matchedCountry.name, $activeLocale)
+    : getCountryDisplayName(countryIso, countryName, $activeLocale);
+  $: resolvedDependency = dependencyText || pickBaseLText(binding.dependencyLabel, $activeLocale);
 </script>
 
 <aside class="wobble-readout" aria-live="polite">
@@ -40,11 +44,11 @@
     <span class="wr-tag">
       {$dict.heritageUi.weightBindingTitle.replace('{country}', displayName)}
     </span>
-    <span class="wr-dep">{binding.dependencyLabel[loc] ?? binding.dependencyLabel.en}</span>
+    <span class="wr-dep">{resolvedDependency}</span>
   </div>
 
   {#if !loaded}
-    <p class="wr-body wr-muted">Checking national safeguard baseline...</p>
+    <p class="wr-body wr-muted">{$dict.country.checkingBaseline}</p>
   {:else if matchedCountry?.kind === 'rated' && boundCheck}
     <div class="wr-rated-row">
       <span class="wr-status-pill" class:pass={boundCheck.pass} class:gap={!boundCheck.pass}>
@@ -59,7 +63,7 @@
   {:else if matchedCountry?.kind === 'unrated'}
     <p class="wr-body">
       {$dict.heritageUi.weightContextNote
-        .replace('{country}', matchedCountry.name)
+        .replace('{country}', displayName)
         .replace('{region}', matchedCountry.region)
         .replace('{observed}', matchedCountry.observedSummary)}
       <a href={`${base}/coverage/`} class="wr-link">{$dict.country.unratedHelpCta} &rarr;</a>

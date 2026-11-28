@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount, tick } from 'svelte';
-  import { dict, activeLocale } from '../i18n/store';
+  import { dict, activeLocale, storyOverlay, getCountryDisplayName } from '../i18n/store';
+  import { pickBaseLText, pickHonestyScale, resolveHeritageMeta } from '../i18n/storyTypes';
   import { trackEvent } from '../lib/privacyStorage';
   import { readinessStore } from '../lib/readinessState';
   import { countryContextStore, syncCountryContext } from '../lib/countryContext';
@@ -43,9 +44,11 @@
     }
   });
 
-  $: loc = ($activeLocale === 'es' || $activeLocale === 'ar' ? $activeLocale : 'en') as 'en' | 'es' | 'ar';
   $: activeIso = $countryContextStore.iso;
-  $: activeCountryLabel = $countryContextStore.countryName;
+  $: activeCountryLabel =
+    activeIso !== 'GLOBAL'
+      ? getCountryDisplayName(activeIso, $countryContextStore.countryName, $activeLocale)
+      : $dict.hero.cityNeutralName;
   $: if (activeIso !== lastSeenIso) {
     lastSeenIso = activeIso;
     preferGlobal = false;
@@ -58,7 +61,11 @@
   $: WISH_BY_ID = new Map(PLAYABLE_WISHES.map((w) => [w.id, w]));
   $: selectedDoor = $dict.doors.items.find((d) => d.id === activeDoorId) ?? $dict.doors.items[0];
   $: doorHeritage = findHeritageForCountryAndDoor(activeIso, selectedDoor.id);
+  $: doorHeritageMeta = doorHeritage ? resolveHeritageMeta(doorHeritage, $activeLocale, $storyOverlay) : null;
   $: anyCountryHeritage = findAnyHeritageForCountry(activeIso);
+  $: anyCountryHeritageMeta = anyCountryHeritage
+    ? resolveHeritageMeta(anyCountryHeritage, $activeLocale, $storyOverlay)
+    : null;
   $: showingHeritage = Boolean(doorHeritage && !preferGlobal);
   $: activeWish =
     (activeWishId ? WISH_BY_ID.get(activeWishId) ?? heritageCache[activeWishId] : null) ?? null;
@@ -132,10 +139,10 @@
           </button>
         </div>
         <h2 class="sec-title">
-          {#if anyCountryHeritage}
+          {#if anyCountryHeritage && anyCountryHeritageMeta}
             {$dict.heritageUi.countryHeadingTradition
               .replace('{country}', activeCountryLabel)
-              .replace('{tradition}', anyCountryHeritage.traditionLabel[loc] ?? anyCountryHeritage.traditionLabel.en)}
+              .replace('{tradition}', anyCountryHeritageMeta.traditionLabel)}
           {:else}
             {$dict.heritageUi.countryHeadingGlobal.replace('{country}', activeCountryLabel)}
           {/if}
@@ -155,7 +162,7 @@
         {#if activeIso !== 'GLOBAL'}
           <p class="band-micro-label">{$dict.heritageUi.otherDomainsLabel.replace('{country}', activeCountryLabel)}</p>
         {/if}
-        <div class="doors-tabs" role="tablist" aria-label="Five breakthrough domains">
+        <div class="doors-tabs" role="tablist" aria-label={$dict.heritageUi.domainsTablistAria}>
           {#each $dict.doors.items as door}
             <button
               type="button"
@@ -230,7 +237,7 @@
                   <span class="flow-step warn">{$dict.heritageUi.flowWobble}</span>
                   <span class="flow-sep arrow-flip">&rarr;</span>
                   <span class="flow-step catch">
-                    {$dict.heritageUi.flowCatch.replace('{country}', activeIso === 'GLOBAL' ? 'HSRI' : activeIso)}
+                    {$dict.heritageUi.flowCatch.replace('{country}', activeIso === 'GLOBAL' ? 'HSRI' : activeCountryLabel)}
                   </span>
                 </div>
               </div>
@@ -298,20 +305,19 @@
                   {/if}
                 </div>
 
-                {#if doorHeritage && showingHeritage}
-                  {@const hTitle = doorHeritage.chipTitle[loc] ?? doorHeritage.chipTitle.en}
+                {#if doorHeritage && showingHeritage && doorHeritageMeta}
                   {@const hId = `heritage-${doorHeritage.id}`}
                   <article class="dp-focus-card is-heritage-focus">
                     <div class="dp-focus-copy">
                       <div class="dp-wish-head">
-                        <h3>{hTitle}</h3>
-                        <span class="honesty-pill">{doorHeritage.honestyLabel}</span>
-                        <span class="tradition-mini-pill">{doorHeritage.traditionLabel[loc] ?? doorHeritage.traditionLabel.en}</span>
+                        <h3>{doorHeritageMeta.chipTitle}</h3>
+                        <span class="honesty-pill">{pickHonestyScale(doorHeritage.honestyLabel, $dict)}</span>
+                        <span class="tradition-mini-pill">{doorHeritageMeta.traditionLabel}</span>
                       </div>
-                      <p class="dp-wish-beat">{doorHeritage.summary[loc] ?? doorHeritage.summary.en}</p>
+                      <p class="dp-wish-beat">{doorHeritageMeta.summary}</p>
                       <p class="binding-preview-line">
                         <strong>{$dict.heritageUi.traditionTestsLabel}</strong>
-                        {doorHeritage.binding.dependencyLabel[loc] ?? doorHeritage.binding.dependencyLabel.en}
+                        {doorHeritageMeta.dependencyLabel}
                       </p>
                     </div>
                     <button
@@ -329,10 +335,10 @@
                     {#each domainDevItems as item}
                       <article class="dp-wish-card">
                         <div class="dp-wish-head">
-                          <h4>{item.title[loc] ?? item.title.en}</h4>
-                          <span class="honesty-pill">{item.honestyLabel}</span>
+                          <h4>{pickBaseLText(item.title, $activeLocale)}</h4>
+                          <span class="honesty-pill">{pickHonestyScale(item.honestyLabel, $dict)}</span>
                         </div>
-                        <p class="dp-wish-beat">{item.wobble.text[loc] ?? item.wobble.text.en}</p>
+                        <p class="dp-wish-beat">{pickBaseLText(item.wobble.text, $activeLocale)}</p>
                         <button type="button" class="dp-play-btn" onclick={() => launchWish(item.id)}>
                           {completedIds[item.id] ? `✓ ${$dict.player.playedBadge} · ` : ''}{$dict.player.playBtn}
                           {#if SHOW_DRAFT_BADGE && item.status === 'draft'} (DRAFT){/if}
@@ -371,7 +377,7 @@
 
                   {#if stubList.length > 0}
                     <p class="dp-upcoming-line">
-                      Planned next: {stubList.map((s) => `${s.title} (${s.honesty})`).join(' · ')}
+                      {$dict.heritageUi.plannedNextLabel} {stubList.map((s) => `${s.title} (${s.honesty})`).join(' · ')}
                     </p>
                   {/if}
                 {/if}
@@ -382,23 +388,27 @@
       </div>
 
       <!-- Compact Scrollable World Traditions Switcher (Secondary Comparison Rail) -->
-      <div class="world-horizons-bar" aria-label="Cultural traditions around the world">
+      <div class="world-horizons-bar" aria-label={$dict.heritageUi.traditionsAria}>
         <span class="wh-label">{$dict.heritageUi.otherTraditionsLabel}</span>
         <div class="wh-scroll">
           {#each HERITAGE_INDEX as h}
             {@const isSelected = Boolean(doorHeritage?.id === h.id && showingHeritage)}
+            {@const hMeta = resolveHeritageMeta(h, $activeLocale, $storyOverlay)}
             <button
               type="button"
               class="wh-chip"
               class:active={isSelected}
               onclick={() => selectWorldTradition(h)}
-              title={`${h.originRegion[loc] ?? h.originRegion.en}: ${h.chipTitle[loc] ?? h.chipTitle.en}`}
+              title={`${hMeta.originRegion}: ${hMeta.chipTitle}`}
             >
-              {h.traditionLabel[loc] ?? h.traditionLabel.en}
+              {hMeta.traditionLabel}
             </button>
           {/each}
         </div>
-        <a href={`${base}/traditions/`} class="wh-all-link">All {HERITAGE_INDEX.length} <span class="arrow-flip" aria-hidden="true">&rarr;</span></a>
+        <a href={`${base}/traditions/`} class="wh-all-link">
+          {$dict.heritageUi.allTraditionsBtn.replace('{count}', String(HERITAGE_INDEX.length))}
+          <span class="arrow-flip" aria-hidden="true">&rarr;</span>
+        </a>
       </div>
 
       <!-- Compact Five Lights Visual Diagram (Expands smoothly once player runs) -->

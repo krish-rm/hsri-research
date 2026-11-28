@@ -1,5 +1,6 @@
 // Structured translation dictionary for Humanity Readiness (Phase 2.5: Breakthrough & Toto pass)
 // All homepage & interactive Breakthrough Player copy lives here cleanly without Section 13 jargon.
+import type { LocaleKey as RegisteredLocaleKey } from './locales';
 
 export interface DeeperCard {
   readonly title: string;
@@ -13,6 +14,38 @@ export const en = {
   lang: 'en',
   dir: 'ltr' as 'ltr' | 'rtl',
   label: 'English',
+
+  headerUi: {
+    homeAria: 'HSRI — Home',
+    tagline: 'Humanity Superintelligence Readiness Index',
+    primaryNavAria: 'Primary navigation',
+    nav: {
+      sandbox: 'Sandbox',
+      sandboxBadge: 'SIMULATOR',
+      countries: 'Country Index',
+      seismograph: 'Seismograph',
+      liveBadge: 'LIVE',
+      scenarios: 'Scenario Atlas',
+      monograph: 'Monograph',
+      monographBadge: 'TREATISE',
+      scienceGroup: 'Science & Data'
+    },
+    utility: {
+      methodology: 'Methodology',
+      methodologyDesc: 'Scoring rules & formal proofs',
+      data: 'Data & Coverage',
+      dataDesc: 'Indicators & downloads',
+      researchLogs: 'Research Logs',
+      researchLogsDesc: 'Updates & preprints',
+      doiDesc: 'Permanent record — CC BY-SA 4.0'
+    },
+    langSwitcherAria: 'Choose website language',
+    langMenuLabel: 'Language',
+    themeDarkAria: 'Switch to Dark Mode',
+    themeLightAria: 'Switch to Cream Paper',
+    menuOpenAria: 'Open navigation',
+    menuCloseAria: 'Close navigation'
+  },
 
   meta: {
     title:
@@ -35,7 +68,28 @@ export const en = {
     ctaCountrySecondary: 'Can {country} catch it?',
     cityLabel: 'Arrival sky over:',
     cityNeutralName: 'Coastal Harbour',
+    cityNeutralOption: 'Coastal Harbour (Global)',
     cityNeutralNote: 'Default neutral port view · pick any city to shift the horizon',
+    citySelectLabel: 'Switch country or city backdrop',
+    nextCityBtn: 'Next city',
+    nextCityTitle: 'Fly Toto over next country',
+    pauseBtn: 'Pause',
+    playBtn: 'Play',
+    replayBtn: 'Replay',
+    pauseAria: 'Pause intro animation',
+    playAria: 'Play intro animation',
+    replayAria: 'Replay intro animation',
+    scrubAria: 'Seek Toto arrival animation timeline',
+    jumpSceneAria: 'Jump to scene {n}',
+    regionGroups: {
+      'Featured Skies': 'Featured Skies',
+      Africa: 'Africa',
+      Americas: 'Americas',
+      'Asia & Middle East': 'Asia & Middle East',
+      Europe: 'Europe',
+      Oceania: 'Oceania',
+      'Global view': 'Global view'
+    } as Record<string, string>,
     totoCaption: 'Toto arrives at dawn: "I can deliver one breakthrough per person. Ask clearly."',
     ringTitle: "Humanity's readiness, as chosen by people like you",
     ringEmptyHeadline: 'Be one of the first 200 participants.',
@@ -63,7 +117,9 @@ export const en = {
           "This week machines got faster at multi-step tasks people used to check by hand. That's why checking plans matter."
       }
     },
-    cta: 'See the live pulse'
+    cta: 'See the live pulse',
+    humanPaceLabel: 'Human pace',
+    aiPaceLabel: 'AI pace (~3,200×)'
   },
 
   totoCard: {
@@ -321,16 +377,39 @@ export const en = {
     heading: 'Can your country catch the breakthrough?',
     subhead: "Pick a country. See what's already in place, and what's missing.",
     searchPlaceholder: 'Search 148 countries...',
+    searchLabel: 'Filter countries by name',
+    selectLabel: 'Select country',
     checklistLabel: 'A simple checklist, not a ranking',
     unratedBadge: 'Not yet rated in the full 39-nation index',
     unratedHelpCta: 'Help us rate your country',
     openCountryCta: 'Open the full country page',
     openLabCta: 'Explore deeper transitions in Open the Lab',
-    techReadingLabel: 'Technical reading'
+    techReadingLabel: 'Technical reading',
+    benchmarkBadge: '39-NATION BENCHMARK',
+    autoDetectedBadge: 'AUTO-DETECTED',
+    benchmarkGroupTpl: 'Benchmark Nations ({count})',
+    coverageGroupTpl: 'Coverage Audits ({count})',
+    partialDataSuffix: 'Partial data',
+    runsOfflineLabel: 'Runs offline',
+    catchesLabel: 'Catches breakthrough',
+    safeguardsReadyLabel: 'Safeguards ready',
+    ofFiveTpl: '{count} of 5',
+    catchStates: {
+      easily: 'Easily',
+      effort: 'With effort',
+      struggles: 'Struggles'
+    },
+    safeguardPills: ['72h Offline', 'Grid & Digital', 'Claim Checks', 'Public Rules', 'Livelihood Cushion'] as readonly [string, string, string, string, string],
+    detailsSummaryTpl: 'See the 5 safeguards & primary bottleneck for {country}',
+    mainConstraintLabel: 'Main constraint:',
+    checkingBaseline: 'Checking national safeguard baseline...',
+    neverGuessedNote: 'Never guessed',
+    countryHookTpl: 'To receive "{title}", {country} has {count} of 5 things in place.'
   },
 
   episode: {
     heading: 'This week with Toto',
+    episodeLabel: 'Episode 1',
     badge: 'PILOT EPISODE 1 · IN PRODUCTION',
     title: 'The First Breakthrough',
     synopsis:
@@ -369,9 +448,16 @@ export const en = {
   },
 
   deeper: {
+    eyebrow: 'OPEN EMPIRICAL FOUNDATION',
     heading: 'The research behind the story',
     subhead:
       'Every metaphor above rests on peer-reviewed measurements, open code, and country datasets one tap away.',
+    statNations: 'Nations benchmarked in depth',
+    statCompleteness: 'Observed indicator completeness',
+    statScenarios: 'Modeled AI transition risks',
+    statSignals: 'Early pace signs monitored',
+    primaryCta: 'Try a custom stress test in the Lab',
+    citationSummary: 'Citation & open data guarantee (DOI 10.5281/zenodo.23441742)',
     releaseNote:
       'Preview release: 39 countries rated (mean baseline score 53.8 / 100), 96.5% data completeness (share of retained indicators observed across 39 benchmark countries — 640 of 663 cells).',
     cards: [
@@ -511,14 +597,38 @@ export const en = {
 
   footerUi: {
     brandTitle: 'Humanity Superintelligence Readiness Index',
+    tagline: 'Open Research Consortium · Permanent DOI: 10.5281/zenodo.23441742',
     brandDesc:
       'An open empirical benchmark measuring human judgment, institutional preparedness, and how well societies can stand on their own feet if automated cloud systems pause.',
-    langHeading: 'Languages:',
+    researchHeading: 'Inquiry & Research',
+    scienceHeading: 'Open Science & Accountability',
+    researchLinks: [
+      'Open the Lab (Sandbox)',
+      '39-Nation Country Index',
+      'Live Pulse (Seismograph)',
+      '26-Pathway Scenario Atlas',
+      'The Civilizational Monograph'
+    ] as readonly [string, string, string, string, string],
+    scienceLinks: [
+      'Scientific Methodology',
+      'Data Downloads',
+      'Coverage Audit',
+      "Join Friday's recap",
+      'Limitations & Disclaimer'
+    ] as readonly [string, string, string, string, string],
+    contactHeading: 'Research Inquiries',
+    contactDesc: 'For institutional briefings, data validation, or academic collaboration:',
+    langHeading: 'Languages (14 global editions):',
     rtlActiveNotice: 'Arabic live RTL active (dir="rtl"). Layouts and reading tracks mirror automatically.',
+    communityReviewNotice: 'Open for native community review — suggest edits anytime.',
     privacyLink: 'Privacy',
     languagesLink: 'Languages',
     totoLink: 'Toto',
-    recapLink: "Join Friday's recap"
+    recapLink: "Join Friday's recap",
+    doiLink: 'Permanent DOI (Zenodo)',
+    disclaimerLink: 'Actuarial Disclaimer',
+    licenseLink: 'CC BY-SA 4.0 License',
+    copyright: '© 2026 HSRI Research Consortium. Empirical datasets published under open research license.'
   },
 
   heritageUi: {
@@ -549,6 +659,11 @@ export const en = {
     flowCatch: '{country} catch',
     otherDomainsLabel: "Explore all 5 domains from {country}'s perspective:",
     otherTraditionsLabel: 'Compare world traditions:',
+    allTraditionsBtn: 'All {count}',
+    plannedNextLabel: 'Planned next:',
+    auditChip: 'Audit',
+    domainsTablistAria: 'Five breakthrough domains',
+    traditionsAria: 'Cultural traditions around the world',
     lightsCountryHeading: "{country}'s 5 Readiness Lights",
     lightsHumanGroup: 'Your human choices',
     lightsCountryGroup: '{country} capacity',
@@ -570,4 +685,4 @@ type DeepStringWiden<T> = T extends string
   : T;
 
 export type TranslationDict = DeepStringWiden<typeof en>;
-export type LocaleKey = 'en' | 'es' | 'ar' | 'rtl-stub';
+export type LocaleKey = RegisteredLocaleKey;

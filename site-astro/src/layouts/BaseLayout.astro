@@ -107,9 +107,18 @@ const ogPageUrl = canonicalUrl.startsWith("http") ? canonicalUrl : `${siteOrigin
           const theme = savedTheme === 'dark' ? 'dark' : 'light';
           document.documentElement.setAttribute('data-theme', theme);
           const savedLocale = localStorage.getItem('hr:v1:locale');
-          const isRtl = savedLocale === 'ar' || savedLocale === 'rtl-stub';
+          const urlLang = new URLSearchParams(window.location.search).get('lang');
+          const rawLocale = (urlLang || savedLocale || '').trim().toLowerCase().replace(/_/g, '-');
+          const supported = ['en', 'es', 'ar', 'zh', 'hi', 'fr', 'pt', 'bn', 'ru', 'id', 'ja', 'de', 'ko', 'sw'];
+          const baseCode = rawLocale.split('-')[0];
+          const resolvedLocale = supported.includes(rawLocale)
+            ? rawLocale
+            : supported.includes(baseCode)
+              ? baseCode
+              : 'en';
+          const isRtl = resolvedLocale === 'ar' || savedLocale === 'rtl-stub';
           document.documentElement.setAttribute('dir', isRtl ? 'rtl' : 'ltr');
-          document.documentElement.setAttribute('lang', savedLocale === 'es' || savedLocale === 'ar' ? savedLocale : 'en');
+          document.documentElement.setAttribute('lang', resolvedLocale);
         } catch (e) {
           document.documentElement.setAttribute('data-theme', 'light');
           document.documentElement.setAttribute('dir', 'ltr');

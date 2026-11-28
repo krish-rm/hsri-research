@@ -1,0 +1,537 @@
+// Japanese (日本語) translation dictionary for Humanity Readiness
+import type { TranslationDict } from './en';
+
+export const ja: TranslationDict = {
+  lang: 'ja',
+  dir: 'ltr',
+  label: '日本語',
+
+  headerUi: {
+    homeAria: 'HSRI — ホーム',
+    tagline: '人類超知能備え指数（HSRI）',
+    primaryNavAria: 'メインナビゲーション',
+    nav: {
+      sandbox: '実験ラボ',
+      sandboxBadge: 'シミュレータ',
+      countries: '国別指数',
+      seismograph: 'ライブ脈動',
+      liveBadge: 'LIVE',
+      scenarios: 'シナリオ図鑑',
+      monograph: '研究論文',
+      monographBadge: '論文',
+      scienceGroup: '科学とデータ'
+    },
+    utility: {
+      methodology: '評価手法',
+      methodologyDesc: '算出ルールと形式的証明',
+      data: 'データと網羅率',
+      dataDesc: '指標一覧とオープンデータ',
+      researchLogs: '研究ログ',
+      researchLogsDesc: '更新履歴とプレプリント',
+      doiDesc: '恒久アーカイブ — CC BY-SA 4.0'
+    },
+    langSwitcherAria: '表示言語を選択',
+    langMenuLabel: '言語',
+    themeDarkAria: 'ダークモードへ切替',
+    themeLightAria: '生成り紙テーマへ切替',
+    menuOpenAria: 'メニューを開く',
+    menuCloseAria: 'メニューを閉じる'
+  },
+
+  meta: {
+    title: '超知能に私たちが求める未来を、人類は受け止める準備ができているか？ | HSRI',
+    description:
+      'ひとつの突破的技術を選び、到来時にどこが揺らぐかを辿り、あなたの国の実データで備えを確かめる。39か国を対象とした公開研究。'
+  },
+
+  hero: {
+    eyebrow: '人類の備えをめぐる物語',
+    headline: '超知能に求めるその未来、私たちは本当に受け止められるでしょうか？',
+    headlineLead: '超知能に求めるその未来、',
+    headlineAccent: '私たちは本当に受け止められるでしょうか？',
+    subhead:
+      'ひとつのブレークスルーを選び、届いたときに生じるほころびを辿り、実際の国別データで社会の備えを確かめましょう。',
+    ctaPrimary: 'ブレークスルーを選ぶ',
+    ctaSecondary: '自国の備えを見る',
+    guideCue: 'まずトト（Toto）の空の切替から：',
+    ctaCountryPrimary: '{country}の視点で体験する',
+    ctaCountrySecondary: '{country}は受け止められる？',
+    cityLabel: '夜明けの空：',
+    cityNeutralName: '沿岸の港町',
+    cityNeutralOption: '沿岸の港町（グローバル）',
+    cityNeutralNote: '中立の港ビュー · 都市を選ぶと地平線が切り替わります',
+    citySelectLabel: '国または都市の景色を切り替え',
+    nextCityBtn: '次の都市へ',
+    nextCityTitle: '次の国の上空へトトを飛ばす',
+    pauseBtn: '一時停止',
+    playBtn: '再生',
+    replayBtn: '最初から',
+    pauseAria: '導入アニメーションを一時停止',
+    playAria: '導入アニメーションを再生',
+    replayAria: '導入アニメーションをリプレイ',
+    scrubAria: 'トト登場アニメーションを移動',
+    jumpSceneAria: 'シーン {n} へ移動',
+    regionGroups: {
+      'Featured Skies': '注目の空',
+      Africa: 'アフリカ',
+      Americas: 'アメリカ大陸',
+      'Asia & Middle East': 'アジア・中東',
+      Europe: 'ヨーロッパ',
+      Oceania: 'オセアニア',
+      'Global view': 'グローバル表示'
+    },
+    totoCaption: '夜明けにトトが現れる：「一人につきひとつ、望む突破口を届けられます。言葉をはっきりと。」',
+    ringTitle: 'あなたと同じ一人ひとりの選択が映す人類の備え',
+    ringEmptyHeadline: '最初の 200 人の参加者に加わりましょう。',
+    ringEmptySub: '200 人がひとつの体験を終えると、ここに集合的な光の輪が灯ります。'
+  },
+
+  pulse: {
+    label: '人類の脈動',
+    sectionKicker: 'なぜ今備えが要るのか · リアルタイム速度モニター',
+    tooltipTrigger: '技術的読み値',
+    states: {
+      steady: { word: '安定', sentence: '自動化ツールの進みはまだ緩やかで、人がひとつずつ判断を見直す余裕があります。' },
+      stirring: { word: '加速の兆し', sentence: 'ソフトウェアの動作が人手の確認より速くなり始めています。いま簡単な手書きや予備計画を確かめる時期です。' },
+      rising: { word: '上昇中', sentence: '今週、以前は人が確かめていた複数段階の作業を機械がさらに高速化しました。だからこそ事前の検証策が要ります。' }
+    },
+    cta: 'ライブの脈動を見る',
+    humanPaceLabel: '人間の歩幅',
+    aiPaceLabel: 'AIの速度（約 3,200×）'
+  },
+
+  totoCard: {
+    eyebrow: '案内役の紹介',
+    heading: 'トト（Toto）と出会う。',
+    body: 'トトは「人類が頼んだとおりの結果をそのまま手に入れたら何が起きるか」を静かに確かめるための架空の超知能です。親切で速く、そして驚くほど文字通り——言われた言葉は満たしても、言外の前提までは汲み取ってくれません。',
+    chipsLabel: 'トトの性格',
+    chips: ['架空の案内役（実在システムではない）', '協力的で、敵意はない', '仕様として文字通り'],
+    ctaPrimary: 'ブレークスルーを選ぶ',
+    ctaSecondary: 'トトの物語を読む',
+    footnote: 'トトは物語の語り手であり、将来予測や実在の AI 製品ではありません。',
+    svgAlt: '細い軌道リングの中で夜明けの光のように灯る架空の案内役トト'
+  },
+
+  totoIntro: {
+    ariaLabel: 'トトからの最初のあいさつ',
+    badge: '初回案内 · トト',
+    lines: [
+      'こんにちは。私はトトです。',
+      '世界にひとつの大きな突破口を届けられます。試したいものを選んでください。',
+      '私はあなたの言葉どおりに実行します。よく見届けてから、「本当にうまくいったとどうやって分かるか」を教えてください。'
+    ] as readonly [string, string, string],
+    startBtn: 'はじめよう',
+    skipBtn: 'スキップ',
+    svgAlt: '軌道リングの中で好奇心を向けるトト',
+    footnote: 'このブラウザ内のみに記憶されます（hr:v1:intro_seen）— プライバシーページでいつでも消去できます。'
+  },
+
+  totoBeats: {
+    speaker: 'トト',
+    wonder: '完了しました。',
+    wobble: 'うーん……あなたが本当に望んでいた姿とは少し違いますよね？',
+    weight: '次はあなたの番です。これが本当にうまくいったと、どうやって見極めましょう？',
+    way: 'よい視点です。では人間がまだ自分の手元に残せる工夫を見てみましょう。',
+    close: 'どんな大きな突破口にも、それを受け止める準備のできた世界が必要です。'
+  },
+
+  totoPage: {
+    eyebrow: '物語の案内役 · フィクション',
+    title: 'トト（Toto）について。',
+    lead: '「頼んだとおりをそのまま叶えたらどうなるか」を静かに見つめるための架空の超知能です。',
+    posesLabel: 'トトの表情',
+    poses: [
+      { name: '穏やか', caption: '技術が滑らかに届き、社会の受け皿も整っているとき。', alt: '落ち着いたトト' },
+      { name: '好奇心', caption: '開かれた問い：「うまくいったとどうやって確かめる？」', alt: '耳を傾けるトト' },
+      { name: '反省・気づき', caption: '文字どおりの実行が暗黙の文脈を取りこぼした瞬間。', alt: '琥珀色に光る気づきのトト' }
+    ],
+    whoTitle: 'トトとは何者か',
+    whoBody: '巨大な知性に小さな愛称。親切で素早く、どこまでも文字通りに働くのが特徴です。',
+    rulesTitle: 'トトの三つの約束',
+    rules: [
+      '一人につきひとつの突破口を届け、その後ろにある代償も必ず見せる。',
+      '決して嘘をつかず、心地よい言葉でトレードオフを隠さない。',
+      '必ず問いかける：「それが正しく機能したと、どうやって知るのか？」'
+    ],
+    notTitle: 'トトではないもの',
+    notBody: '予測モデルでも悪役でもありません。冷静な目線と人々の行動をつなぐレンズです。',
+    backCta: 'ブレークスルーを選ぶ',
+    homeLink: 'トップページへ戻る'
+  },
+
+  doors: {
+    heading: '人類にどんな突破口を届けたいですか？',
+    subhead: '五つの領域。それぞれに、何世紀も抱かれてきた人の願いが眠っています。',
+    microcopy: 'ひとつの選択、約 60 秒。',
+    phase2Badge: '4 幕インタラクティブ・プレイヤー · 稼働中',
+    sampleHeading: 'この領域のテーマ：',
+    previewCta: '4 幕の物語を体験する',
+    items: [
+      {
+        id: 'mysteries',
+        title: '未解決の難問',
+        icon: 'chalkboard',
+        lead: '人だけではまだ解き明かせていない深遠な問い。',
+        samples: ['リーマン予想を証明する', '失われた古代文字を解読する'],
+        moreCount: '+ 暗黒物質の解明と P≠NP 問題',
+        wishes: [
+          {
+            id: 'prove-riemann-hypothesis',
+            title: 'リーマン予想を証明する',
+            honesty: '想像の領域',
+            honestyNote: '現在の AI は短い形式補題の確認は助けますが、ミレニアム懸賞問題は解けません。',
+            beatSummary: 'トトは一晩で証明を公表する——だが 100 万ページにも及び、生きている人間には誰も読み切れません。'
+          },
+          {
+            title: '忘れられた古代文字を解読する',
+            honesty: '近い将来可能',
+            honestyNote: '断片のパターン照合は急速に進んでいますが、対訳資料の不足が壁です。',
+            beatSummary: '古代の刻文が一気に読めるようになる——やがて複数の解釈が並び、歴史家たちは何が証明かを問い直します。'
+          }
+        ]
+      },
+      {
+        id: 'gadgets',
+        title: '暮らしの技術',
+        icon: 'pocket',
+        lead: 'ポケット工房、万能翻訳機、そして生活を支える相棒。',
+        samples: ['ポケット工房', 'ジャービス風の生活アシスタント'],
+        moreCount: '+ 万能翻訳機と時間調整',
+        wishes: [
+          {
+            id: 'jarvis-for-my-life',
+            title: 'ジャービス風の生活アシスタント',
+            honesty: '近い将来可能',
+            honestyNote: '予約や決済を担うツールは始まっていますが、安全な境界線とオフラインの備えが追いついていません。',
+            beatSummary: '毎日が魔法のように回る——だが静かな通信障害の朝、自分のパスワードすら思い出せなくなっていました。'
+          },
+          {
+            title: 'ポケット工房 — あらゆる道具をつくる',
+            honesty: '想像の領域',
+            honestyNote: '物質を即座に生み出す技術は架空であり、現在はデジタル加工のみが入り口にあります。',
+            beatSummary: '頼めば何でも現れる——そのうち町の修理屋が消え、誰も壊れた道具の直し方を知らなくなります。'
+          }
+        ]
+      },
+      {
+        id: 'epic',
+        title: '社会を変える力',
+        icon: 'eye',
+        lead: '癒やし、移動の自由、災害の早期警戒、そして暮らしを守る盾。',
+        samples: ['万能治療（急性疾患の根絶）', 'みんなに開かれた空の移動'],
+        moreCount: '+ 地球規模の台風警戒と共助の盾',
+        wishes: [
+          {
+            id: 'sanjeevani',
+            title: '万能治療：急性の病をなくす',
+            honesty: '想像の領域',
+            honestyNote: '全体としては想像の領域（特定の創薬候補探索では AI 支援が進行中）。',
+            beatSummary: '夜明けに病棟が静かに空になる——その後、医療制度も年金も昨日の世界を前提にしていたことに気づきます。'
+          },
+          {
+            title: '地球規模の早期警戒 — すべての嵐を予知',
+            honesty: '近い将来可能',
+            honestyNote: '衛星とセンサー網により、嵐や社会基盤の監視はすでにリアルタイム化しています。',
+            beatSummary: '遠くの嵐も先に見抜ける——同時に、誰もがあらゆる人の動きを見張れる世界が姿を現します。'
+          }
+        ]
+      },
+      {
+        id: 'movie',
+        title: '文化と創造性',
+        icon: 'frame',
+        lead: '数秒のうちに中へ入り、書き換え、監督できる物語世界。',
+        samples: ['名作映画の中へ歩く', 'あらゆる巨匠に学ぶ'],
+        moreCount: '+ どんな結末も描き直し・言葉で映画監督',
+        wishes: [
+          {
+            id: 'walk-into-classic-film',
+            title: '名作映画の中へ歩いて入る',
+            honesty: '近い将来可能',
+            honestyNote: '対話型の 3D 空間生成は伸びていますが、長時間の記憶と整合性はまだ脆いままです。',
+            beatSummary: '雨の石畳があなたの声に応えてくれる——その一方で、近所の本物の喫茶店から少しずつ人影が減っていきます。'
+          },
+          {
+            title: '言葉で語るだけで映画を一本作る',
+            honesty: '一部すでに実現',
+            honestyNote: '短い映像クリップはすでに可能ですが、数時間の一貫した演出はまだ先です。',
+            beatSummary: '昼休みのうちに長編映画が完成——やがて観客は無数の個人版に溺れ、誰かと分かち合う共通の物語が薄れます。'
+          }
+        ]
+      },
+      {
+        id: 'world',
+        title: '公共の善',
+        icon: 'lamp',
+        lead: '身近なケア、澄んだ川、学びの伴走者、地域に息づく記憶。',
+        samples: ['ふるさとの川を澄ませる', 'すべての子どもに先生を'],
+        moreCount: '+ 消えゆく言葉の継承と地域の診療所',
+        wishes: [
+          {
+            id: 'fix-my-river',
+            title: 'ふるさとの川を澄ませる',
+            honesty: '近い将来可能',
+            honestyNote: 'センサーで排水源を特定することはできても、川の再生には上流と下流の住民合意が欠かせません。',
+            beatSummary: 'センサーがすべての排水管を突き止める——それでも上下流の町が譲り合うまで、水は変わりません。'
+          },
+          {
+            title: 'すべての子どもに専属の学び手を',
+            honesty: '近い将来可能',
+            honestyNote: '個別指導システムは広がっていますが、人との直接の関わりと学校のコミュニティは代わりがききません。',
+            beatSummary: '子どもたちは家でぐんぐん学ぶ——やがて年長者たちは「近所同士で教え合わなくなったら何が失われるか」を問いかけます。'
+          }
+        ]
+      }
+    ]
+  },
+
+  beats: {
+    heading: 'どの突破口にも四つの場面があります',
+    items: [
+      { key: '驚き', desc: '願いが届く。' },
+      { key: '揺らぎ', desc: '小さなほころびが生じる。' },
+      { key: '重み', desc: '本当に大切なものが見えてくる。' },
+      { key: '道すじ', desc: '人にまだ残された手立てが見つかる。' }
+    ],
+    footerLine: 'どんな大きな突破口にも、それを受け止める準備のできた世界が必要です。'
+  },
+
+  lights: {
+    heading: '五つの灯りでみる、あなたの備え',
+    items: [
+      { key: '明晰さ', meaning: '自分が何を望むか見えていますか？' },
+      { key: '先見性', meaning: '副作用や回り道まで考えましたか？' },
+      { key: '公正さ', meaning: 'その選択に他の人も含まれていますか？' },
+      { key: '知恵', meaning: '何を人間の手に残しますか？' },
+      { key: '実行力', meaning: '現実の中で使いこなせますか？' }
+    ],
+    emptyState: '最初のブレークスルーを選んで、ひとつ目の灯りをともしましょう。',
+    lowLightNote: '弱い灯りは失敗ではなく、次に伸ばせる余白の印です。',
+    trailNote: '3 つ完了するとシェアできる「足跡カード」、5 つで「影のマップ」が開きます。'
+  },
+
+  country: {
+    heading: 'あなたの国はこの変化を受け止められるでしょうか？',
+    subhead: '国を選ぶと、すでに整っている備えと、まだ足りない部分が見えます。',
+    searchPlaceholder: '148 か国・地域から検索...',
+    searchLabel: '国名で絞り込む',
+    selectLabel: '国を選択',
+    checklistLabel: '順位表ではなく、シンプルな点検リスト',
+    unratedBadge: '39 か国詳細ベンチマークには未収載',
+    unratedHelpCta: '自国データの充実に協力する',
+    openCountryCta: '国の詳細ページを開く',
+    openLabCta: 'ラボで移行シナリオを深掘りする',
+    techReadingLabel: '技術解説',
+    benchmarkBadge: '39 か国ベンチマーク',
+    autoDetectedBadge: '自動判定',
+    benchmarkGroupTpl: '詳細評価国（{count}）',
+    coverageGroupTpl: 'データ網羅率監査（{count}）',
+    partialDataSuffix: '一部データ',
+    runsOfflineLabel: 'オフライン持続力',
+    catchesLabel: '受け止め力',
+    safeguardsReadyLabel: '備わった安全網',
+    ofFiveTpl: '5 項目中 {count}',
+    catchStates: { easily: '十分に可能', effort: '工夫が要る', struggles: '荷が重い' },
+    safeguardPills: ['72時間オフライン', '電力・通信網', '真偽の見極め', '開かれた規則', '暮らしの緩衝材'],
+    detailsSummaryTpl: '{country}の 5 つの安全網と主な制約を見る',
+    mainConstraintLabel: '主な制約：',
+    checkingBaseline: '国内の基礎備えを確認中...',
+    neverGuessedNote: '推測で穴埋めはしません',
+    countryHookTpl: '「{title}」を受け止めるため、{country}では 5 項目のうち {count} つが整っています。'
+  },
+
+  episode: {
+    heading: '今週のトト',
+    episodeLabel: '第 1 話',
+    badge: 'パイロット第 1 話 · 制作中',
+    title: '最初の突破口',
+    synopsis: '港に夜明けが差す。夜勤明けの看護師ミーラは、街で最初の突破口を選ぶ。病室の全員が癒えたその直後、廊下に機械が決めなかった問いが響く——明日、誰を先に入れるのか？',
+    voteNote: '3 分間の対話物語と公開投票はフェーズ 4 で公開予定。',
+    recapTitle: '金曜のまとめを受け取る',
+    recapBody: '週次形式を決める前に世界各地の読者の声を伺っています。迷惑メールは送りません。',
+    recapStatus: '読者の希望がまとまり次第オープンします。'
+  },
+
+  wishWall: {
+    heading: '世界がいま願っていること',
+    themes: ['健康', '学び', '気候', '尊厳', '驚き', '真実'],
+    emptyHeadline: '最初の 20 件の匿名投稿が集まると、「世界がいま願っていること」ウォールが開きます。',
+    emptyBody: 'あなたの選択は既定でお使いのブラウザ内にとどまります。20 人以上の実参加が集まったテーマのみ表示されます。',
+    cta: 'ブレークスルーを選ぶ'
+  },
+
+  wisher: {
+    heading: '素晴らしい技術ほど、受け止める社会の準備が要る理由',
+    cards: [
+      {
+        title: '速度の差',
+        body: '機械は人がまばたきする間に数千回も動けます。あとから眺めるだけでは間に合わず、届く前に歯止めを組み込む必要があります。',
+        techHint: '現在、人間の一行ずつの確認より約 3,200 倍速く動作。'
+      },
+      {
+        title: '依存の深まり',
+        body: '任せるほど、立ち止まるのが難しくなります。病院も電力も食料も止められない網の上で動いています。一枚の紙の控えが大きな価値を持ちます。',
+        techHint: '各国の電力網・食料供給網・病院のオフライン耐性から計測。'
+      }
+    ],
+    closingLine: '恐れるためではなく、安心して迎え入れるための備えです。'
+  },
+
+  deeper: {
+    eyebrow: '開かれた実証研究の土台',
+    heading: '物語の背後にある研究',
+    subhead: '上のひとつひとつの比喩は、査読済み計測、公開コード、各国の実データに基づいています。',
+    statNations: '詳細に評価した国',
+    statCompleteness: '実測データの充足率',
+    statScenarios: 'モデル化した移行リスク',
+    statSignals: '監視中の早期兆候',
+    primaryCta: 'ラボでストレス・テストを試す',
+    citationSummary: '引用情報とオープンデータ保証（DOI 10.5281/zenodo.23441742）',
+    releaseNote: 'プレビュー版：39 か国を評価（平均スコア 53.8 / 100）、指標充足率 96.5%（663 セル中 640 セル実測）。',
+    cards: [
+      { title: '実験ラボを開く', desc: '独自負荷テスト、時間軸スライダー、国の強靭さシミュレーション。', href: '/sandbox/', tag: 'インタラクティブ' },
+      { title: '39 か国指数', desc: '3D 地球儀、スコア一覧、国別詳細レポート。', href: '/countries/', tag: '国別指数' },
+      { title: 'ライブ脈動', desc: '先行指標スコア（8.44 / 10）と 14 の生指標。', href: '/seismograph/', tag: 'リアルタイム' },
+      { title: 'シナリオ図鑑', desc: '各技術の背後にある 26 の社会移行パスを見る。', href: '/scenarios/', tag: 'ライブラリ' },
+      { title: '研究論文（モノグラフ）', desc: '数理証明を含む 35 分の査読済み論文。', href: '/monograph/', tag: '読了約 35 分' },
+      {
+        title: '手法・データ・網羅率',
+        desc: '数式、CSV ダウンロード、未評価国のデータ欠損状況を確認。',
+        href: '/methodology/',
+        extraLinks: [
+          { label: '評価手法', href: '/methodology/' },
+          { label: 'データ取得', href: '/data/' },
+          { label: '網羅率監査', href: '/coverage/' }
+        ],
+        tag: 'オープンサイエンス'
+      }
+    ]
+  },
+
+  player: {
+    featuredLabel: '注目の体験（約 60 秒・対話式）',
+    doorsBadge: '4 幕インタラクティブ・プレイヤー',
+    playBtn: 'この体験を始める',
+    playedBadge: '体験済み',
+    previewOnlyNote: '初期プレビュー — 完全スクリプトは次段階で公開',
+    stepLabels: ['1. 驚き', '2. 揺らぎ', '3. 重み', '4. 道すじ'],
+    backToDoors: '5 つの領域に戻る',
+    draftTag: 'レビュー中の草稿',
+    honestyPrefix: '現実度チェック：',
+    foresightLead: '任意の予測メモ（先見性の灯りがつきます）：',
+    foresightQuestion: 'トトが意外な落とし穴を見せる前に——最初にどこがほころびそうでしょう？',
+    foresightSkip: 'すぐ「揺らぎ」へ進む',
+    foresightOptions: [
+      '誰も事前に書き出さなかったルールや例外',
+      '人が自分で確かめる習慣を失うこと',
+      '機会の不平等や見えない一極集中',
+      '思考をスキップして先へ進む'
+    ],
+    toWobbleBtn: '次に何が起きるか見る',
+    toWeightBtn: '立ち止まって見極める',
+    weightLead: 'ここで気がかりなのは……',
+    toWayBtn: '人間の「道すじ」を見る',
+    wayActionTitle: '日常で続けられる具体的な一歩',
+    pledgeBtn: 'この人間の習慣を手放さない',
+    pledgeDone: 'この端末に記録しました',
+    closingLine: 'どんな大きな突破口にも、それを受け止める準備のできた世界が必要です。',
+    realityTitle: '現実度メーター',
+    realityScales: { imagination: '想像の段階', possibleSoon: '近い将来可能', realToday: 'すでに一部実現' },
+    realityReviewed: '最終確認日',
+    realitySource: '出典',
+    shadowTitle: 'この突破口の裏側（シナリオ図鑑）',
+    nextWishBtn: '別の物語を試す',
+    countryHookPrefix: '国別準備データとの接続：',
+    countryHookUnset: '下から国を選ぶと、5 つの備えのうちいくつ整っているか確認できます。',
+    animPlay: '再生',
+    animPause: '停止',
+    animReplay: 'もう一度',
+    transcriptBtn: 'シーンのテキスト解説',
+    durationBadge: '約 60 秒 · 4 場面',
+    trailSectionTitle: 'あなたの足跡カードと影のマップ',
+    trailLocked: '3 つの異なる物語を完了すると足跡カードが開きます（{done}/3 完了）。',
+    trailUnlockedBadge: '足跡カード解放（3 話以上）',
+    shadowLocked: '5 つの異なる物語を完了すると個人用・影のマップが開きます（{done}/5 完了）。',
+    shadowUnlockedBadge: '影のマップ解放（5 話以上）',
+    downloadLandscape: 'カードを保存 (1200×630 PNG)',
+    downloadStory: '縦型ストーリーを保存 (1080×1920 PNG)',
+    downloadShadowPng: '影のマップを保存 (1200×630 PNG)',
+    downloadSvg: 'ベクター形式で保存 (.svg)',
+    lightsLegend: '光の明るさ（0–3 段階）は端末内だけに記録され、点数や順位づけは行いません。',
+    countryCapabilityNote: '連携中の国（{name}）：5 つの安全網のうち {count} つが「実行力」の灯りを支えています。',
+    countryCapabilityUnset: '現在「実行力」は個人の習慣のみを反映しています。下で国を選ぶと実データが組み込まれます。',
+    countryCapabilityUnrated: '選択国（{name}）は 39 か国ベンチマーク外のため、個人の習慣をもとに表示しています。',
+    shadows: { Control: '制御', Dependence: '依存', Power: '権力集中', Truth: '真実', Speed: '速度' },
+    trails: {
+      Verifier: { name: '検証する人', note: '素早い答えをそのまま信じず、「誰が検証者を確かめるのか」を問います。' },
+      Neighbour: { name: '隣人を見つめる人', note: '誰が取り残されるかを気遣い、公正さを中心に置きます。' },
+      Builder: { name: '土台を築く人', note: '高度な道具と並行して、紙やオフラインの備えを丁寧に残します。' },
+      Keeper: { name: '手仕事を継ぐ人', note: '機械の速さに流されず、人の判断力・記憶・技を守り続けます。' }
+    }
+  },
+
+  footerUi: {
+    brandTitle: '人類超知能備え指数（HSRI）',
+    tagline: 'オープン研究コンソーシアム · 恒久 DOI: 10.5281/zenodo.23441742',
+    brandDesc: 'クラウド型自動システムが停止しても、人間の判断力・制度の備え・地域の暮らしがどれだけ自立できるかを測る公開指標。',
+    researchHeading: '調査とラボ',
+    scienceHeading: 'オープンサイエンス',
+    researchLinks: ['実験ラボ', '39 か国指数', 'ライブ脈動', '26 シナリオ図鑑', '研究論文'],
+    scienceLinks: ['評価手法', 'データ取得', '網羅率監査', '金曜まとめ', '限界と注記'],
+    contactHeading: '研究窓口',
+    contactDesc: '研究機関向け説明、データ検証、学術連携のご相談：',
+    langHeading: '言語（世界 14 言語版）：',
+    rtlActiveNotice: '右横書き（RTL）表示が有効です。',
+    communityReviewNotice: '母語話者による表現ブラッシュアップ歓迎。',
+    privacyLink: 'プライバシー',
+    languagesLink: '言語設定',
+    totoLink: 'トトについて',
+    recapLink: '金曜まとめ',
+    doiLink: '恒久 DOI (Zenodo)',
+    disclaimerLink: '免責事項',
+    licenseLink: 'CC BY-SA 4.0 ライセンス',
+    copyright: '© 2026 HSRI Research Consortium. オープンライセンスで公開。'
+  },
+
+  heritageUi: {
+    localHorizonTag: '文化の地平 · {country}',
+    livingBadge: '生きている伝統',
+    historicalBadge: '歴史的知恵',
+    seeGlobalBtn: 'グローバル版を見る',
+    seeLocalBtn: '{country}の伝統に戻る',
+    livesInOtherDoor: '{country}の文化視点は「{door}」にあります',
+    noLocalYet: '{country}固有の地域伝統はまだ収録されていません — 共通の物語をお試しください。',
+    readArchiveLink: '出典と文化資料を見る',
+    reviewOpenNote: '2 件以上の一次出典 · 母語レビュー募集中',
+    weightBindingTitle: '{country}での実データ点検',
+    weightRatedInPlace: '整備済み',
+    weightRatedGap: '課題・不足あり',
+    weightContextNote: '{country}は一部指標を追跡中（{region}）— {observed}',
+    weightNoCountry: '下から国を選ぶと、この依存ポイントと実データを照合できます。',
+    wayTestCountryCta: '国別チェックで{country}の備えを確かめる',
+    trailStampLabel: '辿った文化の地平：{count}',
+    autoDetectedHint: '地域から自動提案 · 国を変更できます',
+    perspectiveBadge: '視点 · {country}',
+    resetGlobalBtn: 'グローバル視点へ',
+    countryHeadingTradition: '{country}の視点から：{tradition}',
+    countryHeadingGlobal: '{country}の視点で試してみる',
+    countrySubhead: 'AI の突破口が {country} の暮らしや現場と出会ったとき何が見えるかを確かめます。',
+    flowWonder: '願いが届く',
+    flowWobble: '現場の負荷',
+    flowCatch: '{country}の受け皿',
+    otherDomainsLabel: '{country}の視点で 5 つの領域すべてを見る：',
+    otherTraditionsLabel: '世界の知恵と見比べる：',
+    allTraditionsBtn: '全 {count} 件',
+    plannedNextLabel: '今後の予定：',
+    auditChip: '監査データ',
+    domainsTablistAria: '五つのブレークスルー領域',
+    traditionsAria: '世界各地の文化的伝統',
+    lightsCountryHeading: '{country}の五つの備えの灯り',
+    lightsHumanGroup: 'あなたの選択',
+    lightsCountryGroup: '{country}の受け皿',
+    countryCatchHeading: '{country}は受け止められる？',
+    traditionTestsLabel: '伝統のレンズ：',
+    coverageObservedLabel: '確認された安全網',
+    coverageMissingLabel: '未計測の空白（推測なし）'
+  }
+};

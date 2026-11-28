@@ -7,37 +7,37 @@
 <section id="go-deeper" class="evidence-section">
   <div class="story-container">
     <div class="es-head">
-      <span class="es-kicker">OPEN EMPIRICAL FOUNDATION</span>
+      <span class="es-kicker">{$dict.deeper.eyebrow}</span>
       <h2>{$dict.deeper.heading}</h2>
       <p>{$dict.deeper.subhead}</p>
     </div>
 
     <!-- Non-redundant Empirical Scope Proof Cards (full site navigation lives cleanly in footer below) -->
-    <div class="proof-stats" aria-label="Empirical benchmark summary">
+    <div class="proof-stats" aria-label={$dict.deeper.heading}>
       <div class="ps-card">
         <strong>39</strong>
-        <span>Nations benchmarked in depth</span>
+        <span>{$dict.deeper.statNations}</span>
       </div>
       <div class="ps-card">
         <strong>96.5%</strong>
-        <span>Observed indicator completeness</span>
+        <span>{$dict.deeper.statCompleteness}</span>
       </div>
       <div class="ps-card">
         <strong>26</strong>
-        <span>Modeled AI transition risks</span>
+        <span>{$dict.deeper.statScenarios}</span>
       </div>
       <div class="ps-card">
         <strong>14</strong>
-        <span>Early pace signs monitored</span>
+        <span>{$dict.deeper.statSignals}</span>
       </div>
     </div>
 
     <div class="es-actions">
       <a href={`${base}/sandbox/`} class="es-primary-cta">
-        Try a custom stress test in the Lab <span aria-hidden="true">&rarr;</span>
+        {$dict.deeper.primaryCta} <span class="arrow-flip" aria-hidden="true">&rarr;</span>
       </a>
       <details class="es-citation-note">
-        <summary>Citation &amp; open data guarantee (DOI 10.5281/zenodo.23441742)</summary>
+        <summary>{$dict.deeper.citationSummary}</summary>
         <p>{$dict.deeper.releaseNote}</p>
       </details>
     </div>

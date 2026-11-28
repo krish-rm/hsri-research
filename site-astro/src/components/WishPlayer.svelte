@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount, tick } from 'svelte';
-  import { dict, activeLocale } from '../i18n/store';
+  import { dict, activeLocale, storyOverlay, getCountryDisplayName } from '../i18n/store';
+  import { pickHonestyScale, pickLightLabel, resolvePlayableWishCopy } from '../i18n/storyTypes';
   import WishSceneIllustration from './WishSceneIllustration.svelte';
   import TotoIllustration from './TotoIllustration.svelte';
   import WobbleReadout from './WobbleReadout.svelte';
@@ -74,8 +75,10 @@
       : countryRef?.iso ?? 'GLOBAL';
   $: ctxCountryName =
     $countryContextStore.iso && $countryContextStore.iso !== 'GLOBAL'
-      ? $countryContextStore.countryName
-      : countryRef?.name ?? 'Global';
+      ? getCountryDisplayName($countryContextStore.iso, $countryContextStore.countryName, $activeLocale)
+      : countryRef
+        ? getCountryDisplayName(countryRef.iso, countryRef.name, $activeLocale)
+        : $dict.hero.cityNeutralName;
 
   let showIntro = false;
   let introStartBtnEl: HTMLButtonElement | null = null;
@@ -88,8 +91,7 @@
   let lastSavedKey = '';
   let playerHeadingEl: HTMLHeadingElement | null = null;
 
-  $: loc = ($activeLocale === 'es' || $activeLocale === 'ar' ? $activeLocale : 'en') as LangCode;
-  $: lText = (t: LText) => t[loc] ?? t.en;
+  $: wishCopy = resolvePlayableWishCopy(wish, $activeLocale, $storyOverlay);
   $: chosenOpt = wish.weight.options.find((o) => o.id === selectedWeight) ?? null;
   $: countryRef = $readinessStore.selectedCountry;
   $: scaleIdx =
@@ -147,7 +149,7 @@
     const sec = Math.max(1, Math.round((Date.now() - startedAt) / 1000));
     recordWishCompletion({
       wishId: wish.id,
-      wishTitle: lText(wish.title),
+      wishTitle: wishCopy.title,
       guessedWobble,
       weightChoiceId: opt.id,
       weightLight: opt.light,
@@ -168,15 +170,15 @@
   }}
 />
 
-<article class="wish-player-shell" aria-label={lText(wish.title)}>
+<article class="wish-player-shell" aria-label={wishCopy.title}>
   <header class="wp-head">
     <div>
       <div class="wp-badges">
-        <span class="wp-door">{lText(wish.doorTitle)}</span>
-        <span class="wp-honesty">{$dict.player.honestyPrefix} {wish.honestyLabel}</span>
+        <span class="wp-door">{wishCopy.doorTitle}</span>
+        <span class="wp-honesty">{$dict.player.honestyPrefix} {pickHonestyScale(wish.honestyLabel, $dict)}</span>
         <span class="wp-dur">{$dict.player.durationBadge}</span>
         {#if heritageWish}
-          <span class="wp-heritage-pill">{lText(heritageWish.traditionLabel)}</span>
+          <span class="wp-heritage-pill">{wishCopy.traditionLabel}</span>
           <a href={`${base}/traditions/${heritageWish.slug}/`} class="wp-archive-link">
             {$dict.heritageUi.readArchiveLink} &rarr;
           </a>
@@ -184,8 +186,8 @@
           <span class="draft-pill wp-draft-tag">{$dict.player.draftTag}</span>
         {/if}
       </div>
-      <h3 class="wp-title" tabindex="-1" bind:this={playerHeadingEl}>{lText(wish.title)}</h3>
-      <p class="wp-honesty-note">{lText(wish.honestyNote)}</p>
+      <h3 class="wp-title" tabindex="-1" bind:this={playerHeadingEl}>{wishCopy.title}</h3>
+      <p class="wp-honesty-note">{wishCopy.honestyNote}</p>
     </div>
     <button type="button" class="wp-back-btn" on:click={onClose}>
       &larr; {$dict.player.backToDoors}
@@ -254,9 +256,9 @@
         wishId={wish.id}
         door={wish.door}
         beat="wonder"
-        transcript={lText(wish.wonder.transcript)}
+        transcript={wishCopy.wonder.transcript}
       />
-      {@const rawToto = lText(wish.wonder.totoLine).replace(/^(Toto|توتو):\s*/i, '').trim()}
+      {@const rawToto = wishCopy.wonder.totoLine.replace(/^(?:Toto|توتو|토토|トト|টোটো|टोटो|托托|多多)\s*[:：]\s*/i, '').trim()}
       <div class="toto-beat-bar">
         <TotoIllustration pose="calm" size={44} label={$dict.totoPage.poses[0].alt} />
         <p class="toto-speech">
@@ -266,7 +268,7 @@
           {/if}
         </p>
       </div>
-      <p class="beat-main-text">{lText(wish.wonder.text)}</p>
+      <p class="beat-main-text">{wishCopy.wonder.text}</p>
 
       <!-- Optional Foresight Prediction (Pre-Wobble) -->
       <div class="foresight-prompt">
@@ -290,7 +292,7 @@
         wishId={wish.id}
         door={wish.door}
         beat="wobble"
-        transcript={lText(wish.wobble.transcript)}
+        transcript={wishCopy.wobble.transcript}
       />
       <div class="toto-beat-bar is-wobble">
         <TotoIllustration pose="apologetic" size={44} label={$dict.totoPage.poses[2].alt} />
@@ -301,7 +303,7 @@
       {#if SHOW_DRAFT_BADGE && (wish.wobble.draft || wish.status === 'draft')}
         <span class="draft-pill">{$dict.player.draftTag}</span>
       {/if}
-      <p class="beat-main-text">{lText(wish.wobble.text)}</p>
+      <p class="beat-main-text">{wishCopy.wobble.text}</p>
       <button type="button" class="btn-advance" on:click={() => (beat = 'weight')}>
         {$dict.player.toWeightBtn} <span class="arrow-flip" aria-hidden="true">&rarr;</span>
       </button>
@@ -310,7 +312,7 @@
         wishId={wish.id}
         door={wish.door}
         beat="weight"
-        transcript={lText(wish.weight.transcript)}
+        transcript={wishCopy.weight.transcript}
       />
       <div class="toto-beat-bar">
         <TotoIllustration pose="curious" size={44} label={$dict.totoPage.poses[1].alt} />
@@ -321,12 +323,13 @@
       {#if SHOW_DRAFT_BADGE && (wish.weight.draft || wish.status === 'draft')}
         <span class="draft-pill">{$dict.player.draftTag}</span>
       {/if}
-      <p class="beat-main-text weight-q">{lText(wish.weight.question)}</p>
+      <p class="beat-main-text weight-q">{wishCopy.weight.question}</p>
       {#if heritageWish}
         <WobbleReadout
           countryIso={ctxCountryIso}
           countryName={ctxCountryName}
           binding={heritageWish.binding}
+          dependencyText={wishCopy.dependencyLabel}
           base={base}
         />
       {/if}
@@ -341,8 +344,8 @@
             on:click={() => chooseWeight(opt.id)}
           >
             <span class="wc-key">({opt.id})</span>
-            <span class="wc-text">{lText(opt.text)}</span>
-            <span class="wc-meta">{opt.light} · {$dict.player.shadows[opt.shadow]}</span>
+            <span class="wc-text">{wishCopy.weight.optionText(opt.id, opt.text)}</span>
+            <span class="wc-meta">{pickLightLabel(opt.light, $dict)} · {$dict.player.shadows[opt.shadow]}</span>
           </button>
         {/each}
       </div>
@@ -351,7 +354,7 @@
         wishId={wish.id}
         door={wish.door}
         beat="way"
-        transcript={lText(wish.way.transcript)}
+        transcript={wishCopy.way.transcript}
       />
       <div class="toto-beat-bar">
         <TotoIllustration pose="calm" size={44} label={$dict.totoPage.poses[0].alt} />
@@ -359,12 +362,12 @@
           <strong class="toto-speaker">{$dict.totoBeats.speaker}:</strong> {$dict.totoBeats.way}
         </p>
       </div>
-      <p class="beat-main-text">{lText(wish.way.text)}</p>
+      <p class="beat-main-text">{wishCopy.way.text}</p>
 
       <div class="way-action-box">
         <span class="way-box-tag">{$dict.player.wayActionTitle}</span>
-        <h4>{lText(wish.way.actionCardTitle)}</h4>
-        <p>{lText(wish.way.actionCardStep)}</p>
+        <h4>{wishCopy.way.actionCardTitle}</h4>
+        <p>{wishCopy.way.actionCardStep}</p>
         <button type="button" class="btn-pledge" class:pledged={pledged} on:click={togglePledge}>
           {pledged ? `✓ ${$dict.player.pledgeDone}` : $dict.player.pledgeBtn}
         </button>
@@ -391,10 +394,10 @@
               <span>{$dict.player.realityScales.realToday}</span>
             </li>
           </ol>
-          <p class="rm-note">{lText(wish.realityMeter.reason)}</p>
+          <p class="rm-note">{wishCopy.realityReason}</p>
           {#if wish.realityMeter.observedMetric?.directCapabilityMatch}
             <p class="rm-direct-metric">
-              <strong>{wish.realityMeter.observedMetric.value}</strong> — {lText(wish.realityMeter.observedMetric.label)}
+              <strong>{wish.realityMeter.observedMetric.value}</strong> — {wishCopy.metricLabel}
             </p>
           {/if}
           <p class="rm-source">
@@ -418,7 +421,7 @@
             <strong>{$dict.player.countryHookPrefix}</strong>
             {#if heritageWish}
               {@const ctaCountryIso = ctxCountryIso !== 'GLOBAL' ? ctxCountryIso : (heritageWish.countries[0] ?? 'NOR')}
-              {@const ctaCountryLabel = ctxCountryIso !== 'GLOBAL' ? ctxCountryName : ctaCountryIso}
+              {@const ctaCountryLabel = ctxCountryIso !== 'GLOBAL' ? ctxCountryName : getCountryDisplayName(ctaCountryIso, ctaCountryIso, $activeLocale)}
               <p>
                 <button
                   type="button"
@@ -434,8 +437,10 @@
               </p>
             {:else if countryRef && countryRef.kind === 'rated'}
               <p>
-                To receive &ldquo;{lText(wish.title)}&rdquo;, <strong>{countryRef.name}</strong> has
-                <strong>{countryRef.checklistCount} of 5</strong> things in place.
+                {$dict.country.countryHookTpl
+                  .replace('{title}', wishCopy.title)
+                  .replace('{country}', getCountryDisplayName(countryRef.iso, countryRef.name, $activeLocale))
+                  .replace('{count}', String(countryRef.checklistCount))}
               </p>
             {:else}
               <p><a href="#country-check">{$dict.player.countryHookUnset}</a></p>

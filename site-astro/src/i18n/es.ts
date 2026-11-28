@@ -8,6 +8,38 @@ export const es: TranslationDict = {
   dir: 'ltr',
   label: 'Español',
 
+  headerUi: {
+    homeAria: 'HSRI — Inicio',
+    tagline: 'Índice de Preparación ante la Superinteligencia Humana',
+    primaryNavAria: 'Navegación principal',
+    nav: {
+      sandbox: 'Laboratorio',
+      sandboxBadge: 'SIMULADOR',
+      countries: 'Países',
+      seismograph: 'Pulso Vivo',
+      liveBadge: 'VIVO',
+      scenarios: 'Escenarios',
+      monograph: 'Monografía',
+      monographBadge: 'TRATADO',
+      scienceGroup: 'Ciencia y Datos'
+    },
+    utility: {
+      methodology: 'Metodología',
+      methodologyDesc: 'Reglas de cálculo y pruebas formales',
+      data: 'Datos y Cobertura',
+      dataDesc: 'Indicadores y descargas abiertas',
+      researchLogs: 'Registro Científico',
+      researchLogsDesc: 'Actualizaciones y prepublicaciones',
+      doiDesc: 'Archivo permanente — CC BY-SA 4.0'
+    },
+    langSwitcherAria: 'Elegir idioma del sitio',
+    langMenuLabel: 'Idioma',
+    themeDarkAria: 'Cambiar a modo oscuro',
+    themeLightAria: 'Cambiar a papel crema',
+    menuOpenAria: 'Abrir navegación',
+    menuCloseAria: 'Cerrar navegación'
+  },
+
   meta: {
     title:
       '¿Estamos listos para lo que pedimos a la superinteligencia? | Humanity Superintelligence Readiness Index',
@@ -29,7 +61,28 @@ export const es: TranslationDict = {
     ctaCountrySecondary: '¿Puede {country} sostenerlo?',
     cityLabel: 'Cielo de llegada sobre:',
     cityNeutralName: 'Puerto Costero',
+    cityNeutralOption: 'Puerto Costero (Global)',
     cityNeutralNote: 'Vista portuaria neutral · elige una ciudad para cambiar el horizonte',
+    citySelectLabel: 'Cambiar horizonte de país o ciudad',
+    nextCityBtn: 'Siguiente ciudad',
+    nextCityTitle: 'Volar con Toto sobre el siguiente país',
+    pauseBtn: 'Pausar',
+    playBtn: 'Reproducir',
+    replayBtn: 'Repetir',
+    pauseAria: 'Pausar animación de entrada',
+    playAria: 'Reproducir animación de entrada',
+    replayAria: 'Repetir animación de entrada',
+    scrubAria: 'Explorar línea temporal de llegada de Toto',
+    jumpSceneAria: 'Ir a la escena {n}',
+    regionGroups: {
+      'Featured Skies': 'Horizontes destacados',
+      Africa: 'África',
+      Americas: 'Américas',
+      'Asia & Middle East': 'Asia y Oriente Medio',
+      Europe: 'Europa',
+      Oceania: 'Oceanía',
+      'Global view': 'Vista global'
+    },
     totoCaption: 'Toto llega al amanecer: «Puedo entregar un avance por persona. Pídelo con claridad.»',
     ringTitle: 'La preparación de la humanidad, según personas como tú',
     ringEmptyHeadline: 'Sé una de las primeras 200 personas participantes.',
@@ -57,7 +110,9 @@ export const es: TranslationDict = {
           'Esta semana las máquinas aceleraron en tareas de varios pasos que antes revisaban personas. Por eso importan las verificaciones.'
       }
     },
-    cta: 'Ver el pulso en vivo'
+    cta: 'Ver el pulso en vivo',
+    humanPaceLabel: 'Ritmo humano',
+    aiPaceLabel: 'Ritmo IA (~3.200×)'
   },
 
   totoCard: {
@@ -315,16 +370,39 @@ export const es: TranslationDict = {
     heading: '¿Puede tu país recibir el avance?',
     subhead: 'Elige un país. Mira qué ya funciona y qué falta aún.',
     searchPlaceholder: 'Buscar entre 148 países...',
+    searchLabel: 'Filtrar países por nombre',
+    selectLabel: 'Seleccionar país',
     checklistLabel: 'Lista sencilla, no un ranking',
     unratedBadge: 'Aún sin calificación completa en el índice de 39 países',
     unratedHelpCta: 'Ayúdanos a evaluar tu país',
     openCountryCta: 'Abrir página completa del país',
     openLabCta: 'Explorar transiciones en el Laboratorio',
-    techReadingLabel: 'Lectura técnica'
+    techReadingLabel: 'Lectura técnica',
+    benchmarkBadge: 'ÍNDICE DE 39 PAÍSES',
+    autoDetectedBadge: 'DETECTADO AUTO',
+    benchmarkGroupTpl: 'Países evaluados ({count})',
+    coverageGroupTpl: 'Auditorías de cobertura ({count})',
+    partialDataSuffix: 'Datos parciales',
+    runsOfflineLabel: 'Autonomía sin red',
+    catchesLabel: 'Sostiene el avance',
+    safeguardsReadyLabel: 'Salvaguardas listas',
+    ofFiveTpl: '{count} de 5',
+    catchStates: {
+      easily: 'Con soltura',
+      effort: 'Con esfuerzo',
+      struggles: 'Con dificultad'
+    },
+    safeguardPills: ['72h sin red', 'Red eléctrica', 'Verificación', 'Reglas claras', 'Red de ingresos'],
+    detailsSummaryTpl: 'Ver las 5 salvaguardas y el cuello de botella de {country}',
+    mainConstraintLabel: 'Límite principal:',
+    checkingBaseline: 'Consultando referencia nacional...',
+    neverGuessedNote: 'Nunca estimado sin datos',
+    countryHookTpl: 'Para recibir «{title}», {country} tiene listos {count} de 5 pilares.'
   },
 
   episode: {
     heading: 'Esta semana con Toto',
+    episodeLabel: 'Episodio 1',
     badge: 'EPISODIO PILOTO 1 · EN PRODUCCIÓN',
     title: 'El Primer Avance',
     synopsis:
@@ -362,9 +440,16 @@ export const es: TranslationDict = {
   },
 
   deeper: {
+    eyebrow: 'BASE EMPÍRICA ABIERTA',
     heading: 'La investigación detrás de la historia',
     subhead:
       'Cada metáfora anterior se apoya en mediciones revisadas por pares, código abierto y datos por país a un toque.',
+    statNations: 'Países analizados a fondo',
+    statCompleteness: 'Integridad de indicadores observados',
+    statScenarios: 'Riesgos de transición modelados',
+    statSignals: 'Señales tempranas vigiladas',
+    primaryCta: 'Probar escenarios en el Laboratorio',
+    citationSummary: 'Cita y garantía de datos abiertos (DOI 10.5281/zenodo.23441742)',
     releaseNote:
       'Edición preliminar: 39 países evaluados (media base 53,8 / 100), 96,5% de integridad de datos (proporción de indicadores observados en 39 países de referencia — 640 de 663 celdas).',
     cards: [
@@ -504,14 +589,38 @@ export const es: TranslationDict = {
 
   footerUi: {
     brandTitle: 'Índice de Preparación ante la Superinteligencia (HSRI)',
+    tagline: 'Consorcio de Investigación Abierta · DOI permanente: 10.5281/zenodo.23441742',
     brandDesc:
       'Referencia empírica abierta que mide el criterio humano, la preparación institucional y cuánto pueden sostenerse las sociedades si los sistemas en la nube se detienen.',
-    langHeading: 'Idiomas:',
+    researchHeading: 'Investigación',
+    scienceHeading: 'Ciencia Abierta y Control',
+    researchLinks: [
+      'Abrir el Laboratorio',
+      'Índice de 39 países',
+      'Pulso en Vivo (Sismógrafo)',
+      'Atlas de 26 Escenarios',
+      'La Monografía Completa'
+    ],
+    scienceLinks: [
+      'Metodología Científica',
+      'Descargas de Datos',
+      'Auditoría de Cobertura',
+      'Resumen del viernes',
+      'Limitaciones y Aviso'
+    ],
+    contactHeading: 'Consultas de Investigación',
+    contactDesc: 'Para sesiones institucionales, validación de datos o colaboración académica:',
+    langHeading: 'Idiomas (14 ediciones globales):',
     rtlActiveNotice: 'Modo RTL activo.',
+    communityReviewNotice: 'Abierto a revisión nativa comunitaria.',
     privacyLink: 'Privacidad',
     languagesLink: 'Idiomas',
     totoLink: 'Toto',
-    recapLink: 'Resumen del viernes'
+    recapLink: 'Resumen del viernes',
+    doiLink: 'DOI Permanente (Zenodo)',
+    disclaimerLink: 'Aviso Actuarial',
+    licenseLink: 'Licencia CC BY-SA 4.0',
+    copyright: '© 2026 Consorcio HSRI. Conjuntos empíricos publicados bajo licencia abierta.'
   },
 
   heritageUi: {
@@ -542,6 +651,11 @@ export const es: TranslationDict = {
     flowCatch: 'Sostén · {country}',
     otherDomainsLabel: 'Explora los 5 ámbitos desde la perspectiva de {country}:',
     otherTraditionsLabel: 'Comparar tradiciones del mundo:',
+    allTraditionsBtn: 'Las {count}',
+    plannedNextLabel: 'Próximamente:',
+    auditChip: 'Auditoría',
+    domainsTablistAria: 'Cinco ámbitos de avance',
+    traditionsAria: 'Tradiciones culturales del mundo',
     lightsCountryHeading: '5 Luces de Preparación · {country}',
     lightsHumanGroup: 'Tus decisiones humanas',
     lightsCountryGroup: 'Capacidad de {country}',

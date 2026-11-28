@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { dict } from '../i18n/store';
+  import { activeLocale, dict, getCountryDisplayName } from '../i18n/store';
   import {
     readinessStore,
     completedWishList,
@@ -28,22 +28,26 @@
   $: selectedCountryText = (() => {
     const c = state.selectedCountry;
     if (!c) return $dict.player.countryCapabilityUnset;
+    const cName = getCountryDisplayName(c.iso, c.name, $activeLocale);
     if (c.kind === 'unrated') {
-      return $dict.player.countryCapabilityUnrated.replace('{name}', c.name);
+      return $dict.player.countryCapabilityUnrated.replace('{name}', cName);
     }
     return $dict.player.countryCapabilityNote
-      .replace('{name}', c.name)
+      .replace('{name}', cName)
       .replace('{count}', String(c.checklistCount ?? 0));
   })();
 
   $: activeCountryLabel =
-    state.selectedCountry?.name ??
-    ($countryContextStore.iso !== 'GLOBAL' ? $countryContextStore.countryName : '');
+    state.selectedCountry
+      ? getCountryDisplayName(state.selectedCountry.iso, state.selectedCountry.name, $activeLocale)
+      : $countryContextStore.iso !== 'GLOBAL'
+        ? getCountryDisplayName($countryContextStore.iso, $countryContextStore.countryName, $activeLocale)
+        : '';
   $: countryCapStatus = (() => {
     const c = state.selectedCountry;
     if (!c) return '';
     if (c.kind === 'rated') return `${c.checklistCount ?? 0}/5`;
-    return $dict.heritageUi.livingBadge ? 'Partial' : 'Partial';
+    return $dict.heritageUi.auditChip;
   })();
 
   function getLocalizedLight(idx: number) {
@@ -231,7 +235,7 @@
             <span class="cap-chip">
               {state.selectedCountry.kind === 'rated'
                 ? `${state.selectedCountry.checklistCount ?? 0}/5`
-                : 'Audit'}
+                : $dict.heritageUi.auditChip}
             </span>
           {/if}
         </button>

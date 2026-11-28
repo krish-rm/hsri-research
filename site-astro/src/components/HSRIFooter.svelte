@@ -1,33 +1,32 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { activeLocale, dict, initLocale, setLocale } from '../i18n/store';
-  import type { LocaleKey } from '../i18n/en';
+  import { activeLocale, dict, initLocale, setLocale, SUPPORTED_LOCALES, type LocaleKey } from '../i18n/store';
   import { trackEvent } from '../lib/privacyStorage';
 
   const base = (import.meta.env.BASE_URL || '/hsri-research').replace(/\/$/, '');
 
-  // Curated, simplified footer navigation preserving all research routes
-  const footerNav = {
-    'Inquiry & Research': [
-      { name: 'Open the Lab (Sandbox)', href: `${base}/sandbox/` },
-      { name: '39-Nation Country Index', href: `${base}/countries/` },
-      { name: 'Live Pulse (Seismograph)', href: `${base}/seismograph/` },
-      { name: '26-Pathway Scenario Atlas', href: `${base}/scenarios/` },
-      { name: 'The Civilizational Monograph', href: `${base}/monograph/` },
+  // Curated, localized footer navigation preserving all research routes
+  $: footerNav = {
+    [$dict.footerUi.researchHeading]: [
+      { name: $dict.footerUi.researchLinks[0], href: `${base}/sandbox/` },
+      { name: $dict.footerUi.researchLinks[1], href: `${base}/countries/` },
+      { name: $dict.footerUi.researchLinks[2], href: `${base}/seismograph/` },
+      { name: $dict.footerUi.researchLinks[3], href: `${base}/scenarios/` },
+      { name: $dict.footerUi.researchLinks[4], href: `${base}/monograph/` },
     ],
-    'Open Science & Accountability': [
-      { name: 'Scientific Methodology', href: `${base}/methodology/` },
-      { name: 'Data Downloads', href: `${base}/data/` },
-      { name: 'Coverage Audit', href: `${base}/coverage/` },
-      { name: "Join Friday's recap", href: `${base}/toto/#this-week` },
-      { name: 'Limitations & Disclaimer', href: `${base}/methodology/#limitations` },
+    [$dict.footerUi.scienceHeading]: [
+      { name: $dict.footerUi.scienceLinks[0], href: `${base}/methodology/` },
+      { name: $dict.footerUi.scienceLinks[1], href: `${base}/data/` },
+      { name: $dict.footerUi.scienceLinks[2], href: `${base}/coverage/` },
+      { name: $dict.footerUi.scienceLinks[3], href: `${base}/toto/#this-week` },
+      { name: $dict.footerUi.scienceLinks[4], href: `${base}/methodology/#limitations` },
     ]
   };
 
   // Curated channels (zero github links)
-  const socialLinks = [
+  $: socialLinks = [
     { name: 'X / Twitter', href: 'https://twitter.com/hsri_research', icon: 'twitter' },
-    { name: 'Research Inquiries', href: 'mailto:contact@humanityreadiness.org', icon: 'email' },
+    { name: $dict.footerUi.contactHeading, href: 'mailto:contact@humanityreadiness.org', icon: 'email' },
   ];
 
   function chooseLocale(loc: LocaleKey) {
@@ -55,12 +54,12 @@
             <circle cx="20" cy="20" r="8" fill="var(--bg-canvas, #fbf7ee)"/>
           </svg>
           <div>
-            <h3 class="footer-title">Humanity Superintelligence Readiness Index</h3>
-            <p class="footer-tagline">Open Research Consortium &middot; Permanent DOI: 10.5281/zenodo.23441742</p>
+            <h3 class="footer-title">{$dict.footerUi.brandTitle}</h3>
+            <p class="footer-tagline">{$dict.footerUi.tagline}</p>
           </div>
         </div>
         <p class="footer-description">
-          An open empirical benchmark measuring human judgment, institutional preparedness, and how well societies can stand on their own feet if automated cloud systems pause.
+          {$dict.footerUi.brandDesc}
         </p>
       </div>
 
@@ -89,9 +88,9 @@
 
       <!-- Inquiries section -->
       <div class="footer-contact">
-        <h4 class="contact-title">Research Inquiries</h4>
+        <h4 class="contact-title">{$dict.footerUi.contactHeading}</h4>
         <p class="contact-description">
-          For institutional briefings, data validation, or academic collaboration:
+          {$dict.footerUi.contactDesc}
         </p>
         <a href="mailto:contact@humanityreadiness.org" class="contact-link">
           contact@humanityreadiness.org
@@ -117,36 +116,26 @@
       </div>
     </div>
 
-    <!-- Language & RTL Layout Switcher -->
-    <div id="languages" class="footer-languages" aria-label="Language and reading direction">
+    <!-- Language & RTL Layout Switcher (14 global editions) -->
+    <div id="languages" class="footer-languages" aria-label={$dict.headerUi.langSwitcherAria}>
       <span class="lang-heading">{$dict.footerUi.langHeading}</span>
-      <button
-        type="button"
-        class="lang-btn"
-        class:active={$activeLocale === 'en'}
-        on:click={() => chooseLocale('en')}
-      >
-        English
-      </button>
-      <button
-        type="button"
-        class="lang-btn"
-        class:active={$activeLocale === 'es'}
-        on:click={() => chooseLocale('es')}
-      >
-        Español
-      </button>
-      <button
-        type="button"
-        class="lang-btn"
-        class:active={$activeLocale === 'ar'}
-        on:click={() => chooseLocale('ar')}
-        title="Switch to Arabic (live RTL layout)"
-      >
-        العربية (RTL)
-      </button>
+      {#each SUPPORTED_LOCALES as locOpt}
+        <button
+          type="button"
+          class="lang-btn"
+          class:active={$activeLocale === locOpt.code}
+          aria-pressed={$activeLocale === locOpt.code}
+          title={locOpt.englishName}
+          on:click={() => chooseLocale(locOpt.code)}
+        >
+          {locOpt.label}
+        </button>
+      {/each}
       {#if $activeLocale === 'ar' || $activeLocale === 'rtl-stub'}
         <span class="rtl-badge" role="status">{$dict.footerUi.rtlActiveNotice}</span>
+      {/if}
+      {#if $activeLocale !== 'en'}
+        <span class="review-badge">{$dict.footerUi.communityReviewNotice}</span>
       {/if}
     </div>
 
@@ -157,13 +146,13 @@
         <a href={`${base}/toto/`} class="footer-link">{$dict.footerUi.totoLink}</a>
         <a href="#languages" class="footer-link">{$dict.footerUi.languagesLink}</a>
         <a href={`${base}/#this-week`} class="footer-link">{$dict.footerUi.recapLink}</a>
-        <a href="https://doi.org/10.5281/zenodo.23441742" class="footer-link" target="_blank" rel="noopener noreferrer">Permanent DOI (Zenodo)</a>
-        <a href={`${base}/methodology/#limitations`} class="footer-link">Actuarial Disclaimer</a>
-        <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="footer-link" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0 License</a>
+        <a href="https://doi.org/10.5281/zenodo.23441742" class="footer-link" target="_blank" rel="noopener noreferrer">{$dict.footerUi.doiLink}</a>
+        <a href={`${base}/methodology/#limitations`} class="footer-link">{$dict.footerUi.disclaimerLink}</a>
+        <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="footer-link" target="_blank" rel="noopener noreferrer">{$dict.footerUi.licenseLink}</a>
       </div>
 
       <div class="copyright">
-        <p>&copy; 2026 HSRI Research Consortium. Empirical datasets published under open research license.</p>
+        <p>{$dict.footerUi.copyright}</p>
       </div>
     </div>
   </div>
@@ -357,6 +346,12 @@
     font-size: 0.75rem;
     font-weight: 600;
     cursor: pointer;
+    transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+  }
+
+  .lang-btn:hover {
+    border-color: var(--accent-primary, #1b6756);
+    color: var(--accent-primary, #1b6756);
   }
 
   .lang-btn.active {
@@ -365,11 +360,21 @@
     color: var(--btn-primary-text, #ffffff);
   }
 
+  .lang-btn.active:hover {
+    color: var(--btn-primary-text, #ffffff);
+  }
+
   .rtl-badge {
     font-family: var(--font-family-mono, monospace);
     font-size: 0.7rem;
     color: var(--accent-primary, #1b6756);
     font-weight: 700;
+  }
+
+  .review-badge {
+    font-size: 0.72rem;
+    color: var(--text-secondary, #64748b);
+    font-style: italic;
   }
 
   .footer-bottom {

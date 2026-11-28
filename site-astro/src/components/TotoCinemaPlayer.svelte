@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onDestroy, onMount } from 'svelte';
-  import { dict } from '../i18n/store';
+  import { activeLocale, dict, getCountryDisplayName, type LocaleKey } from '../i18n/store';
   import { trackEvent } from '../lib/privacyStorage';
   import {
     COUNTRY_SKIES,
@@ -33,6 +33,19 @@
   $: cityImgSrc = `${base}${city.imagePath}`;
   $: activeSceneIdx = Math.min(3, Math.floor((elapsedSec % DURATION_SEC) / 4));
   $: progressPct = Math.min(100, Math.max(0, ((elapsedSec % DURATION_SEC) / DURATION_SEC) * 100));
+
+  function formatSkyOption(c: CountrySky, loc: LocaleKey): string {
+    if (c.iso === 'GLOBAL') return $dict.hero.cityNeutralOption;
+    if (loc === 'en' || loc === 'rtl-stub') return c.name;
+    const countryLoc = getCountryDisplayName(c.iso, c.country, loc);
+    return `${countryLoc} · ${c.city}`;
+  }
+
+  $: localizedCityDisplay =
+    activeCityId === 'neutral'
+      ? $dict.hero.cityNeutralName
+      : formatSkyOption(city, $activeLocale);
+  $: localizedRegionHint = $dict.hero.regionGroups[city.regionHint] ?? city.regionHint;
 
   function formatSec(sec: number): string {
     const whole = Math.max(0, Math.floor(sec % DURATION_SEC));
@@ -153,8 +166,8 @@
     <span class="tc-city-label" title={city.horizonMotif}>
       <span class="live-dot" aria-hidden="true"></span>
       {$dict.hero.cityLabel}
-      <strong id="hcn">{activeCityId === 'neutral' ? $dict.hero.cityNeutralName : city.name}</strong>
-      <span id="hcr" class="region-chip">{city.regionHint}</span>
+      <strong id="hcn">{localizedCityDisplay}</strong>
+      <span id="hcr" class="region-chip">{localizedRegionHint}</span>
       {#if autoSuggested}
         <button type="button" class="tz-switch-hint" onclick={() => selectEl?.focus()}>
           {$dict.heritageUi.autoDetectedHint}
@@ -163,7 +176,7 @@
     </span>
 
     <div class="tc-controls-top">
-      <label class="sr-only" for="hero-city-select">Switch country or city backdrop</label>
+      <label class="sr-only" for="hero-city-select">{$dict.hero.citySelectLabel}</label>
       <select
         id="hero-city-select"
         bind:this={selectEl}
@@ -171,11 +184,11 @@
         bind:value={activeCityId}
         onchange={() => handleCitySelect(activeCityId)}
       >
-        <option value="neutral">Coastal Harbour (Global)</option>
+        <option value="neutral">{$dict.hero.cityNeutralOption}</option>
         {#each REGION_GROUP_ORDER as groupName}
-          <optgroup label={`${groupName} (${countriesByGroup[groupName].length})`}>
+          <optgroup label={`${$dict.hero.regionGroups[groupName] ?? groupName} (${countriesByGroup[groupName].length})`}>
             {#each countriesByGroup[groupName] as c}
-              <option value={c.id}>{c.name}</option>
+              <option value={c.id}>{formatSkyOption(c, $activeLocale)}</option>
             {/each}
           </optgroup>
         {/each}
@@ -184,9 +197,9 @@
         type="button"
         class="btn-next-city"
         onclick={cycleNextCity}
-        title="Fly Toto over next country"
+        title={$dict.hero.nextCityTitle}
       >
-        &#8635; Next city
+        &#8635; {$dict.hero.nextCityBtn}
       </button>
     </div>
   </div>
@@ -280,7 +293,7 @@
       type="button"
       class="cinema-scrub-bar"
       onclick={handleScrubClick}
-      aria-label="Seek Toto arrival animation timeline"
+      aria-label={$dict.hero.scrubAria}
     >
       <span class="scrub-track">
         {#key `${activeCityId}-${cycleKey}`}
@@ -327,7 +340,7 @@
             <span>{$dict.totoIntro.lines[2]}</span>
           </p>
           <p class="dialogue-line css-cap cap-4" class:active={activeSceneIdx === 3} aria-hidden={activeSceneIdx !== 3}>
-            <span><strong>{city.name}:</strong> {$dict.totoBeats.close}</span>
+            <span><strong>{localizedCityDisplay}:</strong> {$dict.totoBeats.close}</span>
           </p>
         </div>
       {/key}
@@ -337,23 +350,23 @@
   <!-- Video Playback Control Bar + Story Link -->
   <div class="tc-footer-bar">
     <div class="tc-play-controls">
-      <button type="button" class="btn-video-ctrl" onclick={togglePlay} aria-label={playing ? 'Pause intro animation' : 'Play intro animation'}>
-        {playing ? '⏸ Pause' : '▶ Play'}
+      <button type="button" class="btn-video-ctrl" onclick={togglePlay} aria-label={playing ? $dict.hero.pauseAria : $dict.hero.playAria}>
+        {playing ? `⏸ ${$dict.hero.pauseBtn}` : `▶ ${$dict.hero.playBtn}`}
       </button>
-      <button type="button" class="btn-video-ctrl" onclick={() => restartFrom(0)} aria-label="Replay intro animation">
-        ↺ Replay
+      <button type="button" class="btn-video-ctrl" onclick={() => restartFrom(0)} aria-label={$dict.hero.replayAria}>
+        ↺ {$dict.hero.replayBtn}
       </button>
       <span class="tc-time-code">{formatSec(elapsedSec)} / 0:{DURATION_SEC}</span>
     </div>
 
-    <div class="tc-scene-dots" role="group" aria-label="Jump to animation moment">
+    <div class="tc-scene-dots" role="group" aria-label={$dict.hero.scrubAria}>
       {#each [0, 4, 8, 12] as sec, idx}
         <button
           type="button"
           class="scene-dot"
           class:active={activeSceneIdx === idx}
           onclick={() => restartFrom(sec)}
-          aria-label={`Jump to scene ${idx + 1}`}
+          aria-label={$dict.hero.jumpSceneAria.replace('{n}', String(idx + 1))}
         >
           {idx + 1}
         </button>

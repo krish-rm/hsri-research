@@ -340,3 +340,20 @@ input:focus, select:focus, textarea:focus {
 [dir='rtl'] .dp-door-tag {
   letter-spacing: 0 !important;
 }
+
+/* Preserve natural glyph shaping & spacing in Indic and CJK scripts */
+:is([lang='hi'], [lang='bn'], [lang='zh'], [lang='ja'], [lang='ko']) .eyebrow-pill,
+:is([lang='hi'], [lang='bn'], [lang='zh'], [lang='ja'], [lang='ko']) .pulse-name,
+:is([lang='hi'], [lang='bn'], [lang='zh'], [lang='ja'], [lang='ko']) .hsri-badge,
+:is([lang='hi'], [lang='bn'], [lang='zh'], [lang='ja'], [lang='ko']) .wp-badge,
+:is([lang='hi'], [lang='bn'], [lang='zh'], [lang='ja'], [lang='ko']) .country-badge,
+:is([lang='hi'], [lang='bn'], [lang='zh'], [lang='ja'], [lang='ko']) .card-tag,
+:is([lang='hi'], [lang='bn'], [lang='zh'], [lang='ja'], [lang='ko']) .dp-door-tag,
+:is([lang='hi'], [lang='bn'], [lang='zh'], [lang='ja'], [lang='ko']) .hero-eyebrow,
+:is([lang='hi'], [lang='bn'], [lang='zh'], [lang='ja'], [lang='ko']) .sky-tag,
+:is([lang='hi'], [lang='bn'], [lang='zh'], [lang='ja'], [lang='ko']) .section-eyebrow,
+:is([lang='hi'], [lang='bn'], [lang='zh'], [lang='ja'], [lang='ko']) .fdp-eyebrow,
+:is([lang='hi'], [lang='bn'], [lang='zh'], [lang='ja'], [lang='ko']) .fdp-chip-badge,
+:is([lang='hi'], [lang='bn'], [lang='zh'], [lang='ja'], [lang='ko']) .wh-origin {
+  letter-spacing: 0 !important;
+}

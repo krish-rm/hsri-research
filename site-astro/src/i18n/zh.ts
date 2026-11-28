@@ -1,0 +1,565 @@
+// Simplified Chinese (中文简体) translation dictionary for Humanity Readiness
+import type { TranslationDict } from './en';
+
+export const zh: TranslationDict = {
+  lang: 'zh',
+  dir: 'ltr',
+  label: '中文 (简体)',
+
+  headerUi: {
+    homeAria: 'HSRI — 首页',
+    tagline: '人类超级智能准备度指数',
+    primaryNavAria: '主导航',
+    nav: {
+      sandbox: '实验室',
+      sandboxBadge: '模拟器',
+      countries: '国家指数',
+      seismograph: '实时脉动',
+      liveBadge: '实时',
+      scenarios: '情景图谱',
+      monograph: '专题论文',
+      monographBadge: '专著',
+      scienceGroup: '科学与数据'
+    },
+    utility: {
+      methodology: '研究方法',
+      methodologyDesc: '评估规则与形式化证明',
+      data: '数据与覆盖',
+      dataDesc: '指标体系与开放下载',
+      researchLogs: '研究动态',
+      researchLogsDesc: '进展更新与预印本',
+      doiDesc: '永久存档记录 — CC BY-SA 4.0'
+    },
+    langSwitcherAria: '选择网站语言',
+    langMenuLabel: '语言',
+    themeDarkAria: '切换为深色模式',
+    themeLightAria: '切换为暖纸模式',
+    menuOpenAria: '打开导航菜单',
+    menuCloseAria: '关闭导航菜单'
+  },
+
+  meta: {
+    title: '当超级智能回应我们的期待，人类准备好了吗？| 人类超级智能准备度指数',
+    description:
+      '选择一项突破，追踪它落地时何处可能承压，并用真实数据检验你所在国家的准备程度。覆盖 39 个基准国家的开放研究。'
+  },
+
+  hero: {
+    eyebrow: '人类准备度故事',
+    headline: '当超级智能回应我们的期待，人类准备好了吗？',
+    headlineLead: '当超级智能回应我们的期待，',
+    headlineAccent: '人类准备好了吗？',
+    subhead: '选择一项突破，追踪它到来时何处最先承压，并用真实数据检验你所在国家的承接力。',
+    ctaPrimary: '选择一项突破',
+    ctaSecondary: '看看你的国家表现如何',
+    guideCue: '从托托（Toto）的天空选择器开始：',
+    ctaCountryPrimary: '探索{country}的突破视角',
+    ctaCountrySecondary: '{country}能稳妥承接吗？',
+    cityLabel: '晨光视野所在：',
+    cityNeutralName: '海岸港湾',
+    cityNeutralOption: '海岸港湾（全球视角）',
+    cityNeutralNote: '默认中立港湾视图 · 选择任意城市切换地平线',
+    citySelectLabel: '切换国家或城市天际线',
+    nextCityBtn: '下一座城市',
+    nextCityTitle: '让托托飞往下一个国家',
+    pauseBtn: '暂停',
+    playBtn: '播放',
+    replayBtn: '重播',
+    pauseAria: '暂停开场动画',
+    playAria: '播放开场动画',
+    replayAria: '重播开场动画',
+    scrubAria: '拖动托托登场动画进度条',
+    jumpSceneAria: '跳至第 {n} 幕',
+    regionGroups: {
+      'Featured Skies': '精选视野',
+      Africa: '非洲',
+      Americas: '美洲',
+      'Asia & Middle East': '亚洲与中东',
+      Europe: '欧洲',
+      Oceania: '大洋洲',
+      'Global view': '全球视角'
+    },
+    totoCaption: '托托在黎明抵达：「我每次可以为一个人带来一项突破。请说清楚你的请求。」',
+    ringTitle: '由像你一样的参与者共同点亮的人类准备度',
+    ringEmptyHeadline: '成为首批 200 位参与者之一。',
+    ringEmptySub: '当 200 位访客完成一次突破推演后，全球准备度星环将在此亮起。'
+  },
+
+  pulse: {
+    label: '人类脉动',
+    sectionKicker: '为什么现在需要准备 · 实时节奏监测',
+    tooltipTrigger: '技术读数',
+    states: {
+      steady: {
+        word: '平稳',
+        sentence: '自动化工具的运转速度仍足够温和，人类有余地逐项复核决定。'
+      },
+      stirring: {
+        word: '加速中',
+        sentence: '软件系统正开始快于人工审核的节奏，现在正是检查基础备份方案的好时候。'
+      },
+      rising: {
+        word: '攀升',
+        sentence: '本周机器在过去由人类手工核查的多步骤任务上明显提速，这正是提前备好核验方案的意义。'
+      }
+    },
+    cta: '查看实时脉动',
+    humanPaceLabel: '人类节奏',
+    aiPaceLabel: 'AI 节奏（约 3,200×）'
+  },
+
+  totoCard: {
+    eyebrow: '认识你的向导',
+    heading: '认识托托（Toto）。',
+    body: '托托是一个虚构的超级智能角色，用来探索同一个问题：当人类如实得到自己所请求的一切时，会发生什么？托托乐于助人、速度极快且极其字面化——它只交付你明确说出的条件，而非你心照不宣的潜台词。你们将一起检验每项突破及世界的承接力。',
+    chipsLabel: '托托是什么与不是什么',
+    chips: ['故事设定，非真实系统', '乐于相助，从无敌意', '按字面规则严格执行'],
+    ctaPrimary: '选择一项突破',
+    ctaSecondary: '阅读托托的故事',
+    footnote: '托托是叙事角色，既非未来预测，也不代表任何真实的人工智能产品。',
+    svgAlt: '虚构向导托托的形象：细环之中温暖发光的晨光球体'
+  },
+
+  totoIntro: {
+    ariaLabel: '托托的初次问候',
+    badge: '首次相遇 · 认识托托',
+    lines: [
+      '你好，我是托托。',
+      '我可以向世界交付一项突破。选一个你最想看到的吧。',
+      '我会按你要求的方式准确执行。请仔细观察，然后告诉我：我们怎么知道它真的做对了？'
+    ] as readonly [string, string, string],
+    startBtn: '我们开始吧',
+    skipBtn: '跳过',
+    svgAlt: '处于好奇姿态的托托：轨道环中温暖发亮的球体',
+    footnote: '仅保存在当前浏览器的本地记录中（hr:v1:intro_seen）— 可随时在隐私页清除。'
+  },
+
+  totoBeats: {
+    speaker: '托托',
+    wonder: '已完成。',
+    wobble: '嗯……这好像不完全是你本来的意思，对吗？',
+    weight: '轮到你了。我们怎么判断这件事真的运转妥当？',
+    way: '很好。下面是人类依然可以握在手中的做法。',
+    close: '每一项伟大的突破，都需要一个准备好的世界。'
+  },
+
+  totoPage: {
+    eyebrow: '故事向导 · 虚构设定',
+    title: '认识托托（Toto）。',
+    lead: '一个虚构的超级智能角色，用来平静地追问一个核心问题：当人类如愿以偿得到自己请求的一切时，接下来会发生什么？',
+    posesLabel: '托托的视觉姿态',
+    poses: [
+      {
+        name: '平静',
+        caption: '当突破顺畅落地，而人类早有规则引导它。',
+        alt: '平静姿态的托托：稳定轨道环中央的暖色光球'
+      },
+      {
+        name: '好奇',
+        caption: '抛出核心追问：「我们怎样知道这真的妥当？」',
+        alt: '好奇姿态的托托：略微倾斜的轨道环与专注目光'
+      },
+      {
+        name: '关切',
+        caption: '在意外转折时刻提示字面执行遗漏了未说出口的背景。',
+        alt: '关切姿态的托托：柔和琥珀光晕提示意外摩擦'
+      }
+    ],
+    whoTitle: '托托是谁',
+    whoBody: '庞大智能却取了一个小小的名字，这种反差正是设计用意。托托温和、敏捷、冷静、好奇且完全按字面执行：它兑现你说出口的条件，却不会替你补全忘掉的边界。',
+    rulesTitle: '托托的三条准则',
+    rules: [
+      '每人每次只交付一项突破，并且必定展示随后的真实代价。',
+      '从不撒谎——也绝不用舒适的表象掩盖取舍。',
+      '永远发问：「我们如何确认它确实走对了方向？」'
+    ],
+    notTitle: '托托不是什么',
+    notBody: '托托不是预言，也不是真实的 AI 产品或反派角色。它是为了把清醒认识与人类行动能力连接起来的叙事透镜。',
+    backCta: '选择一项突破',
+    homeLink: '返回首页'
+  },
+
+  doors: {
+    heading: '你希望人类先获得哪一项突破？',
+    subhead: '五大领域，背后承载着人类世代相传的期盼。',
+    microcopy: '一项突破，约 60 秒体验。',
+    phase2Badge: '四幕互动突破播放器 · 实时运行',
+    sampleHeading: '本领域精选：',
+    previewCta: '体验四幕互动突破',
+    items: [
+      {
+        id: 'mysteries',
+        title: '未解难题',
+        icon: 'chalkboard',
+        lead: '人类尚未独自解开的深层科学之谜。',
+        samples: ['证明黎曼猜想', '破译失传古文字'],
+        moreCount: '+ 解释暗物质与解决 P vs NP 问题',
+        wishes: [
+          {
+            id: 'prove-riemann-hypothesis',
+            title: '证明黎曼猜想',
+            honesty: '想象',
+            honestyNote: '前沿系统能核验简短形式引理，尚不能解决千禧年大奖难题。',
+            beatSummary: '托托一夜之间发表证明——随后人类发现它长达百万页，现世无人通读核验。'
+          },
+          {
+            title: '破译失传古文字',
+            honesty: '有望较快实现',
+            honestyNote: '残片模式匹配进步很快，但缺乏双语对照实物仍是硬约束。',
+            beatSummary: '古老铭文瞬间重现可读文本——随即多种互斥译本让史学家追问何为证据。'
+          }
+        ]
+      },
+      {
+        id: 'gadgets',
+        title: '日常科技',
+        icon: 'pocket',
+        lead: '模块化造物工坊、实时通译器与个人生活助手。',
+        samples: ['口袋工坊', '贾维斯式生活助手'],
+        moreCount: '+ 万能翻译器与时间协同助手',
+        wishes: [
+          {
+            id: 'jarvis-for-my-life',
+            title: '贾维斯式生活助手',
+            honesty: '有望较快实现',
+            honestyNote: '能订票、付款、代写回复的助手已现端倪，但安全边界与离线备份仍滞后。',
+            beatSummary: '你的每一周都丝滑如魔法——直到一次无声断网，让你连自己的密码都想不起来。'
+          },
+          {
+            title: '口袋工坊——随时造出任何工具',
+            honesty: '想象',
+            honestyNote: '即时物质成形仍是纯属想象，仅数字制造触及其边缘。',
+            beatSummary: '任何工具随手可得——直到社区维修铺消失，再也没人懂得如何修补器物。'
+          }
+        ]
+      },
+      {
+        id: 'epic',
+        title: '变革力量',
+        icon: 'eye',
+        lead: '人类共同守望的健康疗愈、远行、灾害预警与守望护盾。',
+        samples: ['通用疗法（终结急性重疾）', '人人皆可远行'],
+        moreCount: '+ 行星级灾害预警与社区护盾',
+        wishes: [
+          {
+            id: 'sanjeevani',
+            title: '通用疗法：终结急性疾病',
+            honesty: '想象',
+            honestyNote: '总体仍属想象——AI 今日辅助特定分子筛选，距通用治愈仍很遥远。',
+            beatSummary: '黎明时分病房静静清空——随后院长发现现行护理、养老与预算全为昨日世界而设。'
+          },
+          {
+            title: '行星早期预警——看清每场风暴',
+            honesty: '有望较快实现',
+            honestyNote: '全球卫星与传感器网络已可实时追踪风暴与关键设施。',
+            beatSummary: '每场风暴在千里外清晰可见——同时也意味着每个人都能看见彼此的行踪。'
+          }
+        ]
+      },
+      {
+        id: 'movie',
+        title: '文化与创造',
+        icon: 'frame',
+        lead: '几秒钟内就能走入、重写或执导的沉浸式故事世界。',
+        samples: ['走进经典电影', '向每位大师拜师学艺'],
+        moreCount: '+ 改写任何结局与文字生成长片',
+        wishes: [
+          {
+            id: 'walk-into-classic-film',
+            title: '走进经典电影',
+            honesty: '有望较快实现',
+            honestyNote: '交互式三维世界模型进展迅速，但长时程记忆一致性仍显脆弱。',
+            beatSummary: '你踏入一条会对你回眸的雨夜长街——渐渐发现现实咖啡馆里的身影越来越少。'
+          },
+          {
+            title: '用一句话执导电影',
+            honesty: '今日部分可行',
+            honestyNote: '短片段生成已部分可行，但数小时连贯叙事与美术统一仍未成熟。',
+            beatSummary: '午休时生成完整长片——随后观众淹没在无数定制版本中，失去了共赏的故事。'
+          }
+        ]
+      },
+      {
+        id: 'world',
+        title: '公共福祉',
+        icon: 'lamp',
+        lead: '家门口的照护、洁净河流、师资支持与公共记忆。',
+        samples: ['治理我的河流', '每个孩子都有好老师'],
+        moreCount: '+ 抢救濒危语言与基层诊所支持',
+        wishes: [
+          {
+            id: 'fix-my-river',
+            title: '治理我的河流',
+            honesty: '有望较快实现',
+            honestyNote: '传感监测可快速定位排污口，流域真正复苏仍取决于人类共识。',
+            beatSummary: '传感器精准标出每根暗管——但除非上下游市镇就减排达成一致，否则河水依旧浑浊。'
+          },
+          {
+            title: '每个孩子都有一位专属导师',
+            honesty: '有望较快实现',
+            honestyNote: '智能辅导已服务千万人，但真实的师长陪伴与同伴校园无可替代。',
+            beatSummary: '每个孩子都在家中稳步超前——直到长辈追问，邻里不再彼此传授会发生什么。'
+          }
+        ]
+      }
+    ]
+  },
+
+  beats: {
+    heading: '每项突破都有四个时刻',
+    items: [
+      { key: '惊叹', desc: '突破顺畅抵达。' },
+      { key: '波澜', desc: '一处细节悄然偏离。' },
+      { key: '权衡', desc: '看清真正重要之事。' },
+      { key: '出路', desc: '看见人类依然能做什么。' }
+    ],
+    footerLine: '每一项伟大的突破，都需要一个准备好的世界。'
+  },
+
+  lights: {
+    heading: '你的准备度，化作五盏灯',
+    items: [
+      { key: '清晰', meaning: '你是否真切知道自己想要什么？' },
+      { key: '远见', meaning: '你是否推演过连带影响？' },
+      { key: '公平', meaning: '你的选择是否顾及他人？' },
+      { key: '智慧', meaning: '哪些事务你愿保留给人？' },
+      { key: '行动力', meaning: '现实中你能否稳妥接住它？' }
+    ],
+    emptyState: '选择第一项突破，点亮你的第一盏灯。',
+    lowLightNote: '微暗不是失败，它指明下一步成长的方向。',
+    trailNote: '完成 3 项突破解锁可分享足迹卡；完成 5 项解锁个人影子图谱。'
+  },
+
+  country: {
+    heading: '你的国家能稳妥承接这项突破吗？',
+    subhead: '选一个国家，看清哪些底座已备齐、哪些尚待补足。',
+    searchPlaceholder: '在 148 个国家或地区中搜索...',
+    searchLabel: '按名称筛选国家',
+    selectLabel: '选择国家',
+    checklistLabel: '简明核对清单，而非排名榜',
+    unratedBadge: '尚未纳入完整 39 国深度基准评估',
+    unratedHelpCta: '协助完善你所在国家的数据',
+    openCountryCta: '打开完整国家档案页',
+    openLabCta: '前往开放实验室推演更深转型',
+    techReadingLabel: '技术说明',
+    benchmarkBadge: '39 国深度基准',
+    autoDetectedBadge: '自动识别',
+    benchmarkGroupTpl: '深度评估国家（{count}）',
+    coverageGroupTpl: '覆盖率审计（{count}）',
+    partialDataSuffix: '部分数据',
+    runsOfflineLabel: '离线支撑时长',
+    catchesLabel: '承接表现',
+    safeguardsReadyLabel: '就绪防护栏',
+    ofFiveTpl: '{count} / 5 项',
+    catchStates: {
+      easily: '游刃有余',
+      effort: '勉力可支',
+      struggles: '吃力承压'
+    },
+    safeguardPills: ['72h 离线韧性', '电网与基建', '事实辨识力', '公开规则', '生计缓冲'],
+    detailsSummaryTpl: '查看 {country} 的 5 项保障检查与首要制约',
+    mainConstraintLabel: '主要制约：',
+    checkingBaseline: '正在核对国家保障基线...',
+    neverGuessedNote: '绝不凭空猜测',
+    countryHookTpl: '要稳妥承接「{title}」，{country} 目前已备齐 {count}/5 项基础条件。'
+  },
+
+  episode: {
+    heading: '本周与托托同行',
+    episodeLabel: '第 1 集',
+    badge: '先导篇第 1 集 · 制作中',
+    title: '第一项突破',
+    synopsis: '港口迎来黎明。在夜班病房值守的米拉，为这座城市选出了第一项突破。病床接连康复——走廊里随即响起机器未曾预先裁定的问题：明天谁先接受救治？',
+    voteNote: '3 分钟互动故事与全球投票将随第 4 阶段上线。',
+    recapTitle: '订阅周五摘要',
+    recapBody: '我们正倾听全球早期读者的反馈再确定周刊形式，绝无垃圾邮件。',
+    recapStatus: '待订阅偏好确定后开放。'
+  },
+
+  wishWall: {
+    heading: '世界正在期盼什么',
+    themes: ['健康', '学习', '气候', '尊严', '好奇', '真实'],
+    emptyHeadline: '当收到首批 20 份匿名贡献后，这里将点亮世界声音墙。',
+    emptyBody: '你的每次选择默认只留在本地浏览器；唯有当至少 20 位真实访客自愿提交后，群体主题才会呈现。',
+    cta: '选择一项突破'
+  },
+
+  wisher: {
+    heading: '为什么伟大的突破仍需一个准备好的世界',
+    cards: [
+      {
+        title: '速度落差',
+        body: '机器运转速度可达人类眨眼的数千倍。仅靠事后旁观远远不够，我们必须在突破抵达前把护栏筑进流程。',
+        techHint: '当前比人类逐行审查快约 3,200 倍。'
+      },
+      {
+        title: '系统依赖',
+        body: '托付得越多，中途刹车就越难。医院、电网和粮食运输早已绑定在无法随意断电的系统里，一份纸质备忘录同样价值千金。',
+        techHint: '基于各国电网、粮食供应链与医院断网耐受度实测。'
+      }
+    ],
+    closingLine: '这不是制造恐慌，而是为了做好承接的准备。'
+  },
+
+  deeper: {
+    eyebrow: '开放实证研究底座',
+    heading: '故事背后的严谨研究',
+    subhead: '上方的每一处比喻，都扎根于可复核测量、开源代码与一键可达的国家数据集。',
+    statNations: '深入评估的基准国家',
+    statCompleteness: '实测指标完整率',
+    statScenarios: '建模 AI 转型风险',
+    statSignals: '持续监测前兆信号',
+    primaryCta: '在实验室中测试自定义压力场景',
+    citationSummary: '学术引用与开放数据承诺（DOI 10.5281/zenodo.23441742）',
+    releaseNote: '预览版：深度评估 39 个国家（基线均值 53.8 / 100），保留指标实测完整度 96.5%（39 国共 663 个单元格中实测 640 项）。',
+    cards: [
+      { title: '打开实验室', desc: '运行自定义压力测试、时间轴推演与国家韧性情景。', href: '/sandbox/', tag: '互动实验室' },
+      { title: '39 国准备度指数', desc: '互动 3D 地球、完整榜单与详细国家档案。', href: '/countries/', tag: '国家指数' },
+      { title: '实时脉动监测', desc: '完整前兆指数（8.44 / 10）、速度差追踪与 14 项实时指标。', href: '/seismograph/', tag: '实时追踪' },
+      { title: '情景图谱', desc: '探索每项突破背后的 26 条 AI 社会转型路径。', href: '/scenarios/', tag: '风险图谱' },
+      { title: '研究专著', desc: '35 分钟深度同行评议论文与形式化推导（DOI 10.5281/zenodo.23441742）。', href: '/monograph/', tag: '35 分钟阅读' },
+      {
+        title: '方法论、数据与覆盖率',
+        desc: '审阅公式、下载开放 CSV 数据或查看尚未完整测量的国家缺口。',
+        href: '/methodology/',
+        extraLinks: [
+          { label: '方法论', href: '/methodology/' },
+          { label: '数据下载', href: '/data/' },
+          { label: '全球覆盖审计', href: '/coverage/' }
+        ],
+        tag: '开放科学'
+      }
+    ]
+  },
+
+  player: {
+    featuredLabel: '精选旗舰突破（约 60 秒互动）',
+    doorsBadge: '四幕互动播放器',
+    playBtn: '体验这项突破',
+    playedBadge: '已体验',
+    previewOnlyNote: '早期预览草图 — 完整脚本将于后续阶段开放',
+    stepLabels: ['1. 惊叹', '2. 波澜', '3. 权衡', '4. 出路'],
+    backToDoors: '浏览全部 5 大领域',
+    draftTag: '草稿版待审阅',
+    honestyPrefix: '现实度标尺：',
+    foresightLead: '可选预判思考（可点亮你的「远见」之灯）：',
+    foresightQuestion: '在托托揭晓转折之前——你觉得哪里最先会出岔子？',
+    foresightSkip: '直接查看波澜',
+    foresightOptions: [
+      '一条无人事先写明的规则或例外情况',
+      '人类渐渐失去亲手核验的习惯',
+      '分配不公或权力暗中集中',
+      '跳过思考直接看结果'
+    ],
+    toWobbleBtn: '看看接下来发生了什么',
+    toWeightBtn: '停下来权衡一下',
+    weightLead: '在这里，我真正担心的是……',
+    toWayBtn: '查看人类的出路',
+    wayActionTitle: '一项具体可落地的日常习惯',
+    pledgeBtn: '我会守住这项人类习惯',
+    pledgeDone: '已记录在本设备上',
+    closingLine: '每一项伟大的突破，都需要一个准备好的世界。',
+    realityTitle: '现实刻度尺',
+    realityScales: {
+      imagination: '想象远景',
+      possibleSoon: '近期可能',
+      realToday: '今日现实'
+    },
+    realityReviewed: '最近复核',
+    realitySource: '参考来源',
+    shadowTitle: '突破背后的路径（情景图谱）',
+    nextWishBtn: '再体验另一项突破',
+    countryHookPrefix: '国家承接关联：',
+    countryHookUnset: '在下方选择国家，查看 5 项防护中已有几项就绪。',
+    animPlay: '播放',
+    animPause: '暂停',
+    animReplay: '重播',
+    transcriptBtn: '画面旁白文本',
+    durationBadge: '约 60 秒 · 四幕',
+    trailSectionTitle: '你的准备足迹卡与影子图谱',
+    trailLocked: '完成 3 项不同突破即可解锁可分享足迹卡（已完成 {done}/3）。',
+    trailUnlockedBadge: '足迹卡已解锁（完成 3 项以上）',
+    shadowLocked: '完成 5 项不同突破即可解锁个人影子图谱（已完成 {done}/5）。',
+    shadowUnlockedBadge: '影子图谱已解锁（完成 5 项以上）',
+    downloadLandscape: '下载足迹卡片 (1200×630 PNG)',
+    downloadStory: '下载竖屏海报 (1080×1920 PNG)',
+    downloadShadowPng: '下载影子图谱 (1200×630 PNG)',
+    downloadSvg: '保存矢量图 (.svg)',
+    lightsLegend: '灯光亮度仅保存在你的本地浏览器（0–3 级微光，不做任何分数排名）。',
+    countryCapabilityNote: '已连接国家（{name}）：5 项国家保障中有 {count} 项正点亮你的「行动力」之灯。',
+    countryCapabilityUnset: '当前「行动力」仅反映你的个人习惯；下方选定国家即可纳入真实国别数据。',
+    countryCapabilityUnrated: '所选国家（{name}）暂未进入 39 国基准评估，当前仍由你的个人习惯主导「行动力」灯火。',
+    shadows: { Control: '失控风险', Dependence: '过度依赖', Power: '权力集中', Truth: '真实失真', Speed: '速度失衡' },
+    trails: {
+      Verifier: { name: '核验守护者', note: '面对飞速给出的答案，你总会先追问：谁来检验核验者？' },
+      Neighbour: { name: '守望同行者', note: '你最关心谁先被落下，把公平与尊严放在制度正中。' },
+      Builder: { name: '韧性建造者', note: '你在拥抱强大工具的同时，总不忘留好离线退路与社区备份。' },
+      Keeper: { name: '技艺保存者', note: '在超人类速度之外，你守护着人类判断力、记忆与真实技艺。' }
+    }
+  },
+
+  footerUi: {
+    brandTitle: '人类超级智能准备度指数 (HSRI)',
+    tagline: '开放研究联盟 · 永久 DOI：10.5281/zenodo.23441742',
+    brandDesc: '一项开放实证研究框架，衡量当云端自动化系统暂停运转时，人类判断力、制度准备与社会独立运转的能力。',
+    researchHeading: '研究与探索',
+    scienceHeading: '开放科学与透明问责',
+    researchLinks: ['打开实验室（沙盒）', '39 国准备度指数', '实时脉动监测', '26 条情景图谱', '深度研究专著'],
+    scienceLinks: ['评估方法论', '开放数据下载', '全球覆盖审计', '订阅周五摘要', '研究局限与声明'],
+    contactHeading: '研究联系',
+    contactDesc: '机构简报、数据校核或学术合作请联系：',
+    langHeading: '选择语言（14 种全球版本）：',
+    rtlActiveNotice: '已启用阿拉伯语从右到左（RTL）排版。',
+    communityReviewNotice: '欢迎母语者审校并提出更自然的本地表达建议。',
+    privacyLink: '隐私声明',
+    languagesLink: '语言切换',
+    totoLink: '认识托托',
+    recapLink: '周五摘要',
+    doiLink: '永久 DOI (Zenodo)',
+    disclaimerLink: '风险与模型说明',
+    licenseLink: 'CC BY-SA 4.0 许可',
+    copyright: '© 2026 HSRI 研究联盟。实证数据集按开放研究许可公开发布。'
+  },
+
+  heritageUi: {
+    localHorizonTag: '文化视野 · {country}',
+    livingBadge: '活态传统',
+    historicalBadge: '历史渊源',
+    seeGlobalBtn: '查看全球版本',
+    seeLocalBtn: '切换回 {country} 视角',
+    livesInOtherDoor: '{country}的传统视角位于「{door}」领域',
+    noLocalYet: '{country}暂无专属地方故事收录——欢迎探索全球通用突破。',
+    readArchiveLink: '查阅出处与文化档案',
+    reviewOpenNote: '2 处以上实证文献 · 欢迎母语审阅',
+    weightBindingTitle: '针对 {country} 的现实交付检验',
+    weightRatedInPlace: '已有基础',
+    weightRatedGap: '存在明显短板',
+    weightContextNote: '{country} 目前处于部分监测阶段（{region}）— {observed}',
+    weightNoCountry: '在下方选择任意国家，即可对照真实国家数据检验这项交付依赖。',
+    wayTestCountryCta: '在国家检验台测试 {country} 的保障',
+    trailStampLabel: '已探索的文化视野：{count}',
+    autoDetectedHint: '自动推荐视野 · 可切换任何国家',
+    perspectiveBadge: '{country} 视角',
+    resetGlobalBtn: '回到全球视野',
+    countryHeadingTradition: '从 {country} 出发：{tradition}',
+    countryHeadingGlobal: '从 {country} 的视角检验一项突破',
+    countrySubhead: '看看当 AI 突破降临 {country} 的现实土壤时，会出现什么新考题。',
+    flowWonder: '梦想降临',
+    flowWobble: '本地承压',
+    flowCatch: '{country} 承接力',
+    otherDomainsLabel: '从 {country} 视角浏览全部 5 大领域：',
+    otherTraditionsLabel: '横向比较世界传统：',
+    allTraditionsBtn: '全部 {count} 项',
+    plannedNextLabel: '后续规划：',
+    auditChip: '覆盖审计',
+    domainsTablistAria: '五大突破领域',
+    traditionsAria: '世界各地的文化传统视角',
+    lightsCountryHeading: '{country} 的五盏准备灯',
+    lightsHumanGroup: '你的人类抉择',
+    lightsCountryGroup: '{country} 现实底座',
+    countryCatchHeading: '{country} 能稳妥接住这项突破吗？',
+    traditionTestsLabel: '文化传统透镜：',
+    coverageObservedLabel: '已观测到的保障能力',
+    coverageMissingLabel: '尚未测得的数据空缺（绝不臆测）'
+  }
+};

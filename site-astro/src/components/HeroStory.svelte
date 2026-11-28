@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { dict } from '../i18n/store';
+  import { activeLocale, dict, getCountryDisplayName } from '../i18n/store';
   import { trackEvent } from '../lib/privacyStorage';
   import { countryContextStore } from '../lib/countryContext';
   import TotoCinemaPlayer from './TotoCinemaPlayer.svelte';
@@ -8,7 +8,7 @@
 
   $: activeCountryName =
     $countryContextStore.iso && $countryContextStore.iso !== 'GLOBAL'
-      ? $countryContextStore.countryName
+      ? getCountryDisplayName($countryContextStore.iso, $countryContextStore.countryName, $activeLocale)
       : '';
 
   function handleCta(target: 'breakthrough' | 'country') {

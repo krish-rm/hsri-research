@@ -67,11 +67,11 @@
 
         <div class="pv-pace-bars" aria-hidden="true">
           <div class="pace-row">
-            <span class="pace-lbl">Human pace</span>
+            <span class="pace-lbl">{$dict.pulse.humanPaceLabel}</span>
             <span class="pace-track"><i class="pace-fill-human"></i></span>
           </div>
           <div class="pace-row">
-            <span class="pace-lbl">AI pace (~3,200&times;)</span>
+            <span class="pace-lbl">{$dict.pulse.aiPaceLabel}</span>
             <span class="pace-track">
               <i class="pace-fill-ai" style={`width:${Math.round(clampedPulse * 10)}%`}></i>
             </span>

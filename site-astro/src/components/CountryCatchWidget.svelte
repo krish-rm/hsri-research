@@ -1,7 +1,8 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import type { CountrySummaryItem } from '../lib/countryData';
-  import { dict, activeLocale } from '../i18n/store';
+  import { dict, activeLocale, storyOverlay, getCountryDisplayName } from '../i18n/store';
+  import { resolveHeritageMeta } from '../i18n/storyTypes';
   import { trackEvent } from '../lib/privacyStorage';
   import { completedWishList, setSelectedCountryForReadiness } from '../lib/readinessState';
   import { countryContextStore, syncCountryContext } from '../lib/countryContext';
@@ -53,17 +54,34 @@
     ['Europe/Athens', 'GRC']
   ];
 
-  $: filteredCountries = allCountries.filter((c) =>
-    !searchFilter.trim()
-      ? true
-      : c.name.toLowerCase().includes(searchFilter.trim().toLowerCase()) ||
-        c.iso.toLowerCase().includes(searchFilter.trim().toLowerCase())
-  );
+  $: filteredCountries = allCountries.filter((c) => {
+    const q = searchFilter.trim().toLowerCase();
+    if (!q) return true;
+    const locName = getCountryDisplayName(c.iso, c.name, $activeLocale).toLowerCase();
+    return (
+      c.name.toLowerCase().includes(q) ||
+      locName.includes(q) ||
+      c.iso.toLowerCase().includes(q)
+    );
+  });
   $: ratedFiltered = filteredCountries.filter((c) => c.kind === 'rated');
   $: unratedFiltered = filteredCountries.filter((c) => c.kind === 'unrated');
   $: activeCountry = allCountries.find((c) => c.iso === selectedIso) ?? allCountries[0];
-  $: loc = ($activeLocale === 'es' || $activeLocale === 'ar' ? $activeLocale : 'en') as 'en' | 'es' | 'ar';
+  $: activeCountryName = activeCountry
+    ? getCountryDisplayName(activeCountry.iso, activeCountry.name, $activeLocale)
+    : '';
   $: countryHeritage = activeCountry ? findAnyHeritageForCountry(activeCountry.iso) : null;
+  $: countryHeritageMeta = countryHeritage
+    ? resolveHeritageMeta(countryHeritage, $activeLocale, $storyOverlay)
+    : null;
+  $: localizedCatchStatus =
+    activeCountry?.kind === 'rated'
+      ? activeCountry.catchStatus === 'Easily'
+        ? $dict.country.catchStates.easily
+        : activeCountry.catchStatus === 'With effort'
+          ? $dict.country.catchStates.effort
+          : $dict.country.catchStates.struggles
+      : '';
 
   interface VisualCoverage {
     total: number;
@@ -205,7 +223,7 @@
     <div class="section-head">
       <h2 class="sec-title">
         {activeCountry
-          ? $dict.heritageUi.countryCatchHeading.replace('{country}', activeCountry.name)
+          ? $dict.heritageUi.countryCatchHeading.replace('{country}', activeCountryName)
           : $dict.country.heading}
       </h2>
       <p class="sec-sub">{$dict.country.subhead}</p>
@@ -215,7 +233,7 @@
       <div class="compact-country-box">
         <div class="select-grid">
           <div class="input-group">
-            <label for="country-search-input" class="sr-only">Filter countries by name</label>
+            <label for="country-search-input" class="sr-only">{$dict.country.searchLabel}</label>
             <input
               id="country-search-input"
               type="search"
@@ -225,7 +243,7 @@
             />
           </div>
           <div class="input-group">
-            <label for="country-select" class="sr-only">Select country</label>
+            <label for="country-select" class="sr-only">{$dict.country.selectLabel}</label>
             <select
               id="country-select"
               bind:value={selectedIso}
@@ -233,16 +251,16 @@
               class="country-select"
             >
               {#if ratedFiltered.length > 0}
-                <optgroup label="Benchmark Nations (39)">
+                <optgroup label={$dict.country.benchmarkGroupTpl.replace('{count}', String(ratedFiltered.length))}>
                   {#each ratedFiltered as c}
-                    <option value={c.iso}>{c.name} ({c.iso})</option>
+                    <option value={c.iso}>{getCountryDisplayName(c.iso, c.name, $activeLocale)} ({c.iso})</option>
                   {/each}
                 </optgroup>
               {/if}
               {#if unratedFiltered.length > 0}
-                <optgroup label="Coverage Audits ({unratedFiltered.length})">
+                <optgroup label={$dict.country.coverageGroupTpl.replace('{count}', String(unratedFiltered.length))}>
                   {#each unratedFiltered as c}
-                    <option value={c.iso}>{c.name} ({c.iso}) — Partial data</option>
+                    <option value={c.iso}>{getCountryDisplayName(c.iso, c.name, $activeLocale)} ({c.iso}) — {$dict.country.partialDataSuffix}</option>
                   {/each}
                 </optgroup>
               {/if}
@@ -254,21 +272,21 @@
           <div class="country-card-row">
             <div class="cc-top">
               <div>
-                <span class="rp-badge rated-badge">39-NATION BENCHMARK &middot; {activeCountry.region}{#if localeDetected}&nbsp;&middot; AUTO-DETECTED{/if}</span>
-                <h3 class="rp-name">{activeCountry.name}</h3>
+                <span class="rp-badge rated-badge">{$dict.country.benchmarkBadge} &middot; {activeCountry.region}{#if localeDetected}&nbsp;&middot; {$dict.country.autoDetectedBadge}{/if}</span>
+                <h3 class="rp-name">{activeCountryName}</h3>
               </div>
               <a href={`${base}/countries/${activeCountry.id}/`} class="btn-country-link">
                 {$dict.country.openCountryCta} <span class="arrow-flip" aria-hidden="true">&rarr;</span>
               </a>
             </div>
 
-            {#if countryHeritage}
+            {#if countryHeritage && countryHeritageMeta}
               <div class="cc-tradition-banner">
                 <ConceptVisualSvg variant={countryHeritage.id} compact={true} />
                 <div class="cct-copy">
-                  <span class="cct-label">{$dict.heritageUi.traditionTestsLabel} <strong>{countryHeritage.traditionLabel[loc] ?? countryHeritage.traditionLabel.en}</strong></span>
-                  <p class="cct-title">{countryHeritage.chipTitle[loc] ?? countryHeritage.chipTitle.en}</p>
-                  <p class="cct-dep">{countryHeritage.binding.dependencyLabel[loc] ?? countryHeritage.binding.dependencyLabel.en}</p>
+                  <span class="cct-label">{$dict.heritageUi.traditionTestsLabel} <strong>{countryHeritageMeta.traditionLabel}</strong></span>
+                  <p class="cct-title">{countryHeritageMeta.chipTitle}</p>
+                  <p class="cct-dep">{countryHeritageMeta.dependencyLabel}</p>
                 </div>
                 <a href={`${base}/traditions/${countryHeritage.slug}/`} class="cct-link">
                   {$dict.heritageUi.readArchiveLink} <span class="arrow-flip" aria-hidden="true">&rarr;</span>
@@ -278,7 +296,7 @@
 
             <div class="metrics-strip">
               <div class="m-chip">
-                <span>Runs offline</span>
+                <span>{$dict.country.runsOfflineLabel}</span>
                 <strong>{activeCountry.cloudDaysText}</strong>
                 <div class="battery-bars" aria-hidden="true">
                   {#each [1, 2, 3, 4, 5] as bSeg}
@@ -287,16 +305,16 @@
                 </div>
               </div>
               <div class="m-chip">
-                <span>Catches breakthrough</span>
+                <span>{$dict.country.catchesLabel}</span>
                 <strong
                   class:good={activeCountry.catchStatus === 'Easily'}
                   class:mid={activeCountry.catchStatus === 'With effort'}
                   class:warn={activeCountry.catchStatus === 'Struggles'}
-                >{activeCountry.catchStatus}</strong>
+                >{localizedCatchStatus}</strong>
               </div>
               <div class="m-chip">
-                <span>Safeguards ready</span>
-                <strong>{activeCountry.checklistCount} of 5</strong>
+                <span>{$dict.country.safeguardsReadyLabel}</span>
+                <strong>{$dict.country.ofFiveTpl.replace('{count}', String(activeCountry.checklistCount))}</strong>
                 <div class="battery-bars" aria-hidden="true">
                   {#each activeCountry.checklist as chk}
                     <span class="b-seg" class:on={chk.pass} class:gap={!chk.pass}></span>
@@ -305,18 +323,9 @@
               </div>
             </div>
 
-            <div class="visual-safeguards-bar" aria-label={`Safeguard snapshot for ${activeCountry.name}`}>
+            <div class="visual-safeguards-bar" aria-label={activeCountryName}>
               {#each activeCountry.checklist as item, idx}
-                {@const shortLabel =
-                  idx === 0
-                    ? '72h Offline'
-                    : idx === 1
-                      ? 'Grid & Digital'
-                      : idx === 2
-                        ? 'Claim Checks'
-                        : idx === 3
-                          ? 'Public Rules'
-                          : 'Livelihood Cushion'}
+                {@const shortLabel = $dict.country.safeguardPills[idx] ?? item.label}
                 <span class="vs-pill" class:pass={item.pass} class:focused={highlightedIdx === idx} title={item.label}>
                   {item.pass ? '✓' : '○'} {shortLabel}
                 </span>
@@ -324,8 +333,8 @@
             </div>
 
             <details class="cc-details" bind:open={detailsOpen}>
-              <summary>See the 5 safeguards &amp; primary bottleneck for {activeCountry.name}</summary>
-              <p class="cc-weak"><strong>Main constraint:</strong> {activeCountry.weakestLinkPlain}</p>
+              <summary>{$dict.country.detailsSummaryTpl.replace('{country}', activeCountryName)}</summary>
+              <p class="cc-weak"><strong>{$dict.country.mainConstraintLabel}</strong> {activeCountry.weakestLinkPlain}</p>
               <ul class="cl-items">
                 {#each activeCountry.checklist as item, idx}
                   <li class:passed={item.pass} class:focused-check={highlightedIdx === idx}>
@@ -340,21 +349,21 @@
           <div class="country-card-row">
             <div class="cc-top">
               <div>
-                <span class="rp-badge unrated-badge">{$dict.country.unratedBadge}{#if localeDetected}&nbsp;&middot; AUTO-DETECTED{/if}</span>
-                <h3 class="rp-name">{activeCountry.name} <small class="iso-small">({activeCountry.iso})</small></h3>
+                <span class="rp-badge unrated-badge">{$dict.country.unratedBadge}{#if localeDetected}&nbsp;&middot; {$dict.country.autoDetectedBadge}{/if}</span>
+                <h3 class="rp-name">{activeCountryName} <small class="iso-small">({activeCountry.iso})</small></h3>
               </div>
               <a href={`${base}/coverage/`} class="btn-country-link">
                 {$dict.country.unratedHelpCta} <span class="arrow-flip" aria-hidden="true">&rarr;</span>
               </a>
             </div>
 
-            {#if countryHeritage}
+            {#if countryHeritage && countryHeritageMeta}
               <div class="cc-tradition-banner">
                 <ConceptVisualSvg variant={countryHeritage.id} compact={true} />
                 <div class="cct-copy">
-                  <span class="cct-label">{$dict.heritageUi.traditionTestsLabel} <strong>{countryHeritage.traditionLabel[loc] ?? countryHeritage.traditionLabel.en}</strong></span>
-                  <p class="cct-title">{countryHeritage.chipTitle[loc] ?? countryHeritage.chipTitle.en}</p>
-                  <p class="cct-dep">{countryHeritage.binding.dependencyLabel[loc] ?? countryHeritage.binding.dependencyLabel.en}</p>
+                  <span class="cct-label">{$dict.heritageUi.traditionTestsLabel} <strong>{countryHeritageMeta.traditionLabel}</strong></span>
+                  <p class="cct-title">{countryHeritageMeta.chipTitle}</p>
+                  <p class="cct-dep">{countryHeritageMeta.dependencyLabel}</p>
                 </div>
                 <a href={`${base}/traditions/${countryHeritage.slug}/`} class="cct-link">
                   {$dict.heritageUi.readArchiveLink} <span class="arrow-flip" aria-hidden="true">&rarr;</span>
@@ -365,7 +374,7 @@
             {#if unratedVisual}
               <div class="coverage-visual-panel">
                 <div class="cov-head-row">
-                  <p class="ur-summary">{unratedVisual.headline} &middot; Never guessed</p>
+                  <p class="ur-summary">{unratedVisual.headline} &middot; {$dict.country.neverGuessedNote}</p>
                   <span class="cov-ratio-pill">{unratedVisual.observed} / {unratedVisual.total}</span>
                 </div>
                 <div class="cov-progress-bars" aria-hidden="true">
