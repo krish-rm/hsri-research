@@ -129,6 +129,12 @@
       // Keep Coastal Harbour default
     }
     startClock();
+    setTimeout(() => {
+      try {
+        const preload = new Image();
+        preload.src = `${base}/assets/cities/dawn-sky-base.webp`;
+      } catch {}
+    }, 600);
   });
 
   $: if ($countryContextStore.explicit && $countryContextStore.cityId && $countryContextStore.cityId !== activeCityId) {
@@ -188,15 +194,17 @@
   <!-- 16:9 Animated Cityscape & Flying Toto Cinema Frame -->
   <div class="cinema-viewport" style={`--seek-delay: -${seekOffsetSec}s;`}>
     <!-- Real Watercolor Sky / City Backdrop with Smooth Ken Burns Motion -->
-    <img
-      id="hero-city-bg"
-      src={cityImgSrc}
-      alt={`Dawn sky over ${city.name} (${city.horizonMotif}) with Toto flying smoothly across the open morning sky`}
-      width="760"
-      height="428"
-      decoding="async"
-      class="cinema-bg-img"
-    />
+    {#key cityImgSrc}
+      <img
+        id="hero-city-bg"
+        src={cityImgSrc}
+        alt={`Dawn sky over ${city.name} (${city.horizonMotif}) with Toto flying smoothly across the open morning sky`}
+        width="760"
+        height="428"
+        decoding="async"
+        class="cinema-bg-img"
+      />
+    {/key}
 
     {#if !city.painted}
       <CountrySkylineSvg archetype={city.archetype} />
@@ -451,7 +459,7 @@
     aspect-ratio: 16 / 9;
     container-type: size;
     overflow: hidden;
-    background: #fbf7ee;
+    background: linear-gradient(180deg, #dceee8 0%, #f5ebd4 56%, #fae4bc 73%, #cfe1dc 76%, #dcebe6 100%);
   }
 
   .cinema-bg-img {
