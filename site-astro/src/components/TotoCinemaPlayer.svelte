@@ -2,7 +2,16 @@
   import { onDestroy, onMount } from 'svelte';
   import { dict } from '../i18n/store';
   import { trackEvent } from '../lib/privacyStorage';
-  import { HERO_CITIES, findCityById } from '../lib/citySkies';
+  import {
+    COUNTRY_SKIES,
+    REGION_GROUP_ORDER,
+    SHOWCASE_CYCLE_IDS,
+    findCityById,
+    matchCityByTimezone,
+    type CountrySky,
+    type RegionGroup
+  } from '../lib/countrySkies';
+  import CountrySkylineSvg from './CountrySkylineSvg.svelte';
 
   export let base = '';
   export let compact = false;
@@ -61,9 +70,23 @@
     trackEvent('hero_city_switch', { city: id });
   }
 
+  const countriesByGroup = REGION_GROUP_ORDER.reduce(
+    (acc, group) => {
+      acc[group] = COUNTRY_SKIES.filter((c) => c.regionGroup === group);
+      return acc;
+    },
+    {} as Record<Exclude<RegionGroup, 'Featured Skies'>, CountrySky[]>
+  );
+
   function cycleNextCity() {
-    const idx = HERO_CITIES.findIndex((c) => c.id === activeCityId);
-    const next = HERO_CITIES[(idx + 1) % HERO_CITIES.length];
+    const sIdx = SHOWCASE_CYCLE_IDS.indexOf(activeCityId);
+    if (sIdx >= 0) {
+      const nextId = SHOWCASE_CYCLE_IDS[(sIdx + 1) % SHOWCASE_CYCLE_IDS.length];
+      handleCitySelect(nextId);
+      return;
+    }
+    const idx = COUNTRY_SKIES.findIndex((c) => c.id === activeCityId);
+    const next = COUNTRY_SKIES[(idx + 1) % COUNTRY_SKIES.length];
     if (next) handleCitySelect(next.id);
   }
 
@@ -78,11 +101,11 @@
   onMount(() => {
     try {
       const preset = (window as any).__hc || (window as any).__hrHeroCity;
-      if (preset && HERO_CITIES.some((c) => c.id === preset)) {
-        activeCityId = preset;
+      if (preset && COUNTRY_SKIES.some((c) => c.id === preset || c.iso.toLowerCase() === String(preset).toLowerCase())) {
+        activeCityId = findCityById(preset).id;
       } else {
         const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
-        const matched = HERO_CITIES.find((c) => c.tzPrefixes.some((p) => tz.startsWith(p)));
+        const matched = matchCityByTimezone(tz);
         if (matched) activeCityId = matched.id;
       }
     } catch {
@@ -99,7 +122,7 @@
 <div class="toto-cinema-card" class:compact class:paused={!playing}>
   <!-- Top Cinema Header & Interactive City Chooser -->
   <div class="tc-top-bar">
-    <span class="tc-city-label">
+    <span class="tc-city-label" title={city.horizonMotif}>
       <span class="live-dot" aria-hidden="true"></span>
       {$dict.hero.cityLabel}
       <strong id="hcn">{activeCityId === 'neutral' ? $dict.hero.cityNeutralName : city.name}</strong>
@@ -107,22 +130,27 @@
     </span>
 
     <div class="tc-controls-top">
-      <label class="sr-only" for="hero-city-select">Switch city backdrop</label>
+      <label class="sr-only" for="hero-city-select">Switch country or city backdrop</label>
       <select
         id="hero-city-select"
         class="city-select-mini"
         bind:value={activeCityId}
         onchange={() => handleCitySelect(activeCityId)}
       >
-        {#each HERO_CITIES as c}
-          <option value={c.id}>{c.name}</option>
+        <option value="neutral">Coastal Harbour (Global)</option>
+        {#each REGION_GROUP_ORDER as groupName}
+          <optgroup label={`${groupName} (${countriesByGroup[groupName].length})`}>
+            {#each countriesByGroup[groupName] as c}
+              <option value={c.id}>{c.name}</option>
+            {/each}
+          </optgroup>
         {/each}
       </select>
       <button
         type="button"
         class="btn-next-city"
         onclick={cycleNextCity}
-        title="Fly Toto over next city"
+        title="Fly Toto over next country"
       >
         &#8635; Next city
       </button>
@@ -131,17 +159,22 @@
 
   <!-- 16:9 Animated Cityscape & Flying Toto Cinema Frame -->
   <div class="cinema-viewport" style={`--seek-delay: -${seekOffsetSec}s;`}>
-    {#key `${activeCityId}-${cycleKey}`}
-      <!-- Real Watercolor City Backdrop with Smooth Ken Burns Motion -->
-      <img
-        id="hero-city-bg"
-        src={cityImgSrc}
-        alt={`Dawn cityscape of ${city.name} with Toto flying smoothly across the open morning sky`}
-        width="760"
-        height="428"
-        decoding="async"
-        class="cinema-bg-img"
-      />
+    <!-- Real Watercolor Sky / City Backdrop with Smooth Ken Burns Motion -->
+    <img
+      id="hero-city-bg"
+      src={cityImgSrc}
+      alt={`Dawn sky over ${city.name} (${city.horizonMotif}) with Toto flying smoothly across the open morning sky`}
+      width="760"
+      height="428"
+      decoding="async"
+      class="cinema-bg-img"
+    />
+
+    {#if !city.painted}
+      <CountrySkylineSvg archetype={city.archetype} />
+    {/if}
+
+    {#key cycleKey}
 
       <!-- Atmospheric Clouds, Flight Arc Ribbon & Shimmering Horizon Rays -->
       <svg class="cinema-fx-svg" viewBox="0 0 760 428" aria-hidden="true">
@@ -347,6 +380,10 @@
     font-size: 0.75rem;
     font-weight: 600;
     min-height: 30px;
+    max-width: min(195px, 54vw);
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
     cursor: pointer;
   }
 
@@ -662,14 +699,12 @@
   }
 
   @keyframes totoFlyLoop {
-    0%   { transform: translate3d(-12cqw, 26cqh, 0) scale(0.7) rotate(12deg); opacity: 0; }
-    6%   { transform: translate3d(10cqw, 14cqh, 0) scale(0.88) rotate(8deg); opacity: 1; }
-    22%  { transform: translate3d(68cqw, 15cqh, 0) scale(0.94) rotate(-6deg); opacity: 1; }
-    38%  { transform: translate3d(42cqw, 18cqh, 0) scale(1.24) rotate(0deg); opacity: 1; }
-    60%  { transform: translate3d(24cqw, 22cqh, 0) scale(1.02) rotate(-8deg); opacity: 1; }
-    78%  { transform: translate3d(60cqw, 10cqh, 0) scale(0.95) rotate(8deg); opacity: 1; }
-    93%  { transform: translate3d(88cqw, 15cqh, 0) scale(0.76) rotate(10deg); opacity: 1; }
-    100% { transform: translate3d(106cqw, 20cqh, 0) scale(0.65) rotate(12deg); opacity: 0; }
+    0%   { transform: translate3d(10cqw, 16cqh, 0) scale(0.88) rotate(8deg); opacity: 1; }
+    24%  { transform: translate3d(68cqw, 14cqh, 0) scale(0.96) rotate(-6deg); opacity: 1; }
+    44%  { transform: translate3d(42cqw, 18cqh, 0) scale(1.22) rotate(0deg); opacity: 1; }
+    66%  { transform: translate3d(24cqw, 22cqh, 0) scale(1.02) rotate(-8deg); opacity: 1; }
+    84%  { transform: translate3d(66cqw, 10cqh, 0) scale(0.92) rotate(8deg); opacity: 1; }
+    100% { transform: translate3d(10cqw, 16cqh, 0) scale(0.88) rotate(8deg); opacity: 1; }
   }
 
   @keyframes totoWingBob {
