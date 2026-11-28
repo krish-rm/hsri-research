@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
   import { dict, initLocale } from '../i18n/store';
   import TotoIllustration from './TotoIllustration.svelte';
+  import TotoCinemaPlayer from './TotoCinemaPlayer.svelte';
 
   export let base = '';
 
@@ -35,6 +36,11 @@
       </div>
     </div>
   </header>
+
+  <!-- Animated Intro Video Over Global Cities -->
+  <div class="toto-cinema-showcase">
+    <TotoCinemaPlayer base={base} compact={false} />
+  </div>
 
   <!-- Compact Visual Expression Strip -->
   <div class="poses-row" aria-label={$dict.totoPage.posesLabel}>
@@ -281,6 +287,10 @@
     font-size: 0.88rem;
     color: var(--accent-primary);
     text-decoration: none;
+  }
+
+  .toto-cinema-showcase {
+    margin-bottom: 1.4rem;
   }
 
   /* Poses */

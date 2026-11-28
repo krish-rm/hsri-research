@@ -1,84 +1,18 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
   import { dict } from '../i18n/store';
   import { trackEvent } from '../lib/privacyStorage';
+  import TotoCinemaPlayer from './TotoCinemaPlayer.svelte';
 
   export let base = '';
   export let pulseKey: 'steady' | 'stirring' | 'rising' = 'rising';
   export let pulseScore = 8.44;
 
-  interface CitySkin {
-    id: string;
-    name: string;
-    regionHint: string;
-    tzPrefixes: string[];
-    skyTop: string;
-    skyBottom: string;
-    waterTint: string;
-    feature: 'cranes' | 'spires' | 'bridge' | 'domes' | 'tvtower' | 'island' | 'skyline' | 'hills';
-  }
-
-  const CITIES: CitySkin[] = [
-    { id: 'neutral', name: 'Coastal Harbour', regionHint: 'Global view', tzPrefixes: [], skyTop: '#fdf5e6', skyBottom: '#f2d9b8', waterTint: '#256b64', feature: 'cranes' },
-    { id: 'lagos', name: 'Lagos', regionHint: 'West Africa', tzPrefixes: ['Africa/Lagos'], skyTop: '#fff3df', skyBottom: '#f4ca92', waterTint: '#1f6e68', feature: 'bridge' },
-    { id: 'saopaulo', name: 'São Paulo', regionHint: 'South America', tzPrefixes: ['America/Sao_Paulo'], skyTop: '#fef2e4', skyBottom: '#e9c89f', waterTint: '#246669', feature: 'skyline' },
-    { id: 'mumbai', name: 'Mumbai', regionHint: 'South Asia', tzPrefixes: ['Asia/Kolkata', 'Asia/Calcutta'], skyTop: '#fff4e1', skyBottom: '#f3c68f', waterTint: '#1b6756', feature: 'domes' },
-    { id: 'berlin', name: 'Berlin', regionHint: 'Europe', tzPrefixes: ['Europe/Berlin'], skyTop: '#f4f7f9', skyBottom: '#d8e3e9', waterTint: '#2d6370', feature: 'tvtower' },
-    { id: 'jakarta', name: 'Jakarta', regionHint: 'Southeast Asia', tzPrefixes: ['Asia/Jakarta'], skyTop: '#fef6e8', skyBottom: '#f1d2a7', waterTint: '#1d6e6c', feature: 'island' },
-    { id: 'dubai', name: 'Dubai', regionHint: 'Middle East', tzPrefixes: ['Asia/Dubai'], skyTop: '#fdf6ea', skyBottom: '#f5cfa0', waterTint: '#1b7375', feature: 'spires' },
-    { id: 'toronto', name: 'Toronto', regionHint: 'North America', tzPrefixes: ['America/Toronto'], skyTop: '#f3f7fa', skyBottom: '#d6e3ee', waterTint: '#235e78', feature: 'tvtower' },
-    { id: 'nairobi', name: 'Nairobi', regionHint: 'East Africa', tzPrefixes: ['Africa/Nairobi'], skyTop: '#fdf4e4', skyBottom: '#ebd0a2', waterTint: '#226b5c', feature: 'hills' }
-  ];
-
-  let activeCityId = 'neutral';
-  let isArriving = false;
-  let arriveTimer: ReturnType<typeof setTimeout> | null = null;
-
-  $: city = CITIES.find((c) => c.id === activeCityId) ?? CITIES[0];
   $: clampedPulse = Math.max(0, Math.min(10, Number.isFinite(pulseScore) ? pulseScore : 8.44));
   $: needleAngleDeg = -90 + (clampedPulse / 10) * 180;
-
-  function triggerArrival(id: string) {
-    activeCityId = id;
-    isArriving = false;
-    if (typeof requestAnimationFrame !== 'undefined') {
-      requestAnimationFrame(() => {
-        isArriving = true;
-      });
-    }
-    if (arriveTimer) clearTimeout(arriveTimer);
-    arriveTimer = setTimeout(() => {
-      isArriving = false;
-    }, 1150);
-    trackEvent('hero_city_switch', { city: id });
-  }
-
-  function cycleNextCity() {
-    const idx = CITIES.findIndex((c) => c.id === activeCityId);
-    const next = CITIES[(idx + 1) % CITIES.length];
-    if (next) triggerArrival(next.id);
-  }
 
   function handleCta(target: 'breakthrough' | 'country') {
     trackEvent('hero_cta_click', { target });
   }
-
-  onMount(() => {
-    try {
-      const preset = (window as any).__hc || (window as any).__hrHeroCity;
-      if (preset && CITIES.some((c) => c.id === preset)) {
-        activeCityId = preset;
-        return;
-      }
-      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
-      const matched = CITIES.find((c) => c.tzPrefixes.some((p) => tz.startsWith(p)));
-      if (matched) {
-        activeCityId = matched.id;
-      }
-    } catch {
-      // Keep neutral Coastal Harbour fallback
-    }
-  });
 </script>
 
 <section class="hero-story">
@@ -108,173 +42,11 @@
         </div>
       </div>
 
-      <!-- Right / Visual Flow: 1. Unified Interactive Toto + Arrival Sky Card -> 2. Humanity's Pulse -->
+      <!-- Right / Visual Flow: 1. Video-Style Toto Intro Over Real Painted Cityscapes -> 2. Humanity's Pulse -->
       <div class="hero-visual">
-        <!-- 1. Unified Interactive Toto Greeting & Arrival Sky Card -->
-        <div class="toto-arrival-card toto-mini-card" class:arriving={isArriving}>
-          <div class="toto-intro-band">
-            <div class="toto-portrait-frame">
-              <span class="toto-portrait-aura" aria-hidden="true"></span>
-              <img
-                src={`${base}/assets/toto-character.webp`}
-                alt={$dict.totoCard.svgAlt}
-                width="64"
-                height="64"
-                decoding="async"
-                class="toto-portrait-img"
-              />
-              <svg class="toto-spark" viewBox="0 0 16 16" width="13" height="13" aria-hidden="true">
-                <path d="M8 1 L9.6 6.4 L15 8 L9.6 9.6 L8 15 L6.4 9.6 L1 8 L6.4 6.4 Z" fill="#d97706" />
-              </svg>
-            </div>
-            <div class="toto-mini-copy">
-              <div class="toto-mini-top">
-                <strong class="toto-mini-title">
-                  <span class="live-hello-dot" aria-hidden="true"></span>
-                  &ldquo;{$dict.totoIntro.lines[0]}&rdquo;
-                </strong>
-                <a href={`${base}/toto/`} class="mini-arrow">
-                  {$dict.totoCard.ctaSecondary} <span class="arrow-flip" aria-hidden="true">&rarr;</span>
-                </a>
-              </div>
-              <p class="toto-mini-desc">{$dict.totoIntro.lines[1]}</p>
-            </div>
-          </div>
+        <TotoCinemaPlayer base={base} compact={true} />
 
-          <figure class="skyline-embed" aria-label={`Dawn harbour scene for ${city.name} showing Toto arriving as a calm light`}>
-            <div class="skyline-top-bar">
-              <span class="skyline-caption-label">
-                {$dict.hero.cityLabel} <strong id="hcn">{activeCityId === 'neutral' ? $dict.hero.cityNeutralName : city.name}</strong>
-                <span id="hcr" class="region-chip">{city.regionHint}</span>
-              </span>
-
-              <div class="sky-controls">
-                <label class="sr-only" for="hero-city-select">Switch city horizon</label>
-                <select
-                  id="hero-city-select"
-                  class="city-select-mini"
-                  bind:value={activeCityId}
-                  onchange={() => triggerArrival(activeCityId)}
-                >
-                  {#each CITIES as c}
-                    <option value={c.id}>{c.name}</option>
-                  {/each}
-                </select>
-                <button
-                  type="button"
-                  class="btn-arrive-cycle"
-                  onclick={cycleNextCity}
-                  title="Shift horizon & replay Toto arrival"
-                >
-                  &#8635; Next sky
-                </button>
-              </div>
-            </div>
-
-            <svg
-              class="harbour-svg"
-              viewBox="0 0 640 160"
-              width="640"
-              height="160"
-              role="img"
-              aria-label={`Calm dawn illustration of ${city.name} harbour as Toto arrives softly above the horizon`}
-            >
-              <defs>
-                <linearGradient id="dawn-sky" x1="0" y1="0" x2="0" y2="1">
-                  <stop id="hst" offset="0%" stop-color={city.skyTop} />
-                  <stop id="hsb" offset="100%" stop-color={city.skyBottom} />
-                </linearGradient>
-                <radialGradient id="toto-glow" cx="50%" cy="42%" r="38%">
-                  <stop offset="0%" stop-color="#fff8dc" stop-opacity="0.98" />
-                  <stop offset="42%" stop-color="#7ce0c6" stop-opacity="0.52" />
-                  <stop offset="100%" stop-color="#1b6756" stop-opacity="0" />
-                </radialGradient>
-                <linearGradient id="sea-grad" x1="0" y1="0" x2="0" y2="1">
-                  <stop id="hsa" offset="0%" stop-color={city.waterTint} stop-opacity="0.82" />
-                  <stop offset="100%" stop-color="#113c37" stop-opacity="0.95" />
-                </linearGradient>
-              </defs>
-
-              <rect width="640" height="118" fill="url(#dawn-sky)" />
-
-              <circle cx="430" cy="52" r="56" fill="url(#toto-glow)" class="toto-halo" />
-              <g transform="translate(430 50)">
-                <g class="toto-orb-anim">
-                  <circle cx="0" cy="0" r="16" fill="none" stroke="#1b6756" stroke-width="1.2" stroke-dasharray="4 3" opacity="0.7" />
-                  <circle cx="0" cy="0" r="8.5" fill="#ffffff" stroke="#1b6756" stroke-width="1.5" />
-                  <circle cx="0" cy="0" r="2.8" fill="#1b6756" />
-                </g>
-              </g>
-
-              <g fill="#2b3838" opacity="0.86">
-                <rect x="28" y="82" width="38" height="36" rx="2" />
-                <rect x="72" y="66" width="32" height="52" rx="2" />
-                <rect x="110" y="90" width="44" height="28" rx="2" />
-
-                {#if city.feature === 'cranes'}
-                  <path d="M180 118 L180 62 L216 50 M194 70 L194 118" stroke="#2b3838" stroke-width="3" fill="none" />
-                  <rect x="242" y="76" width="34" height="42" rx="2" />
-                  <path d="M510 118 L516 68 L528 68 L534 118 Z" />
-                  <circle cx="522" cy="63" r="4" fill="#f59e0b" />
-                {:else if city.feature === 'bridge'}
-                  <path d="M172 118 L182 58 L190 118 M274 118 L284 58 L292 118" stroke="#2b3838" stroke-width="2" />
-                  <path d="M150 96 Q232 72 316 96" stroke="#2b3838" stroke-width="2.5" fill="none" />
-                  <rect x="145" y="98" width="175" height="6" />
-                  <rect x="495" y="78" width="46" height="40" rx="2" />
-                {:else if city.feature === 'domes'}
-                  <path d="M185 118 L185 74 Q208 54 231 74 L231 118 Z" />
-                  <rect x="242" y="64" width="28" height="54" rx="2" />
-                  <rect x="496" y="84" width="52" height="34" rx="2" />
-                {:else if city.feature === 'spires'}
-                  <polygon points="196,118 204,32 212,118" />
-                  <rect x="225" y="68" width="28" height="50" rx="2" />
-                  <path d="M268 118 Q286 68 296 118 Z" />
-                  <rect x="506" y="82" width="36" height="36" rx="2" />
-                {:else if city.feature === 'tvtower'}
-                  <rect x="196" y="42" width="6" height="76" />
-                  <ellipse cx="199" cy="64" rx="14" ry="5" />
-                  <rect x="224" y="74" width="38" height="44" rx="2" />
-                  <rect x="498" y="80" width="44" height="38" rx="2" />
-                {:else if city.feature === 'island'}
-                  <polygon points="182,94 206,72 230,94" />
-                  <rect x="186" y="94" width="40" height="24" />
-                  <rect x="244" y="70" width="32" height="48" rx="2" />
-                  <path d="M510 118 Q528 86 548 118 Z" />
-                {:else if city.feature === 'hills'}
-                  <path d="M150 118 Q225 70 300 118 Z" opacity="0.65" />
-                  <rect x="200" y="72" width="28" height="46" rx="2" />
-                  <rect x="502" y="81" width="40" height="37" rx="2" />
-                {:else}
-                  <rect x="174" y="60" width="26" height="58" rx="2" />
-                  <rect x="206" y="48" width="24" height="70" rx="2" />
-                  <rect x="236" y="72" width="32" height="46" rx="2" />
-                  <rect x="498" y="82" width="42" height="36" rx="2" />
-                {/if}
-
-                <rect x="330" y="96" width="46" height="22" rx="2" />
-                <rect x="556" y="92" width="52" height="26" rx="2" />
-              </g>
-
-              <rect x="0" y="118" width="640" height="42" fill="url(#sea-grad)" />
-              <g fill="#fde68a" opacity="0.45">
-                <rect x="398" y="124" width="64" height="3" rx="1.5" />
-                <rect x="408" y="133" width="44" height="2.5" rx="1.2" />
-                <rect x="418" y="142" width="24" height="2" rx="1" />
-              </g>
-
-              <g transform="translate(292 124)" class="boat-drift">
-                <path d="M0 9 L36 9 L30 15 L6 15 Z" fill="#f8fafc" />
-                <polygon points="16,0 16,8 28,8" fill="#fef3c7" />
-              </g>
-            </svg>
-
-            <figcaption class="skyline-figcaption">
-              <span>{$dict.hero.totoCaption}</span>
-            </figcaption>
-          </figure>
-        </div>
-
-        <!-- 3. Humanity's Pulse Visual Card (Speedometer + Pace Gap Visual) -->
+        <!-- Humanity's Pulse Visual Card (Speedometer + Pace Gap Visual) -->
         <a href={`${base}/seismograph/`} class="pulse-visual-card">
           <div class="pv-gauge-wrap" aria-hidden="true">
             <svg viewBox="0 0 132 82" width="112" height="70" class="pv-dial-svg">
@@ -303,7 +75,6 @@
               <span class="pv-score-pill">{clampedPulse.toFixed(1)}/10</span>
             </div>
 
-            <!-- Simple visual pace comparison bar -->
             <div class="pv-pace-bars" aria-hidden="true">
               <div class="pace-row">
                 <span class="pace-lbl">Human pace</span>
@@ -342,7 +113,7 @@
 
   .hero-grid {
     display: grid;
-    grid-template-columns: 1.08fr 1fr;
+    grid-template-columns: 1.05fr 1fr;
     gap: clamp(1.2rem, 3vw, 2.25rem);
     align-items: center;
   }
@@ -454,250 +225,7 @@
     gap: 0.65rem;
   }
 
-  /* 1. Unified Interactive Toto + Arrival Sky Card */
-  .toto-arrival-card {
-    background: var(--bg-surface-elevated);
-    border: 1.5px solid var(--border-medium);
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: var(--shadow-md);
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  }
-
-  .toto-arrival-card.arriving {
-    border-color: var(--accent-primary);
-    box-shadow: 0 0 0 3px var(--accent-primary-glow), var(--shadow-md);
-  }
-
-  .toto-intro-band {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.65rem 0.85rem;
-    border-bottom: 1px solid var(--border-subtle);
-  }
-
-  .toto-portrait-frame {
-    position: relative;
-    flex-shrink: 0;
-    width: 62px;
-    height: 62px;
-    border-radius: 12px;
-    overflow: hidden;
-    background: #fbf7ee;
-    border: 1px solid var(--border-subtle);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .toto-portrait-aura {
-    position: absolute;
-    inset: 4px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(124, 224, 198, 0.35), rgba(245, 158, 11, 0.14) 55%, transparent 75%);
-    animation: totoAura 3.6s ease-in-out infinite;
-    pointer-events: none;
-  }
-
-  .toto-portrait-img {
-    position: relative;
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    animation: totoFloat 3.8s ease-in-out infinite;
-  }
-
-  .toto-spark {
-    position: absolute;
-    top: 4px;
-    inset-inline-end: 4px;
-    pointer-events: none;
-    animation: totoTwinkle 2.8s ease-in-out infinite;
-  }
-
-  .toto-mini-copy {
-    flex: 1 1 auto;
-    min-width: 0;
-  }
-
-  .toto-mini-top {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.35rem;
-    margin-bottom: 0.15rem;
-  }
-
-  .mini-arrow {
-    font-size: 0.74rem;
-    font-weight: 700;
-    color: var(--accent-primary);
-    text-decoration: none;
-    white-space: nowrap;
-  }
-
-  .mini-arrow:hover {
-    text-decoration: underline;
-  }
-
-  .toto-mini-title {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.38rem;
-    font-size: 0.96rem;
-    font-weight: 800;
-    color: var(--text-primary);
-    line-height: 1.22;
-  }
-
-  .live-hello-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--accent-primary);
-    animation: totoAura 2.4s ease-in-out infinite;
-    flex-shrink: 0;
-  }
-
-  .toto-mini-desc {
-    margin: 0.1rem 0 0;
-    font-size: 0.8rem;
-    color: var(--text-secondary);
-    line-height: 1.38;
-  }
-
-  .skyline-embed {
-    margin: 0;
-    background: var(--bg-surface);
-  }
-
-  .skyline-top-bar {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.45rem;
-    min-height: 38px;
-    padding: 0.38rem 0.8rem;
-    background: var(--bg-surface-sunken);
-    border-bottom: 1px solid var(--border-subtle);
-    font-size: 0.75rem;
-    color: var(--text-secondary);
-  }
-
-  .sky-controls {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-  }
-
-  .region-chip {
-    display: inline-block;
-    margin-inline-start: 0.28rem;
-    padding: 0.06rem 0.4rem;
-    border-radius: 9999px;
-    background: var(--bg-surface-elevated);
-    font-family: var(--font-family-mono);
-    font-size: 0.62rem;
-  }
-
-  .city-select-mini {
-    border: 1px solid var(--border-medium);
-    background: var(--bg-surface-elevated);
-    color: var(--text-primary);
-    border-radius: 8px;
-    padding: 0.2rem 0.42rem;
-    font-size: 0.74rem;
-    font-weight: 600;
-    min-height: 28px;
-    cursor: pointer;
-  }
-
-  .btn-arrive-cycle {
-    border: 1px solid var(--accent-primary);
-    background: var(--threat-sovereign-bg);
-    color: var(--accent-primary);
-    border-radius: 8px;
-    padding: 0.22rem 0.55rem;
-    font-size: 0.72rem;
-    font-weight: 700;
-    min-height: 28px;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: background-color 0.15s ease, color 0.15s ease;
-  }
-
-  .btn-arrive-cycle:hover {
-    background: var(--accent-primary);
-    color: var(--btn-primary-text);
-  }
-
-  .harbour-svg {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-
-  .toto-arrival-card.arriving .toto-orb-anim {
-    animation: skyOrbArrive 0.95s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  }
-
-  .toto-arrival-card.arriving .toto-halo {
-    animation: skyHaloPulse 0.95s ease-out forwards;
-    transform-origin: 430px 52px;
-  }
-
-  .skyline-figcaption {
-    padding: 0.45rem 0.8rem;
-    font-size: 0.77rem;
-    color: var(--text-secondary);
-    font-style: italic;
-    border-top: 1px solid var(--border-subtle);
-    background: var(--bg-surface);
-  }
-
-  @keyframes totoFloat {
-    0%, 100% { transform: translateY(0px) scale(1); }
-    50% { transform: translateY(-3px) scale(1.02); }
-  }
-
-  @keyframes totoAura {
-    0%, 100% { transform: scale(0.95); opacity: 0.65; }
-    50% { transform: scale(1.06); opacity: 1; }
-  }
-
-  @keyframes totoTwinkle {
-    0%, 100% { transform: scale(0.8) rotate(0deg); opacity: 0.55; }
-    50% { transform: scale(1.1) rotate(18deg); opacity: 1; }
-  }
-
-  @keyframes skyOrbArrive {
-    0% { transform: translate(-72px, -22px) scale(0.62); opacity: 0.35; }
-    65% { transform: translate(4px, 3px) scale(1.08); opacity: 1; }
-    100% { transform: translate(0px, 0px) scale(1); opacity: 1; }
-  }
-
-  @keyframes skyHaloPulse {
-    0% { transform: scale(0.75); opacity: 0.45; }
-    55% { transform: scale(1.18); opacity: 1; }
-    100% { transform: scale(1); opacity: 1; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .toto-portrait-img,
-    .toto-portrait-aura,
-    .toto-spark,
-    .live-hello-dot,
-    .toto-arrival-card.arriving .toto-orb-anim,
-    .toto-arrival-card.arriving .toto-halo {
-      animation: none !important;
-    }
-  }
-
-  /* 3. Humanity's Pulse Visual Card */
+  /* Humanity's Pulse Visual Card */
   .pulse-visual-card {
     display: flex;
     align-items: center;
@@ -840,18 +368,16 @@
     line-height: 1.35;
   }
 
+  .mini-arrow {
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: var(--accent-primary);
+    white-space: nowrap;
+  }
+
   :global([dir='rtl']) .arrow-flip {
     display: inline-block;
     transform: scaleX(-1);
-  }
-
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
   }
 
   @media (max-width: 920px) {

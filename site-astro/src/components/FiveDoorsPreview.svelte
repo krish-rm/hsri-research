@@ -16,11 +16,13 @@
   export let base = '';
 
   let catalog: WishItem[] = CORE_BREAKTHROUGHS;
+  let revealed = false;
   let activeDoorId = 'epic';
   let activeWishId: string | null = null;
   let playerAnchorEl: HTMLElement | null = null;
 
   onMount(async () => {
+    revealed = true;
     if (INCLUDE_DEV_BREAKTHROUGHS) {
       catalog = await loadAllBreakthroughs();
     }
@@ -66,6 +68,7 @@
       <p class="sec-sub">{$dict.doors.microcopy}</p>
     </div>
 
+    {#if revealed}
       <!-- Clean 5-Domain Pill Tabs -->
       <div class="doors-tabs" role="tablist" aria-label="Five breakthrough domains">
         {#each $dict.doors.items as door}
@@ -187,6 +190,7 @@
       <div id="five-lights" class="lights-inline-wrap">
         <TrailAndShadowCard compact={true} />
       </div>
+    {/if}
   </div>
 </section>
 
