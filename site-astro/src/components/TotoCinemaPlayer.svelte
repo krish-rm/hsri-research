@@ -273,32 +273,6 @@
         </div>
       </div>
 
-      <!-- Synchronized Multi-Scene Captions (CSS Pure Loop + Live JS Sync) -->
-      <div class="cinema-captions" aria-live="polite">
-        <div class="caption-pill" class:sync-hidden={cycleKey > 0}>
-          <span class="scene-chip">{activeSceneIdx + 1}/4</span>
-          <span class="caption-text css-cap cap-1">&ldquo;{$dict.totoIntro.lines[0]}&rdquo;</span>
-          <span class="caption-text css-cap cap-2">{$dict.totoIntro.lines[1]}</span>
-          <span class="caption-text css-cap cap-3">{$dict.totoIntro.lines[2]}</span>
-          <span class="caption-text css-cap cap-4">{city.name}: {$dict.totoBeats.close}</span>
-        </div>
-        {#if cycleKey > 0}
-          <div class="caption-pill js-synced-cap">
-            <span class="scene-chip">{activeSceneIdx + 1}/4</span>
-            <span class="caption-text">
-              {#if activeSceneIdx === 0}
-                &ldquo;{$dict.totoIntro.lines[0]}&rdquo;
-              {:else if activeSceneIdx === 1}
-                {$dict.totoIntro.lines[1]}
-              {:else if activeSceneIdx === 2}
-                {$dict.totoIntro.lines[2]}
-              {:else}
-                {city.name}: {$dict.totoBeats.close}
-              {/if}
-            </span>
-          </div>
-        {/if}
-      </div>
     {/key}
 
     <!-- Interactive Video Scrubber Bar along Bottom Edge -->
@@ -318,6 +292,46 @@
         {/key}
       </span>
     </button>
+  </div>
+
+  <!-- Dedicated Toto Dialogue Strip (Outside Image, Linked to Flying Toto) -->
+  <div class="tc-dialogue-dock" aria-live="polite">
+    <div class="speaker-badge">
+      <div class="speaker-orb" aria-hidden="true">
+        <img
+          src={`${base}/assets/toto-flying.webp`}
+          alt=""
+          width="30"
+          height="34"
+          decoding="async"
+          class="speaker-orb-img"
+        />
+      </div>
+      <div class="speaker-meta">
+        <span class="speaker-name">{$dict.totoBeats.speaker}</span>
+        <span class="scene-chip">{activeSceneIdx + 1}/4</span>
+      </div>
+    </div>
+
+    <div class="speech-bubble">
+      <span class="speech-tail" aria-hidden="true"></span>
+      {#key cycleKey}
+        <div class="dialogue-text-slot" class:is-synced={cycleKey > 0}>
+          <p class="dialogue-line css-cap cap-1" class:active={activeSceneIdx === 0} aria-hidden={activeSceneIdx !== 0}>
+            <span>&ldquo;{$dict.totoIntro.lines[0]}&rdquo;</span>
+          </p>
+          <p class="dialogue-line css-cap cap-2" class:active={activeSceneIdx === 1} aria-hidden={activeSceneIdx !== 1}>
+            <span>{$dict.totoIntro.lines[1]}</span>
+          </p>
+          <p class="dialogue-line css-cap cap-3" class:active={activeSceneIdx === 2} aria-hidden={activeSceneIdx !== 2}>
+            <span>{$dict.totoIntro.lines[2]}</span>
+          </p>
+          <p class="dialogue-line css-cap cap-4" class:active={activeSceneIdx === 3} aria-hidden={activeSceneIdx !== 3}>
+            <span><strong>{city.name}:</strong> {$dict.totoBeats.close}</span>
+          </p>
+        </div>
+      {/key}
+    </div>
   </div>
 
   <!-- Video Playback Control Bar + Story Link -->
@@ -542,61 +556,144 @@
     animation: starTwinkle 2.1s ease-in-out infinite;
   }
 
-  /* Captions */
-  .cinema-captions {
-    position: absolute;
-    left: 0.7rem;
-    right: 0.7rem;
-    bottom: 0.75rem;
+  /* Dedicated Toto Dialogue Dock (Outside Image, O(1) Contained Layout) */
+  .tc-dialogue-dock {
     display: flex;
-    justify-content: center;
-    pointer-events: none;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.56rem 0.85rem;
+    background: var(--bg-surface);
+    border-top: 1px solid var(--border-subtle);
+    contain: layout style;
   }
 
-  .caption-pill {
-    position: relative;
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
+  .speaker-badge {
+    display: flex;
     align-items: center;
     gap: 0.45rem;
-    max-width: min(96%, 500px);
-    padding: 0.36rem 0.78rem;
-    border-radius: 14px;
-    background: rgba(18, 22, 20, 0.8);
-    backdrop-filter: blur(6px);
-    color: #fffdf7;
-    font-size: clamp(0.7rem, 1.5cqw, 0.82rem);
-    font-weight: 600;
-    line-height: 1.32;
-    text-align: start;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.24);
+    flex-shrink: 0;
   }
 
-  .caption-pill.sync-hidden {
-    display: none;
+  .speaker-orb {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle, #fffbeb 0%, #dcf4ec 100%);
+    border: 1.5px solid var(--threat-sovereign-border);
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+
+  .speaker-orb-img {
+    width: 28px;
+    height: 32px;
+    object-fit: contain;
+    animation: totoWingBob 2.2s ease-in-out infinite;
+  }
+
+  .speaker-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.14rem;
+  }
+
+  .speaker-name {
+    font-size: 0.72rem;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--accent-primary);
+    letter-spacing: 0.02em;
   }
 
   .scene-chip {
-    grid-column: 1;
-    grid-row: 1;
     font-family: var(--font-family-mono);
-    font-size: 0.66rem;
+    font-size: 0.62rem;
     font-weight: 800;
-    padding: 0.1rem 0.4rem;
+    line-height: 1.25;
+    padding: 0.06rem 0.36rem;
     border-radius: 9999px;
     background: var(--accent-primary);
-    color: #ffffff;
+    color: var(--btn-primary-text);
   }
 
-  .caption-text {
-    grid-column: 2;
-    grid-row: 1;
+  .speech-bubble {
+    position: relative;
+    flex: 1 1 0;
+    min-width: 0;
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--threat-sovereign-border);
+    border-radius: 12px;
+    padding: 0.44rem 0.72rem;
+    box-shadow: var(--shadow-sm);
   }
 
-  .css-cap.cap-1 { animation: capShow1 16s linear infinite; animation-delay: var(--seek-delay, 0s); }
-  .css-cap.cap-2 { animation: capShow2 16s linear infinite; animation-delay: var(--seek-delay, 0s); }
-  .css-cap.cap-3 { animation: capShow3 16s linear infinite; animation-delay: var(--seek-delay, 0s); }
-  .css-cap.cap-4 { animation: capShow4 16s linear infinite; animation-delay: var(--seek-delay, 0s); }
+  .speech-tail {
+    position: absolute;
+    inset-inline-start: -5px;
+    top: 50%;
+    width: 9px;
+    height: 9px;
+    background: var(--bg-surface-elevated);
+    border-left: 1px solid var(--threat-sovereign-border);
+    border-bottom: 1px solid var(--threat-sovereign-border);
+    transform: translateY(-50%) rotate(45deg);
+    z-index: 1;
+  }
+
+  :global([dir='rtl']) .speech-tail {
+    border-left: 0;
+    border-bottom: 0;
+    border-right: 1px solid var(--threat-sovereign-border);
+    border-top: 1px solid var(--threat-sovereign-border);
+  }
+
+  .dialogue-text-slot {
+    position: relative;
+    min-width: 0;
+    min-height: 2.55rem;
+  }
+
+  .dialogue-line {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    color: var(--text-primary);
+    font-size: 0.82rem;
+    font-weight: 600;
+    line-height: 1.36;
+    text-align: start;
+  }
+
+  @media (max-width: 640px) {
+    .dialogue-text-slot {
+      min-height: 4.2rem;
+    }
+    .dialogue-line {
+      font-size: 0.8rem;
+      line-height: 1.34;
+    }
+  }
+
+  .css-cap.cap-1 { animation: capShow1 16s linear infinite; }
+  .css-cap.cap-2 { animation: capShow2 16s linear infinite; }
+  .css-cap.cap-3 { animation: capShow3 16s linear infinite; }
+  .css-cap.cap-4 { animation: capShow4 16s linear infinite; }
+
+  .dialogue-text-slot.is-synced .css-cap {
+    animation: none !important;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .dialogue-text-slot.is-synced .css-cap.active {
+    opacity: 1;
+  }
 
   /* Bottom Scrubber Track */
   .cinema-scrub-bar {
@@ -640,6 +737,8 @@
   .toto-cinema-card.paused .fx-flight-arc,
   .toto-cinema-card.paused .toto-flyer,
   .toto-cinema-card.paused .toto-flyer-sprite,
+  .toto-cinema-card.paused .speaker-orb,
+  .toto-cinema-card.paused .speaker-orb-img,
   .toto-cinema-card.paused .scrub-fill,
   .toto-cinema-card.paused .css-cap {
     animation-play-state: paused !important;
@@ -821,6 +920,8 @@
     .toto-flyer-sprite,
     .flyer-aura,
     .flyer-star,
+    .speaker-orb,
+    .speaker-orb-img,
     .scrub-fill,
     .live-dot {
       animation: none !important;
