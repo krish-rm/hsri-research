@@ -148,7 +148,7 @@ export const es: TranslationDict = {
         title: 'Problemas Abiertos',
         icon: 'chalkboard',
         lead: 'Preguntas profundas que nadie ha resuelto en solitario todavía.',
-        samples: ['Demostrar la Hipótesis de Riemann', 'Leer la escritura del Indo'],
+        samples: ['Demostrar la Hipótesis de Riemann', 'Descifrar escrituras antiguas'],
         moreCount: '+ Explicar la materia oscura y P vs NP',
         wishes: [
           {
@@ -161,7 +161,7 @@ export const es: TranslationDict = {
               'Toto publica una demostración de la noche a la mañana, pero ocupa un millón de páginas que nadie vivo puede leer.'
           },
           {
-            title: 'Leer la escritura del Indo',
+            title: 'Descifrar escrituras antiguas perdidas',
             honesty: 'Posible pronto',
             honestyNote:
               'El reconocimiento de patrones en sellos breves avanza rápido, aunque faltan textos bilingües de referencia.',
@@ -174,9 +174,9 @@ export const es: TranslationDict = {
         id: 'gadgets',
         title: 'Tecnologías Cotidianas',
         icon: 'pocket',
-        lead: 'Bolsillos imposibles, traductores universales y asistentes personales.',
-        samples: ['El bolsillo de Doraemon', 'Asistente estilo Jarvis'],
-        moreCount: '+ Traductor universal y Giratiempo',
+        lead: 'Fabricación en mano, traductores universales y asistentes personales.',
+        samples: ['Taller de bolsillo', 'Asistente estilo Jarvis'],
+        moreCount: '+ Traductor universal y control temporal',
         wishes: [
           {
             id: 'jarvis-for-my-life',
@@ -188,7 +188,7 @@ export const es: TranslationDict = {
               'Tu semana fluye como magia — hasta que un fallo silencioso te deja sin recordar ni tus propias contraseñas.'
           },
           {
-            title: 'El bolsillo de Doraemon',
+            title: 'Taller de bolsillo — crear herramientas',
             honesty: 'Imaginación',
             honestyNote:
               'Crear objetos físicos bajo demanda sigue siendo ficción; solo la fabricación digital se acerca al borde.',
@@ -201,13 +201,13 @@ export const es: TranslationDict = {
         id: 'epic',
         title: 'Poderes Transformadores',
         icon: 'eye',
-        lead: 'Relatos antiguos de visión lejana, vuelo, curación y protección.',
-        samples: ['Sanjeevani (curar todo)', 'Pushpaka Vimana (vuelo para todos)'],
-        moreCount: '+ Divya drishti y protector universal',
+        lead: 'Aspiraciones humanas de curación, vuelo, alerta temprana y amparo.',
+        samples: ['Cura universal (fin de enfermedades agudas)', 'Vuelo compartido'],
+        moreCount: '+ Alerta planetaria y escudo común',
         wishes: [
           {
             id: 'sanjeevani',
-            title: 'Sanjeevani: curarlo todo',
+            title: 'Cura universal: fin de enfermedades agudas',
             honesty: 'Imaginación',
             honestyNote:
               'Imaginación en conjunto — la IA ya apoya el descubrimiento en enfermedades concretas (Posible pronto), no una cura universal.',
@@ -215,7 +215,7 @@ export const es: TranslationDict = {
               'Las salas de hospital se vacían al alba — y luego todos descubren que las reglas de cuidado y presupuesto eran del mundo de ayer.'
           },
           {
-            title: 'Divya drishti — visión a distancia',
+            title: 'Alerta temprana planetaria — prever tormentas',
             honesty: 'Posible pronto',
             honestyNote:
               'Satélites y sensores globales ya siguen tormentas e infraestructuras en tiempo real.',

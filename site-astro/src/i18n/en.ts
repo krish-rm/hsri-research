@@ -154,7 +154,7 @@ export const en = {
         title: 'Open Problems',
         icon: 'chalkboard',
         lead: 'Deep questions nobody has cracked alone yet.',
-        samples: ['Prove the Riemann Hypothesis', 'Read the Indus script'],
+        samples: ['Prove the Riemann Hypothesis', 'Decode ancient scripts'],
         moreCount: '+ Explain dark matter & settle P vs NP',
         wishes: [
           {
@@ -167,10 +167,10 @@ export const en = {
               'Toto publishes a proof overnight — then humans discover a million pages nobody alive can check.'
           },
           {
-            title: 'Read the Indus script',
+            title: 'Decode forgotten ancient scripts',
             honesty: 'Possible soon',
             honestyNote:
-              'Pattern-matching across short seal fragments is advancing quickly, though ground truth stays scarce.',
+              'Pattern-matching across short fragments is advancing quickly, though ground truth stays scarce.',
             beatSummary:
               'Lost inscriptions light up cleanly — until competing readings force historians to ask what counts as proof.'
           }
@@ -180,8 +180,8 @@ export const en = {
         id: 'gadgets',
         title: 'Everyday Technologies',
         icon: 'pocket',
-        lead: 'Impossible pockets, translators, and personal life aides.',
-        samples: ["Doraemon's pocket", 'Jarvis-style life assistant'],
+        lead: 'Modular fabrication, universal translators, and personal life aides.',
+        samples: ['Pocket workshop', 'Jarvis-style life assistant'],
         moreCount: '+ Universal translator & Time-Turner',
         wishes: [
           {
@@ -194,7 +194,7 @@ export const en = {
               'Your week runs like magic — until a quiet outage leaves you unable to remember your own passwords.'
           },
           {
-            title: "Doraemon's pocket",
+            title: 'Pocket workshop — make any tool',
             honesty: 'Imagination',
             honestyNote:
               'On-demand matter creation remains pure fiction; only digital fabrication hints at the edge.',
@@ -207,21 +207,21 @@ export const en = {
         id: 'epic',
         title: 'Transformative Powers',
         icon: 'eye',
-        lead: 'Ancient stories of sight, flight, healing, and shields.',
-        samples: ['Sanjeevani (cure anything)', 'Pushpaka Vimana (flight for all)'],
-        moreCount: '+ Divya drishti & universal protector',
+        lead: 'Shared human hopes of healing, flight, far sight, and resilience.',
+        samples: ['Universal Cure (end acute illness)', 'Flight for all'],
+        moreCount: '+ Planetary early warning & shared shield',
         wishes: [
           {
             id: 'sanjeevani',
-            title: 'Sanjeevani: cure anything',
+            title: 'Universal Cure: end acute illness',
             honesty: 'Imagination',
             honestyNote:
-              'Imagination overall — target AI assists narrow disease discovery (Possible soon for specific diseases), not universal cures.',
+              'Imagination overall — AI assists narrow molecule screening today (Possible soon for specific diseases), not universal cures.',
             beatSummary:
               'Wards empty at dawn — then hospital leaders realise every rule on care and funding assumed yesterday’s world.'
           },
           {
-            title: 'Divya drishti — far-seeing sight',
+            title: 'Planetary early warning — spot every storm',
             honesty: 'Possible soon',
             honestyNote:
               'Global satellite and sensor streams can already track storms and infrastructure live.',

@@ -3,12 +3,14 @@
   import { dict, activeLocale } from '../i18n/store';
   import { trackEvent } from '../lib/privacyStorage';
   import { readinessStore } from '../lib/readinessState';
-  import { countryContextStore } from '../lib/countryContext';
+  import { countryContextStore, syncCountryContext } from '../lib/countryContext';
+  import { findCityById } from '../lib/countrySkies';
   import {
     CORE_BREAKTHROUGHS,
     loadAllBreakthroughs
   } from '../lib/breakthroughCatalog';
   import {
+    HERITAGE_INDEX,
     doorHasHeritageForCountry,
     findAnyHeritageForCountry,
     findHeritageForCountryAndDoor,
@@ -46,6 +48,10 @@
   $: if (activeIso !== lastSeenIso) {
     lastSeenIso = activeIso;
     preferGlobal = false;
+    const localMatch = findAnyHeritageForCountry(activeIso);
+    if (localMatch && !activeWishId) {
+      activeDoorId = localMatch.door;
+    }
   }
   $: PLAYABLE_WISHES = catalog;
   $: WISH_BY_ID = new Map(PLAYABLE_WISHES.map((w) => [w.id, w]));
@@ -88,6 +94,15 @@
     }
   }
 
+  function selectWorldTradition(entry: HeritageIndexEntry) {
+    const targetIso = entry.countries[0] ?? 'NOR';
+    syncCountryContext(findCityById(targetIso), true);
+    activeDoorId = entry.door;
+    activeWishId = null;
+    preferGlobal = false;
+    trackEvent('door_preview_select', { door: `heritage:${entry.id}` });
+  }
+
   function playNextUnseenWish() {
     const next = PLAYABLE_WISHES.find((w) => !completedIds[w.id] && w.id !== activeWishId)
       ?? PLAYABLE_WISHES[(PLAYABLE_WISHES.findIndex((w) => w.id === activeWishId) + 1) % PLAYABLE_WISHES.length];
@@ -107,6 +122,26 @@
     </div>
 
     {#if revealed}
+      <!-- 1-Line Scrollable World Traditions Strip (surfaced upfront, zero mobile vertical bloat) -->
+      <div class="world-horizons-bar" aria-label="Cultural traditions around the world">
+        <span class="wh-label">World traditions:</span>
+        <div class="wh-scroll">
+          {#each HERITAGE_INDEX as h}
+            {@const isSelected = Boolean(doorHeritage?.id === h.id && showingHeritage)}
+            <button
+              type="button"
+              class="wh-chip"
+              class:active={isSelected}
+              onclick={() => selectWorldTradition(h)}
+              title={`${h.originRegion[loc] ?? h.originRegion.en}: ${h.chipTitle[loc] ?? h.chipTitle.en}`}
+            >
+              {h.traditionLabel[loc] ?? h.traditionLabel.en}
+            </button>
+          {/each}
+        </div>
+        <a href={`${base}/traditions/`} class="wh-all-link">All {HERITAGE_INDEX.length} &rarr;</a>
+      </div>
+
       <!-- Clean 5-Domain Pill Tabs -->
       <div class="doors-tabs" role="tablist" aria-label="Five breakthrough domains">
         {#each $dict.doors.items as door}
@@ -368,6 +403,81 @@
     margin-bottom: 0.95rem;
   }
 
+  .world-horizons-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0 auto 0.75rem;
+    padding: 0.36rem 0.65rem;
+    border-radius: 12px;
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-medium);
+  }
+
+  .wh-label {
+    font-family: var(--font-family-mono);
+    font-size: 0.68rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--accent-primary);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .wh-scroll {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 2px 0;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .wh-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .wh-chip {
+    border: 1px solid var(--border-medium);
+    background: var(--bg-surface);
+    color: var(--text-secondary);
+    border-radius: 9999px;
+    padding: 0.22rem 0.65rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: pointer;
+    flex-shrink: 0;
+    min-height: 28px;
+  }
+
+  .wh-chip:hover {
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+  }
+
+  .wh-chip.active {
+    background: var(--threat-sovereign-bg);
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+  }
+
+  .wh-all-link {
+    font-size: 0.74rem;
+    font-weight: 800;
+    color: var(--accent-primary);
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .wh-all-link:hover {
+    text-decoration: underline;
+  }
+
   .door-tab {
     display: inline-flex;
     align-items: center;
@@ -625,6 +735,21 @@
   @media (max-width: 640px) {
     .doors-section {
       min-height: 450px;
+    }
+    .world-horizons-bar {
+      flex-wrap: wrap;
+      gap: 0.32rem 0.5rem;
+    }
+    .wh-label {
+      order: 1;
+    }
+    .wh-all-link {
+      order: 2;
+      margin-inline-start: auto;
+    }
+    .wh-scroll {
+      order: 3;
+      flex: 1 0 100%;
     }
     .door-tab {
       flex: 1 1 calc(50% - 0.25rem);
