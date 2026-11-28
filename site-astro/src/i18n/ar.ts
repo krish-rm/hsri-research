@@ -509,6 +509,23 @@ export const ar: TranslationDict = {
     weightNoCountry: 'اختر بلداً بالأسفل لاختبار هذا الاعتماد أمام البيانات الحقيقية.',
     wayTestCountryCta: 'اختبر ضابط الحماية لـ {country}',
     trailStampLabel: 'آفاق ثقافية مستكشفة: {count}',
-    autoDetectedHint: 'سماء مقترحة · اختر أي بلد'
+    autoDetectedHint: 'سماء مقترحة · اختر أي بلد',
+    perspectiveBadge: 'من منظور {country}',
+    resetGlobalBtn: 'الوضع العالمي',
+    countryHeadingTradition: 'من منظور {country}: {tradition}',
+    countryHeadingGlobal: 'من منظور {country}: اختبر إنجازاً',
+    countrySubhead: 'شاهد كيف يلتقي الإنجاز بالواقع المحلي والضوابط في {country}.',
+    flowWonder: 'يصل الإنجاز',
+    flowWobble: 'نقطة الضغط',
+    flowCatch: 'جاهزية {country}',
+    otherDomainsLabel: 'استكشف المجالات الخمسة من منظور {country}:',
+    otherTraditionsLabel: 'قارن تقاليد العالم:',
+    lightsCountryHeading: 'أضواء الجاهزية الخمسة · {country}',
+    lightsHumanGroup: 'اختياراتك البشرية',
+    lightsCountryGroup: 'قدرة {country}',
+    countryCatchHeading: 'هل يستطيع {country} استقبال الإنجاز؟',
+    traditionTestsLabel: 'عدسة التراث:',
+    coverageObservedLabel: 'مؤشرات مرصودة',
+    coverageMissingLabel: 'فجوات غير مقاسة (دون تخمين)'
   }
 };

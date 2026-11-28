@@ -534,7 +534,24 @@ export const en = {
     weightNoCountry: 'Pick any country below to check this delivery dependency against real national data.',
     wayTestCountryCta: "Test {country}'s safeguard in Country Check",
     trailStampLabel: 'Cultural horizons explored: {count}',
-    autoDetectedHint: 'Auto sky · pick any country'
+    autoDetectedHint: 'Auto sky · pick any country',
+    perspectiveBadge: 'Perspective · {country}',
+    resetGlobalBtn: 'Global view',
+    countryHeadingTradition: "From {country}'s perspective: {tradition}",
+    countryHeadingGlobal: "From {country}'s perspective: Test a breakthrough",
+    countrySubhead: 'See what happens when an AI breakthrough meets local reality in {country}.',
+    flowWonder: 'Dream arrives',
+    flowWobble: 'Local strain',
+    flowCatch: '{country} catch',
+    otherDomainsLabel: "Explore all 5 domains from {country}'s perspective:",
+    otherTraditionsLabel: 'Compare world traditions:',
+    lightsCountryHeading: "{country}'s 5 Readiness Lights",
+    lightsHumanGroup: 'Your human choices',
+    lightsCountryGroup: '{country} capacity',
+    countryCatchHeading: 'Can {country} catch it?',
+    traditionTestsLabel: 'Tradition lens:',
+    coverageObservedLabel: 'Observed safeguards',
+    coverageMissingLabel: 'Unmeasured gaps (never guessed)'
   }
 };
 

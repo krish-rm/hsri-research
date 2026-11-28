@@ -7,6 +7,7 @@
   import { countryContextStore, syncCountryContext } from '../lib/countryContext';
   import { findCityById } from '../lib/countrySkies';
   import { findAnyHeritageForCountry } from '../lib/heritageLoader';
+  import ConceptVisualSvg from './ConceptVisualSvg.svelte';
 
   export let countries: CountrySummaryItem[] = [];
   export let base = '';
@@ -64,6 +65,51 @@
   $: loc = ($activeLocale === 'es' || $activeLocale === 'ar' ? $activeLocale : 'en') as 'en' | 'es' | 'ar';
   $: countryHeritage = activeCountry ? findAnyHeritageForCountry(activeCountry.iso) : null;
 
+  interface VisualCoverage {
+    total: number;
+    observed: number;
+    observedFlags: string[];
+    missingFlags: string[];
+    headline: string;
+  }
+
+  function splitFlagsList(raw: string): string[] {
+    const colonIdx = raw.indexOf(':');
+    if (colonIdx < 0) return [];
+    return raw
+      .slice(colonIdx + 1)
+      .replace(/\.$/, '')
+      .split(',')
+      .map((s) => s.trim())
+      .filter(Boolean);
+  }
+
+  function parseVisualCoverage(obs: string, miss: string): VisualCoverage {
+    const nineMatch = obs.match(/(\d+)\/(\d+)/);
+    const fourMatch = obs.match(/(\d+)\s+of\s+(\d+)/i);
+    const total = nineMatch ? Number(nineMatch[2]) : fourMatch ? Number(fourMatch[2]) : 4;
+    const observed = nineMatch ? Number(nineMatch[1]) : fourMatch ? Number(fourMatch[1]) : 1;
+    const observedFlags = splitFlagsList(obs);
+    const missingFlags = splitFlagsList(miss);
+    const obsClean = obs.split(':')[0].replace(/\.$/, '').trim();
+    const rawMiss = miss.split(':')[0].replace(/\.$/, '').replace(/\s+for$/i, '').trim();
+    const missClean = missingFlags.length > 0 && /^Missing/i.test(rawMiss) && !/\(\d+\/\d+\)/.test(rawMiss)
+      ? `${missingFlags.length} unmeasured survey gap${missingFlags.length === 1 ? '' : 's'}`
+      : rawMiss;
+    return {
+      total,
+      observed,
+      observedFlags,
+      missingFlags,
+      headline: `${obsClean} · ${missClean}`
+    };
+  }
+
+  $: unratedVisual =
+    activeCountry && activeCountry.kind === 'unrated'
+      ? parseVisualCoverage(activeCountry.observedSummary, activeCountry.missingSummary)
+      : null;
+
   function applyCountrySelection(iso: string, pushContext = true) {
     selectedIso = iso;
     localeDetected = false;
@@ -87,13 +133,14 @@
     applyCountrySelection(iso, true);
   }
 
-  $: if ($countryContextStore.explicit && $countryContextStore.iso && $countryContextStore.iso !== 'GLOBAL') {
-    const syncKey = `${$countryContextStore.iso}:${$countryContextStore.highlightChecklistIdx ?? ''}`;
+  $: if ($countryContextStore.iso && $countryContextStore.iso !== 'GLOBAL') {
+    const syncKey = `${$countryContextStore.iso}:${$countryContextStore.highlightChecklistIdx ?? ''}:${$countryContextStore.explicit ? '1' : '0'}`;
     if (syncKey !== lastSyncedCtxKey && allCountries.some((c) => c.iso === $countryContextStore.iso)) {
       lastSyncedCtxKey = syncKey;
       searchFilter = '';
       if (selectedIso !== $countryContextStore.iso) {
         applyCountrySelection($countryContextStore.iso, false);
+        localeDetected = !$countryContextStore.explicit;
       }
       if ($countryContextStore.highlightChecklistIdx !== null) {
         highlightedIdx = $countryContextStore.highlightChecklistIdx;
@@ -113,24 +160,38 @@
     try {
       const availSet = new Set(allCountries.map((c) => c.iso));
       let matchIso = '';
-      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
-      const tzHit = TZ_TO_ISO.find(([prefix]) => tz.startsWith(prefix));
-      if (tzHit && availSet.has(tzHit[1])) matchIso = tzHit[1];
+      if ($countryContextStore.iso && $countryContextStore.iso !== 'GLOBAL' && availSet.has($countryContextStore.iso)) {
+        matchIso = $countryContextStore.iso;
+        localeDetected = !$countryContextStore.explicit;
+      } else {
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+        const tzHit = TZ_TO_ISO.find(([prefix]) => tz.startsWith(prefix));
+        if (tzHit && availSet.has(tzHit[1])) matchIso = tzHit[1];
 
-      if (!matchIso) {
-        const langs = navigator.languages?.length ? navigator.languages : [navigator.language];
-        for (const loc of langs) {
-          const region = loc?.split(/[-_]/)[1]?.toUpperCase();
-          if (region && LOCALE_TO_ISO[region] && availSet.has(LOCALE_TO_ISO[region])) {
-            matchIso = LOCALE_TO_ISO[region];
-            break;
+        if (!matchIso) {
+          const langs = navigator.languages?.length ? navigator.languages : [navigator.language];
+          for (const locItem of langs) {
+            const region = locItem?.split(/[-_]/)[1]?.toUpperCase();
+            if (region && LOCALE_TO_ISO[region] && availSet.has(LOCALE_TO_ISO[region])) {
+              matchIso = LOCALE_TO_ISO[region];
+              break;
+            }
           }
         }
+        localeDetected = true;
       }
 
       if (matchIso) {
         selectedIso = matchIso;
-        localeDetected = true;
+        const found = allCountries.find((c) => c.iso === matchIso);
+        if (found) {
+          setSelectedCountryForReadiness({
+            iso: found.iso,
+            name: found.name,
+            kind: found.kind,
+            checklistCount: found.kind === 'rated' ? found.checklistCount : undefined
+          });
+        }
       }
     } catch {
       // Keep neutral fallback NOR
@@ -138,11 +199,15 @@
   });
 </script>
 
-<!-- STEP 3: COMPACT 148-COUNTRY SNAPSHOT -->
+<!-- STEP 3: COMPACT 148-COUNTRY VISUAL READINESS SNAPSHOT -->
 <section id="country-check" class="country-section">
   <div class="section-wrap">
     <div class="section-head">
-      <h2 class="sec-title">{$dict.country.heading}</h2>
+      <h2 class="sec-title">
+        {activeCountry
+          ? $dict.heritageUi.countryCatchHeading.replace('{country}', activeCountry.name)
+          : $dict.country.heading}
+      </h2>
       <p class="sec-sub">{$dict.country.subhead}</p>
     </div>
 
@@ -193,14 +258,33 @@
                 <h3 class="rp-name">{activeCountry.name}</h3>
               </div>
               <a href={`${base}/countries/${activeCountry.id}/`} class="btn-country-link">
-                {$dict.country.openCountryCta} <span aria-hidden="true">&rarr;</span>
+                {$dict.country.openCountryCta} <span class="arrow-flip" aria-hidden="true">&rarr;</span>
               </a>
             </div>
+
+            {#if countryHeritage}
+              <div class="cc-tradition-banner">
+                <ConceptVisualSvg variant={countryHeritage.id} compact={true} />
+                <div class="cct-copy">
+                  <span class="cct-label">{$dict.heritageUi.traditionTestsLabel} <strong>{countryHeritage.traditionLabel[loc] ?? countryHeritage.traditionLabel.en}</strong></span>
+                  <p class="cct-title">{countryHeritage.chipTitle[loc] ?? countryHeritage.chipTitle.en}</p>
+                  <p class="cct-dep">{countryHeritage.binding.dependencyLabel[loc] ?? countryHeritage.binding.dependencyLabel.en}</p>
+                </div>
+                <a href={`${base}/traditions/${countryHeritage.slug}/`} class="cct-link">
+                  {$dict.heritageUi.readArchiveLink} <span class="arrow-flip" aria-hidden="true">&rarr;</span>
+                </a>
+              </div>
+            {/if}
 
             <div class="metrics-strip">
               <div class="m-chip">
                 <span>Runs offline</span>
                 <strong>{activeCountry.cloudDaysText}</strong>
+                <div class="battery-bars" aria-hidden="true">
+                  {#each [1, 2, 3, 4, 5] as bSeg}
+                    <span class="b-seg" class:on={bSeg <= activeCountry.batterySegments}></span>
+                  {/each}
+                </div>
               </div>
               <div class="m-chip">
                 <span>Catches breakthrough</span>
@@ -213,7 +297,30 @@
               <div class="m-chip">
                 <span>Safeguards ready</span>
                 <strong>{activeCountry.checklistCount} of 5</strong>
+                <div class="battery-bars" aria-hidden="true">
+                  {#each activeCountry.checklist as chk}
+                    <span class="b-seg" class:on={chk.pass} class:gap={!chk.pass}></span>
+                  {/each}
+                </div>
               </div>
+            </div>
+
+            <div class="visual-safeguards-bar" aria-label={`Safeguard snapshot for ${activeCountry.name}`}>
+              {#each activeCountry.checklist as item, idx}
+                {@const shortLabel =
+                  idx === 0
+                    ? '72h Offline'
+                    : idx === 1
+                      ? 'Grid & Digital'
+                      : idx === 2
+                        ? 'Claim Checks'
+                        : idx === 3
+                          ? 'Public Rules'
+                          : 'Livelihood Cushion'}
+                <span class="vs-pill" class:pass={item.pass} class:focused={highlightedIdx === idx} title={item.label}>
+                  {item.pass ? '✓' : '○'} {shortLabel}
+                </span>
+              {/each}
             </div>
 
             <details class="cc-details" bind:open={detailsOpen}>
@@ -228,13 +335,6 @@
                 {/each}
               </ul>
             </details>
-
-            {#if countryHeritage}
-              <div class="cc-heritage-strip">
-                <span>🌍 <strong>{countryHeritage.traditionLabel[loc] ?? countryHeritage.traditionLabel.en}</strong> &middot; {countryHeritage.chipTitle[loc] ?? countryHeritage.chipTitle.en}</span>
-                <a href={`${base}/traditions/${countryHeritage.slug}/`}>{$dict.heritageUi.readArchiveLink} &rarr;</a>
-              </div>
-            {/if}
           </div>
         {:else if activeCountry && activeCountry.kind === 'unrated'}
           <div class="country-card-row">
@@ -244,14 +344,60 @@
                 <h3 class="rp-name">{activeCountry.name} <small class="iso-small">({activeCountry.iso})</small></h3>
               </div>
               <a href={`${base}/coverage/`} class="btn-country-link">
-                {$dict.country.unratedHelpCta} <span aria-hidden="true">&rarr;</span>
+                {$dict.country.unratedHelpCta} <span class="arrow-flip" aria-hidden="true">&rarr;</span>
               </a>
             </div>
-            <p class="ur-summary">{activeCountry.observedSummary} Never guessed — {activeCountry.missingSummary}</p>
+
             {#if countryHeritage}
-              <div class="cc-heritage-strip">
-                <span>🌍 <strong>{countryHeritage.traditionLabel[loc] ?? countryHeritage.traditionLabel.en}</strong> &middot; {countryHeritage.chipTitle[loc] ?? countryHeritage.chipTitle.en}</span>
-                <a href={`${base}/traditions/${countryHeritage.slug}/`}>{$dict.heritageUi.readArchiveLink} &rarr;</a>
+              <div class="cc-tradition-banner">
+                <ConceptVisualSvg variant={countryHeritage.id} compact={true} />
+                <div class="cct-copy">
+                  <span class="cct-label">{$dict.heritageUi.traditionTestsLabel} <strong>{countryHeritage.traditionLabel[loc] ?? countryHeritage.traditionLabel.en}</strong></span>
+                  <p class="cct-title">{countryHeritage.chipTitle[loc] ?? countryHeritage.chipTitle.en}</p>
+                  <p class="cct-dep">{countryHeritage.binding.dependencyLabel[loc] ?? countryHeritage.binding.dependencyLabel.en}</p>
+                </div>
+                <a href={`${base}/traditions/${countryHeritage.slug}/`} class="cct-link">
+                  {$dict.heritageUi.readArchiveLink} <span class="arrow-flip" aria-hidden="true">&rarr;</span>
+                </a>
+              </div>
+            {/if}
+
+            {#if unratedVisual}
+              <div class="coverage-visual-panel">
+                <div class="cov-head-row">
+                  <p class="ur-summary">{unratedVisual.headline} &middot; Never guessed</p>
+                  <span class="cov-ratio-pill">{unratedVisual.observed} / {unratedVisual.total}</span>
+                </div>
+                <div class="cov-progress-bars" aria-hidden="true">
+                  {#each Array.from({ length: unratedVisual.total }) as _, sIdx}
+                    <span class="cov-seg" class:filled={sIdx < unratedVisual.observed}></span>
+                  {/each}
+                </div>
+
+                {#if unratedVisual.observedFlags.length > 0 || unratedVisual.missingFlags.length > 0}
+                  <div class="cov-flags-board">
+                    {#if unratedVisual.observedFlags.length > 0}
+                      <div class="cov-group">
+                        <span class="cov-grp-lbl good">{$dict.heritageUi.coverageObservedLabel}</span>
+                        <div class="cov-chips">
+                          {#each unratedVisual.observedFlags as flag}
+                            <span class="cov-chip good">✓ {flag}</span>
+                          {/each}
+                        </div>
+                      </div>
+                    {/if}
+                    {#if unratedVisual.missingFlags.length > 0}
+                      <div class="cov-group">
+                        <span class="cov-grp-lbl warn">{$dict.heritageUi.coverageMissingLabel}</span>
+                        <div class="cov-chips">
+                          {#each unratedVisual.missingFlags as flag}
+                            <span class="cov-chip warn">○ {flag}</span>
+                          {/each}
+                        </div>
+                      </div>
+                    {/if}
+                  </div>
+                {/if}
               </div>
             {/if}
           </div>
@@ -469,34 +615,212 @@
     box-shadow: 0 0 0 2px rgba(27, 103, 86, 0.14);
   }
 
-  .cc-heritage-strip {
+  .cc-tradition-banner {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: space-between;
-    gap: 0.35rem 0.65rem;
-    margin-top: 0.7rem;
-    padding-top: 0.6rem;
-    border-top: 1px dashed var(--border-subtle);
-    font-size: 0.8rem;
-    color: var(--text-secondary);
+    gap: 0.75rem 0.95rem;
+    padding: 0.68rem 0.8rem;
+    margin-bottom: 0.75rem;
+    border-radius: 12px;
+    background: var(--threat-sovereign-bg);
+    border: 1px solid var(--threat-sovereign-border);
   }
 
-  .cc-heritage-strip a {
+  .cct-copy {
+    flex: 1 1 240px;
+    min-width: 0;
+  }
+
+  .cct-label {
+    display: block;
+    font-size: 0.72rem;
     color: var(--accent-primary);
-    font-weight: 700;
+    margin-bottom: 0.14rem;
+  }
+
+  .cct-title {
+    margin: 0;
+    font-size: 0.92rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1.3;
+  }
+
+  .cct-dep {
+    margin: 0.18rem 0 0;
+    font-size: 0.76rem;
+    color: var(--text-secondary);
+    line-height: 1.35;
+  }
+
+  .cct-link {
+    font-size: 0.76rem;
+    font-weight: 800;
+    color: var(--accent-primary);
     text-decoration: none;
     white-space: nowrap;
   }
 
-  .cc-heritage-strip a:hover {
+  .cct-link:hover {
     text-decoration: underline;
+  }
+
+  .battery-bars {
+    display: flex;
+    gap: 3px;
+    margin-top: 0.25rem;
+  }
+
+  .b-seg {
+    flex: 1 1 0;
+    height: 6px;
+    border-radius: 3px;
+    background: var(--border-subtle);
+  }
+
+  .b-seg.on {
+    background: var(--threat-sovereign);
+  }
+
+  .b-seg.gap {
+    background: var(--threat-warning-bg);
+    border: 1px dashed var(--threat-warning-border);
+  }
+
+  .visual-safeguards-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .vs-pill {
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.2rem 0.55rem;
+    border-radius: 9999px;
+    background: var(--threat-warning-bg);
+    color: var(--threat-warning);
+    border: 1px dashed var(--threat-warning-border);
+  }
+
+  .vs-pill.pass {
+    background: var(--threat-sovereign-bg);
+    color: var(--threat-sovereign);
+    border: 1px solid var(--threat-sovereign-border);
+  }
+
+  .vs-pill.focused {
+    box-shadow: 0 0 0 2px var(--accent-primary-glow);
+    border-width: 2px;
+    border-style: solid;
+  }
+
+  .coverage-visual-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .cov-head-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .cov-ratio-pill {
+    font-family: var(--font-family-mono);
+    font-size: 0.74rem;
+    font-weight: 800;
+    padding: 0.14rem 0.5rem;
+    border-radius: 9999px;
+    background: var(--bg-surface-elevated);
+    color: var(--accent-primary);
+    border: 1px solid var(--threat-sovereign-border);
+  }
+
+  .cov-progress-bars {
+    display: flex;
+    gap: 4px;
+  }
+
+  .cov-seg {
+    flex: 1 1 0;
+    height: 8px;
+    border-radius: 4px;
+    background: var(--bg-surface-elevated);
+    border: 1px dashed var(--threat-warning-border);
+  }
+
+  .cov-seg.filled {
+    background: var(--threat-sovereign);
+    border: 0;
+  }
+
+  .cov-flags-board {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 0.6rem;
+    margin-top: 0.15rem;
+  }
+
+  .cov-group {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    padding: 0.55rem 0.65rem;
+  }
+
+  .cov-grp-lbl {
+    display: block;
+    font-family: var(--font-family-mono);
+    font-size: 0.64rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+
+  .cov-grp-lbl.good { color: var(--threat-sovereign); }
+  .cov-grp-lbl.warn { color: var(--threat-warning); }
+
+  .cov-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+  }
+
+  .cov-chip {
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 0.16rem 0.48rem;
+    border-radius: 6px;
+  }
+
+  .cov-chip.good {
+    background: var(--threat-sovereign-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--threat-sovereign-border);
+  }
+
+  .cov-chip.warn {
+    background: var(--threat-warning-bg);
+    color: var(--threat-warning);
+    border: 1px dashed var(--threat-warning-border);
+  }
+
+  :global([dir='rtl']) .arrow-flip {
+    display: inline-block;
+    transform: scaleX(-1);
   }
 
   .ur-summary {
     margin: 0;
-    font-size: 0.86rem;
-    line-height: 1.5;
+    font-size: 0.84rem;
+    font-weight: 600;
+    line-height: 1.4;
     color: var(--text-secondary);
   }
 
@@ -515,7 +839,8 @@
     }
     .select-grid,
     .metrics-strip,
-    .cl-items {
+    .cl-items,
+    .cov-flags-board {
       grid-template-columns: 1fr;
     }
     .btn-country-link {

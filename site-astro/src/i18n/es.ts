@@ -527,6 +527,23 @@ export const es: TranslationDict = {
     weightNoCountry: 'Elige un país abajo para contrastar esta dependencia con datos reales.',
     wayTestCountryCta: 'Probar esta salvaguarda en {country}',
     trailStampLabel: 'Horizontes culturales explorados: {count}',
-    autoDetectedHint: 'Cielo sugerido · elige cualquier país'
+    autoDetectedHint: 'Cielo sugerido · elige cualquier país',
+    perspectiveBadge: 'Perspectiva · {country}',
+    resetGlobalBtn: 'Vista global',
+    countryHeadingTradition: 'Desde {country}: {tradition}',
+    countryHeadingGlobal: 'Desde {country}: pon a prueba un avance',
+    countrySubhead: 'Observa qué ocurre cuando un avance se cruza con la realidad local en {country}.',
+    flowWonder: 'Llega el sueño',
+    flowWobble: 'Tensión local',
+    flowCatch: 'Sostén · {country}',
+    otherDomainsLabel: 'Explora los 5 ámbitos desde la perspectiva de {country}:',
+    otherTraditionsLabel: 'Comparar tradiciones del mundo:',
+    lightsCountryHeading: '5 Luces de Preparación · {country}',
+    lightsHumanGroup: 'Tus decisiones humanas',
+    lightsCountryGroup: 'Capacidad de {country}',
+    countryCatchHeading: '¿Puede {country} sostener el avance?',
+    traditionTestsLabel: 'Lente tradicional:',
+    coverageObservedLabel: 'Indicadores observados',
+    coverageMissingLabel: 'Brechas sin medir (sin suposiciones)'
   }
 };

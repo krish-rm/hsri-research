@@ -8,6 +8,7 @@
     type LightKey,
     type ShadowKey
   } from '../lib/readinessState';
+  import { countryContextStore } from '../lib/countryContext';
   import { trackEvent } from '../lib/privacyStorage';
 
   const LIGHT_KEYS: LightKey[] = ['Clarity', 'Foresight', 'Fairness', 'Wisdom', 'Capability'];
@@ -33,6 +34,16 @@
     return $dict.player.countryCapabilityNote
       .replace('{name}', c.name)
       .replace('{count}', String(c.checklistCount ?? 0));
+  })();
+
+  $: activeCountryLabel =
+    state.selectedCountry?.name ??
+    ($countryContextStore.iso !== 'GLOBAL' ? $countryContextStore.countryName : '');
+  $: countryCapStatus = (() => {
+    const c = state.selectedCountry;
+    if (!c) return '';
+    if (c.kind === 'rated') return `${c.checklistCount ?? 0}/5`;
+    return $dict.heritageUi.livingBadge ? 'Partial' : 'Partial';
   })();
 
   function getLocalizedLight(idx: number) {
@@ -164,29 +175,69 @@
   }
 </script>
 
-<!-- Compact strip mode on homepage until visitor begins playing -->
+<!-- Compact visual readiness diagram on homepage until visitor begins playing -->
 {#if compact && doneCount === 0}
   <div class="compact-lights-strip">
     <div class="cls-top">
-      <span class="cls-title">{$dict.lights.heading}:</span>
+      <span class="cls-title">
+        {activeCountryLabel
+          ? $dict.heritageUi.lightsCountryHeading.replace('{country}', activeCountryLabel)
+          : `${$dict.lights.heading}:`}
+      </span>
       <span class="cls-hint">{$dict.lights.emptyState}</span>
     </div>
-    <div class="lights-row compact-orbs" role="tablist" aria-label={$dict.lights.heading}>
-      {#each LIGHT_KEYS as lk, idx}
-        {@const info = getLocalizedLight(idx)}
+
+    <div class="lights-visual-diagram" role="tablist" aria-label={$dict.lights.heading}>
+      <div class="lvd-group human-group">
+        <span class="lvd-group-lbl">{$dict.heritageUi.lightsHumanGroup}</span>
+        <div class="lvd-orbs-track">
+          <span class="lvd-rail" aria-hidden="true"></span>
+          {#each LIGHT_KEYS.slice(0, 4) as lk, idx}
+            {@const info = getLocalizedLight(idx)}
+            <button
+              type="button"
+              role="tab"
+              aria-selected={activeLightKey === lk}
+              class="light-pill compact-pill"
+              class:active={activeLightKey === lk}
+              on:click={() => (activeLightKey = lk)}
+            >
+              <span class="lamp-orb glow-0" aria-hidden="true"></span>
+              <strong>{info.key}</strong>
+            </button>
+          {/each}
+        </div>
+      </div>
+
+      <span class="lvd-bridge-arrow" aria-hidden="true">+</span>
+
+      <div class="lvd-group country-group" class:has-country={Boolean(activeCountryLabel)}>
+        <span class="lvd-group-lbl">
+          {activeCountryLabel
+            ? $dict.heritageUi.lightsCountryGroup.replace('{country}', activeCountryLabel)
+            : getLocalizedLight(4).key}
+        </span>
         <button
           type="button"
           role="tab"
-          aria-selected={activeLightKey === lk}
-          class="light-pill compact-pill"
-          class:active={activeLightKey === lk}
-          on:click={() => (activeLightKey = lk)}
+          aria-selected={activeLightKey === 'Capability'}
+          class="light-pill compact-pill cap-pill"
+          class:active={activeLightKey === 'Capability'}
+          on:click={() => (activeLightKey = 'Capability')}
         >
-          <span class="lamp-orb glow-0" aria-hidden="true"></span>
-          <strong>{info.key}</strong>
+          <span class="lamp-orb" class:glow-country={Boolean(activeCountryLabel)} aria-hidden="true"></span>
+          <strong>{getLocalizedLight(4).key}</strong>
+          {#if state.selectedCountry}
+            <span class="cap-chip">
+              {state.selectedCountry.kind === 'rated'
+                ? `${state.selectedCountry.checklistCount ?? 0}/5`
+                : 'Audit'}
+            </span>
+          {/if}
         </button>
-      {/each}
+      </div>
     </div>
+
     <p class="cls-meaning">
       <strong>{getLocalizedLight(LIGHT_KEYS.indexOf(activeLightKey)).key}:</strong>
       {getLocalizedLight(LIGHT_KEYS.indexOf(activeLightKey)).meaning}
@@ -353,12 +404,95 @@
     color: var(--text-secondary);
   }
 
-  .lights-row.compact-orbs {
+  .lights-visual-diagram {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem 0.75rem;
+    margin-bottom: 0.55rem;
+  }
+
+  .lvd-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.42rem 0.65rem;
+    border-radius: 12px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+  }
+
+  .lvd-group.country-group.has-country {
+    background: var(--threat-sovereign-bg);
+    border-color: var(--threat-sovereign-border);
+  }
+
+  .lvd-group-lbl {
+    font-family: var(--font-family-mono);
+    font-size: 0.62rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+  }
+
+  .lvd-group.country-group.has-country .lvd-group-lbl {
+    color: var(--accent-primary);
+  }
+
+  .lvd-orbs-track {
+    position: relative;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 0.4rem;
-    margin-bottom: 0.5rem;
+    gap: 0.35rem;
+  }
+
+  .lvd-rail {
+    position: absolute;
+    left: 10%;
+    right: 10%;
+    top: 50%;
+    height: 2px;
+    background: var(--border-medium);
+    transform: translateY(-50%);
+    z-index: 0;
+  }
+
+  .lvd-orbs-track .light-pill.compact-pill {
+    position: relative;
+    z-index: 1;
+  }
+
+  .lvd-bridge-arrow {
+    font-family: var(--font-family-mono);
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--accent-primary);
+  }
+
+  .lamp-orb.glow-country {
+    background: var(--accent-primary);
+    border-color: var(--accent-primary);
+  }
+
+  .cap-chip {
+    font-family: var(--font-family-mono);
+    font-size: 0.64rem;
+    font-weight: 800;
+    padding: 0.06rem 0.36rem;
+    border-radius: 9999px;
+    background: var(--bg-surface-elevated);
+    color: var(--accent-primary);
+    border: 1px solid var(--threat-sovereign-border);
+  }
+
+  .light-pill.compact-pill.active .cap-chip {
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.45);
   }
 
   .light-pill.compact-pill {

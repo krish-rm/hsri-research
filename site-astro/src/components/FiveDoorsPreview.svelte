@@ -22,6 +22,7 @@
   const INCLUDE_DEV_BREAKTHROUGHS = __HSRI_INCLUDE_DEV15__;
   import WishPlayer, { type WishItem } from './WishPlayer.svelte';
   import TrailAndShadowCard from './TrailAndShadowCard.svelte';
+  import ConceptVisualSvg from './ConceptVisualSvg.svelte';
 
   export let base = '';
 
@@ -117,14 +118,272 @@
 <section id="wish-doors" class="story-section doors-section">
   <div class="section-wrap">
     <div class="section-head">
-      <h2 class="sec-title">{$dict.doors.heading}</h2>
-      <p class="sec-sub">{$dict.doors.microcopy}</p>
+      {#if activeIso !== 'GLOBAL'}
+        <div class="persp-eyebrow-row">
+          <span class="persp-pill">
+            {$dict.heritageUi.perspectiveBadge.replace('{country}', activeCountryLabel)}
+          </span>
+          <button
+            type="button"
+            class="persp-reset-btn"
+            onclick={() => syncCountryContext(findCityById('neutral'), true)}
+          >
+            {$dict.heritageUi.resetGlobalBtn}
+          </button>
+        </div>
+        <h2 class="sec-title">
+          {#if anyCountryHeritage}
+            {$dict.heritageUi.countryHeadingTradition
+              .replace('{country}', activeCountryLabel)
+              .replace('{tradition}', anyCountryHeritage.traditionLabel[loc] ?? anyCountryHeritage.traditionLabel.en)}
+          {:else}
+            {$dict.heritageUi.countryHeadingGlobal.replace('{country}', activeCountryLabel)}
+          {/if}
+        </h2>
+        <p class="sec-sub">
+          {$dict.heritageUi.countrySubhead.replace('{country}', activeCountryLabel)}
+        </p>
+      {:else}
+        <h2 class="sec-title">{$dict.doors.heading}</h2>
+        <p class="sec-sub">{$dict.doors.microcopy}</p>
+      {/if}
     </div>
 
     {#if revealed}
-      <!-- 1-Line Scrollable World Traditions Strip (surfaced upfront, zero mobile vertical bloat) -->
+      <!-- Precedence Stage 1: Selected Country Tradition / Active Domain Visual Concept Card -->
+      <div bind:this={playerAnchorEl}>
+        {#if activeWish}
+          {#key activeWish.id}
+            <WishPlayer
+              wish={activeWish}
+              base={base}
+              onClose={() => (activeWishId = null)}
+              onNextWish={playNextUnseenWish}
+            />
+          {/key}
+        {:else}
+          {@const visualVariant = showingHeritage && doorHeritage ? doorHeritage.id : selectedDoor.id}
+          <div class="door-preview-panel" role="tabpanel" aria-live="polite">
+            <div class="visual-stage-grid">
+              <!-- Visual Story Concept Column -->
+              <div class="vs-art-col">
+                <ConceptVisualSvg variant={visualVariant} />
+                <div class="vs-flow-pills" aria-hidden="true">
+                  <span class="flow-step">{$dict.heritageUi.flowWonder}</span>
+                  <span class="flow-sep arrow-flip">&rarr;</span>
+                  <span class="flow-step warn">{$dict.heritageUi.flowWobble}</span>
+                  <span class="flow-sep arrow-flip">&rarr;</span>
+                  <span class="flow-step catch">
+                    {$dict.heritageUi.flowCatch.replace('{country}', activeIso === 'GLOBAL' ? 'HSRI' : activeIso)}
+                  </span>
+                </div>
+              </div>
+
+              <!-- Precedence Context & Action Column -->
+              <div class="vs-copy-col">
+                <div class="dp-header-line">
+                  <span class="dp-door-tag">{selectedDoor.title}</span>
+                  <span class="dp-lead">{selectedDoor.lead}</span>
+                </div>
+
+                <div class="heritage-swap-bar">
+                  {#if doorHeritage && showingHeritage}
+                    <div class="hs-left">
+                      <span class="hs-pill">
+                        {$dict.heritageUi.localHorizonTag.replace('{country}', activeCountryLabel)}
+                      </span>
+                      <span class="hs-era">
+                        {doorHeritage.era === 'living' ? $dict.heritageUi.livingBadge : $dict.heritageUi.historicalBadge}
+                      </span>
+                    </div>
+                    <div class="hs-actions">
+                      <a href={`${base}/traditions/${doorHeritage.slug}/`} class="hs-archive-link">
+                        {$dict.heritageUi.readArchiveLink} <span class="arrow-flip" aria-hidden="true">&rarr;</span>
+                      </a>
+                      <button type="button" class="hs-toggle-btn" onclick={() => (preferGlobal = true)}>
+                        {$dict.heritageUi.seeGlobalBtn}
+                      </button>
+                    </div>
+                  {:else if doorHeritage && preferGlobal}
+                    <div class="hs-left">
+                      <span class="hs-muted">{$dict.doors.sampleHeading}</span>
+                    </div>
+                    <div class="hs-actions">
+                      <button type="button" class="hs-toggle-btn active" onclick={() => (preferGlobal = false)}>
+                        {$dict.heritageUi.seeLocalBtn.replace('{country}', activeCountryLabel)}
+                      </button>
+                    </div>
+                  {:else if anyCountryHeritage && anyCountryHeritage.door !== selectedDoor.id}
+                    {@const targetDoor = $dict.doors.items.find((d) => d.id === anyCountryHeritage.door)}
+                    <div class="hs-left">
+                      <span class="hs-muted">
+                        {$dict.heritageUi.livesInOtherDoor
+                          .replace('{country}', activeCountryLabel)
+                          .replace('{door}', targetDoor?.title ?? anyCountryHeritage.door)}
+                      </span>
+                    </div>
+                    <div class="hs-actions">
+                      <button
+                        type="button"
+                        class="hs-toggle-btn active"
+                        onclick={() => chooseDoor(anyCountryHeritage.door)}
+                      >
+                        {targetDoor?.title ?? 'Open'} <span class="arrow-flip" aria-hidden="true">&rarr;</span>
+                      </button>
+                    </div>
+                  {:else if activeIso !== 'GLOBAL'}
+                    <div class="hs-left">
+                      <span class="hs-muted">{$dict.heritageUi.noLocalYet.replace('{country}', activeCountryLabel)}</span>
+                    </div>
+                  {:else}
+                    <div class="hs-left">
+                      <span class="hs-muted">{$dict.doors.sampleHeading}</span>
+                    </div>
+                  {/if}
+                </div>
+
+                {#if doorHeritage && showingHeritage}
+                  {@const hTitle = doorHeritage.chipTitle[loc] ?? doorHeritage.chipTitle.en}
+                  {@const hId = `heritage-${doorHeritage.id}`}
+                  <article class="dp-focus-card is-heritage-focus">
+                    <div class="dp-focus-copy">
+                      <div class="dp-wish-head">
+                        <h3>{hTitle}</h3>
+                        <span class="honesty-pill">{doorHeritage.honestyLabel}</span>
+                        <span class="tradition-mini-pill">{doorHeritage.traditionLabel[loc] ?? doorHeritage.traditionLabel.en}</span>
+                      </div>
+                      <p class="dp-wish-beat">{doorHeritage.summary[loc] ?? doorHeritage.summary.en}</p>
+                      <p class="binding-preview-line">
+                        <strong>{$dict.heritageUi.traditionTestsLabel}</strong>
+                        {doorHeritage.binding.dependencyLabel[loc] ?? doorHeritage.binding.dependencyLabel.en}
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      class="dp-play-btn"
+                      disabled={loadingHeritage}
+                      onclick={() => launchHeritage(doorHeritage)}
+                    >
+                      {completedIds[hId] ? `✓ ${$dict.player.playedBadge} · ` : ''}{$dict.player.playBtn}
+                      <span class="arrow-flip" aria-hidden="true">&rarr;</span>
+                    </button>
+                  </article>
+                {:else if INCLUDE_DEV_BREAKTHROUGHS && domainDevItems.length > 0}
+                  <div class="dp-wishes-grid">
+                    {#each domainDevItems as item}
+                      <article class="dp-wish-card">
+                        <div class="dp-wish-head">
+                          <h4>{item.title[loc] ?? item.title.en}</h4>
+                          <span class="honesty-pill">{item.honestyLabel}</span>
+                        </div>
+                        <p class="dp-wish-beat">{item.wobble.text[loc] ?? item.wobble.text.en}</p>
+                        <button type="button" class="dp-play-btn" onclick={() => launchWish(item.id)}>
+                          {completedIds[item.id] ? `✓ ${$dict.player.playedBadge} · ` : ''}{$dict.player.playBtn}
+                          {#if SHOW_DRAFT_BADGE && item.status === 'draft'} (DRAFT){/if}
+                          <span class="arrow-flip" aria-hidden="true">&rarr;</span>
+                        </button>
+                      </article>
+                    {/each}
+                  </div>
+                {:else}
+                  {@const playableList = selectedDoor.wishes.filter((w) => 'id' in w && w.id && WISH_BY_ID.has(w.id))}
+                  {@const stubList = selectedDoor.wishes.filter((w) => !('id' in w && w.id && WISH_BY_ID.has(w.id)))}
+
+                  {#each playableList as wish}
+                    {@const playableObj = WISH_BY_ID.get(wish.id!)}
+                    {#if playableObj}
+                      <article class="dp-focus-card">
+                        <div class="dp-focus-copy">
+                          <div class="dp-wish-head">
+                            <h3>{wish.title}</h3>
+                            <span class="honesty-pill" title={wish.honestyNote}>{wish.honesty}</span>
+                          </div>
+                          <p class="dp-wish-beat">{wish.beatSummary}</p>
+                        </div>
+                        <button
+                          type="button"
+                          class="dp-play-btn"
+                          onclick={() => launchWish(playableObj.id)}
+                        >
+                          {completedIds[playableObj.id] ? `✓ ${$dict.player.playedBadge} · ` : ''}{$dict.player.playBtn}
+                          {#if SHOW_DRAFT_BADGE && playableObj.status === 'draft'} (DRAFT){/if}
+                          <span class="arrow-flip" aria-hidden="true">&rarr;</span>
+                        </button>
+                      </article>
+                    {/if}
+                  {/each}
+
+                  {#if stubList.length > 0}
+                    <p class="dp-upcoming-line">
+                      Planned next: {stubList.map((s) => `${s.title} (${s.honesty})`).join(' · ')}
+                    </p>
+                  {/if}
+                {/if}
+              </div>
+            </div>
+          </div>
+        {/if}
+      </div>
+
+      <!-- Stage 2: 5 Domain Switcher (Secondary to Selected Country's Own Lens) -->
+      <div class="domains-explorer-band">
+        {#if activeIso !== 'GLOBAL'}
+          <p class="band-micro-label">{$dict.heritageUi.otherDomainsLabel.replace('{country}', activeCountryLabel)}</p>
+        {/if}
+        <div class="doors-tabs" role="tablist" aria-label="Five breakthrough domains">
+          {#each $dict.doors.items as door}
+            <button
+              type="button"
+              role="tab"
+              aria-selected={activeDoorId === door.id}
+              class="door-tab"
+              class:selected={activeDoorId === door.id}
+              onclick={() => chooseDoor(door.id)}
+            >
+              <span class="door-icon" aria-hidden="true">
+                {#if door.icon === 'chalkboard'}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="13" rx="1.5" />
+                    <path d="M7 9h6M7 13h9M9 17l-1.5 3M15 17l1.5 3" stroke-linecap="round" />
+                  </svg>
+                {:else if door.icon === 'pocket'}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 6h14v7a7 7 0 0 1-14 0V6z" />
+                    <circle cx="12" cy="12" r="2.5" stroke="var(--accent-primary)" />
+                  </svg>
+                {:else if door.icon === 'eye'}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M2 12s4-5.5 10-5.5S22 12 22 12s-4 5.5-10 5.5S2 12 2 12z" />
+                    <circle cx="12" cy="12" r="3" />
+                  </svg>
+                {:else if door.icon === 'frame'}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="5" width="18" height="14" rx="1.5" />
+                    <path d="M10 9l5 3-5 3V9z" stroke-linejoin="round" />
+                  </svg>
+                {:else}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M8 16h8l-1.5 4h-5L8 16z" />
+                    <circle cx="12" cy="11" r="3.5" />
+                  </svg>
+                {/if}
+              </span>
+              <span class="door-title">{door.title}</span>
+              {#if doorHasHeritageForCountry(activeIso, door.id)}
+                <span
+                  class="door-heritage-dot"
+                  title={$dict.heritageUi.localHorizonTag.replace('{country}', activeCountryLabel)}
+                  aria-hidden="true"
+                ></span>
+              {/if}
+            </button>
+          {/each}
+        </div>
+      </div>
+
+      <!-- Stage 3: Compact Scrollable World Traditions Switcher (Secondary Comparison Rail) -->
       <div class="world-horizons-bar" aria-label="Cultural traditions around the world">
-        <span class="wh-label">World traditions:</span>
+        <span class="wh-label">{$dict.heritageUi.otherTraditionsLabel}</span>
         <div class="wh-scroll">
           {#each HERITAGE_INDEX as h}
             {@const isSelected = Boolean(doorHeritage?.id === h.id && showingHeritage)}
@@ -139,213 +398,10 @@
             </button>
           {/each}
         </div>
-        <a href={`${base}/traditions/`} class="wh-all-link">All {HERITAGE_INDEX.length} &rarr;</a>
+        <a href={`${base}/traditions/`} class="wh-all-link">All {HERITAGE_INDEX.length} <span class="arrow-flip" aria-hidden="true">&rarr;</span></a>
       </div>
 
-      <!-- Clean 5-Domain Pill Tabs -->
-      <div class="doors-tabs" role="tablist" aria-label="Five breakthrough domains">
-        {#each $dict.doors.items as door}
-          <button
-            type="button"
-            role="tab"
-            aria-selected={activeDoorId === door.id}
-            class="door-tab"
-            class:selected={activeDoorId === door.id}
-            onclick={() => chooseDoor(door.id)}
-          >
-            <span class="door-icon" aria-hidden="true">
-              {#if door.icon === 'chalkboard'}
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <rect x="3" y="4" width="18" height="13" rx="1.5" />
-                  <path d="M7 9h6M7 13h9M9 17l-1.5 3M15 17l1.5 3" stroke-linecap="round" />
-                </svg>
-              {:else if door.icon === 'pocket'}
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M5 6h14v7a7 7 0 0 1-14 0V6z" />
-                  <circle cx="12" cy="12" r="2.5" stroke="var(--accent-primary)" />
-                </svg>
-              {:else if door.icon === 'eye'}
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M2 12s4-5.5 10-5.5S22 12 22 12s-4 5.5-10 5.5S2 12 2 12z" />
-                  <circle cx="12" cy="12" r="3" />
-                </svg>
-              {:else if door.icon === 'frame'}
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <rect x="3" y="5" width="18" height="14" rx="1.5" />
-                  <path d="M10 9l5 3-5 3V9z" stroke-linejoin="round" />
-                </svg>
-              {:else}
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M8 16h8l-1.5 4h-5L8 16z" />
-                  <circle cx="12" cy="11" r="3.5" />
-                </svg>
-              {/if}
-            </span>
-            <span class="door-title">{door.title}</span>
-            {#if doorHasHeritageForCountry(activeIso, door.id)}
-              <span
-                class="door-heritage-dot"
-                title={$dict.heritageUi.localHorizonTag.replace('{country}', activeCountryLabel)}
-                aria-hidden="true"
-              ></span>
-            {/if}
-          </button>
-        {/each}
-      </div>
-
-      <!-- Active Domain Focus Card OR Interactive 4-Beat Player -->
-      <div bind:this={playerAnchorEl}>
-        {#if activeWish}
-          {#key activeWish.id}
-            <WishPlayer
-              wish={activeWish}
-              base={base}
-              onClose={() => (activeWishId = null)}
-              onNextWish={playNextUnseenWish}
-            />
-          {/key}
-        {:else}
-          <div class="door-preview-panel" role="tabpanel" aria-live="polite">
-            <div class="dp-header-line">
-              <span class="dp-door-tag">{selectedDoor.title}</span>
-              <span class="dp-lead">{selectedDoor.lead}</span>
-            </div>
-
-            <!-- Fixed-height 1-line heritage swap bar (zero extra mobile scroll / CLS=0) -->
-            <div class="heritage-swap-bar">
-              {#if doorHeritage && showingHeritage}
-                <div class="hs-left">
-                  <span class="hs-pill">
-                    {$dict.heritageUi.localHorizonTag.replace('{country}', activeCountryLabel)}
-                  </span>
-                  <span class="hs-era">
-                    {doorHeritage.era === 'living' ? $dict.heritageUi.livingBadge : $dict.heritageUi.historicalBadge}
-                  </span>
-                </div>
-                <div class="hs-actions">
-                  <a href={`${base}/traditions/${doorHeritage.slug}/`} class="hs-archive-link">
-                    {$dict.heritageUi.readArchiveLink} &rarr;
-                  </a>
-                  <button type="button" class="hs-toggle-btn" onclick={() => (preferGlobal = true)}>
-                    {$dict.heritageUi.seeGlobalBtn}
-                  </button>
-                </div>
-              {:else if doorHeritage && preferGlobal}
-                <div class="hs-left">
-                  <span class="hs-muted">{$dict.doors.sampleHeading}</span>
-                </div>
-                <div class="hs-actions">
-                  <button type="button" class="hs-toggle-btn active" onclick={() => (preferGlobal = false)}>
-                    {$dict.heritageUi.seeLocalBtn.replace('{country}', activeCountryLabel)}
-                  </button>
-                </div>
-              {:else if anyCountryHeritage && anyCountryHeritage.door !== selectedDoor.id}
-                {@const targetDoor = $dict.doors.items.find((d) => d.id === anyCountryHeritage.door)}
-                <div class="hs-left">
-                  <span class="hs-muted">
-                    {$dict.heritageUi.livesInOtherDoor
-                      .replace('{country}', activeCountryLabel)
-                      .replace('{door}', targetDoor?.title ?? anyCountryHeritage.door)}
-                  </span>
-                </div>
-                <div class="hs-actions">
-                  <button
-                    type="button"
-                    class="hs-toggle-btn active"
-                    onclick={() => chooseDoor(anyCountryHeritage.door)}
-                  >
-                    {targetDoor?.title ?? 'Open'} &rarr;
-                  </button>
-                </div>
-              {:else if activeIso !== 'GLOBAL'}
-                <div class="hs-left">
-                  <span class="hs-muted">{$dict.heritageUi.noLocalYet.replace('{country}', activeCountryLabel)}</span>
-                </div>
-              {:else}
-                <div class="hs-left">
-                  <span class="hs-muted">{$dict.doors.sampleHeading}</span>
-                </div>
-              {/if}
-            </div>
-
-            {#if doorHeritage && showingHeritage}
-              {@const hTitle = doorHeritage.chipTitle[loc] ?? doorHeritage.chipTitle.en}
-              {@const hId = `heritage-${doorHeritage.id}`}
-              <article class="dp-focus-card is-heritage-focus">
-                <div class="dp-focus-copy">
-                  <div class="dp-wish-head">
-                    <h3>{hTitle}</h3>
-                    <span class="honesty-pill">{doorHeritage.honestyLabel}</span>
-                    <span class="tradition-mini-pill">{doorHeritage.traditionLabel[loc] ?? doorHeritage.traditionLabel.en}</span>
-                  </div>
-                  <p class="dp-wish-beat">{doorHeritage.summary[loc] ?? doorHeritage.summary.en}</p>
-                </div>
-                <button
-                  type="button"
-                  class="dp-play-btn"
-                  disabled={loadingHeritage}
-                  onclick={() => launchHeritage(doorHeritage)}
-                >
-                  {completedIds[hId] ? `✓ ${$dict.player.playedBadge} · ` : ''}{$dict.player.playBtn}
-                  <span class="arrow-flip" aria-hidden="true">&rarr;</span>
-                </button>
-              </article>
-            {:else if INCLUDE_DEV_BREAKTHROUGHS && domainDevItems.length > 0}
-              <div class="dp-wishes-grid">
-                {#each domainDevItems as item}
-                  <article class="dp-wish-card">
-                    <div class="dp-wish-head">
-                      <h4>{item.title[loc] ?? item.title.en}</h4>
-                      <span class="honesty-pill">{item.honestyLabel}</span>
-                    </div>
-                    <p class="dp-wish-beat">{item.wobble.text[loc] ?? item.wobble.text.en}</p>
-                    <button type="button" class="dp-play-btn" onclick={() => launchWish(item.id)}>
-                      {completedIds[item.id] ? `✓ ${$dict.player.playedBadge} · ` : ''}{$dict.player.playBtn}
-                      {#if SHOW_DRAFT_BADGE && item.status === 'draft'} (DRAFT){/if}
-                      <span class="arrow-flip" aria-hidden="true">&rarr;</span>
-                    </button>
-                  </article>
-                {/each}
-              </div>
-            {:else}
-              {@const playableList = selectedDoor.wishes.filter((w) => 'id' in w && w.id && WISH_BY_ID.has(w.id))}
-              {@const stubList = selectedDoor.wishes.filter((w) => !('id' in w && w.id && WISH_BY_ID.has(w.id)))}
-
-              {#each playableList as wish}
-                {@const playableObj = WISH_BY_ID.get(wish.id!)}
-                {#if playableObj}
-                  <article class="dp-focus-card">
-                    <div class="dp-focus-copy">
-                      <div class="dp-wish-head">
-                        <h3>{wish.title}</h3>
-                        <span class="honesty-pill" title={wish.honestyNote}>{wish.honesty}</span>
-                      </div>
-                      <p class="dp-wish-beat">{wish.beatSummary}</p>
-                    </div>
-                    <button
-                      type="button"
-                      class="dp-play-btn"
-                      onclick={() => launchWish(playableObj.id)}
-                    >
-                      {completedIds[playableObj.id] ? `✓ ${$dict.player.playedBadge} · ` : ''}{$dict.player.playBtn}
-                      {#if SHOW_DRAFT_BADGE && playableObj.status === 'draft'} (DRAFT){/if}
-                      <span class="arrow-flip" aria-hidden="true">&rarr;</span>
-                    </button>
-                  </article>
-                {/if}
-              {/each}
-
-              {#if stubList.length > 0}
-                <p class="dp-upcoming-line">
-                  Planned next: {stubList.map((s) => `${s.title} (${s.honesty})`).join(' · ')}
-                </p>
-              {/if}
-            {/if}
-          </div>
-        {/if}
-      </div>
-
-      <!-- Compact Five Lights Progress Bar (Expands smoothly once player runs) -->
+      <!-- Compact Five Lights Visual Diagram (Expands smoothly once player runs) -->
       <div id="five-lights" class="lights-inline-wrap">
         <TrailAndShadowCard compact={true} />
       </div>
@@ -395,19 +451,134 @@
     margin: 0;
   }
 
+  .persp-eyebrow-row {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    margin-bottom: 0.45rem;
+  }
+
+  .persp-pill {
+    font-family: var(--font-family-mono);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.65rem;
+    border-radius: 9999px;
+    background: var(--threat-sovereign-bg);
+    color: var(--accent-primary);
+    border: 1px solid var(--threat-sovereign-border);
+  }
+
+  .persp-reset-btn {
+    border: 1px solid var(--border-medium);
+    background: var(--bg-surface-elevated);
+    color: var(--text-secondary);
+    border-radius: 9999px;
+    padding: 0.16rem 0.55rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .persp-reset-btn:hover {
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+  }
+
+  .visual-stage-grid {
+    display: grid;
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: 1.05rem;
+    align-items: center;
+  }
+
+  .vs-art-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  .vs-flow-pills {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.18rem;
+    font-size: 0.63rem;
+    font-weight: 700;
+  }
+
+  .flow-step {
+    padding: 0.08rem 0.34rem;
+    border-radius: 6px;
+    background: var(--bg-surface-sunken);
+    color: var(--text-secondary);
+    white-space: nowrap;
+  }
+
+  .flow-step.warn {
+    background: var(--threat-warning-bg);
+    color: var(--threat-warning);
+  }
+
+  .flow-step.catch {
+    background: var(--threat-sovereign-bg);
+    color: var(--threat-sovereign);
+    max-width: 112px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .flow-sep {
+    color: var(--text-muted);
+    font-size: 0.72rem;
+  }
+
+  .vs-copy-col {
+    min-width: 0;
+  }
+
+  .binding-preview-line {
+    margin: 0.45rem 0 0;
+    padding: 0.35rem 0.55rem;
+    border-radius: 8px;
+    background: var(--threat-sovereign-bg);
+    border: 1px solid var(--threat-sovereign-border);
+    font-size: 0.8rem;
+    color: var(--text-primary);
+    line-height: 1.38;
+  }
+
+  .domains-explorer-band {
+    margin-top: 0.9rem;
+  }
+
+  .band-micro-label {
+    margin: 0 0 0.45rem;
+    text-align: center;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+  }
+
   .doors-tabs {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 0.45rem;
-    margin-bottom: 0.95rem;
+    margin-bottom: 0.65rem;
   }
 
   .world-horizons-bar {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    margin: 0 auto 0.75rem;
+    margin: 0 auto 0.2rem;
     padding: 0.36rem 0.65rem;
     border-radius: 12px;
     background: var(--bg-surface-elevated);
@@ -730,6 +901,20 @@
     border: 1px solid var(--border-subtle);
     border-radius: 12px;
     padding: 0.9rem;
+  }
+
+  :global([dir='rtl']) .arrow-flip {
+    display: inline-block;
+    transform: scaleX(-1);
+  }
+
+  @media (max-width: 780px) {
+    .visual-stage-grid {
+      grid-template-columns: 1fr;
+    }
+    .vs-art-col :global(.concept-visual-svg) {
+      max-width: 240px;
+    }
   }
 
   @media (max-width: 640px) {
