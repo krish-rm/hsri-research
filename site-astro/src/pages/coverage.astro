@@ -4,8 +4,10 @@ import path from 'node:path';
 import HSRILayout from '../layouts/HSRILayout.astro';
 import HSRIHeader from '../components/HSRIHeader.svelte';
 import HSRIFooter from '../components/HSRIFooter.svelte';
+import { buildCountryWidgetCatalog } from '../lib/countryData';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const catalogIsoSet = new Set(buildCountryWidgetCatalog().map((c) => c.iso.toUpperCase()));
 
 interface UnratedNation {
   country_iso3: string;
@@ -204,7 +206,15 @@ for (const n of unratedNations) {
               {unratedNations.map((nation) => (
                 <tr>
                   <td><span class="iso-badge">{nation.country_iso3}</span></td>
-                  <td><strong>{nation.country_name}</strong></td>
+                  <td>
+                    {catalogIsoSet.has(nation.country_iso3.toUpperCase()) ? (
+                      <a href={`${base}/countries/${nation.country_iso3.toLowerCase()}/`} class="coverage-country-link">
+                        <strong>{nation.country_name}</strong>
+                      </a>
+                    ) : (
+                      <strong>{nation.country_name}</strong>
+                    )}
+                  </td>
                   <td>{nation.region}</td>
                   <td><span class="subregion-text">{nation.un_subregion}</span></td>
                   <td>
@@ -682,5 +692,14 @@ for (const n of unratedNations) {
   @media (max-width: 768px) {
     .page-header h1 { font-size: 1.75rem; }
     .cta-card { padding: 1.5rem; }
+  }
+  .coverage-country-link {
+    color: var(--accent-primary, #1b6756);
+    text-decoration: underline;
+    text-decoration-color: rgba(27, 103, 86, 0.35);
+    text-underline-offset: 2px;
+  }
+  .coverage-country-link:hover {
+    text-decoration-color: currentColor;
   }
 </style>

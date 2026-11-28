@@ -1,36 +1,42 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { activeLocale, dict, initLocale, setLocale, SUPPORTED_LOCALES, getLocaleMeta, type LocaleKey } from '../i18n/store';
+  import { activeLocale, dict, initLocale, localeReady, resolveViewDict, setLocale, SUPPORTED_LOCALES, getLocaleMeta, type LocaleKey } from '../i18n/store';
+  import type { TranslationDict } from '../i18n/en';
   import { trackEvent } from '../lib/privacyStorage';
 
   export let currentPath = '';
   export let showStatsBar = true;
+  export let ssrLocale: LocaleKey = 'en';
+  export let ssrDict: Partial<TranslationDict> | undefined = undefined;
+
+  $: d = resolveViewDict($dict, $localeReady, ssrLocale, ssrDict);
+  $: effectiveLocale = (!$localeReady && ssrLocale !== 'en' ? ssrLocale : $activeLocale) as LocaleKey;
 
   // ── Types ──────────────────────────────────────────────────────────
   type NavChild = { name: string; href: string; desc: string; external?: boolean };
   type NavGroup = { name: string; href?: string; live?: boolean; badge?: string; children?: NavChild[] };
   type PrimaryItem = { name: string; href: string; badge?: string; live?: boolean };
 
-  // ── Config — Localized reactively via $dict.headerUi ───────────────
+  // ── Config — Localized reactively via d.headerUi ───────────────
   $: primaryNav = [
-    { name: $dict.headerUi.nav.sandbox || 'Sandbox', href: '/sandbox/', badge: $dict.headerUi.nav.sandboxBadge || 'SIMULATOR' },
-    { name: $dict.headerUi.nav.countries || 'Country Index', href: '/countries/' },
-    { name: $dict.headerUi.nav.seismograph || 'Seismograph', href: '/seismograph/', live: true },
-    { name: $dict.headerUi.nav.scenarios || 'Scenario Atlas', href: '/scenarios/' },
-    { name: $dict.headerUi.nav.monograph || 'Monograph', href: '/monograph/', badge: $dict.headerUi.nav.monographBadge || 'TREATISE' },
+    { name: d.headerUi.nav.sandbox || 'Sandbox', href: '/sandbox/', badge: d.headerUi.nav.sandboxBadge || 'SIMULATOR' },
+    { name: d.headerUi.nav.countries || 'Country Index', href: '/countries/' },
+    { name: d.headerUi.nav.seismograph || 'Seismograph', href: '/seismograph/', live: true },
+    { name: d.headerUi.nav.scenarios || 'Scenario Atlas', href: '/scenarios/' },
+    { name: d.headerUi.nav.monograph || 'Monograph', href: '/monograph/', badge: d.headerUi.nav.monographBadge || 'TREATISE' },
   ] as PrimaryItem[];
 
   $: utilityGroup = {
-    name: $dict.headerUi.nav.scienceGroup,
+    name: d.headerUi.nav.scienceGroup,
     children: [
-      { name: $dict.headerUi.utility.methodology, href: '/methodology/', desc: $dict.headerUi.utility.methodologyDesc },
-      { name: $dict.headerUi.utility.data, href: '/data/', desc: $dict.headerUi.utility.dataDesc },
-      { name: $dict.headerUi.utility.researchLogs, href: '/research-updates/', desc: $dict.headerUi.utility.researchLogsDesc },
-      { name: 'DOI 10.5281/zenodo.23441742', href: 'https://doi.org/10.5281/zenodo.23441742', desc: $dict.headerUi.utility.doiDesc, external: true },
+      { name: d.headerUi.utility.methodology, href: '/methodology/', desc: d.headerUi.utility.methodologyDesc },
+      { name: d.headerUi.utility.data, href: '/data/', desc: d.headerUi.utility.dataDesc },
+      { name: d.headerUi.utility.researchLogs, href: '/research-updates/', desc: d.headerUi.utility.researchLogsDesc },
+      { name: 'DOI 10.5281/zenodo.23441742', href: 'https://doi.org/10.5281/zenodo.23441742', desc: d.headerUi.utility.doiDesc, external: true },
     ],
   } as NavGroup;
 
-  $: currentLocaleMeta = getLocaleMeta($activeLocale);
+  $: currentLocaleMeta = getLocaleMeta(effectiveLocale);
 
   const base = (import.meta.env.BASE_URL || '/').replace(/\/$/, '');
   const withBase = (href: string) => {
@@ -145,7 +151,7 @@
   <div class="header-outer-container">
     <div class="header-content">
       <!-- Brand — sole Home affordance -->
-      <a href={withBase('/')} class="header-brand" aria-label={$dict.headerUi.homeAria}>
+      <a href={withBase('/')} class="header-brand" aria-label={d.headerUi.homeAria}>
         <svg class="logo" width="38" height="38" viewBox="0 0 40 40" fill="none" aria-hidden="true">
           <circle cx="20" cy="20" r="19" stroke="var(--primary-color)" stroke-width="2"/>
           <path d="M20 5 L15 15 L5 20 L15 25 L20 35 L25 25 L35 20 L25 15 Z" fill="var(--primary-color)" opacity="0.8"/>
@@ -153,12 +159,12 @@
         </svg>
         <div class="brand-text">
           <h1 class="site-title">HSRI</h1>
-          <p class="site-tagline">{$dict.headerUi.tagline}</p>
+          <p class="site-tagline">{d.headerUi.tagline}</p>
         </div>
       </a>
 
       <!-- Desktop Primary Nav — 3 pillars -->
-      <nav class="main-nav" aria-label={$dict.headerUi.primaryNavAria}>
+      <nav class="main-nav" aria-label={d.headerUi.primaryNavAria}>
         <ul class="nav-list">
           {#each primaryNav as item}
             <li class="nav-item">
@@ -171,7 +177,7 @@
               >
                 {#if item.live}<span class="live-dot" aria-hidden="true"></span>{/if}
                 {item.name}
-                {#if item.live}<span class="live-label">{$dict.headerUi.nav.liveBadge}</span>{/if}
+                {#if item.live}<span class="live-label">{d.headerUi.nav.liveBadge}</span>{/if}
                 {#if item.badge}<span class="nav-badge">{item.badge}</span>{/if}
               </a>
             </li>
@@ -234,8 +240,8 @@
             aria-haspopup="listbox"
             aria-expanded={isLangOpen}
             aria-controls="header-lang-menu"
-            aria-label={$dict.headerUi.langSwitcherAria}
-            title={$dict.headerUi.langMenuLabel}
+            aria-label={d.headerUi.langSwitcherAria}
+            title={d.headerUi.langMenuLabel}
             on:click={toggleLangMenu}
           >
             <svg class="lang-globe-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -253,15 +259,15 @@
               id="header-lang-menu"
               class="lang-menu"
               role="listbox"
-              aria-label={$dict.headerUi.langSwitcherAria}
+              aria-label={d.headerUi.langSwitcherAria}
             >
               {#each SUPPORTED_LOCALES as locOpt}
                 <button
                   type="button"
                   class="lang-option"
-                  class:active={$activeLocale === locOpt.code}
+                  class:active={effectiveLocale === locOpt.code}
                   role="option"
-                  aria-selected={$activeLocale === locOpt.code}
+                  aria-selected={effectiveLocale === locOpt.code}
                   on:click={() => chooseLocale(locOpt.code)}
                 >
                   <span class="lang-opt-native">{locOpt.label}</span>
@@ -273,8 +279,8 @@
         </div>
 
         <button type="button" class="theme-toggle-btn" on:click={toggleTheme}
-          aria-label={currentTheme === 'dark' ? $dict.headerUi.themeLightAria : $dict.headerUi.themeDarkAria}
-          title={currentTheme === 'dark' ? $dict.headerUi.themeLightAria : $dict.headerUi.themeDarkAria}>
+          aria-label={currentTheme === 'dark' ? d.headerUi.themeLightAria : d.headerUi.themeDarkAria}
+          title={currentTheme === 'dark' ? d.headerUi.themeLightAria : d.headerUi.themeDarkAria}>
           {#if currentTheme === 'dark'}
             <!-- Light bulb icon (switch to cream) -->
             <svg class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -292,7 +298,7 @@
 
         <!-- Hamburger — only <768px -->
         <button type="button" class="mobile-menu-button" on:click={toggleMenu}
-          aria-label={isMenuOpen ? $dict.headerUi.menuCloseAria : $dict.headerUi.menuOpenAria} aria-expanded={isMenuOpen}>
+          aria-label={isMenuOpen ? d.headerUi.menuCloseAria : d.headerUi.menuOpenAria} aria-expanded={isMenuOpen}>
           {#if isMenuOpen}
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <line x1="18" y1="6" x2="6" y2="18"/>
@@ -324,14 +330,14 @@
 
   <!-- Mobile Drawer -->
   {#if isMenuOpen}
-    <div class="mobile-menu" role="dialog" aria-modal="true" aria-label={$dict.headerUi.primaryNavAria}>
+    <div class="mobile-menu" role="dialog" aria-modal="true" aria-label={d.headerUi.primaryNavAria}>
       <ul class="mobile-nav-list">
         {#each primaryNav as item}
           <li class="mobile-nav-item">
             <a href={withBase(item.href)} class="mobile-nav-link" class:active={isActive(item.href)} on:click={closeMenu}>
               {#if item.live}<span class="live-dot" aria-hidden="true"></span>{/if}
               {item.name}
-              {#if item.live}<span class="live-label">{$dict.headerUi.nav.liveBadge}</span>{/if}
+              {#if item.live}<span class="live-label">{d.headerUi.nav.liveBadge}</span>{/if}
               {#if item.badge}<span class="nav-badge">{item.badge}</span>{/if}
             </a>
           </li>
@@ -358,14 +364,14 @@
 
         <!-- Mobile language switcher -->
         <li class="mobile-nav-item mobile-lang-item">
-          <p class="mobile-lang-heading">{$dict.headerUi.langMenuLabel}</p>
-          <div class="mobile-lang-grid" role="group" aria-label={$dict.headerUi.langSwitcherAria}>
+          <p class="mobile-lang-heading">{d.headerUi.langMenuLabel}</p>
+          <div class="mobile-lang-grid" role="group" aria-label={d.headerUi.langSwitcherAria}>
             {#each SUPPORTED_LOCALES as locOpt}
               <button
                 type="button"
                 class="mobile-lang-pill"
-                class:active={$activeLocale === locOpt.code}
-                aria-pressed={$activeLocale === locOpt.code}
+                class:active={effectiveLocale === locOpt.code}
+                aria-pressed={effectiveLocale === locOpt.code}
                 on:click={() => { chooseLocale(locOpt.code); closeMenu(); }}
               >
                 {locOpt.label}

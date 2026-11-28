@@ -1,14 +1,20 @@
 <script lang="ts">
-  import { activeLocale, dict, getCountryDisplayName } from '../i18n/store';
+  import { activeLocale, dict, getCountryDisplayName, localeReady, resolveViewDict, type LocaleKey } from '../i18n/store';
+  import type { TranslationDict } from '../i18n/en';
   import { trackEvent } from '../lib/privacyStorage';
   import { countryContextStore } from '../lib/countryContext';
   import TotoCinemaPlayer from './TotoCinemaPlayer.svelte';
 
   export let base = '';
+  export let ssrLocale: LocaleKey = 'en';
+  export let ssrDict: Partial<TranslationDict> | undefined = undefined;
+
+  $: d = resolveViewDict($dict, $localeReady, ssrLocale, ssrDict);
+  $: effectiveLocale = (!$localeReady && ssrLocale !== 'en' ? ssrLocale : $activeLocale) as LocaleKey;
 
   $: activeCountryName =
     $countryContextStore.iso && $countryContextStore.iso !== 'GLOBAL'
-      ? getCountryDisplayName($countryContextStore.iso, $countryContextStore.countryName, $activeLocale)
+      ? getCountryDisplayName($countryContextStore.iso, $countryContextStore.countryName, effectiveLocale)
       : '';
 
   function handleCta(target: 'breakthrough' | 'country') {
@@ -23,20 +29,20 @@
       <div class="hero-copy">
         <div class="eyebrow-pill">
           <span class="pulse-dot" aria-hidden="true"></span>
-          <span>{$dict.hero.eyebrow}</span>
+          <span>{d.hero.eyebrow}</span>
         </div>
 
         <h1 class="hero-title">
-          {$dict.hero.headlineLead}<span class="hero-title-accent">{$dict.hero.headlineAccent}</span>
+          {d.hero.headlineLead}<span class="hero-title-accent">{d.hero.headlineAccent}</span>
         </h1>
 
-        <p class="hero-subhead">{$dict.hero.subhead}</p>
+        <p class="hero-subhead">{d.hero.subhead}</p>
 
         <div class="hero-start-cue">
           <span class="hsc-step" aria-hidden="true">1</span>
           <span class="hsc-text">
-            {$dict.hero.guideCue}
-            <strong id="hero-cue-country">{activeCountryName || $dict.hero.cityNeutralName}</strong>
+            {d.hero.guideCue}
+            <strong id="hero-cue-country">{activeCountryName || d.hero.cityNeutralName}</strong>
             <span class="hsc-arrow hsc-desktop arrow-flip" aria-hidden="true">&rarr;</span>
             <span class="hsc-arrow hsc-mobile" aria-hidden="true">&darr;</span>
           </span>
@@ -45,22 +51,22 @@
 
       <!-- Right: 1. Choose Country in Toto Cinema -> 2. Country-Aware Actions -->
       <div class="hero-visual">
-        <TotoCinemaPlayer base={base} compact={true} />
+        <TotoCinemaPlayer base={base} compact={true} {ssrLocale} {ssrDict} />
 
         <div class="cta-row">
           <a href="#wish-doors" class="btn-primary-hero" onclick={() => handleCta('breakthrough')}>
             <span id="hero-cta-primary-label">
               {activeCountryName
-                ? $dict.hero.ctaCountryPrimary.replace('{country}', activeCountryName)
-                : $dict.hero.ctaPrimary}
+                ? d.hero.ctaCountryPrimary.replace('{country}', activeCountryName)
+                : d.hero.ctaPrimary}
             </span>
             <span class="arrow-flip" aria-hidden="true">&rarr;</span>
           </a>
           <a href="#country-check" class="btn-secondary-hero" onclick={() => handleCta('country')}>
             <span id="hero-cta-secondary-label">
               {activeCountryName
-                ? $dict.hero.ctaCountrySecondary.replace('{country}', activeCountryName)
-                : $dict.hero.ctaSecondary}
+                ? d.hero.ctaCountrySecondary.replace('{country}', activeCountryName)
+                : d.hero.ctaSecondary}
             </span>
           </a>
         </div>

@@ -6,7 +6,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "validate:wishes": "node scripts/validate_wishes.mjs && node scripts/validate_heritage.mjs && node scripts/validate_i18n.mjs",
-    "build": "node scripts/validate_wishes.mjs && node scripts/validate_heritage.mjs && node scripts/validate_i18n.mjs && astro build",
+    "build": "node scripts/validate_wishes.mjs && node scripts/validate_heritage.mjs && node scripts/validate_i18n.mjs && astro build && node scripts/validate_seo.mjs",
     "build:preview": "node -e \"process.env.PUBLIC_SHOW_DRAFTS='true'; require('child_process').execSync('node scripts/validate_wishes.mjs && node scripts/validate_heritage.mjs && node scripts/validate_i18n.mjs && astro build', { stdio: 'inherit' })\"",
     "build:dev": "node -e \"process.env.PUBLIC_SHOW_DRAFTS='true'; process.env.PUBLIC_SHOW_DEV_BREAKTHROUGHS='true'; require('child_process').execSync('node scripts/validate_wishes.mjs && node scripts/validate_heritage.mjs && node scripts/validate_i18n.mjs && astro build', { stdio: 'inherit' })\"",
     "preview": "astro preview"

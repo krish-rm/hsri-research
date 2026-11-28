@@ -1,32 +1,39 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { activeLocale, dict, initLocale, setLocale, SUPPORTED_LOCALES, type LocaleKey } from '../i18n/store';
+  import { activeLocale, dict, initLocale, localeReady, resolveViewDict, setLocale, SUPPORTED_LOCALES, type LocaleKey } from '../i18n/store';
+  import type { TranslationDict } from '../i18n/en';
   import { trackEvent } from '../lib/privacyStorage';
+
+  export let ssrLocale: LocaleKey = 'en';
+  export let ssrDict: Partial<TranslationDict> | undefined = undefined;
 
   const base = (import.meta.env.BASE_URL || '/hsri-research').replace(/\/$/, '');
 
+  $: d = resolveViewDict($dict, $localeReady, ssrLocale, ssrDict);
+  $: effectiveLocale = (!$localeReady && ssrLocale !== 'en' ? ssrLocale : $activeLocale) as LocaleKey;
+
   // Curated, localized footer navigation preserving all research routes
   $: footerNav = {
-    [$dict.footerUi.researchHeading]: [
-      { name: $dict.footerUi.researchLinks[0], href: `${base}/sandbox/` },
-      { name: $dict.footerUi.researchLinks[1], href: `${base}/countries/` },
-      { name: $dict.footerUi.researchLinks[2], href: `${base}/seismograph/` },
-      { name: $dict.footerUi.researchLinks[3], href: `${base}/scenarios/` },
-      { name: $dict.footerUi.researchLinks[4], href: `${base}/monograph/` },
+    [d.footerUi.researchHeading]: [
+      { name: d.footerUi.researchLinks[0], href: `${base}/sandbox/` },
+      { name: d.footerUi.researchLinks[1], href: `${base}/countries/` },
+      { name: d.footerUi.researchLinks[2], href: `${base}/seismograph/` },
+      { name: d.footerUi.researchLinks[3], href: `${base}/scenarios/` },
+      { name: d.footerUi.researchLinks[4], href: `${base}/monograph/` },
     ],
-    [$dict.footerUi.scienceHeading]: [
-      { name: $dict.footerUi.scienceLinks[0], href: `${base}/methodology/` },
-      { name: $dict.footerUi.scienceLinks[1], href: `${base}/data/` },
-      { name: $dict.footerUi.scienceLinks[2], href: `${base}/coverage/` },
-      { name: $dict.footerUi.scienceLinks[3], href: `${base}/toto/#this-week` },
-      { name: $dict.footerUi.scienceLinks[4], href: `${base}/methodology/#limitations` },
+    [d.footerUi.scienceHeading]: [
+      { name: d.footerUi.scienceLinks[0], href: `${base}/methodology/` },
+      { name: d.footerUi.scienceLinks[1], href: `${base}/data/` },
+      { name: d.footerUi.scienceLinks[2], href: `${base}/coverage/` },
+      { name: d.footerUi.scienceLinks[3], href: `${base}/toto/#this-week` },
+      { name: d.footerUi.scienceLinks[4], href: `${base}/methodology/#limitations` },
     ]
   };
 
   // Curated channels (zero github links)
   $: socialLinks = [
     { name: 'X / Twitter', href: 'https://twitter.com/hsri_research', icon: 'twitter' },
-    { name: $dict.footerUi.contactHeading, href: 'mailto:contact@humanityreadiness.org', icon: 'email' },
+    { name: d.footerUi.contactHeading, href: 'mailto:contact@humanityreadiness.org', icon: 'email' },
   ];
 
   function chooseLocale(loc: LocaleKey) {
@@ -54,12 +61,12 @@
             <circle cx="20" cy="20" r="8" fill="var(--bg-canvas, #fbf7ee)"/>
           </svg>
           <div>
-            <h3 class="footer-title">{$dict.footerUi.brandTitle}</h3>
-            <p class="footer-tagline">{$dict.footerUi.tagline}</p>
+            <h3 class="footer-title">{d.footerUi.brandTitle}</h3>
+            <p class="footer-tagline">{d.footerUi.tagline}</p>
           </div>
         </div>
         <p class="footer-description">
-          {$dict.footerUi.brandDesc}
+          {d.footerUi.brandDesc}
         </p>
       </div>
 
@@ -88,9 +95,9 @@
 
       <!-- Inquiries section -->
       <div class="footer-contact">
-        <h4 class="contact-title">{$dict.footerUi.contactHeading}</h4>
+        <h4 class="contact-title">{d.footerUi.contactHeading}</h4>
         <p class="contact-description">
-          {$dict.footerUi.contactDesc}
+          {d.footerUi.contactDesc}
         </p>
         <a href="mailto:contact@humanityreadiness.org" class="contact-link">
           contact@humanityreadiness.org
@@ -116,43 +123,46 @@
       </div>
     </div>
 
-    <!-- Language & RTL Layout Switcher (14 global editions) -->
-    <div id="languages" class="footer-languages" aria-label={$dict.headerUi.langSwitcherAria}>
-      <span class="lang-heading">{$dict.footerUi.langHeading}</span>
+    <!-- Language & RTL Layout Switcher (14 global editions with crawlable hrefs) -->
+    <div id="languages" class="footer-languages" aria-label={d.headerUi.langSwitcherAria}>
+      <span class="lang-heading">{d.footerUi.langHeading}</span>
       {#each SUPPORTED_LOCALES as locOpt}
-        <button
-          type="button"
+        <a
+          href={locOpt.code === 'en' ? `${base || '/'}` : `${base}/${locOpt.code}/`}
           class="lang-btn"
-          class:active={$activeLocale === locOpt.code}
-          aria-pressed={$activeLocale === locOpt.code}
+          class:active={effectiveLocale === locOpt.code}
+          aria-current={effectiveLocale === locOpt.code ? 'true' : undefined}
           title={locOpt.englishName}
-          on:click={() => chooseLocale(locOpt.code)}
+          on:click={(e) => {
+            e.preventDefault();
+            chooseLocale(locOpt.code);
+          }}
         >
           {locOpt.label}
-        </button>
+        </a>
       {/each}
-      {#if $activeLocale === 'ar' || $activeLocale === 'rtl-stub'}
-        <span class="rtl-badge" role="status">{$dict.footerUi.rtlActiveNotice}</span>
+      {#if effectiveLocale === 'ar' || effectiveLocale === 'rtl-stub'}
+        <span class="rtl-badge" role="status">{d.footerUi.rtlActiveNotice}</span>
       {/if}
-      {#if $activeLocale !== 'en'}
-        <span class="review-badge">{$dict.footerUi.communityReviewNotice}</span>
+      {#if effectiveLocale !== 'en'}
+        <span class="review-badge">{d.footerUi.communityReviewNotice}</span>
       {/if}
     </div>
 
     <!-- Bottom section -->
     <div class="footer-bottom">
       <div class="footer-links">
-        <a href={`${base}/privacy/`} class="footer-link">{$dict.footerUi.privacyLink}</a>
-        <a href={`${base}/toto/`} class="footer-link">{$dict.footerUi.totoLink}</a>
-        <a href="#languages" class="footer-link">{$dict.footerUi.languagesLink}</a>
-        <a href={`${base}/#this-week`} class="footer-link">{$dict.footerUi.recapLink}</a>
-        <a href="https://doi.org/10.5281/zenodo.23441742" class="footer-link" target="_blank" rel="noopener noreferrer">{$dict.footerUi.doiLink}</a>
-        <a href={`${base}/methodology/#limitations`} class="footer-link">{$dict.footerUi.disclaimerLink}</a>
-        <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="footer-link" target="_blank" rel="noopener noreferrer">{$dict.footerUi.licenseLink}</a>
+        <a href={`${base}/privacy/`} class="footer-link">{d.footerUi.privacyLink}</a>
+        <a href={`${base}/toto/`} class="footer-link">{d.footerUi.totoLink}</a>
+        <a href="#languages" class="footer-link">{d.footerUi.languagesLink}</a>
+        <a href={`${base}/#this-week`} class="footer-link">{d.footerUi.recapLink}</a>
+        <a href="https://doi.org/10.5281/zenodo.23441742" class="footer-link" target="_blank" rel="noopener noreferrer">{d.footerUi.doiLink}</a>
+        <a href={`${base}/methodology/#limitations`} class="footer-link">{d.footerUi.disclaimerLink}</a>
+        <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="footer-link" target="_blank" rel="noopener noreferrer">{d.footerUi.licenseLink}</a>
       </div>
 
       <div class="copyright">
-        <p>{$dict.footerUi.copyright}</p>
+        <p>{d.footerUi.copyright}</p>
       </div>
     </div>
   </div>
@@ -338,6 +348,9 @@
   }
 
   .lang-btn {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
     border: 1px solid var(--border-medium, #d4caa8);
     background: var(--bg-surface-elevated, #ffffff);
     color: var(--text-primary, #1e1915);

@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css';
+import { buildSiteGraphJsonLd, normalizeCanonicalUrl, OG_LOCALE_BY_LANG, type HreflangAlternate } from '../lib/seo';
+import type { LocaleCode } from '../i18n/locales';
 
 interface Props {
   title?: string;
@@ -7,24 +9,37 @@ interface Props {
   image?: string;
   canonicalUrl?: string;
   keywords?: string;
+  lang?: LocaleCode | string;
+  dir?: 'ltr' | 'rtl';
+  ogLocale?: string;
+  alternates?: readonly HreflangAlternate[];
+  structuredData?: Record<string, unknown> | readonly Record<string, unknown>[];
 }
 
 const {
   title = "Are we ready for what we're asking superintelligence to deliver? | Humanity Superintelligence Readiness Index",
   description = "Choose one breakthrough, trace what breaks when it arrives, and test your country's real readiness data. Open research across 39 benchmark nations.",
   image = "https://humanityreadiness.org/assets/og-image.png",
-  canonicalUrl = Astro.url ? Astro.url.href : "https://humanityreadiness.org/",
-  keywords = "humanity readiness, AI readiness, superintelligence, country preparedness, human oversight, open research"
+  canonicalUrl,
+  keywords = "humanity readiness, AI readiness, superintelligence, country preparedness, human oversight, open research",
+  lang = 'en',
+  dir = 'ltr',
+  ogLocale,
+  alternates = [],
+  structuredData
 } = Astro.props;
 
-// Ensure absolute URL for image (WhatsApp and social scrapers strictly require absolute https URLs)
+// Ensure absolute URL for image & canonical (strip transient query params like ?c=XX or ?lang=xx)
 const siteOrigin = "https://humanityreadiness.org";
 const ogImageUrl = image.startsWith("http") ? image : `${siteOrigin}${image.startsWith("/") ? "" : "/"}${image}`;
-const ogPageUrl = canonicalUrl.startsWith("http") ? canonicalUrl : `${siteOrigin}${canonicalUrl.startsWith("/") ? "" : "/"}${canonicalUrl}`;
+const ogPageUrl = normalizeCanonicalUrl(canonicalUrl, Astro.url?.pathname || '/');
+const resolvedOgLocale = ogLocale ?? (OG_LOCALE_BY_LANG[lang as LocaleCode] || 'en_US');
+const siteGraphLd = buildSiteGraphJsonLd();
+const extraLdList = structuredData ? (Array.isArray(structuredData) ? structuredData : [structuredData]) : [];
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang} dir={dir}>
   <head>
     <!-- Canonical Domain Redirect: humanreadinessindex.org -> humanityreadiness.org -->
     <script is:inline>
@@ -39,6 +54,9 @@ const ogPageUrl = canonicalUrl.startsWith("http") ? canonicalUrl : `${siteOrigin
 
     <title>{title}</title>
     <link rel="canonical" href={ogPageUrl} />
+    {alternates.map((alt) => (
+      <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />
+    ))}
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/boldonse/v1/ZgNQjPxGPbbJUZemjB37jGA.woff2" />
@@ -80,6 +98,7 @@ const ogPageUrl = canonicalUrl.startsWith("http") ? canonicalUrl : `${siteOrigin
 
     <!-- Open Graph / Facebook / WhatsApp / LinkedIn -->
     <meta property="og:type" content="website">
+    <meta property="og:locale" content={resolvedOgLocale}>
     <meta property="og:site_name" content="Humanity Superintelligence Readiness Index (HSRI 2.0)">
     <meta property="og:url" content={ogPageUrl}>
     <meta property="og:title" content={title}>
@@ -90,6 +109,12 @@ const ogPageUrl = canonicalUrl.startsWith("http") ? canonicalUrl : `${siteOrigin
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="Humanity Superintelligence Readiness Index (HSRI 2.0) — Sovereign Sentinel & ASI Precursor Seismograph">
+
+    <!-- Structured Data (Schema.org JSON-LD) -->
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(siteGraphLd)}></script>
+    {extraLdList.map((schemaObj) => (
+      <script is:inline type="application/ld+json" set:html={JSON.stringify(schemaObj)}></script>
+    ))}
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image">
@@ -108,8 +133,10 @@ const ogPageUrl = canonicalUrl.startsWith("http") ? canonicalUrl : `${siteOrigin
           document.documentElement.setAttribute('data-theme', theme);
           const savedLocale = localStorage.getItem('hr:v1:locale');
           const urlLang = new URLSearchParams(window.location.search).get('lang');
-          const rawLocale = (urlLang || savedLocale || '').trim().toLowerCase().replace(/_/g, '-');
           const supported = ['en', 'es', 'ar', 'zh', 'hi', 'fr', 'pt', 'bn', 'ru', 'id', 'ja', 'de', 'ko', 'sw'];
+          const pathSeg = (window.location.pathname.replace(/^\/+|\/+$/g, '').split('/')[0] || '').toLowerCase();
+          const pathLocale = pathSeg && pathSeg !== 'en' && supported.includes(pathSeg) ? pathSeg : '';
+          const rawLocale = (urlLang || pathLocale || savedLocale || '').trim().toLowerCase().replace(/_/g, '-');
           const baseCode = rawLocale.split('-')[0];
           const resolvedLocale = supported.includes(rawLocale)
             ? rawLocale

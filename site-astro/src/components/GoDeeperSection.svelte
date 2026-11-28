@@ -1,44 +1,49 @@
 <script lang="ts">
-  import { dict } from '../i18n/store';
+  import { dict, localeReady, resolveViewDict, type LocaleKey } from '../i18n/store';
+  import type { TranslationDict } from '../i18n/en';
 
   export let base = '';
+  export let ssrLocale: LocaleKey = 'en';
+  export let ssrDict: Partial<TranslationDict> | undefined = undefined;
+
+  $: d = resolveViewDict($dict, $localeReady, ssrLocale, ssrDict);
 </script>
 
 <section id="go-deeper" class="evidence-section">
   <div class="story-container">
     <div class="es-head">
-      <span class="es-kicker">{$dict.deeper.eyebrow}</span>
-      <h2>{$dict.deeper.heading}</h2>
-      <p>{$dict.deeper.subhead}</p>
+      <span class="es-kicker">{d.deeper.eyebrow}</span>
+      <h2>{d.deeper.heading}</h2>
+      <p>{d.deeper.subhead}</p>
     </div>
 
     <!-- Non-redundant Empirical Scope Proof Cards (full site navigation lives cleanly in footer below) -->
-    <div class="proof-stats" aria-label={$dict.deeper.heading}>
+    <div class="proof-stats" aria-label={d.deeper.heading}>
       <div class="ps-card">
         <strong>39</strong>
-        <span>{$dict.deeper.statNations}</span>
+        <span>{d.deeper.statNations}</span>
       </div>
       <div class="ps-card">
         <strong>96.5%</strong>
-        <span>{$dict.deeper.statCompleteness}</span>
+        <span>{d.deeper.statCompleteness}</span>
       </div>
       <div class="ps-card">
         <strong>26</strong>
-        <span>{$dict.deeper.statScenarios}</span>
+        <span>{d.deeper.statScenarios}</span>
       </div>
       <div class="ps-card">
         <strong>14</strong>
-        <span>{$dict.deeper.statSignals}</span>
+        <span>{d.deeper.statSignals}</span>
       </div>
     </div>
 
     <div class="es-actions">
       <a href={`${base}/sandbox/`} class="es-primary-cta">
-        {$dict.deeper.primaryCta} <span class="arrow-flip" aria-hidden="true">&rarr;</span>
+        {d.deeper.primaryCta} <span class="arrow-flip" aria-hidden="true">&rarr;</span>
       </a>
       <details class="es-citation-note">
-        <summary>{$dict.deeper.citationSummary}</summary>
-        <p>{$dict.deeper.releaseNote}</p>
+        <summary>{d.deeper.citationSummary}</summary>
+        <p>{d.deeper.releaseNote}</p>
       </details>
     </div>
   </div>

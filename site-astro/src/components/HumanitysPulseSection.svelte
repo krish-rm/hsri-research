@@ -1,19 +1,23 @@
 <script lang="ts">
-  import { dict } from '../i18n/store';
+  import { dict, localeReady, resolveViewDict, type LocaleKey } from '../i18n/store';
+  import type { TranslationDict } from '../i18n/en';
 
   export let base = '';
   export let pulseKey: 'steady' | 'stirring' | 'rising' = 'rising';
   export let pulseScore = 8.44;
+  export let ssrLocale: LocaleKey = 'en';
+  export let ssrDict: Partial<TranslationDict> | undefined = undefined;
 
+  $: d = resolveViewDict($dict, $localeReady, ssrLocale, ssrDict);
   $: clampedPulse = Math.max(0, Math.min(10, Number.isFinite(pulseScore) ? pulseScore : 8.44));
   $: needleAngleDeg = -90 + (clampedPulse / 10) * 180;
 </script>
 
 <!-- STEP 4: HUMANITY'S PULSE BRIDGE (Just Above Research Behind the Story) -->
-<section id="humanitys-pulse" class="pulse-section" aria-label={$dict.pulse.label}>
+<section id="humanitys-pulse" class="pulse-section" aria-label={d.pulse.label}>
   <div class="pulse-container">
     <div class="pulse-section-head">
-      <span class="pulse-kicker">{$dict.pulse.sectionKicker}</span>
+      <span class="pulse-kicker">{d.pulse.sectionKicker}</span>
     </div>
 
     <a href={`${base}/seismograph/`} class="pulse-visual-card">
@@ -60,18 +64,18 @@
         <div class="pv-head-row">
           <span class="pv-title-line">
             <span class={`hm-dot state-${pulseKey}`} aria-hidden="true"></span>
-            <span>{$dict.pulse.label}: <strong>{$dict.pulse.states[pulseKey].word}</strong></span>
+            <span>{d.pulse.label}: <strong>{d.pulse.states[pulseKey].word}</strong></span>
           </span>
           <span class="pv-score-pill">{clampedPulse.toFixed(1)}/10</span>
         </div>
 
         <div class="pv-pace-bars" aria-hidden="true">
           <div class="pace-row">
-            <span class="pace-lbl">{$dict.pulse.humanPaceLabel}</span>
+            <span class="pace-lbl">{d.pulse.humanPaceLabel}</span>
             <span class="pace-track"><i class="pace-fill-human"></i></span>
           </div>
           <div class="pace-row">
-            <span class="pace-lbl">{$dict.pulse.aiPaceLabel}</span>
+            <span class="pace-lbl">{d.pulse.aiPaceLabel}</span>
             <span class="pace-track">
               <i class="pace-fill-ai" style={`width:${Math.round(clampedPulse * 10)}%`}></i>
             </span>
@@ -79,9 +83,9 @@
         </div>
 
         <div class="pv-foot">
-          <span class="pv-explain">{$dict.pulse.states[pulseKey].sentence}</span>
+          <span class="pv-explain">{d.pulse.states[pulseKey].sentence}</span>
           <span class="mini-arrow">
-            {$dict.pulse.cta} <span class="arrow-flip" aria-hidden="true">&rarr;</span>
+            {d.pulse.cta} <span class="arrow-flip" aria-hidden="true">&rarr;</span>
           </span>
         </div>
       </div>

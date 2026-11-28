@@ -1,7 +1,7 @@
 import { writable, derived } from 'svelte/store';
 import { en, type TranslationDict } from './en';
 import { rtlStub } from './rtl-stub';
-import { getLocaleMeta, normalizeLocale, type LocaleKey } from './locales';
+import { getLocaleMeta, LOCALE_CODES, normalizeLocale, type LocaleCode, type LocaleKey } from './locales';
 import type { StoryLocalePack } from './storyTypes';
 
 export {
@@ -9,6 +9,7 @@ export {
   getLocaleMeta,
   getCountryDisplayName,
   SUPPORTED_LOCALES,
+  LOCALE_CODES,
   type LocaleKey,
   type LocaleCode
 } from './locales';
@@ -58,6 +59,17 @@ const dictVersion = writable(0);
 
 export const activeLocale = writable<LocaleKey>('en');
 export const localeLoading = writable(false);
+export const localeReady = writable(false);
+
+export function resolveViewDict(
+  liveDict: TranslationDict,
+  isReady: boolean,
+  ssrLocale?: LocaleKey,
+  ssrSlice?: Partial<TranslationDict>
+): TranslationDict {
+  if (!ssrLocale || ssrLocale === 'en' || !ssrSlice || isReady) return liveDict;
+  return { ...liveDict, ...ssrSlice } as TranslationDict;
+}
 
 function readInitialLocale(): LocaleKey {
   if (typeof window === 'undefined') return 'en';
@@ -72,6 +84,10 @@ function readInitialLocale(): LocaleKey {
         // Ignore private browsing errors
       }
       return normalized;
+    }
+    const pathSeg = window.location.pathname.replace(/^\/+|\/+$/g, '').split('/')[0]?.toLowerCase() || '';
+    if (pathSeg && pathSeg !== 'en' && (LOCALE_CODES as readonly string[]).includes(pathSeg)) {
+      return pathSeg as LocaleCode;
     }
     return normalizeLocale(localStorage.getItem(STORAGE_KEY));
   } catch {
@@ -118,7 +134,10 @@ export async function initLocale(): Promise<void> {
         applyMetaToDocument(initial, d);
       } finally {
         localeLoading.set(false);
+        localeReady.set(true);
       }
+    } else {
+      localeReady.set(true);
     }
   })();
   return initPromise;
@@ -137,6 +156,14 @@ export async function setLocale(rawNext: LocaleKey | string): Promise<void> {
       if (url.searchParams.has('lang')) {
         url.searchParams.set('lang', next);
         window.history.replaceState(null, '', url.toString());
+      } else if (next !== 'rtl-stub') {
+        const segs = url.pathname.replace(/^\/+|\/+$/g, '').split('/').filter(Boolean);
+        const isHomeOrLangHome =
+          segs.length === 0 || (segs.length === 1 && (LOCALE_CODES as readonly string[]).includes(segs[0].toLowerCase()));
+        if (isHomeOrLangHome) {
+          url.pathname = next === 'en' ? '/' : `/${next}/`;
+          window.history.replaceState(null, '', url.toString());
+        }
       }
     } catch {
       // Ignore private browsing quota errors
@@ -150,7 +177,10 @@ export async function setLocale(rawNext: LocaleKey | string): Promise<void> {
       applyMetaToDocument(next, d);
     } finally {
       localeLoading.set(false);
+      localeReady.set(true);
     }
+  } else {
+    localeReady.set(true);
   }
 }
 

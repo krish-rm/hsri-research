@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { activeLocale, dict, getCountryDisplayName } from '../i18n/store';
+  import { activeLocale, dict, localeReady, resolveViewDict, getCountryDisplayName, type LocaleKey } from '../i18n/store';
+  import type { TranslationDict } from '../i18n/en';
   import {
     readinessStore,
     completedWishList,
@@ -16,6 +17,10 @@
 
   export let activeLightKey: LightKey = 'Clarity';
   export let compact = false;
+  export let ssrLocale: LocaleKey = 'en';
+  export let ssrDict: Partial<TranslationDict> | undefined = undefined;
+  $: d = resolveViewDict($dict, $localeReady, ssrLocale, ssrDict);
+  $: effectiveLocale = (!$localeReady && ssrLocale !== 'en' ? ssrLocale : $activeLocale) as LocaleKey;
 
   $: state = $readinessStore;
   $: completed = $completedWishList;
@@ -23,35 +28,35 @@
   $: doneCount = completed.length;
   $: heritageDoneCount = completed.filter((w) => w.wishId.startsWith('heritage-')).length;
   $: archetypeKey = deriveTrailArchetype(state.lights, shadows);
-  $: archetypeInfo = $dict.player.trails[archetypeKey];
+  $: archetypeInfo = d.player.trails[archetypeKey];
 
   $: selectedCountryText = (() => {
     const c = state.selectedCountry;
-    if (!c) return $dict.player.countryCapabilityUnset;
-    const cName = getCountryDisplayName(c.iso, c.name, $activeLocale);
+    if (!c) return d.player.countryCapabilityUnset;
+    const cName = getCountryDisplayName(c.iso, c.name, effectiveLocale);
     if (c.kind === 'unrated') {
-      return $dict.player.countryCapabilityUnrated.replace('{name}', cName);
+      return d.player.countryCapabilityUnrated.replace('{name}', cName);
     }
-    return $dict.player.countryCapabilityNote
+    return d.player.countryCapabilityNote
       .replace('{name}', cName)
       .replace('{count}', String(c.checklistCount ?? 0));
   })();
 
   $: activeCountryLabel =
     state.selectedCountry
-      ? getCountryDisplayName(state.selectedCountry.iso, state.selectedCountry.name, $activeLocale)
+      ? getCountryDisplayName(state.selectedCountry.iso, state.selectedCountry.name, effectiveLocale)
       : $countryContextStore.iso !== 'GLOBAL'
-        ? getCountryDisplayName($countryContextStore.iso, $countryContextStore.countryName, $activeLocale)
+        ? getCountryDisplayName($countryContextStore.iso, $countryContextStore.countryName, effectiveLocale)
         : '';
   $: countryCapStatus = (() => {
     const c = state.selectedCountry;
     if (!c) return '';
     if (c.kind === 'rated') return `${c.checklistCount ?? 0}/5`;
-    return $dict.heritageUi.auditChip;
+    return d.heritageUi.auditChip;
   })();
 
-  function getLocalizedLight(idx: number) {
-    return $dict.lights.items[idx] ?? $dict.lights.items[0];
+  function getLocalizedLight(idx: number, curDict = d) {
+    return curDict.lights.items[idx] ?? curDict.lights.items[0];
   }
 
   function downloadBlob(blob: Blob, filename: string) {
@@ -125,7 +130,7 @@
 
       ctx.fillStyle = '#1e1915';
       ctx.font = `700 ${isStory ? 34 : 20}px sans-serif`;
-      const label = getLocalizedLight(i).key;
+      const label = getLocalizedLight(i, d).key;
       if (isStory) {
         ctx.fillText(label, cx + 56, cy + 11);
       } else {
@@ -139,7 +144,7 @@
         const y = syBase + idx * (isStory ? 75 : 32);
         ctx.fillStyle = '#1e1915';
         ctx.font = `700 ${isStory ? 28 : 17}px sans-serif`;
-        ctx.fillText($dict.player.shadows[sk], padX, y);
+        ctx.fillText(d.player.shadows[sk], padX, y);
         const count = shadows[sk] || 0;
         for (let b = 0; b < 5; b++) {
           ctx.fillStyle = b < count ? '#1b6756' : '#ddd4be';
@@ -185,19 +190,19 @@
     <div class="cls-top">
       <span class="cls-title">
         {activeCountryLabel
-          ? $dict.heritageUi.lightsCountryHeading.replace('{country}', activeCountryLabel)
-          : `${$dict.lights.heading}:`}
+          ? d.heritageUi.lightsCountryHeading.replace('{country}', activeCountryLabel)
+          : `${d.lights.heading}:`}
       </span>
-      <span class="cls-hint">{$dict.lights.emptyState}</span>
+      <span class="cls-hint">{d.lights.emptyState}</span>
     </div>
 
-    <div class="lights-visual-diagram" role="tablist" aria-label={$dict.lights.heading}>
+    <div class="lights-visual-diagram" role="tablist" aria-label={d.lights.heading}>
       <div class="lvd-group human-group">
-        <span class="lvd-group-lbl">{$dict.heritageUi.lightsHumanGroup}</span>
+        <span class="lvd-group-lbl">{d.heritageUi.lightsHumanGroup}</span>
         <div class="lvd-orbs-track">
           <span class="lvd-rail" aria-hidden="true"></span>
           {#each LIGHT_KEYS.slice(0, 4) as lk, idx}
-            {@const info = getLocalizedLight(idx)}
+            {@const info = getLocalizedLight(idx, d)}
             <button
               type="button"
               role="tab"
@@ -218,8 +223,8 @@
       <div class="lvd-group country-group" class:has-country={Boolean(activeCountryLabel)}>
         <span class="lvd-group-lbl">
           {activeCountryLabel
-            ? $dict.heritageUi.lightsCountryGroup.replace('{country}', activeCountryLabel)
-            : getLocalizedLight(4).key}
+            ? d.heritageUi.lightsCountryGroup.replace('{country}', activeCountryLabel)
+            : getLocalizedLight(4, d).key}
         </span>
         <button
           type="button"
@@ -230,12 +235,12 @@
           on:click={() => (activeLightKey = 'Capability')}
         >
           <span class="lamp-orb" class:glow-country={Boolean(activeCountryLabel)} aria-hidden="true"></span>
-          <strong>{getLocalizedLight(4).key}</strong>
+          <strong>{getLocalizedLight(4, d).key}</strong>
           {#if state.selectedCountry}
             <span class="cap-chip">
               {state.selectedCountry.kind === 'rated'
                 ? `${state.selectedCountry.checklistCount ?? 0}/5`
-                : $dict.heritageUi.auditChip}
+                : d.heritageUi.auditChip}
             </span>
           {/if}
         </button>
@@ -243,16 +248,16 @@
     </div>
 
     <p class="cls-meaning">
-      <strong>{getLocalizedLight(LIGHT_KEYS.indexOf(activeLightKey)).key}:</strong>
-      {getLocalizedLight(LIGHT_KEYS.indexOf(activeLightKey)).meaning}
-      <span class="cls-local-note">&middot; {$dict.lights.trailNote}</span>
+      <strong>{getLocalizedLight(LIGHT_KEYS.indexOf(activeLightKey), d).key}:</strong>
+      {getLocalizedLight(LIGHT_KEYS.indexOf(activeLightKey), d).meaning}
+      <span class="cls-local-note">&middot; {d.lights.trailNote}</span>
     </p>
   </div>
 {:else}
 <!-- Interactive 5 Lights Array (glow levels 0-3 only, zero numeric scores) -->
-<div class="lights-row" role="tablist" aria-label={$dict.lights.heading}>
+<div class="lights-row" role="tablist" aria-label={d.lights.heading}>
   {#each LIGHT_KEYS as lk, idx}
-    {@const info = getLocalizedLight(idx)}
+    {@const info = getLocalizedLight(idx, d)}
     {@const glow = state.lights[lk]}
     <button
       type="button"
@@ -277,47 +282,47 @@
 <div class="lights-status-box">
   <p class="lights-empty">
     {doneCount === 0
-      ? $dict.lights.emptyState
-      : `${doneCount} breakthrough${doneCount === 1 ? '' : 's'} completed · ${$dict.lights.lowLightNote}`}
+      ? d.lights.emptyState
+      : `${doneCount} breakthrough${doneCount === 1 ? '' : 's'} completed · ${d.lights.lowLightNote}`}
   </p>
   <p class="lights-reassurance">
-    <strong>{getLocalizedLight(LIGHT_KEYS.indexOf(activeLightKey)).key}:</strong>
-    {getLocalizedLight(LIGHT_KEYS.indexOf(activeLightKey)).meaning}
+    <strong>{getLocalizedLight(LIGHT_KEYS.indexOf(activeLightKey), d).key}:</strong>
+    {getLocalizedLight(LIGHT_KEYS.indexOf(activeLightKey), d).meaning}
   </p>
   <p class="lights-country-cap">{selectedCountryText}</p>
-  <p class="lights-trail-note">{$dict.player.lightsLegend}</p>
+  <p class="lights-trail-note">{d.player.lightsLegend}</p>
 </div>
 
 <!-- Trail Card (3+ breakthroughs) & Shadow Map (5+ breakthroughs) -->
 <div class="trail-wrap">
-  <h3 class="trail-heading">{$dict.player.trailSectionTitle}</h3>
+  <h3 class="trail-heading">{d.player.trailSectionTitle}</h3>
 
   {#if doneCount < 3}
     <div class="unlock-box">
-      <p>{$dict.player.trailLocked.replace('{done}', String(doneCount))}</p>
-      <p class="sub-lock">{$dict.player.shadowLocked.replace('{done}', String(doneCount))}</p>
+      <p>{d.player.trailLocked.replace('{done}', String(doneCount))}</p>
+      <p class="sub-lock">{d.player.shadowLocked.replace('{done}', String(doneCount))}</p>
     </div>
   {:else}
     <div class="trail-unlocked-card">
       <div class="trail-meta">
-        <span class="unlock-badge">{$dict.player.trailUnlockedBadge}</span>
+        <span class="unlock-badge">{d.player.trailUnlockedBadge}</span>
         <h4>{archetypeInfo.name}</h4>
         <p>{archetypeInfo.note}</p>
         {#if heritageDoneCount > 0}
           <p class="heritage-stamp-pill">
-            {$dict.heritageUi.trailStampLabel.replace('{count}', String(heritageDoneCount))}
+            {d.heritageUi.trailStampLabel.replace('{count}', String(heritageDoneCount))}
           </p>
         {/if}
 
         <div class="share-actions">
           <button type="button" class="btn-share" on:click={() => exportCardPng(1200, 630, 'trail')}>
-            {$dict.player.downloadLandscape}
+            {d.player.downloadLandscape}
           </button>
           <button type="button" class="btn-share-sec" on:click={() => exportCardPng(1080, 1920, 'trail')}>
-            {$dict.player.downloadStory}
+            {d.player.downloadStory}
           </button>
           <button type="button" class="btn-share-sec" on:click={exportSvgCard}>
-            {$dict.player.downloadSvg}
+            {d.player.downloadSvg}
           </button>
         </div>
       </div>
@@ -345,7 +350,7 @@
             stroke-width="2"
           />
           <text x={42 + idx * 68} y="132" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="bold" fill="#4a4034">
-            {getLocalizedLight(idx).key}
+            {getLocalizedLight(idx, d).key}
           </text>
         {/each}
         <text x="18" y="166" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1b6756">Every great breakthrough needs a ready world.</text>
@@ -354,17 +359,17 @@
 
     {#if doneCount < 5}
       <div class="unlock-box mt-gap">
-        <p>{$dict.player.shadowLocked.replace('{done}', String(doneCount))}</p>
+        <p>{d.player.shadowLocked.replace('{done}', String(doneCount))}</p>
       </div>
     {:else}
       <div class="shadow-map-card mt-gap">
-        <span class="unlock-badge">{$dict.player.shadowUnlockedBadge}</span>
+        <span class="unlock-badge">{d.player.shadowUnlockedBadge}</span>
         <div class="shadow-bars">
           {#each SHADOW_KEYS as sk}
             {@const c = shadows[sk] || 0}
             <div class="sb-row">
-              <span class="sb-name">{$dict.player.shadows[sk]}</span>
-              <div class="sb-cells" aria-label={`${$dict.player.shadows[sk]} spotted ${c} times`}>
+              <span class="sb-name">{d.player.shadows[sk]}</span>
+              <div class="sb-cells" aria-label={`${d.player.shadows[sk]} spotted ${c} times`}>
                 {#each [0, 1, 2, 3, 4] as step}
                   <span class="sb-cell" class:filled={step < c}></span>
                 {/each}
@@ -373,7 +378,7 @@
           {/each}
         </div>
         <button type="button" class="btn-share-sec" on:click={() => exportCardPng(1200, 630, 'shadow')}>
-          {$dict.player.downloadShadowPng}
+          {d.player.downloadShadowPng}
         </button>
       </div>
     {/if}

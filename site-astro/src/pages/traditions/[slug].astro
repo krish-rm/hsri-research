@@ -130,6 +130,8 @@ const primaryIso = rec.countries[0] ?? 'NOR';
                 ) : (
                   <p>
                     {c.observedSummary} Never guessed.{' '}
+                    <a href={`${base}/countries/${c.iso.toLowerCase()}/`}>Country profile &rarr;</a>
+                    {' '}&middot;{' '}
                     <a href={`${base}/coverage/`}>Coverage audit &rarr;</a>
                   </p>
                 )}

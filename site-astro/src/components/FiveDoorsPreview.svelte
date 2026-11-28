@@ -1,8 +1,9 @@
 <script lang="ts">
   import { onMount, tick } from 'svelte';
   import { get } from 'svelte/store';
-  import { dict, activeLocale, storyOverlay, getCountryDisplayName } from '../i18n/store';
-  import { pickBaseLText, pickHonestyScale, resolveHeritageMeta } from '../i18n/storyTypes';
+  import { dict, activeLocale, storyOverlay, localeReady, resolveViewDict, getCountryDisplayName, type LocaleKey } from '../i18n/store';
+  import { pickBaseLText, pickHonestyScale, resolveHeritageMeta, type StoryLocalePack } from '../i18n/storyTypes';
+  import type { TranslationDict } from '../i18n/en';
   import { trackEvent } from '../lib/privacyStorage';
   import { readinessStore } from '../lib/readinessState';
   import { countryContextStore, syncCountryContext } from '../lib/countryContext';
@@ -27,6 +28,12 @@
   import ConceptVisualSvg from './ConceptVisualSvg.svelte';
 
   export let base = '';
+  export let ssrLocale: LocaleKey = 'en';
+  export let ssrDict: Partial<TranslationDict> | undefined = undefined;
+  export let ssrStoryOverlay: StoryLocalePack | undefined = undefined;
+  $: d = resolveViewDict($dict, $localeReady, ssrLocale, ssrDict);
+  $: effectiveLocale = (!$localeReady && ssrLocale !== 'en' ? ssrLocale : $activeLocale) as LocaleKey;
+  $: effectiveOverlay = (!$localeReady && ssrLocale !== 'en' && ssrStoryOverlay ? ssrStoryOverlay : $storyOverlay);
 
   const initialCtx = get(countryContextStore);
   const initialLocalHeritage = initialCtx.iso !== 'GLOBAL' ? findAnyHeritageForCountry(initialCtx.iso) : null;
@@ -51,8 +58,8 @@
   $: activeIso = $countryContextStore.iso;
   $: activeCountryLabel =
     activeIso !== 'GLOBAL'
-      ? getCountryDisplayName(activeIso, $countryContextStore.countryName, $activeLocale)
-      : $dict.hero.cityNeutralName;
+      ? getCountryDisplayName(activeIso, $countryContextStore.countryName, effectiveLocale)
+      : d.hero.cityNeutralName;
   $: if (activeIso !== lastSeenIso) {
     lastSeenIso = activeIso;
     preferGlobal = false;
@@ -63,12 +70,12 @@
   }
   $: PLAYABLE_WISHES = catalog;
   $: WISH_BY_ID = new Map(PLAYABLE_WISHES.map((w) => [w.id, w]));
-  $: selectedDoor = $dict.doors.items.find((d) => d.id === activeDoorId) ?? $dict.doors.items[0];
+  $: selectedDoor = d.doors.items.find((doorItem) => doorItem.id === activeDoorId) ?? d.doors.items[0];
   $: doorHeritage = findHeritageForCountryAndDoor(activeIso, selectedDoor.id);
-  $: doorHeritageMeta = doorHeritage ? resolveHeritageMeta(doorHeritage, $activeLocale, $storyOverlay) : null;
+  $: doorHeritageMeta = doorHeritage ? resolveHeritageMeta(doorHeritage, effectiveLocale, effectiveOverlay) : null;
   $: anyCountryHeritage = findAnyHeritageForCountry(activeIso);
   $: anyCountryHeritageMeta = anyCountryHeritage
-    ? resolveHeritageMeta(anyCountryHeritage, $activeLocale, $storyOverlay)
+    ? resolveHeritageMeta(anyCountryHeritage, effectiveLocale, effectiveOverlay)
     : null;
   $: showingHeritage = Boolean(doorHeritage && !preferGlobal);
   $: activeWish =
@@ -132,31 +139,31 @@
       {#if activeIso !== 'GLOBAL'}
         <div class="persp-eyebrow-row">
           <span class="persp-pill">
-            {$dict.heritageUi.perspectiveBadge.replace('{country}', activeCountryLabel)}
+            {d.heritageUi.perspectiveBadge.replace('{country}', activeCountryLabel)}
           </span>
           <button
             type="button"
             class="persp-reset-btn"
             onclick={() => syncCountryContext(findCityById('neutral'), true)}
           >
-            {$dict.heritageUi.resetGlobalBtn}
+            {d.heritageUi.resetGlobalBtn}
           </button>
         </div>
         <h2 id="doors-sec-title" class="sec-title">
           {#if anyCountryHeritage && anyCountryHeritageMeta}
-            {$dict.heritageUi.countryHeadingTradition
+            {d.heritageUi.countryHeadingTradition
               .replace('{country}', activeCountryLabel)
               .replace('{tradition}', anyCountryHeritageMeta.traditionLabel)}
           {:else}
-            {$dict.heritageUi.countryHeadingGlobal.replace('{country}', activeCountryLabel)}
+            {d.heritageUi.countryHeadingGlobal.replace('{country}', activeCountryLabel)}
           {/if}
         </h2>
         <p id="doors-sec-sub" class="sec-sub">
-          {$dict.heritageUi.countrySubhead.replace('{country}', activeCountryLabel)}
+          {d.heritageUi.countrySubhead.replace('{country}', activeCountryLabel)}
         </p>
       {:else}
-        <h2 id="doors-sec-title" class="sec-title">{$dict.doors.heading}</h2>
-        <p id="doors-sec-sub" class="sec-sub">{$dict.doors.microcopy}</p>
+        <h2 id="doors-sec-title" class="sec-title">{d.doors.heading}</h2>
+        <p id="doors-sec-sub" class="sec-sub">{d.doors.microcopy}</p>
       {/if}
     </div>
 
@@ -164,10 +171,10 @@
       <!-- Navigation First: Show All 5 Domain Options Upfront (with Selected Country's Tradition Highlighted) -->
       <div class="domains-explorer-band">
         {#if activeIso !== 'GLOBAL'}
-          <p class="band-micro-label">{$dict.heritageUi.otherDomainsLabel.replace('{country}', activeCountryLabel)}</p>
+          <p class="band-micro-label">{d.heritageUi.otherDomainsLabel.replace('{country}', activeCountryLabel)}</p>
         {/if}
-        <div class="doors-tabs" role="tablist" aria-label={$dict.heritageUi.domainsTablistAria}>
-          {#each $dict.doors.items as door}
+        <div class="doors-tabs" role="tablist" aria-label={d.heritageUi.domainsTablistAria}>
+          {#each d.doors.items as door}
             <button
               type="button"
               role="tab"
@@ -208,7 +215,7 @@
               {#if doorHasHeritageForCountry(activeIso, door.id)}
                 <span
                   class="door-heritage-dot"
-                  title={$dict.heritageUi.localHorizonTag.replace('{country}', activeCountryLabel)}
+                  title={d.heritageUi.localHorizonTag.replace('{country}', activeCountryLabel)}
                   aria-hidden="true"
                 ></span>
               {/if}
@@ -236,12 +243,12 @@
               <div class="vs-art-col">
                 <ConceptVisualSvg variant={visualVariant} />
                 <div class="vs-flow-pills" aria-hidden="true">
-                  <span class="flow-step">{$dict.heritageUi.flowWonder}</span>
+                  <span class="flow-step">{d.heritageUi.flowWonder}</span>
                   <span class="flow-sep arrow-flip">&rarr;</span>
-                  <span class="flow-step warn">{$dict.heritageUi.flowWobble}</span>
+                  <span class="flow-step warn">{d.heritageUi.flowWobble}</span>
                   <span class="flow-sep arrow-flip">&rarr;</span>
                   <span class="flow-step catch">
-                    {$dict.heritageUi.flowCatch.replace('{country}', activeIso === 'GLOBAL' ? 'HSRI' : activeCountryLabel)}
+                    {d.heritageUi.flowCatch.replace('{country}', activeIso === 'GLOBAL' ? 'HSRI' : activeCountryLabel)}
                   </span>
                 </div>
               </div>
@@ -257,34 +264,34 @@
                   {#if doorHeritage && showingHeritage}
                     <div class="hs-left">
                       <span class="hs-pill">
-                        {$dict.heritageUi.localHorizonTag.replace('{country}', activeCountryLabel)}
+                        {d.heritageUi.localHorizonTag.replace('{country}', activeCountryLabel)}
                       </span>
                       <span class="hs-era">
-                        {doorHeritage.era === 'living' ? $dict.heritageUi.livingBadge : $dict.heritageUi.historicalBadge}
+                        {doorHeritage.era === 'living' ? d.heritageUi.livingBadge : d.heritageUi.historicalBadge}
                       </span>
                     </div>
                     <div class="hs-actions">
                       <a href={`${base}/traditions/${doorHeritage.slug}/`} class="hs-archive-link">
-                        {$dict.heritageUi.readArchiveLink} <span class="arrow-flip" aria-hidden="true">&rarr;</span>
+                        {d.heritageUi.readArchiveLink} <span class="arrow-flip" aria-hidden="true">&rarr;</span>
                       </a>
                       <button type="button" class="hs-toggle-btn" onclick={() => (preferGlobal = true)}>
-                        {$dict.heritageUi.seeGlobalBtn}
+                        {d.heritageUi.seeGlobalBtn}
                       </button>
                     </div>
                   {:else if doorHeritage && preferGlobal}
                     <div class="hs-left">
-                      <span class="hs-muted">{$dict.doors.sampleHeading}</span>
+                      <span class="hs-muted">{d.doors.sampleHeading}</span>
                     </div>
                     <div class="hs-actions">
                       <button type="button" class="hs-toggle-btn active" onclick={() => (preferGlobal = false)}>
-                        {$dict.heritageUi.seeLocalBtn.replace('{country}', activeCountryLabel)}
+                        {d.heritageUi.seeLocalBtn.replace('{country}', activeCountryLabel)}
                       </button>
                     </div>
                   {:else if anyCountryHeritage && anyCountryHeritage.door !== selectedDoor.id}
-                    {@const targetDoor = $dict.doors.items.find((d) => d.id === anyCountryHeritage.door)}
+                    {@const targetDoor = d.doors.items.find((doorItem) => doorItem.id === anyCountryHeritage.door)}
                     <div class="hs-left">
                       <span class="hs-muted">
-                        {$dict.heritageUi.livesInOtherDoor
+                        {d.heritageUi.livesInOtherDoor
                           .replace('{country}', activeCountryLabel)
                           .replace('{door}', targetDoor?.title ?? anyCountryHeritage.door)}
                       </span>
@@ -300,11 +307,11 @@
                     </div>
                   {:else if activeIso !== 'GLOBAL'}
                     <div class="hs-left">
-                      <span class="hs-muted">{$dict.heritageUi.noLocalYet.replace('{country}', activeCountryLabel)}</span>
+                      <span class="hs-muted">{d.heritageUi.noLocalYet.replace('{country}', activeCountryLabel)}</span>
                     </div>
                   {:else}
                     <div class="hs-left">
-                      <span class="hs-muted">{$dict.doors.sampleHeading}</span>
+                      <span class="hs-muted">{d.doors.sampleHeading}</span>
                     </div>
                   {/if}
                 </div>
@@ -315,12 +322,12 @@
                     <div class="dp-focus-copy">
                       <div class="dp-wish-head">
                         <h3>{doorHeritageMeta.chipTitle}</h3>
-                        <span class="honesty-pill">{pickHonestyScale(doorHeritage.honestyLabel, $dict)}</span>
+                        <span class="honesty-pill">{pickHonestyScale(doorHeritage.honestyLabel, d)}</span>
                         <span class="tradition-mini-pill">{doorHeritageMeta.traditionLabel}</span>
                       </div>
                       <p class="dp-wish-beat">{doorHeritageMeta.summary}</p>
                       <p class="binding-preview-line">
-                        <strong>{$dict.heritageUi.traditionTestsLabel}</strong>
+                        <strong>{d.heritageUi.traditionTestsLabel}</strong>
                         {doorHeritageMeta.dependencyLabel}
                       </p>
                     </div>
@@ -330,7 +337,7 @@
                       disabled={loadingHeritage}
                       onclick={() => launchHeritage(doorHeritage)}
                     >
-                      {completedIds[hId] ? `✓ ${$dict.player.playedBadge} · ` : ''}{$dict.player.playBtn}
+                      {completedIds[hId] ? `✓ ${d.player.playedBadge} · ` : ''}{d.player.playBtn}
                       <span class="arrow-flip" aria-hidden="true">&rarr;</span>
                     </button>
                   </article>
@@ -339,12 +346,12 @@
                     {#each domainDevItems as item}
                       <article class="dp-wish-card">
                         <div class="dp-wish-head">
-                          <h4>{pickBaseLText(item.title, $activeLocale)}</h4>
-                          <span class="honesty-pill">{pickHonestyScale(item.honestyLabel, $dict)}</span>
+                          <h4>{pickBaseLText(item.title, effectiveLocale)}</h4>
+                          <span class="honesty-pill">{pickHonestyScale(item.honestyLabel, d)}</span>
                         </div>
-                        <p class="dp-wish-beat">{pickBaseLText(item.wobble.text, $activeLocale)}</p>
+                        <p class="dp-wish-beat">{pickBaseLText(item.wobble.text, effectiveLocale)}</p>
                         <button type="button" class="dp-play-btn" onclick={() => launchWish(item.id)}>
-                          {completedIds[item.id] ? `✓ ${$dict.player.playedBadge} · ` : ''}{$dict.player.playBtn}
+                          {completedIds[item.id] ? `✓ ${d.player.playedBadge} · ` : ''}{d.player.playBtn}
                           {#if SHOW_DRAFT_BADGE && item.status === 'draft'} (DRAFT){/if}
                           <span class="arrow-flip" aria-hidden="true">&rarr;</span>
                         </button>
@@ -371,7 +378,7 @@
                           class="dp-play-btn"
                           onclick={() => launchWish(playableObj.id)}
                         >
-                          {completedIds[playableObj.id] ? `✓ ${$dict.player.playedBadge} · ` : ''}{$dict.player.playBtn}
+                          {completedIds[playableObj.id] ? `✓ ${d.player.playedBadge} · ` : ''}{d.player.playBtn}
                           {#if SHOW_DRAFT_BADGE && playableObj.status === 'draft'} (DRAFT){/if}
                           <span class="arrow-flip" aria-hidden="true">&rarr;</span>
                         </button>
@@ -381,7 +388,7 @@
 
                   {#if stubList.length > 0}
                     <p class="dp-upcoming-line">
-                      {$dict.heritageUi.plannedNextLabel} {stubList.map((s) => `${s.title} (${s.honesty})`).join(' · ')}
+                      {d.heritageUi.plannedNextLabel} {stubList.map((s) => `${s.title} (${s.honesty})`).join(' · ')}
                     </p>
                   {/if}
                 {/if}
@@ -392,12 +399,12 @@
       </div>
 
       <!-- Compact Scrollable World Traditions Switcher (Secondary Comparison Rail) -->
-      <div class="world-horizons-bar" aria-label={$dict.heritageUi.traditionsAria}>
-        <span class="wh-label">{$dict.heritageUi.otherTraditionsLabel}</span>
+      <div class="world-horizons-bar" aria-label={d.heritageUi.traditionsAria}>
+        <span class="wh-label">{d.heritageUi.otherTraditionsLabel}</span>
         <div class="wh-scroll">
           {#each HERITAGE_INDEX as h}
             {@const isSelected = Boolean(doorHeritage?.id === h.id && showingHeritage)}
-            {@const hMeta = resolveHeritageMeta(h, $activeLocale, $storyOverlay)}
+            {@const hMeta = resolveHeritageMeta(h, effectiveLocale, effectiveOverlay)}
             <button
               type="button"
               class="wh-chip"
@@ -410,14 +417,14 @@
           {/each}
         </div>
         <a href={`${base}/traditions/`} class="wh-all-link">
-          {$dict.heritageUi.allTraditionsBtn.replace('{count}', String(HERITAGE_INDEX.length))}
+          {d.heritageUi.allTraditionsBtn.replace('{count}', String(HERITAGE_INDEX.length))}
           <span class="arrow-flip" aria-hidden="true">&rarr;</span>
         </a>
       </div>
 
       <!-- Compact Five Lights Visual Diagram (Expands smoothly once player runs) -->
       <div id="five-lights" class="lights-inline-wrap">
-        <TrailAndShadowCard compact={true} />
+        <TrailAndShadowCard compact={true} {ssrLocale} {ssrDict} />
       </div>
     {/if}
   </div>

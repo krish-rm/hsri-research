@@ -1,0 +1,19 @@
+---
+import HomePageView from '../../components/HomePageView.astro';
+import { LOCALE_CODES, type LocaleCode } from '../../i18n/locales';
+
+export function getStaticPaths() {
+  return LOCALE_CODES.filter((code) => code !== 'en').map((code) => ({
+    params: { lang: code },
+    props: { lang: code }
+  }));
+}
+
+interface Props {
+  lang: LocaleCode;
+}
+
+const { lang } = Astro.props;
+---
+
+<HomePageView lang={lang} />

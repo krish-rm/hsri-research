@@ -5,12 +5,23 @@ import HSRIFooter from '../components/HSRIFooter.svelte';
 import SovereignObservatory from '../components/SovereignObservatory.svelte';
 import CountryList from '../components/CountryList.svelte';
 import scoresData from '../data/country_scores.json';
+import { buildCountryWidgetCatalog, type RatedCountrySummary, type UnratedCountrySummary } from '../lib/countryData';
+import { normalizeCanonicalUrl } from '../lib/seo';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const meta = (scoresData as any).metadata ?? {};
+const allCatalog = buildCountryWidgetCatalog();
+const ratedDirectory = allCatalog.filter((c): c is RatedCountrySummary => c.kind === 'rated').sort((a, b) => a.rank - b.rank);
+const coverageDirectory = allCatalog.filter((c): c is UnratedCountrySummary => c.kind === 'unrated').sort((a, b) => a.name.localeCompare(b.name));
+const canonicalUrl = normalizeCanonicalUrl(Astro.url.href, Astro.url.pathname);
 ---
 
-<HSRILayout title="Country Index — 39-Nation Sovereign Decoupling Observatory | HSRI">
+<HSRILayout
+  title="All 148 Countries — Humanity Superintelligence Readiness Index | HSRI"
+  description="Browse all 39 rated benchmark nations and 109 empirical coverage-audit countries in the Humanity Superintelligence Readiness Index (HSRI)."
+  keywords="Humanity Superintelligence Readiness Index countries, AI readiness country ranking, 39-nation benchmark, 148 country coverage audit, HSRI"
+  canonicalUrl={canonicalUrl}
+>
   <div class="countries-page">
     <HSRIHeader client:load currentPath={Astro.url.pathname} />
 
@@ -52,6 +63,38 @@ const meta = (scoresData as any).metadata ?? {};
         <CountryList client:idle />
       </section>
     </div>
+
+    <section class="container all-nations-directory" aria-labelledby="all-nations-heading">
+      <div class="dir-header">
+        <h2 id="all-nations-heading">Complete 148-Country Directory</h2>
+        <p>Direct empirical dossiers for all 39 benchmark-rated nations and 109 honest non-imputed coverage audits.</p>
+      </div>
+
+      <div class="dir-block">
+        <h3>39-Nation Benchmark Profiles ({ratedDirectory.length})</h3>
+        <div class="dir-grid">
+          {ratedDirectory.map((c) => (
+            <a href={`${base}/countries/${c.id.toLowerCase()}/`} class="dir-chip is-rated">
+              <span class="dir-rank">#{c.rank}</span>
+              <span class="dir-name">{c.name}</span>
+              <span class="dir-iso">{c.iso}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <div class="dir-block">
+        <h3>Global Empirical Coverage Audits — Not Yet Rated ({coverageDirectory.length})</h3>
+        <div class="dir-grid">
+          {coverageDirectory.map((c) => (
+            <a href={`${base}/countries/${c.iso.toLowerCase()}/`} class="dir-chip is-coverage">
+              <span class="dir-name">{c.name}</span>
+              <span class="dir-iso">{c.iso}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
 
     <HSRIFooter />
   </div>
@@ -196,6 +239,73 @@ const meta = (scoresData as any).metadata ?? {};
       .head-meta {
         font-size: 0.68rem;
       }
+    }
+
+    .all-nations-directory {
+      padding: 1rem 0 3.5rem;
+    }
+    .dir-header h2 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--text-primary, #0f172a);
+      margin-bottom: 0.3rem;
+    }
+    .dir-header p {
+      font-size: 0.92rem;
+      color: var(--text-secondary, #475569);
+      margin-bottom: 1.5rem;
+    }
+    .dir-block {
+      margin-bottom: 2rem;
+    }
+    .dir-block h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-secondary, #334155);
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .dir-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 0.55rem;
+    }
+    .dir-chip {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.5rem;
+      background: var(--bg-surface-elevated, #ffffff);
+      border: 1px solid var(--border-subtle, #e2e8f0);
+      text-decoration: none;
+      color: var(--text-primary, #0f172a);
+      font-size: 0.85rem;
+      transition: border-color 0.15s ease, transform 0.15s ease;
+    }
+    .dir-chip:hover {
+      border-color: var(--accent-primary, #1b6756);
+      transform: translateY(-1px);
+    }
+    .dir-rank {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--accent-primary, #1b6756);
+      font-family: ui-monospace, monospace;
+    }
+    .dir-name {
+      flex: 1;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .dir-iso {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text-muted, #64748b);
+      font-family: ui-monospace, monospace;
     }
   </style>
 </HSRILayout>

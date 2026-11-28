@@ -1,16 +1,46 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import type { HreflangAlternate } from '../lib/seo';
 
 interface Props {
   title?: string;
   description?: string;
   image?: string;
+  canonicalUrl?: string;
+  keywords?: string;
+  lang?: string;
+  dir?: 'ltr' | 'rtl';
+  ogLocale?: string;
+  alternates?: readonly HreflangAlternate[];
+  structuredData?: Record<string, unknown> | readonly Record<string, unknown>[];
 }
 
-const { title, description, image } = Astro.props;
+const {
+  title,
+  description,
+  image,
+  canonicalUrl,
+  keywords,
+  lang,
+  dir,
+  ogLocale,
+  alternates,
+  structuredData
+} = Astro.props;
 ---
 
-<BaseLayout title={title} description={description} image={image}>
+<BaseLayout
+  title={title}
+  description={description}
+  image={image}
+  canonicalUrl={canonicalUrl}
+  keywords={keywords}
+  lang={lang}
+  dir={dir}
+  ogLocale={ogLocale}
+  alternates={alternates}
+  structuredData={structuredData}
+>
   <main>
     <slot />
   </main>
