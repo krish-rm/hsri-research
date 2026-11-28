@@ -1,0 +1,40 @@
+country_iso3,readiness,exposure,gap,gap_status
+AUS,0.6914,0.446,-0.245,Prepared
+AUT,0.6521,0.514,-0.138,Prepared
+BEL,0.5298,0.544,0.014,Balanced
+BGR,0.136,0.786,0.65,Critical Gap
+CAN,0.7488,0.432,-0.317,Prepared
+CYP,0.2171,0.768,0.551,Critical Gap
+CZE,0.461,0.635,0.174,Warning Gap
+DEU,0.683,0.439,-0.244,Prepared
+DNK,0.8763,0.378,-0.498,Prepared
+ESP,0.3766,0.655,0.278,Critical Gap
+EST,0.7665,0.422,-0.344,Prepared
+FIN,0.8886,0.358,-0.531,Prepared
+FRA,0.5671,0.462,-0.105,Prepared
+GBR,0.6927,0.424,-0.269,Prepared
+GRC,0.2165,0.768,0.552,Critical Gap
+HKG,0.5947,0.528,-0.067,Balanced
+HUN,0.2156,0.768,0.552,Critical Gap
+IRL,0.7016,0.437,-0.265,Prepared
+ISL,0.6941,0.505,-0.189,Prepared
+ISR,0.5904,0.529,-0.061,Balanced
+ITA,0.3749,0.655,0.28,Critical Gap
+JPN,0.7525,0.449,-0.303,Prepared
+KOR,0.7279,0.464,-0.264,Prepared
+LTU,0.3453,0.662,0.317,Critical Gap
+LUX,0.6669,0.511,-0.156,Prepared
+LVA,0.3857,0.653,0.267,Critical Gap
+MKD,0.0393,0.81,0.771,Critical Gap
+MLT,0.3581,0.659,0.301,Critical Gap
+NLD,0.7973,0.397,-0.4,Prepared
+NOR,0.8644,0.363,-0.501,Prepared
+NZL,0.6357,0.519,-0.117,Prepared
+POL,0.341,0.663,0.322,Critical Gap
+PRT,0.3831,0.653,0.27,Critical Gap
+ROU,0.0941,0.797,0.703,Critical Gap
+SGP,0.8217,0.374,-0.448,Prepared
+SVK,0.2282,0.765,0.537,Critical Gap
+SVN,0.4187,0.645,0.226,Critical Gap
+SWE,0.7819,0.401,-0.381,Prepared
+USA,0.6843,0.408,-0.276,Prepared

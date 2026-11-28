@@ -1,0 +1,1 @@
+import{pt as e}from"./client.DwtZJGx8.js";e();
